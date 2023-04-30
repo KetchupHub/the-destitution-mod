@@ -1,0 +1,89 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "left",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-2,
+				-10
+			],
+			"loop": false,
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "down",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-5,
+				-1
+			],
+			"loop": false,
+			"anim": "singUP",
+			"fps": 24,
+			"name": "up",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-20,
+				0
+			],
+			"loop": false,
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "right",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "idle",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				-80,
+				0
+			],
+			"anim": "floaty space mcgee",
+			"fps": 24,
+			"name": "floaty space mcgee",
+			"indices": []
+		}
+	],
+	"no_antialiasing": true,
+	"image": "characters/i_liek_item",
+	"position": [
+		0,
+		40
+	],
+	"healthicon": "item",
+	"flip_x": false,
+	"healthbar_colors": [
+		83,
+		163,
+		94
+	],
+	"camera_position": [
+		-710,
+		-130
+	],
+	"sing_duration": 5.8,
+	"scale": 1.5
+}

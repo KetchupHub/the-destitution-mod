@@ -1,0 +1,20 @@
+{
+	"songs": [
+		["Destitution", "mark", [158, 41, 16]]
+	],
+
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"weekBackground": "none",
+
+	"storyName": "Destitution",
+	"weekBefore": "tutorial",
+	"weekName": "Destitution",
+	"startUnlocked": true,
+
+	"hideStoryMode": false,
+	"hideFreeplay": false
+}

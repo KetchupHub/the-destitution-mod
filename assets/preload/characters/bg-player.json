@@ -1,0 +1,56 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "idle",
+			"fps": 24,
+			"name": "idle",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				-30
+			],
+			"loop": true,
+			"anim": "walk",
+			"fps": 24,
+			"name": "walk",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "notice",
+			"fps": 24,
+			"name": "notice",
+			"indices": []
+		}
+	],
+	"no_antialiasing": true,
+	"image": "characters/destitution_player_bg",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "mark",
+	"flip_x": false,
+	"healthbar_colors": [
+		105,
+		27,
+		11
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 6,
+	"scale": 1
+}

@@ -1,0 +1,89 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				-100,
+				-20
+			],
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "left"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-100,
+				-20
+			],
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "down"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-100,
+				-20
+			],
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "up"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-150,
+				-20
+			],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "right"
+		},
+		{
+			"loop": true,
+			"offsets": [
+				-100,
+				-20
+			],
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "idle"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-100,
+				-20
+			],
+			"fps": 24,
+			"anim": "scared",
+			"indices": [],
+			"name": "scared"
+		}
+	],
+	"no_antialiasing": true,
+	"image": "characters/misteh_crypteh",
+	"position": [
+		40,
+		70
+	],
+	"healthicon": "crypteh",
+	"flip_x": false,
+	"healthbar_colors": [
+		144,
+		122,
+		0
+	],
+	"camera_position": [
+		-480,
+		-400
+	],
+	"sing_duration": 6,
+	"scale": 1.6
+}

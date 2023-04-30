@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="mark_ploinky_transition.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="10000" x="5" y="5" width="1280" height="720"/>
+	<SubTexture name="10001" x="5" y="5" width="1280" height="720"/>
+	<SubTexture name="10002" x="5" y="5" width="1280" height="720"/>
+	<SubTexture name="10003" x="5" y="5" width="1280" height="720"/>
+	<SubTexture name="10004" x="5" y="5" width="1280" height="720"/>
+	<SubTexture name="10005" x="5" y="5" width="1280" height="720"/>
+	<SubTexture name="10006" x="5" y="5" width="1280" height="720"/>
+	<SubTexture name="10007" x="5" y="5" width="1280" height="720"/>
+	<SubTexture name="10008" x="5" y="5" width="1280" height="720"/>
+	<SubTexture name="10009" x="5" y="5" width="1280" height="720"/>
+	<SubTexture name="20000" x="5" y="730" width="1280" height="720"/>
+	<SubTexture name="20001" x="5" y="730" width="1280" height="720"/>
+	<SubTexture name="20002" x="5" y="730" width="1280" height="720"/>
+	<SubTexture name="20003" x="5" y="730" width="1280" height="720"/>
+	<SubTexture name="20004" x="5" y="730" width="1280" height="720"/>
+	<SubTexture name="20005" x="5" y="730" width="1280" height="720"/>
+	<SubTexture name="20006" x="5" y="730" width="1280" height="720"/>
+	<SubTexture name="20007" x="5" y="730" width="1280" height="720"/>
+	<SubTexture name="20008" x="5" y="730" width="1280" height="720"/>
+	<SubTexture name="20009" x="5" y="730" width="1280" height="720"/>
+	<SubTexture name="30000" x="5" y="1455" width="1280" height="720"/>
+	<SubTexture name="30001" x="5" y="1455" width="1280" height="720"/>
+	<SubTexture name="30002" x="5" y="1455" width="1280" height="720"/>
+	<SubTexture name="30003" x="5" y="1455" width="1280" height="720"/>
+	<SubTexture name="30004" x="5" y="1455" width="1280" height="720"/>
+	<SubTexture name="30005" x="5" y="1455" width="1280" height="720"/>
+	<SubTexture name="30006" x="5" y="1455" width="1280" height="720"/>
+	<SubTexture name="30007" x="5" y="1455" width="1280" height="720"/>
+	<SubTexture name="30008" x="5" y="1455" width="1280" height="720"/>
+	<SubTexture name="30009" x="5" y="1455" width="1280" height="720"/>
+	<SubTexture name="40000" x="5" y="2180" width="1280" height="720"/>
+	<SubTexture name="40001" x="5" y="2180" width="1280" height="720"/>
+	<SubTexture name="40002" x="5" y="2180" width="1280" height="720"/>
+	<SubTexture name="40003" x="5" y="2180" width="1280" height="720"/>
+	<SubTexture name="40004" x="5" y="2180" width="1280" height="720"/>
+	<SubTexture name="40005" x="5" y="2180" width="1280" height="720"/>
+	<SubTexture name="40006" x="5" y="2180" width="1280" height="720"/>
+	<SubTexture name="40007" x="5" y="2180" width="1280" height="720"/>
+	<SubTexture name="40008" x="5" y="2180" width="1280" height="720"/>
+	<SubTexture name="40009" x="5" y="2180" width="1280" height="720"/>
+</TextureAtlas>
