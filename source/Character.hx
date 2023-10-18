@@ -250,14 +250,6 @@ class Character extends FlxSprite
 				}
 			}*/
 		}
-
-		switch(curCharacter)
-		{
-			case 'pico-speaker':
-				skipDance = true;
-				loadMappedAnims();
-				playAnim("shoot1");
-		}
 	}
 
 	override function update(elapsed:Float)
@@ -354,11 +346,41 @@ class Character extends FlxSprite
 		}
 	}
 
+	public var curFunnyPosition:Array<Float> = [0, 0];
+
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
 		if(AnimName.toLowerCase().startsWith('sing') && !canSing)
 		{
 			return;
+		}
+
+		if(AnimName.startsWith("sing"))
+		{
+			if(AnimName.startsWith("singLEFT"))
+			{
+				curFunnyPosition = [-10, 0];
+			}
+			else if(AnimName.startsWith("singDOWN"))
+			{
+				curFunnyPosition = [0, 10];
+			}
+			else if(AnimName.startsWith("singUP"))
+			{
+				curFunnyPosition = [0, -10];
+			}
+			else if(AnimName.startsWith("singRIGHT"))
+			{
+				curFunnyPosition = [10, 0];
+			}
+			else
+			{
+				curFunnyPosition = [0, 0];
+			}
+		}
+		else
+		{
+			curFunnyPosition = [0, 0];
 		}
 
 		specialAnim = false;
@@ -388,18 +410,6 @@ class Character extends FlxSprite
 				danced = !danced;
 			}
 		}
-	}
-	
-	function loadMappedAnims():Void
-	{
-		var noteData:Array<SwagSection> = Song.loadFromJson('picospeaker', Paths.formatToSongPath(PlayState.SONG.song)).notes;
-		for (section in noteData) {
-			for (songNotes in section.sectionNotes) {
-				animationNotes.push(songNotes);
-			}
-		}
-		TankmenBG.animationNotes = animationNotes;
-		animationNotes.sort(sortAnims);
 	}
 
 	function sortAnims(Obj1:Array<Dynamic>, Obj2:Array<Dynamic>):Int

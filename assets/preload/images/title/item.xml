@@ -2,12 +2,12 @@
 <TextureAtlas imagePath="destitution_title_item.png">
 	<!-- Created with Adobe Animate version 22.0.0.93 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="item0000" x="5" y="5" width="640" height="480"/>
-	<SubTexture name="item0001" x="5" y="5" width="640" height="480"/>
-	<SubTexture name="item0002" x="5" y="5" width="640" height="480"/>
-	<SubTexture name="item0003" x="5" y="5" width="640" height="480"/>
-	<SubTexture name="item0004" x="5" y="490" width="640" height="480"/>
-	<SubTexture name="item0005" x="5" y="490" width="640" height="480"/>
-	<SubTexture name="item0006" x="5" y="490" width="640" height="480"/>
-	<SubTexture name="item0007" x="5" y="490" width="640" height="480"/>
+	<SubTexture name="item0000" x="8" y="8" width="640" height="480"/>
+	<SubTexture name="item0001" x="8" y="8" width="640" height="480"/>
+	<SubTexture name="item0002" x="8" y="8" width="640" height="480"/>
+	<SubTexture name="item0003" x="8" y="8" width="640" height="480"/>
+	<SubTexture name="item0004" x="8" y="496" width="640" height="480"/>
+	<SubTexture name="item0005" x="8" y="496" width="640" height="480"/>
+	<SubTexture name="item0006" x="8" y="496" width="640" height="480"/>
+	<SubTexture name="item0007" x="8" y="496" width="640" height="480"/>
 </TextureAtlas>

@@ -1,0 +1,20 @@
+{
+	"songs": [
+		["Superseded", "mark-old", [105, 27, 11]]
+	],
+
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"weekBackground": "none",
+
+	"storyName": "Extras",
+	"weekBefore": "week1",
+	"weekName": "Extras",
+	"startUnlocked": true,
+
+	"hideStoryMode": false,
+	"hideFreeplay": false
+}

@@ -92,9 +92,7 @@ class Main extends Sprite
 
 		#if !mobile
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
-		/*var textFormat = new openfl.text.TextFormat(Paths.font("BAUHS93.ttf"), )
-		fpsVar.setTextFormat()*/
-		addChild(fpsVar);
+		//addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		if(fpsVar != null) {
