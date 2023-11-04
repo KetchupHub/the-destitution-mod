@@ -576,10 +576,10 @@ class PlayState extends MusicBeatState
 
 				ploinkyTransition = new FlxSprite();
 				ploinkyTransition.frames = Paths.getSparrowAtlas('destitution/mark_ploinky_transition');
-				ploinkyTransition.animation.addByPrefix('1', '1', 24);
-				ploinkyTransition.animation.addByPrefix('2', '2', 24);
-				ploinkyTransition.animation.addByPrefix('3', '3', 24);
-				ploinkyTransition.animation.addByPrefix('4', '4', 24);
+				ploinkyTransition.animation.addByPrefix('1', '1', 24, false);
+				ploinkyTransition.animation.addByPrefix('2', '2', 24, false);
+				ploinkyTransition.animation.addByPrefix('3', '3', 24, false);
+				ploinkyTransition.animation.addByPrefix('4', '4', 24, false);
 				ploinkyTransition.animation.play('1', true);
 				ploinkyTransition.camera = camHUD;
 				add(ploinkyTransition);
@@ -3752,9 +3752,31 @@ class PlayState extends MusicBeatState
 				case 192 | 352:
 					FlxG.camera.flash();
 				case 368:
+					defaultCamZoom = 1;
+					remove(ploinkyTransition, true);
+					ploinkyTransition.cameras = [camGame];
+					add(ploinkyTransition);
+					ploinkyTransition.screenCenter();
+					ploinkyTransition.scrollFactor.set();
+					ploinkyTransition.visible = true;
+					ploinkyTransition.animation.play('1', true);
+					ploinkyTransition.alpha = 0;
+					FlxTween.tween(ploinkyTransition, {alpha: 1}, Conductor.crochet / 250);
+					FlxTween.tween(camHUD, {alpha: 0}, Conductor.crochet / 250);
+				case 376:
+					ploinkyTransition.animation.play('2', true);
+				case 384:
+					ploinkyTransition.animation.play('3', true);
+				case 392:
+					ploinkyTransition.animation.play('4', true);
+				case 400:
+					defaultCamZoom = 0.875;
+					FlxTween.tween(camHUD, {alpha: 1}, Conductor.crochet / 250);
+					ploinkyTransition.visible = false;
+					FlxG.camera.flash();
+
 					shoulderCam = true;
 					//PLOINKY
-					FlxG.camera.flash();
 					starting.visible = false;
 					dadGroup.remove(dad);
 					dad = new Character(0, 0, 'ploinky', false, false);
@@ -3770,21 +3792,6 @@ class PlayState extends MusicBeatState
 
 					iconP2.changeIcon(dad.healthIcon);
 					reloadHealthBarColors();
-
-					remove(ploinkyTransition, true);
-					ploinkyTransition.cameras = [camHUD];
-					add(ploinkyTransition);
-					ploinkyTransition.visible = true;
-					ploinkyTransition.animation.play('1');
-				case 376:
-					ploinkyTransition.animation.play('2');
-				case 384:
-					ploinkyTransition.animation.play('3');
-				case 392:
-					ploinkyTransition.animation.play('4');
-				case 400:
-					ploinkyTransition.visible = false;
-					FlxG.camera.flash();
 				case 590:
 					//pull out guitar
 					dad.canDance = false;
