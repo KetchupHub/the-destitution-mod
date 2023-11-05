@@ -1892,15 +1892,17 @@ class PlayState extends MusicBeatState
 			case 1:
 				if(bgPlayer.x < bgPlayerWalkTarget)
 				{
-					bgPlayer.x += 3;
+					bgPlayer.x += 3 / (FlxG.updateFramerate % 60);
 				}
 				else
 				{
+					//de bug
+					trace((FlxG.updateFramerate % 60));
 					bgPlayerWalkState++;
 					bgPlayer.playAnim("notice", true);
 				}
 			case 4:
-				bgPlayer.x += 3;
+				bgPlayer.x += 3 / (FlxG.updateFramerate % 60);
 		}
 
 		if(spaceTime)
@@ -1927,6 +1929,11 @@ class PlayState extends MusicBeatState
 					i.y += Math.sin(elapsedTotal) * 0.4;
 				}
 			}
+		}
+
+		if(whaleFuckShit)
+		{
+			dad.y += ((Math.cos(elapsedTotal * 4)));
 		}
 
 		if(botplayTxt.visible)
@@ -3560,6 +3567,22 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
+		//thing for that ONE TINY BIT
+		if(SONG.song.toLowerCase() == 'destitution')
+		{
+			switch(curStep)
+			{
+				case 912 | 918 | 924 | 926 | 976 | 982 | 988 | 990:
+					FlxG.camera.zoom += 0.05;
+				case 936 | 940 | 956 | 1000 | 1004:
+					FlxG.camera.zoom += 0.075;
+				case 1016 | 1020:
+					defaultCamZoom -= 0.05;
+				case 9408 | 9414 | 9420:
+					FlxG.camera.zoom += 0.1;
+			}
+		}
+
 		lastStepHit = curStep;
 	}
 
@@ -3588,6 +3611,12 @@ class PlayState extends MusicBeatState
 		if (generatedMusic)
 		{
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
+		}
+
+		if(rulezBeatSlam)
+		{
+			FlxG.camera.zoom += 0.075;
+			camHUD.zoom += 0.075;
 		}
 
 		iconP1.scale.set(1.2, 1.2);
@@ -3763,6 +3792,7 @@ class PlayState extends MusicBeatState
 				case 392:
 					ploinkyTransition.animation.play('4', true);
 				case 400:
+					bgPlayer.visible = false;
 					defaultCamZoom = 0.875;
 					FlxTween.tween(camHUD, {alpha: 1}, Conductor.crochet / 250);
 					ploinkyTransition.visible = false;
@@ -4003,7 +4033,7 @@ class PlayState extends MusicBeatState
 				case 2200:
 					cuttingSceneThing.visible = false;
 
-					defaultCamZoom -= 0.25;
+					defaultCamZoom = 0.875 - 0.25;
 					FlxG.camera.flash();
 					dadGroup.remove(dad);
 					dad = new Character(-235, -460, 'crypteh', false, false);
@@ -4114,6 +4144,7 @@ class PlayState extends MusicBeatState
 				case 112 | 128:
 					defaultCamZoom += 0.1;
 				case 132 | 133 | 134 | 135 | 148 | 149 | 150 | 151:
+					FlxG.camera.zoom += 0.05;
 					defaultCamZoom += 0.05;
 				case 136 | 152:
 					defaultCamZoom -= 0.15;
@@ -4125,16 +4156,100 @@ class PlayState extends MusicBeatState
 					FlxG.camera.zoom += 0.05;
 				case 192:
 					defaultCamZoom += 0.1;
-				case 196 | 197 | 198:
-					FlxG.camera.zoom += 0.075;
+				/*case 196 | 197 | 198:
+					FlxG.camera.zoom += 0.075;*/
 				case 223:
+					defaultCamZoom -= 0.2;
+				case 224:
+					defaultCamZoom += 0.15;
+				case 256:
+					defaultCamZoom -= 0.05;
+					FlxG.camera.flash();
+				case 268 | 270 | 284 | 286 | 300 | 302 | 316 | 318:
+					defaultCamZoom += 0.1;
+				case 272 | 288 | 304 | 320:
+					defaultCamZoom -= 0.2;
+				case 526:
+					defaultCamZoom += 0.25;
+				case 528 | 592:
+					defaultCamZoom -= 0.3;
+				case 560:
+					defaultCamZoom += 0.05;
+				case 590 | 591:
+					defaultCamZoom += 0.15;
+				case 624:
+					defaultCamZoom += 0.05;
+				case 652:
+					defaultCamZoom -= 0.05;
+				case 654:
 					defaultCamZoom -= 0.1;
+				case 655:
+					defaultCamZoom += 0.2;
+				case 656:
+					defaultCamZoom -= 0.1;
+				case 661:
+					defaultCamZoom += 0.05;
+				case 677:
+					defaultCamZoom -= 0.05;
+				case 822 | 823:
+					defaultCamZoom += 0.05;
+				case 824:
+					defaultCamZoom -= 0.1;
+				case 904:
+					defaultCamZoom += 0.1;
+					FlxG.camera.flash();
+				case 942:
+					defaultCamZoom -= 0.15;
+				case 944:
+					defaultCamZoom += 0.05;
+				case 1176:
+					whaleFuckShit = true;
+				case 1304:
+					whaleFuckShit = false;
+				case 1784:
+					defaultCamZoom += 0.1;
+				case 1816:
+					defaultCamZoom -= 0.15;
+				case 1848:
+					defaultCamZoom += 0.05;
+				case 1944:
+					rulezBeatSlam = true;
+					FlxG.camera.flash();
+				case 2008:
+					rulezBeatSlam = false;
+					FlxG.camera.flash();
+					defaultCamZoom += 0.1;
+				case 2024:
+					defaultCamZoom += 0.05;
+				case 2040:
+					defaultCamZoom -= 0.05;
+				case 2104:
+					defaultCamZoom -= 0.1;
+					FlxG.camera.flash();
+				case 2136:
+					defaultCamZoom += 0.05;
+					FlxG.camera.flash();
+				case 2140 | 2144 | 2148 | 2156 | 2158 | 2160 | 2162:
+					defaultCamZoom += 0.05;
+				case 2152:
+					defaultCamZoom -= 0.2;
+				case 2164 | 2166:
+					defaultCamZoom -= 0.1;
+				case 2168:
+					FlxG.camera.flash();
+					defaultCamZoom += 0.05;
+				case 2195:
+					defaultCamZoom -= 0.05;
 			}
 		}
 
 
 		lastBeatHit = curBeat;
 	}
+
+	public var rulezBeatSlam:Bool = false;
+
+	public var whaleFuckShit:Bool = false;
 
 	override function sectionHit()
 	{
