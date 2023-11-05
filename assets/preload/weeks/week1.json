@@ -1,6 +1,10 @@
 {
 	"songs": [
-		["Destitution", "mark", [158, 41, 16]]
+		["Destitution", "mark", [158, 41, 16]],
+		["Superseded", "mark-old", [105, 27, 11]],
+		["D-Stitution", "karm", [158, 41, 16]],
+		["Isoceles", "argulow", [153, 204, 204]],
+		["Destruction", "mark-ex", [158, 41, 16]]
 	],
 
 	"weekCharacters": [
@@ -10,9 +14,9 @@
 	],
 	"weekBackground": "none",
 
-	"storyName": "Destitution",
+	"storyName": "The Destitution Mod",
 	"weekBefore": "week1",
-	"weekName": "Destitution",
+	"weekName": "The Destitution Mod",
 	"startUnlocked": true,
 
 	"hideStoryMode": false,

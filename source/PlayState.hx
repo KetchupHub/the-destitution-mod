@@ -256,9 +256,8 @@ class PlayState extends MusicBeatState
 
 	#if desktop
 	// Discord RPC variables
-	var storyDifficultyText:String = "";
-	var detailsText:String = "";
-	var detailsPausedText:String = "";
+	var detailsText:String = "Playing the Game";
+	var detailsPausedText:String = "Paused";
 	#end
 
 	//Achievement shit
@@ -405,34 +404,28 @@ class PlayState extends MusicBeatState
 		Conductor.changeBPM(SONG.bpm);
 
 		#if desktop
-		storyDifficultyText = CoolUtil.difficulties[storyDifficulty];
-
-		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
-		if (isStoryMode)
-		{
-			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName;
-		}
-		else
-		{
-			detailsText = "Freeplay";
-		}
-
 		// String for when the game is paused
-		detailsPausedText = "Paused - " + detailsText;
+		detailsPausedText = "Paused";
 		#end
 
 		GameOverSubstate.resetVariables();
 		var songName:String = Paths.formatToSongPath(SONG.song);
 
 		curStage = SONG.stage;
-		//trace('stage is: ' + curStage);
-		if(SONG.stage == null || SONG.stage.length < 1) {
+		if(SONG.stage == null || SONG.stage.length < 1)
+		{
 			switch (songName)
 			{
 				case 'destitution':
 					curStage = 'mark';
 				case 'superseded':
 					curStage = 'superseded';
+				case 'd-stitution':
+					curStage = 'dsides';
+				case 'isoceles':
+					curStage = 'argulow';
+				case 'destruction':
+					curStage = 'ex';
 				default:
 					curStage = 'stage';
 			}
@@ -440,7 +433,8 @@ class PlayState extends MusicBeatState
 		SONG.stage = curStage;
 
 		var stageData:StageFile = StageData.getStageFile(curStage);
-		if(stageData == null) { //Stage couldn't be found, create a dummy stage for preventing a crash
+		if(stageData == null)
+		{
 			stageData = {
 				directory: "",
 				defaultZoom: 0.9,
@@ -488,7 +482,6 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'mark':
-
 				//keeping here just in case
 				addCharacterToList("mark-alt", 1);
 				addCharacterToList("mark-annoyed", 1);
@@ -613,7 +606,7 @@ class PlayState extends MusicBeatState
 				add(bgPlayer);
 
 				cuttingSceneThing = new FlxSprite();
-				cuttingSceneThing.frames = Paths.getSparrowAtlas("cutting_scene");
+				cuttingSceneThing.frames = Paths.getSparrowAtlas("ui/cutting_scene");
 				cuttingSceneThing.animation.addByPrefix("idle", "idle", 24, true);
 				cuttingSceneThing.animation.play("idle", true);
 				cuttingSceneThing.cameras = [camHUD];
@@ -751,7 +744,7 @@ class PlayState extends MusicBeatState
 		}
 		updateTime = showTime;
 
-		timeBarBG = new AttachedSprite('timeBar');
+		timeBarBG = new AttachedSprite('ui/timeBar');
 		timeBarBG.x = timeTxt.x;
 		timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
 		timeBarBG.scrollFactor.set();
@@ -823,7 +816,7 @@ class PlayState extends MusicBeatState
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
 
-		healthBarBG = new AttachedSprite('healthBar');
+		healthBarBG = new AttachedSprite('ui/healthBar');
 		healthBarBG.y = FlxG.height * 0.89;
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
@@ -1145,7 +1138,7 @@ class PlayState extends MusicBeatState
 	function cacheCountdown()
 	{
 		var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
-		introAssets.set('default', ['ready', 'set', 'go']);
+		introAssets.set('default', ['ui/ready', 'ui/set', 'ui/go']);
 
 		var introAlts:Array<String> = introAssets.get('default');
 		
@@ -1207,7 +1200,7 @@ class PlayState extends MusicBeatState
 			}
 
 			var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
-			introAssets.set('default', ['ready', 'set', 'go']);
+			introAssets.set('default', ['ui/ready', 'ui/set', 'ui/go']);
 
 			var introAlts:Array<String> = introAssets.get('default');
 			var antialias:Bool = ClientPrefs.globalAntialiasing;
@@ -2281,7 +2274,7 @@ class PlayState extends MusicBeatState
 			openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
 
 			#if desktop
-			DiscordClient.changePresence("Game Over - " + detailsText, SONG.song, iconP2.getCharacter());
+			DiscordClient.changePresence("Game Over", SONG.song, iconP2.getCharacter());
 			#end
 			isDead = true;
 			return true;
@@ -2854,7 +2847,7 @@ class PlayState extends MusicBeatState
 
 	private function cachePopUpScore()
 	{
-		var pixelShitPart1:String = '';
+		var pixelShitPart1:String = 'ui/';
 		var pixelShitPart2:String = '';
 
 		Paths.image(pixelShitPart1 + "sick" + pixelShitPart2);
@@ -2911,7 +2904,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		var pixelShitPart1:String = "";
+		var pixelShitPart1:String = "ui/";
 		var pixelShitPart2:String = '';
 
 		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating.image + pixelShitPart2));
@@ -3912,7 +3905,7 @@ class PlayState extends MusicBeatState
 					FlxG.camera.flash();
 
 					boyfriendGroup.remove(boyfriend);
-					boyfriend = new Boyfriend(-125, 65, 'bf-mark-annoyed', false);
+					boyfriend = new Boyfriend(-160, 65, 'bf-mark-annoyed', false);
 					boyfriendGroup.add(boyfriend);
 					boyfriend.visible = false;
 					

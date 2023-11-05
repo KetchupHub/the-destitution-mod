@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="isoceles_animated_bg_1.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="argue lowes to box bowl0000" x="5144" y="1409" width="2548" height="1386" frameX="-6" frameY="0" frameWidth="2560" frameHeight="1393"/>
+	<SubTexture name="argue lowes to box bowl0001" x="5144" y="1409" width="2548" height="1386" frameX="-6" frameY="0" frameWidth="2560" frameHeight="1393"/>
+	<SubTexture name="argue lowes to box bowl0002" x="5144" y="2803" width="2548" height="1386" frameX="-6" frameY="0" frameWidth="2560" frameHeight="1393"/>
+	<SubTexture name="argue lowes to box bowl0003" x="5144" y="2803" width="2548" height="1386" frameX="-6" frameY="0" frameWidth="2560" frameHeight="1393"/>
+	<SubTexture name="argue lowes to box bowl0004" x="8" y="8" width="2560" height="1393"/>
+	<SubTexture name="argue lowes to box bowl0005" x="8" y="8" width="2560" height="1393"/>
+	<SubTexture name="argue lowes to box bowl0006" x="8" y="2810" width="2548" height="1386" frameX="-6" frameY="0" frameWidth="2560" frameHeight="1393"/>
+	<SubTexture name="argue lowes to box bowl0007" x="8" y="2810" width="2548" height="1386" frameX="-6" frameY="0" frameWidth="2560" frameHeight="1393"/>
+	<SubTexture name="argue lowes to box bowl0008" x="2576" y="8" width="2560" height="1393"/>
+	<SubTexture name="argue lowes to box bowl0009" x="2576" y="8" width="2560" height="1393"/>
+	<SubTexture name="argue lowes to box bowl0010" x="5144" y="8" width="2560" height="1393"/>
+	<SubTexture name="argue lowes to box bowl0011" x="5144" y="8" width="2560" height="1393"/>
+	<SubTexture name="argue lowes to box bowl0012" x="8" y="1409" width="2560" height="1393"/>
+	<SubTexture name="argue lowes to box bowl0013" x="8" y="1409" width="2560" height="1393"/>
+	<SubTexture name="argue lowes to box bowl0014" x="2576" y="1409" width="2560" height="1393"/>
+	<SubTexture name="argue lowes to box bowl0015" x="2576" y="1409" width="2560" height="1393"/>
+</TextureAtlas>

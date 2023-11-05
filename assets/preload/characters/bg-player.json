@@ -35,7 +35,7 @@
 		}
 	],
 	"no_antialiasing": true,
-	"image": "characters/destitution_player_bg",
+	"image": "characters/destitution/destitution_player_bg",
 	"position": [
 		0,
 		0

@@ -35,7 +35,7 @@
 		}
 	],
 	"no_antialiasing": true,
-	"image": "characters/destitution_bf_die",
+	"image": "characters/destitution/destitution_bf_die",
 	"position": [
 		0,
 		0

@@ -57,7 +57,7 @@
 		}
 	],
 	"no_antialiasing": true,
-	"image": "characters/superseded_creature",
+	"image": "characters/superseded/superseded_creature",
 	"position": [
 		0,
 		0
