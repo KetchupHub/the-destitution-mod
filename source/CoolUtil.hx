@@ -18,6 +18,7 @@ using StringTools;
 
 class CoolUtil
 {
+	public static var appTitleString:String = "The Destitution Mod v3";
 	public static var defaultDifficulties:Array<String> = [
 		'Normal'
 	];

@@ -1,5 +1,6 @@
 package;
 
+import lime.app.Application;
 import flixel.group.FlxGroup;
 import flixel.graphics.FlxGraphic;
 #if desktop
@@ -410,6 +411,8 @@ class PlayState extends MusicBeatState
 
 		GameOverSubstate.resetVariables();
 		var songName:String = Paths.formatToSongPath(SONG.song);
+
+		Application.current.window.title = CoolUtil.appTitleString + " - Playing " + SONG.song;
 
 		curStage = SONG.stage;
 		if(SONG.stage == null || SONG.stage.length < 1)
@@ -2204,22 +2207,6 @@ class PlayState extends MusicBeatState
 			}
 			checkEventNote();
 		}
-
-		#if debug
-		if(!endingSong && !startingSong)
-		{
-			if (FlxG.keys.justPressed.ONE)
-			{
-				KillNotes();
-				FlxG.sound.music.onComplete();
-			}
-			if(FlxG.keys.justPressed.TWO)
-			{ //Go 10 seconds into the future :O
-				setSongTime(Conductor.songPosition + 10000);
-				clearNotesBefore(Conductor.songPosition);
-			}
-		}
-		#end
 	}
 
 	function openPauseMenu()
@@ -2238,6 +2225,7 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		DiscordClient.changePresence(detailsPausedText, SONG.song, iconP2.getCharacter());
+		Application.current.window.title = CoolUtil.appTitleString + " - PAUSED on " + SONG.song;
 		#end
 	}
 
@@ -2250,6 +2238,7 @@ class PlayState extends MusicBeatState
 		chartingMode = true;
 
 		#if desktop
+		Application.current.window.title = CoolUtil.appTitleString + " - Chart Editor";
 		DiscordClient.changePresence("Chart Editor", null, null, true);
 		#end
 	}
@@ -2282,6 +2271,7 @@ class PlayState extends MusicBeatState
 
 			#if desktop
 			DiscordClient.changePresence("Game Over", SONG.song, iconP2.getCharacter());
+			Application.current.window.title = CoolUtil.appTitleString + " - GAME OVER on " + SONG.song;
 			#end
 			isDead = true;
 			return true;
