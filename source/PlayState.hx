@@ -317,6 +317,9 @@ class PlayState extends MusicBeatState
 
 	var graphLand:FlxSprite;
 
+	var backing:FlxSprite;
+	var sky:FlxSprite;
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -484,6 +487,23 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
+			case 'dsides':
+				sky = new FlxSprite().loadGraphic(Paths.image('dsides/sky'));
+				sky.antialiasing = false;
+				add(sky);
+				sky.screenCenter();
+				sky.scrollFactor.set();
+
+				backing = new FlxSprite().loadGraphic(Paths.image('dsides/backing'));
+				backing.antialiasing = false;
+				add(backing);
+				backing.screenCenter();
+				backing.scrollFactor.set(0.5, 0.5);
+
+				starting = new FlxSprite().loadGraphic(Paths.image('dsides/front'));
+				starting.antialiasing = false;
+				add(starting);
+				starting.screenCenter();
 			case 'mark':
 				//keeping here just in case
 				addCharacterToList("mark-alt", 1);
