@@ -36,7 +36,7 @@
 		{
 			"offsets": [
 				0,
-				297
+				0
 			],
 			"loop": false,
 			"fps": 24,
@@ -46,7 +46,7 @@
 		},
 		{
 			"offsets": [
-				-21,
+				0,
 				0
 			],
 			"loop": false,
@@ -101,17 +101,17 @@
 		}
 	],
 	"no_antialiasing": true,
-	"image": "characters/destitution/mark_bf",
+	"image": "characters/dsides/bf_dside",
 	"position": [
 		0,
 		0
 	],
-	"healthicon": "bf",
+	"healthicon": "bf-dsides",
 	"flip_x": true,
 	"healthbar_colors": [
-		14,
-		133,
-		163
+		162,
+		114,
+		153
 	],
 	"camera_position": [
 		0,
