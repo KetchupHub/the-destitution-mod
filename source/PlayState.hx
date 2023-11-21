@@ -504,6 +504,11 @@ class PlayState extends MusicBeatState
 				starting.antialiasing = false;
 				add(starting);
 				starting.screenCenter();
+
+				funnyBgColors.screenCenter();
+				add(funnyBgColors);
+				funnyBgColors.alpha = 0;
+				funnyBgColors.color = FlxColor.BLACK;
 			case 'mark':
 				//keeping here just in case
 				addCharacterToList("mark-alt", 1);
@@ -2552,8 +2557,15 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	var disallowCamMove:Bool = false;
+
 	function moveCameraSection():Void
 	{
+		if(disallowCamMove)
+		{
+			return;
+		}
+
 		if(SONG.notes[curSection] == null) return;
 
 		if(centerCamOnBg)
@@ -3556,13 +3568,6 @@ class PlayState extends MusicBeatState
 
 	override function stepHit()
 	{
-		super.stepHit();
-		if (Math.abs(FlxG.sound.music.time - (Conductor.songPosition - Conductor.offset)) > (20 * playbackRate)
-			|| (SONG.needsVoices && Math.abs(vocals.time - (Conductor.songPosition - Conductor.offset)) > (20 * playbackRate)))
-		{
-			resyncVocals();
-		}
-
 		/*if(markCam)
 		{
 			if(curStep == (((curSection + 1) * 16) - 10))
@@ -3593,8 +3598,79 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		//cam events
+		if(SONG.song.toLowerCase() == 'd-stitution')
+		{
+			switch(curStep)
+			{
+				case 96:
+					FlxTween.tween(camHUD, {alpha: 0}, Conductor.crochet / 250);
+					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 0.1}, Conductor.crochet / 500, {ease: FlxEase.cubeOut});
+					defaultCamZoom += 0.1;
+				case 248:
+					FlxTween.tween(camHUD, {alpha: 1}, Conductor.crochet / 500);
+					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 0.2}, Conductor.crochet / 500, {ease: FlxEase.cubeInOut});
+					defaultCamZoom += 0.2;
+				case 256:
+					defaultCamZoom -= 0.3;
+					FlxG.camera.flash();
+				case 368 | 372 | 376 | 378:
+					defaultCamZoom += 0.05;
+				case 380:
+					defaultCamZoom -= 0.3;
+					FlxG.camera.zoom = defaultCamZoom;
+				case 384:
+					FlxG.camera.flash();
+					defaultCamZoom += 0.1;
+				case 508:
+					defaultCamZoom -= 0.05;
+					FlxG.camera.zoom = defaultCamZoom;
+					moveCamera(true);
+					disallowCamMove = true;
+					snapCamFollowToPos(camFollow.x, camFollow.y);
+				case 512:
+					FlxTween.tween(funnyBgColors, {alpha: 0.4}, Conductor.crochet / 500, {ease: FlxEase.circOut});
+					disallowCamMove = false;
+					defaultCamZoom += 0.25;
+				case 516:
+					funnyBgColorsPumpin = true;
+				case 640:
+					defaultCamZoom -= 0.1;
+					bgColorsCrazyBeats = 1;
+				case 760:
+				//	FlxG.camera.fade(FlxColor.WHITE, Conductor.crochet / 500);
+				case 768:
+				//	FlxG.camera.fade(FlxColor.TRANSPARENT, 0.000001, false);
+					FlxG.camera.flash();
+					defaultCamZoom -= 0.1;
+					bgColorsCrazyBeats = 2;
+					bgColorsRandom = true;
+				case 1024:
+					bgColorsRandom = false;
+					funnyBgColorsPumpin = false;
+					funnyBgColors.color = FlxColor.BLACK;
+					funnyBgColors.alpha = 0;
+					FlxG.camera.flash();
+			}
+		}
+
+		super.stepHit();
+
+		if (Math.abs(FlxG.sound.music.time - (Conductor.songPosition - Conductor.offset)) > (20 * playbackRate)
+			|| (SONG.needsVoices && Math.abs(vocals.time - (Conductor.songPosition - Conductor.offset)) > (20 * playbackRate)))
+		{
+			resyncVocals();
+		}
+
 		lastStepHit = curStep;
 	}
+
+	var funnyBgColorsPumpin:Bool = false;
+
+	var bgColorsCrazyBeats:Int = 2;
+	var bgColorsRandom:Bool = false;
+
+	var funnyBgColors:FlxSprite = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.width * 3, FlxColor.WHITE);
 
 	var lightningStrikeBeat:Int = 0;
 	var lightningOffset:Int = 8;
@@ -3608,6 +3684,8 @@ class PlayState extends MusicBeatState
 	var camZoomAdditive:Float = 0;
 
 	var tweeningCam:Bool = false;
+
+	var funnyColorsArray:Array<FlxColor> = [FlxColor.BLUE, FlxColor.CYAN, FlxColor.GREEN, FlxColor.LIME, FlxColor.MAGENTA, FlxColor.ORANGE, FlxColor.PINK, FlxColor.PURPLE, FlxColor.RED, FlxColor.YELLOW, FlxColor.BROWN];
 
 	override function beatHit()
 	{
@@ -3627,6 +3705,17 @@ class PlayState extends MusicBeatState
 		{
 			FlxG.camera.zoom += 0.075;
 			camHUD.zoom += 0.075;
+		}
+
+		if(curBeat % bgColorsCrazyBeats == 0 && funnyBgColorsPumpin)
+		{
+			FlxTween.completeTweensOf(funnyBgColors);
+			funnyBgColors.alpha = 0.1;
+			if(bgColorsRandom)
+			{
+				funnyBgColors.color = funnyColorsArray[FlxG.random.int(0, funnyColorsArray.length - 1)];
+			}
+			FlxTween.tween(funnyBgColors, {alpha: 0.4}, Conductor.crochet / 1000, {ease: FlxEase.smootherStepOut});
 		}
 
 		iconP1.scale.set(1.2, 1.2);

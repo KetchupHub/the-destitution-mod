@@ -3,8 +3,8 @@
 		["Destitution", "mark", [158, 41, 16]],
 		["Superseded", "mark-old", [105, 27, 11]],
 		["D-Stitution", "karm", [206, 163, 61]],
-		["Isoceles", "argulow", [153, 204, 204]],
-		["Destruction", "mark-ex", [158, 41, 16]]
+		["Phony", "this", [158, 41, 16]],
+		["Isoceles", "argulow", [153, 204, 204]]
 	],
 
 	"weekCharacters": [
