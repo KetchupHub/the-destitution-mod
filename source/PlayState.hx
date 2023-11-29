@@ -208,8 +208,7 @@ class PlayState extends MusicBeatState
 	public var cpuControlled:Bool = false;
 	public var practiceMode:Bool = false;
 
-	public var botplaySine:Float = 0;
-	public var botplayTxt:FlxText;
+	public var botplayTxt:FlxSprite;
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
@@ -883,15 +882,10 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
-		botplayTxt.setFormat(Paths.font("BAUHS93.ttf"), 32 + 10, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
-		botplayTxt.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 1.5, 0);
+		botplayTxt = new FlxSprite(0, FlxG.height - 256).loadGraphic(Paths.image("ui/botplay"));
 		botplayTxt.scrollFactor.set();
 		botplayTxt.visible = cpuControlled;
 		add(botplayTxt);
-		if(ClientPrefs.downScroll) {
-			botplayTxt.y = timeBarBG.y - 78;
-		}
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
@@ -1964,12 +1958,6 @@ class PlayState extends MusicBeatState
 			dad.y += ((Math.cos(elapsedTotal * 4)));
 		}
 
-		if(botplayTxt.visible)
-		{
-			botplaySine += 180 * elapsed;
-			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
-		}
-
 		if (controls.PAUSE && startedCountdown && canPause)
 		{
 			openPauseMenu();
@@ -1980,12 +1968,14 @@ class PlayState extends MusicBeatState
 			openChartEditor();
 		}
 
-		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
-		iconP1.scale.set(mult, mult);
+		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
+		var multDos:Float = FlxMath.lerp(1, iconP1.scale.y, CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
+		iconP1.scale.set(mult, multDos);
 		iconP1.updateHitbox();
 
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
-		iconP2.scale.set(mult, mult);
+		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
+		var multDos:Float = FlxMath.lerp(1, iconP2.scale.y, CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
+		iconP2.scale.set(mult, multDos);
 		iconP2.updateHitbox();
 
 		var iconOffset:Int = 26;
@@ -3718,8 +3708,16 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(funnyBgColors, {alpha: 0.4}, Conductor.crochet / 750, {ease: FlxEase.smootherStepOut});
 		}
 
-		iconP1.scale.set(1.2, 1.2);
-		iconP2.scale.set(1.2, 1.2);
+		if(curBeat % 2 == 0)
+		{
+			iconP1.scale.set(0.6, 1.4);
+			iconP2.scale.set(1.4, 0.6);
+		}
+		else
+		{
+			iconP1.scale.set(1.4, 0.6);
+			iconP2.scale.set(0.6, 1.4);
+		}
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();

@@ -63,7 +63,7 @@
 		0
 	],
 	"healthicon": "mechobol",
-	"flip_x": false,
+	"flip_x": true,
 	"healthbar_colors": [
 		197,
 		143,

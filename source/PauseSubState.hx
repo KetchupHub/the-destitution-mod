@@ -208,7 +208,6 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.changedDifficulty = true;
 					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
 					PlayState.instance.botplayTxt.alpha = 1;
-					PlayState.instance.botplaySine = 0;
 				case "Exit to menu":
 					Application.current.window.title = CoolUtil.appTitleString;
 					PlayState.deathCounter = 0;
