@@ -3636,7 +3636,7 @@ class PlayState extends MusicBeatState
 					funnyBgColorsPumpin = true;
 				case 640:
 					defaultCamZoom -= 0.1;
-					bgColorsCrazyBeats = 1;
+					bgColorsCrazyBeats = 2;
 				case 760:
 				//	FlxG.camera.fade(FlxColor.WHITE, Conductor.crochet / 500);
 				case 768:
@@ -3667,7 +3667,7 @@ class PlayState extends MusicBeatState
 
 	var funnyBgColorsPumpin:Bool = false;
 
-	var bgColorsCrazyBeats:Int = 2;
+	var bgColorsCrazyBeats:Int = 4;
 	var bgColorsRandom:Bool = false;
 
 	var funnyBgColors:FlxSprite = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.width * 3, FlxColor.WHITE);
@@ -3715,7 +3715,7 @@ class PlayState extends MusicBeatState
 			{
 				funnyBgColors.color = funnyColorsArray[FlxG.random.int(0, funnyColorsArray.length - 1)];
 			}
-			FlxTween.tween(funnyBgColors, {alpha: 0.4}, Conductor.crochet / 1000, {ease: FlxEase.smootherStepOut});
+			FlxTween.tween(funnyBgColors, {alpha: 0.4}, Conductor.crochet / 750, {ease: FlxEase.smootherStepOut});
 		}
 
 		iconP1.scale.set(1.2, 1.2);
