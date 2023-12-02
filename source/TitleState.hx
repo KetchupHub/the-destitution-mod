@@ -59,7 +59,6 @@ class TitleState extends MusicBeatState
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
-	var ngSpr:FlxSprite;
 	
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
 	var titleTextAlphas:Array<Float> = [1, .64];
@@ -67,6 +66,8 @@ class TitleState extends MusicBeatState
 	var curWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
+
+	var tppLogo:FlxSprite;
 
 	var mustUpdate:Bool = false;
 
@@ -145,7 +146,7 @@ class TitleState extends MusicBeatState
 		}
 	}
 
-	var logoBl:FlxSprite;
+	var logo:FlxSprite;
 	var gfDance:FlxSprite;
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
@@ -155,28 +156,8 @@ class TitleState extends MusicBeatState
 	{
 		if (!initialized)
 		{
-			/*var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
-			diamond.persist = true;
-			diamond.destroyOnNoUse = false;
-
-			FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, new FlxPoint(0, -1), {asset: diamond, width: 32, height: 32},
-				new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-			FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, new FlxPoint(0, 1),
-				{asset: diamond, width: 32, height: 32}, new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-
-			transIn = FlxTransitionableState.defaultTransIn;
-			transOut = FlxTransitionableState.defaultTransOut;*/
-
-			// HAD TO MODIFY SOME BACKEND SHIT
-			// IF THIS PR IS HERE IF ITS ACCEPTED UR GOOD TO GO
-			// https://github.com/HaxeFlixel/flixel-addons/pull/348
-
-			// var music:FlxSound = new FlxSound();
-			// music.loadStream(Paths.music('freakyMenu'));
-			// FlxG.sound.list.add(music);
-			// music.play();
-
-			if(FlxG.sound.music == null) {
+			if(FlxG.sound.music == null)
+			{
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 			}
 		}
@@ -192,76 +173,43 @@ class TitleState extends MusicBeatState
 			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		}
 
-		// bg.antialiasing = ClientPrefs.globalAntialiasing;
-		// bg.setGraphicSize(Std.int(bg.width * 0.6));
-		// bg.updateHitbox();
 		add(bg);
 
-		logoBl = new FlxSprite(titleJSON.titlex, titleJSON.titley);
-		logoBl.frames = Paths.getSparrowAtlas('destitution_mod_logo');
-		logoBl.antialiasing = false;
-		logoBl.animation.addByPrefix('bump', 'idle', 24, false);
-		logoBl.animation.play('bump');
-		logoBl.screenCenter();
-		logoBl.x += 300;
-		// logoBl.screenCenter();
-		// logoBl.color = FlxColor.BLACK;
+		logo = new FlxSprite(titleJSON.titlex, titleJSON.titley);
+		logo.frames = Paths.getSparrowAtlas('destitution_mod_logo');
+		logo.antialiasing = false;
+		logo.animation.addByPrefix('bump', 'idle', 24, false);
+		logo.animation.play('bump');
+		logo.screenCenter();
+		logo.x += 300;
 
 		swagShader = new ColorSwap();
+
 		gfDance = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
 
-		var easterEgg:String = FlxG.save.data.psychDevsEasterEgg;
-		if(easterEgg == null) easterEgg = ''; //html5 fix
-
-		switch(easterEgg.toUpperCase())
+		var arrey:Array<String> = ['mark', 'bf', 'item', 'whale', 'crypteh', 'lock', 'plant'];
+		var charec:String = arrey[FlxG.random.int(0, arrey.length - 1)];
+		if(charec == 'plant' || charec == 'lock')
 		{
-			#if TITLE_SCREEN_EASTER_EGG
-			case 'SHADOW':
-				gfDance.frames = Paths.getSparrowAtlas('ShadowBump');
-				gfDance.animation.addByPrefix('danceLeft', 'Shadow Title Bump', 24);
-				gfDance.animation.addByPrefix('danceRight', 'Shadow Title Bump', 24);
-			case 'RIVER':
-				gfDance.frames = Paths.getSparrowAtlas('RiverBump');
-				gfDance.animation.addByIndices('danceLeft', 'River Title Bump', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
-				gfDance.animation.addByIndices('danceRight', 'River Title Bump', [29, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-			case 'SHUBS':
-				gfDance.frames = Paths.getSparrowAtlas('ShubBump');
-				gfDance.animation.addByPrefix('danceLeft', 'Shub Title Bump', 24, false);
-				gfDance.animation.addByPrefix('danceRight', 'Shub Title Bump', 24, false);
-			case 'BBPANZU':
-				gfDance.frames = Paths.getSparrowAtlas('BBBump');
-				gfDance.animation.addByIndices('danceLeft', 'BB Title Bump', [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], "", 24, false);
-				gfDance.animation.addByIndices('danceRight', 'BB Title Bump', [27, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], "", 24, false);
-			#end
-
-			default:
-			//EDIT THIS ONE IF YOU'RE MAKING A SOURCE CODE MOD!!!!
-			//EDIT THIS ONE IF YOU'RE MAKING A SOURCE CODE MOD!!!!
-			//EDIT THIS ONE IF YOU'RE MAKING A SOURCE CODE MOD!!!!
-				var arrey:Array<String> = ['mark', 'bf', 'item', 'whale', 'crypteh', 'lock', 'plant'];
-				var charec:String = arrey[FlxG.random.int(0, arrey.length - 1)];
-				if(charec == 'plant' || charec == 'lock')
-				{
-					//reroll for lower chances, ik im dumb ok :sob:
-					charec = arrey[FlxG.random.int(0, arrey.length - 1)];
-					charec = arrey[FlxG.random.int(0, arrey.length - 1)];
-				}
-				var loopey:Bool = (charec == 'plant' || charec == 'item' || charec == 'whale' || charec == 'ploinky');
-				gfDance.frames = Paths.getSparrowAtlas('title/$charec');
-				gfDance.animation.addByPrefix('idle', charec, 24, loopey);
-				gfDance.animation.play('idle', true);
-				gfDance.setGraphicSize(1080);
-				gfDance.updateHitbox();
-				gfDance.screenCenter(Y);
-				gfDance.x = 0;
-				if(charec == 'lock')
-				{
-					gfDance.x += 125;
-				}
+			//reroll for lower chances, ik im dumb ok :sob:
+			charec = arrey[FlxG.random.int(0, arrey.length - 1)];
+			charec = arrey[FlxG.random.int(0, arrey.length - 1)];
+		}
+		var loopey:Bool = (charec == 'plant' || charec == 'item' || charec == 'whale' || charec == 'ploinky');
+		gfDance.frames = Paths.getSparrowAtlas('title/$charec');
+		gfDance.animation.addByPrefix('idle', charec, 24, loopey);
+		gfDance.animation.play('idle', true);
+		gfDance.setGraphicSize(1080);
+		gfDance.updateHitbox();
+		gfDance.screenCenter(Y);
+		gfDance.x = 0;
+		if(charec == 'lock')
+		{
+			gfDance.x += 125;
 		}
 
-		add(logoBl);
-		logoBl.shader = swagShader.shader;
+		add(logo);
+		logo.shader = swagShader.shader;
 		add(gfDance);
 		gfDance.shader = swagShader.shader;
 
@@ -307,13 +255,12 @@ class TitleState extends MusicBeatState
 
 		credTextShit.visible = false;
 
-		ngSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('newgrounds_logo'));
-		add(ngSpr);
-		ngSpr.visible = false;
-		ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
-		ngSpr.updateHitbox();
-		ngSpr.screenCenter(X);
-		ngSpr.antialiasing = ClientPrefs.globalAntialiasing;
+		tppLogo = new FlxSprite().loadGraphic(Paths.image("team productions presents"));
+		tppLogo.screenCenter();
+		tppLogo.y = 70;
+		tppLogo.antialiasing = false;
+		tppLogo.visible = false;
+		add(tppLogo);
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
@@ -379,8 +326,6 @@ class TitleState extends MusicBeatState
 			titleTimer += CoolUtil.boundTo(elapsed, 0, 1);
 			if (titleTimer > 2) titleTimer -= 2;
 		}
-
-		// EASTER EGG
 
 		if (initialized && !transitioning && skippedIntro)
 		{
@@ -476,8 +421,8 @@ class TitleState extends MusicBeatState
 
 		if(curBeat % 2 == 0)
 		{
-			if(logoBl != null)
-				logoBl.animation.play('bump', true);
+			if(logo != null)
+				logo.animation.play('bump', true);
 	
 			if(gfDance != null) {
 				if(!gfDance.animation.getByName('idle').looped)
@@ -495,10 +440,11 @@ class TitleState extends MusicBeatState
 				case 1:
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				case 5:
-					createCoolText(['Cynda', 'PhoneyX', 'MxRegular', 'Spook']);
+					tppLogo.visible = true;
 				case 9:
-					addMoreText('present');
+					createCoolText(['...present'], tppLogo.height);
 				case 12:
+					tppLogo.visible = false;
 					deleteCoolText();
 				case 13:
 					createCoolText([curWacky[0]]);
@@ -524,7 +470,7 @@ class TitleState extends MusicBeatState
 	{
 		if (!skippedIntro)
 		{
-			remove(ngSpr);
+			remove(tppLogo);
 			remove(credGroup);
 			FlxG.camera.flash(FlxColor.WHITE);
 			skippedIntro = true;
