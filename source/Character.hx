@@ -316,8 +316,14 @@ class Character extends FlxSprite
 	/**
 	 * FOR GF DANCING SHIT
 	 */
-	public function dance()
+	public function dance(alt:Bool = false)
 	{
+		var altStr:String = "";
+		if(alt)
+		{
+			altStr = "-alt";
+		}
+
 		if (!debugMode && !skipDance && !specialAnim && canDance)
 		{
 			if(danceIdle)
@@ -325,22 +331,22 @@ class Character extends FlxSprite
 				danced = !danced;
 
 				if (danced)
-					playAnim('danceRight' + idleSuffix, true);
+					playAnim('danceRight' + idleSuffix + altStr, true);
 				else
-					playAnim('danceLeft' + idleSuffix, true);
+					playAnim('danceLeft' + idleSuffix + altStr, true);
 			}
-			else if(animation.getByName('idle' + idleSuffix) != null)
+			else if(animation.getByName('idle' + idleSuffix + altStr) != null)
 			{
 				if(animation.curAnim != null)
 				{
-					if(!animation.getByName('idle' + idleSuffix).looped || animation.curAnim.name != "idle" + idleSuffix)
+					if(!animation.getByName('idle' + idleSuffix + altStr).looped || animation.curAnim.name != "idle" + idleSuffix + altStr)
 					{
-						playAnim('idle' + idleSuffix, true);
+						playAnim('idle' + idleSuffix + altStr, true);
 					}
 				}
 				else
 				{
-					playAnim('idle' + idleSuffix, true);
+					playAnim('idle' + idleSuffix + altStr, true);
 				}
 			}
 		}

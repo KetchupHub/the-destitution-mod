@@ -1875,7 +1875,7 @@ class PlayState extends MusicBeatState
 					{
 						if(dad.animation.curAnim.finished)
 						{
-							dad.dance();
+							dad.dance(SONG.notes[curSection].altAnim);
 							dad.holdTimer = 0;
 							if(!dad.animation.curAnim.looped)
 							{
@@ -3612,13 +3612,18 @@ class PlayState extends MusicBeatState
 				case 384:
 					FlxG.camera.flash();
 					defaultCamZoom += 0.1;
-				case 508:
+				case 496:
 					defaultCamZoom -= 0.05;
 					FlxG.camera.zoom = defaultCamZoom;
 					moveCamera(true);
 					disallowCamMove = true;
 					snapCamFollowToPos(camFollow.x, camFollow.y);
+					dad.canDance = false;
+					dad.canSing = false;
+					dad.playAnim("coolify", true);
 				case 512:
+					dad.canDance = true;
+					dad.canSing = true;
 					FlxTween.tween(funnyBgColors, {alpha: 0.4}, Conductor.crochet / 500, {ease: FlxEase.circOut});
 					disallowCamMove = false;
 					defaultCamZoom += 0.25;
@@ -3635,12 +3640,22 @@ class PlayState extends MusicBeatState
 					defaultCamZoom -= 0.1;
 					bgColorsCrazyBeats = 2;
 					bgColorsRandom = true;
+				case 1012:
+					moveCamera(true);
+					disallowCamMove = true;
+					snapCamFollowToPos(camFollow.x, camFollow.y);
+					dad.canDance = false;
+					dad.canSing = false;
+					dad.playAnim("decool", true);
 				case 1024:
 					bgColorsRandom = false;
 					funnyBgColorsPumpin = false;
 					funnyBgColors.color = FlxColor.BLACK;
 					funnyBgColors.alpha = 0;
 					FlxG.camera.flash();
+					dad.canDance = true;
+					dad.canSing = true;
+					disallowCamMove = false;
 			}
 		}
 
@@ -3732,7 +3747,7 @@ class PlayState extends MusicBeatState
 		}
 		if (curBeat % dad.danceEveryNumBeats == 0 && dad.animation.curAnim != null && !dad.animation.curAnim.name.startsWith('sing') && !dad.stunned)
 		{
-			dad.dance();
+			dad.dance(SONG.notes[curSection].altAnim);
 		}
 
 		if(curBeat % 2 == 0 && bgPlayer != null)

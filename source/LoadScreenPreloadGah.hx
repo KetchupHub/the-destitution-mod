@@ -41,6 +41,8 @@ class LoadScreenPreloadGah extends MusicBeatState
                 charactersToLoad = ['mark', 'bf-mark', 'mark-alt', 'mark-annoyed', 'mark-angry', 'ploinky', 'item', 'whale', 'rulez', 'crypteh', 'zam', 'bf-mark-ploink', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh', 'bf-mark-annoyed', 'bg-player', 'stop-loading'];
             case 'superseded':
                 charactersToLoad = ['superseded-mark', 'superseded-mark-graph', 'superseded-creature', 'superseded-bf', 'stop-loading'];
+            case 'd-stitution':
+                charactersToLoad = ['karm', 'd-bf', 'stop-loading'];
             default:
                 charactersToLoad = ['bf-mark', 'stop-loading'];
         }
