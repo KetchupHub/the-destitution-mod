@@ -3633,9 +3633,9 @@ class PlayState extends MusicBeatState
 					defaultCamZoom -= 0.1;
 					bgColorsCrazyBeats = 2;
 				case 760:
-				//	FlxG.camera.fade(FlxColor.WHITE, Conductor.crochet / 500);
+					//FlxG.camera.fade(FlxColor.WHITE, Conductor.crochet / 500);
 				case 768:
-				//	FlxG.camera.fade(FlxColor.TRANSPARENT, 0.000001, false);
+					//FlxG.camera.fade(FlxColor.TRANSPARENT, 0.000001, false);
 					FlxG.camera.flash();
 					defaultCamZoom -= 0.1;
 					bgColorsCrazyBeats = 2;
