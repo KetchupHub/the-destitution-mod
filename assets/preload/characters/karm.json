@@ -153,6 +153,17 @@
 			"anim": "decool",
 			"indices": [],
 			"name": "decool"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"fps": 24,
+			"anim": "lipsync",
+			"indices": [],
+			"name": "lipsync"
 		}
 	],
 	"no_antialiasing": true,

@@ -3597,11 +3597,16 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(camHUD, {alpha: 0}, Conductor.crochet / 250);
 					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 0.1}, Conductor.crochet / 500, {ease: FlxEase.cubeOut});
 					defaultCamZoom += 0.1;
+					dad.canDance = false;
+					dad.canSing = false;
+					dad.playAnim("lipsync", true);
 				case 248:
 					FlxTween.tween(camHUD, {alpha: 1}, Conductor.crochet / 500);
 					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 0.2}, Conductor.crochet / 500, {ease: FlxEase.cubeInOut});
 					defaultCamZoom += 0.2;
 				case 256:
+					dad.canDance = true;
+					dad.canSing = true;
 					defaultCamZoom -= 0.3;
 					FlxG.camera.flash();
 				case 368 | 372 | 376 | 378:
