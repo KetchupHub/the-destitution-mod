@@ -1,0 +1,45 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"fps": 24,
+			"anim": "danceLeft",
+			"indices": [],
+			"name": "danceLeft"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"fps": 24,
+			"anim": "danceRight",
+			"indices": [],
+			"name": "danceRight"
+		}
+	],
+	"no_antialiasing": true,
+	"image": "characters/dsides/karm",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "karm",
+	"flip_x": false,
+	"healthbar_colors": [
+		206,
+		163,
+		61
+	],
+	"camera_position": [
+		20,
+		30
+	],
+	"sing_duration": 15,
+	"scale": 1
+}

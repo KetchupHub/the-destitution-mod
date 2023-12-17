@@ -319,6 +319,12 @@ class PlayState extends MusicBeatState
 	var backing:FlxSprite;
 	var sky:FlxSprite;
 
+	var lightningStrikes:FlxSprite;
+
+	var strikeyStrikes:Bool = false;
+
+	var train:FlxSprite;
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -487,6 +493,14 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'dsides':
+				addCharacterToList("pinkerton", 1);
+
+				addCharacterToList("d-ili", 1);
+
+				addCharacterToList("d-bf-dark", 0);
+
+				addCharacterToList("karm-scared", 1);
+
 				sky = new FlxSprite().loadGraphic(Paths.image('dsides/sky'));
 				sky.antialiasing = false;
 				add(sky);
@@ -504,10 +518,24 @@ class PlayState extends MusicBeatState
 				add(starting);
 				starting.screenCenter();
 
+				lightningStrikes = new FlxSprite().makeGraphic(5000, 5000, FlxColor.fromRGB(255, 241, 185));
+				lightningStrikes.blend = BlendMode.ADD;
+				lightningStrikes.screenCenter();
+				lightningStrikes.alpha = 0;
+
+				lightningBg();
+				
+				unLightningBg();
+
 				funnyBgColors.screenCenter();
 				add(funnyBgColors);
 				funnyBgColors.alpha = 0;
 				funnyBgColors.color = FlxColor.BLACK;
+
+				train = new FlxSprite().loadGraphic(Paths.image("dsides/train funny"));
+				train.screenCenter();
+				add(train);
+				train.visible = false;
 			case 'mark':
 				//keeping here just in case
 				addCharacterToList("mark-alt", 1);
@@ -1606,6 +1634,22 @@ class PlayState extends MusicBeatState
 
 		unspawnNotes.sort(sortByTime);
 		generatedMusic = true;
+	}
+
+	
+	function lightningBg()
+	{
+		sky.loadGraphic(Paths.image("dsides/dark sky"));
+		backing.loadGraphic(Paths.image("dsides/dark backing"));
+		starting.loadGraphic(Paths.image("dsides/dark front"));
+	}
+
+	function unLightningBg()
+	{
+		sky.loadGraphic(Paths.image("dsides/sky"));
+		backing.loadGraphic(Paths.image("dsides/backing"));
+		starting.loadGraphic(Paths.image("dsides/front"));
+		strikeyStrikes = false;
 	}
 
 	function eventPushed(event:EventNote)
@@ -4236,6 +4280,66 @@ class PlayState extends MusicBeatState
 
 					iconP2.changeIcon(dad.healthIcon);
 					reloadHealthBarColors();
+			}
+		}
+
+		//doing character stuff on beathits
+		if(SONG.song.toLowerCase() == 'd-stitution')
+		{
+			switch(curBeat)
+			{
+				case 512:
+					//pinkerton
+					lightningBg();
+					dadGroup.remove(dad);
+					dad = new Character(dad.x, dad.y, 'pinkerton', false, false);
+					dadGroup.add(dad);
+
+					boyfriendGroup.remove(boyfriend);
+					boyfriend = new Boyfriend(boyfriend.x, boyfriend.y, 'd-bf-dark', false);
+					boyfriendGroup.add(boyfriend);
+					
+					add(lightningStrikes);
+
+					iconP2.changeIcon(dad.healthIcon);
+					reloadHealthBarColors();
+
+					FlxG.camera.flash();
+				case 520:
+					strikeyStrikes = true;
+				case 920:
+					train.visible = true;
+					unLightningBg();
+					strikeyStrikes = false;
+
+					dadGroup.remove(dad);
+					dad = new Character(dad.x, dad.y, 'd-ili', false, false);
+					dadGroup.add(dad);
+
+					boyfriendGroup.remove(boyfriend);
+					boyfriend = new Boyfriend(boyfriend.x, boyfriend.y, 'd-bf', false);
+					boyfriendGroup.add(boyfriend);
+
+					FlxG.camera.flash();
+
+					iconP2.changeIcon(dad.healthIcon);
+					reloadHealthBarColors();
+					camHUD.visible = false;
+					dad.visible = false;
+				case 992:
+					train.visible = false;
+					dad.visible = true;
+					camHUD.visible = true;
+					FlxG.camera.flash();
+			}
+		}
+
+		if(curBeat % 8 == 0)
+		{
+			if(strikeyStrikes)
+			{
+				lightningStrikes.alpha = 1;
+				FlxTween.tween(lightningStrikes, {alpha: 0}, Conductor.crochet / 150,  {ease: FlxEase.cubeOut});
 			}
 		}
 
