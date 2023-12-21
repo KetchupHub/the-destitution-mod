@@ -13,8 +13,8 @@
 		},
 		{
 			"offsets": [
-				-2,
-				-10
+				0,
+				0
 			],
 			"loop": false,
 			"anim": "singDOWN",
@@ -24,8 +24,8 @@
 		},
 		{
 			"offsets": [
-				-5,
-				-1
+				0,
+				0
 			],
 			"loop": false,
 			"anim": "singUP",
@@ -35,7 +35,7 @@
 		},
 		{
 			"offsets": [
-				-20,
+				0,
 				0
 			],
 			"loop": false,
@@ -58,7 +58,7 @@
 		{
 			"loop": true,
 			"offsets": [
-				-80,
+				0,
 				0
 			],
 			"anim": "floaty space mcgee",

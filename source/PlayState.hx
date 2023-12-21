@@ -4313,7 +4313,7 @@ class PlayState extends MusicBeatState
 					strikeyStrikes = false;
 
 					dadGroup.remove(dad);
-					dad = new Character(dad.x, dad.y, 'd-ili', false, false);
+					dad = new Character(dad.x, dad.y - 350, 'd-ili', false, false);
 					dadGroup.add(dad);
 
 					boyfriendGroup.remove(boyfriend);
@@ -4324,12 +4324,14 @@ class PlayState extends MusicBeatState
 
 					iconP2.changeIcon(dad.healthIcon);
 					reloadHealthBarColors();
-					camHUD.visible = false;
+					//camHUD.visible = false;
+					iconP2.visible = false;
 					dad.visible = false;
 				case 992:
+					iconP2.visible = true;
 					train.visible = false;
 					dad.visible = true;
-					camHUD.visible = true;
+					//camHUD.visible = true;
 					FlxG.camera.flash();
 			}
 		}
