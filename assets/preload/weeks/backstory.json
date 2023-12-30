@@ -1,0 +1,24 @@
+{
+	"songs": [
+		["Hallbound", "blockendoor", [158, 41, 16]],
+		["Specimen", "blockendoor", [105, 27, 11]],
+		["Fluctuate", "rules", [237, 147, 98]],
+		["Conversion", "rules", [237, 147, 98]],
+		["The-Z-Project", "marks-dad", [153, 204, 204]]
+	],
+
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"weekBackground": "none",
+
+	"storyName": "The Destitution Mod (Side Story)",
+	"weekBefore": "main",
+	"weekName": "The Destitution Mod (Side Story)",
+	"startUnlocked": true,
+
+	"hideStoryMode": true,
+	"hideFreeplay": true
+}

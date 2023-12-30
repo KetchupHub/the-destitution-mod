@@ -15,7 +15,7 @@
 	"weekBackground": "none",
 
 	"storyName": "The Destitution Mod",
-	"weekBefore": "week1",
+	"weekBefore": "main",
 	"weekName": "The Destitution Mod",
 	"startUnlocked": true,
 
