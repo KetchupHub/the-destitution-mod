@@ -7,6 +7,17 @@
 				0
 			],
 			"fps": 24,
+			"anim": "kar",
+			"indices": [],
+			"name": "kar"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"fps": 24,
 			"anim": "singLEFT",
 			"indices": [],
 			"name": "left"
