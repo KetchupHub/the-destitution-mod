@@ -1,180 +1,180 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
-				0,
+				360,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "kar",
-			"indices": [],
-			"name": "kar"
+			"fps": 24,
+			"name": "kar",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "left"
+			"fps": 24,
+			"name": "left",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "down"
+			"fps": 24,
+			"name": "down",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singUP",
-			"indices": [],
-			"name": "up"
+			"fps": 24,
+			"name": "up",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "right"
+			"fps": 24,
+			"name": "right",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "danceLeft",
-			"indices": [],
-			"name": "danceLeft"
+			"fps": 24,
+			"name": "danceLeft",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "danceRight",
-			"indices": [],
-			"name": "danceRight"
+			"fps": 24,
+			"name": "danceRight",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singLEFT-alt",
-			"indices": [],
-			"name": "altleft"
+			"fps": 24,
+			"name": "altleft",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-46,
 				-60
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singDOWN-alt",
-			"indices": [],
-			"name": "altdown"
+			"fps": 24,
+			"name": "altdown",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				10,
 				10
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singUP-alt",
-			"indices": [],
-			"name": "altup"
+			"fps": 24,
+			"name": "altup",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singRIGHT-alt",
-			"indices": [],
-			"name": "altright"
+			"fps": 24,
+			"name": "altright",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "danceLeft-alt",
-			"indices": [],
-			"name": "altDanceLeft"
+			"fps": 24,
+			"name": "altDanceLeft",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "danceRight-alt",
-			"indices": [],
-			"name": "altDanceRight"
+			"fps": 24,
+			"name": "altDanceRight",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "coolify",
-			"indices": [],
-			"name": "coolify"
+			"fps": 24,
+			"name": "coolify",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "decool",
-			"indices": [],
-			"name": "decool"
+			"fps": 24,
+			"name": "decool",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "lipsync",
-			"indices": [],
-			"name": "lipsync"
+			"fps": 24,
+			"name": "lipsync",
+			"indices": []
 		}
 	],
 	"no_antialiasing": true,

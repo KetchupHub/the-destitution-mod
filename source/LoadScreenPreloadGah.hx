@@ -42,7 +42,7 @@ class LoadScreenPreloadGah extends MusicBeatState
             case 'superseded':
                 charactersToLoad = ['superseded-mark', 'superseded-mark-graph', 'superseded-creature', 'superseded-bf', 'stop-loading'];
             case 'd-stitution':
-                charactersToLoad = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'karm-scared', 'd-ili', 'stop-loading'];
+                charactersToLoad = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'd-ili', 'stop-loading'];
             default:
                 charactersToLoad = ['bf-mark', 'stop-loading'];
         }

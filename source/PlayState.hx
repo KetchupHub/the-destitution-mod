@@ -179,6 +179,7 @@ class PlayState extends MusicBeatState
 
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
+	public var smoothenedHealth:Float = 1;
 	public var combo:Int = 0;
 
 	private var healthBarBG:AttachedSprite;
@@ -324,6 +325,8 @@ class PlayState extends MusicBeatState
 	var strikeyStrikes:Bool = false;
 
 	var train:FlxSprite;
+
+	var karmScaredy:FlxSprite;
 
 	override public function create()
 	{
@@ -499,8 +502,6 @@ class PlayState extends MusicBeatState
 
 				addCharacterToList("d-bf-dark", 0);
 
-				addCharacterToList("karm-scared", 1);
-
 				sky = new FlxSprite().loadGraphic(Paths.image('dsides/sky'));
 				sky.antialiasing = false;
 				add(sky);
@@ -517,6 +518,14 @@ class PlayState extends MusicBeatState
 				starting.antialiasing = false;
 				add(starting);
 				starting.screenCenter();
+
+				karmScaredy = new FlxSprite(starting.x + 40.75, starting.y + 610.35);
+				karmScaredy.frames = Paths.getSparrowAtlas("dsides/karm_scaredy");
+				karmScaredy.animation.addByPrefix("idle", "idle", 24, false);
+				karmScaredy.animation.play("idle", true);
+				add(karmScaredy);
+
+				karmScaredy.visible = false;
 
 				lightningStrikes = new FlxSprite().makeGraphic(5000, 5000, FlxColor.fromRGB(255, 241, 185));
 				lightningStrikes.blend = BlendMode.ADD;
@@ -778,6 +787,11 @@ class PlayState extends MusicBeatState
 				gf.visible = false;
 		}
 
+		if(SONG.song.toLowerCase() == "d-stitution")
+		{
+			dad.visible = false;
+		}
+
 		Conductor.songPosition = -5000 / Conductor.songPosition;
 
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
@@ -882,7 +896,7 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
 
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
-			'health', 0, 2);
+			'smoothenedHealth', 0, 2);
 		healthBar.scrollFactor.set();
 		// healthBar
 		healthBar.visible = !ClientPrefs.hideHud;
@@ -1309,6 +1323,19 @@ class PlayState extends MusicBeatState
 						}
 					});
 					FlxG.sound.play(Paths.sound('introGo' + introSoundsSuffix), 0.6);
+					if(SONG.song.toLowerCase() == "d-stitution")
+					{
+						dad.visible = true;
+						dad.canDance = false;
+						dad.playAnim("kar", true);
+						dad.animation.finishCallback = function fff(st:String)
+						{
+							dad.animation.finishCallback = null;
+							dad.canDance = true;
+							dad.dance();
+							dad.animation.finish();
+						}
+					}
 				case 4:
 			}
 
@@ -1636,6 +1663,14 @@ class PlayState extends MusicBeatState
 		generatedMusic = true;
 	}
 
+	public var sectionNum:Int = 1;
+
+	//set health to 1 and display fun message
+	function sectionIntroThing(displayName:String)
+	{
+		sectionNum++;
+		health = 1;
+	}
 	
 	function lightningBg()
 	{
@@ -1907,6 +1942,8 @@ class PlayState extends MusicBeatState
 				moveCameraSection();
 		}
 
+		smoothenedHealth = FlxMath.lerp(smoothenedHealth, health, CoolUtil.boundTo(elapsed * 20, 0, 1));
+
 		super.update(elapsed);
 
 		if(dad != null)
@@ -1958,17 +1995,15 @@ class PlayState extends MusicBeatState
 			case 1:
 				if(bgPlayer.x < bgPlayerWalkTarget)
 				{
-					bgPlayer.x += 3 / (FlxG.updateFramerate % 60);
+					bgPlayer.x += 3;
 				}
 				else
 				{
-					//de bug
-					trace((FlxG.updateFramerate % 60));
 					bgPlayerWalkState++;
 					bgPlayer.playAnim("notice", true);
 				}
 			case 4:
-				bgPlayer.x += 3 / (FlxG.updateFramerate % 60);
+				bgPlayer.x += 3;
 		}
 
 		if(spaceTime)
@@ -3761,6 +3796,11 @@ class PlayState extends MusicBeatState
 			camHUD.zoom += 0.075;
 		}
 
+		if(karmScaredy != null)
+		{
+			karmScaredy.animation.play("idle", true);
+		}
+
 		if(curBeat % bgColorsCrazyBeats == 0 && funnyBgColorsPumpin)
 		{
 			FlxTween.completeTweensOf(funnyBgColors);
@@ -3976,6 +4016,8 @@ class PlayState extends MusicBeatState
 
 					iconP2.changeIcon(dad.healthIcon);
 					reloadHealthBarColors();
+
+					sectionIntroThing("This is Ploinky");
 				case 590:
 					//pull out guitar
 					dad.canDance = false;
@@ -4015,7 +4057,7 @@ class PlayState extends MusicBeatState
 					dad = new Character(800, 345, 'item', false, false);
 					dadGroup.add(dad);
 					dad.x += 160;
-					dad.y -= 465;
+					dad.y -= 490;
 					
 					boyfriendGroup.remove(boyfriend);
 					boyfriend = new Boyfriend(-370, 220, 'bf-mark-item', false);
@@ -4036,6 +4078,8 @@ class PlayState extends MusicBeatState
 					spaceTimeDadArray[1] = dad.y;
 					spaceTimeBfArray[0] = boyfriend.x;
 					spaceTimeBfArray[1] = boyfriend.y;
+
+					sectionIntroThing("I LIEK ITEM");
 				case 856 | 936:
 					FlxG.camera.flash();
 					camZooming = false;
@@ -4116,6 +4160,8 @@ class PlayState extends MusicBeatState
 
 					iconP2.changeIcon(dad.healthIcon);
 					reloadHealthBarColors();
+
+					sectionIntroThing("Wiggy Whale");
 				case 1336:
 					defaultCamZoom += 0.1;
 					FlxG.camera.flash();
@@ -4153,6 +4199,8 @@ class PlayState extends MusicBeatState
 
 					iconP2.changeIcon(dad.healthIcon);
 					reloadHealthBarColors();
+
+					sectionIntroThing("Mark Mc. Marketing");
 				case 1664:
 					//FlxTween.tween(rulezGuySlideScaleWorldFunnyClips, {x: 465}, Conductor.crochet / 250, {ease: FlxEase.bounceIn});
 					rulezGuySlideScaleWorldFunnyClips.animation.play("intro", true);
@@ -4182,6 +4230,8 @@ class PlayState extends MusicBeatState
 
 					iconP2.changeIcon(dad.healthIcon);
 					reloadHealthBarColors();
+
+					sectionIntroThing("RULEZ GUY");
 				case 2194:
 					FlxTween.cancelTweensOf(dad);
 					FlxTween.cancelTweensOf(boyfriend);
@@ -4224,6 +4274,8 @@ class PlayState extends MusicBeatState
 					add(dadGroup);
 					add(office);
 					add(boyfriendGroup);
+
+					sectionIntroThing("Misteh Crypteh");
 				case 2552:
 					dad.canDance = false;
 					dad.playAnim("scared", true);
@@ -4253,6 +4305,8 @@ class PlayState extends MusicBeatState
 
 					iconP2.changeIcon(dad.healthIcon);
 					reloadHealthBarColors();
+
+					sectionIntroThing("Guy with a Zamboni");
 				case 2975:
 					//cam flip here
 					zamMarkCamFlipShit.visible = true;
@@ -4280,6 +4334,8 @@ class PlayState extends MusicBeatState
 
 					iconP2.changeIcon(dad.healthIcon);
 					reloadHealthBarColors();
+
+					sectionIntroThing("Mark Mc. Marketing");
 			}
 		}
 
@@ -4304,10 +4360,15 @@ class PlayState extends MusicBeatState
 					iconP2.changeIcon(dad.healthIcon);
 					reloadHealthBarColors();
 
+					sectionIntroThing("Sir Pinkerton III");
+
+					karmScaredy.visible = true;
+
 					FlxG.camera.flash();
 				case 520:
 					strikeyStrikes = true;
 				case 920:
+					karmScaredy.visible = false;
 					train.visible = true;
 					unLightningBg();
 					strikeyStrikes = false;
@@ -4333,6 +4394,8 @@ class PlayState extends MusicBeatState
 					dad.visible = true;
 					//camHUD.visible = true;
 					FlxG.camera.flash();
+
+					sectionIntroThing("I LIEK ITEM");
 			}
 		}
 
