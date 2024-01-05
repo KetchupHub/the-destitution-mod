@@ -185,6 +185,8 @@ class PlayState extends MusicBeatState
 	public var smoothenedHealth:Float = 1;
 	public var combo:Int = 0;
 
+	public static var songHasSections:Bool = false;
+
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
 	var songPercent:Float = 0;
@@ -426,6 +428,9 @@ class PlayState extends MusicBeatState
 		GameOverSubstate.resetVariables();
 		var songName:String = Paths.formatToSongPath(SONG.song);
 
+		songHasSections = false;
+		sectionNum = 1;
+
 		Application.current.window.title = CoolUtil.appTitleString + " - Playing " + SONG.song;
 
 		curStage = SONG.stage;
@@ -441,8 +446,6 @@ class PlayState extends MusicBeatState
 					curStage = 'dsides';
 				case 'isoceles':
 					curStage = 'argulow';
-				case 'destruction':
-					curStage = 'ex';
 				default:
 					curStage = 'stage';
 			}
@@ -1666,20 +1669,21 @@ class PlayState extends MusicBeatState
 		generatedMusic = true;
 	}
 
-	public var sectionNum:Int = 1;
+	public static var sectionNum:Int = 1;
 
 	//set health to 1 and display fun message
 	function sectionIntroThing(displayName:String)
 	{
+		songHasSections = true;
 		sectionNum++;
 		health = 1;
 
 		if(sectNameText == null)
 		{
 			sectText = new FlxText(0, 0, FlxG.width, "SECTION 2", 96);
-			sectText.setFormat(Paths.font("BAUHS93.ttf"), 96, FlxColor.BLACK, CENTER, FlxTextBorderStyle.SHADOW, FlxColor.BLACK);
+			sectText.setFormat(Paths.font("BAUHS93.ttf"), 96, FlxColor.WHITE, CENTER, FlxTextBorderStyle.SHADOW, FlxColor.BLACK);
 			sectText.screenCenter();
-			sectText.y -= 200;
+			sectText.y -= 400;
 			sectText.alpha = 0;
 			sectText.cameras = [camHUD];
 			add(sectText);
@@ -1695,18 +1699,23 @@ class PlayState extends MusicBeatState
 		sectText.text = "SECTION " + sectionNum;
 		sectNameText.text = displayName.toUpperCase();
 
+		sectText.scale.set(2, 2);
+		sectText.updateHitbox();
 		sectText.screenCenter();
-		sectText.y -= 200;
+		sectText.y -= 400;
+		sectNameText.scale.set(2, 2);
+		sectNameText.updateHitbox();
 		sectNameText.screenCenter();
-		sectNameText.y -= 100;
+		sectNameText.y -= 200;
+		sectNameText.color = FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]);
 
-		FlxTween.tween(sectText, {alpha: 1, y: sectText.y + 100}, 1, {ease: FlxEase.backOut});
-		FlxTween.tween(sectNameText, {alpha: 1, y: sectNameText.y + 100}, 1.25, {ease: FlxEase.backOut});
+		FlxTween.tween(sectText, {alpha: 1, y: sectText.y + 200}, 0.75, {ease: FlxEase.backOut});
+		FlxTween.tween(sectNameText, {alpha: 1, y: sectNameText.y + 200}, 0.75, {ease: FlxEase.backOut});
 
 		var gghg:FlxTimer = new FlxTimer().start(2.5, function fggjg(ss:FlxTimer)
 		{
-			FlxTween.tween(sectText, {alpha: 0, y: sectText.y + 100}, 1, {ease: FlxEase.backIn});
-			FlxTween.tween(sectNameText, {alpha: 0, y: sectNameText.y + 100}, 1.25, {ease: FlxEase.backIn});
+			FlxTween.tween(sectText, {alpha: 0, y: sectText.y + 200}, 0.75, {ease: FlxEase.backIn});
+			FlxTween.tween(sectNameText, {alpha: 0, y: sectNameText.y + 200}, 0.75, {ease: FlxEase.backIn});
 		});
 	}
 	
@@ -1980,7 +1989,7 @@ class PlayState extends MusicBeatState
 				moveCameraSection();
 		}
 
-		smoothenedHealth = FlxMath.lerp(smoothenedHealth, health, CoolUtil.boundTo(elapsed * 20, 0, 1));
+		smoothenedHealth = FlxMath.lerp(smoothenedHealth, health, CoolUtil.boundTo(elapsed * 13, 0, 1));
 
 		super.update(elapsed);
 
@@ -2782,6 +2791,8 @@ class PlayState extends MusicBeatState
 	{
 		var finishCallback:Void->Void = endSong; //In case you want to change it in a specific song.
 
+		songHasSections = false;
+		sectionNum = 1;
 		updateTime = false;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
@@ -2817,6 +2828,9 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		
+		songHasSections = false;
+		sectionNum = 1;
 		timeBarBG.visible = false;
 		timeBar.visible = false;
 		timeTxt.visible = false;
@@ -4291,7 +4305,7 @@ class PlayState extends MusicBeatState
 					//cryptehT.visible = true;
 
 					boyfriendGroup.remove(boyfriend);
-					boyfriend = new Boyfriend(-332.15, -520.15, 'bf-mark-crypteh', false);
+					boyfriend = new Boyfriend(-135, -205, 'bf-mark-crypteh', false);
 					boyfriendGroup.add(boyfriend);
 
 					boyfriend.x -= 1280;

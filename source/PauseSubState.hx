@@ -73,13 +73,23 @@ class PauseSubState extends MusicBeatSubstate
 		add(levelInfo);
 
 		var blueballedTxt:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
-		blueballedTxt.text = "Blueballed: " + PlayState.deathCounter;
+		blueballedTxt.text = "Died: " + PlayState.deathCounter;
 		blueballedTxt.scrollFactor.set();
 		blueballedTxt.setFormat(Paths.font("BAUHS93.ttf"), 32);
 		blueballedTxt.updateHitbox();
 		add(blueballedTxt);
 
-		practiceText = new FlxText(20, 15 + 64, 0, "PRACTICE MODE", 32);
+		var sectionTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
+		sectionTxt.text = "Section " + PlayState.sectionNum;
+		sectionTxt.scrollFactor.set();
+		sectionTxt.setFormat(Paths.font("BAUHS93.ttf"), 32);
+		sectionTxt.updateHitbox();
+		if(PlayState.songHasSections)
+		{
+			add(sectionTxt);
+		}
+
+		practiceText = new FlxText(20, 15 + 101, 0, "PRACTICE MODE", 32);
 		practiceText.scrollFactor.set();
 		practiceText.setFormat(Paths.font("BAUHS93.ttf"), 32);
 		practiceText.x = FlxG.width - (practiceText.width + 20);
@@ -87,7 +97,7 @@ class PauseSubState extends MusicBeatSubstate
 		practiceText.visible = PlayState.instance.practiceMode;
 		add(practiceText);
 
-		var chartingText:FlxText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
+		var chartingText:FlxText = new FlxText(20, 15 + 165, 0, "CHARTING MODE", 32);
 		chartingText.scrollFactor.set();
 		chartingText.setFormat(Paths.font("BAUHS93.ttf"), 32);
 		chartingText.x = FlxG.width - (chartingText.width + 20);
@@ -96,14 +106,22 @@ class PauseSubState extends MusicBeatSubstate
 		chartingText.visible = PlayState.chartingMode;
 		add(chartingText);
 
-		blueballedTxt.alpha = 0;		levelInfo.alpha = 0;
+		blueballedTxt.alpha = 0;
+		levelInfo.alpha = 0;
+		sectionTxt.alpha = 0;
+		practiceText.alpha = 0;
+		chartingText.alpha = 0;
 
 		levelInfo.x = FlxG.width - (levelInfo.width + 20);
 		blueballedTxt.x = FlxG.width - (blueballedTxt.width + 20);
+		sectionTxt.x = FlxG.width - (sectionTxt.width + 20);
 
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
-		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
+		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
+		FlxTween.tween(sectionTxt, {alpha: 1, y: sectionTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.9});
+		FlxTween.tween(practiceText, {alpha: 1, y: practiceText.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 1.2});
+		FlxTween.tween(chartingText, {alpha: 1, y: chartingText.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 1.5});
 
 		grpMenuShit = new FlxTypedGroup<Alphabet>();
 		add(grpMenuShit);
