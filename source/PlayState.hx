@@ -1995,7 +1995,7 @@ class PlayState extends MusicBeatState
 			case 1:
 				if(bgPlayer.x < bgPlayerWalkTarget)
 				{
-					bgPlayer.x += 3;
+					bgPlayer.x += 1.5;
 				}
 				else
 				{
@@ -2003,7 +2003,7 @@ class PlayState extends MusicBeatState
 					bgPlayer.playAnim("notice", true);
 				}
 			case 4:
-				bgPlayer.x += 3;
+				bgPlayer.x += 1.5;
 		}
 
 		if(spaceTime)
@@ -4057,7 +4057,7 @@ class PlayState extends MusicBeatState
 					dad = new Character(800, 345, 'item', false, false);
 					dadGroup.add(dad);
 					dad.x += 160;
-					dad.y -= 490;
+					dad.y -= 520;
 					
 					boyfriendGroup.remove(boyfriend);
 					boyfriend = new Boyfriend(-370, 220, 'bf-mark-item', false);
@@ -4140,7 +4140,7 @@ class PlayState extends MusicBeatState
 					FlxG.camera.flash();
 
 					boyfriendGroup.remove(boyfriend);
-					boyfriend = new Boyfriend(-160, 65, 'bf-mark-annoyed', false);
+					boyfriend = new Boyfriend(-200, 65, 'bf-mark-annoyed', false);
 					boyfriendGroup.add(boyfriend);
 					boyfriend.visible = false;
 					
