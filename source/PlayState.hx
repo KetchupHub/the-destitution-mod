@@ -101,6 +101,9 @@ class PlayState extends MusicBeatState
 	//event variables
 	private var isCameraOnForcedPos:Bool = false;
 
+	public var sectText:FlxText;
+	public var sectNameText:FlxText;
+
 	#if (haxe >= "4.0.0")
 	public var boyfriendMap:Map<String, Boyfriend> = new Map();
 	public var dadMap:Map<String, Character> = new Map();
@@ -1670,6 +1673,41 @@ class PlayState extends MusicBeatState
 	{
 		sectionNum++;
 		health = 1;
+
+		if(sectNameText == null)
+		{
+			sectText = new FlxText(0, 0, FlxG.width, "SECTION 2", 96);
+			sectText.setFormat(Paths.font("BAUHS93.ttf"), 96, FlxColor.BLACK, CENTER, FlxTextBorderStyle.SHADOW, FlxColor.BLACK);
+			sectText.screenCenter();
+			sectText.y -= 200;
+			sectText.alpha = 0;
+			sectText.cameras = [camHUD];
+			add(sectText);
+			sectNameText = new FlxText(0, 0, FlxG.width, displayName.toUpperCase(), 48);
+			sectNameText.setFormat(Paths.font("BAUHS93.ttf"), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.SHADOW, FlxColor.BLACK);
+			sectNameText.screenCenter();
+			sectNameText.y -= 100;
+			sectNameText.alpha = 0;
+			sectNameText.cameras = [camHUD];
+			add(sectNameText);
+		}
+
+		sectText.text = "SECTION " + sectionNum;
+		sectNameText.text = displayName.toUpperCase();
+
+		sectText.screenCenter();
+		sectText.y -= 200;
+		sectNameText.screenCenter();
+		sectNameText.y -= 100;
+
+		FlxTween.tween(sectText, {alpha: 1, y: sectText.y + 100}, 1, {ease: FlxEase.backOut});
+		FlxTween.tween(sectNameText, {alpha: 1, y: sectNameText.y + 100}, 1.25, {ease: FlxEase.backOut});
+
+		var gghg:FlxTimer = new FlxTimer().start(2.5, function fggjg(ss:FlxTimer)
+		{
+			FlxTween.tween(sectText, {alpha: 0, y: sectText.y + 100}, 1, {ease: FlxEase.backIn});
+			FlxTween.tween(sectNameText, {alpha: 0, y: sectNameText.y + 100}, 1.25, {ease: FlxEase.backIn});
+		});
 	}
 	
 	function lightningBg()
@@ -4253,7 +4291,7 @@ class PlayState extends MusicBeatState
 					//cryptehT.visible = true;
 
 					boyfriendGroup.remove(boyfriend);
-					boyfriend = new Boyfriend(0, 0, 'bf-mark-crypteh', false);
+					boyfriend = new Boyfriend(-332.15, -520.15, 'bf-mark-crypteh', false);
 					boyfriendGroup.add(boyfriend);
 
 					boyfriend.x -= 1280;
