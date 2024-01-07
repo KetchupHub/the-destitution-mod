@@ -78,12 +78,21 @@ class DiscordClient
 			endTimestamp = startTimestamp + endTimestamp;
 		}
 
+		var alrgey:String = "icon";
+		var smalley:String = "";
+
+		if(smallImageKey != null)
+		{
+			alrgey = smallImageKey;
+			smalley = "icon";
+		}
+
 		DiscordRpc.presence({
 			details: details,
 			state: state,
-			largeImageKey: 'icon',
+			largeImageKey: alrgey,
 			largeImageText: "The Destitution Mod",
-			smallImageKey : smallImageKey,
+			smallImageKey : smalley,
 			// Obtained times are in milliseconds so they are divided so Discord can use it
 			startTimestamp : Std.int(startTimestamp / 1000),
             endTimestamp : Std.int(endTimestamp / 1000)

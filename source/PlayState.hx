@@ -976,7 +976,7 @@ class PlayState extends MusicBeatState
 	
 		#if desktop
 		// Updating Discord Rich Presence.
-		DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter());
+		DiscordClient.changePresence(detailsText, SONG.song, SONG.song.toLowerCase());
 		#end
 
 		if(!ClientPrefs.controllerMode)
@@ -1493,7 +1493,7 @@ class PlayState extends MusicBeatState
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
 		#if desktop
-		DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter(), true, songLength);
+		DiscordClient.changePresence(detailsText, SONG.song, SONG.song.toLowerCase(), true, songLength);
 		#end
 	}
 
@@ -1892,11 +1892,11 @@ class PlayState extends MusicBeatState
 			#if desktop
 			if (startTimer != null && startTimer.finished)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, SONG.song, SONG.song.toLowerCase(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, SONG.song, SONG.song.toLowerCase());
 			}
 			#end
 		}
@@ -1911,11 +1911,11 @@ class PlayState extends MusicBeatState
 		{
 			if (Conductor.songPosition > 0.0)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, SONG.song, SONG.song.toLowerCase(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, SONG.song, iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, SONG.song, SONG.song.toLowerCase());
 			}
 		}
 		#end
@@ -1928,7 +1928,7 @@ class PlayState extends MusicBeatState
 		#if desktop
 		if (health > 0 && !paused)
 		{
-			DiscordClient.changePresence(detailsPausedText, SONG.song, iconP2.getCharacter());
+			DiscordClient.changePresence(detailsPausedText, SONG.song, SONG.song.toLowerCase());
 		}
 		#end
 
@@ -2365,7 +2365,7 @@ class PlayState extends MusicBeatState
 		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
 		#if desktop
-		DiscordClient.changePresence(detailsPausedText, SONG.song, iconP2.getCharacter());
+		DiscordClient.changePresence(detailsPausedText, SONG.song, SONG.song.toLowerCase());
 		Application.current.window.title = CoolUtil.appTitleString + " - PAUSED on " + SONG.song;
 		#end
 	}
@@ -2411,7 +2411,7 @@ class PlayState extends MusicBeatState
 			openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
 
 			#if desktop
-			DiscordClient.changePresence("Game Over", SONG.song, iconP2.getCharacter());
+			DiscordClient.changePresence("Game Over", SONG.song, SONG.song.toLowerCase());
 			Application.current.window.title = CoolUtil.appTitleString + " - GAME OVER on " + SONG.song;
 			#end
 			isDead = true;

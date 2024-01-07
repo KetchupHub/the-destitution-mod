@@ -52,7 +52,7 @@ class HealthIcon extends FlxSprite
 			animation.play(char);
 			this.char = char;
 
-			antialiasing = false;
+			antialiasing = true;
 		}
 	}
 
