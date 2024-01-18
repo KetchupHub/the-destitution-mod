@@ -149,6 +149,8 @@ class ChartingState extends MusicBeatState
 
 	var vocals:FlxSound = null;
 
+	var opponentVocals:FlxSound = null;
+
 	var leftIcon:HealthIcon;
 	var rightIcon:HealthIcon;
 
@@ -1258,6 +1260,7 @@ class ChartingState extends MusicBeatState
 					vol = 0;
 
 				vocals.volume = vol;
+				opponentVocals.volume = vol;
 			}
 		};
 
@@ -1346,11 +1349,17 @@ class ChartingState extends MusicBeatState
 			// vocals.stop();
 		}
 
-		var file:Dynamic = Paths.voices(currentSongName);
+		var file:Dynamic = Paths.voices(currentSongName, "Player");
 		vocals = new FlxSound();
 		if (Std.isOfType(file, Sound) || OpenFlAssets.exists(file)) {
 			vocals.loadEmbedded(file);
 			FlxG.sound.list.add(vocals);
+		}
+		var file:Dynamic = Paths.voices(currentSongName, "Opponent");
+		opponentVocals = new FlxSound();
+		if (Std.isOfType(file, Sound) || OpenFlAssets.exists(file)) {
+			opponentVocals.loadEmbedded(file);
+			FlxG.sound.list.add(opponentVocals);
 		}
 		generateSong();
 		FlxG.sound.music.pause();
@@ -1370,12 +1379,15 @@ class ChartingState extends MusicBeatState
 			if(vocals != null) {
 				vocals.pause();
 				vocals.time = 0;
+				opponentVocals.pause();
+				opponentVocals.time = 0;
 			}
 			changeSection();
 			curSec = 0;
 			updateGrid();
 			updateSectionUI();
 			vocals.play();
+			opponentVocals.play();
 		};
 	}
 
@@ -1457,6 +1469,7 @@ class ChartingState extends MusicBeatState
 			else if (wname == 'voices_volume')
 			{
 				vocals.volume = nums.value;
+				opponentVocals.volume = nums.value;
 			}
 		}
 		else if(id == FlxUIInputText.CHANGE_EVENT && (sender is FlxUIInputText)) {
@@ -1670,6 +1683,7 @@ class ChartingState extends MusicBeatState
 				PlayState.SONG = _song;
 				FlxG.sound.music.stop();
 				if(vocals != null) vocals.stop();
+				if(opponentVocals != null) opponentVocals.stop();
 
 				//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
 				StageData.loadDirectory(_song);
@@ -1736,6 +1750,7 @@ class ChartingState extends MusicBeatState
 				{
 					FlxG.sound.music.pause();
 					if(vocals != null) vocals.pause();
+					if(opponentVocals != null) opponentVocals.pause();
 				}
 				else
 				{
@@ -1744,6 +1759,12 @@ class ChartingState extends MusicBeatState
 						vocals.pause();
 						vocals.time = FlxG.sound.music.time;
 						vocals.play();
+					}
+					if(opponentVocals != null) {
+						opponentVocals.play();
+						opponentVocals.pause();
+						opponentVocals.time = FlxG.sound.music.time;
+						opponentVocals.play();
 					}
 					FlxG.sound.music.play();
 				}
@@ -1781,11 +1802,11 @@ class ChartingState extends MusicBeatState
 					vocals.pause();
 					vocals.time = FlxG.sound.music.time;
 				}
+				if(opponentVocals != null) {
+					opponentVocals.pause();
+					opponentVocals.time = FlxG.sound.music.time;
+				}
 			}
-
-			//ARROW VORTEX SHIT NO DEADASS
-
-
 
 			if (FlxG.keys.pressed.W || FlxG.keys.pressed.S)
 			{
@@ -1807,6 +1828,10 @@ class ChartingState extends MusicBeatState
 				if(vocals != null) {
 					vocals.pause();
 					vocals.time = FlxG.sound.music.time;
+				}
+				if(opponentVocals != null) {
+					opponentVocals.pause();
+					opponentVocals.time = FlxG.sound.music.time;
 				}
 			}
 
@@ -1897,6 +1922,10 @@ class ChartingState extends MusicBeatState
 					if(vocals != null) {
 						vocals.pause();
 						vocals.time = FlxG.sound.music.time;
+					}
+					if(opponentVocals != null) {
+						opponentVocals.pause();
+						opponentVocals.time = FlxG.sound.music.time;
 					}
 
 					var dastrum = 0;
@@ -1990,6 +2019,7 @@ class ChartingState extends MusicBeatState
 
 		FlxG.sound.music.pitch = playbackSpeed;
 		vocals.pitch = playbackSpeed;
+		opponentVocals.pitch = playbackSpeed;
 
 		bpmTxt.text =
 		Std.string(FlxMath.roundDecimal(Conductor.songPosition / 1000, 2)) + " / " + Std.string(FlxMath.roundDecimal(FlxG.sound.music.length / 1000, 2)) +
@@ -2062,47 +2092,6 @@ class ChartingState extends MusicBeatState
 		zoomTxt.text = 'Zoom: ' + zoomThing;
 		reloadGridLayer();
 	}
-
-	/*
-	function loadAudioBuffer() {
-		if(audioBuffers[0] != null) {
-			audioBuffers[0].dispose();
-		}
-		audioBuffers[0] = null;
-		#if MODS_ALLOWED
-		if(FileSystem.exists(Paths.modFolders('songs/' + currentSongName + '/Inst.ogg'))) {
-			audioBuffers[0] = AudioBuffer.fromFile(Paths.modFolders('songs/' + currentSongName + '/Inst.ogg'));
-			//trace('Custom vocals found');
-		}
-		else { #end
-			var leVocals:String = Paths.getPath(currentSongName + '/Inst.' + Paths.SOUND_EXT, SOUND, 'songs');
-			if (OpenFlAssets.exists(leVocals)) { //Vanilla inst
-				audioBuffers[0] = AudioBuffer.fromFile('./' + leVocals.substr(6));
-				//trace('Inst found');
-			}
-		#if MODS_ALLOWED
-		}
-		#end
-
-		if(audioBuffers[1] != null) {
-			audioBuffers[1].dispose();
-		}
-		audioBuffers[1] = null;
-		#if MODS_ALLOWED
-		if(FileSystem.exists(Paths.modFolders('songs/' + currentSongName + '/Voices.ogg'))) {
-			audioBuffers[1] = AudioBuffer.fromFile(Paths.modFolders('songs/' + currentSongName + '/Voices.ogg'));
-			//trace('Custom vocals found');
-		} else { #end
-			var leVocals:String = Paths.getPath(currentSongName + '/Voices.' + Paths.SOUND_EXT, SOUND, 'songs');
-			if (OpenFlAssets.exists(leVocals)) { //Vanilla voices
-				audioBuffers[1] = AudioBuffer.fromFile('./' + leVocals.substr(6));
-				//trace('Voices found, LETS FUCKING GOOOO');
-			}
-		#if MODS_ALLOWED
-		}
-		#end
-	}
-	*/
 
 	var lastSecBeats:Float = 0;
 	var lastSecBeatsNext:Float = 0;
@@ -2203,20 +2192,41 @@ class ChartingState extends MusicBeatState
 			}
 		}
 
-		if (FlxG.save.data.chart_waveformVoices) {
-			var sound:FlxSound = vocals;
-			if (sound._sound != null && sound._sound.__buffer != null) {
-				var bytes:Bytes = sound._sound.__buffer.data.toBytes();
-
-				wavData = waveformData(
-					sound._sound.__buffer,
-					bytes,
-					st,
-					et,
-					1,
-					wavData,
-					Std.int(gridBG.height)
-				);
+		if (FlxG.save.data.chart_waveformVoices)
+		{
+			if(!check_mustHitSection.checked)
+			{
+				var sound:FlxSound = opponentVocals;
+				if (sound._sound != null && sound._sound.__buffer != null) {
+					var bytes:Bytes = sound._sound.__buffer.data.toBytes();
+	
+					wavData = waveformData(
+						sound._sound.__buffer,
+						bytes,
+						st,
+						et,
+						1,
+						wavData,
+						Std.int(gridBG.height)
+					);
+				}
+			}
+			else
+			{
+				var sound:FlxSound = vocals;
+				if (sound._sound != null && sound._sound.__buffer != null) {
+					var bytes:Bytes = sound._sound.__buffer.data.toBytes();
+	
+					wavData = waveformData(
+						sound._sound.__buffer,
+						bytes,
+						st,
+						et,
+						1,
+						wavData,
+						Std.int(gridBG.height)
+					);
+				}
 			}
 		}
 
@@ -2424,6 +2434,10 @@ class ChartingState extends MusicBeatState
 			vocals.pause();
 			vocals.time = FlxG.sound.music.time;
 		}
+		if(opponentVocals != null) {
+			opponentVocals.pause();
+			opponentVocals.time = FlxG.sound.music.time;
+		}
 		updateCurStep();
 
 		updateGrid();
@@ -2444,6 +2458,10 @@ class ChartingState extends MusicBeatState
 				if(vocals != null) {
 					vocals.pause();
 					vocals.time = FlxG.sound.music.time;
+				}
+				if(opponentVocals != null) {
+					opponentVocals.pause();
+					opponentVocals.time = FlxG.sound.music.time;
 				}
 				updateCurStep();
 			}

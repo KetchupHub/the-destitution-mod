@@ -194,12 +194,12 @@ class Paths
 		return file;
 	}
 
-	inline static public function voices(song:String):Any
+	inline static public function voices(song:String, whichSide:String = 'Player'):Any
 	{
 		#if html5
-		return 'songs:assets/songs/${formatToSongPath(song)}/Voices.$SOUND_EXT';
+		return 'songs:assets/songs/${formatToSongPath(song)}/Voices-$whichSide.$SOUND_EXT';
 		#else
-		var songKey:String = '${formatToSongPath(song)}/Voices';
+		var songKey:String = '${formatToSongPath(song)}/Voices-$whichSide';
 		var voices = returnSound('songs', songKey);
 		return voices;
 		#end
