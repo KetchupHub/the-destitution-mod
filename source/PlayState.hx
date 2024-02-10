@@ -82,6 +82,8 @@ using StringTools;
 
 class PlayState extends MusicBeatState
 {
+	public var songFont:String = "BAUHS93.ttf";
+
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
@@ -137,6 +139,8 @@ class PlayState extends MusicBeatState
 	public var songSpeed(default, set):Float = 1;
 	public var songSpeedType:String = "multiplicative";
 	public var noteKillOffset:Float = 350;
+
+	public var fgTree:FlxSprite;
 
 	public var playbackRate(default, set):Float = 1;
 
@@ -228,6 +232,8 @@ class PlayState extends MusicBeatState
 	var dialogueJson:DialogueFile = null;
 
 	var heyTimer:Float;
+
+	//var oldMovieShader:OldMovieShaderThing;
 
 	var rulezGuySlideScaleWorldFunnyClips:FlxSprite;
 
@@ -417,6 +423,11 @@ class PlayState extends MusicBeatState
 
 		if (SONG == null)
 			SONG = Song.loadFromJson('tutorial');
+
+		if(SONG.song.toLowerCase() == "phony")
+		{
+			songFont = "segoeui.ttf";
+		}
 
 		Conductor.mapBPMChanges(SONG);
 		Conductor.changeBPM(SONG.bpm);
@@ -736,6 +747,14 @@ class PlayState extends MusicBeatState
 				mirrorBorder.antialiasing = false;
 				mirrorBorder.cameras = [camHUD];
 				add(mirrorBorder);
+			case 'this':				
+				starting = new FlxSprite(0, 0).loadGraphic(Paths.image('this/bgThis'));
+				starting.antialiasing = false;
+				add(starting);
+
+				fgTree = new FlxSprite(0, 0).loadGraphic(Paths.image('this/fgTree'));
+				fgTree.scrollFactor.set(1.3, 1.3);
+				fgTree.antialiasing = false;
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
 				add(bg);
@@ -803,6 +822,11 @@ class PlayState extends MusicBeatState
 			add(supersededIntro);
 		}
 
+		if(fgTree != null)
+		{
+			add(fgTree);
+		}
+
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 		if(gf != null)
 		{
@@ -838,7 +862,7 @@ class PlayState extends MusicBeatState
 
 		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
-		timeTxt.setFormat(Paths.font("BAUHS93.ttf"), 32 + 10, FlxColor.WHITE, CENTER, FlxTextBorderStyle.NONE, FlxColor.WHITE);
+		timeTxt.setFormat(Paths.font(songFont), 32 + 10, FlxColor.WHITE, CENTER, FlxTextBorderStyle.NONE, FlxColor.WHITE);
 		timeTxt.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 1.5, 0);
 		timeTxt.scrollFactor.set();
 		timeTxt.alpha = 0;
@@ -956,13 +980,18 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("BAUHS93.ttf"), 20 + 10, FlxColor.WHITE, CENTER, FlxTextBorderStyle.NONE, FlxColor.WHITE);
+		scoreTxt.setFormat(Paths.font(songFont), 20 + 10, FlxColor.WHITE, CENTER, FlxTextBorderStyle.NONE, FlxColor.WHITE);
 		scoreTxt.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 1.5, 0);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		botplayTxt = new FlxSprite(0, FlxG.height - 256).loadGraphic(Paths.image("ui/botplay"));
+		var botplaySuffix:String = "";
+		if(SONG.song.toLowerCase() == "phony")
+		{
+			botplaySuffix = "_phony";
+		}
+		botplayTxt = new FlxSprite(0, FlxG.height - 256).loadGraphic(Paths.image("ui/botplay" + botplaySuffix));
 		botplayTxt.scrollFactor.set();
 		botplayTxt.visible = cpuControlled;
 		add(botplayTxt);
@@ -980,6 +1009,12 @@ class PlayState extends MusicBeatState
 				gueahs.visible = false;
 			}
 		}
+
+		/*if(SONG.song.toLowerCase() == "phony")
+		{
+			oldMovieShader = new OldMovieShaderThing();
+			camGame.setFilters([new ShaderFilter(oldMovieShader)]);
+		}*/
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
@@ -1749,14 +1784,14 @@ class PlayState extends MusicBeatState
 		if(sectNameText == null)
 		{
 			sectText = new FlxText(0, 0, FlxG.width, "SECTION 2", 96);
-			sectText.setFormat(Paths.font("BAUHS93.ttf"), 96, FlxColor.WHITE, CENTER, FlxTextBorderStyle.SHADOW, FlxColor.BLACK);
+			sectText.setFormat(Paths.font(songFont), 96, FlxColor.WHITE, CENTER, FlxTextBorderStyle.SHADOW, FlxColor.BLACK);
 			sectText.screenCenter();
 			sectText.y -= 400;
 			sectText.alpha = 0;
 			sectText.cameras = [camHUD];
 			add(sectText);
 			sectNameText = new FlxText(0, 0, FlxG.width, displayName.toUpperCase(), 48);
-			sectNameText.setFormat(Paths.font("BAUHS93.ttf"), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.SHADOW, FlxColor.BLACK);
+			sectNameText.setFormat(Paths.font(songFont), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.SHADOW, FlxColor.BLACK);
 			sectNameText.screenCenter();
 			sectNameText.y -= 100;
 			sectNameText.alpha = 0;
@@ -2068,6 +2103,11 @@ class PlayState extends MusicBeatState
 		}
 
 		smoothenedHealth = FlxMath.lerp(smoothenedHealth, health, CoolUtil.boundTo(elapsed * 13, 0, 1));
+
+		/*if(oldMovieShader != null)
+		{
+			oldMovieShader.update(0, elapsed);
+		}*/
 
 		super.update(elapsed);
 
