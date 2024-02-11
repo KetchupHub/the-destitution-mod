@@ -1784,14 +1784,14 @@ class PlayState extends MusicBeatState
 		if(sectNameText == null)
 		{
 			sectText = new FlxText(0, 0, FlxG.width, "SECTION 2", 96);
-			sectText.setFormat(Paths.font(songFont), 96, FlxColor.WHITE, CENTER, FlxTextBorderStyle.SHADOW, FlxColor.BLACK);
+			sectText.setFormat(Paths.font(songFont), 96 * 2, FlxColor.WHITE, CENTER, FlxTextBorderStyle.SHADOW, FlxColor.BLACK);
 			sectText.screenCenter();
 			sectText.y -= 400;
 			sectText.alpha = 0;
 			sectText.cameras = [camHUD];
 			add(sectText);
 			sectNameText = new FlxText(0, 0, FlxG.width, displayName.toUpperCase(), 48);
-			sectNameText.setFormat(Paths.font(songFont), 48, FlxColor.WHITE, CENTER, FlxTextBorderStyle.SHADOW, FlxColor.BLACK);
+			sectNameText.setFormat(Paths.font(songFont), 48 * 2, FlxColor.WHITE, CENTER, FlxTextBorderStyle.SHADOW, FlxColor.BLACK);
 			sectNameText.screenCenter();
 			sectNameText.y -= 100;
 			sectNameText.alpha = 0;
@@ -1802,14 +1802,9 @@ class PlayState extends MusicBeatState
 		sectText.text = "SECTION " + sectionNum;
 		sectNameText.text = displayName.toUpperCase();
 
-		sectText.scale.set(2, 2);
-		sectText.updateHitbox();
 		sectText.screenCenter();
-		sectText.y -= 400;
-		sectNameText.scale.set(2, 2);
-		sectNameText.updateHitbox();
+		sectText.y -= 200;
 		sectNameText.screenCenter();
-		sectNameText.y -= 200;
 		sectNameText.color = FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]);
 
 		FlxTween.tween(sectText, {alpha: 1, y: sectText.y + 200}, 0.75, {ease: FlxEase.backOut});
@@ -2160,7 +2155,7 @@ class PlayState extends MusicBeatState
 			case 1:
 				if(bgPlayer.x < bgPlayerWalkTarget)
 				{
-					bgPlayer.x += 1.5;
+					bgPlayer.x += (3 / 75) * FlxG.updateFramerate;
 				}
 				else
 				{
@@ -2168,7 +2163,7 @@ class PlayState extends MusicBeatState
 					bgPlayer.playAnim("notice", true);
 				}
 			case 4:
-				bgPlayer.x += 1.5;
+				bgPlayer.x += (3 / 75) * FlxG.updateFramerate;
 		}
 
 		if(spaceTime)
@@ -3822,8 +3817,8 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		//thing for that ONE TINY BIT
-		if(SONG.song.toLowerCase() == 'destitution')
+		//destituion *V2* cam shit
+		/*if(SONG.song.toLowerCase() == 'destitution')
 		{
 			switch(curStep)
 			{
@@ -3835,6 +3830,37 @@ class PlayState extends MusicBeatState
 					defaultCamZoom -= 0.05;
 				case 9408 | 9414 | 9420:
 					FlxG.camera.zoom += 0.1;
+			}
+		}*/
+		
+		//destitution v3 CAM STUFF NEW
+		if(SONG.song.toLowerCase() == 'destitution')
+		{
+			switch(curStep)
+			{
+				//lipsync shit literally just copied from d-stitution LMAO
+				case 128:
+					FlxTween.tween(camHUD, {alpha: 0}, Conductor.crochet / 250);
+					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 0.1}, Conductor.crochet / 500, {ease: FlxEase.cubeOut});
+					defaultCamZoom += 0.1;
+					dad.canDance = false;
+					dad.canSing = false;
+					dad.playAnim("lipsync", true);
+				case 248:
+					FlxTween.tween(camHUD, {alpha: 1}, Conductor.crochet / 500);
+					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 0.2}, Conductor.crochet / 500, {ease: FlxEase.cubeInOut});
+					defaultCamZoom += 0.2;
+				case 256:
+					dad.canDance = true;
+					dad.canSing = true;
+					defaultCamZoom -= 0.3;
+					FlxG.camera.flash();
+				case 504:
+					defaultCamZoom += 0.5;
+				case 512:
+					defaultCamZoom -= 0.5;
+					FlxG.camera.flash();
+					
 			}
 		}
 
@@ -4133,15 +4159,11 @@ class PlayState extends MusicBeatState
 		{
 			switch(curBeat)
 			{
-				case 188 | 320:
+				case 288 | 512:
 					bgPlayer.canDance = false;
 					bgPlayerWalkState++;
 					bgPlayer.playAnim("walk", true);
-					if(curBeat == 320)
-					{
-						FlxG.camera.flash();
-					}
-				case 224:
+				case 320:
 					bgPlayerWalkState++;
 					bgPlayer.canDance = true;
 					bgPlayer.dance();
@@ -4149,9 +4171,7 @@ class PlayState extends MusicBeatState
 					dad = new Character(dad.x, dad.y, 'mark-alt', false, false);
 					dadGroup.add(dad);
 					FlxG.camera.flash();
-				case 192 | 352:
-					FlxG.camera.flash();
-				case 368:
+				case 576:
 					defaultCamZoom = 1;
 					remove(ploinkyTransition, true);
 					ploinkyTransition.cameras = [camGame];
@@ -4163,13 +4183,13 @@ class PlayState extends MusicBeatState
 					ploinkyTransition.alpha = 0;
 					FlxTween.tween(ploinkyTransition, {alpha: 1}, Conductor.crochet / 250);
 					FlxTween.tween(camHUD, {alpha: 0}, Conductor.crochet / 250);
-				case 376:
+				case 584:
 					ploinkyTransition.animation.play('2', true);
-				case 384:
+				case 592:
 					ploinkyTransition.animation.play('3', true);
-				case 392:
+				case 600:
 					ploinkyTransition.animation.play('4', true);
-				case 400:
+				case 608:
 					bgPlayer.visible = false;
 					defaultCamZoom = 0.875;
 					FlxTween.tween(camHUD, {alpha: 1}, Conductor.crochet / 250);
@@ -4195,35 +4215,33 @@ class PlayState extends MusicBeatState
 					reloadHealthBarColors();
 
 					sectionIntroThing("This is Ploinky");
-				case 590:
+				case 800:
 					//pull out guitar
 					dad.canDance = false;
 					dad.canSing = false;
 					dad.playAnim('pull', true);
-				case 592:
+				case 804:
 					//guitar time
 					dad.canDance = true;
 					dad.canSing = true;
 					FlxG.camera.flash();
-				case 655:
+				case 930:
 					//guitar go away
 					dad.canDance = false;
 					dad.canSing = false;
 					dad.playAnim('put', true);
-				case 656:
+				case 932:
 					//no more guitar :sob:
 					dad.canDance = true;
 					dad.canSing = true;
 					FlxG.camera.flash();
-				case 702:
-					FlxTween.tween(dad, {alpha: 0}, Conductor.crochet / 500);
-				case 720:
-					shoulderCam = false;
+				case 948:
 					dad.visible = false;
 					itemManFucked = new FlxSprite(1182 + ploinky.x, 586 + ploinky.y).loadGraphic(Paths.image("destitution/sacry"));
 					add(itemManFucked);
 					FlxG.camera.flash();
-				case 728:
+				case 1020:
+					shoulderCam = false;
 					//iteem guy
 					itemManFucked.visible = false;
 					dad.alpha = 1;
@@ -4257,7 +4275,7 @@ class PlayState extends MusicBeatState
 					spaceTimeBfArray[1] = boyfriend.y;
 
 					sectionIntroThing("I LIEK ITEM");
-				case 856 | 936:
+				case 1148 | 1228:
 					FlxG.camera.flash();
 					camZooming = false;
 					camZoomingMult = 1;
@@ -4275,12 +4293,12 @@ class PlayState extends MusicBeatState
 					boyfriend.angle = 0;
 					dad.dance();
 					boyfriend.dance();
-				case 872 | 944:
+				case 1164 | 1236:
 					FlxG.camera.flash();
 					camZooming = true;
 					camZoomingMult = 1.5;
 					camZoomingDecay = 1.5;
-					if(curBeat == 872)
+					if(curBeat == 1164)
 					{
 						spaceItems.visible = true;
 						spaceTime = true;
@@ -4292,28 +4310,27 @@ class PlayState extends MusicBeatState
 						dad.canSing = false;
 						dad.playAnim("floaty space mcgee", true);
 					}
-				case 1000 | 1002 | 1004 | 1006:
+				case 1324 | 1326 | 1328 | 1330:
 					defaultCamZoom += 0.05;
-				case 1008:
+				case 1332:
 					camZoomingMult = 1;
 					camZoomingDecay = 1;
 					//chrm ab should stop pulsing here
 					FlxG.camera.flash();
 					defaultCamZoom -= 0.2;
-				case 1012:
+				case 1340:
 					FlxTween.cancelTweensOf(dad);
 					FlxTween.cancelTweensOf(boyfriend);
 					FlxTween.tween(dad, {alpha: 0}, Conductor.crochet / 500);
 					FlxTween.tween(boyfriend, {alpha: 0}, Conductor.crochet / 500);
-				case 1014:
+				case 1344:
 					centerCamOnBg = true;
 					liek.animation.play("idle", true);
 					cuttingSceneThing.visible = true;
-				case 1016:
+				case 1348:
 					cuttingSceneThing.visible = false;
 					centerCamOnBg = false;
 					//whale
-					defaultCamZoom += 0.1;
 					FlxG.camera.flash();
 
 					boyfriendGroup.remove(boyfriend);
@@ -4339,23 +4356,26 @@ class PlayState extends MusicBeatState
 					reloadHealthBarColors();
 
 					sectionIntroThing("Wiggy Whale");
-				case 1336:
-					defaultCamZoom += 0.1;
+				case 1540:
+					//JUMPY FUN PART
+					whaleFuckShit = true;
+				case 1572:
+					//DONT MISS, PAL
+				case 1604:
+					//ok yoyu can miss again
+					whaleFuckShit = false;
 					FlxG.camera.flash();
-				case 1048 | 1368:
-					defaultCamZoom -= 0.1;
-					FlxG.camera.flash();
-				case 1404:
+				case 1768:
 					FlxTween.cancelTweensOf(dad);
 					FlxTween.cancelTweensOf(boyfriend);
 					FlxTween.tween(dad, {alpha: 0}, Conductor.crochet / 500);
 					FlxTween.tween(boyfriend, {alpha: 0}, Conductor.crochet / 500);
-				case 1412:
+				case 1776:
 					cuttingSceneThing.visible = true;
 					liek.visible = false;
 					annoyed.animation.play("idle", true);
 					centerCamOnBg = true;
-				case 1416:
+				case 1780:
 					cuttingSceneThing.visible = false;
 					centerCamOnBg = false;
 					shoulderCam = true;
@@ -4378,13 +4398,13 @@ class PlayState extends MusicBeatState
 					reloadHealthBarColors();
 
 					sectionIntroThing("Mark Mc. Marketing");
-				case 1664:
+				case 2036:
 					//FlxTween.tween(rulezGuySlideScaleWorldFunnyClips, {x: 465}, Conductor.crochet / 250, {ease: FlxEase.bounceIn});
 					rulezGuySlideScaleWorldFunnyClips.animation.play("intro", true);
-				case 1672:
+				case 2044:
 					//FlxTween.tween(rulezGuySlideScaleWorldFunnyClips, {x: -9135, y: -8360, "scale.x": 50, "scale.y": 50}, (Conductor.crochet / 250) * 2, {ease: FlxEase.circIn});
 					rulezGuySlideScaleWorldFunnyClips.animation.play("zoom", true);
-				case 1688:
+				case 2052:
 					FlxTween.tween(rulezGuySlideScaleWorldFunnyClips, {y: rulezGuySlideScaleWorldFunnyClips.y + 20000}, (Conductor.crochet / 250) * 2, {ease: FlxEase.backOut});
 					shoulderCam = false;
 					//defaultCamZoom -= 0.1;
@@ -4409,16 +4429,16 @@ class PlayState extends MusicBeatState
 					reloadHealthBarColors();
 
 					sectionIntroThing("RULEZ GUY");
-				case 2194:
+				case 2557:
 					FlxTween.cancelTweensOf(dad);
 					FlxTween.cancelTweensOf(boyfriend);
 					FlxTween.tween(dad, {alpha: 0}, Conductor.crochet / 500);
 					FlxTween.tween(boyfriend, {alpha: 0}, Conductor.crochet / 500);
-				case 2196:
+				case 2560:
 					cuttingSceneThing.visible = true;
 					centerCamOnBg = true;
 					office.animation.play("idle", true);
-				case 2200:
+				case 2564:
 					cuttingSceneThing.visible = false;
 
 					defaultCamZoom = 0.875 - 0.25;
@@ -4453,10 +4473,10 @@ class PlayState extends MusicBeatState
 					add(boyfriendGroup);
 
 					sectionIntroThing("Misteh Crypteh");
-				case 2552:
+				case 2968:
 					dad.canDance = false;
 					dad.playAnim("scared", true);
-				case 2560:
+				case 2972:
 					funBackCamFadeShit = true;
 					centerCamOnBg = false;
 					defaultCamZoom += 0.15;
@@ -4484,11 +4504,11 @@ class PlayState extends MusicBeatState
 					reloadHealthBarColors();
 
 					sectionIntroThing("Guy with a Zamboni");
-				case 2975:
+				case 3499:
 					//cam flip here
 					zamMarkCamFlipShit.visible = true;
 					zamMarkCamFlipShit.animation.play("idle", true);
-				case 2976:
+				case 3500:
 					zamMarkCamFlipShit.visible = false;
 					defaultCamZoom -= 0.05;
 					FlxG.camera.flash();
@@ -4585,8 +4605,9 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		//another thing, this time for camera shits
-		if(SONG.song.toLowerCase() == 'destitution')
+
+		//DESTITUTION *V2* CAM SHIT
+		/*if(SONG.song.toLowerCase() == 'destitution')
 		{
 			switch(curBeat)
 			{
@@ -4619,8 +4640,8 @@ class PlayState extends MusicBeatState
 					FlxG.camera.zoom += 0.05;
 				case 192:
 					defaultCamZoom += 0.1;
-				/*case 196 | 197 | 198:
-					FlxG.camera.zoom += 0.075;*/
+				//case 196 | 197 | 198:
+				//	FlxG.camera.zoom += 0.075;
 				case 223:
 					defaultCamZoom -= 0.2;
 				case 224:
@@ -4704,7 +4725,7 @@ class PlayState extends MusicBeatState
 				case 2195:
 					defaultCamZoom -= 0.05;
 			}
-		}
+		}*/
 
 
 		lastBeatHit = curBeat;
