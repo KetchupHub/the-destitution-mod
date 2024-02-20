@@ -1803,9 +1803,10 @@ class PlayState extends MusicBeatState
 		sectNameText.text = displayName.toUpperCase();
 
 		sectText.screenCenter();
-		sectText.y -= 200;
+		sectText.y -= 350;
 		sectNameText.screenCenter();
 		sectNameText.color = FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]);
+		sectNameText.y -= 150;
 
 		FlxTween.tween(sectText, {alpha: 1, y: sectText.y + 200}, 0.75, {ease: FlxEase.backOut});
 		FlxTween.tween(sectNameText, {alpha: 1, y: sectNameText.y + 200}, 0.75, {ease: FlxEase.backOut});
@@ -4160,16 +4161,33 @@ class PlayState extends MusicBeatState
 			switch(curBeat)
 			{
 				case 288 | 512:
+					if(curBeat == 288)
+					{
+						dadGroup.remove(dad);
+						dad = new Character(dad.x, dad.y, 'mark-alt', false, false);
+						dadGroup.add(dad);
+
+						FlxTween.tween(camHUD, {alpha: 0}, Conductor.crochet / 250);
+						FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 0.1}, Conductor.crochet / 500, {ease: FlxEase.cubeOut});
+						defaultCamZoom += 0.1;
+						dad.canDance = false;
+						dad.canSing = false;
+						dad.playAnim("lipsync", true);
+					}
 					bgPlayer.canDance = false;
 					bgPlayerWalkState++;
 					bgPlayer.playAnim("walk", true);
+				case 318:
+					FlxTween.tween(camHUD, {alpha: 1}, Conductor.crochet / 500);
+					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 0.2}, Conductor.crochet / 500, {ease: FlxEase.cubeInOut});
+					defaultCamZoom += 0.2;
 				case 320:
+					defaultCamZoom -= 0.3;
+					dad.canDance = true;
+					dad.canSing = true;
 					bgPlayerWalkState++;
 					bgPlayer.canDance = true;
 					bgPlayer.dance();
-					dadGroup.remove(dad);
-					dad = new Character(dad.x, dad.y, 'mark-alt', false, false);
-					dadGroup.add(dad);
 					FlxG.camera.flash();
 				case 576:
 					defaultCamZoom = 1;
