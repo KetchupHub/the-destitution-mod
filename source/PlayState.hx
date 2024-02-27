@@ -458,18 +458,8 @@ class PlayState extends MusicBeatState
 					curStage = 'dsides';
 				case 'phony':
 					curStage = 'this';
-				case 'isoceles':
+				case 'isosceles':
 					curStage = 'argulow';
-				case 'hallbound':
-					curStage = 'hallbound';
-				case 'specimen':
-					curStage = 'specimen';
-				case 'fluctuate':
-					curStage = 'fluctuate';
-				case 'conversion':
-					curStage = 'conversion';
-				case 'the-z-project':
-					curStage = 'z';
 				default:
 					curStage = 'stage';
 			}
@@ -736,17 +726,6 @@ class PlayState extends MusicBeatState
 				spaceWiggle.waveAmplitude = 0.25;
 				spaceWiggle.waveFrequency = 8;
 				spaceWiggle.waveSpeed = 2;
-			case 'fluctuate':
-				camZooming = false;
-				
-				starting = new FlxSprite(-680, -320).loadGraphic(Paths.image('extra/reflectionbg'));
-				starting.antialiasing = false;
-				add(starting);
-
-				var mirrorBorder = new FlxSprite(0, 0).loadGraphic(Paths.image('extra/mirror'));
-				mirrorBorder.antialiasing = false;
-				mirrorBorder.cameras = [camHUD];
-				add(mirrorBorder);
 			case 'this':				
 				starting = new FlxSprite(0, 0).loadGraphic(Paths.image('this/bgThis'));
 				starting.antialiasing = false;
@@ -850,11 +829,6 @@ class PlayState extends MusicBeatState
 
 		var storageLol:Bool = false;
 		storageLol = ClientPrefs.middleScroll;
-
-		if(SONG.song.toLowerCase() == 'fluctuate')
-		{
-			ClientPrefs.middleScroll = true;
-		}
 
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
@@ -995,26 +969,6 @@ class PlayState extends MusicBeatState
 		botplayTxt.scrollFactor.set();
 		botplayTxt.visible = cpuControlled;
 		add(botplayTxt);
-
-		if(SONG.song.toLowerCase() == 'fluctuate')
-		{
-			opponentStrums.visible = false;
-			if(!ClientPrefs.downScroll)
-			{
-				scoreTxt.y -= 20;
-			}
-			for(gueahs in [healthBarBG, healthBar, iconP1, iconP2])
-			{
-				gueahs.alpha = 0;
-				gueahs.visible = false;
-			}
-		}
-
-		/*if(SONG.song.toLowerCase() == "phony")
-		{
-			oldMovieShader = new OldMovieShaderThing();
-			camGame.setFilters([new ShaderFilter(oldMovieShader)]);
-		}*/
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
@@ -1903,11 +1857,6 @@ class PlayState extends MusicBeatState
 					{
 						babyArrow.x += FlxG.width / 2 + 25;
 					}
-				}
-
-				if(SONG.song.toLowerCase() == 'fluctuate')
-				{
-					babyArrow.visible = false;
 				}
 				opponentStrums.add(babyArrow);
 			}

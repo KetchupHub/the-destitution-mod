@@ -105,7 +105,12 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...songs.length)
 		{
-			var songText:FreeplaySongObject = new FreeplaySongObject(ffff[i][0], ffff[i][1], songs[i].songName);
+			var fuckignStupidTemp:String = songs[i].songName;
+			if(fuckignStupidTemp.toLowerCase() == 'isosceles')
+			{
+				fuckignStupidTemp = 'isoceles';
+			}
+			var songText:FreeplaySongObject = new FreeplaySongObject(ffff[i][0], ffff[i][1], fuckignStupidTemp);
 			grpSongs.add(songText);
 		}
 
