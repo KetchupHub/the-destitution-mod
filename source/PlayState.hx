@@ -88,19 +88,17 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
 	public static var ratingStuff:Array<Dynamic> = [
-		['You Suck!', 0.2], //From 0% to 19%
-		['Shit', 0.4], //From 20% to 39%
-		['Bad', 0.5], //From 40% to 49%
-		['Bruh', 0.6], //From 50% to 59%
-		['Meh', 0.69], //From 60% to 68%
-		['Nice', 0.7], //69%
-		['Good', 0.8], //From 70% to 79%
-		['Great', 0.9], //From 80% to 89%
-		['Sick!', 1], //From 90% to 99%
-		['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
+		['Blegh!', 0.2], //From 0% to 19%
+		['Bleck!', 0.4], //From 20% to 39%
+		['Bad!', 0.5], //From 40% to 49%
+		['Egh.', 0.6], //From 50% to 59%
+		['Meh.', 0.7], //From 60% to 69%
+		['Good!', 0.8], //From 70% to 79%
+		['Great!', 0.9], //From 80% to 89%
+		['Incredible!', 0.99], //From 90% to 98%
+		['Synergy!', 1] //The value on this one isn't used actually, since Perfect is always "1"
 	];
 
-	//event variables
 	private var isCameraOnForcedPos:Bool = false;
 
 	public var sectText:FlxText;
@@ -139,8 +137,6 @@ class PlayState extends MusicBeatState
 	public var songSpeed(default, set):Float = 1;
 	public var songSpeedType:String = "multiplicative";
 	public var noteKillOffset:Float = 350;
-
-	public var fgTree:FlxSprite;
 
 	public var playbackRate(default, set):Float = 1;
 
@@ -327,8 +323,6 @@ class PlayState extends MusicBeatState
 
 	var supersededIntro:FlxSprite;
 
-	var graphLand:FlxSprite;
-
 	var backing:FlxSprite;
 	var sky:FlxSprite;
 
@@ -342,7 +336,6 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
-		//trace('Playback Rate: ' + playbackRate);
 		Paths.clearStoredMemory();
 
 		instance = this;
@@ -424,11 +417,6 @@ class PlayState extends MusicBeatState
 		if (SONG == null)
 			SONG = Song.loadFromJson('tutorial');
 
-		if(SONG.song.toLowerCase() == "phony")
-		{
-			songFont = "segoeui.ttf";
-		}
-
 		Conductor.mapBPMChanges(SONG);
 		Conductor.changeBPM(SONG.bpm);
 
@@ -456,8 +444,6 @@ class PlayState extends MusicBeatState
 					curStage = 'superseded';
 				case 'd-stitution':
 					curStage = 'dsides';
-				case 'phony':
-					curStage = 'this';
 				case 'isosceles':
 					curStage = 'argulow';
 				default:
@@ -698,17 +684,9 @@ class PlayState extends MusicBeatState
 				add(cuttingSceneThing);
 				cuttingSceneThing.visible = false;
 			case 'superseded':
-				addCharacterToList("superseded-mark-graph", 1);
-				addCharacterToList("superseded-creature", 1);
-
 				skipCountdown = true;
 				tweeningCam = true;
 				camHUD.zoom = 15;
-				
-				graphLand = new FlxSprite(0, 0).loadGraphic(Paths.image('superseded/graph_game'));
-				graphLand.antialiasing = false;
-				graphLand.scrollFactor.set();
-				add(graphLand);
 
 				starting = new FlxSprite(0, 0).loadGraphic(Paths.image('superseded/bg'));
 				starting.antialiasing = false;
@@ -726,14 +704,6 @@ class PlayState extends MusicBeatState
 				spaceWiggle.waveAmplitude = 0.25;
 				spaceWiggle.waveFrequency = 8;
 				spaceWiggle.waveSpeed = 2;
-			case 'this':				
-				starting = new FlxSprite(0, 0).loadGraphic(Paths.image('this/bgThis'));
-				starting.antialiasing = false;
-				add(starting);
-
-				fgTree = new FlxSprite(0, 0).loadGraphic(Paths.image('this/fgTree'));
-				fgTree.scrollFactor.set(1.3, 1.3);
-				fgTree.antialiasing = false;
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
 				add(bg);
@@ -799,11 +769,6 @@ class PlayState extends MusicBeatState
 		if(supersededIntro != null)
 		{
 			add(supersededIntro);
-		}
-
-		if(fgTree != null)
-		{
-			add(fgTree);
 		}
 
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
@@ -961,10 +926,6 @@ class PlayState extends MusicBeatState
 		add(scoreTxt);
 
 		var botplaySuffix:String = "";
-		if(SONG.song.toLowerCase() == "phony")
-		{
-			botplaySuffix = "_phony";
-		}
 		botplayTxt = new FlxSprite(0, FlxG.height - 256).loadGraphic(Paths.image("ui/botplay" + botplaySuffix));
 		botplayTxt.scrollFactor.set();
 		botplayTxt.visible = cpuControlled;
@@ -3995,114 +3956,6 @@ class PlayState extends MusicBeatState
 		if(curBeat % 2 == 0 && bgPlayer != null)
 		{
 			bgPlayer.dance();
-		}
-
-		if(SONG.song.toLowerCase() == 'superseded')
-		{
-			switch(curBeat)
-			{
-				case 24:
-					boyfriend.visible = false;
-					supersededIntro.animation.play("open", true);
-					//open time machine
-				case 28:
-					tweeningCam = true;
-					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 20}, (Conductor.crochet / 250), {ease: FlxEase.quartIn});
-					FlxTween.tween(supersededIntro, {y: -180}, (Conductor.crochet / 250), {ease: FlxEase.quartIn});
-					defaultCamZoom += 20;
-				case 32:
-					FlxTween.tween(FlxG.camera, {zoom: 1.175}, (Conductor.crochet / 500), {ease: FlxEase.quadOut});
-					FlxTween.tween(camHUD, {zoom: 1}, (Conductor.crochet / 500), {ease: FlxEase.quadOut});
-					//we're in the real song now. hide all the funny buisiness
-					supersededIntro.visible = false;
-					defaultCamZoom = 1.175;
-				case 34:
-					tweeningCam = false;
-				case 64:
-					defaultCamZoom += 0.05;
-				case 92:
-					defaultCamZoom -= 0.15;
-				case 96:
-					FlxG.camera.flash();
-					defaultCamZoom += 0.1;
-				case 287:
-					defaultCamZoom = 1;
-					FlxG.camera.flash();
-					dad.canDance = false;
-					dad.canSing = false;
-					dad.playAnim("talk", true);
-				case 296:
-					centerCamOnBg = true;
-					starting.visible = false;
-					//graphing mcgee
-					FlxG.camera.flash();
-					dad.canSing = true;
-					dad.canDance = true;
-					dadGroup.remove(dad);
-					dad = new Character(graphLand.x - dadGroup.x, (720 - 256) - dadGroup.y, 'superseded-mark-graph', false);
-					dadGroup.add(dad);
-					dadGroup.scrollFactor.set();
-					boyfriendGroup.scrollFactor.set();
-					boyfriend.visible = true;
-				case 328 | 360:
-					FlxG.camera.flash();
-				case 550:
-					defaultCamZoom += 0.5;
-				case 552:
-					dadGroup.scrollFactor.set(1, 1);
-					boyfriendGroup.scrollFactor.set(1, 1);
-					centerCamOnBg = false;
-					starting.visible = true;
-					FlxG.camera.flash();
-					defaultCamZoom = 1.175;
-					dadGroup.remove(dad);
-					dad = new Character(0, 0, 'superseded-mark', false, false);
-					dadGroup.add(dad);
-					boyfriend.visible = false;
-				case 608 | 836:
-					var theUhm:String = "_bad";
-					if(curBeat >= 830)
-					{
-						theUhm = "_end";
-					}
-					supersededIntro.loadGraphic(Paths.image("superseded/superseded_time" + theUhm));
-					tweeningCam = true;
-					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 20}, (Conductor.crochet / 250), {ease: FlxEase.quartIn});
-					FlxTween.tween(supersededIntro, {y: -180}, (Conductor.crochet / 250), {ease: FlxEase.quartIn});
-					defaultCamZoom += 20;
-				case 612 | 840:
-					supersededIntro.visible = true;
-					FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.crochet / 500), {ease: FlxEase.quadOut});
-					FlxTween.tween(supersededIntro, {y: 0}, (Conductor.crochet / 500), {ease: FlxEase.backIn});
-					if(curBeat >= 835)
-					{
-						FlxTween.tween(dad, {alpha: 0}, 5);
-						FlxTween.tween(starting, {alpha: 0}, 5);
-						graphLand.visible = false;
-					}
-					defaultCamZoom = 1;
-				case 614 | 842:
-					tweeningCam = false;
-				case 644:
-					tweeningCam = true;
-					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom + 20}, (Conductor.crochet / 250), {ease: FlxEase.quartIn});
-					FlxTween.tween(supersededIntro, {y: -180}, (Conductor.crochet / 250), {ease: FlxEase.quartIn});
-					defaultCamZoom += 20;
-				case 648:
-					starting.loadGraphic(Paths.image("superseded/bg_glitched"));
-					starting.shader = spaceWiggle.shader;
-					FlxG.camera.flash();
-					supersededIntro.visible = false;
-					FlxTween.tween(FlxG.camera, {zoom: 1.175}, (Conductor.crochet / 500), {ease: FlxEase.quadOut});
-					defaultCamZoom = 1.175;
-					dadGroup.remove(dad);
-					dad = new Character(dad.x + 150, dad.y + 30, 'superseded-creature', false, false);
-					dadGroup.add(dad);
-				case 650:
-					tweeningCam = false;
-				case 872:
-					FlxTween.tween(camHUD, {alpha: 0}, 5);
-			}
 		}
 
 		if(SONG.song.toLowerCase() == 'destitution')

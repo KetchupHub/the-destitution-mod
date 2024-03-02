@@ -30,7 +30,8 @@
 	<classpath name="source" />
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
-	<define name="VIDEOS_ALLOWED" if="windows"/>
+	<!-- turn it back on whenever video shit is done idk man-->
+	<!-- define name="VIDEOS_ALLOWED" if="windows" /-->
 	<define name="CRASH_HANDLER" if="desktop release" />
 
 	<!-- <define name="PRELOAD_ALL" /> -->
