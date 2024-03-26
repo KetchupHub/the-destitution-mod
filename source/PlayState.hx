@@ -4416,6 +4416,26 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		if(SONG.song.toLowerCase() == "superseded")
+		{
+			switch(curBeat)
+			{
+				case 28:
+					supersededIntro.animation.play("open", true);
+				case 29:
+					defaultCamZoom += 15;
+					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, Conductor.crochet / 500, {ease: FlxEase.quadInOut});
+					FlxTween.tween(supersededIntro, {y: supersededIntro.y - 75}, Conductor.crochet / 500, {ease: FlxEase.quadInOut});
+				case 31:
+					supersededIntro.y += 75;
+					supersededIntro.visible = false;
+					defaultCamZoom -= 15.1;
+					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, Conductor.crochet / 1000, {ease: FlxEase.circOut});
+				case 32:
+					tweeningCam = false;
+			}
+		}
+
 		if(curBeat % 8 == 0)
 		{
 			if(strikeyStrikes)

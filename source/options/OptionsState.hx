@@ -59,6 +59,9 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 
+		FlxG.sound.music.stop();
+		FlxG.sound.playMusic(Paths.music('optionsMenu'), 0.8);
+
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.updateHitbox();
@@ -94,7 +97,14 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
+		if (FlxG.sound.music.volume < 0.8)
+		{
+			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
+		}
+
 		super.update(elapsed);
 
 		if (controls.UI_UP_P) {
@@ -104,7 +114,10 @@ class OptionsState extends MusicBeatState
 			changeSelection(1);
 		}
 
-		if (controls.BACK) {
+		if (controls.BACK)
+		{
+			FlxG.sound.music.stop();
+			FlxG.sound.music = null;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
 		}

@@ -53,6 +53,11 @@ class FreeplayState extends MusicBeatState
 	{
 		//Paths.clearStoredMemory();
 		//Paths.clearUnusedMemory();
+
+		if(FlxG.sound.music == null)
+		{
+			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+		}
 		
 		persistentUpdate = true;
 		PlayState.isStoryMode = false;

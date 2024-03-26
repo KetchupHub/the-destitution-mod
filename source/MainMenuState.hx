@@ -55,6 +55,11 @@ class MainMenuState extends MusicBeatState
 		#end
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
+		if(FlxG.sound.music == null)
+		{
+			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+		}
+
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
