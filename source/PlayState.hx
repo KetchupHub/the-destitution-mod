@@ -56,7 +56,6 @@ import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
 import flixel.util.FlxSave;
 import flixel.animation.FlxAnimationController;
-import animateatlas.AtlasFrameMaker;
 import Achievements;
 import StageData;
 import DialogueBoxPsych;
@@ -446,6 +445,8 @@ class PlayState extends MusicBeatState
 					curStage = 'dsides';
 				case 'isosceles':
 					curStage = 'argulow';
+				case 'three-of-them':
+					curStage = 'april';
 				default:
 					curStage = 'stage';
 			}
@@ -501,6 +502,12 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
+			case 'april':
+				var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('april/bg'));
+				bg.scale.set(1.2, 1.2);
+				bg.updateHitbox();
+				bg.screenCenter();
+				add(bg);
 			case 'dsides':
 				addCharacterToList("pinkerton", 1);
 
@@ -4356,6 +4363,34 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		if(SONG.song.toLowerCase() == 'three-of-them')
+		{
+			switch(curBeat)
+			{
+				case 80:
+					//retro cynda beats
+					epicCyndaBeats(false);
+					FlxG.camera.flash();
+				case 144:
+					//no more retro cynda beats
+					epicCyndaBeats(true);
+					dad.canDance = false;
+					dad.canSing = false;
+					dad.playAnim('talk', true);
+					FlxG.camera.flash();
+				case 184:
+					FlxG.camera.flash();
+					dad.canDance = true;
+					dad.canSing = true;
+				case 320:
+					//nyans
+					var newFlxSpriteForAges:FlxSprite = new FlxSprite().loadGraphic(Paths.image('april/naysn'));
+					newFlxSpriteForAges.scrollFactor.set(0, 0);
+					newFlxSpriteForAges.cameras = [camHUD];
+					add(newFlxSpriteForAges);
+			}
+		}
+
 		//doing character stuff on beathits
 		if(SONG.song.toLowerCase() == 'd-stitution')
 		{
@@ -4444,7 +4479,6 @@ class PlayState extends MusicBeatState
 				FlxTween.tween(lightningStrikes, {alpha: 0}, Conductor.crochet / 150,  {ease: FlxEase.cubeOut});
 			}
 		}
-
 
 		//DESTITUTION *V2* CAM SHIT
 		/*if(SONG.song.toLowerCase() == 'destitution')
@@ -4597,6 +4631,20 @@ class PlayState extends MusicBeatState
 				Conductor.changeBPM(SONG.notes[curSection].bpm);
 			}
 		}
+	}
+
+	var cyndaBeatsWaterMark:FlxSprite;
+
+	function epicCyndaBeats(lol:Bool)
+	{
+		if(cyndaBeatsWaterMark == null)
+		{
+			cyndaBeatsWaterMark = new FlxSprite(1800, 170).loadGraphic(Paths.image("april/epicbeats"));
+			cyndaBeatsWaterMark.cameras = [camHUD];
+			add(cyndaBeatsWaterMark);
+		}
+
+		FlxTween.tween(cyndaBeatsWaterMark, {x: lol ? 1800 : 900}, Conductor.crochet / 250, {ease: FlxEase.backInOut});
 	}
 
 	function StrumPlayAnim(isDad:Bool, id:Int, time:Float)

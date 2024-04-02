@@ -60,10 +60,10 @@
 				16,
 				0
 			],
-			"indices": [],
+			"loop": true,
 			"fps": 24,
 			"anim": "singLEFTmiss",
-			"loop": true,
+			"indices": [],
 			"name": "miss"
 		},
 		{
@@ -71,10 +71,10 @@
 				16,
 				0
 			],
-			"indices": [],
+			"loop": true,
 			"fps": 24,
 			"anim": "singDOWNmiss",
-			"loop": true,
+			"indices": [],
 			"name": "miss"
 		},
 		{
@@ -82,10 +82,10 @@
 				16,
 				0
 			],
-			"indices": [],
+			"loop": true,
 			"fps": 24,
 			"anim": "singUPmiss",
-			"loop": true,
+			"indices": [],
 			"name": "miss"
 		},
 		{
@@ -93,18 +93,18 @@
 				16,
 				0
 			],
-			"indices": [],
+			"loop": true,
 			"fps": 24,
 			"anim": "singRIGHTmiss",
-			"loop": true,
+			"indices": [],
 			"name": "miss"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/nopeboy_2d",
 	"position": [
-		0,
-		0
+		50,
+		270
 	],
 	"healthicon": "bf",
 	"flip_x": true,
@@ -114,7 +114,7 @@
 		163
 	],
 	"camera_position": [
-		20,
+		170,
 		20
 	],
 	"sing_duration": 15,

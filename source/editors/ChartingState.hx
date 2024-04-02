@@ -213,10 +213,10 @@ class ChartingState extends MusicBeatState
 			CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
 
 			_song = {
-				song: 'Test',
+				song: 'Destitution', //crash fix
 				notes: [],
 				events: [],
-				bpm: 150.0,
+				bpm: 180.0,
 				needsVoices: true,
 				arrowSkin: '',
 				splashSkin: 'noteSplashes',//idk it would crash if i didn't
