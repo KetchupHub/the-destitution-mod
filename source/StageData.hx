@@ -1,13 +1,21 @@
 package;
 
+#if MODS_ALLOWED
+import sys.io.File;
+import sys.FileSystem;
+#else
 import openfl.utils.Assets;
+#end
 import haxe.Json;
+import haxe.format.JsonParser;
 import Song;
+
+using StringTools;
 
 typedef StageFile = {
 	var directory:String;
 	var defaultZoom:Float;
-	var stageUI:String;
+	var isPixelStage:Bool;
 
 	var boyfriend:Array<Dynamic>;
 	var girlfriend:Array<Dynamic>;
@@ -21,43 +29,14 @@ typedef StageFile = {
 }
 
 class StageData {
-	public static function dummy():StageFile
-	{
-		return {
-			directory: "",
-			defaultZoom: 1,
-			stageUI: "normal",
-
-			boyfriend: [770, 100],
-			girlfriend: [400, 130],
-			opponent: [100, 100],
-			hide_girlfriend: false,
-
-			camera_boyfriend: [0, 0],
-			camera_opponent: [0, 0],
-			camera_girlfriend: [0, 0],
-			camera_speed: 1
-		};
-	}
-
 	public static var forceNextDirectory:String = null;
 	public static function loadDirectory(SONG:SwagSong) {
 		var stage:String = '';
-		if(SONG.stage != null && SONG.stage != 'stage') {
+		if(SONG.stage != null) {
 			stage = SONG.stage;
 		} else if(SONG.song != null) {
-			switch (SONG.song.toLowerCase())
+			switch (SONG.song.toLowerCase().replace(' ', '-'))
 			{
-				case 'destitution':
-					stage = 'mark';
-				case 'superseded':
-					stage = 'superseded';
-				case 'd-stitution':
-					stage = 'dsides';
-				case 'isosceles':
-					stage = 'argulow';
-				case 'three-of-them':
-					stage = 'april';
 				default:
 					stage = 'stage';
 			}
@@ -77,34 +56,22 @@ class StageData {
 		var rawJson:String = null;
 		var path:String = Paths.getPreloadPath('stages/' + stage + '.json');
 
+		#if MODS_ALLOWED
+		var modPath:String = Paths.modFolders('stages/' + stage + '.json');
+		if(FileSystem.exists(modPath)) {
+			rawJson = File.getContent(modPath);
+		} else if(FileSystem.exists(path)) {
+			rawJson = File.getContent(path);
+		}
+		#else
 		if(Assets.exists(path)) {
 			rawJson = Assets.getText(path);
 		}
+		#end
 		else
 		{
 			return null;
 		}
-
-		return cast tjson.TJSON.parse(rawJson);
-	}
-
-	public static function vanillaSongStage(songName):String
-	{
-		switch (songName)
-		{
-			case 'destitution':
-				return 'mark';
-			case 'superseded':
-				return 'superseded';
-			case 'd-stitution':
-				return 'dsides';
-			case 'isosceles':
-				return 'argulow';
-			case 'three-of-them':
-				return 'april';
-			default:
-				return 'stage';
-		}
-		return 'stage';
+		return cast Json.parse(rawJson);
 	}
 }

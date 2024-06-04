@@ -194,6 +194,7 @@ class PauseSubState extends MusicBeatSubstate
 					close();
 				case 'Toggle Practice Mode':
 					PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
+					PlayState.changedDifficulty = true;
 					practiceText.visible = PlayState.instance.practiceMode;
 				case "Restart Song":
 					Application.current.window.title = CoolUtil.appTitleString + " - Playing " + PlayState.SONG.song;
@@ -222,6 +223,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.finishSong(true);
 				case 'Toggle Botplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
+					PlayState.changedDifficulty = true;
 					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
 					PlayState.instance.botplayTxt.alpha = 1;
 				case "Exit to menu":
@@ -229,10 +231,15 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 
-					//WeekData.loadTheFirstEnabledMod();
-					MusicBeatState.switchState(new MainMenuState());
+					WeekData.loadTheFirstEnabledMod();
+					if(PlayState.isStoryMode) {
+						MusicBeatState.switchState(new StoryMenuState());
+					} else {
+						MusicBeatState.switchState(new FreeplayState());
+					}
 					PlayState.cancelMusicFadeTween();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					PlayState.changedDifficulty = false;
 					PlayState.chartingMode = false;
 			}
 		}

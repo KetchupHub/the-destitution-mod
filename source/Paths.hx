@@ -1,4 +1,3 @@
-#if !macro
 package;
 
 import flixel.math.FlxPoint;
@@ -318,4 +317,3 @@ class Paths
 		return currentTrackedSounds.get(gottenPath);
 	}
 }
-#end

@@ -35,7 +35,7 @@ class CoolUtil
 	
 	public static function getDifficultyFilePath(num:Null<Int> = null)
 	{
-		if(num == null) num = 0;
+		if(num == null) num = PlayState.storyDifficulty;
 
 		var fileSuffix:String = '';
 		
@@ -44,7 +44,7 @@ class CoolUtil
 
 	public static function difficultyString():String
 	{
-		return difficulties[0].toUpperCase();
+		return difficulties[PlayState.storyDifficulty].toUpperCase();
 	}
 
 	inline public static function boundTo(value:Float, min:Float, max:Float):Float {

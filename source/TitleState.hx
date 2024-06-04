@@ -1,15 +1,31 @@
 package;
 
 import lime.app.Application;
+#if desktop
+import sys.thread.Thread;
+#end
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxState;
 import flixel.input.keyboard.FlxKey;
+import flixel.addons.display.FlxGridOverlay;
+import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.transition.TransitionData;
 import haxe.Json;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
+import options.GraphicsSettingsSubState;
+import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFrame;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
+import flixel.math.FlxRect;
+import flixel.sound.FlxSound;
+import flixel.system.ui.FlxSoundTray;
+import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
@@ -65,7 +81,7 @@ class TitleState extends MusicBeatState
 		Paths.clearUnusedMemory();
 
 		// Just to load a mod on start up if ya got one. For mods that change the menu music and bg
-		//WeekData.loadTheFirstEnabledMod();
+		WeekData.loadTheFirstEnabledMod();
 
 		FlxG.game.focusLostFramerate = 60;
 		FlxG.sound.muteKeys = muteKeys;
@@ -105,7 +121,7 @@ class TitleState extends MusicBeatState
 
 		if (FlxG.save.data.weekCompleted != null)
 		{
-			//StoryMenuState.weekCompleted = FlxG.save.data.weekCompleted;
+			StoryMenuState.weekCompleted = FlxG.save.data.weekCompleted;
 		}
 
 		FlxG.mouse.visible = false;

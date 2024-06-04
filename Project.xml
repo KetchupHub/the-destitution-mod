@@ -43,11 +43,11 @@
 	<!-- this is probably an insanely stupid decision that will cause SO much delay on start up, but its better than shit just taking forever when its called ingame (which is higher stakes) so -->
 	<library name="songs"         preload="true" />
 	<library name="shared"        preload="true" />
+	<assets path="assets/preload" 			rename="assets" 		preload="true" />
 	
 	<assets path="assets/videos"        library="videos"        if="VIDEOS_ALLOWED"/>
 	<assets path="assets/songs"         library="songs"/>
-	<assets path="assets/shared" rename="assets/"/>
-	<!--assets path="assets/shared"        library="shared"/-->
+	<assets path="assets/shared"        library="shared"/>
 	
 	<assets path="assets/fonts" />
 
@@ -61,13 +61,11 @@
 	<haxelib name="hscript" />
 	<define name="hscriptPos" />
 
-	<haxelib name="tjson" />
-
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
 	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/>
-	<haxelib name="hxdiscord_rpc" if="desktop"/>
+	<haxelib name="discord_rpc" if="desktop"/>
 
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server"/>
