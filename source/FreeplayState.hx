@@ -106,7 +106,7 @@ class FreeplayState extends MusicBeatState
 		grpSongs = new FlxTypedGroup<FreeplaySongObject>();
 		add(grpSongs);
 
-		var ffff:Array<Array<Int>> = [[174, 100], [973, 450], [174, 900], [973, 1250], [575, 1825]];
+		var ffff:Array<Array<Int>> = [[174, 100], [973, 450], [174, 900], [973, 1250], [575, 1825], [174, 100], [973, 450], [174, 900], [973, 1250], [575, 1825]];
 
 		for (i in 0...songs.length)
 		{

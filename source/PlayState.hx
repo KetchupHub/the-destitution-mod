@@ -333,6 +333,8 @@ class PlayState extends MusicBeatState
 
 	var karmScaredy:FlxSprite;
 
+	var stockboy:FlxSprite;
+
 	override public function create()
 	{
 		Paths.clearStoredMemory();
@@ -443,8 +445,6 @@ class PlayState extends MusicBeatState
 					curStage = 'superseded';
 				case 'd-stitution':
 					curStage = 'dsides';
-				case 'isosceles':
-					curStage = 'argulow';
 				case 'three-of-them':
 					curStage = 'april';
 				default:
@@ -711,6 +711,52 @@ class PlayState extends MusicBeatState
 				spaceWiggle.waveAmplitude = 0.25;
 				spaceWiggle.waveFrequency = 8;
 				spaceWiggle.waveSpeed = 2;
+			case 'bucks':
+				var skyish = new FlxSprite(-458, -413);
+				skyish.loadGraphic(Paths.image('bucks/skybox'));
+				skyish.antialiasing = true;
+				skyish.scrollFactor.set();
+				add(skyish);
+
+				var tvs = new FlxSprite(-463, -539);
+				tvs.frames = Paths.getSparrowAtlas('bucks/tvs');
+				tvs.animation.addByPrefix('idle', 'many tvs flashloop', 24, true);
+				tvs.animation.play('idle');
+				tvs.scale.set(2, 2);
+				tvs.antialiasing = true;
+				tvs.scrollFactor.set(0.2, 0.1);
+				add(tvs);
+
+				var lump = new FlxSprite(-350, 270).loadGraphic(Paths.image('bucks/lump'));
+				lump.antialiasing = true;
+				lump.scrollFactor.set(0.45, 0.7);
+				add(lump);
+
+				stockboy = new FlxSprite(-105, 275);
+				stockboy.antialiasing = true;
+				stockboy.frames = Paths.getSparrowAtlas('bucks/broker');
+				stockboy.animation.addByPrefix('walk', 'stock broker 1 walk up', 24, false);
+				stockboy.animation.addByPrefix('idle', 'stock broker 1 walk up', 24, false);
+				stockboy.animation.addByPrefix('die', 'stock broker 1 walk up', 24, false);
+				stockboy.animation.play('walk');
+				stockboy.animation.pause();
+				stockboy.scrollFactor.set(0.45, 0.7);
+				add(stockboy);
+				
+				var floor = new FlxSprite(-450, -417).loadGraphic(Paths.image('bucks/floor'));
+				floor.antialiasing = true;
+				add(floor);
+
+				var screen = new FlxSprite(30, -250).loadGraphic(Paths.image('bucks/screen'));
+				screen.antialiasing = true;
+				add(screen);
+
+				var yais = new FlxSprite(175, -135);
+				yais.frames = Paths.getSparrowAtlas('bucks/youre_accuracy_inc_stock');
+				yais.animation.addByPrefix('idle', 'yais', 24, true);
+				yais.animation.play('idle');
+				yais.antialiasing = true;
+				add(yais);
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
 				add(bg);
