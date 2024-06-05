@@ -1,0 +1,122 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				82,
+				-23
+			],
+			"loop": false,
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "left",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-37,
+				-102
+			],
+			"loop": false,
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "down",
+			"indices": []
+		},
+		{
+			"offsets": [
+				37,
+				92
+			],
+			"loop": false,
+			"anim": "singUP",
+			"fps": 24,
+			"name": "up",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-59,
+				-10
+			],
+			"loop": false,
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "right",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "idle",
+			"fps": 24,
+			"name": "idle",
+			"indices": []
+		},
+		{
+			"offsets": [
+				5,
+				0
+			],
+			"loop": false,
+			"anim": "lookBack",
+			"fps": 24,
+			"name": "look back",
+			"indices": []
+		},
+		{
+			"offsets": [
+				89,
+				17
+			],
+			"loop": false,
+			"anim": "turnHappy",
+			"fps": 24,
+			"name": "turn back around happy",
+			"indices": []
+		},
+		{
+			"offsets": [
+				181,
+				0
+			],
+			"loop": false,
+			"anim": "turnNeutral",
+			"fps": 24,
+			"name": "turn back around neutral",
+			"indices": []
+		},
+		{
+			"offsets": [
+				90,
+				16
+			],
+			"loop": false,
+			"anim": "turnSad",
+			"fps": 24,
+			"name": "turn back around sad",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/bucksmark",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "mark",
+	"flip_x": false,
+	"healthbar_colors": [
+		151,
+		38,
+		19
+	],
+	"camera_position": [
+		40,
+		10
+	],
+	"sing_duration": 8,
+	"scale": 1
+}

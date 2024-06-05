@@ -273,6 +273,8 @@ class PlayState extends MusicBeatState
 	var boyfriendIdleTime:Float = 0.0;
 	var boyfriendIdled:Bool = false;
 
+	public var ref:FlxSprite;
+
 	public static var instance:PlayState;
 
 	public var introSoundsSuffix:String = '';
@@ -715,35 +717,37 @@ class PlayState extends MusicBeatState
 				var skyish = new FlxSprite(-458, -413);
 				skyish.loadGraphic(Paths.image('bucks/skybox'));
 				skyish.antialiasing = true;
-				skyish.scrollFactor.set();
+				//skyish.scrollFactor.set();
 				add(skyish);
 
-				var tvs = new FlxSprite(-463, -539);
+				var tvs = new FlxSprite(-610, -750);
 				tvs.frames = Paths.getSparrowAtlas('bucks/tvs');
 				tvs.animation.addByPrefix('idle', 'many tvs flashloop', 24, true);
 				tvs.animation.play('idle');
 				tvs.scale.set(2, 2);
+				tvs.updateHitbox();
 				tvs.antialiasing = true;
-				tvs.scrollFactor.set(0.2, 0.1);
+				//tvs.scrollFactor.set(0.2, 0.1);
 				add(tvs);
 
 				var lump = new FlxSprite(-350, 270).loadGraphic(Paths.image('bucks/lump'));
 				lump.antialiasing = true;
-				lump.scrollFactor.set(0.45, 0.7);
+				//lump.scrollFactor.set(0.45, 0.7);
 				add(lump);
 
-				stockboy = new FlxSprite(-105, 275);
+				stockboy = new FlxSprite(-245, 275);
 				stockboy.antialiasing = true;
 				stockboy.frames = Paths.getSparrowAtlas('bucks/broker');
 				stockboy.animation.addByPrefix('walk', 'stock broker 1 walk up', 24, false);
 				stockboy.animation.addByPrefix('idle', 'stock broker 1 walk up', 24, false);
 				stockboy.animation.addByPrefix('die', 'stock broker 1 walk up', 24, false);
 				stockboy.animation.play('walk');
-				stockboy.animation.pause();
-				stockboy.scrollFactor.set(0.45, 0.7);
+				//stockboy.animation.pause();
+				stockboy.animation.finish();
+				//stockboy.scrollFactor.set(0.45, 0.7);
 				add(stockboy);
 				
-				var floor = new FlxSprite(-450, -417).loadGraphic(Paths.image('bucks/floor'));
+				var floor = new FlxSprite(-445, 200).loadGraphic(Paths.image('bucks/floor'));
 				floor.antialiasing = true;
 				add(floor);
 
@@ -751,12 +755,18 @@ class PlayState extends MusicBeatState
 				screen.antialiasing = true;
 				add(screen);
 
-				var yais = new FlxSprite(175, -135);
+				var yais = new FlxSprite(100, -235);
 				yais.frames = Paths.getSparrowAtlas('bucks/youre_accuracy_inc_stock');
 				yais.animation.addByPrefix('idle', 'yais', 24, true);
 				yais.animation.play('idle');
 				yais.antialiasing = true;
 				add(yais);
+
+				ref = new FlxSprite(-458, -413);
+				ref.loadGraphic(Paths.image('bucks/possy'));
+				ref.alpha = 0.65;
+				ref.antialiasing = true;
+				add(ref);
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
 				add(bg);
@@ -2048,6 +2058,14 @@ class PlayState extends MusicBeatState
 			else
 			{
 				boyfriendIdleTime = 0;
+			}
+		}
+
+		if(ref != null)
+		{
+			if(FlxG.keys.justPressed.P)
+			{
+				ref.visible = !ref.visible;
 			}
 		}
 
