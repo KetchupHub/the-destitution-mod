@@ -757,7 +757,7 @@ class PlayState extends MusicBeatState
 				screen.antialiasing = true;
 				add(screen);
 
-				var yais = new FlxSprite(99, -235);
+				var yais = new FlxSprite(80, -235);
 				yais.frames = Paths.getSparrowAtlas('bucks/youre_accuracy_inc_stock');
 				yais.animation.addByPrefix('idle', 'yais', 24, true);
 				yais.animation.play('idle');
