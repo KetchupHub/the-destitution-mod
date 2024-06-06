@@ -449,6 +449,8 @@ class PlayState extends MusicBeatState
 					curStage = 'dsides';
 				case 'three-of-them':
 					curStage = 'april';
+				case 'new-hampshire':
+					curStage = 'bucks';
 				default:
 					curStage = 'stage';
 			}
@@ -717,7 +719,7 @@ class PlayState extends MusicBeatState
 				var skyish = new FlxSprite(-458, -413);
 				skyish.loadGraphic(Paths.image('bucks/skybox'));
 				skyish.antialiasing = true;
-				//skyish.scrollFactor.set();
+				skyish.scrollFactor.set();
 				add(skyish);
 
 				var tvs = new FlxSprite(-610, -750);
@@ -727,12 +729,12 @@ class PlayState extends MusicBeatState
 				tvs.scale.set(2, 2);
 				tvs.updateHitbox();
 				tvs.antialiasing = true;
-				//tvs.scrollFactor.set(0.2, 0.1);
+				tvs.scrollFactor.set(0.2, 0.1);
 				add(tvs);
 
 				var lump = new FlxSprite(-350, 270).loadGraphic(Paths.image('bucks/lump'));
 				lump.antialiasing = true;
-				//lump.scrollFactor.set(0.45, 0.7);
+				lump.scrollFactor.set(0.45, 0.7);
 				add(lump);
 
 				stockboy = new FlxSprite(-245, 275);
@@ -742,9 +744,9 @@ class PlayState extends MusicBeatState
 				stockboy.animation.addByPrefix('idle', 'stock broker 1 walk up', 24, false);
 				stockboy.animation.addByPrefix('die', 'stock broker 1 walk up', 24, false);
 				stockboy.animation.play('walk');
-				//stockboy.animation.pause();
-				stockboy.animation.finish();
-				//stockboy.scrollFactor.set(0.45, 0.7);
+				stockboy.animation.pause();
+				//stockboy.animation.finish();
+				stockboy.scrollFactor.set(0.45, 0.7);
 				add(stockboy);
 				
 				var floor = new FlxSprite(-445, 200).loadGraphic(Paths.image('bucks/floor'));
@@ -755,7 +757,7 @@ class PlayState extends MusicBeatState
 				screen.antialiasing = true;
 				add(screen);
 
-				var yais = new FlxSprite(100, -235);
+				var yais = new FlxSprite(99, -235);
 				yais.frames = Paths.getSparrowAtlas('bucks/youre_accuracy_inc_stock');
 				yais.animation.addByPrefix('idle', 'yais', 24, true);
 				yais.animation.play('idle');
@@ -766,6 +768,7 @@ class PlayState extends MusicBeatState
 				ref.loadGraphic(Paths.image('bucks/possy'));
 				ref.alpha = 0.65;
 				ref.antialiasing = true;
+				ref.visible = false;
 				add(ref);
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);

@@ -13,10 +13,10 @@
 	"weekBackground": "none",
 
 	"storyName": "The Destitution Mod (Extra Adventures)",
-	"weekBefore": "side",
+	"weekBefore": "main",
 	"weekName": "The Destitution Mod (Extra Adventures)",
 	"startUnlocked": true,
 
-	"hideStoryMode": true,
-	"hideFreeplay": true
+	"hideStoryMode": false,
+	"hideFreeplay": false
 }
