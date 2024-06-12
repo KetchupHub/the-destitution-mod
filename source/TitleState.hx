@@ -1,5 +1,6 @@
 package;
 
+import openfl.system.System;
 import lime.app.Application;
 #if desktop
 import sys.thread.Thread;
@@ -77,13 +78,10 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-
 		// Just to load a mod on start up if ya got one. For mods that change the menu music and bg
 		WeekData.loadTheFirstEnabledMod();
 
-		FlxG.game.focusLostFramerate = 60;
+		FlxG.game.focusLostFramerate = 24;
 		FlxG.sound.muteKeys = muteKeys;
 		FlxG.sound.volumeDownKeys = volumeDownKeys;
 		FlxG.sound.volumeUpKeys = volumeUpKeys;
@@ -154,6 +152,10 @@ class TitleState extends MusicBeatState
 
 	function startIntro()
 	{
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+        System.gc();
+		
 		if (!initialized)
 		{
 			if(FlxG.sound.music == null)

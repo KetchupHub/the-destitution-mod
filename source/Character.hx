@@ -150,6 +150,17 @@ class Character extends FlxSprite
 				//var textureToFind:String = Paths.getPath('images/' + json.image, new AssetType();
 				#end
 
+				//hail mary because idfk
+				if(!Paths.localTrackedAssets.contains(path))
+				{
+					Paths.localTrackedAssets.push(path);
+				}
+
+				if(!Paths.dumpExclusions.contains(path))
+				{
+					Paths.dumpExclusions.push(path);
+				}
+
 				switch (spriteType){
 					
 					case "packer":

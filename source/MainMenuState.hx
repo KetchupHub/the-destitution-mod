@@ -1,5 +1,6 @@
 package;
 
+import openfl.system.System;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -44,6 +45,10 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+        System.gc();
+		
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
 		#end

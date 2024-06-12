@@ -1,5 +1,6 @@
 package;
 
+import openfl.system.System;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -51,8 +52,9 @@ class StoryMenuState extends MusicBeatState
 
 	override function create()
 	{
-		Paths.clearStoredMemory();
+        Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+        System.gc();
 
 		PlayState.isStoryMode = true;
 		WeekData.reloadWeekFiles(true);

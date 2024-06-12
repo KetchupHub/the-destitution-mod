@@ -45,7 +45,7 @@ class Paths
 	/// haya I love you for the base cache dump I took to the max
 	public static function clearUnusedMemory() {
 		// clear non local assets in the tracked assets list
-		/*for (key in currentTrackedAssets.keys()) {
+		for (key in currentTrackedAssets.keys()) {
 			// if it is not currently contained within the used local assets
 			if (!localTrackedAssets.contains(key)
 				&& !dumpExclusions.contains(key)) {
@@ -60,17 +60,15 @@ class Paths
 				}
 			}
 		}
-		// run the garbage collector for good measure lmfao
-		System.gc();*/
 	}
 
 	// define the locally tracked assets
 	public static var localTrackedAssets:Array<String> = [];
+
 	public static function clearStoredMemory(?cleanUnused:Bool = false) {
 		// clear anything not in the tracked assets list
 		@:privateAccess
-		//stop it.
-		/*for (key in FlxG.bitmap._cache.keys())
+		for (key in FlxG.bitmap._cache.keys())
 		{
 			var obj = FlxG.bitmap._cache.get(key);
 			if (obj != null && !currentTrackedAssets.exists(key)) {
@@ -78,7 +76,7 @@ class Paths
 				FlxG.bitmap._cache.remove(key);
 				obj.destroy();
 			}
-		}*/
+		}
 
 		// clear all sounds that are cached
 		for (key in currentTrackedSounds.keys()) {

@@ -72,9 +72,7 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED
-#if (hxCodec >= "2.6.1") import hxcodec.VideoHandler as MP4Handler;
-#elseif (hxCodec == "2.6.0") import VideoHandler as MP4Handler;
-#else import vlc.MP4Handler; #end
+import hxcodec.flixel.*;
 #end
 
 using StringTools;
@@ -339,7 +337,8 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
-		Paths.clearStoredMemory();
+		//Paths.clearStoredMemory();
+		//Paths.clearUnusedMemory();
 
 		instance = this;
 
@@ -1066,7 +1065,6 @@ class PlayState extends MusicBeatState
 					Paths.music(key);
 			}
 		}
-		//Paths.clearUnusedMemory();
 		
 		CustomFadeTransition.nextCamera = camOther;
 		if(eventNotes.length < 1) checkEventNote();
@@ -1240,9 +1238,9 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		var video:MP4Handler = new MP4Handler();
-		video.playVideo(filepath);
-		video.finishCallback = function()
+		var video:FlxVideoSprite = new FlxVideoSprite();
+		video.play(filepath);
+		video.animation.finishCallback = function(fff:String)
 		{
 			startAndEnd();
 			return;

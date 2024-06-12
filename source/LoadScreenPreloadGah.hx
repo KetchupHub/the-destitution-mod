@@ -1,5 +1,6 @@
 package;
 
+import openfl.system.System;
 import flixel.util.FlxColor;
 import flixel.ui.FlxBar;
 import flixel.FlxG;
@@ -16,7 +17,7 @@ class LoadScreenPreloadGah extends MusicBeatState
 
     var characters:Array<Character> = [];
 
-    var loadCooldown:Float = 1;
+    var loadCooldown:Float = 0.25;
 
     var toLoad:Int;
 
@@ -24,15 +25,26 @@ class LoadScreenPreloadGah extends MusicBeatState
 
     var startedSwitching:Bool = false;
 
+    //var disableLaterDumbass:Float = 0;
+
 	override function create()
     {
+        Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+        System.gc();
+
         loadedBar = new FlxBar(74, 199, FlxBarFillDirection.TOP_TO_BOTTOM, 370, 247, this, "loaded", 0, 2, false);
         loadedBar.percent = 0;
         loadedBar.createFilledBar(FlxColor.GRAY, FlxColor.WHITE);
         add(loadedBar);
         var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("loadBg"));
         add(bg);
-        funkay = new FlxSprite(0, 0).loadGraphic(Paths.image("loadMark"));
+        var marksSuffix:String = "";
+        if(FlxG.random.int(1, 32) == 1)
+        {
+            marksSuffix = "_secret";
+        }
+        funkay = new FlxSprite(0, 0).loadGraphic(Paths.image("loadMark" + marksSuffix));
         add(funkay);
 
         switch(PlayState.SONG.song.toLowerCase())
@@ -66,6 +78,7 @@ class LoadScreenPreloadGah extends MusicBeatState
                 {
                     if(charactersToLoad[0] != "stop-loading")
                     {
+                        //disableLaterDumbass = 0;
                         preloadCharacter(charactersToLoad[0]);
                     }
                     else
@@ -81,6 +94,8 @@ class LoadScreenPreloadGah extends MusicBeatState
                 startedSwitching = true;
                 MusicBeatState.switchState(new PlayState());
             }
+
+            //disableLaterDumbass += elapsed;
         }
 
         loadedBar.percent = ((charactersToLoad.length - 1) / toLoad) * 100;
@@ -95,13 +110,21 @@ class LoadScreenPreloadGah extends MusicBeatState
 
     public function preloadCharacter(charName:String) 
     {
-        loadCooldown = 1.25;
+        //calculated it, seems to be the most efficient time. idc man this preloader sucks shit
+        loadCooldown = 0.45;
 
         trace("loading " + charName);
 
-        var chrazy:Character = new Character(2000, 2000, charName);
+        var chrazy:Character = new Character(1279, 719, charName);
+        chrazy.scale.set(0.1, 0.1);
+        chrazy.updateHitbox();
+        chrazy.alpha = 0.05;
         add(chrazy);
+        insert(members.indexOf(funkay) - 1, chrazy);
         characters.push(chrazy);
         charactersToLoad.remove(charName);
+
+        //trace("char elapsed time: " + disableLaterDumbass);
+        //disableLaterDumbass = 0;
     }
 }

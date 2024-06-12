@@ -31,7 +31,7 @@
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
 	<!-- turn it back on whenever video shit is done idk man-->
-	<!-- define name="VIDEOS_ALLOWED" if="windows" /-->
+	<define name="VIDEOS_ALLOWED" if="windows" />
 	<define name="CRASH_HANDLER" if="desktop release" />
 
 	<!-- <define name="PRELOAD_ALL" /> -->
@@ -99,7 +99,7 @@
 
 	<!--Allow working memory greater than 1 Gig-->
 	<!-- does this actually make shit work gooder? idfk man, im losing it here-->
-	<!--haxedef name="HXCPP_GC_BIG_BLOCKS" -->
+	<!--haxedef name="HXCPP_GC_BIG_BLOCKS" /-->
 	
 	<!-- Show debug traces for hxCodec -->
 	<haxedef name="HXC_DEBUG_TRACE"/>
