@@ -152,9 +152,10 @@ class TitleState extends MusicBeatState
 
 	function startIntro()
 	{
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-        System.gc();
+		//learned the hard way that this will FUCK SHIT UP real bad
+		//Paths.clearStoredMemory();
+		//Paths.clearUnusedMemory();
+        //System.gc();
 		
 		if (!initialized)
 		{
