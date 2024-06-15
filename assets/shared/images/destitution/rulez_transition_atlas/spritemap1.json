@@ -1,0 +1,14 @@
+﻿{"ATLAS": {"SPRITES":[ 
+{"SPRITE" : {"name": "0001","x":16,"y":1164,"w":1280,"h":720,"rotated": false}},
+{"SPRITE" : {"name": "0002","x":1312,"y":1164,"w":380,"h":760,"rotated": false}},
+{"SPRITE" : {"name": "0003","x":16,"y":16,"w":1775,"h":1132,"rotated": false}}
+]},
+"meta": {
+"app": "Adobe Animate",
+"version": "22.0.0.93",
+"image": "spritemap1.png",
+"format": "RGBA8888",
+"size": {"w":1807,"h":1940},
+"resolution": "1"
+}
+}

@@ -6,7 +6,6 @@ import flixel.addons.ui.interfaces.IFlxUIWidget;
 import flixel.addons.ui.interfaces.IHasParams;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.math.FlxMath;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
@@ -20,23 +19,6 @@ import flixel.addons.ui.FlxUIAssets;
 import flixel.addons.ui.StrNameLabel;
 import flixel.addons.ui.FlxUI;
 
-
-/*
-
-THIS IS AN EDIT OF FlxUIDropDownMenu I'VE MADE BECAUSE I'M TIRED OF IT NOT SUPPORTING SCROLLING UP/DOWN
-BAH!
-
-The differences are the following:
-* Support to scrolling up/down with mouse wheel or arrow keys
-* THe default drop direction is "Down" instead of "Automatic"
-
-*/
-
-
-
-/**
- * @author larsiusprime
- */
 class FlxUIDropDownMenuCustom extends FlxUIGroup implements IFlxUIWidget implements IFlxUIClickable implements IHasParams
 {
 	public var skipButtonUpdate(default, set):Bool;
@@ -577,13 +559,11 @@ class FlxUIDropDownHeader extends FlxUIGroup
 		text = Text;
 		button = Button;
 
-		// Background
 		if (background == null)
 		{
 			background = new FlxUI9SliceSprite(0, 0, FlxUIAssets.IMG_BOX, new Rectangle(0, 0, Width, 20), [1, 1, 14, 14]);
 		}
 
-		// Button
 		if (button == null)
 		{
 			button = new FlxUISpriteButton(0, 0, new FlxSprite(0, 0, FlxUIAssets.IMG_DROPDOWN));
@@ -593,13 +573,11 @@ class FlxUIDropDownHeader extends FlxUIGroup
 		button.resize(background.height, background.height);
 		button.x = background.x + background.width - button.width;
 
-		// Reposition and resize the button hitbox so the whole header is clickable
 		button.width = Width;
 		button.offset.x -= (Width - button.frameWidth);
 		button.x = offset.x;
 		button.label.offset.x += button.offset.x;
 
-		// Text
 		if (text == null)
 		{
 			text = new FlxUIText(0, 0, Std.int(background.width));

@@ -1,7 +1,6 @@
 package;
 
 import Controls;
-import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.util.FlxSignal;
 
@@ -48,9 +47,11 @@ class PlayerSettings
 		}
 
 		var numGamepads = FlxG.gamepads.numActiveGamepads;
+		
 		if (numGamepads > 0)
 		{
 			var gamepad = FlxG.gamepads.getByID(0);
+
 			if (gamepad == null)
 				throw 'Unexpected null gamepad. id:0';
 
@@ -66,6 +67,7 @@ class PlayerSettings
 			}
 
 			var gamepad = FlxG.gamepads.getByID(1);
+
 			if (gamepad == null)
 				throw 'Unexpected null gamepad. id:0';
 

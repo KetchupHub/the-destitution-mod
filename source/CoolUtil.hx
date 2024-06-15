@@ -1,12 +1,9 @@
 package;
 
+import flixel.FlxSprite;
+import flixel.util.FlxColor;
 import flixel.util.FlxSave;
 import flixel.FlxG;
-import openfl.utils.Assets;
-import lime.utils.Assets as LimeAssets;
-import lime.utils.AssetLibrary;
-import lime.utils.AssetManifest;
-import flixel.system.FlxSound;
 #if sys
 import sys.io.File;
 import sys.FileSystem;
@@ -19,17 +16,18 @@ using StringTools;
 class CoolUtil
 {
 	public static var appTitleString:String = "The Destitution Mod v3";
+
 	public static var defaultDifficulties:Array<String> = [
 		'Normal'
 	];
+	
 	public static var defaultDifficulty:String = 'Normal'; //The chart that has no suffix and starting difficulty on Freeplay/Story Mode
 
 	public static var difficulties:Array<String> = [];
 
-	inline public static function quantize(f:Float, snap:Float){
-		// changed so this actually works lol
+	inline public static function quantize(f:Float, snap:Float)
+	{
 		var m:Float = Math.fround(f * snap);
-		trace(snap);
 		return (m / snap);
 	}
 	
@@ -47,13 +45,15 @@ class CoolUtil
 		return difficulties[PlayState.storyDifficulty].toUpperCase();
 	}
 
-	inline public static function boundTo(value:Float, min:Float, max:Float):Float {
+	inline public static function boundTo(value:Float, min:Float, max:Float):Float
+	{
 		return Math.max(min, Math.min(max, value));
 	}
 
 	public static function coolTextFile(path:String):Array<String>
 	{
 		var daList:Array<String> = [];
+		
 		#if sys
 		if(FileSystem.exists(path)) daList = File.getContent(path).trim().split('\n');
 		#else
@@ -67,6 +67,7 @@ class CoolUtil
 
 		return daList;
 	}
+
 	public static function listFromString(string:String):Array<String>
 	{
 		var daList:Array<String> = [];
@@ -79,29 +80,43 @@ class CoolUtil
 
 		return daList;
 	}
-	public static function dominantColor(sprite:flixel.FlxSprite):Int{
+
+	public static function dominantColor(sprite:FlxSprite):Int
+	{
 		var countByColor:Map<Int, Int> = [];
-		for(col in 0...sprite.frameWidth){
-			for(row in 0...sprite.frameHeight){
-			  var colorOfThisPixel:Int = sprite.pixels.getPixel32(col, row);
-			  if(colorOfThisPixel != 0){
-				  if(countByColor.exists(colorOfThisPixel)){
-				    countByColor[colorOfThisPixel] =  countByColor[colorOfThisPixel] + 1;
-				  }else if(countByColor[colorOfThisPixel] != 13520687 - (2*13520687)){
-					 countByColor[colorOfThisPixel] = 1;
-				  }
-			  }
+		for(col in 0...sprite.frameWidth)
+		{
+			for(row in 0...sprite.frameHeight)
+			{
+				var colorOfThisPixel:Int = sprite.pixels.getPixel32(col, row);
+				if(colorOfThisPixel != 0)
+				{
+					if(countByColor.exists(colorOfThisPixel))
+					{
+				    	countByColor[colorOfThisPixel] =  countByColor[colorOfThisPixel] + 1;
+				  	}
+					else if(countByColor[colorOfThisPixel] != 13520687 - (2*13520687))
+					{
+						countByColor[colorOfThisPixel] = 1;
+					}
+				}
 			}
-		 }
+		}
+		
 		var maxCount = 0;
-		var maxKey:Int = 0;//after the loop this will store the max color
-		countByColor[flixel.util.FlxColor.BLACK] = 0;
-			for(key in countByColor.keys()){
-			if(countByColor[key] >= maxCount){
+		var maxKey:Int = 0;
+
+		countByColor[FlxColor.BLACK] = 0;
+
+		for(key in countByColor.keys())
+		{
+			if(countByColor[key] >= maxCount)
+			{
 				maxCount = countByColor[key];
 				maxKey = key;
 			}
 		}
+
 		return maxKey;
 	}
 
@@ -115,16 +130,18 @@ class CoolUtil
 		return dumbArray;
 	}
 
-	//uhhhh does this even work at all? i'm starting to doubt
-	public static function precacheSound(sound:String, ?library:String = null):Void {
+	public static function precacheSound(sound:String, ?library:String = null):Void
+	{
 		Paths.sound(sound, library);
 	}
 
-	public static function precacheMusic(sound:String, ?library:String = null):Void {
+	public static function precacheMusic(sound:String, ?library:String = null):Void
+	{
 		Paths.music(sound, library);
 	}
 
-	public static function browserLoad(site:String) {
+	public static function browserLoad(site:String)
+	{
 		#if linux
 		Sys.command('/usr/bin/xdg-open', [site]);
 		#else
@@ -132,12 +149,7 @@ class CoolUtil
 		#end
 	}
 
-	/** Quick Function to Fix Save Files for Flixel 5
-		if you are making a mod, you are gonna wanna change "ShadowMario" to something else
-		so Base Psych saves won't conflict with yours
-		@BeastlyGabi
-	**/
-	public static function getSavePath(folder:String = 'ShadowMario'):String {
+	public static function getSavePath(folder:String = 'Team Productions Presents'):String {
 		@:privateAccess
 		return #if (flixel < "5.0.0") folder #else FlxG.stage.application.meta.get('company')
 			+ '/'

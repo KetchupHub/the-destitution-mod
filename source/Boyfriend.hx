@@ -1,10 +1,5 @@
 package;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.util.FlxTimer;
-
 using StringTools;
 
 class Boyfriend extends Character
@@ -25,7 +20,9 @@ class Boyfriend extends Character
 				holdTimer += elapsed;
 			}
 			else
+			{
 				holdTimer = 0;
+			}
 
 			if (animation.curAnim.name.endsWith('miss') && animation.curAnim.finished && !debugMode)
 			{

@@ -49,14 +49,15 @@ class LoadScreenPreloadGah extends MusicBeatState
 
         switch(PlayState.SONG.song.toLowerCase())
         {
-            case 'destitution':
+            //apparently it is more efficient and LESS LAGGY (how the fuck) to NOT preload i mighbt kill myseklf
+            /*case 'destitution':
                 charactersToLoad = ['mark', 'bf-mark', 'mark-alt', 'mark-annoyed', 'mark-angry', 'ploinky', 'item', 'whale', 'rulez', 'crypteh', 'zam', 'bf-mark-ploink', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh', 'bf-mark-annoyed', 'bg-player', 'stop-loading'];
             case 'superseded':
                 charactersToLoad = ['superseded-mark', 'superseded-mark-graph', 'superseded-creature', 'superseded-bf', 'stop-loading'];
             case 'd-stitution':
-                charactersToLoad = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'd-ili', 'stop-loading'];
+                charactersToLoad = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'd-ili', 'stop-loading'];*/
             default:
-                charactersToLoad = ['bf-mark', 'stop-loading'];
+                charactersToLoad = ['bf', 'gf', 'stop-loading'];
         }
 
         toLoad = charactersToLoad.length - 1;
@@ -115,13 +116,13 @@ class LoadScreenPreloadGah extends MusicBeatState
 
         trace("loading " + charName);
 
-        var chrazy:Character = new Character(1279, 719, charName);
+        /*var chrazy:Character = new Character(1279, 719, charName);
         chrazy.scale.set(0.1, 0.1);
         chrazy.updateHitbox();
         chrazy.alpha = 0.05;
         add(chrazy);
         insert(members.indexOf(funkay) - 1, chrazy);
-        characters.push(chrazy);
+        characters.push(chrazy);*/
         charactersToLoad.remove(charName);
 
         //trace("char elapsed time: " + disableLaterDumbass);
