@@ -8,7 +8,6 @@ using StringTools;
 
 typedef WeekFile =
 {
-	// JSON variables
 	var songs:Array<Dynamic>;
 	var weekCharacters:Array<String>;
 	var weekBackground:String;
@@ -29,7 +28,6 @@ class WeekData
 	public static var weeksList:Array<String> = [];
 	public var folder:String = '';
 	
-	// JSON variables
 	public var songs:Array<Dynamic>;
 	public var weekCharacters:Array<String>;
 	public var weekBackground:String;
@@ -42,13 +40,12 @@ class WeekData
 	public var hideStoryMode:Bool;
 	public var hideFreeplay:Bool;
 	public var difficulties:String;
-
 	public var fileName:String;
 
 	public static function createWeekFile():WeekFile
 	{
 		var weekFile:WeekFile = {
-			songs: [["Bopeebo", "dad", [146, 113, 253]], ["Fresh", "dad", [146, 113, 253]], ["Dad Battle", "dad", [146, 113, 253]]],
+			songs: [["Destitution", "mark", [146, 113, 253]]],
 			weekCharacters: ['dad', 'bf', 'gf'],
 			weekBackground: 'stage',
 			weekBefore: 'tutorial',
@@ -88,7 +85,6 @@ class WeekData
 		weeksLoaded.clear();
 
 		var directories:Array<String> = [Paths.getPreloadPath()];
-		var originalLength:Int = directories.length;
 
 		var sexList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('weeks/weekList.txt'));
 		for (i in 0...sexList.length)

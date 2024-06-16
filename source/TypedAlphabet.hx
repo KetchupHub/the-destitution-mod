@@ -21,11 +21,14 @@ class TypedAlphabet extends Alphabet
 	override private function set_text(newText:String)
 	{
 		super.set_text(newText);
+
 		resetDialogue();
+
 		return newText;
 	}
 
 	private var _curLetter:Int = -1;
+	
 	private var _timeToUpdate:Float = 0;
 
 	override function update(elapsed:Float)
@@ -33,25 +36,36 @@ class TypedAlphabet extends Alphabet
 		if(!finishedText)
 		{
 			var playedSound:Bool = false;
+
 			_timeToUpdate += elapsed;
+
 			while(_timeToUpdate >= delay)
 			{
 				showCharacterUpTo(_curLetter + 1);
+
 				if(!playedSound && sound != '' && (delay > 0.025 || _curLetter % 2 == 0))
 				{
 					FlxG.sound.play(Paths.sound(sound), volume);
 				}
+
 				playedSound = true;
 
 				_curLetter++;
+
 				if(_curLetter >= letters.length - 1)
 				{
 					finishedText = true;
+
 					if(onFinish != null)
+					{
 						onFinish();
+					}
+
 					_timeToUpdate = 0;
+
 					break;
 				}
+
 				_timeToUpdate = 0;
 			}
 		}
@@ -64,11 +78,16 @@ class TypedAlphabet extends Alphabet
 		var start:Int = _curLetter;
 
 		if(start < 0)
-			start = 0;
-
-		for (i in start...(upTo+1))
 		{
-			if(letters[i] != null) letters[i].visible = true;
+			start = 0;
+		}
+
+		for (i in start...(upTo + 1))
+		{
+			if(letters[i] != null)
+			{
+				letters[i].visible = true;
+			}
 		}
 	}
 
@@ -77,6 +96,7 @@ class TypedAlphabet extends Alphabet
 		_curLetter = -1;
 		finishedText = false;
 		_timeToUpdate = 0;
+
 		for (letter in letters)
 		{
 			letter.visible = false;
@@ -89,11 +109,19 @@ class TypedAlphabet extends Alphabet
 			return;
 
 		showCharacterUpTo(letters.length - 1);
+
 		if(sound != '')
+		{
 			FlxG.sound.play(Paths.sound(sound), volume);
+		}
+
 		finishedText = true;
 		
-		if(onFinish != null) onFinish();
+		if(onFinish != null)
+		{
+			onFinish();
+		}
+
 		_timeToUpdate = 0;
 	}
 }

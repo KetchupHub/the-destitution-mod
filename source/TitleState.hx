@@ -38,8 +38,15 @@ class TitleState extends MusicBeatState
 	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
 
 	public static var initialized:Bool = false;
+	
+	var transitioning:Bool = false;	
+	
+	var newTitle:Bool = false;
+
+	var titleTimer:Float = 0;
 
 	var blackScreen:FlxSprite;
+
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
@@ -49,24 +56,34 @@ class TitleState extends MusicBeatState
 
 	var curWacky:Array<String> = [];
 
-	var wackyImage:FlxSprite;
-
 	var tppLogo:FlxSprite;
 
 	var mustUpdate:Bool = false;
 
 	var titleJSON:TitleData;
 
-	public static var updateVersion:String = '';
+	var skippedIntro:Bool = false;
+	
+	var increaseVolume:Bool = false;
+
+	var logo:FlxSprite;
+
+	var titleCharacter:FlxSprite;
+
+	var swagShader:ColorSwap = null;
+
+	var titleText:FlxSprite;
 
 	override public function create():Void
 	{
 		WeekData.loadTheFirstEnabledMod();
 
 		FlxG.game.focusLostFramerate = 24;
+
 		FlxG.sound.muteKeys = muteKeys;
 		FlxG.sound.volumeDownKeys = volumeDownKeys;
 		FlxG.sound.volumeUpKeys = volumeUpKeys;
+
 		FlxG.keys.preventDefaultKeys = [TAB];
 
 		PlayerSettings.init();
@@ -74,11 +91,12 @@ class TitleState extends MusicBeatState
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 
 		swagShader = new ColorSwap();
+
 		super.create();
 
 		Application.current.window.title = CoolUtil.appTitleString;
 
-		FlxG.save.bind('funkin', CoolUtil.getSavePath());
+		FlxG.save.bind('destitution', CoolUtil.getSavePath());
 
 		ClientPrefs.loadPrefs();
 
@@ -92,6 +110,7 @@ class TitleState extends MusicBeatState
 			{
 				FlxG.fullscreen = FlxG.save.data.fullscreen;
 			}
+
 			persistentUpdate = true;
 			persistentDraw = true;
 		}
@@ -102,12 +121,15 @@ class TitleState extends MusicBeatState
 		{
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
+
 			MusicBeatState.switchState(new FlashingState());
 		}
 		else
 		{
 			if (initialized)
+			{
 				startIntro();
+			}
 			else
 			{
 				new FlxTimer().start(1, function(tmr:FlxTimer)
@@ -118,12 +140,6 @@ class TitleState extends MusicBeatState
 		}
 	}
 
-	var logo:FlxSprite;
-	var gfDance:FlxSprite;
-	var danceLeft:Bool = false;
-	var titleText:FlxSprite;
-	var swagShader:ColorSwap = null;
-
 	function startIntro()
 	{
 		if (!initialized)
@@ -131,14 +147,14 @@ class TitleState extends MusicBeatState
 			if(FlxG.sound.music == null)
 			{
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+
+				Conductor.changeBPM(titleJSON.bpm);
 			}
 		}
-
-		Conductor.changeBPM(titleJSON.bpm);
+		
 		persistentUpdate = true;
 
 		var bg:FlxSprite = new FlxSprite();
-
 		if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none")
 		{
 			bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
@@ -147,8 +163,9 @@ class TitleState extends MusicBeatState
 		{
 			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		}
-
 		add(bg);
+
+		swagShader = new ColorSwap();
 
 		logo = new FlxSprite(titleJSON.titlex, titleJSON.titley);
 		logo.frames = Paths.getSparrowAtlas('destitution_mod_logo');
@@ -157,10 +174,8 @@ class TitleState extends MusicBeatState
 		logo.animation.play('bump');
 		logo.screenCenter();
 		logo.x += 300;
-
-		swagShader = new ColorSwap();
-
-		gfDance = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
+		logo.shader = swagShader.shader;
+		add(logo);
 
 		var arrey:Array<String> = ['mark', 'bf', 'item', 'whale', 'crypteh', 'lock', 'plant'];
 		var charec:String = arrey[FlxG.random.int(0, arrey.length - 1)];
@@ -171,28 +186,29 @@ class TitleState extends MusicBeatState
 			charec = arrey[FlxG.random.int(0, arrey.length - 1)];
 		}
 		var loopey:Bool = (charec == 'plant' || charec == 'item' || charec == 'whale' || charec == 'ploinky');
-		gfDance.frames = Paths.getSparrowAtlas('title/$charec');
-		gfDance.animation.addByPrefix('idle', charec, 24, loopey);
-		gfDance.animation.play('idle', true);
-		gfDance.setGraphicSize(1080);
-		gfDance.updateHitbox();
-		gfDance.screenCenter(Y);
-		gfDance.x = 0;
+
+		titleCharacter = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
+		titleCharacter.frames = Paths.getSparrowAtlas('title/$charec');
+		titleCharacter.animation.addByPrefix('idle', charec, 24, loopey);
+		titleCharacter.animation.play('idle', true);
+		titleCharacter.setGraphicSize(1080);
+		titleCharacter.updateHitbox();
+		titleCharacter.screenCenter(Y);
+		titleCharacter.x = 0;
 		if(charec == 'lock')
 		{
-			gfDance.x += 125;
+			titleCharacter.x += 125;
 		}
-
-		add(logo);
-		logo.shader = swagShader.shader;
-		add(gfDance);
-		gfDance.shader = swagShader.shader;
+		titleCharacter.shader = swagShader.shader;
+		add(titleCharacter);
 
 		titleText = new FlxSprite(titleJSON.startx, titleJSON.starty);
 		titleText.frames = Paths.getSparrowAtlas('titleEnter');
 
 		var animFrames:Array<FlxFrame> = [];
-		@:privateAccess {
+
+		@:privateAccess
+		{
 			titleText.animation.findByPrefix(animFrames, "ENTER IDLE");
 			titleText.animation.findByPrefix(animFrames, "ENTER FREEZE");
 		}
@@ -219,12 +235,13 @@ class TitleState extends MusicBeatState
 
 		credGroup = new FlxGroup();
 		add(credGroup);
+
 		textGroup = new FlxGroup();
 
 		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		credGroup.add(blackScreen);
 
-		credTextShit = new Alphabet(0, 0, "", true);
+		credTextShit = new Alphabet(0, 20, "", true);
 		credTextShit.screenCenter();
 		credTextShit.visible = false;
 
@@ -235,12 +252,14 @@ class TitleState extends MusicBeatState
 		tppLogo.visible = false;
 		add(tppLogo);
 
-		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
-
 		if (initialized)
+		{
 			skipIntro();
+		}
 		else
+		{
 			initialized = true;
+		}
 	}
 
 	function getIntroTextShit():Array<Array<String>>
@@ -258,16 +277,12 @@ class TitleState extends MusicBeatState
 		return swagGoodArray;
 	}
 
-	var transitioning:Bool = false;
-	private static var playJingle:Bool = false;
-	
-	var newTitle:Bool = false;
-	var titleTimer:Float = 0;
-
 	override function update(elapsed:Float)
 	{
 		if (FlxG.sound.music != null)
+		{
 			Conductor.songPosition = FlxG.sound.music.time;
+		}
 
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
 
@@ -276,14 +291,19 @@ class TitleState extends MusicBeatState
 		if (gamepad != null)
 		{
 			if (gamepad.justPressed.START)
+			{
 				pressedEnter = true;
+			}
 		}
 		
 		if (newTitle)
 		{
 			titleTimer += CoolUtil.boundTo(elapsed, 0, 1);
+
 			if (titleTimer > 2)
+			{
 				titleTimer -= 2;
+			}
 		}
 
 		if (initialized && !transitioning && skippedIntro)
@@ -292,7 +312,9 @@ class TitleState extends MusicBeatState
 			{
 				var timer:Float = titleTimer;
 				if (timer >= 1)
+				{
 					timer = (-timer) + 2;
+				}
 				
 				timer = FlxEase.quadInOut(timer);
 				
@@ -306,7 +328,9 @@ class TitleState extends MusicBeatState
 				titleText.alpha = 1;
 				
 				if(titleText != null)
+				{
 					titleText.animation.play('press');
+				}
 
 				FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF);
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
@@ -316,6 +340,7 @@ class TitleState extends MusicBeatState
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
 					MusicBeatState.switchState(new MainMenuState());
+
 					closedState = true;
 				});
 			}
@@ -328,10 +353,15 @@ class TitleState extends MusicBeatState
 
 		if(swagShader != null)
 		{
-			if(controls.UI_LEFT)
+			if(controls.UI_LEFT && !controls.UI_RIGHT)
+			{
 				swagShader.hue -= elapsed * 0.1;
-			if(controls.UI_RIGHT)
+			}
+
+			if(controls.UI_RIGHT && !controls.UI_LEFT)
+			{
 				swagShader.hue += elapsed * 0.1;
+			}
 		}
 
 		super.update(elapsed);
@@ -342,8 +372,10 @@ class TitleState extends MusicBeatState
 		for (i in 0...textArray.length)
 		{
 			var money:Alphabet = new Alphabet(0, 0, textArray[i], true);
+
 			money.screenCenter(X);
 			money.y += (i * 60) + 200 + offset;
+
 			if(credGroup != null && textGroup != null)
 			{
 				credGroup.add(money);
@@ -357,8 +389,10 @@ class TitleState extends MusicBeatState
 		if(textGroup != null && credGroup != null)
 		{
 			var coolText:Alphabet = new Alphabet(0, 0, text, true);
+
 			coolText.screenCenter(X);
 			coolText.y += (textGroup.length * 60) + 200 + offset;
+
 			credGroup.add(coolText);
 			textGroup.add(coolText);
 		}
@@ -373,7 +407,7 @@ class TitleState extends MusicBeatState
 		}
 	}
 
-	private var sickBeats:Int = 0; //Basically curBeat but won't be skipped if you hold the tab or resize the screen
+	private var sickBeats:Int = 0;
 
 	public static var closedState:Bool = false;
 
@@ -384,12 +418,15 @@ class TitleState extends MusicBeatState
 		if(curBeat % 2 == 0)
 		{
 			if(logo != null)
+			{
 				logo.animation.play('bump', true);
+			}
 	
-			if(gfDance != null) {
-				if(!gfDance.animation.getByName('idle').looped)
+			if(titleCharacter != null)
+			{
+				if(!titleCharacter.animation.getByName('idle').looped)
 				{
-					gfDance.animation.play('idle', true);
+					titleCharacter.animation.play('idle', true);
 				}
 			}
 		}
@@ -397,6 +434,7 @@ class TitleState extends MusicBeatState
 		if(!closedState)
 		{
 			sickBeats++;
+
 			switch (sickBeats)
 			{
 				case 1:
@@ -426,16 +464,15 @@ class TitleState extends MusicBeatState
 		}
 	}
 
-	var skippedIntro:Bool = false;
-	var increaseVolume:Bool = false;
-
 	function skipIntro():Void
 	{
 		if (!skippedIntro)
 		{
 			remove(tppLogo);
 			remove(credGroup);
-			FlxG.camera.flash(FlxColor.WHITE);
+
+			FlxG.camera.flash();
+
 			skippedIntro = true;
 		}
 	}

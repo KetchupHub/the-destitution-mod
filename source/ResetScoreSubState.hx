@@ -27,10 +27,12 @@ class ResetScoreSubState extends MusicBeatSubstate
 		super();
 
 		var name:String = song;
+
 		if(week > -1)
 		{
 			name = WeekData.weeksLoaded.get(WeekData.weeksList[week]).weekName;
 		}
+
 		name += ' (' + CoolUtil.difficulties[difficulty] + ')?';
 
 		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -39,16 +41,20 @@ class ResetScoreSubState extends MusicBeatSubstate
 		add(bg);
 
 		var tooLong:Float = (name.length > 18) ? 0.8 : 1; //Fucking Winter Horrorland
+
 		var text:Alphabet = new Alphabet(0, 180, "Reset the score of", true);
 		text.screenCenter(X);
 		alphabetArray.push(text);
 		text.alpha = 0;
 		add(text);
+
 		var text:Alphabet = new Alphabet(0, text.y + 90, name, true);
 		text.scaleX = tooLong;
 		text.screenCenter(X);
 		if(week == -1)
+		{
 			text.x += 60 * tooLong;
+		}
 		alphabetArray.push(text);
 		text.alpha = 0;
 		add(text);
@@ -78,8 +84,14 @@ class ResetScoreSubState extends MusicBeatSubstate
 
 	override function update(elapsed:Float)
 	{
-		bg.alpha += elapsed * 1.5;
-		if(bg.alpha > 0.6) bg.alpha = 0.6;
+		if(bg.alpha > 0.6)
+		{
+			bg.alpha = 0.6;
+		}
+		else
+		{
+			bg.alpha += elapsed * 1.5;
+		}
 
 		for (i in 0...alphabetArray.length)
 		{
@@ -88,18 +100,23 @@ class ResetScoreSubState extends MusicBeatSubstate
 		}
 
 		if(week == -1)
+		{
 			icon.alpha += elapsed * 2.5;
+		}
 
 		if(controls.UI_LEFT_P || controls.UI_RIGHT_P)
 		{
 			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+
 			onYes = !onYes;
+
 			updateOptions();
 		}
 
 		if(controls.BACK)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+
 			close();
 		}
 		else if(controls.ACCEPT)
@@ -117,8 +134,10 @@ class ResetScoreSubState extends MusicBeatSubstate
 			}
 
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+
 			close();
 		}
+
 		super.update(elapsed);
 	}
 
@@ -134,6 +153,8 @@ class ResetScoreSubState extends MusicBeatSubstate
 		noText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
 
 		if(week == -1)
+		{
 			icon.animation.curAnim.curFrame = confirmInt;
+		}
 	}
 }

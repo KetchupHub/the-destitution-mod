@@ -17,6 +17,7 @@ class StrumNote extends FlxSprite
 	private var player:Int;
 	
 	public var texture(default, set):String = null;
+
 	private function set_texture(value:String):String
 	{
 		if(texture != value)
@@ -31,13 +32,21 @@ class StrumNote extends FlxSprite
 	{
 		colorSwap = new ColorSwap();
 		shader = colorSwap.shader;
+
 		noteData = leData;
+
 		this.player = player;
 		this.noteData = leData;
+
 		super(x, y);
 
 		var skin:String = 'ui/NOTE_assets';
-		if(PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1) skin = PlayState.SONG.arrowSkin;
+
+		if(PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1)
+		{
+			skin = PlayState.SONG.arrowSkin;
+		}
+
 		texture = skin;
 
 		scrollFactor.set();
@@ -46,16 +55,21 @@ class StrumNote extends FlxSprite
 	public function reloadNote()
 	{
 		var lastAnim:String = null;
+
 		if(animation.curAnim != null)
+		{
 			lastAnim = animation.curAnim.name;
+		}
 
 		frames = Paths.getSparrowAtlas(texture);
+
 		animation.addByPrefix('green', 'arrowUP');
 		animation.addByPrefix('blue', 'arrowDOWN');
 		animation.addByPrefix('purple', 'arrowLEFT');
 		animation.addByPrefix('red', 'arrowRIGHT');
 
-		antialiasing = ClientPrefs.globalAntialiasing;
+		antialiasing = false;
+
 		setGraphicSize(Std.int(width * 0.7));
 
 		switch (Math.abs(noteData) % 4)
@@ -89,9 +103,11 @@ class StrumNote extends FlxSprite
 	public function postAddedToGroup()
 	{
 		playAnim('static');
+
 		x += Note.swagWidth * noteData;
 		x += 50;
 		x += ((FlxG.width / 2) * player);
+		
 		ID = noteData;
 	}
 
@@ -100,9 +116,11 @@ class StrumNote extends FlxSprite
 		if(resetAnim > 0)
 		{
 			resetAnim -= elapsed;
+
 			if(resetAnim <= 0)
 			{
 				playAnim('static');
+
 				resetAnim = 0;
 			}
 		}
@@ -118,8 +136,10 @@ class StrumNote extends FlxSprite
 	public function playAnim(anim:String, ?force:Bool = false)
 	{
 		animation.play(anim, force);
+
 		centerOffsets();
 		centerOrigin();
+
 		if(animation.curAnim == null || animation.curAnim.name == 'static')
 		{
 			colorSwap.hue = 0;

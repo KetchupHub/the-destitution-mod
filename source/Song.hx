@@ -43,7 +43,7 @@ class Song
 	public var player2:String = 'dad';
 	public var gfVersion:String = 'gf';
 
-	private static function onLoadJson(songJson:Dynamic) // Convert old charts to newest format
+	private static function onLoadJson(songJson:Dynamic)
 	{
 		if(songJson.gfVersion == null)
 		{
@@ -54,6 +54,7 @@ class Song
 		if(songJson.events == null)
 		{
 			songJson.events = [];
+
 			for (secNum in 0...songJson.notes.length)
 			{
 				var sec:SwagSection = songJson.notes[secNum];
@@ -64,6 +65,7 @@ class Song
 				while(i < len)
 				{
 					var note:Array<Dynamic> = notes[i];
+
 					if(note[1] < 0)
 					{
 						songJson.events.push([note[0], [[note[2], note[3], note[4]]]]);
@@ -89,15 +91,9 @@ class Song
 		
 		var formattedFolder:String = Paths.formatToSongPath(folder);
 		var formattedSong:String = Paths.formatToSongPath(jsonInput);
-		#if MODS_ALLOWED
-		var moddyFile:String = Paths.modsJson('charts/' + formattedSong);
-		if(FileSystem.exists(moddyFile))
-		{
-			rawJson = File.getContent(moddyFile).trim();
-		}
-		#end
 
-		if(rawJson == null) {
+		if(rawJson == null)
+		{
 			#if sys
 			rawJson = File.getContent(Paths.json('charts/' + formattedSong)).trim();
 			#else
@@ -111,8 +107,14 @@ class Song
 		}
 
 		var songJson:Dynamic = parseJSONshit(rawJson);
-		if(jsonInput != 'events') StageData.loadDirectory(songJson);
+
+		if(jsonInput != 'events')
+		{
+			StageData.loadDirectory(songJson);
+		}
+
 		onLoadJson(songJson);
+
 		return songJson;
 	}
 
