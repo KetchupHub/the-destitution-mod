@@ -186,8 +186,8 @@ class Note extends FlxSprite
 		{
 			setGraphicSize(Std.int(width * 0.6));
 
-			alpha = 0.45;
-			multAlpha = 0.45;
+			//alpha = 0.45;
+			//multAlpha = 0.45;
 			hitsoundDisabled = true;
 			if(ClientPrefs.downScroll) flipY = true;
 

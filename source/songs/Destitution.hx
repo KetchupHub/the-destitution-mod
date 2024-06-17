@@ -59,6 +59,7 @@ class Destitution extends SongClass
                 if(curBeat == 288)
                 {
                     PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                    PlayState.instance.dad.destroy();
                     PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'mark-alt', false, false);
                     PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
@@ -68,6 +69,9 @@ class Destitution extends SongClass
                     PlayState.instance.dad.canDance = false;
                     PlayState.instance.dad.canSing = false;
                     PlayState.instance.dad.playAnim("lipsync", true);
+
+                    //Paths.clearStoredMemory();
+                    Paths.clearUnusedMemory();
                 }
                 PlayState.instance.bgPlayer.canDance = false;
                 PlayState.instance.bgPlayerWalkState++;
@@ -116,6 +120,7 @@ class Destitution extends SongClass
                 PlayState.instance.shoulderCam = true;
                 //PLOINKY
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(0, 0, 'ploinky', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
                 PlayState.instance.dad.screenCenter();
@@ -123,6 +128,7 @@ class Destitution extends SongClass
                 PlayState.instance.dad.y += 200;
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend.destroy();
                 PlayState.instance.boyfriend = new Boyfriend(-75, -85, 'bf-mark-ploink', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
@@ -132,6 +138,9 @@ class Destitution extends SongClass
                 FlxG.camera.flash();
 
                 PlayState.instance.sectionIntroThing("This is Ploinky");
+
+                //Paths.clearStoredMemory();
+                Paths.clearUnusedMemory();
             case 800:
                 //pull out guitar
                 PlayState.instance.dad.canDance = false;
@@ -169,12 +178,14 @@ class Destitution extends SongClass
 
                 PlayState.instance.dad.visible = true;
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(800, 345, 'item', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
                 PlayState.instance.dad.x += 160;
                 PlayState.instance.dad.y -= 520;
                 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend.destroy();
                 PlayState.instance.boyfriend = new Boyfriend(-370, 220, 'bf-mark-item', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
                 PlayState.instance.boyfriend.x -= 700;
@@ -193,6 +204,9 @@ class Destitution extends SongClass
                 PlayState.instance.spaceTimeBfArray[1] = PlayState.instance.boyfriend.y;
 
                 PlayState.instance.sectionIntroThing("I LIEK ITEM");
+                
+                //Paths.clearStoredMemory();
+                Paths.clearUnusedMemory();
             case 1148 | 1228:
                 FlxG.camera.flash();
                 PlayState.instance.camZooming = false;
@@ -261,11 +275,13 @@ class Destitution extends SongClass
                 FlxG.camera.flash();
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend.destroy();
                 PlayState.instance.boyfriend = new Boyfriend(-200, 65, 'bf-mark-annoyed', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
                 PlayState.instance.boyfriend.visible = false;
                 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(0, 0, 'whale', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
                 PlayState.instance.dad.screenCenter();
@@ -283,6 +299,9 @@ class Destitution extends SongClass
                 PlayState.instance.reloadHealthBarColors();
 
                 PlayState.instance.sectionIntroThing("Wiggy Whale");
+                
+                //Paths.clearStoredMemory();
+                Paths.clearUnusedMemory();
             case 1540:
                 //JUMPY FUN PART
                 PlayState.instance.whaleFuckShit = true;
@@ -312,6 +331,7 @@ class Destitution extends SongClass
 
                 PlayState.instance.boyfriend.visible = true;
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(-215, -60, 'mark-annoyed', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
@@ -326,6 +346,9 @@ class Destitution extends SongClass
                 PlayState.instance.reloadHealthBarColors();
 
                 PlayState.instance.sectionIntroThing("Mark Mc. Marketing (B)");
+
+                //Paths.clearStoredMemory();
+                Paths.clearUnusedMemory();
             case 2036:
                 //FlxTween.tween(PlayState.instance.rulezGuySlideScaleWorldFunnyClips, {x: 465}, Conductor.crochet / 250, {ease: FlxEase.bounceIn});
                 PlayState.instance.rulezGuySlideScaleWorldFunnyClips.animation.play("intro", true);
@@ -349,10 +372,12 @@ class Destitution extends SongClass
                 PlayState.instance.annoyed.destroy();
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(0, 0, 'rulez', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend.destroy();
                 PlayState.instance.boyfriend = new Boyfriend(0, 0, 'bf-mark-rulez', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
@@ -367,6 +392,9 @@ class Destitution extends SongClass
                 PlayState.instance.reloadHealthBarColors();
 
                 PlayState.instance.sectionIntroThing("RULEZ GUY");
+
+                //Paths.clearStoredMemory();
+                Paths.clearUnusedMemory();
             case 2557:
                 FlxTween.cancelTweensOf(PlayState.instance.dad);
                 FlxTween.cancelTweensOf(PlayState.instance.boyfriend);
@@ -382,12 +410,14 @@ class Destitution extends SongClass
                 PlayState.instance.defaultCamZoom = 0.875 - 0.25;
                 FlxG.camera.flash();
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(-235, -460, 'crypteh', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 //PlayState.instance.cryptehT.visible = true;
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend.destroy();
                 PlayState.instance.boyfriend = new Boyfriend(-135, -205, 'bf-mark-crypteh', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
@@ -411,6 +441,9 @@ class Destitution extends SongClass
                 PlayState.instance.add(PlayState.instance.boyfriendGroup);
 
                 PlayState.instance.sectionIntroThing("Misteh Crypteh");
+                
+                //Paths.clearStoredMemory();
+                Paths.clearUnusedMemory();
             case 2968:
                 PlayState.instance.dad.canDance = false;
                 PlayState.instance.dad.playAnim("scared", true);
@@ -427,6 +460,7 @@ class Destitution extends SongClass
                 PlayState.instance.office.destroy();
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(0, 0, 'zam', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
                 PlayState.instance.dad.screenCenter();
@@ -445,6 +479,9 @@ class Destitution extends SongClass
                 PlayState.instance.reloadHealthBarColors();
 
                 PlayState.instance.sectionIntroThing("Guy with a Zamboni");
+
+                //Paths.clearStoredMemory();
+                Paths.clearUnusedMemory();
             case 3499:
                 //cam flip here
                 PlayState.instance.zamMarkCamFlipShit.visible = true;
@@ -460,6 +497,7 @@ class Destitution extends SongClass
                 PlayState.instance.zamboni.destroy();
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(125, 80, 'mark-angry', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
                 PlayState.instance.dad.screenCenter();
@@ -477,6 +515,9 @@ class Destitution extends SongClass
                 PlayState.instance.reloadHealthBarColors();
 
                 PlayState.instance.sectionIntroThing("Mark Mc. Marketing (C)");
+                
+                //Paths.clearStoredMemory();
+                Paths.clearUnusedMemory();
         }
     }
 }
