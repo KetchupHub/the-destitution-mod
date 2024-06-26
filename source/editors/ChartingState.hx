@@ -1,15 +1,17 @@
 package editors;
 
-#if desktop
-import Discord.DiscordClient;
-#end
+import backend.Song;
+import backend.Section;
+import backend.*;
+import visuals.*;
+import ui.*;
+import backend.Discord.DiscordClient;
+import backend.Conductor.BPMChangeEvent;
+
 import flash.geom.Rectangle;
 import haxe.Json;
 import haxe.format.JsonParser;
 import haxe.io.Bytes;
-import Conductor.BPMChangeEvent;
-import Section.SwagSection;
-import Song.SwagSong;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -58,7 +60,7 @@ import sys.io.File;
 @:access(flixel.sound.FlxSound._sound)
 @:access(openfl.media.Sound.__buffer)
 
-class ChartingState extends MusicBeatState
+class ChartingState extends states.MusicBeatState
 {
 	public static var noteTypeList:Array<String> = //Used for backwards compatibility with 0.1 - 0.3.2 charts, though, you should add your hardcoded custom note types here too.
 	[
@@ -2755,7 +2757,8 @@ class ChartingState extends MusicBeatState
 			gfSection: false,
 			sectionNotes: [],
 			typeOfSection: 0,
-			altAnim: false
+			altAnim: false,
+			middleCamSection: false
 		};
 
 		_song.notes.push(sec);

@@ -1,7 +1,7 @@
 package options;
 
 #if desktop
-import Discord.DiscordClient;
+import backend.Discord.DiscordClient;
 #end
 import flash.text.TextField;
 import flixel.FlxG;
@@ -23,11 +23,11 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
-import Controls;
+import backend.Controls;
 
 using StringTools;
 
-class BaseOptionsMenu extends MusicBeatSubstate
+class BaseOptionsMenu extends states.MusicBeatSubstate
 {
 	private var curOption:Option = null;
 	private var curSelected:Int = 0;

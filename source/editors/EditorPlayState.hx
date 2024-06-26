@@ -1,7 +1,7 @@
 package editors;
 
-import Section.SwagSection;
-import Song.SwagSong;
+import backend.Section.SwagSection;
+import backend.Song.SwagSong;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.util.FlxColor;
@@ -21,7 +21,7 @@ import openfl.events.KeyboardEvent;
 
 using StringTools;
 
-class EditorPlayState extends MusicBeatState
+class EditorPlayState extends states.MusicBeatState
 {
 	// Yes, this is mostly a copy of PlayState, it's kinda dumb to make a direct copy of it but... ehhh
 	private var strumLine:FlxSprite;

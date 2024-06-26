@@ -41,9 +41,14 @@ class Destitution extends SongClass
                 PlayState.instance.defaultCamZoom -= 0.3;
                 FlxG.camera.flash();
             case 504:
-                PlayState.instance.defaultCamZoom += 0.5;
+                FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.3}, Conductor.crochet / 1000, {ease: FlxEase.quintOut});
+                PlayState.instance.defaultCamZoom += 0.3;
+            case 508:
+                FlxTween.cancelTweensOf(FlxG.camera);
+                PlayState.instance.defaultCamZoom -= 0.4;
+                FlxG.camera.zoom = PlayState.instance.defaultCamZoom;
             case 512:
-                PlayState.instance.defaultCamZoom -= 0.5;
+                PlayState.instance.defaultCamZoom += 0.4;
                 FlxG.camera.flash();
         }
     }

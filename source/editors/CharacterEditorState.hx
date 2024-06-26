@@ -2,7 +2,7 @@ package editors;
 
 import sys.FileSystem;
 #if desktop
-import Discord.DiscordClient;
+import backend.Discord.DiscordClient;
 #end
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -29,7 +29,7 @@ import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import haxe.Json;
-import Character;
+import visuals.Character;
 import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
 import lime.system.Clipboard;
 import flixel.animation.FlxAnimation;
@@ -43,7 +43,7 @@ using StringTools;
 /**
 	*DEBUG MODE
  */
-class CharacterEditorState extends MusicBeatState
+class CharacterEditorState extends states.MusicBeatState
 {
 	var char:Character;
 	var ghostChar:Character;
