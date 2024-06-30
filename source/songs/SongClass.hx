@@ -7,6 +7,10 @@ package songs;
  */
 class SongClass
 {
+    public var songNameForDisplay:String = "";
+
+    public var songHasSections:Bool = false;
+
 	public function new()
     {
         

@@ -14,6 +14,8 @@ class Destitution extends SongClass
 	public override function new()
     {
         super();
+        this.songNameForDisplay = 'Destitution';
+        this.songHasSections = true;
     }
 
     public override function stepHitEvent(curStep:Float)

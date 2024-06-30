@@ -8,6 +8,8 @@ class Eggshells extends SongClass
 	public override function new()
     {
         super();
+        this.songNameForDisplay = 'Eggshells';
+        this.songHasSections = false;
     }
 
     public override function stepHitEvent(curStep:Float)

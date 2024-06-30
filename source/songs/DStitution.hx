@@ -13,6 +13,8 @@ class DStitution extends SongClass
 	public override function new()
     {
         super();
+        this.songNameForDisplay = 'D-Stitution';
+        this.songHasSections = true;
     }
 
     public override function stepHitEvent(curStep:Float)

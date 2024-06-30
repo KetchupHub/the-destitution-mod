@@ -12,6 +12,8 @@ class Superseded extends SongClass
 	public override function new()
     {
         super();
+        this.songNameForDisplay = 'Superseded';
+        this.songHasSections = false;
     }
 
     public override function stepHitEvent(curStep:Float)

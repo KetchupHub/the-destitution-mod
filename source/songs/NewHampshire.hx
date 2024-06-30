@@ -8,6 +8,8 @@ class NewHampshire extends SongClass
 	public override function new()
     {
         super();
+        this.songNameForDisplay = 'New Hampshire';
+        this.songHasSections = false;
     }
 
     public override function stepHitEvent(curStep:Float)

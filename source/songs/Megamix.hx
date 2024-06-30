@@ -8,6 +8,8 @@ class Megamix extends SongClass
 	public override function new()
     {
         super();
+        this.songNameForDisplay = 'MEGAMIX (Credits)';
+        this.songHasSections = true;
     }
 
     public override function stepHitEvent(curStep:Float)

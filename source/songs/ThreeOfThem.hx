@@ -11,6 +11,8 @@ class ThreeOfThem extends SongClass
 	public override function new()
     {
         super();
+        this.songNameForDisplay = 'Three of Them';
+        this.songHasSections = false;
     }
 
     public override function stepHitEvent(curStep:Float)

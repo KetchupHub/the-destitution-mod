@@ -8,6 +8,8 @@ class TheDevsSong extends SongClass
 	public override function new()
     {
         super();
+        this.songNameForDisplay = 'THE DEVS SONG!';
+        this.songHasSections = true;
     }
 
     public override function stepHitEvent(curStep:Float)
