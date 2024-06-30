@@ -10,6 +10,7 @@ class Megamix extends SongClass
         super();
         this.songNameForDisplay = 'MEGAMIX (Credits)';
         this.songHasSections = true;
+        this.introType = 'Mark';
     }
 
     public override function stepHitEvent(curStep:Float)

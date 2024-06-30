@@ -10,6 +10,7 @@ class SongTemplate extends SongClass
         super();
         this.songNameForDisplay = 'Template Song';
         this.songHasSections = false;
+        this.introType = 'Default';
     }
 
     public override function stepHitEvent(curStep:Float)

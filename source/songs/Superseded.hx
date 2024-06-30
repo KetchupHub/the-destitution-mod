@@ -14,6 +14,7 @@ class Superseded extends SongClass
         super();
         this.songNameForDisplay = 'Superseded';
         this.songHasSections = false;
+        this.introType = 'Mark'; //wont be used anyways because superseded skips the countdown
     }
 
     public override function stepHitEvent(curStep:Float)

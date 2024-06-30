@@ -13,6 +13,7 @@ class ThreeOfThem extends SongClass
         super();
         this.songNameForDisplay = 'Three of Them';
         this.songHasSections = false;
+        this.introType = 'Mark';
     }
 
     public override function stepHitEvent(curStep:Float)

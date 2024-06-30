@@ -10,6 +10,7 @@ class Abstraction extends SongClass
         super();
         this.songNameForDisplay = 'Abstraction';
         this.songHasSections = false;
+        this.introType = 'Mark';
     }
 
     public override function stepHitEvent(curStep:Float)

@@ -16,6 +16,7 @@ class Destitution extends SongClass
         super();
         this.songNameForDisplay = 'Destitution';
         this.songHasSections = true;
+        this.introType = 'Mark';
     }
 
     public override function stepHitEvent(curStep:Float)

@@ -10,6 +10,7 @@ class Collapse extends SongClass
         super();
         this.songNameForDisplay = 'Collapse';
         this.songHasSections = true;
+        this.introType = 'Mark';
     }
 
     public override function stepHitEvent(curStep:Float)

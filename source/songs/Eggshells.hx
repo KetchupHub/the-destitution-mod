@@ -10,6 +10,7 @@ class Eggshells extends SongClass
         super();
         this.songNameForDisplay = 'Eggshells';
         this.songHasSections = false;
+        this.introType = 'Eggshells';
     }
 
     public override function stepHitEvent(curStep:Float)

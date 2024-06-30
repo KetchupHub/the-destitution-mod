@@ -10,6 +10,7 @@ class NewHampshire extends SongClass
         super();
         this.songNameForDisplay = 'New Hampshire';
         this.songHasSections = false;
+        this.introType = 'Default';
     }
 
     public override function stepHitEvent(curStep:Float)

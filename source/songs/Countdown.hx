@@ -10,6 +10,7 @@ class Countdown extends SongClass
         super();
         this.songNameForDisplay = 'Countdown';
         this.songHasSections = true;
+        this.introType = 'Mark';
     }
 
     public override function stepHitEvent(curStep:Float)

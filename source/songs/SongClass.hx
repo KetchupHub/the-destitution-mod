@@ -9,6 +9,8 @@ class SongClass
 {
     public var songNameForDisplay:String = "";
 
+    public var introType:String = "Default";
+
     public var songHasSections:Bool = false;
 
 	public function new()

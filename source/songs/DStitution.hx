@@ -15,6 +15,7 @@ class DStitution extends SongClass
         super();
         this.songNameForDisplay = 'D-Stitution';
         this.songHasSections = true;
+        this.introType = 'Karm';
     }
 
     public override function stepHitEvent(curStep:Float)

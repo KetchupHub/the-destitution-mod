@@ -10,6 +10,7 @@ class TheDevsSong extends SongClass
         super();
         this.songNameForDisplay = 'THE DEVS SONG!';
         this.songHasSections = true;
+        this.introType = 'Default';
     }
 
     public override function stepHitEvent(curStep:Float)
