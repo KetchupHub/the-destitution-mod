@@ -11,6 +11,10 @@ class SongClass
 
     public var introType:String = "Default";
 
+    public var gameoverChar:String = "bf-dead";
+
+    public var gameoverMusicSuffix:String = "";
+
     public var songHasSections:Bool = false;
 
 	public function new()

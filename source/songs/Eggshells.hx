@@ -11,6 +11,8 @@ class Eggshells extends SongClass
         this.songNameForDisplay = 'Eggshells';
         this.songHasSections = false;
         this.introType = 'Eggshells';
+        this.gameoverChar = 'bf-dead';
+        this.gameoverMusicSuffix = '';
     }
 
     public override function stepHitEvent(curStep:Float)

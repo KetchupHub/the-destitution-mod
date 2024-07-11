@@ -11,6 +11,8 @@ class NewHampshire extends SongClass
         this.songNameForDisplay = 'New Hampshire';
         this.songHasSections = false;
         this.introType = 'Default';
+        this.gameoverChar = 'bf-dead';
+        this.gameoverMusicSuffix = '';
     }
 
     public override function stepHitEvent(curStep:Float)

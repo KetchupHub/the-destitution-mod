@@ -11,6 +11,8 @@ class Collapse extends SongClass
         this.songNameForDisplay = 'Collapse';
         this.songHasSections = true;
         this.introType = 'Mark';
+        this.gameoverChar = 'bf-dead';
+        this.gameoverMusicSuffix = '';
     }
 
     public override function stepHitEvent(curStep:Float)

@@ -483,6 +483,10 @@ class PlayState extends MusicBeatState
 		dadGroup = new FlxSpriteGroup(DAD_X, DAD_Y);
 		gfGroup = new FlxSpriteGroup(GF_X, GF_Y);
 
+		GameOverSubstate.characterName = songObj.gameoverChar;
+		GameOverSubstate.loopSoundName = 'gameOver' + songObj.gameoverMusicSuffix;
+		GameOverSubstate.endSoundName = 'gameOverEnd' + songObj.gameoverMusicSuffix;
+
 		switch (curStage)
 		{
 			case 'april':
@@ -1230,10 +1234,10 @@ class PlayState extends MusicBeatState
 		for (asset in introAlts)
 			Paths.image(asset);
 		
-		Paths.sound('intro3' + introSoundsSuffix);
-		Paths.sound('intro2' + introSoundsSuffix);
-		Paths.sound('intro1' + introSoundsSuffix);
-		Paths.sound('introGo' + introSoundsSuffix);
+		Paths.sound(songObj.introType + '/intro3' + introSoundsSuffix);
+		Paths.sound(songObj.introType + '/intro2' + introSoundsSuffix);
+		Paths.sound(songObj.introType + '/intro1' + introSoundsSuffix);
+		Paths.sound(songObj.introType + '/introGo' + introSoundsSuffix);
 	}
 
 	public function startCountdown():Void

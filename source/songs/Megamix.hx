@@ -11,6 +11,8 @@ class Megamix extends SongClass
         this.songNameForDisplay = 'MEGAMIX (Credits)';
         this.songHasSections = true;
         this.introType = 'Mark';
+        this.gameoverChar = 'bf-dead';
+        this.gameoverMusicSuffix = '';
     }
 
     public override function stepHitEvent(curStep:Float)

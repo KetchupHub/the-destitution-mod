@@ -14,6 +14,8 @@ class ThreeOfThem extends SongClass
         this.songNameForDisplay = 'Three of Them';
         this.songHasSections = false;
         this.introType = 'Mark';
+        this.gameoverChar = 'bf-dead';
+        this.gameoverMusicSuffix = '';
     }
 
     public override function stepHitEvent(curStep:Float)

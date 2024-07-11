@@ -11,6 +11,8 @@ class Abstraction extends SongClass
         this.songNameForDisplay = 'Abstraction';
         this.songHasSections = false;
         this.introType = 'Mark';
+        this.gameoverChar = 'bf-dead';
+        this.gameoverMusicSuffix = '';
     }
 
     public override function stepHitEvent(curStep:Float)

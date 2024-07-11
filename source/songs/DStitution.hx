@@ -16,6 +16,9 @@ class DStitution extends SongClass
         this.songNameForDisplay = 'D-Stitution';
         this.songHasSections = true;
         this.introType = 'Karm';
+        this.gameoverChar = 'd-bf-dead';
+        //make it dsides later dumb
+        this.gameoverMusicSuffix = '';
     }
 
     public override function stepHitEvent(curStep:Float)

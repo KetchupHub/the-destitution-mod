@@ -11,6 +11,8 @@ class TheDevsSong extends SongClass
         this.songNameForDisplay = 'THE DEVS SONG!';
         this.songHasSections = true;
         this.introType = 'Default';
+        this.gameoverChar = 'bf-dead';
+        this.gameoverMusicSuffix = '';
     }
 
     public override function stepHitEvent(curStep:Float)

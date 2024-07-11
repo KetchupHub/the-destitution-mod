@@ -17,6 +17,8 @@ class Destitution extends SongClass
         this.songNameForDisplay = 'Destitution';
         this.songHasSections = true;
         this.introType = 'Mark';
+        this.gameoverChar = 'bf-dead';
+        this.gameoverMusicSuffix = '';
     }
 
     public override function stepHitEvent(curStep:Float)
