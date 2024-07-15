@@ -230,6 +230,10 @@ class PlayState extends MusicBeatState
 	public static var daPixelZoom:Float = 6;
 	private var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
 
+	public var bucksBars:Array<BucksGraphBar> = [];
+
+	public var bucksBarHistoryFuck:Array<Int> = [9, 9, 9, 9, 9, 9, 9, 9];
+
 	public var inCutscene:Bool = false;
 	public var skipCountdown:Bool = false;
 	var songLength:Float = 0;
@@ -312,6 +316,9 @@ class PlayState extends MusicBeatState
 	public var karmScaredy:FlxSprite;
 
 	public var stockboy:FlxSprite;
+
+	var bucksBarUpdateCountdown:Float = 10;
+
 
 	override public function create()
 	{
@@ -713,6 +720,15 @@ class PlayState extends MusicBeatState
 				var screen = new FlxSprite(30, -250).loadGraphic(Paths.image('bucks/screen'));
 				screen.antialiasing = true;
 				add(screen);
+
+				//graph bar x is screen.x + 137.7 + (i * 120)
+				//y is -118
+
+				for(i in 0...7)
+				{
+					bucksBars[i] = new BucksGraphBar(screen.x + 200 + (i * 120), 5);
+					add(bucksBars[i]);
+				}
 
 				var yais = new FlxSprite(80, -235);
 				yais.frames = Paths.getSparrowAtlas('bucks/youre_accuracy_inc_stock');
@@ -1234,10 +1250,10 @@ class PlayState extends MusicBeatState
 		for (asset in introAlts)
 			Paths.image(asset);
 		
-		Paths.sound(songObj.introType + '/intro3' + introSoundsSuffix);
-		Paths.sound(songObj.introType + '/intro2' + introSoundsSuffix);
-		Paths.sound(songObj.introType + '/intro1' + introSoundsSuffix);
-		Paths.sound(songObj.introType + '/introGo' + introSoundsSuffix);
+		Paths.sound('intro' + songObj.introType + '/intro3' + introSoundsSuffix);
+		Paths.sound('intro' + songObj.introType + '/intro2' + introSoundsSuffix);
+		Paths.sound('intro' + songObj.introType + '/intro1' + introSoundsSuffix);
+		Paths.sound('intro' + songObj.introType + '/introGo' + introSoundsSuffix);
 	}
 
 	public function startCountdown():Void
@@ -2034,6 +2050,31 @@ class PlayState extends MusicBeatState
 
 		spaceWiggle.update(elapsed);
 
+		if(startedCountdown && generatedMusic && bucksBars[5] != null)
+		{
+			bucksBarUpdateCountdown -= 1 * elapsed;
+
+			if(bucksBarUpdateCountdown <= 0)
+			{
+				bucksBarUpdateCountdown = FlxG.random.float(2.75, 6.5);
+				bucksBarHistoryFuck = bucksBarHistoryFuck.slice(1, 7);
+
+				if(cpuControlled || (combo == 0 && songMisses == 0))
+				{
+					bucksBarHistoryFuck.push(9);
+				}
+				else
+				{
+					bucksBarHistoryFuck.push(Std.int((ratingPercent * 10) - 1));
+				}
+
+				for(i in 0...7)
+				{
+					bucksBars[i].changeGraphPos(bucksBarHistoryFuck[i]);
+				}
+			}
+		}
+
 		elapsedTotal += elapsed;
 
 		if (SONG.notes[curSection] != null)
@@ -2043,11 +2084,6 @@ class PlayState extends MusicBeatState
 		}
 
 		smoothenedHealth = FlxMath.lerp(smoothenedHealth, health, CoolUtil.boundTo(elapsed * 13, 0, 1));
-
-		/*if(oldMovieShader != null)
-		{
-			oldMovieShader.update(0, elapsed);
-		}*/
 
 		super.update(elapsed);
 

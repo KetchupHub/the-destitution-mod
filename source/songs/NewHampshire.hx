@@ -1,5 +1,9 @@
 package songs;
 
+import flixel.tweens.FlxEase;
+import flixel.FlxG;
+import flixel.tweens.FlxTween;
+
 /**
  * New Hampshire's song class.
  */
@@ -19,11 +23,115 @@ class NewHampshire extends SongClass
     {
         //this is where step hit events go
         super.stepHitEvent(curStep);
+        switch (curStep)
+        {
+            case 122:
+                PlayState.instance.defaultCamZoom += 0.35;
+                PlayState.instance.camGame.zoom = PlayState.instance.defaultCamZoom;
+                PlayState.instance.moveCamera(true);
+                PlayState.instance.disallowCamMove = true;
+                PlayState.instance.snapCamFollowToPos(PlayState.instance.camFollow.x, PlayState.instance.camFollow.y);
+            case 128:
+                PlayState.instance.disallowCamMove = false;
+                PlayState.instance.defaultCamZoom -= 0.2;
+                FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, Conductor.stepCrochet / 500, {ease: FlxEase.circOut});
+            case 160:
+                PlayState.instance.defaultCamZoom -= 0.15;
+            case 184 | 188:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 186 | 190:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 192:
+                PlayState.instance.defaultCamZoom -= 0.3;
+                FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
+            case 204 | 206:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 208:
+                PlayState.instance.defaultCamZoom += 0.05;
+                FlxG.camera.flash();
+            case 272:
+                PlayState.instance.defaultCamZoom -= 0.15;
+            case 326 | 332:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 336:
+                PlayState.instance.defaultCamZoom -= 0.3;
+                FlxG.camera.flash();
+            case 400 | 402 | 408 | 410 | 416 | 418:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 404 | 412 | 420 | 426 | 428 | 430:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 406 | 414 | 422:
+                PlayState.instance.defaultCamZoom -= 0.2;
+            case 432:
+                PlayState.instance.defaultCamZoom -= 0.3;
+            case 464:
+                PlayState.instance.defaultCamZoom += 0.15;
+            case 496 | 524 | 526:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 528:
+                FlxG.camera.flash();
+            case 584:
+                PlayState.instance.defaultCamZoom += 0.35;
+            case 592:
+                PlayState.instance.defaultCamZoom -= 0.35;
+                FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, Conductor.stepCrochet / 250, {ease: FlxEase.expoOut});
+            case 734:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 736:
+                PlayState.instance.defaultCamZoom += 0.25;
+        }
     }
+
+    public var whichEndingYouGet:Int = 0;
     
     public override function beatHitEvent(curBeat:Float)
     {
         //this is where beat hit events go
         super.beatHitEvent(curBeat);
+
+        //turning rating funny
+        switch(curBeat)
+        {
+            case 165:
+                {
+                    PlayState.instance.dad.canDance = false;
+                    PlayState.instance.dad.canSing = false;
+                    PlayState.instance.dad.playAnim('lookBack', true);
+                }
+            case 175:
+                {
+                    if(PlayState.instance.cpuControlled)
+                    {
+                        whichEndingYouGet = 0;
+                        PlayState.instance.dad.playAnim('turnHappy', true);
+                    }
+                    else
+                    {
+                        switch((PlayState.instance.ratingPercent * 10) - 1)
+                        {
+                            case 0 | 1 | 2 | 3:
+                                {
+                                    whichEndingYouGet = 2;
+                                    PlayState.instance.dad.playAnim('turnSad', true);
+                                }
+                            case 7 | 8 | 9 | 10:
+                                {
+                                    whichEndingYouGet = 0;
+                                    PlayState.instance.dad.playAnim('turnHappy', true);
+                                }
+                            default:
+                                {
+                                    whichEndingYouGet = 1;
+                                    PlayState.instance.dad.playAnim('turnNeutral', true);
+                                }
+                        }
+                    }
+                }
+            case 178:
+                {
+                    PlayState.instance.dad.canDance = true;
+                    PlayState.instance.dad.canSing = true;
+                }
+        }
     }
 }
