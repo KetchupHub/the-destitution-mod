@@ -1,5 +1,10 @@
 package states;
 
+#if DEVELOPERBUILD
+import util.macro.GitCommit;
+#end
+import flixel.text.FlxText.FlxTextBorderStyle;
+import flixel.text.FlxText;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.math.FlxMath;
@@ -58,6 +63,13 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		boyfriend.playAnim('firstDeath');
 
+		#if DEVELOPERBUILD
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
+		#end
+
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		camFollowPos.setPosition(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2));
 		add(camFollowPos);
@@ -71,7 +83,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if(updateCamera)
 		{
-			var lerpVal:Float = CoolUtil.boundTo(elapsed * 0.6, 0, 1);
+			var lerpVal:Float = util.CoolUtil.boundTo(elapsed * 0.6, 0, 1);
 
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 		}

@@ -1,5 +1,6 @@
 package options;
 
+import util.MemoryUtil;
 #if desktop
 import backend.Discord.DiscordClient;
 #end

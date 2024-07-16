@@ -1,5 +1,11 @@
 package states;
 
+import util.MemoryUtil;
+#if DEVELOPERBUILD
+import util.macro.GitCommit;
+#end
+import flixel.text.FlxText;
+import flixel.text.FlxText.FlxTextBorderStyle;
 import openfl.system.System;
 import flixel.util.FlxColor;
 import flixel.ui.FlxBar;
@@ -29,9 +35,8 @@ class LoadScreenPreloadGah extends MusicBeatState
 
 	override function create()
     {
-        Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-        System.gc();
+        MemoryUtil.collect(true);
+        MemoryUtil.compact();
 
         loadedBar = new FlxBar(74, 199, FlxBarFillDirection.TOP_TO_BOTTOM, 370, 247, this, "loaded", 0, 2, false);
         loadedBar.percent = 0;
@@ -50,9 +55,10 @@ class LoadScreenPreloadGah extends MusicBeatState
         switch(PlayState.SONG.song.toLowerCase())
         {
             //apparently it is more efficient and LESS LAGGY (how the fuck) to NOT preload i mighbt kill myseklf
-            /*case 'destitution':
+            //bringing back because destitution fucking hates me
+            case 'destitution':
                 charactersToLoad = ['mark', 'bf-mark', 'mark-alt', 'mark-annoyed', 'mark-angry', 'ploinky', 'item', 'whale', 'rulez', 'crypteh', 'zam', 'bf-mark-ploink', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh', 'bf-mark-annoyed', 'bg-player', 'stop-loading'];
-            case 'superseded':
+            /*case 'superseded':
                 charactersToLoad = ['superseded-mark', 'superseded-mark-graph', 'superseded-creature', 'superseded-bf', 'stop-loading'];
             case 'd-stitution':
                 charactersToLoad = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'd-ili', 'stop-loading'];*/
@@ -61,6 +67,13 @@ class LoadScreenPreloadGah extends MusicBeatState
         }
 
         toLoad = charactersToLoad.length - 1;
+
+        #if DEVELOPERBUILD
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
+		#end
 
         super.create();
     }
@@ -106,7 +119,7 @@ class LoadScreenPreloadGah extends MusicBeatState
             funkay.y = 100;
         }
 
-        funkay.y = FlxMath.lerp(0, funkay.y, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
+        funkay.y = FlxMath.lerp(0, funkay.y, util.CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
     }
 
     public function preloadCharacter(charName:String) 
@@ -116,13 +129,13 @@ class LoadScreenPreloadGah extends MusicBeatState
 
         trace("loading " + charName);
 
-        /*var chrazy:Character = new Character(1279, 719, charName);
+        var chrazy:Character = new Character(1279, 719, charName);
         chrazy.scale.set(0.1, 0.1);
         chrazy.updateHitbox();
         chrazy.alpha = 0.05;
         add(chrazy);
         insert(members.indexOf(funkay) - 1, chrazy);
-        characters.push(chrazy);*/
+        characters.push(chrazy);
         charactersToLoad.remove(charName);
 
         //trace("char elapsed time: " + disableLaterDumbass);

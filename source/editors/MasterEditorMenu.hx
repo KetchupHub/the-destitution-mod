@@ -1,5 +1,6 @@
 package editors;
 
+import util.MemoryUtil;
 #if desktop
 import backend.Discord.DiscordClient;
 #end
@@ -42,6 +43,9 @@ class MasterEditorMenu extends states.MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Editors Main Menu", null);
 		#end
+
+		MemoryUtil.collect(true);
+        MemoryUtil.compact();
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();

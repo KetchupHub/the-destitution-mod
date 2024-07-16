@@ -1,5 +1,6 @@
 package options;
 
+import util.MemoryUtil;
 #if desktop
 import backend.Discord.DiscordClient;
 #end
@@ -54,13 +55,17 @@ class OptionsState extends states.MusicBeatState
 	var selectorLeft:Alphabet;
 	var selectorRight:Alphabet;
 
-	override function create() {
+	override function create()
+	{
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 
 		FlxG.sound.music.stop();
 		FlxG.sound.playMusic(Paths.music('optionsMenu'), 0.8);
+
+		MemoryUtil.collect(true);
+        MemoryUtil.compact();
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;

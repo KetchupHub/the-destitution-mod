@@ -2,8 +2,8 @@
 	"animations": [
 		{
 			"offsets": [
-				157,
-				40
+				766,
+				-1
 			],
 			"loop": false,
 			"anim": "singLEFT",
@@ -13,8 +13,8 @@
 		},
 		{
 			"offsets": [
-				140,
-				-6
+				104,
+				0
 			],
 			"loop": false,
 			"anim": "singDOWN",
@@ -24,8 +24,8 @@
 		},
 		{
 			"offsets": [
-				0,
-				144
+				117,
+				381
 			],
 			"loop": false,
 			"anim": "singUP",
@@ -35,8 +35,8 @@
 		},
 		{
 			"offsets": [
-				0,
-				27
+				105,
+				0
 			],
 			"loop": false,
 			"anim": "singRIGHT",
@@ -59,8 +59,8 @@
 	"no_antialiasing": true,
 	"image": "characters/destitution/rules_guy",
 	"position": [
-		0,
-		0
+		-30,
+		230
 	],
 	"healthicon": "rules",
 	"flip_x": false,
@@ -70,8 +70,8 @@
 		98
 	],
 	"camera_position": [
-		-10,
-		-60
+		-170,
+		-990
 	],
 	"sing_duration": 15,
 	"scale": 1.5

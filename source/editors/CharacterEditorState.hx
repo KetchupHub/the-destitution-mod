@@ -1,5 +1,6 @@
 package editors;
 
+import util.MemoryUtil;
 import sys.FileSystem;
 #if desktop
 import backend.Discord.DiscordClient;
@@ -78,7 +79,8 @@ class CharacterEditorState extends states.MusicBeatState
 
 	override function create()
 	{
-		//FlxG.sound.playMusic(Paths.music('breakfast'), 0.5);
+		MemoryUtil.collect(true);
+        MemoryUtil.compact();
 
 		camEditor = new FlxCamera();
 		camHUD = new FlxCamera();
@@ -414,7 +416,7 @@ class CharacterEditorState extends states.MusicBeatState
 
 		var decideIconColor:FlxButton = new FlxButton(reloadImage.x, reloadImage.y + 30, "Get Icon Color", function()
 			{
-				var coolColor = FlxColor.fromInt(CoolUtil.dominantColor(leHealthIcon));
+				var coolColor = FlxColor.fromInt(util.CoolUtil.dominantColor(leHealthIcon));
 				healthColorStepperR.value = coolColor.red;
 				healthColorStepperG.value = coolColor.green;
 				healthColorStepperB.value = coolColor.blue;

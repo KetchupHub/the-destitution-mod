@@ -1,5 +1,6 @@
 package editors;
 
+import util.MemoryUtil;
 import backend.Section.SwagSection;
 import backend.Song.SwagSong;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -65,6 +66,9 @@ class EditorPlayState extends states.MusicBeatState
 	override function create()
 	{
 		instance = this;
+
+		MemoryUtil.collect(true);
+        MemoryUtil.compact();
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();

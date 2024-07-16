@@ -1,5 +1,8 @@
 package states;
 
+#if DEVELOPERBUILD
+import util.macro.GitCommit;
+#end
 import lime.app.Application;
 #if desktop
 import backend.Discord.DiscordClient;
@@ -293,7 +296,6 @@ class PlayState extends MusicBeatState
 
 	public var bgPlayer:Character;
 	public var bgPlayerWalkTarget:Float;
-	public var bgPlayerWalkState:Int = 0;
 
 	public var spaceTime:Bool;
 
@@ -322,8 +324,6 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
-		//Paths.clearStoredMemory();
-		//Paths.clearUnusedMemory();
 
 		instance = this;
 
@@ -420,7 +420,7 @@ class PlayState extends MusicBeatState
 		songHasSections = songObj.songHasSections;
 		sectionNum = 1;
 
-		Application.current.window.title = CoolUtil.appTitleString + " - Playing " + songObj.songNameForDisplay;
+		Application.current.window.title = util.CoolUtil.appTitleString + " - Playing " + songObj.songNameForDisplay;
 
 		curStage = SONG.stage;
 		if(SONG.stage == null || SONG.stage.length < 1)
@@ -982,6 +982,14 @@ class PlayState extends MusicBeatState
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
+
+		#if DEVELOPERBUILD
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.cameras = [camHUD];
+		add(versionShit);
+		#end
 
 		startingSong = true;
 		
@@ -2024,7 +2032,7 @@ class PlayState extends MusicBeatState
 	{
 		if(!inCutscene)
 		{
-			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
+			var lerpVal:Float = util.CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 			if(!startingSong && !endingSong && boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name.startsWith('idle'))
 			{
@@ -2083,7 +2091,7 @@ class PlayState extends MusicBeatState
 				moveCameraSection();
 		}
 
-		smoothenedHealth = FlxMath.lerp(smoothenedHealth, health, CoolUtil.boundTo(elapsed * 13, 0, 1));
+		smoothenedHealth = FlxMath.lerp(smoothenedHealth, health, util.CoolUtil.boundTo(elapsed * 13, 0, 1));
 
 		super.update(elapsed);
 
@@ -2131,22 +2139,6 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		switch(bgPlayerWalkState)
-		{
-			case 1:
-				if(bgPlayer.x < bgPlayerWalkTarget)
-				{
-					bgPlayer.x += (3 / 75);
-				}
-				else
-				{
-					bgPlayerWalkState++;
-					bgPlayer.playAnim("notice", true);
-				}
-			case 4:
-				bgPlayer.x += (3 / 75);
-		}
-
 		if(spaceTime)
 		{
 			dad.y += Math.sin(elapsedTotal) * 0.3;
@@ -2188,13 +2180,13 @@ class PlayState extends MusicBeatState
 			openChartEditor();
 		}
 
-		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
-		var multDos:Float = FlxMath.lerp(1, iconP1.scale.y, CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
+		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, util.CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
+		var multDos:Float = FlxMath.lerp(1, iconP1.scale.y, util.CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
 		iconP1.scale.set(mult, multDos);
 		iconP1.updateHitbox();
 
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
-		var multDos:Float = FlxMath.lerp(1, iconP2.scale.y, CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
+		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, util.CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
+		var multDos:Float = FlxMath.lerp(1, iconP2.scale.y, util.CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
 		iconP2.scale.set(mult, multDos);
 		iconP2.updateHitbox();
 
@@ -2268,8 +2260,8 @@ class PlayState extends MusicBeatState
 
 		if(!tweeningCam)
 		{
-			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom + camZoomAdditive, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
-			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
+			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom + camZoomAdditive, FlxG.camera.zoom, util.CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
+			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, util.CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
 		}
 
 		FlxG.watch.addQuick("secShit", curSection);
@@ -2460,7 +2452,7 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		DiscordClient.changePresence(detailsPausedText, songObj.songNameForDisplay, SONG.song.toLowerCase());
-		Application.current.window.title = CoolUtil.appTitleString + " - PAUSED on " + songObj.songNameForDisplay;
+		Application.current.window.title = util.CoolUtil.appTitleString + " - PAUSED on " + songObj.songNameForDisplay;
 		#end
 	}
 
@@ -2473,7 +2465,7 @@ class PlayState extends MusicBeatState
 		chartingMode = true;
 
 		#if desktop
-		Application.current.window.title = CoolUtil.appTitleString + " - Chart Editor";
+		Application.current.window.title = util.CoolUtil.appTitleString + " - Chart Editor";
 		DiscordClient.changePresence("Chart Editor", null, null, true);
 		#end
 	}
@@ -2507,7 +2499,7 @@ class PlayState extends MusicBeatState
 
 			#if desktop
 			DiscordClient.changePresence("Game Over", songObj.songNameForDisplay, SONG.song.toLowerCase());
-			Application.current.window.title = CoolUtil.appTitleString + " - GAME OVER on " + songObj.songNameForDisplay;
+			Application.current.window.title = util.CoolUtil.appTitleString + " - GAME OVER on " + songObj.songNameForDisplay;
 			#end
 			isDead = true;
 			return true;

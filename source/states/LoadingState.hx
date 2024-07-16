@@ -1,5 +1,11 @@
 package states;
 
+#if DEVELOPERBUILD
+import util.macro.GitCommit;
+#end
+import flixel.util.FlxColor;
+import flixel.text.FlxText.FlxTextBorderStyle;
+import flixel.text.FlxText;
 import lime.app.Promise;
 import lime.app.Future;
 import flixel.FlxG;
@@ -49,6 +55,13 @@ class LoadingState extends MusicBeatState
 		loadBar = new FlxSprite(0, FlxG.height - 20).makeGraphic(FlxG.width, 10, 0xffff16d2);
 		loadBar.screenCenter(X);
 		add(loadBar);
+
+		#if DEVELOPERBUILD
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
+		#end
 		
 		initSongsManifest().onComplete
 		(

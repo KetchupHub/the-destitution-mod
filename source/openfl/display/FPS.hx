@@ -1,5 +1,6 @@
 package openfl.display;
 
+import util.MemoryUtil;
 import haxe.Timer;
 import openfl.events.Event;
 import openfl.text.TextField;
@@ -92,10 +93,7 @@ class FPS extends TextField
 		{
 			text = 'FPS: ${currentFPS}';
 			
-			#if openfl
-			memoryMegas = cast(System.totalMemory, UInt);
-			text += '\nMemory: ${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}';
-			#end
+			text += '\nMemory: ${flixel.util.FlxStringUtil.formatBytes(MemoryUtil.getMemoryUsed())}';
 
 			textColor = 0xFFFFFFFF;
 			if (currentFPS <= ClientPrefs.framerate / 2)

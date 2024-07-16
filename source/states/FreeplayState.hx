@@ -1,5 +1,9 @@
 package states;
 
+import util.MemoryUtil;
+#if DEVELOPERBUILD
+import util.macro.GitCommit;
+#end
 import flixel.FlxObject;
 import flixel.math.FlxPoint;
 #if desktop
@@ -41,6 +45,9 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
+		MemoryUtil.collect(true);
+        MemoryUtil.compact();
+		
 		if(FlxG.sound.music == null)
 		{
 			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
@@ -129,10 +136,10 @@ class FreeplayState extends MusicBeatState
 
 		if(lastDifficultyName == '')
 		{
-			lastDifficultyName = CoolUtil.defaultDifficulty;
+			lastDifficultyName = util.CoolUtil.defaultDifficulty;
 		}
 
-		curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName)));
+		curDifficulty = Math.round(Math.max(0, util.CoolUtil.defaultDifficulties.indexOf(lastDifficultyName)));
 		
 		changeSelection();
 
@@ -155,6 +162,13 @@ class FreeplayState extends MusicBeatState
 		text.setFormat(Paths.font("BAUHS93.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		add(text);
+
+		#if DEVELOPERBUILD
+		var versionShit:FlxText = new FlxText(4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
+		#end
 
 		super.create();
 	}
@@ -182,7 +196,7 @@ class FreeplayState extends MusicBeatState
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
-		var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4, 0, 1);
+		var lerpVal:Float = util.CoolUtil.boundTo(elapsed * 2.4, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
 		if (FlxG.sound.music.volume < 0.7)
@@ -190,8 +204,8 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
-		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
-		lerpRating = FlxMath.lerp(lerpRating, intendedRating, CoolUtil.boundTo(elapsed * 12, 0, 1));
+		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, util.CoolUtil.boundTo(elapsed * 24, 0, 1)));
+		lerpRating = FlxMath.lerp(lerpRating, intendedRating, util.CoolUtil.boundTo(elapsed * 12, 0, 1));
 
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
@@ -358,7 +372,7 @@ class FreeplayState extends MusicBeatState
 		Paths.currentModDirectory = songs[curSelected].folder;
 		PlayState.storyWeek = songs[curSelected].week;
 
-		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
+		util.CoolUtil.difficulties = util.CoolUtil.defaultDifficulties.copy();
 
 		var diffStr:String = WeekData.getCurrentWeek().difficulties;
 
@@ -382,20 +396,20 @@ class FreeplayState extends MusicBeatState
 
 			if(diffs.length > 0 && diffs[0].length > 0)
 			{
-				CoolUtil.difficulties = diffs;
+				util.CoolUtil.difficulties = diffs;
 			}
 		}
 		
-		if(CoolUtil.difficulties.contains(CoolUtil.defaultDifficulty))
+		if(util.CoolUtil.difficulties.contains(util.CoolUtil.defaultDifficulty))
 		{
-			curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(CoolUtil.defaultDifficulty)));
+			curDifficulty = Math.round(Math.max(0, util.CoolUtil.defaultDifficulties.indexOf(util.CoolUtil.defaultDifficulty)));
 		}
 		else
 		{
 			curDifficulty = 0;
 		}
 
-		var newPos:Int = CoolUtil.difficulties.indexOf(lastDifficultyName);
+		var newPos:Int = util.CoolUtil.difficulties.indexOf(lastDifficultyName);
 
 		if(newPos > -1)
 		{

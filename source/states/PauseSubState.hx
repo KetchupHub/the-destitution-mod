@@ -55,6 +55,11 @@ class PauseSubState extends MusicBeatSubstate
 
 		FlxG.sound.list.add(pauseMusic);
 
+		FlxTween.globalManager.forEach(function killsSelf(i:FlxTween)
+		{
+			i.active = false;
+		});
+
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0;
 		bg.scrollFactor.set();
@@ -193,14 +198,18 @@ class PauseSubState extends MusicBeatSubstate
 			switch (daSelected)
 			{
 				case "Resume":
-					Application.current.window.title = CoolUtil.appTitleString + " - Playing " + PlayState.SONG.song;
+					Application.current.window.title = util.CoolUtil.appTitleString + " - Playing " + PlayState.SONG.song;
+					FlxTween.globalManager.forEach(function killsSelf(i:FlxTween)
+					{
+						i.active = true;
+					});
 					close();
 				case 'Toggle Practice Mode':
 					PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
 					PlayState.changedDifficulty = true;
 					practiceText.visible = PlayState.instance.practiceMode;
 				case "Restart Song":
-					Application.current.window.title = CoolUtil.appTitleString + " - Playing " + PlayState.SONG.song;
+					Application.current.window.title = util.CoolUtil.appTitleString + " - Playing " + PlayState.SONG.song;
 					restartSong();
 				case "Leave Charting Mode":
 					restartSong();
@@ -222,7 +231,7 @@ class PauseSubState extends MusicBeatSubstate
 						close();
 					}
 				case "End Song":
-					Application.current.window.title = CoolUtil.appTitleString;
+					Application.current.window.title = util.CoolUtil.appTitleString;
 					close();
 					PlayState.instance.finishSong(true);
 				case 'Toggle Botplay':
@@ -231,7 +240,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
 					PlayState.instance.botplayTxt.alpha = 1;
 				case "Exit to menu":
-					Application.current.window.title = CoolUtil.appTitleString;
+					Application.current.window.title = util.CoolUtil.appTitleString;
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 

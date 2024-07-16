@@ -1,5 +1,10 @@
 package states;
 
+#if DEVELOPERBUILD
+import util.macro.GitCommit;
+#end
+import flixel.text.FlxText.FlxTextBorderStyle;
+import flixel.text.FlxText;
 import lime.app.Application;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -94,9 +99,9 @@ class TitleState extends MusicBeatState
 
 		super.create();
 
-		Application.current.window.title = CoolUtil.appTitleString;
+		Application.current.window.title = util.CoolUtil.appTitleString;
 
-		FlxG.save.bind('destitution', CoolUtil.getSavePath());
+		FlxG.save.bind('destitution', util.CoolUtil.getSavePath());
 
 		backend.ClientPrefs.loadPrefs();
 
@@ -252,6 +257,13 @@ class TitleState extends MusicBeatState
 		tppLogo.visible = false;
 		add(tppLogo);
 
+		#if DEVELOPERBUILD
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
+		#end
+
 		if (initialized)
 		{
 			skipIntro();
@@ -298,7 +310,7 @@ class TitleState extends MusicBeatState
 		
 		if (newTitle)
 		{
-			titleTimer += CoolUtil.boundTo(elapsed, 0, 1);
+			titleTimer += util.CoolUtil.boundTo(elapsed, 0, 1);
 
 			if (titleTimer > 2)
 			{

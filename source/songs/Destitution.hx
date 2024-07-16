@@ -45,16 +45,6 @@ class Destitution extends SongClass
                 PlayState.instance.dad.canSing = true;
                 PlayState.instance.defaultCamZoom -= 0.3;
                 FlxG.camera.flash();
-            case 504:
-                FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.3}, Conductor.crochet / 1000, {ease: FlxEase.quintOut});
-                PlayState.instance.defaultCamZoom += 0.3;
-            case 508:
-                FlxTween.cancelTweensOf(FlxG.camera);
-                PlayState.instance.defaultCamZoom -= 0.4;
-                FlxG.camera.zoom = PlayState.instance.defaultCamZoom;
-            case 512:
-                PlayState.instance.defaultCamZoom += 0.4;
-                FlxG.camera.flash();
         }
     }
     
@@ -80,12 +70,19 @@ class Destitution extends SongClass
                     PlayState.instance.dad.canSing = false;
                     PlayState.instance.dad.playAnim("lipsync", true);
 
-                    //Paths.clearStoredMemory();
                     Paths.clearUnusedMemory();
                 }
                 PlayState.instance.bgPlayer.canDance = false;
-                PlayState.instance.bgPlayerWalkState++;
                 PlayState.instance.bgPlayer.playAnim("walk", true);
+                var fuckeryWad:Int = 1;
+                if(curBeat >= 512)
+                {
+                    fuckeryWad = 2;
+                }
+                FlxTween.tween(PlayState.instance.bgPlayer, {x: PlayState.instance.bgPlayerWalkTarget}, 4 * fuckeryWad, {onComplete: function fucksake(ferkck:FlxTween)
+                {
+                    PlayState.instance.bgPlayer.playAnim("notice", true);
+                }});
             case 318:
                 FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 500);
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.2}, Conductor.crochet / 500, {ease: FlxEase.cubeInOut});
@@ -94,10 +91,12 @@ class Destitution extends SongClass
                 PlayState.instance.defaultCamZoom -= 0.3;
                 PlayState.instance.dad.canDance = true;
                 PlayState.instance.dad.canSing = true;
-                PlayState.instance.bgPlayerWalkState++;
+                FlxTween.cancelTweensOf(PlayState.instance.bgPlayer);
+                PlayState.instance.bgPlayer.x = PlayState.instance.bgPlayerWalkTarget;
                 PlayState.instance.bgPlayer.canDance = true;
                 PlayState.instance.bgPlayer.dance();
                 FlxG.camera.flash();
+                PlayState.instance.bgPlayerWalkTarget += 2800;
             case 576:
                 PlayState.instance.defaultCamZoom = 1;
                 PlayState.instance.remove(PlayState.instance.ploinkyTransition, true);
@@ -128,7 +127,6 @@ class Destitution extends SongClass
                 PlayState.instance.starting.destroy();
 
                 PlayState.instance.shoulderCam = true;
-                //PLOINKY
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(0, 0, 'ploinky', false, false);
@@ -149,25 +147,20 @@ class Destitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("This is Ploinky");
 
-                //Paths.clearStoredMemory();
                 Paths.clearUnusedMemory();
             case 800:
-                //pull out guitar
                 PlayState.instance.dad.canDance = false;
                 PlayState.instance.dad.canSing = false;
                 PlayState.instance.dad.playAnim('pull', true);
             case 804:
-                //guitar time
                 PlayState.instance.dad.canDance = true;
                 PlayState.instance.dad.canSing = true;
                 FlxG.camera.flash();
             case 930:
-                //guitar go away
                 PlayState.instance.dad.canDance = false;
                 PlayState.instance.dad.canSing = false;
                 PlayState.instance.dad.playAnim('put', true);
             case 932:
-                //no more guitar :sob:
                 PlayState.instance.dad.canDance = true;
                 PlayState.instance.dad.canSing = true;
                 FlxG.camera.flash();
@@ -178,7 +171,6 @@ class Destitution extends SongClass
                 FlxG.camera.flash();
             case 1020:
                 PlayState.instance.shoulderCam = false;
-                //iteem guy
                 PlayState.instance.itemManFucked.visible = false;
                 PlayState.instance.itemManFucked.destroy();
                 PlayState.instance.dad.alpha = 1;
@@ -215,7 +207,6 @@ class Destitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("I LIEK ITEM");
                 
-                //Paths.clearStoredMemory();
                 Paths.clearUnusedMemory();
             case 1148 | 1228:
                 FlxG.camera.flash();
@@ -281,7 +272,6 @@ class Destitution extends SongClass
             case 1348:
                 PlayState.instance.cuttingSceneThing.visible = false;
                 PlayState.instance.centerCamOnBg = false;
-                //whale
                 FlxG.camera.flash();
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
@@ -310,7 +300,6 @@ class Destitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("Wiggy Whale");
                 
-                //Paths.clearStoredMemory();
                 Paths.clearUnusedMemory();
             case 1540:
                 //JUMPY FUN PART
@@ -357,13 +346,10 @@ class Destitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("Mark Mc. Marketing (B)");
 
-                //Paths.clearStoredMemory();
                 Paths.clearUnusedMemory();
             case 2036:
-                //FlxTween.tween(PlayState.instance.rulezGuySlideScaleWorldFunnyClips, {x: 465}, Conductor.crochet / 250, {ease: FlxEase.bounceIn});
                 PlayState.instance.rulezGuySlideScaleWorldFunnyClips.animation.play("intro", true);
             case 2044:
-                //FlxTween.tween(PlayState.instance.rulezGuySlideScaleWorldFunnyClips, {x: -9135, y: -8360, "scale.x": 50, "scale.y": 50}, (Conductor.crochet / 250) * 2, {ease: FlxEase.circIn});
                 PlayState.instance.rulezGuySlideScaleWorldFunnyClips.animation.play("zoom", true);
             case 2052:
                 //i fucking love optimization just kidding i do not
@@ -375,15 +361,15 @@ class Destitution extends SongClass
                         PlayState.instance.rulezGuySlideScaleWorldFunnyClips.destroy();
                     });
                 }});
+
                 PlayState.instance.shoulderCam = false;
-                //PlayState.instance.defaultCamZoom -= 0.1;
                 FlxG.camera.flash();
                 PlayState.instance.annoyed.visible = false;
                 PlayState.instance.annoyed.destroy();
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
-                PlayState.instance.dad = new Character(0, 0, 'rulez', false, false);
+                PlayState.instance.dad = new Character(75, 115, 'rulez', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
@@ -403,7 +389,6 @@ class Destitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("RULEZ GUY");
 
-                //Paths.clearStoredMemory();
                 Paths.clearUnusedMemory();
             case 2557:
                 FlxTween.cancelTweensOf(PlayState.instance.dad);
@@ -423,8 +408,6 @@ class Destitution extends SongClass
                 PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(-235, -460, 'crypteh', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
-
-                //PlayState.instance.cryptehT.visible = true;
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
                 PlayState.instance.boyfriend.destroy();
@@ -452,7 +435,6 @@ class Destitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("Misteh Crypteh");
                 
-                //Paths.clearStoredMemory();
                 Paths.clearUnusedMemory();
             case 2968:
                 PlayState.instance.dad.canDance = false;
@@ -490,10 +472,8 @@ class Destitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("Guy with a Zamboni");
 
-                //Paths.clearStoredMemory();
                 Paths.clearUnusedMemory();
             case 3499:
-                //cam flip here
                 PlayState.instance.zamMarkCamFlipShit.visible = true;
                 PlayState.instance.zamMarkCamFlipShit.animation.play("idle", true);
             case 3500:
@@ -526,7 +506,6 @@ class Destitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("Mark Mc. Marketing (C)");
                 
-                //Paths.clearStoredMemory();
                 Paths.clearUnusedMemory();
         }
     }
