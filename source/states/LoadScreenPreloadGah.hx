@@ -37,14 +37,14 @@ class LoadScreenPreloadGah extends MusicBeatState
         loadedBar.percent = 0;
         loadedBar.createFilledBar(FlxColor.GRAY, FlxColor.WHITE);
         add(loadedBar);
-        var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("loadBg"));
+        var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("loading/loadBg"));
         add(bg);
         var marksSuffix:String = "";
         if(FlxG.random.int(1, 32) == 1)
         {
             marksSuffix = "_secret";
         }
-        funkay = new FlxSprite(0, 0).loadGraphic(Paths.image("loadMark" + marksSuffix));
+        funkay = new FlxSprite(0, 0).loadGraphic(Paths.image("loading/loadMark" + marksSuffix));
         add(funkay);
 
         switch(PlayState.SONG.song.toLowerCase())

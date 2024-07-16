@@ -28,17 +28,19 @@ class MainMenuState extends MusicBeatState
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
-	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<String> = [
+		'story_mode',
 		'freeplay',
 		'options'
 	];
 
 	var magenta:FlxSprite;
-	var camFollow:FlxObject;
-	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
+
+	var sideThing:FlxSprite;
+
+	var funkay:FlxSprite;
 
 	override function create()
 	{
@@ -61,11 +63,8 @@ class MainMenuState extends MusicBeatState
 		}
 
 		camGame = new FlxCamera();
-		camAchievement = new FlxCamera();
-		camAchievement.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
-		FlxG.cameras.add(camAchievement, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 
 		transIn = FlxTransitionableState.defaultTransIn;
@@ -83,12 +82,6 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
-		camFollow = new FlxObject(0, 0, 1, 1);
-		camFollowPos = new FlxObject(0, 0, 1, 1);
-
-		add(camFollow);
-		add(camFollowPos);
-
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
@@ -98,6 +91,16 @@ class MainMenuState extends MusicBeatState
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
+
+        funkay = new FlxSprite(0, 800).loadGraphic(Paths.image("mainmenu/mark_story_mode"));
+		funkay.antialiasing = ClientPrefs.globalAntialiasing;
+        add(funkay);
+
+		FlxTween.tween(funkay, {y: 0}, 1, {startDelay: 0.75, ease: FlxEase.expoOut});
+
+		sideThing = new FlxSprite().loadGraphic(Paths.image("mm_side"));
+		sideThing.x -= 512;
+		add(sideThing);
 		
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -106,8 +109,7 @@ class MainMenuState extends MusicBeatState
 
 		for (i in 0...optionShit.length)
 		{
-			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)  + offset);
+			var menuItem:FlxSprite = new FlxSprite(35, 32.5 + (280 * i));
 			menuItem.scale.x = scale;
 			menuItem.scale.y = scale;
 			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
@@ -115,20 +117,23 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
+			menuItem.alpha = 0;
 			menuItems.add(menuItem);
-			var scr:Float = (optionShit.length - 4) * 0.135;
-			if(optionShit.length < 6) scr = 0;
-			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			menuItem.updateHitbox();
 		}
 
-		FlxG.camera.follow(camFollowPos, null, 1);
+		FlxTween.tween(sideThing, {x: 0}, 0.5, {ease: FlxEase.cubeOut, onComplete: function fuock(fuer:FlxTween)
+		{
+			for(member in menuItems.members)
+			{
+				FlxTween.tween(member, {alpha: 1}, 0.35, {ease: FlxEase.sineOut, startDelay: (0.15 * member.ID)});
+			}
+		}});
 
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "The Destitution Mod v" + psychEngineVersion, 12);
+		var versionShit:FlxText = new FlxText(0, FlxG.height - 24, FlxG.width, "The Destitution Mod v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 
 		changeItem();
@@ -147,9 +152,6 @@ class MainMenuState extends MusicBeatState
 			if(FreeplayState.vocals != null)
 				FreeplayState.vocals.volume += 0.5 * elapsed;
 		}
-
-		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
-		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
 		if (!selectedSomethin)
 		{
@@ -179,11 +181,26 @@ class MainMenuState extends MusicBeatState
 
 				if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
+				FlxTween.cancelTweensOf(sideThing);
+				FlxTween.cancelTweensOf(funkay);
+
+				FlxTween.tween(sideThing, {x: -512}, 0.4,
+				{
+					ease: FlxEase.quadOut
+				});
+
+				FlxTween.tween(funkay, {y: 800}, 0.4,
+				{
+					ease: FlxEase.quadOut
+				});
+
 				menuItems.forEach(function(spr:FlxSprite)
 				{
 					if (curSelected != spr.ID)
 					{
-						FlxTween.tween(spr, {alpha: 0}, 0.4,
+						FlxTween.cancelTweensOf(spr);
+						spr.alpha = 1;
+						FlxTween.tween(spr, {x: -600, alpha: 0}, 0.4,
 						{
 							ease: FlxEase.quadOut,
 							onComplete: function(twn:FlxTween)
@@ -194,6 +211,8 @@ class MainMenuState extends MusicBeatState
 					}
 					else
 					{
+						FlxTween.cancelTweensOf(spr);
+						spr.alpha = 1;
 						FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 						{
 							var daChoice:String = optionShit[curSelected];
@@ -222,11 +241,6 @@ class MainMenuState extends MusicBeatState
 		}
 
 		super.update(elapsed);
-
-		menuItems.forEach(function(spr:FlxSprite)
-		{
-			spr.screenCenter(X);
-		});
 	}
 
 	function changeItem(huh:Int = 0)
@@ -238,20 +252,19 @@ class MainMenuState extends MusicBeatState
 		if (curSelected < 0)
 			curSelected = menuItems.length - 1;
 
+		funkay.loadGraphic(Paths.image('mainmenu/mark_' + optionShit[curSelected]));
+
 		menuItems.forEach(function(spr:FlxSprite)
 		{
 			spr.animation.play('idle');
 			spr.updateHitbox();
+			spr.x = 35;
 
 			if (spr.ID == curSelected)
 			{
 				spr.animation.play('selected');
-				var add:Float = 0;
-				if(menuItems.length > 4) {
-					add = menuItems.length * 8;
-				}
-				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
 				spr.centerOffsets();
+				spr.x = 35;
 			}
 		});
 	}
