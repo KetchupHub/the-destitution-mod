@@ -20,6 +20,7 @@ class Destitution extends SongClass
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
+        this.songDescription = "Mark and the gang show Nopeboy how to be a master investor!";
     }
 
     public override function stepHitEvent(curStep:Float)

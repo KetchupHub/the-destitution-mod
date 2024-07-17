@@ -14,6 +14,7 @@ class Abstraction extends SongClass
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
+        this.songDescription = "Experience the magic of Mark's very own self written television program firsthand!";
     }
 
     public override function stepHitEvent(curStep:Float)

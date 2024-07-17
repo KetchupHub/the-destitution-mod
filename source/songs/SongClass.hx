@@ -15,6 +15,8 @@ class SongClass
 
     public var gameoverMusicSuffix:String = "";
 
+    public var songDescription:String = 'Placeholder';
+
     public var songVariants:Array<String> = ["Normal"];
 
     public var songHasSections:Bool = false;

@@ -38,8 +38,8 @@ class FreeplayState extends MusicBeatState
 	var selector:FlxText;
 	private static var curSelected:Int = 0;
 
-	var scoreBG:FlxSprite;
 	var scoreText:FlxText;
+	var descText:FlxText;
 	var lerpScore:Int = 0;
 	var lerpRating:Float = 0;
 	var intendedScore:Int = 0;
@@ -102,14 +102,22 @@ class FreeplayState extends MusicBeatState
 		bg.screenCenter();
 
 		var freePaper = new FlxSprite().loadGraphic(Paths.image('freeplay_paper'));
+		freePaper.scale.set(2, 2);
+		freePaper.updateHitbox();
 		freePaper.antialiasing = false;
 		add(freePaper);
 
-		songCover = new FlxSprite(850, 0).loadGraphic(Paths.image('song_covers/placeholder'));
-		songCover.setGraphicSize(400);
+		var freeMetal = new FlxSprite(804, 0).loadGraphic(Paths.image('freeplay_metal'));
+		freeMetal.scale.set(2, 2);
+		freeMetal.updateHitbox();
+		freeMetal.antialiasing = false;
+		add(freeMetal);
+
+		songCover = new FlxSprite(936, 0).loadGraphic(Paths.image('song_covers/placeholder'));
+		songCover.setGraphicSize(256);
 		songCover.updateHitbox();
-		songCover.screenCenter();
-		songCover.x = 840;
+		songCover.x = 936;
+		songCover.y = 204;
 		songCover.antialiasing = false;
 		add(songCover);
 
@@ -118,16 +126,16 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...songs.length)
 		{
-			var songText:Alphabet = new Alphabet(35, 150, songs[i].songName, true);
+			var songText:Alphabet = new Alphabet(35, 150, SongInit.genSongObj(songs[i].songName.toLowerCase()).songNameForDisplay, true);
 			songText.changeX = false;
 			songText.isMenuItem = true;
 			songText.targetY = i - curSelected;
 			grpSongs.add(songText);
 
-			var maxWidth = 980;
+			var maxWidth = 680;
 			if (songText.width > maxWidth)
 			{
-				songText.scaleX = maxWidth / songText.width;
+				songText.scaleX = maxWidth / (songText.width + 38);
 			}
 			songText.snapToPosition();
 
@@ -135,14 +143,16 @@ class FreeplayState extends MusicBeatState
 		}
 		WeekData.setDirectoryFromWeek();
 
-		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
-		scoreText.setFormat(Paths.font("BAUHS93.ttf"), 32, FlxColor.WHITE, RIGHT);
-
-		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 115, 0xFF000000);
-		scoreBG.alpha = 0.6;
-		add(scoreBG);
-
+		scoreText = new FlxText(872, 5, 403, "", 38);
+		scoreText.setFormat(Paths.font("BAUHS93.ttf"), 38, FlxColor.WHITE, CENTER);
+		scoreText.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 1.5, 0);
 		add(scoreText);
+
+		descText = new FlxText(872, songCover.y + songCover.height + 21, 403, "Placeholder", 30);
+		//descText.setFormat(Paths.font("BAUHS93.ttf"), 30, songs[curSelected].color, CENTER);
+		descText.setFormat(Paths.font("BAUHS93.ttf"), 30, FlxColor.WHITE, CENTER);
+		descText.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 1.5, 0);
+		add(descText);
 
 		if(curSelected >= songs.length) curSelected = 0;
 		bg.color = songs[curSelected].color;
@@ -449,10 +459,13 @@ class FreeplayState extends MusicBeatState
 		{
 			songCover.loadGraphic(Paths.image('song_covers/placeholder'));
 		}
-		songCover.setGraphicSize(400);
+		songCover.setGraphicSize(256);
 		songCover.updateHitbox();
-		songCover.screenCenter();
-		songCover.x = 840;
+		songCover.x = 936;
+		songCover.y = 204;
+
+		descText.text = SongInit.genSongObj(songs[curSelected].songName.toLowerCase()).songDescription;
+		//descText.setFormat(Paths.font("BAUHS93.ttf"), 30, songs[curSelected].color, CENTER);
 		
 		Paths.currentModDirectory = songs[curSelected].folder;
 		PlayState.storyWeek = songs[curSelected].week;
@@ -461,8 +474,6 @@ class FreeplayState extends MusicBeatState
 	private function positionHighscore()
 	{
 		scoreText.x = FlxG.width - scoreText.width - 6;
-		scoreBG.scale.x = FlxG.width - scoreText.x + 6;
-		scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
 	}
 }
 

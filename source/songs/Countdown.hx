@@ -15,6 +15,7 @@ class Countdown extends SongClass
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
+        this.songDescription = "It's a slice of life episode! Mark and the gang play sports with Nopeboy and his friends!";
     }
 
     public override function stepHitEvent(curStep:Float)

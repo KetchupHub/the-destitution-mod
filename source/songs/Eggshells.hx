@@ -14,6 +14,7 @@ class Eggshells extends SongClass
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
+        this.songDescription = "Mark's lonely cousin seems like he's not much for conversation, but that won't stop Nopeboy from trying!";
     }
 
     public override function stepHitEvent(curStep:Float)

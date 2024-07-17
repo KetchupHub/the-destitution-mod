@@ -20,6 +20,7 @@ class DStitution extends SongClass
         //make it dsides later dumb
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
+        this.songDescription = "Mark enlists Nopeboy to test the new dimension shifter on his time machine, and shenanigans ensue!";
     }
 
     public override function stepHitEvent(curStep:Float)

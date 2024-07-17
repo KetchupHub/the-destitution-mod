@@ -18,6 +18,7 @@ class NewHampshire extends SongClass
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
+        this.songDescription = "More alternate universe shenanigans?! This time, it's just Mark's bucksian-self and Nopeboy angling to impress!";
     }
 
     public override function stepHitEvent(curStep:Float)
