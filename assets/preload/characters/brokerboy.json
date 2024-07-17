@@ -1,0 +1,56 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				-140,
+				0
+			],
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "stock broker 1 bop head"
+		},
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				0
+			],
+			"fps": 24,
+			"anim": "walk",
+			"indices": [],
+			"name": "stock broker 1 walk up"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-46,
+				0
+			],
+			"fps": 24,
+			"anim": "die",
+			"indices": [],
+			"name": "stock broker 1 die of low stock"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/broker",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "mark",
+	"flip_x": false,
+	"healthbar_colors": [
+		105,
+		27,
+		11
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 6,
+	"scale": 1
+}

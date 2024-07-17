@@ -17,6 +17,7 @@ class Superseded extends SongClass
         this.introType = 'Mark'; //wont be used anyways because superseded skips the countdown
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
+        this.songVariants = ["Normal", "Erect"];
     }
 
     public override function stepHitEvent(curStep:Float)

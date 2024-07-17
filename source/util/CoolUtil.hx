@@ -17,32 +17,10 @@ class CoolUtil
 {
 	public static var appTitleString:String = "The Destitution Mod v3";
 
-	public static var defaultDifficulties:Array<String> = [
-		'Normal'
-	];
-	
-	public static var defaultDifficulty:String = 'Normal'; //The chart that has no suffix and starting difficulty on Freeplay/Story Mode
-
-	public static var difficulties:Array<String> = [];
-
 	inline public static function quantize(f:Float, snap:Float)
 	{
 		var m:Float = Math.fround(f * snap);
 		return (m / snap);
-	}
-	
-	public static function getDifficultyFilePath(num:Null<Int> = null)
-	{
-		if(num == null) num = PlayState.storyDifficulty;
-
-		var fileSuffix:String = '';
-		
-		return Paths.formatToSongPath(fileSuffix);
-	}
-
-	public static function difficultyString():String
-	{
-		return difficulties[PlayState.storyDifficulty].toUpperCase();
 	}
 
 	inline public static function boundTo(value:Float, min:Float, max:Float):Float

@@ -19,6 +19,7 @@ class DStitution extends SongClass
         this.gameoverChar = 'd-bf-dead';
         //make it dsides later dumb
         this.gameoverMusicSuffix = '';
+        this.songVariants = ["Normal", "Erect"];
     }
 
     public override function stepHitEvent(curStep:Float)

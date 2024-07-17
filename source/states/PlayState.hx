@@ -84,6 +84,8 @@ class PlayState extends MusicBeatState
 
 	public var isCameraOnForcedPos:Bool = false;
 
+	public var brokerBop:Bool = false;
+
 	public var sectText:FlxText;
 	public var sectNameText:FlxText;
 
@@ -131,7 +133,6 @@ class PlayState extends MusicBeatState
 	public static var isStoryMode:Bool = false;
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
-	public static var storyDifficulty:Int = 1;
 
 	public var spawnTime:Float = 2000;
 
@@ -188,7 +189,6 @@ class PlayState extends MusicBeatState
 	public var endingSong:Bool = false;
 	public var startingSong:Bool = false;
 	private var updateTime:Bool = true;
-	public static var changedDifficulty:Bool = false;
 	public static var chartingMode:Bool = false;
 
 	//Gameplay settings
@@ -317,10 +317,9 @@ class PlayState extends MusicBeatState
 
 	public var karmScaredy:FlxSprite;
 
-	public var stockboy:FlxSprite;
+	public var stockboy:Character;
 
 	var bucksBarUpdateCountdown:Float = 10;
-
 
 	override public function create()
 	{
@@ -701,15 +700,10 @@ class PlayState extends MusicBeatState
 				lump.scrollFactor.set(0.45, 0.7);
 				add(lump);
 
-				stockboy = new FlxSprite(-245, 275);
+				stockboy = new Character(-245, 275, 'brokerboy', false, false);
 				stockboy.antialiasing = true;
-				stockboy.frames = Paths.getSparrowAtlas('bucks/broker');
-				stockboy.animation.addByPrefix('walk', 'stock broker 1 walk up', 24, false);
-				stockboy.animation.addByPrefix('idle', 'stock broker 1 walk up', 24, false);
-				stockboy.animation.addByPrefix('die', 'stock broker 1 walk up', 24, false);
-				stockboy.animation.play('walk');
+				stockboy.playAnim('walk', true);
 				stockboy.animation.pause();
-				//stockboy.animation.finish();
 				stockboy.scrollFactor.set(0.45, 0.7);
 				add(stockboy);
 				
@@ -720,9 +714,6 @@ class PlayState extends MusicBeatState
 				var screen = new FlxSprite(30, -250).loadGraphic(Paths.image('bucks/screen'));
 				screen.antialiasing = true;
 				add(screen);
-
-				//graph bar x is screen.x + 137.7 + (i * 120)
-				//y is -118
 
 				for(i in 0...7)
 				{
@@ -2948,7 +2939,7 @@ class PlayState extends MusicBeatState
 				#if !switch
 				var percent:Float = ratingPercent;
 				if(Math.isNaN(percent)) percent = 0;
-				Highscore.saveScore(SONG.song, songScore, storyDifficulty, percent);
+				Highscore.saveScore(SONG.song, songScore, percent);
 				#end
 			}
 			
@@ -2970,7 +2961,6 @@ class PlayState extends MusicBeatState
 
 			MusicBeatState.switchState(new FreeplayState());
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
-			changedDifficulty = false;
 
 			transitioning = true;
 		}
@@ -3738,6 +3728,17 @@ class PlayState extends MusicBeatState
 		}
 
 		songObj.beatHitEvent(curBeat);
+
+		if(brokerBop)
+		{
+			if(curBeat % 2 == 0)
+			{
+				if(stockboy != null)
+				{
+					stockboy.dance();
+				}
+			}
+		}
 
 		if(rulezBeatSlam)
 		{

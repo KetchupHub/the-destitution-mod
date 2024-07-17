@@ -29,8 +29,6 @@ class SongInit
                 returnSong = new Megamix();
             case 'new-hampshire':
                 returnSong = new NewHampshire();
-            case 'the-devs-song':
-                returnSong = new TheDevsSong();
             case 'abstraction':
                 returnSong = new Abstraction();
             case 'three-of-them':

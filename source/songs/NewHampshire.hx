@@ -17,6 +17,7 @@ class NewHampshire extends SongClass
         this.introType = 'Default';
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
+        this.songVariants = ["Normal", "Erect"];
     }
 
     public override function stepHitEvent(curStep:Float)
@@ -97,6 +98,11 @@ class NewHampshire extends SongClass
                     PlayState.instance.dad.canDance = false;
                     PlayState.instance.dad.canSing = false;
                     PlayState.instance.dad.playAnim('lookBack', true);
+                    PlayState.instance.stockboy.playAnim('walk', true);
+                }
+            case 167:
+                {
+                    PlayState.instance.brokerBop = true;
                 }
             case 175:
                 {
@@ -113,6 +119,8 @@ class NewHampshire extends SongClass
                                 {
                                     whichEndingYouGet = 2;
                                     PlayState.instance.dad.playAnim('turnSad', true);
+                                    PlayState.instance.brokerBop = false;
+                                    PlayState.instance.stockboy.playAnim('die', true);
                                 }
                             case 7 | 8 | 9 | 10:
                                 {

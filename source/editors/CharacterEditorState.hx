@@ -1,5 +1,6 @@
 package editors;
 
+import util.macro.GitCommit;
 import util.MemoryUtil;
 import sys.FileSystem;
 #if desktop
@@ -192,6 +193,13 @@ class CharacterEditorState extends states.MusicBeatState
 
 		FlxG.mouse.visible = true;
 		reloadCharacterOptions();
+
+		#if DEVELOPERBUILD
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
+		#end
 
 		super.create();
 	}
@@ -400,7 +408,8 @@ class CharacterEditorState extends states.MusicBeatState
 	var healthColorStepperG:FlxUINumericStepper;
 	var healthColorStepperB:FlxUINumericStepper;
 
-	function addCharacterUI() {
+	function addCharacterUI()
+	{
 		var tab_group = new FlxUI(null, UI_box);
 		tab_group.name = "Character";
 

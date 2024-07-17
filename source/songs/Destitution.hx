@@ -19,6 +19,7 @@ class Destitution extends SongClass
         this.introType = 'Mark';
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
+        this.songVariants = ["Normal", "Erect"];
     }
 
     public override function stepHitEvent(curStep:Float)
@@ -91,7 +92,7 @@ class Destitution extends SongClass
                 PlayState.instance.defaultCamZoom -= 0.3;
                 PlayState.instance.dad.canDance = true;
                 PlayState.instance.dad.canSing = true;
-                FlxTween.cancelTweensOf(PlayState.instance.bgPlayer);
+                FlxTween.completeTweensOf(PlayState.instance.bgPlayer);
                 PlayState.instance.bgPlayer.x = PlayState.instance.bgPlayerWalkTarget;
                 PlayState.instance.bgPlayer.canDance = true;
                 PlayState.instance.bgPlayer.dance();
@@ -261,8 +262,8 @@ class Destitution extends SongClass
                 FlxG.camera.flash();
                 PlayState.instance.defaultCamZoom -= 0.2;
             case 1340:
-                FlxTween.cancelTweensOf(PlayState.instance.dad);
-                FlxTween.cancelTweensOf(PlayState.instance.boyfriend);
+                FlxTween.completeTweensOf(PlayState.instance.dad);
+                FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500);
                 FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500);
             case 1344:
@@ -288,8 +289,8 @@ class Destitution extends SongClass
                 PlayState.instance.dad.x += 90;
                 PlayState.instance.dad.y += 300;
                 
-                FlxTween.cancelTweensOf(PlayState.instance.dad);
-                FlxTween.cancelTweensOf(PlayState.instance.boyfriend);
+                FlxTween.completeTweensOf(PlayState.instance.dad);
+                FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 PlayState.instance.dad.alpha = 0;
                 PlayState.instance.boyfriend.alpha = 0;
                 FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500);
@@ -311,8 +312,8 @@ class Destitution extends SongClass
                 PlayState.instance.whaleFuckShit = false;
                 FlxG.camera.flash();
             case 1768:
-                FlxTween.cancelTweensOf(PlayState.instance.dad);
-                FlxTween.cancelTweensOf(PlayState.instance.boyfriend);
+                FlxTween.completeTweensOf(PlayState.instance.dad);
+                FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500);
                 FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500);
             case 1776:
@@ -334,8 +335,8 @@ class Destitution extends SongClass
                 PlayState.instance.dad = new Character(-215, -60, 'mark-annoyed', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
-                FlxTween.cancelTweensOf(PlayState.instance.dad);
-                FlxTween.cancelTweensOf(PlayState.instance.boyfriend);
+                FlxTween.completeTweensOf(PlayState.instance.dad);
+                FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 PlayState.instance.dad.alpha = 0;
                 PlayState.instance.boyfriend.alpha = 0;
                 FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500);
@@ -357,7 +358,7 @@ class Destitution extends SongClass
                 {
                     var fucksTimerSake:FlxTimer = new FlxTimer().start(2, function fuuck(stupidFuckler:FlxTimer)
                     {
-                        FlxTween.cancelTweensOf(PlayState.instance.rulezGuySlideScaleWorldFunnyClips);
+                        FlxTween.completeTweensOf(PlayState.instance.rulezGuySlideScaleWorldFunnyClips);
                         PlayState.instance.rulezGuySlideScaleWorldFunnyClips.destroy();
                     });
                 }});
@@ -377,8 +378,8 @@ class Destitution extends SongClass
                 PlayState.instance.boyfriend = new Boyfriend(0, 0, 'bf-mark-rulez', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
-                FlxTween.cancelTweensOf(PlayState.instance.dad);
-                FlxTween.cancelTweensOf(PlayState.instance.boyfriend);
+                FlxTween.completeTweensOf(PlayState.instance.dad);
+                FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 PlayState.instance.dad.alpha = 0;
                 PlayState.instance.boyfriend.alpha = 0;
                 FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500);
@@ -391,8 +392,8 @@ class Destitution extends SongClass
 
                 Paths.clearUnusedMemory();
             case 2557:
-                FlxTween.cancelTweensOf(PlayState.instance.dad);
-                FlxTween.cancelTweensOf(PlayState.instance.boyfriend);
+                FlxTween.completeTweensOf(PlayState.instance.dad);
+                FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500);
                 FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500);
             case 2560:
@@ -416,8 +417,8 @@ class Destitution extends SongClass
 
                 PlayState.instance.boyfriend.x -= 1280;
 
-                FlxTween.cancelTweensOf(PlayState.instance.dad);
-                FlxTween.cancelTweensOf(PlayState.instance.boyfriend);
+                FlxTween.completeTweensOf(PlayState.instance.dad);
+                FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 PlayState.instance.dad.alpha = 0;
                 PlayState.instance.boyfriend.alpha = 0;
                 FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500);

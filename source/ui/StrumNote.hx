@@ -73,8 +73,6 @@ class StrumNote extends FlxSprite
 
 		antialiasing = false;
 
-		setGraphicSize(Std.int(width * 0.7));
-
 		switch (Math.abs(noteData) % 4)
 		{
 			case 0:

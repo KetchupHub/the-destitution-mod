@@ -185,10 +185,9 @@ class Note extends FlxSprite
 
 		if (isSustainNote && prevNote != null)
 		{
-			setGraphicSize(Std.int(width * 0.6));
-
-			//alpha = 0.45;
-			//multAlpha = 0.45;
+			alpha = 0.8;
+			multAlpha = 0.8;
+			
 			hitsoundDisabled = true;
 			if(ClientPrefs.downScroll) flipY = true;
 
@@ -293,7 +292,6 @@ class Note extends FlxSprite
 			animation.addByPrefix(colArray[noteData] + 'hold', colArray[noteData] + ' hold piece');
 		}
 
-		setGraphicSize(Std.int(width * 0.7));
 		updateHitbox();
 	}
 

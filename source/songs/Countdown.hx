@@ -14,6 +14,7 @@ class Countdown extends SongClass
         //update these when the Sport Gameover later
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
+        this.songVariants = ["Normal", "Erect"];
     }
 
     public override function stepHitEvent(curStep:Float)

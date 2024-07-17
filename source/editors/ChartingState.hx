@@ -213,8 +213,6 @@ class ChartingState extends states.MusicBeatState
 			_song = PlayState.SONG;
 		else
 		{
-			util.CoolUtil.difficulties = util.CoolUtil.defaultDifficulties.copy();
-
 			_song = {
 				song: 'Destitution', //crash fix
 				notes: [],
@@ -2952,17 +2950,7 @@ class ChartingState extends states.MusicBeatState
 
 	function loadJson(song:String):Void
 	{
-		//shitty null fix, i fucking hate it when this happens
-		//make it look sexier if possible
-		if (util.CoolUtil.difficulties[PlayState.storyDifficulty] != util.CoolUtil.defaultDifficulty) {
-			if(util.CoolUtil.difficulties[PlayState.storyDifficulty] == null){
-				PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
-			}else{
-				PlayState.SONG = Song.loadFromJson(song.toLowerCase() + "-" + util.CoolUtil.difficulties[PlayState.storyDifficulty], song.toLowerCase());
-			}
-		}else{
 		PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
-		}
 		MusicBeatState.resetState();
 	}
 

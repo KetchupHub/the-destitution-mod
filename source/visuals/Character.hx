@@ -329,7 +329,7 @@ class Character extends FlxSprite
 		var altStr:String = "";
 		if(alt)
 		{
-			altStr = '-alt';
+			altStr = "-alt";
 		}
 
 		if (!debugMode && !skipDance && !specialAnim && canDance)
@@ -343,8 +343,19 @@ class Character extends FlxSprite
 				else
 					playAnim('danceLeft' + idleSuffix + altStr, true);
 			}
-			else if(animOffsets.exists('idle' + idleSuffix + altStr)) {
+			else if(animation.getByName('idle' + idleSuffix + altStr) != null)
+			{
+				if(animation.curAnim != null)
+				{
+					if(!animation.getByName('idle' + idleSuffix + altStr).looped || animation.curAnim.name != "idle" + idleSuffix + altStr)
+					{
+						playAnim('idle' + idleSuffix + altStr, true);
+					}
+				}
+				else
+				{
 					playAnim('idle' + idleSuffix + altStr, true);
+				}
 			}
 		}
 	}

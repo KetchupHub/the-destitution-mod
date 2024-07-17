@@ -13,6 +13,7 @@ class Megamix extends SongClass
         this.introType = 'Mark';
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
+        this.songVariants = ["Normal"];
     }
 
     public override function stepHitEvent(curStep:Float)

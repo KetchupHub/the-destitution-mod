@@ -13,6 +13,7 @@ class Collapse extends SongClass
         this.introType = 'Mark';
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
+        this.songVariants = ["Normal", "Erect"];
     }
 
     public override function stepHitEvent(curStep:Float)

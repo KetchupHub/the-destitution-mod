@@ -13,6 +13,7 @@ class Eggshells extends SongClass
         this.introType = 'Eggshells';
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
+        this.songVariants = ["Normal", "Erect"];
     }
 
     public override function stepHitEvent(curStep:Float)
