@@ -186,9 +186,9 @@
 	"healthicon": "karm",
 	"flip_x": false,
 	"healthbar_colors": [
-		206,
+		229,
 		163,
-		61
+		43
 	],
 	"camera_position": [
 		20,

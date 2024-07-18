@@ -76,9 +76,9 @@
 	"healthicon": "item",
 	"flip_x": true,
 	"healthbar_colors": [
-		83,
-		163,
-		94
+		0,
+		204,
+		153
 	],
 	"camera_position": [
 		0,
