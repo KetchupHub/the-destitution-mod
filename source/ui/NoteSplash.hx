@@ -1,5 +1,6 @@
 package ui;
 
+import openfl.display.BlendMode;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import visuals.ColorSwap;
@@ -32,6 +33,12 @@ class NoteSplash extends FlxSprite
 	{
 		setPosition(x - Note.swagWidth * 0.95, y - Note.swagWidth);
 		alpha = 0.45;
+
+		//dislike
+		/*if(ClientPrefs.shaders)
+		{
+			blend = BlendMode.ADD;
+		}*/
 
 		if(texture == null)
 		{

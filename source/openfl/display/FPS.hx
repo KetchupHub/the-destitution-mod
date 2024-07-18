@@ -1,8 +1,6 @@
 package openfl.display;
 
 import util.MemoryUtil;
-import haxe.Timer;
-import openfl.events.Event;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 #if gl_stats
@@ -11,10 +9,6 @@ import openfl.display._internal.stats.DrawCallContext;
 #end
 #if flash
 import openfl.Lib;
-#end
-
-#if openfl
-import openfl.system.System;
 #end
 
 /**

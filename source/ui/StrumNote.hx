@@ -17,7 +17,7 @@ class StrumNote extends FlxSprite
 	public var downScroll:Bool = false;
 	public var sustainReduce:Bool = true;
 	
-	private var player:Int;
+	public var player:Int;
 	
 	public var texture(default, set):String = null;
 
@@ -66,29 +66,29 @@ class StrumNote extends FlxSprite
 
 		frames = Paths.getSparrowAtlas(texture);
 
-		animation.addByPrefix('green', 'arrowUP');
-		animation.addByPrefix('blue', 'arrowDOWN');
-		animation.addByPrefix('purple', 'arrowLEFT');
-		animation.addByPrefix('red', 'arrowRIGHT');
+		animation.addByPrefix('green', 'arrowUP', 24);
+		animation.addByPrefix('blue', 'arrowDOWN', 24);
+		animation.addByPrefix('purple', 'arrowLEFT', 24);
+		animation.addByPrefix('red', 'arrowRIGHT', 24);
 
 		antialiasing = false;
 
 		switch (Math.abs(noteData) % 4)
 		{
 			case 0:
-				animation.addByPrefix('static', 'arrowLEFT');
+				animation.addByPrefix('static', 'arrowLEFT', 24);
 				animation.addByPrefix('pressed', 'left press', 24, false);
 				animation.addByPrefix('confirm', 'left confirm', 24, false);
 			case 1:
-				animation.addByPrefix('static', 'arrowDOWN');
+				animation.addByPrefix('static', 'arrowDOWN', 24);
 				animation.addByPrefix('pressed', 'down press', 24, false);
 				animation.addByPrefix('confirm', 'down confirm', 24, false);
 			case 2:
-				animation.addByPrefix('static', 'arrowUP');
+				animation.addByPrefix('static', 'arrowUP', 24);
 				animation.addByPrefix('pressed', 'up press', 24, false);
 				animation.addByPrefix('confirm', 'up confirm', 24, false);
 			case 3:
-				animation.addByPrefix('static', 'arrowRIGHT');
+				animation.addByPrefix('static', 'arrowRIGHT', 24);
 				animation.addByPrefix('pressed', 'right press', 24, false);
 				animation.addByPrefix('confirm', 'right confirm', 24, false);
 		}

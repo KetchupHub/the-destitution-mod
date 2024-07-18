@@ -1,5 +1,6 @@
 package states;
 
+import flixel.tweens.FlxEase;
 #if DEVELOPERBUILD
 import util.macro.GitCommit;
 #end
@@ -22,6 +23,8 @@ class FlashingState extends MusicBeatState
 	public static var leftState:Bool = false;
 
 	var warnText:FlxText;
+	var warnMark:FlxSprite;
+
 	override function create()
 	{
 		super.create();
@@ -29,16 +32,24 @@ class FlashingState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
-		warnText = new FlxText(0, 0, FlxG.width,
+		warnText = new FlxText(0, 0, 640,
 			"Hey, watch out!\n
 			This Mod contains some flashing lights!\n
-			Press ENTER to disable them now or go to Options Menu.\n
+			Press ENTER to disable them now.\n
 			Press ESCAPE to ignore this message.\n
+			(You can turn them off later in the options menu either way.)\n
 			You've been warned!",
 			32);
 		warnText.setFormat(Paths.font("BAUHS93.ttf"), 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);
+
+		warnMark = new FlxSprite(640).loadGraphic(Paths.image('flashing'));
+		warnMark.scale.set(2, 2);
+		warnMark.updateHitbox();
+		warnMark.antialiasing = false;
+		warnMark.setPosition(640, 0);
+		add(warnMark);
 
 		#if DEVELOPERBUILD
 		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
@@ -75,6 +86,10 @@ class FlashingState extends MusicBeatState
 				else
 				{
 					FlxG.sound.play(Paths.sound('cancelMenu'));
+					FlxTween.tween(warnMark, {y: 800}, 0.75,
+					{
+						ease: FlxEase.circOut
+					});
 					FlxTween.tween(warnText, {alpha: 0}, 1,
 					{
 						onComplete: function (twn:FlxTween)

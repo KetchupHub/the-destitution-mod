@@ -157,7 +157,109 @@ class DStitution extends SongClass
                 PlayState.instance.dad.visible = true;
                 FlxG.camera.flash();
 
+                PlayState.instance.sky.loadGraphic(Paths.image('dsides/iliSky'));
+                PlayState.instance.backing.loadGraphic(Paths.image('dsides/iliBacking'));
+                PlayState.instance.starting.loadGraphic(Paths.image('dsides/iliRoom'));
+
                 PlayState.instance.sectionIntroThing("I LIEK ITEM");
+            case 1336:
+                FlxG.camera.flash();
+
+                PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'douglass', false, false);
+                PlayState.instance.dadGroup.add(PlayState.instance.dad);
+
+                PlayState.instance.sky.loadGraphic(Paths.image('dsides/dougSky'));
+                PlayState.instance.backing.loadGraphic(Paths.image('dsides/dougBacking'));
+                PlayState.instance.starting.loadGraphic(Paths.image('dsides/dougRoom'));
+
+                PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
+                PlayState.instance.reloadHealthBarColors();
+
+                PlayState.instance.sectionIntroThing("Douglass Dolphin");
+            case 1758:
+                FlxG.camera.flash();
+
+                PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'karm-scold', false, false);
+                PlayState.instance.dadGroup.add(PlayState.instance.dad);
+
+                PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'douglass-player', false);
+                PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
+
+                PlayState.instance.sky.loadGraphic(Paths.image('dsides/dougSky'));
+                PlayState.instance.backing.loadGraphic(Paths.image('dsides/dougBacking'));
+                PlayState.instance.starting.loadGraphic(Paths.image('dsides/dougRoom'));
+
+                PlayState.instance.iconP1.changeIcon(PlayState.instance.boyfriend.healthIcon);
+                PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
+                PlayState.instance.reloadHealthBarColors();
+
+                PlayState.instance.sectionIntroThing("Being Rude is Not Nice!");
+            case 2072:
+                FlxG.camera.flash();
+
+                PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'd-rules', false, false);
+                PlayState.instance.dadGroup.add(PlayState.instance.dad);
+
+                PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf-rules', false);
+                PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
+
+                PlayState.instance.sky.loadGraphic(Paths.image('dsides/skyworldSky'));
+                PlayState.instance.backing.visible = false;
+                PlayState.instance.starting.loadGraphic(Paths.image('dsides/skyworldStage'));
+
+                PlayState.instance.iconP1.changeIcon(PlayState.instance.boyfriend.healthIcon);
+                PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
+                PlayState.instance.reloadHealthBarColors();
+
+                PlayState.instance.sectionIntroThing("I, Rules");
+            case 2504:
+                FlxG.camera.flash();
+
+                PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'maestro', false, false);
+                PlayState.instance.dadGroup.add(PlayState.instance.dad);
+
+                PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf-rules-flipped', false);
+                PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
+
+                PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
+                PlayState.instance.reloadHealthBarColors();
+
+                PlayState.instance.sectionIntroThing("Maestro Cryptehnt");
+            case 3056:
+                FlxG.camera.flash();
+
+                PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'zamboney', false, false);
+                PlayState.instance.dadGroup.add(PlayState.instance.dad);
+
+                PlayState.instance.boyfriend.visible = false;
+
+                PlayState.instance.sky.visible = false;
+                PlayState.instance.backing.visible = false;
+                PlayState.instance.starting.visible = false;
+
+                PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
+                PlayState.instance.reloadHealthBarColors();
+
+                PlayState.instance.sectionIntroThing("Zam-boney!");
+            case 3568:
+                FlxG.camera.flash();
+
+                PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'karm-finale', false, false);
+                PlayState.instance.dadGroup.add(PlayState.instance.dad);
+
+                PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
+                PlayState.instance.reloadHealthBarColors();
+
+                PlayState.instance.sectionIntroThing("Karm Kurt Karmason Jr. (Finale)");
         }
     }
 }

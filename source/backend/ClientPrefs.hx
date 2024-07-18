@@ -31,7 +31,7 @@ class ClientPrefs
 	public static var controllerMode:Bool = false;
 	public static var hitsoundVolume:Float = 0;
 	public static var checkForUpdates:Bool = true;
-	public static var comboStacking = true;
+	public static var comboStacking = false;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -120,7 +120,7 @@ class ClientPrefs
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
-		save.bind('controls_v2', util.CoolUtil.getSavePath()); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
+		save.bind('controls', util.CoolUtil.getSavePath()); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
 		save.data.customControls = keyBinds;
 		save.flush();
 		FlxG.log.add("Settings saved!");
@@ -277,7 +277,7 @@ class ClientPrefs
 
 		var save:FlxSave = new FlxSave();
 
-		save.bind('controls_v2', util.CoolUtil.getSavePath());
+		save.bind('controls', util.CoolUtil.getSavePath());
 
 		if(save != null && save.data.customControls != null)
 		{

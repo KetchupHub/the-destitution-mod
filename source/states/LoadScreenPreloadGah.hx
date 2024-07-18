@@ -31,8 +31,6 @@ class LoadScreenPreloadGah extends MusicBeatState
 
     var startedSwitching:Bool = false;
 
-    //var disableLaterDumbass:Float = 0;
-
 	override function create()
     {
         MemoryUtil.collect(true);
@@ -54,14 +52,12 @@ class LoadScreenPreloadGah extends MusicBeatState
 
         switch(PlayState.SONG.song.toLowerCase())
         {
-            //apparently it is more efficient and LESS LAGGY (how the fuck) to NOT preload i mighbt kill myseklf
-            //bringing back because destitution fucking hates me
             case 'destitution':
                 charactersToLoad = ['mark', 'bf-mark', 'mark-alt', 'mark-annoyed', 'mark-angry', 'ploinky', 'item', 'whale', 'rulez', 'crypteh', 'zam', 'bf-mark-ploink', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh', 'bf-mark-annoyed', 'bg-player', 'stop-loading'];
             /*case 'superseded':
-                charactersToLoad = ['superseded-mark', 'superseded-mark-graph', 'superseded-creature', 'superseded-bf', 'stop-loading'];
+                charactersToLoad = ['superseded-mark', 'superseded-mark-graph', 'superseded-creature', 'superseded-bf', 'stop-loading'];*/
             case 'd-stitution':
-                charactersToLoad = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'd-ili', 'stop-loading'];*/
+                charactersToLoad = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'd-ili', 'douglass', 'karm-scold', 'douglass-player', 'd-rules', 'd-bf-rules', 'maestro', 'd-bf-rules-flipped', 'zamboney', 'karm-finale', 'stop-loading'];
             default:
                 charactersToLoad = ['bf', 'gf', 'stop-loading'];
         }
@@ -92,7 +88,6 @@ class LoadScreenPreloadGah extends MusicBeatState
                 {
                     if(charactersToLoad[0] != "stop-loading")
                     {
-                        //disableLaterDumbass = 0;
                         preloadCharacter(charactersToLoad[0]);
                     }
                     else
@@ -108,8 +103,6 @@ class LoadScreenPreloadGah extends MusicBeatState
                 startedSwitching = true;
                 MusicBeatState.switchState(new PlayState());
             }
-
-            //disableLaterDumbass += elapsed;
         }
 
         loadedBar.percent = ((charactersToLoad.length - 1) / toLoad) * 100;
@@ -137,8 +130,5 @@ class LoadScreenPreloadGah extends MusicBeatState
         insert(members.indexOf(funkay) - 1, chrazy);
         characters.push(chrazy);
         charactersToLoad.remove(charName);
-
-        //trace("char elapsed time: " + disableLaterDumbass);
-        //disableLaterDumbass = 0;
     }
 }

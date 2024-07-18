@@ -207,6 +207,15 @@ class Destitution extends SongClass
                 PlayState.instance.spaceTimeBfArray[0] = PlayState.instance.boyfriend.x;
                 PlayState.instance.spaceTimeBfArray[1] = PlayState.instance.boyfriend.y;
 
+                for(i in PlayState.instance.opponentStrums.members)
+                {
+                    FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+                }
+                for(i in PlayState.instance.playerStrums.members)
+                {
+                    FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+                }
+
                 PlayState.instance.sectionIntroThing("I LIEK ITEM");
                 
                 Paths.clearUnusedMemory();
@@ -271,6 +280,14 @@ class Destitution extends SongClass
                 PlayState.instance.centerCamOnBg = true;
                 PlayState.instance.liek.animation.play("idle", true);
                 PlayState.instance.cuttingSceneThing.visible = true;
+                for(i in PlayState.instance.opponentStrums.members)
+                {
+                    FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
+                }
+                for(i in PlayState.instance.playerStrums.members)
+                {
+                    FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
+                }
             case 1348:
                 PlayState.instance.cuttingSceneThing.visible = false;
                 PlayState.instance.centerCamOnBg = false;
@@ -296,6 +313,21 @@ class Destitution extends SongClass
                 PlayState.instance.boyfriend.alpha = 0;
                 FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500);
                 FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500);
+                
+                for(i in PlayState.instance.opponentStrums.members)
+                {
+                    //i.x -= ((FlxG.width / 2) * 1);
+                    //i.x += ((FlxG.width / 2) * 0);
+                    FlxTween.completeTweensOf(i);
+                    FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
+                }
+                for(i in PlayState.instance.playerStrums.members)
+                {
+                    //i.x -= ((FlxG.width / 2) * 0);
+                    //i.x += ((FlxG.width / 2) * 1);
+                    FlxTween.completeTweensOf(i);
+                    FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
+                }
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
@@ -347,6 +379,15 @@ class Destitution extends SongClass
                 PlayState.instance.reloadHealthBarColors();
 
                 PlayState.instance.sectionIntroThing("Mark Mc. Marketing (B)");
+
+                for(i in PlayState.instance.opponentStrums.members)
+                {
+                    FlxTween.tween(i, {x: i.x + 575}, 1, {ease: FlxEase.quadInOut});
+                }
+                for(i in PlayState.instance.playerStrums.members)
+                {
+                    FlxTween.tween(i, {x: i.x - -320}, 1, {ease: FlxEase.quadInOut});
+                }
 
                 Paths.clearUnusedMemory();
             case 2036:
@@ -471,6 +512,15 @@ class Destitution extends SongClass
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
+
+                for(i in PlayState.instance.opponentStrums.members)
+                {
+                    FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
+                }
+                for(i in PlayState.instance.playerStrums.members)
+                {
+                    FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
+                }
 
                 PlayState.instance.sectionIntroThing("Guy with a Zamboni");
 

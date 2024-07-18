@@ -3,9 +3,6 @@ package adobeanimate;
 import flixel.util.FlxSignal.FlxTypedSignal;
 import flxanimate.FlxAnimate;
 import flxanimate.FlxAnimate.Settings;
-import flxanimate.frames.FlxAnimateFrames;
-import openfl.display.BitmapData;
-import openfl.utils.Assets;
 
 /**
  * A sprite which provides convenience functions for rendering a texture atlas with animations.

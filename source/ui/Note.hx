@@ -1,5 +1,6 @@
 package ui;
 
+import openfl.display.BlendMode;
 import flixel.FlxSprite;
 import editors.ChartingState;
 import visuals.ColorSwap;
@@ -185,8 +186,14 @@ class Note extends FlxSprite
 
 		if (isSustainNote && prevNote != null)
 		{
-			alpha = 0.8;
-			multAlpha = 0.8;
+			alpha = 0.75;
+			multAlpha = 0.75;
+
+			//dont look good
+			/*if(ClientPrefs.shaders)
+			{
+				blend = BlendMode.ADD;
+			}*/
 			
 			hitsoundDisabled = true;
 			if(ClientPrefs.downScroll) flipY = true;
@@ -283,13 +290,13 @@ class Note extends FlxSprite
 
 	function loadNoteAnims()
 	{
-		animation.addByPrefix(colArray[noteData] + 'Scroll', colArray[noteData] + '0');
+		animation.addByPrefix(colArray[noteData] + 'Scroll', colArray[noteData] + '0', 24);
 
 		if (isSustainNote)
 		{
-			animation.addByPrefix('purpleholdend', 'pruple end hold');
-			animation.addByPrefix(colArray[noteData] + 'holdend', colArray[noteData] + ' hold end');
-			animation.addByPrefix(colArray[noteData] + 'hold', colArray[noteData] + ' hold piece');
+			animation.addByPrefix('purpleholdend', 'pruple end hold', 24);
+			animation.addByPrefix(colArray[noteData] + 'holdend', colArray[noteData] + ' hold end', 24);
+			animation.addByPrefix(colArray[noteData] + 'hold', colArray[noteData] + ' hold piece', 24);
 		}
 
 		updateHitbox();
@@ -299,12 +306,12 @@ class Note extends FlxSprite
 	{
 		if(isSustainNote)
 		{
-			animation.add(colArray[noteData] + 'holdend', [pixelInt[noteData] + 4]);
-			animation.add(colArray[noteData] + 'hold', [pixelInt[noteData]]);
+			animation.add(colArray[noteData] + 'holdend', [pixelInt[noteData] + 4], 24);
+			animation.add(colArray[noteData] + 'hold', [pixelInt[noteData]], 24);
 		}
 		else
 		{
-			animation.add(colArray[noteData] + 'Scroll', [pixelInt[noteData] + 4]);
+			animation.add(colArray[noteData] + 'Scroll', [pixelInt[noteData] + 4], 24);
 		}
 	}
 

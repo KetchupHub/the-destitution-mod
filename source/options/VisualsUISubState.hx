@@ -77,10 +77,10 @@ class VisualsUISubState extends BaseOptionsMenu
 		#end
 
 		var option:Option = new Option('Combo Stacking',
-			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read",
+			"If checked, combo graphics will stack like in basegame FNF.",
 			'comboStacking',
 			'bool',
-			true);
+			false);
 		addOption(option);
 
 		super();

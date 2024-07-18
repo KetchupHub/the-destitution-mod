@@ -1,7 +1,6 @@
 package visuals;
 
 import flixel.math.FlxMath;
-import flixel.FlxG;
 import flixel.FlxSprite;
 
 using StringTools;

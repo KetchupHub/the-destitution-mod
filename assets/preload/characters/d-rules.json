@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				766,
+				-1
+			],
+			"loop": false,
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "left",
+			"indices": []
+		},
+		{
+			"offsets": [
+				104,
+				0
+			],
+			"loop": false,
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "down",
+			"indices": []
+		},
+		{
+			"offsets": [
+				117,
+				381
+			],
+			"loop": false,
+			"anim": "singUP",
+			"fps": 24,
+			"name": "up",
+			"indices": []
+		},
+		{
+			"offsets": [
+				105,
+				0
+			],
+			"loop": false,
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "right",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": true,
+			"anim": "idle",
+			"fps": 24,
+			"name": "idle",
+			"indices": []
+		}
+	],
+	"no_antialiasing": true,
+	"image": "characters/destitution/rules_guy",
+	"position": [
+		-30,
+		230
+	],
+	"healthicon": "rules",
+	"flip_x": false,
+	"healthbar_colors": [
+		237,
+		147,
+		98
+	],
+	"camera_position": [
+		-170,
+		-990
+	],
+	"sing_duration": 15,
+	"scale": 1.5
+}
