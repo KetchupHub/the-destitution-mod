@@ -505,18 +505,24 @@ class PlayState extends MusicBeatState
 				add(pureWhiteAbyss);
 
 				sky = new FlxSprite().loadGraphic(Paths.image('dsides/sky'));
+				sky.scale.set(2, 2);
+				sky.updateHitbox();
 				sky.antialiasing = false;
 				add(sky);
 				sky.screenCenter();
 				sky.scrollFactor.set();
 
 				backing = new FlxSprite().loadGraphic(Paths.image('dsides/backing'));
+				backing.scale.set(2, 2);
+				backing.updateHitbox();
 				backing.antialiasing = false;
 				add(backing);
 				backing.screenCenter();
 				backing.scrollFactor.set(0.5, 0.5);
 
 				starting = new FlxSprite().loadGraphic(Paths.image('dsides/front'));
+				starting.scale.set(2, 2);
+				starting.updateHitbox();
 				starting.antialiasing = false;
 				add(starting);
 				starting.screenCenter();
@@ -545,11 +551,24 @@ class PlayState extends MusicBeatState
 				add(funnyBgColors);
 				funnyBgColors.alpha = 0;
 				funnyBgColors.color = FlxColor.BLACK;
+				if(ClientPrefs.shaders)
+				{
+					funnyBgColors.blend = BlendMode.MULTIPLY;
+				}
 
 				train = new FlxSprite().loadGraphic(Paths.image("dsides/train funny"));
+				train.scale.set(10, 10);
+				train.updateHitbox();
+				train.antialiasing = false;
 				train.screenCenter();
 				add(train);
 				train.visible = false;
+
+				precacheList.set('dsides/karmFlees', 'sound');
+				precacheList.set('dsides/storm0', 'sound');
+				precacheList.set('dsides/storm1', 'sound');
+				precacheList.set('dsides/storm2', 'sound');
+				precacheList.set('dsides/storm3', 'sound');
 			case 'mark':
 				angry = new FlxSprite(-680, -320).loadGraphic(Paths.image('destitution/angry'));
 				angry.antialiasing = false;
@@ -835,7 +854,7 @@ class PlayState extends MusicBeatState
 		strumLine.scrollFactor.set();
 
 		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
-		timeTxt = new FlxText(0, 8, 400, "", 32);
+		timeTxt = new FlxText(0, 4, 400, "", 32);
 		timeTxt.setFormat(Paths.font(songFont), 32 + 10, FlxColor.WHITE, CENTER, FlxTextBorderStyle.NONE, FlxColor.WHITE);
 		timeTxt.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 1.5, 0);
 		timeTxt.screenCenter(X);
@@ -848,6 +867,8 @@ class PlayState extends MusicBeatState
 		{
 			timeTxt.size = 36;
 			timeTxt.underline = true;
+			//will fuck up middlescroll
+			//timeTxt.y = strumLine.y;
 			fullLength = new FlxText(timeTxt.x, timeTxt.y + 36, 400, "", 24);
 			fullLength.setFormat(Paths.font(songFont), 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.NONE, FlxColor.WHITE);
 			fullLength.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 1.5, 0);
@@ -3706,7 +3727,7 @@ class PlayState extends MusicBeatState
 			camHUD.zoom += 0.075;
 		}
 
-		if(karmScaredy != null)
+		if(karmScaredy != null && curBeat % 2 == 0)
 		{
 			karmScaredy.animation.play("idle", true);
 		}
@@ -3719,7 +3740,7 @@ class PlayState extends MusicBeatState
 			{
 				funnyBgColors.color = funnyColorsArray[FlxG.random.int(0, funnyColorsArray.length - 1)];
 			}
-			FlxTween.tween(funnyBgColors, {alpha: 0.4}, Conductor.crochet / 750, {ease: FlxEase.smootherStepOut});
+			FlxTween.tween(funnyBgColors, {alpha: 0.5}, Conductor.crochet / 750, {ease: FlxEase.smootherStepOut});
 		}
 
 		if(curBeat % 2 == 0)
@@ -3760,6 +3781,8 @@ class PlayState extends MusicBeatState
 			{
 				lightningStrikes.alpha = 1;
 				FlxTween.tween(lightningStrikes, {alpha: 0}, Conductor.crochet / 150,  {ease: FlxEase.cubeOut});
+
+				FlxG.sound.play(Paths.soundRandom('dsides/storm', 0, 3), 0.9, false);
 			}
 		}
 

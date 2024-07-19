@@ -640,6 +640,7 @@ class ChartingState extends states.MusicBeatState
 
 	var stepperBeats:FlxUINumericStepper;
 	var check_mustHitSection:FlxUICheckBox;
+	var check_middleCamSection:FlxUICheckBox;
 	var check_gfSection:FlxUICheckBox;
 	var check_changeBPM:FlxUICheckBox;
 	var stepperSectionBPM:FlxUINumericStepper;
@@ -657,7 +658,11 @@ class ChartingState extends states.MusicBeatState
 		check_mustHitSection.name = 'check_mustHit';
 		check_mustHitSection.checked = _song.notes[curSec].mustHitSection;
 
-		check_gfSection = new FlxUICheckBox(10, check_mustHitSection.y + 22, null, null, "GF section", 100);
+		check_middleCamSection = new FlxUICheckBox(10, check_mustHitSection.y + 22, null, null, "Middle cam section", 100);
+		check_middleCamSection.name = 'check_middleCam';
+		check_middleCamSection.checked = _song.notes[curSec].middleCamSection;
+
+		check_gfSection = new FlxUICheckBox(10, check_middleCamSection.y + 22, null, null, "GF section", 100);
 		check_gfSection.name = 'check_gf';
 		check_gfSection.checked = _song.notes[curSec].gfSection;
 		// _song.needsVoices = check_mustHit.checked;
@@ -890,6 +895,7 @@ class ChartingState extends states.MusicBeatState
 		tab_group_section.add(stepperBeats);
 		tab_group_section.add(stepperSectionBPM);
 		tab_group_section.add(check_mustHitSection);
+		tab_group_section.add(check_middleCamSection);
 		tab_group_section.add(check_gfSection);
 		tab_group_section.add(check_altAnim);
 		tab_group_section.add(check_changeBPM);
@@ -1415,6 +1421,9 @@ class ChartingState extends states.MusicBeatState
 
 					updateGrid();
 					updateHeads();
+
+				case 'Middle cam section':
+					_song.notes[curSec].middleCamSection = check.checked;
 
 				case 'GF section':
 					_song.notes[curSec].gfSection = check.checked;
@@ -2492,6 +2501,7 @@ class ChartingState extends states.MusicBeatState
 
 		stepperBeats.value = getSectionBeats();
 		check_mustHitSection.checked = sec.mustHitSection;
+		check_middleCamSection.checked = sec.middleCamSection;
 		check_gfSection.checked = sec.gfSection;
 		check_altAnim.checked = sec.altAnim;
 		check_changeBPM.checked = sec.changeBPM;

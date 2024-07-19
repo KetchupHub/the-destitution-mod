@@ -1,5 +1,6 @@
 package songs;
 
+import flixel.sound.FlxSound;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import flixel.FlxG;
@@ -112,7 +113,8 @@ class DStitution extends SongClass
                 //pinkerton
                 PlayState.instance.lightningBg();
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
-                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'pinkerton', false, false);
+                PlayState.instance.dad.destroy();
+                PlayState.instance.dad = new Character(0, 0, 'pinkerton', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
@@ -128,20 +130,27 @@ class DStitution extends SongClass
 
                 PlayState.instance.karmScaredy.visible = true;
 
+                FlxG.sound.play(Paths.sound('dsides/karmFlees'), 0.95, false);
+
                 FlxG.camera.flash();
+
+                Paths.clearUnusedMemory();
             case 520:
                 PlayState.instance.strikeyStrikes = true;
             case 920:
                 PlayState.instance.karmScaredy.visible = false;
+                PlayState.instance.karmScaredy.destroy();
                 PlayState.instance.train.visible = true;
                 PlayState.instance.unLightningBg();
                 PlayState.instance.strikeyStrikes = false;
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
-                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y - 350, 'd-ili', false, false);
+                PlayState.instance.dad.destroy();
+                PlayState.instance.dad = new Character(0, 0, 'd-ili', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend.destroy();
                 PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
@@ -151,9 +160,12 @@ class DStitution extends SongClass
                 PlayState.instance.reloadHealthBarColors();
                 PlayState.instance.iconP2.visible = false;
                 PlayState.instance.dad.visible = false;
+
+                Paths.clearUnusedMemory();
             case 992:
                 PlayState.instance.iconP2.visible = true;
                 PlayState.instance.train.visible = false;
+                PlayState.instance.train.destroy();
                 PlayState.instance.dad.visible = true;
                 FlxG.camera.flash();
 
@@ -162,12 +174,20 @@ class DStitution extends SongClass
                 PlayState.instance.starting.loadGraphic(Paths.image('dsides/iliRoom'));
 
                 PlayState.instance.sectionIntroThing("I LIEK ITEM");
+
+                Paths.clearUnusedMemory();
             case 1336:
                 FlxG.camera.flash();
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
-                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'douglass', false, false);
+                PlayState.instance.dad.destroy();
+                PlayState.instance.dad = new Character(0, 0, 'douglass', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
+
+                PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend.destroy();
+                PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf-doug', false);
+                PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
                 PlayState.instance.sky.loadGraphic(Paths.image('dsides/dougSky'));
                 PlayState.instance.backing.loadGraphic(Paths.image('dsides/dougBacking'));
@@ -177,16 +197,19 @@ class DStitution extends SongClass
                 PlayState.instance.reloadHealthBarColors();
 
                 PlayState.instance.sectionIntroThing("Douglass Dolphin");
+
+                Paths.clearUnusedMemory();
             case 1758:
                 FlxG.camera.flash();
 
+                PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.dad.x, PlayState.instance.dad.y, 'douglass-player', false);
+                PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
+
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'karm-scold', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
-
-                PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
-                PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'douglass-player', false);
-                PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
                 PlayState.instance.sky.loadGraphic(Paths.image('dsides/dougSky'));
                 PlayState.instance.backing.loadGraphic(Paths.image('dsides/dougBacking'));
@@ -197,19 +220,23 @@ class DStitution extends SongClass
                 PlayState.instance.reloadHealthBarColors();
 
                 PlayState.instance.sectionIntroThing("Being Rude is Not Nice!");
+
+                Paths.clearUnusedMemory();
             case 2072:
                 FlxG.camera.flash();
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
-                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'd-rules', false, false);
+                PlayState.instance.dad.destroy();
+                PlayState.instance.dad = new Character(0, 0, 'd-rules', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend.destroy();
                 PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf-rules', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
                 PlayState.instance.sky.loadGraphic(Paths.image('dsides/skyworldSky'));
-                PlayState.instance.backing.visible = false;
+                PlayState.instance.backing.destroy();
                 PlayState.instance.starting.loadGraphic(Paths.image('dsides/skyworldStage'));
 
                 PlayState.instance.iconP1.changeIcon(PlayState.instance.boyfriend.healthIcon);
@@ -217,11 +244,23 @@ class DStitution extends SongClass
                 PlayState.instance.reloadHealthBarColors();
 
                 PlayState.instance.sectionIntroThing("I, Rules");
+
+                for(i in PlayState.instance.opponentStrums.members)
+                {
+                    FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+                }
+                for(i in PlayState.instance.playerStrums.members)
+                {
+                    FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+                }
+
+                Paths.clearUnusedMemory();
             case 2504:
                 FlxG.camera.flash();
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
-                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'maestro', false, false);
+                PlayState.instance.dad.destroy();
+                PlayState.instance.dad = new Character(0, 0, 'maestro', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
@@ -232,34 +271,65 @@ class DStitution extends SongClass
                 PlayState.instance.reloadHealthBarColors();
 
                 PlayState.instance.sectionIntroThing("Maestro Cryptehnt");
+
+                for(i in PlayState.instance.opponentStrums.members)
+                {
+                    FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
+                }
+                for(i in PlayState.instance.playerStrums.members)
+                {
+                    FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
+                }
+
+                Paths.clearUnusedMemory();
             case 3056:
                 FlxG.camera.flash();
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
-                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'zamboney', false, false);
+                PlayState.instance.dad.destroy();
+                PlayState.instance.dad = new Character(0, 0, 'zamboney', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
+
+                PlayState.instance.dad.screenCenter();
 
                 PlayState.instance.boyfriend.visible = false;
 
-                PlayState.instance.sky.visible = false;
-                PlayState.instance.backing.visible = false;
-                PlayState.instance.starting.visible = false;
+                PlayState.instance.sky.destroy();
+                PlayState.instance.starting.destroy();
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
 
                 PlayState.instance.sectionIntroThing("Zam-boney!");
+
+                for(i in PlayState.instance.opponentStrums.members)
+                {
+                    FlxTween.completeTweensOf(i);
+                    FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
+                }
+                for(i in PlayState.instance.playerStrums.members)
+                {
+                    FlxTween.completeTweensOf(i);
+                    FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
+                }
+
+                Paths.clearUnusedMemory();
             case 3568:
                 FlxG.camera.flash();
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
-                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'karm-finale', false, false);
+                PlayState.instance.dad.destroy();
+                PlayState.instance.dad = new Character(0, 0, 'karm-finale', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
+
+                PlayState.instance.dad.screenCenter();
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
 
                 PlayState.instance.sectionIntroThing("Karm Kurt Karmason Jr. (Finale)");
+
+                Paths.clearUnusedMemory();
         }
     }
 }

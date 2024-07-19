@@ -63,7 +63,7 @@
 		0
 	],
 	"healthicon": "whale",
-	"flip_x": false,
+	"flip_x": true,
 	"healthbar_colors": [
 		88,
 		154,
@@ -74,5 +74,5 @@
 		-120
 	],
 	"sing_duration": 15,
-	"scale": 1.5
+	"scale": 1
 }
