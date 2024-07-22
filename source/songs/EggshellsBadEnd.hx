@@ -1,0 +1,31 @@
+package songs;
+
+/**
+ * Eggshells' song class.
+ */
+class EggshellsBadEnd extends SongClass
+{
+	public override function new()
+    {
+        super();
+        this.songNameForDisplay = 'Eggshells';
+        this.songHasSections = false;
+        this.introType = 'Eggshells';
+        this.gameoverChar = 'bf-dead';
+        this.gameoverMusicSuffix = '';
+        this.songVariants = ["Normal"];
+        this.songDescription = "Mark's lonely cousin seems like he's not much for conversation, but that won't stop Nopeboy from trying!";
+    }
+
+    public override function stepHitEvent(curStep:Float)
+    {
+        //this is where step hit events go
+        super.stepHitEvent(curStep);
+    }
+    
+    public override function beatHitEvent(curBeat:Float)
+    {
+        //this is where beat hit events go
+        super.beatHitEvent(curBeat);
+    }
+}

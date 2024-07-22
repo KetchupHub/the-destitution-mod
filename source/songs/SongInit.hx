@@ -23,6 +23,12 @@ class SongInit
                 returnSong = new Countdown();
             case 'eggshells':
                 returnSong = new Eggshells();
+            case 'eggshells-bad':
+                returnSong = new EggshellsBadEnd();
+            case 'eggshells-good':
+                returnSong = new EggshellsGoodEnd();
+            case 'eggshells-neutral':
+                returnSong = new EggshellsNeutralEnd();
             case 'collapse':
                 returnSong = new Collapse();
             case 'megamix':

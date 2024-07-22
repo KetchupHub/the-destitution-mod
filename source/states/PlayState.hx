@@ -318,6 +318,8 @@ class PlayState extends MusicBeatState
 
 	var fullLength:FlxText;
 
+	var cabinBg:FlxSprite;
+
 	override public function create()
 	{
 
@@ -429,10 +431,12 @@ class PlayState extends MusicBeatState
 					curStage = 'superseded';
 				case 'd-stitution':
 					curStage = 'dsides';
-				case 'three-of-them':
-					curStage = 'april';
+				case 'eggshells' | 'eggshells-bad' | 'eggshells-good' | 'eggshells-neutral':
+					curStage = 'eggshells';
 				case 'new-hampshire':
 					curStage = 'bucks';
+				case 'three-of-them':
+					curStage = 'april';
 				default:
 					curStage = 'stage';
 			}
@@ -492,83 +496,6 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
-			case 'april':
-				var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('april/bg'));
-				bg.scale.set(1.2, 1.2);
-				bg.updateHitbox();
-				bg.screenCenter();
-				add(bg);
-			case 'dsides':
-				var pureWhiteAbyss:FlxSprite = new FlxSprite().makeGraphic(2560, 2560, FlxColor.WHITE);
-				pureWhiteAbyss.screenCenter();
-				pureWhiteAbyss.scrollFactor.set();
-				add(pureWhiteAbyss);
-
-				sky = new FlxSprite().loadGraphic(Paths.image('dsides/sky'));
-				sky.scale.set(2, 2);
-				sky.updateHitbox();
-				sky.antialiasing = false;
-				add(sky);
-				sky.screenCenter();
-				sky.scrollFactor.set();
-
-				backing = new FlxSprite().loadGraphic(Paths.image('dsides/backing'));
-				backing.scale.set(2, 2);
-				backing.updateHitbox();
-				backing.antialiasing = false;
-				add(backing);
-				backing.screenCenter();
-				backing.scrollFactor.set(0.5, 0.5);
-
-				starting = new FlxSprite().loadGraphic(Paths.image('dsides/front'));
-				starting.scale.set(2, 2);
-				starting.updateHitbox();
-				starting.antialiasing = false;
-				add(starting);
-				starting.screenCenter();
-
-				karmScaredy = new FlxSprite(starting.x + 40.75, starting.y + 610.35);
-				karmScaredy.frames = Paths.getSparrowAtlas("dsides/karm_scaredy");
-				karmScaredy.animation.addByPrefix("idle", "idle", 24, false);
-				karmScaredy.animation.play("idle", true);
-				add(karmScaredy);
-
-				karmScaredy.visible = false;
-
-				lightningStrikes = new FlxSprite().makeGraphic(5000, 5000, FlxColor.fromRGB(255, 241, 185));
-				if(ClientPrefs.shaders)
-				{
-					lightningStrikes.blend = BlendMode.ADD;
-				}
-				lightningStrikes.screenCenter();
-				lightningStrikes.alpha = 0;
-
-				lightningBg();
-				
-				unLightningBg();
-
-				funnyBgColors.screenCenter();
-				add(funnyBgColors);
-				funnyBgColors.alpha = 0;
-				funnyBgColors.color = FlxColor.BLACK;
-				if(ClientPrefs.shaders)
-				{
-					funnyBgColors.blend = BlendMode.MULTIPLY;
-				}
-
-				train = new FlxSprite().loadGraphic(Paths.image("dsides/train funny"));
-				train.scale.set(10, 10);
-				train.updateHitbox();
-				train.antialiasing = false;
-				train.screenCenter();
-				add(train);
-				train.visible = false;
-
-				precacheList.set('dsides/karmFlees', 'sound');
-				precacheList.set('dsides/storm0', 'sound');
-				precacheList.set('dsides/storm1', 'sound');
-				precacheList.set('dsides/storm2', 'sound');
-				precacheList.set('dsides/storm3', 'sound');
 			case 'mark':
 				angry = new FlxSprite(-680, -320).loadGraphic(Paths.image('destitution/angry'));
 				angry.antialiasing = false;
@@ -702,6 +629,86 @@ class PlayState extends MusicBeatState
 				spaceWiggle.waveAmplitude = 0.25;
 				spaceWiggle.waveFrequency = 8;
 				spaceWiggle.waveSpeed = 2;
+			case 'dsides':
+				var pureWhiteAbyss:FlxSprite = new FlxSprite().makeGraphic(2560, 2560, FlxColor.WHITE);
+				pureWhiteAbyss.screenCenter();
+				pureWhiteAbyss.scrollFactor.set();
+				add(pureWhiteAbyss);
+
+				sky = new FlxSprite().loadGraphic(Paths.image('dsides/sky'));
+				sky.scale.set(2, 2);
+				sky.updateHitbox();
+				sky.antialiasing = false;
+				add(sky);
+				sky.screenCenter();
+				sky.scrollFactor.set();
+
+				backing = new FlxSprite().loadGraphic(Paths.image('dsides/backing'));
+				backing.scale.set(2, 2);
+				backing.updateHitbox();
+				backing.antialiasing = false;
+				add(backing);
+				backing.screenCenter();
+				backing.scrollFactor.set(0.5, 0.5);
+
+				starting = new FlxSprite().loadGraphic(Paths.image('dsides/front'));
+				starting.scale.set(2, 2);
+				starting.updateHitbox();
+				starting.antialiasing = false;
+				add(starting);
+				starting.screenCenter();
+
+				karmScaredy = new FlxSprite(starting.x + 40.75, starting.y + 610.35);
+				karmScaredy.frames = Paths.getSparrowAtlas("dsides/karm_scaredy");
+				karmScaredy.animation.addByPrefix("idle", "idle", 24, false);
+				karmScaredy.animation.play("idle", true);
+				add(karmScaredy);
+
+				karmScaredy.visible = false;
+
+				lightningStrikes = new FlxSprite().makeGraphic(5000, 5000, FlxColor.fromRGB(255, 241, 185));
+				if(ClientPrefs.shaders)
+				{
+					lightningStrikes.blend = BlendMode.ADD;
+				}
+				lightningStrikes.screenCenter();
+				lightningStrikes.alpha = 0;
+
+				lightningBg();
+				
+				unLightningBg();
+
+				funnyBgColors.screenCenter();
+				add(funnyBgColors);
+				funnyBgColors.alpha = 0;
+				funnyBgColors.color = FlxColor.BLACK;
+				if(ClientPrefs.shaders)
+				{
+					funnyBgColors.blend = BlendMode.MULTIPLY;
+				}
+
+				train = new FlxSprite().loadGraphic(Paths.image("dsides/train funny"));
+				train.scale.set(10, 10);
+				train.updateHitbox();
+				train.antialiasing = false;
+				train.screenCenter();
+				add(train);
+				train.visible = false;
+
+				precacheList.set('dsides/karmFlees', 'sound');
+				precacheList.set('dsides/storm0', 'sound');
+				precacheList.set('dsides/storm1', 'sound');
+				precacheList.set('dsides/storm2', 'sound');
+				precacheList.set('dsides/storm3', 'sound');
+			case 'eggshells':
+				cabinBg = new FlxSprite();
+				cabinBg.frames = Paths.getSparrowAtlas('eggshells/cabin');
+				cabinBg.animation.addByPrefix('idle', 'idle', 24, true);
+				cabinBg.animation.play('idle', true);
+				cabinBg.scale.set(2, 2);
+				cabinBg.updateHitbox();
+				cabinBg.screenCenter();
+				add(cabinBg);
 			case 'bucks':
 				var skyish = new FlxSprite(-458, -413);
 				skyish.loadGraphic(Paths.image('bucks/skybox'));
@@ -758,6 +765,12 @@ class PlayState extends MusicBeatState
 				ref.antialiasing = true;
 				ref.visible = false;
 				add(ref);
+			case 'april':
+				var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('april/bg'));
+				bg.scale.set(1.2, 1.2);
+				bg.updateHitbox();
+				bg.screenCenter();
+				add(bg);
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
 				add(bg);
