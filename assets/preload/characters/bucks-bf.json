@@ -57,7 +57,7 @@
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/bucks_bf",
+	"image": "characters/bucks/bucks_bf",
 	"position": [
 		0,
 		20
@@ -74,5 +74,6 @@
 		10
 	],
 	"sing_duration": 5.50000000000001,
-	"scale": 1
+	"scale": 1,
+	"_editor_isPlayer": true
 }

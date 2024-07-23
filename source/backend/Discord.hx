@@ -1,5 +1,6 @@
 package backend;
 
+import util.CoolUtil;
 import Sys.sleep;
 import discord_rpc.DiscordRpc;
 
@@ -77,19 +78,32 @@ class DiscordClient
 
 		var alrgey:String = "icon";
 		var smalley:String = "";
+		var stateo:String = state;
+		var detailso:String = details;
+		var largoText:String = 'The Destitution Mod';
+
+		#if DEVELOPERBUILD
+		stateo = 'DEVELOPER BUILD, NO RPC';
+		detailso = 'DEVELOPER BUILD, NO RPC';
+		largoText = 'The Destitution Mod (DevBuild ' + CoolUtil.gitCommitBranch + ' : ' + CoolUtil.gitCommitHash + ')';
+		#end
 
 		if(smallImageKey != null)
 		{
+			#if DEVELOPERBUILD
+			alrgey = 'icon';
+			#else
 			alrgey = smallImageKey;
+			#end
 			smalley = "icon";
 		}
 
 		DiscordRpc.presence(
 		{
-			details: details,
-			state: state,
+			details: detailso,
+			state: stateo,
 			largeImageKey: alrgey,
-			largeImageText: "The Destitution Mod",
+			largeImageText: largoText,
 			smallImageKey : smalley,
 			// Obtained times are in milliseconds so they are divided so Discord can use it
 			startTimestamp : Std.int(startTimestamp / 1000),

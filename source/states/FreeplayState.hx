@@ -1,12 +1,10 @@
 package states;
 
+import util.CoolUtil;
 import lime.tools.AssetType;
 import openfl.utils.AssetType;
 import lime.utils.AssetType;
 import sys.FileSystem;
-#if DEVELOPERBUILD
-import util.macro.GitCommit;
-#end
 import util.MemoryUtil;
 #if desktop
 import backend.Discord.DiscordClient;
@@ -181,7 +179,7 @@ class FreeplayState extends MusicBeatState
 		add(text);
 
 		#if DEVELOPERBUILD
-		var versionShit:FlxText = new FlxText(4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		var versionShit:FlxText = new FlxText(4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);

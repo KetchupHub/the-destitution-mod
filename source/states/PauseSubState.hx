@@ -49,7 +49,7 @@ class PauseSubState extends MusicBeatSubstate
 		menuItems = menuItemsOG;
 
 		pauseMusic = new FlxSound();
-		pauseMusic.loadEmbedded(Paths.music("breakfast"), true, true);
+		pauseMusic.loadEmbedded(Paths.music("mus_lunch_break"), true, true);
 		pauseMusic.volume = 0;
 		pauseMusic.play(false);
 
@@ -247,7 +247,7 @@ class PauseSubState extends MusicBeatSubstate
 					MusicBeatState.switchState(new FreeplayState());
 
 					PlayState.cancelMusicFadeTween();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music('mus_pauperized'));
 					PlayState.chartingMode = false;
 			}
 		}

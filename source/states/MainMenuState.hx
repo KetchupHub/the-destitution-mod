@@ -1,9 +1,7 @@
 package states;
 
+import util.CoolUtil;
 import util.MemoryUtil;
-#if DEVELOPERBUILD
-import util.macro.GitCommit;
-#end
 import openfl.system.System;
 #if desktop
 import backend.Discord.DiscordClient;
@@ -62,7 +60,7 @@ class MainMenuState extends MusicBeatState
 
 		if(FlxG.sound.music == null)
 		{
-			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+			FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0);
 		}
 
 		camGame = new FlxCamera();
@@ -134,7 +132,7 @@ class MainMenuState extends MusicBeatState
 			}
 		}});
 
-		var versionShit:FlxText = new FlxText(-4, #if DEVELOPERBUILD FlxG.height - 44 #else FlxG.height - 24 #end, FlxG.width, "The Destitution Mod v" + psychEngineVersion #if DEVELOPERBUILD + "\n(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")" #end, 12);
+		var versionShit:FlxText = new FlxText(-4, #if DEVELOPERBUILD FlxG.height - 44 #else FlxG.height - 24 #end, FlxG.width, "The Destitution Mod v" + psychEngineVersion #if DEVELOPERBUILD + "\n(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")" #end, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);

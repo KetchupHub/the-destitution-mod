@@ -118,5 +118,6 @@
 		20
 	],
 	"sing_duration": 15,
-	"scale": 1
+	"scale": 1,
+	"_editor_isPlayer": true
 }

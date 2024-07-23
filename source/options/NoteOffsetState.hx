@@ -175,7 +175,7 @@ class NoteOffsetState extends states.MusicBeatState
 		updateMode();
 
 		Conductor.changeBPM(128.0);
-		FlxG.sound.playMusic(Paths.music('offsetSong'), 1, true);
+		FlxG.sound.playMusic(Paths.music('mus_neutral_drive'), 1, true);
 
 		super.create();
 	}
@@ -332,7 +332,7 @@ class NoteOffsetState extends states.MusicBeatState
 			persistentUpdate = false;
 			CustomFadeTransition.nextCamera = camOther;
 			MusicBeatState.switchState(new options.OptionsState());
-			FlxG.sound.playMusic(Paths.music('freakyMenu'), 1, true);
+			FlxG.sound.playMusic(Paths.music('mus_machinations'), 1, true);
 			FlxG.mouse.visible = false;
 		}
 

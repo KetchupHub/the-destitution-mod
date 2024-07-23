@@ -1,8 +1,6 @@
 package states;
 
-#if DEVELOPERBUILD
-import util.macro.GitCommit;
-#end
+import util.CoolUtil;
 import flixel.util.FlxColor;
 import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.text.FlxText;
@@ -13,7 +11,6 @@ import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.util.FlxTimer;
 import flixel.math.FlxMath;
-
 import openfl.utils.Assets;
 import lime.utils.Assets as LimeAssets;
 import lime.utils.AssetLibrary;
@@ -57,7 +54,7 @@ class LoadingState extends MusicBeatState
 		add(loadBar);
 
 		#if DEVELOPERBUILD
-		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);

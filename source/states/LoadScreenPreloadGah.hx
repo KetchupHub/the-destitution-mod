@@ -1,9 +1,7 @@
 package states;
 
+import util.CoolUtil;
 import util.MemoryUtil;
-#if DEVELOPERBUILD
-import util.macro.GitCommit;
-#end
 import flixel.text.FlxText;
 import flixel.text.FlxText.FlxTextBorderStyle;
 import openfl.system.System;
@@ -65,7 +63,7 @@ class LoadScreenPreloadGah extends MusicBeatState
         toLoad = charactersToLoad.length - 1;
 
         #if DEVELOPERBUILD
-		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);

@@ -1,5 +1,7 @@
 package;
 
+import util.CoolUtil;
+import util.logging.AnsiTrace;
 import flixel.FlxG;
 import flixel.FlxGame;
 import openfl.Lib;
@@ -84,14 +86,25 @@ class Main extends Sprite
 		}
 	
 		ClientPrefs.loadDefaultKeys();
-		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+
+		addChild(new FlxGame(game.width,
+		game.height,
+		game.initialState,
+		#if (flixel < "5.0.0") game.zoom, #end
+		game.framerate,
+		game.framerate,
+		game.skipSplash,
+		game.startFullscreen));
 
 		#if !mobile
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
+
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-		if(fpsVar != null) {
+
+		if (fpsVar != null)
+		{
 			fpsVar.visible = ClientPrefs.showFPS;
 		}
 		#end
@@ -143,15 +156,17 @@ class Main extends Sprite
 			}
 		}
 
-		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to Cynda if you are able to replicate it!\n\n> Crash Handler written by: sqirra-rng";
+		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error on the GameJolt page if you are able to replicate it!\n\n> Crash Handler written by: sqirra-rng\n> Modified for The Destitution Mod by: Cynda";
 
 		if (!FileSystem.exists("./logs/"))
 			FileSystem.createDirectory("./logs/");
 
-		File.saveContent(path, errMsg + "\n");
+		File.saveContent(path, errMsg + "\n" + CoolUtil.markAscii + "\n");
 
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
+		//Sys.println("\n");
+		//AnsiTrace.traceMark();
 
 		Application.current.window.alert("\nUnfortunately, The Destitution Mod has stopped.\n\nMore Details:\n" + errMsg, "The Destitution Mod Crash Handler");
 		DiscordClient.shutdown();

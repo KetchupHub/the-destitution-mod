@@ -1,5 +1,6 @@
 package options;
 
+import util.CoolUtil;
 import util.MemoryUtil;
 #if desktop
 import backend.Discord.DiscordClient;
@@ -35,8 +36,10 @@ class OptionsState extends states.MusicBeatState
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
 
-	function openSelectedSubstate(label:String) {
-		switch(label) {
+	function openSelectedSubstate(label:String)
+	{
+		switch(label)
+		{
 			case 'Note Colors':
 				openSubState(new options.NotesSubState());
 			case 'Controls':
@@ -62,7 +65,7 @@ class OptionsState extends states.MusicBeatState
 		#end
 
 		FlxG.sound.music.stop();
-		FlxG.sound.playMusic(Paths.music('optionsMenu'), 0.8);
+		FlxG.sound.playMusic(Paths.music('mus_machinations'), 0.8);
 
 		MemoryUtil.collect(true);
         MemoryUtil.compact();
@@ -91,14 +94,23 @@ class OptionsState extends states.MusicBeatState
 		selectorRight = new Alphabet(0, 0, '<', true);
 		add(selectorRight);
 
+		#if DEVELOPERBUILD
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
+		#end
+
 		changeSelection();
 		ClientPrefs.saveSettings();
 
 		super.create();
 	}
 
-	override function closeSubState() {
+	override function closeSubState()
+	{
 		super.closeSubState();
+
 		ClientPrefs.saveSettings();
 	}
 
@@ -112,10 +124,12 @@ class OptionsState extends states.MusicBeatState
 
 		super.update(elapsed);
 
-		if (controls.UI_UP_P) {
+		if (controls.UI_UP_P)
+		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P) {
+		if (controls.UI_DOWN_P)
+		{
 			changeSelection(1);
 		}
 
@@ -127,13 +141,16 @@ class OptionsState extends states.MusicBeatState
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
-		if (controls.ACCEPT) {
+		if (controls.ACCEPT)
+		{
 			openSelectedSubstate(options[curSelected]);
 		}
 	}
 	
-	function changeSelection(change:Int = 0) {
+	function changeSelection(change:Int = 0)
+	{
 		curSelected += change;
+
 		if (curSelected < 0)
 			curSelected = options.length - 1;
 		if (curSelected >= options.length)
@@ -141,12 +158,15 @@ class OptionsState extends states.MusicBeatState
 
 		var bullShit:Int = 0;
 
-		for (item in grpOptions.members) {
+		for (item in grpOptions.members)
+		{
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
 			item.alpha = 0.6;
-			if (item.targetY == 0) {
+
+			if (item.targetY == 0)
+			{
 				item.alpha = 1;
 				selectorLeft.x = item.x - 63;
 				selectorLeft.y = item.y;
@@ -154,6 +174,7 @@ class OptionsState extends states.MusicBeatState
 				selectorRight.y = item.y;
 			}
 		}
+
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
 }

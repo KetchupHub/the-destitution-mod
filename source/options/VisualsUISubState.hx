@@ -90,7 +90,11 @@ class VisualsUISubState extends BaseOptionsMenu
 
 	override function destroy()
 	{
-		if(changedMusic) FlxG.sound.playMusic(Paths.music('freakyMenu'));
+		if(changedMusic)
+		{
+			FlxG.sound.playMusic(Paths.music('mus_machinations'));
+		}
+
 		super.destroy();
 	}
 
@@ -98,7 +102,9 @@ class VisualsUISubState extends BaseOptionsMenu
 	function onChangeFPSCounter()
 	{
 		if(Main.fpsVar != null)
+		{
 			Main.fpsVar.visible = ClientPrefs.showFPS;
+		}
 	}
 	#end
 }

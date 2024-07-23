@@ -1,9 +1,7 @@
 package states;
 
+import util.CoolUtil;
 import flixel.tweens.FlxEase;
-#if DEVELOPERBUILD
-import util.macro.GitCommit;
-#end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
@@ -12,11 +10,6 @@ import flixel.effects.FlxFlicker;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
-
-import songs.*;
-import backend.*;
-import ui.*;
-import visuals.*;
 
 class FlashingState extends MusicBeatState
 {
@@ -52,7 +45,7 @@ class FlashingState extends MusicBeatState
 		add(warnMark);
 
 		#if DEVELOPERBUILD
-		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);

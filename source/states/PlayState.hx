@@ -1,8 +1,6 @@
 package states;
 
-#if DEVELOPERBUILD
-import util.macro.GitCommit;
-#end
+import util.CoolUtil;
 import lime.app.Application;
 #if desktop
 import backend.Discord.DiscordClient;
@@ -41,10 +39,6 @@ import flixel.util.FlxSave;
 import flixel.animation.FlxAnimationController;
 import backend.StageData;
 import backend.Conductor.Rating;
-import songs.*;
-import backend.*;
-import ui.*;
-import visuals.*;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -63,13 +57,23 @@ using StringTools;
 
 class PlayState extends MusicBeatState
 {
+	/**
+	 * The song object, used for song events and other song specific data.
+	 */
 	public var songObj:SongClass;
 
+	/**
+	 * The default font in the song.
+	 * Originally was used for Phony before it was scrapped.
+	 */
 	public var songFont:String = "BAUHS93.ttf";
 
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
+	/**
+	 * Rating display names.
+	 */
 	public static var ratingStuff:Array<Dynamic> = [
 		['Blegh!', 0.2], //From 0% to 19%
 		['Bleck!', 0.4], //From 20% to 39%
@@ -82,6 +86,9 @@ class PlayState extends MusicBeatState
 		['Synergy!', 1] //The value on this one isn't used actually, since Perfect is always "1"
 	];
 
+	/**
+	 * Have you moved the camera to a position it should not currently be based off the song camera?
+	 */
 	public var isCameraOnForcedPos:Bool = false;
 
 	public var brokerBop:Bool = false;
@@ -149,7 +156,6 @@ class PlayState extends MusicBeatState
 
 	public var strumLine:FlxSprite;
 
-	//Handles the new epic mega sexy cam code that i've done
 	public var camFollow:FlxPoint;
 	public var camFollowPos:FlxObject;
 	public static var prevCamFollow:FlxPoint;
@@ -491,8 +497,8 @@ class PlayState extends MusicBeatState
 		gfGroup = new FlxSpriteGroup(GF_X, GF_Y);
 
 		GameOverSubstate.characterName = songObj.gameoverChar;
-		GameOverSubstate.loopSoundName = 'gameOver' + songObj.gameoverMusicSuffix;
-		GameOverSubstate.endSoundName = 'gameOverEnd' + songObj.gameoverMusicSuffix;
+		GameOverSubstate.loopSoundName = 'mus_overtime' + songObj.gameoverMusicSuffix;
+		GameOverSubstate.endSoundName = 'mus_overtime_end' + songObj.gameoverMusicSuffix;
 
 		switch (curStage)
 		{
@@ -1006,7 +1012,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if DEVELOPERBUILD
-		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versionShit.cameras = [camHUD];
@@ -1037,7 +1043,7 @@ class PlayState extends MusicBeatState
 		precacheList.set('missnote1', 'sound');
 		precacheList.set('missnote2', 'sound');
 		precacheList.set('missnote3', 'sound');
-		precacheList.set("breakfast", 'music');
+		precacheList.set("mus_lunch_break", 'music');
 		precacheList.set('alphabet', 'image');
 	
 		#if desktop
@@ -2990,7 +2996,7 @@ class PlayState extends MusicBeatState
 			}
 
 			MusicBeatState.switchState(new FreeplayState());
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			FlxG.sound.playMusic(Paths.music('mus_pauperized'));
 
 			transitioning = true;
 		}

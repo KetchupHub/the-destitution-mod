@@ -1,8 +1,6 @@
 package states;
 
-#if DEVELOPERBUILD
-import util.macro.GitCommit;
-#end
+import util.CoolUtil;
 import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.text.FlxText;
 import lime.app.Application;
@@ -151,7 +149,7 @@ class TitleState extends MusicBeatState
 		{
 			if(FlxG.sound.music == null)
 			{
-				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+				FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0);
 
 				backend.Conductor.changeBPM(titleJSON.bpm);
 			}
@@ -258,7 +256,7 @@ class TitleState extends MusicBeatState
 		add(tppLogo);
 
 		#if DEVELOPERBUILD
-		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
@@ -450,7 +448,7 @@ class TitleState extends MusicBeatState
 			switch (sickBeats)
 			{
 				case 1:
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music('mus_pauperized'));
 				case 5:
 					tppLogo.visible = true;
 				case 9:
