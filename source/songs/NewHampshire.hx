@@ -1,5 +1,9 @@
 package songs;
 
+import visuals.Boyfriend;
+import visuals.Character;
+import backend.Conductor;
+import states.PlayState;
 import flixel.tweens.FlxEase;
 import flixel.FlxG;
 import flixel.tweens.FlxTween;

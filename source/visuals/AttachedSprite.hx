@@ -1,5 +1,6 @@
 package visuals;
 
+import backend.ClientPrefs;
 import flixel.FlxSprite;
 
 using StringTools;

@@ -1,5 +1,7 @@
 package states;
 
+import backend.Highscore;
+import backend.WeekData;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;

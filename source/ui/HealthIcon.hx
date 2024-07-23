@@ -1,5 +1,6 @@
 package ui;
 
+import backend.ClientPrefs;
 import flixel.FlxSprite;
 
 using StringTools;

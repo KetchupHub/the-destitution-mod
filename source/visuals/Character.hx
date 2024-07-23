@@ -1,5 +1,9 @@
 package visuals;
 
+import backend.Conductor;
+import states.PlayState;
+import backend.ClientPrefs;
+
 import flixel.animation.FlxAnimationController;
 import adobeanimate.FlxAtlasSprite;
 
@@ -10,14 +14,10 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
 
-import openfl.utils.AssetType;
 import openfl.utils.Assets;
 import haxe.Json;
 
 import flixel.util.FlxColor;
-
-import backend.Song;
-import backend.Section;
 
 using StringTools;
 

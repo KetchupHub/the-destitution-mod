@@ -1,5 +1,7 @@
 package ui;
 
+import backend.ClientPrefs;
+import states.PlayState;
 import openfl.display.BlendMode;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -33,12 +35,6 @@ class NoteSplash extends FlxSprite
 	{
 		setPosition(x - Note.swagWidth * 0.95, y - Note.swagWidth);
 		alpha = 0.45;
-
-		//dislike
-		/*if(ClientPrefs.shaders)
-		{
-			blend = BlendMode.ADD;
-		}*/
 
 		if(texture == null)
 		{

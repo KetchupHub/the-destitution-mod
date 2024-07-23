@@ -1,5 +1,7 @@
 package backend;
 
+import util.CoolUtil;
+import states.TitleState;
 import flixel.FlxG;
 import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
@@ -120,7 +122,7 @@ class ClientPrefs
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
-		save.bind('controls', util.CoolUtil.getSavePath()); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
+		save.bind('controls', CoolUtil.getSavePath()); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
 		save.data.customControls = keyBinds;
 		save.flush();
 		FlxG.log.add("Settings saved!");
@@ -277,7 +279,7 @@ class ClientPrefs
 
 		var save:FlxSave = new FlxSave();
 
-		save.bind('controls', util.CoolUtil.getSavePath());
+		save.bind('controls', CoolUtil.getSavePath());
 
 		if(save != null && save.data.customControls != null)
 		{

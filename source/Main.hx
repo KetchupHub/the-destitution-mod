@@ -1,5 +1,7 @@
 package;
 
+import states.TitleState;
+import backend.ClientPrefs;
 import util.CoolUtil;
 import util.logging.AnsiTrace;
 import flixel.FlxG;
@@ -15,7 +17,6 @@ import lime.app.Application;
 import backend.Discord.DiscordClient;
 #end
 
-//crash handler stuff
 #if CRASH_HANDLER
 import openfl.events.UncaughtErrorEvent;
 import haxe.CallStack;
@@ -31,7 +32,7 @@ class Main extends Sprite
 	var game = {
 		width: 1280, // WINDOW width
 		height: 720, // WINDOW height
-		initialState: states.TitleState, // initial game state
+		initialState: TitleState, // initial game state
 		zoom: -1.0, // game state bounds
 		framerate: 60, // default framerate
 		skipSplash: true, // if the default flixel splash screen should be skipped
@@ -121,9 +122,11 @@ class Main extends Sprite
 		#end
 
 		#if desktop
-		if (!DiscordClient.isInitialized) {
+		if (!DiscordClient.isInitialized)
+		{
 			DiscordClient.initialize();
-			Application.current.window.onClose.add(function() {
+			Application.current.window.onClose.add(function()
+			{
 				DiscordClient.shutdown();
 			});
 		}

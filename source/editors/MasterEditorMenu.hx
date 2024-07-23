@@ -1,25 +1,27 @@
 package editors;
 
+import states.FreeplayState;
+import states.LoadingState;
+import visuals.Character;
+import states.MainMenuState;
+import ui.Alphabet;
 import util.MemoryUtil;
 #if desktop
 import backend.Discord.DiscordClient;
 #end
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.sound.FlxSound;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
+import states.MusicBeatState;
 
 using StringTools;
 
-class MasterEditorMenu extends states.MusicBeatState
+class MasterEditorMenu extends MusicBeatState
 {
 	var options:Array<String> = [
 		'Character Editor',

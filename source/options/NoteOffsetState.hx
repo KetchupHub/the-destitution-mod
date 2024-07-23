@@ -1,7 +1,10 @@
 package options;
 
-import flixel.util.FlxStringUtil;
-import flixel.tweens.FlxEase;
+import backend.Conductor;
+import ui.Alphabet;
+import backend.ClientPrefs;
+import ui.CustomFadeTransition;
+import visuals.Character;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.text.FlxText;
@@ -13,10 +16,11 @@ import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.ui.FlxBar;
 import flixel.math.FlxPoint;
+import states.MusicBeatState;
 
 using StringTools;
 
-class NoteOffsetState extends states.MusicBeatState
+class NoteOffsetState extends MusicBeatState
 {
 	var boyfriend:Character;
 	var gf:Character;
@@ -331,7 +335,7 @@ class NoteOffsetState extends states.MusicBeatState
 
 			persistentUpdate = false;
 			CustomFadeTransition.nextCamera = camOther;
-			MusicBeatState.switchState(new options.OptionsState());
+			MusicBeatState.switchState(new OptionsState());
 			FlxG.sound.playMusic(Paths.music('mus_machinations'), 1, true);
 			FlxG.mouse.visible = false;
 		}

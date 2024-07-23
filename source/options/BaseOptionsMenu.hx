@@ -1,34 +1,29 @@
 package options;
 
-import util.MemoryUtil;
+import backend.ClientPrefs;
+import visuals.Character;
+import ui.AttachedText;
+import ui.Alphabet;
+import ui.CheckboxThingie;
 #if desktop
 import backend.Discord.DiscordClient;
 #end
-import flash.text.TextField;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import lime.utils.Assets;
 import flixel.FlxSubState;
-import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxSave;
-import haxe.Json;
-import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
-import flixel.graphics.FlxGraphic;
 import backend.Controls;
+import states.MusicBeatSubstate;
 
 using StringTools;
 
-class BaseOptionsMenu extends states.MusicBeatSubstate
+class BaseOptionsMenu extends MusicBeatSubstate
 {
 	private var curOption:Option = null;
 	private var curSelected:Int = 0;
@@ -49,8 +44,10 @@ class BaseOptionsMenu extends states.MusicBeatSubstate
 	{
 		super();
 
-		if(title == null) title = 'Options';
-		if(rpcTitle == null) rpcTitle = 'Options Menu';
+		if(title == null)
+			title = 'Options';
+		if(rpcTitle == null)
+			rpcTitle = 'Options Menu';
 		
 		#if desktop
 		DiscordClient.changePresence(rpcTitle, null);
@@ -92,17 +89,18 @@ class BaseOptionsMenu extends states.MusicBeatSubstate
 		{
 			var optionText:Alphabet = new Alphabet(290, 260, optionsArray[i].name, false);
 			optionText.isMenuItem = true;
-			/*optionText.forceX = 300;
-			optionText.yMult = 90;*/
 			optionText.targetY = i;
 			grpOptions.add(optionText);
 
-			if(optionsArray[i].type == 'bool') {
+			if(optionsArray[i].type == 'bool')
+			{
 				var checkbox:CheckboxThingie = new CheckboxThingie(optionText.x - 105, optionText.y, optionsArray[i].getValue() == true);
 				checkbox.sprTracker = optionText;
 				checkbox.ID = i;
 				checkboxGroup.add(checkbox);
-			} else {
+			}
+			else
+			{
 				optionText.x -= 80;
 				optionText.startPosition.x -= 80;
 				//optionText.xAdd -= 80;
@@ -330,7 +328,9 @@ class BaseOptionsMenu extends states.MusicBeatSubstate
 	public function reloadBoyfriend()
 	{
 		var wasVisible:Bool = false;
-		if(boyfriend != null) {
+
+		if(boyfriend != null)
+		{
 			wasVisible = boyfriend.visible;
 			boyfriend.kill();
 			remove(boyfriend);
@@ -345,8 +345,10 @@ class BaseOptionsMenu extends states.MusicBeatSubstate
 		boyfriend.visible = wasVisible;
 	}
 
-	function reloadCheckboxes() {
-		for (checkbox in checkboxGroup) {
+	function reloadCheckboxes()
+	{
+		for (checkbox in checkboxGroup)
+		{
 			checkbox.daValue = (optionsArray[checkbox.ID].getValue() == true);
 		}
 	}

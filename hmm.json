@@ -28,10 +28,7 @@
     },
     {
       "name": "flixel-ui",
-      "type": "git",
-      "dir": null,
-      "ref": "719b4f10d94186ed55f6fef1b6618d32abec8c15",
-      "url": "https://github.com/HaxeFlixel/flixel-ui"
+      "type": "haxelib"
     },
     {
       "name": "flxanimate",
@@ -78,10 +75,7 @@
     },
     {
       "name": "hxCodec",
-      "type": "git",
-      "dir": null,
-      "ref": "c0c7f2680cc190c932a549c2e2fdd9b0ba2bd10e",
-      "url": "https://github.com/FunkinCrew/hxCodec"
+      "type": "haxelib"
     },
     {
       "name": "hxcpp",

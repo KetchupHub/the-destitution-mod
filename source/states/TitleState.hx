@@ -1,5 +1,12 @@
 package states;
 
+import visuals.ColorSwap;
+import backend.Highscore;
+import backend.PlayerSettings;
+import backend.WeekData;
+import backend.ClientPrefs;
+import ui.Alphabet;
+import backend.Conductor;
 import util.CoolUtil;
 import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.text.FlxText;
@@ -73,13 +80,13 @@ class TitleState extends MusicBeatState
 
 	var titleCharacter:FlxSprite;
 
-	var swagShader:visuals.ColorSwap = null;
+	var swagShader:ColorSwap = null;
 
 	var titleText:FlxSprite;
 
 	override public function create():Void
 	{
-		backend.WeekData.loadTheFirstEnabledMod();
+		WeekData.loadTheFirstEnabledMod();
 
 		FlxG.game.focusLostFramerate = 24;
 
@@ -89,21 +96,21 @@ class TitleState extends MusicBeatState
 
 		FlxG.keys.preventDefaultKeys = [TAB];
 
-		backend.PlayerSettings.init();
+		PlayerSettings.init();
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 
-		swagShader = new visuals.ColorSwap();
+		swagShader = new ColorSwap();
 
 		super.create();
 
-		Application.current.window.title = util.CoolUtil.appTitleString;
+		Application.current.window.title = CoolUtil.appTitleString;
 
-		FlxG.save.bind('destitution', util.CoolUtil.getSavePath());
+		FlxG.save.bind('destitution', CoolUtil.getSavePath());
 
-		backend.ClientPrefs.loadPrefs();
+		ClientPrefs.loadPrefs();
 
-		backend.Highscore.load();
+		Highscore.load();
 
 		titleJSON = Json.parse(Paths.getTextFromFile('images/gfDanceTitle.json'));
 
@@ -151,7 +158,7 @@ class TitleState extends MusicBeatState
 			{
 				FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0);
 
-				backend.Conductor.changeBPM(titleJSON.bpm);
+				Conductor.changeBPM(titleJSON.bpm);
 			}
 		}
 		
@@ -168,7 +175,7 @@ class TitleState extends MusicBeatState
 		}
 		add(bg);
 
-		swagShader = new visuals.ColorSwap();
+		swagShader = new ColorSwap();
 
 		logo = new FlxSprite(titleJSON.titlex, titleJSON.titley);
 		logo.frames = Paths.getSparrowAtlas('destitution_mod_logo');
@@ -221,7 +228,7 @@ class TitleState extends MusicBeatState
 			newTitle = true;
 			
 			titleText.animation.addByPrefix('idle', "ENTER IDLE", 24);
-			titleText.animation.addByPrefix('press', backend.ClientPrefs.flashing ? "ENTER PRESSED" : "ENTER FREEZE", 24);
+			titleText.animation.addByPrefix('press', ClientPrefs.flashing ? "ENTER PRESSED" : "ENTER FREEZE", 24);
 		}
 		else
 		{
@@ -231,7 +238,7 @@ class TitleState extends MusicBeatState
 			titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
 		}
 		
-		titleText.antialiasing = backend.ClientPrefs.globalAntialiasing;
+		titleText.antialiasing = ClientPrefs.globalAntialiasing;
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
 		add(titleText);
@@ -308,7 +315,7 @@ class TitleState extends MusicBeatState
 		
 		if (newTitle)
 		{
-			titleTimer += util.CoolUtil.boundTo(elapsed, 0, 1);
+			titleTimer += CoolUtil.boundTo(elapsed, 0, 1);
 
 			if (titleTimer > 2)
 			{

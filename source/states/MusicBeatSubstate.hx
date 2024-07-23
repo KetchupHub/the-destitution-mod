@@ -1,5 +1,6 @@
 package states;
 
+import backend.ClientPrefs;
 import flixel.FlxSubState;
 import backend.Conductor;
 

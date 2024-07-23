@@ -1,8 +1,8 @@
 package states;
 
+import backend.StageData;
 import util.CoolUtil;
 import flixel.util.FlxColor;
-import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.text.FlxText;
 import lime.app.Promise;
 import lime.app.Future;
@@ -38,10 +38,9 @@ class LoadingState extends MusicBeatState
 
 	var funkay:FlxSprite;
 	var loadBar:FlxSprite;
+
 	override function create()
 	{
-		var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xffcaff4d);
-		add(bg);
 		funkay = new FlxSprite(0, 0).loadGraphic(Paths.image("loading/funkay"));
 		funkay.setGraphicSize(FlxG.width, FlxG.height);
 		funkay.updateHitbox();

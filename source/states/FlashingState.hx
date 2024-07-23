@@ -1,5 +1,6 @@
 package states;
 
+import backend.ClientPrefs;
 import util.CoolUtil;
 import flixel.tweens.FlxEase;
 import flixel.FlxG;

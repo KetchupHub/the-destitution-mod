@@ -1,10 +1,10 @@
 package states;
 
+import visuals.Character;
 import util.CoolUtil;
 import util.MemoryUtil;
 import flixel.text.FlxText;
 import flixel.text.FlxText.FlxTextBorderStyle;
-import openfl.system.System;
 import flixel.util.FlxColor;
 import flixel.ui.FlxBar;
 import flixel.FlxG;

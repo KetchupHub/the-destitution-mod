@@ -1,5 +1,7 @@
 package songs;
 
+import songs.*;
+
 /**
  * This class is used for generating a song's proper class. kinda hacky but whatever.
  */

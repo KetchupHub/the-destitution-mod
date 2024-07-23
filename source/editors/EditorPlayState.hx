@@ -1,28 +1,32 @@
 package editors;
 
+import states.LoadingState;
+import flixel.math.FlxRect;
+import flixel.input.keyboard.FlxKey;
+import flixel.util.FlxColor;
+import states.PlayState;
+import backend.ClientPrefs;
+import backend.Conductor;
+import ui.Note;
+import ui.NoteSplash;
+import ui.StrumNote;
 import util.MemoryUtil;
 import backend.Section.SwagSection;
-import backend.Song.SwagSong;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.math.FlxMath;
-import flixel.math.FlxPoint;
-import flixel.math.FlxRect;
 import flixel.sound.FlxSound;
 import flixel.util.FlxSort;
-import flixel.util.FlxTimer;
-import flixel.input.keyboard.FlxKey;
 import openfl.events.KeyboardEvent;
+import states.MusicBeatState;
 
 using StringTools;
 
-class EditorPlayState extends states.MusicBeatState
+class EditorPlayState extends MusicBeatState
 {
 	// Yes, this is mostly a copy of PlayState, it's kinda dumb to make a direct copy of it but... ehhh
 	private var strumLine:FlxSprite;
@@ -41,7 +45,8 @@ class EditorPlayState extends states.MusicBeatState
 	var startOffset:Float = 0;
 	var startPos:Float = 0;
 
-	public function new(startPos:Float) {
+	public function new(startPos:Float)
+	{
 		this.startPos = startPos;
 		Conductor.songPosition = startPos - startOffset;
 
@@ -321,7 +326,7 @@ class EditorPlayState extends states.MusicBeatState
 	}
 
 	private function endSong() {
-		LoadingState.loadAndSwitchState(new editors.ChartingState());
+		LoadingState.loadAndSwitchState(new ChartingState());
 	}
 
 	public var noteKillOffset:Float = 350;
@@ -331,7 +336,7 @@ class EditorPlayState extends states.MusicBeatState
 		{
 			FlxG.sound.music.pause();
 			vocals.pause();
-			LoadingState.loadAndSwitchState(new editors.ChartingState());
+			LoadingState.loadAndSwitchState(new ChartingState());
 		}
 
 		if (startingSong) {

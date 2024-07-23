@@ -1,6 +1,10 @@
 package editors;
 
-import util.macro.GitCommit;
+import util.CoolUtil;
+import states.TitleState;
+import states.PlayState;
+import states.MusicBeatState;
+import visuals.BGSprite;
 import util.MemoryUtil;
 import sys.FileSystem;
 #if desktop
@@ -12,21 +16,16 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxCamera;
 import flixel.input.keyboard.FlxKey;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.graphics.FlxGraphic;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.addons.ui.FlxInputText;
-import flixel.addons.ui.FlxUI9SliceSprite;
 import flixel.addons.ui.FlxUI;
 import flixel.addons.ui.FlxUICheckBox;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
-import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
 import flixel.ui.FlxButton;
-import flixel.ui.FlxSpriteButton;
 import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
@@ -35,6 +34,9 @@ import visuals.Character;
 import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
 import lime.system.Clipboard;
 import flixel.animation.FlxAnimation;
+import ui.HealthIcon;
+import ui.FlxUIDropDownMenuCustom;
+import backend.ClientPrefs;
 
 #if MODS_ALLOWED
 import sys.FileSystem;
@@ -195,7 +197,7 @@ class CharacterEditorState extends states.MusicBeatState
 		reloadCharacterOptions();
 
 		#if DEVELOPERBUILD
-		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + GitCommit.getGitBranch() + " - " + GitCommit.getGitCommitHash() + ")", 12);
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
@@ -411,9 +413,11 @@ class CharacterEditorState extends states.MusicBeatState
 	function addCharacterUI()
 	{
 		var tab_group = new FlxUI(null, UI_box);
+		
 		tab_group.name = "Character";
 
-		imageInputText = new FlxUIInputText(15, 30, 200, 'characters/BOYFRIEND', 8);
+		imageInputText = new FlxUIInputText(15, 30, 200, 'characters/nopeboy_2d', 8);
+
 		var reloadImage:FlxButton = new FlxButton(imageInputText.x + 210, imageInputText.y - 3, "Reload Image", function()
 		{
 			char.imageFile = imageInputText.text;

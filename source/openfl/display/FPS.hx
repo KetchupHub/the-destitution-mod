@@ -1,5 +1,7 @@
 package openfl.display;
 
+import flixel.util.FlxStringUtil;
+import backend.ClientPrefs;
 import util.MemoryUtil;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
@@ -83,14 +85,14 @@ class FPS extends TextField
 		currentFPS = Math.round((currentCount + cacheCount) / 2);
 		if (currentFPS > ClientPrefs.framerate) currentFPS = ClientPrefs.framerate;
 
-		if (currentCount != cacheCount /*&& visible*/)
+		if (currentCount != cacheCount)
 		{
 			text = 'FPS: ${currentFPS}';
 			
-			text += '\nMemory: ${flixel.util.FlxStringUtil.formatBytes(MemoryUtil.getMemoryUsed())}';
+			text += '\nMemory: ${FlxStringUtil.formatBytes(MemoryUtil.getMemoryUsed())}';
 
 			textColor = 0xFFFFFFFF;
-			if (currentFPS <= ClientPrefs.framerate / 2)
+			if (currentFPS <= 30)
 				textColor = 0xFFFF0000;
 
 			#if (gl_stats && !disable_cffi && (!html5 || !canvas))

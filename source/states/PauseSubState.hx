@@ -1,5 +1,9 @@
 package states;
 
+import backend.WeekData;
+import backend.ClientPrefs;
+import backend.Conductor;
+import ui.Alphabet;
 import lime.app.Application;
 import flixel.FlxG;
 import flixel.FlxSprite;

@@ -1,5 +1,7 @@
 package visuals;
 
+import backend.ClientPrefs;
+import util.CoolUtil;
 import flixel.math.FlxMath;
 import flixel.FlxSprite;
 
@@ -17,6 +19,7 @@ class BucksGraphBar extends FlxSprite
         frames = Paths.getSparrowAtlas('bucks/graph_bar');
         animation.addByPrefix('idle', 'graph bar', 0, false);
         animation.play('idle', true, false, 9);
+        antialiasing = ClientPrefs.globalAntialiasing;
         alpha = 0.5;
     }
 
@@ -27,11 +30,12 @@ class BucksGraphBar extends FlxSprite
 
 	override function update(elapsed:Float)
     {
+        super.update(elapsed);
+
         if(curPos != targetPos)
         {
-            curPos = Std.int(FlxMath.lerp(targetPos, curPos, util.CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1)));
+            curPos = Std.int(FlxMath.lerp(targetPos, curPos, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1)));
             animation.play('idle', true, false, curPos);
         }
-        super.update(elapsed);
     }
 }

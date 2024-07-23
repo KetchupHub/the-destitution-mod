@@ -132,7 +132,7 @@ class CoolUtil
 		#end
 	}
 
-	public static function getSavePath(folder:String = 'Team Productions Presents'):String {
+	public static function getSavePath(folder:String = 'Team-Productions-Presents'):String {
 		@:privateAccess
 		return #if (flixel < "5.0.0") folder #else FlxG.stage.application.meta.get('company')
 			+ '/'

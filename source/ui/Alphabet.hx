@@ -1,5 +1,6 @@
 package ui;
 
+import backend.ClientPrefs;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
@@ -162,11 +163,13 @@ class Alphabet extends FlxSpriteGroup
 		if (isMenuItem)
 		{
 			var lerpVal:Float = util.CoolUtil.boundTo(elapsed * 9.6, 0, 1);
+
 			if(changeX)
 				x = FlxMath.lerp(x, (targetY * distancePerItem.x) + startPosition.x, lerpVal);
 			if(changeY)
 				y = FlxMath.lerp(y, (targetY * 1.3 * distancePerItem.y) + startPosition.y, lerpVal);
 		}
+
 		super.update(elapsed);
 	}
 
@@ -190,39 +193,50 @@ class Alphabet extends FlxSpriteGroup
 		var xPos:Float = 0;
 		var rowData:Array<Float> = [];
 		rows = 0;
+
 		for (character in newText.split(''))
 		{
 			
 			if(character != '\n')
 			{
 				var spaceChar:Bool = (character == " " || (bold && character == "_"));
-				if (spaceChar) consecutiveSpaces++;
+
+				if (spaceChar)
+					consecutiveSpaces++;
 
 				var isAlphabet:Bool = AlphaCharacter.isTypeAlphabet(character.toLowerCase());
+
 				if (AlphaCharacter.allLetters.exists(character.toLowerCase()) && (!bold || !spaceChar))
 				{
 					if (consecutiveSpaces > 0)
 					{
 						xPos += 28 * consecutiveSpaces * scaleX;
+
 						if(!bold && xPos >= FlxG.width * 0.65)
 						{
 							xPos = 0;
 							rows++;
 						}
 					}
+
 					consecutiveSpaces = 0;
 
 					var letter:AlphaCharacter = new AlphaCharacter(xPos, rows * Y_PER_ROW * scaleY, character, bold, this);
+
 					letter.x += letter.letterOffset[0] * scaleX;
 					letter.y -= letter.letterOffset[1] * scaleY;
 					letter.row = rows;
 
 					var off:Float = 0;
-					if(!bold) off = 2;
+					if(!bold)
+						off = 2;
+
 					xPos += letter.width + (letter.letterOffset[0] + off) * scaleX;
+
 					rowData[rows] = xPos;
 
 					add(letter);
+					
 					letters.push(letter);
 				}
 			}
@@ -316,7 +330,7 @@ class AlphaCharacter extends FlxSprite
 		super(x, y);
 		this.parent = parent;
 		image = 'alphabet';
-		antialiasing = backend.ClientPrefs.globalAntialiasing;
+		antialiasing = ClientPrefs.globalAntialiasing;
 
 		var curLetter:Letter = allLetters.get('?');
 		var lowercase = character.toLowerCase();

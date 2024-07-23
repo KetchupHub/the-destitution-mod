@@ -1,35 +1,38 @@
 package editors;
 
+import visuals.Character;
+import visuals.Character.CharacterFile;
+import backend.StageData;
+import states.LoadingState;
+import states.TitleState;
+import ui.Prompt;
+import states.MusicBeatState;
+import backend.Conductor;
+import states.PlayState;
+import ui.FlxUIDropDownMenuCustom;
+import ui.HealthIcon;
+import ui.Note;
+import ui.StrumNote;
+import visuals.AttachedSprite;
 import util.MemoryUtil;
 import backend.Song;
 import backend.Section;
-import backend.*;
-import visuals.*;
-import ui.*;
 import backend.Discord.DiscordClient;
 import backend.Conductor.BPMChangeEvent;
-
 import flash.geom.Rectangle;
 import haxe.Json;
-import haxe.format.JsonParser;
 import haxe.io.Bytes;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.ui.FlxInputText;
-import flixel.addons.ui.FlxUI9SliceSprite;
 import flixel.addons.ui.FlxUI;
 import flixel.addons.ui.FlxUICheckBox;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUISlider;
 import flixel.addons.ui.FlxUITabMenu;
-import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
-import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
-import flixel.group.FlxSpriteGroup;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
@@ -38,25 +41,21 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
-import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import lime.media.AudioBuffer;
-import lime.utils.Assets;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
-import openfl.media.Sound;
 import openfl.net.FileReference;
 import openfl.utils.Assets as OpenFlAssets;
-import openfl.utils.ByteArray;
 
 using StringTools;
+
 #if sys
 import flash.media.Sound;
 import sys.FileSystem;
 import sys.io.File;
 #end
-
 
 @:access(flixel.sound.FlxSound._sound)
 @:access(openfl.media.Sound.__buffer)
@@ -80,14 +79,9 @@ class ChartingState extends states.MusicBeatState
 	var eventStuff:Array<Dynamic> =
 	[
 		['', "Nothing. Yep, that's right."],
-		['Dadbattle Spotlight', "Used in Dad Battle,\nValue 1: 0/1 = ON/OFF,\n2 = Target Dad\n3 = Target BF"],
 		['Hey!', "Plays the \"Hey!\" animation from Bopeebo,\nValue 1: BF = Only Boyfriend, GF = Only Girlfriend,\nSomething else = Both.\nValue 2: Custom animation duration,\nleave it blank for 0.6s"],
 		['Set GF Speed', "Sets GF head bopping speed,\nValue 1: 1 = Normal speed,\n2 = 1/2 speed, 4 = 1/4 speed etc.\nUsed on Fresh during the beatbox parts.\n\nWarning: Value must be integer!"],
-		['Philly Glow', "Exclusive to Week 3\nValue 1: 0/1/2 = OFF/ON/Reset Gradient\n \nNo, i won't add it to other weeks."],
-		['Kill Henchmen', "For Mom's songs, don't use this please, i love them :("],
 		['Add Camera Zoom', "Used on MILF on that one \"hard\" part\nValue 1: Camera zoom add (Default: 0.015)\nValue 2: UI zoom add (Default: 0.03)\nLeave the values blank if you want to use Default."],
-		['BG Freaks Expression', "Should be used only in \"school\" Stage!"],
-		['Trigger BG Ghouls', "Should be used only in \"schoolEvil\" Stage!"],
 		['Play Animation', "Plays an animation on a Character,\nonce the animation is completed,\nthe animation changes to Idle\n\nValue 1: Animation to play.\nValue 2: Character (Dad, BF, GF)"],
 		['Camera Follow Pos', "Value 1: X\nValue 2: Y\n\nThe camera won't change the follow point\nafter using this, for getting it back\nto normal, leave both values blank."],
 		['Alt Idle Animation', "Sets a specified suffix after the idle animation name.\nYou can use this to trigger 'idle-alt' if you set\nValue 2 to -alt\n\nValue 1: Character to set (Dad, BF or GF)\nValue 2: New suffix (Leave it blank to disable)"],
@@ -202,11 +196,10 @@ class ChartingState extends states.MusicBeatState
 		192
 	];
 
-
-
 	var text:String = "";
 	public static var vortex:Bool = false;
 	public var mouseQuant:Bool = false;
+
 	override function create()
 	{
 		if (PlayState.SONG != null)
@@ -214,20 +207,21 @@ class ChartingState extends states.MusicBeatState
 		else
 		{
 			_song = {
-				song: 'Destitution', //crash fix
+				song: 'Destitution',
 				notes: [],
 				events: [],
-				bpm: 180.0,
+				bpm: 188.0,
 				needsVoices: true,
 				arrowSkin: '',
-				splashSkin: 'noteSplashes',//idk it would crash if i didn't
-				player1: 'bf',
-				player2: 'dad',
+				splashSkin: 'noteSplashes',
+				player1: 'bf-mark',
+				player2: 'mark',
 				gfVersion: 'gf',
-				speed: 1,
-				stage: 'stage',
+				speed: 2.95,
+				stage: 'mark',
 				validScore: false
 			};
+
 			addSection();
 			PlayState.SONG = _song;
 		}
@@ -302,8 +296,8 @@ class ChartingState extends states.MusicBeatState
 		strumLine = new FlxSprite(0, 50).makeGraphic(Std.int(GRID_SIZE * 9), 4);
 		add(strumLine);
 
-		quant = new AttachedSprite('chart_quant','chart_quant');
-		quant.animation.addByPrefix('q','chart_quant',0,false);
+		quant = new AttachedSprite('chart_quant', 'chart_quant');
+		quant.animation.addByPrefix('q', 'chart_quant', 0, false);
 		quant.animation.play('q', true, false, 0);
 		quant.sprTracker = strumLine;
 		quant.xAdd = -32;
@@ -311,7 +305,8 @@ class ChartingState extends states.MusicBeatState
 		add(quant);
 
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
-		for (i in 0...8){
+		for (i in 0...8)
+		{
 			var note:StrumNote = new StrumNote(GRID_SIZE * (i+1), strumLine.y, i % 4, 0);
 			note.setGraphicSize(GRID_SIZE, GRID_SIZE);
 			note.updateHitbox();
@@ -336,7 +331,6 @@ class ChartingState extends states.MusicBeatState
 		];
 
 		UI_box = new FlxUITabMenu(null, tabs, true);
-
 		UI_box.resize(300, 400);
 		UI_box.x = 640 + GRID_SIZE / 2;
 		UI_box.y = 25;
@@ -359,11 +353,11 @@ class ChartingState extends states.MusicBeatState
 		\nSpace - Stop/Resume song";
 
 		var tipTextArray:Array<String> = text.split('\n');
-		for (i in 0...tipTextArray.length) {
+		for (i in 0...tipTextArray.length)
+		{
 			var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
 			tipText.y += i * 12;
-			tipText.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.WHITE, LEFT/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
-			//tipText.borderSize = 2;
+			tipText.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.WHITE, LEFT);
 			tipText.scrollFactor.set();
 			add(tipText);
 		}
@@ -376,7 +370,6 @@ class ChartingState extends states.MusicBeatState
 		addChartingUI();
 		updateHeads();
 		updateWaveform();
-		//UI_box.selected_tab = 4;
 
 		add(curRenderedSustains);
 		add(curRenderedNotes);
@@ -384,9 +377,11 @@ class ChartingState extends states.MusicBeatState
 		add(nextRenderedSustains);
 		add(nextRenderedNotes);
 
-		if(lastSong != currentSongName) {
+		if(lastSong != currentSongName)
+		{
 			changeSection();
 		}
+
 		lastSong = currentSongName;
 
 		zoomTxt = new FlxText(10, 10, 0, "Zoom: 1 / 1", 16);
@@ -394,6 +389,7 @@ class ChartingState extends states.MusicBeatState
 		add(zoomTxt);
 
 		updateGrid();
+
 		super.create();
 	}
 
@@ -407,6 +403,7 @@ class ChartingState extends states.MusicBeatState
 	var noteSplashesInputText:FlxUIInputText;
 	var stageDropDown:FlxUIDropDownMenuCustom;
 	var sliderRate:FlxUISlider;
+	
 	function addSongUI():Void
 	{
 		UI_songTitle = new FlxUIInputText(10, 10, 70, _song.song, 8);
@@ -1664,12 +1661,15 @@ class ChartingState extends states.MusicBeatState
 			}
 		}
 
-		if(!blockInput) {
+		if(!blockInput)
+		{
 			FlxG.sound.muteKeys = TitleState.muteKeys;
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
-			for (dropDownMenu in blockPressWhileScrolling) {
-				if(dropDownMenu.dropPanel.visible) {
+			for (dropDownMenu in blockPressWhileScrolling)
+			{
+				if(dropDownMenu.dropPanel.visible)
+				{
 					blockInput = true;
 					break;
 				}
@@ -1697,7 +1697,8 @@ class ChartingState extends states.MusicBeatState
 				LoadingState.loadAndSwitchState(new PlayState());
 			}
 
-			if(curSelectedNote != null && curSelectedNote[1] > -1) {
+			if(curSelectedNote != null && curSelectedNote[1] > -1)
+			{
 				if (FlxG.keys.justPressed.E)
 				{
 					changeNoteSustain(Conductor.stepCrochet);
@@ -2411,6 +2412,7 @@ class ChartingState extends states.MusicBeatState
 			songTime: 0,
 			bpm: 0
 		}
+
 		for (i in 0...Conductor.bpmChangeMap.length)
 		{
 			if (FlxG.sound.music.time > Conductor.bpmChangeMap[i].songTime)
@@ -2552,7 +2554,7 @@ class ChartingState extends states.MusicBeatState
 		var rawJson = OpenFlAssets.getText(path);
 		#end
 
-		var json:Character.CharacterFile = cast Json.parse(rawJson);
+		var json:CharacterFile = cast Json.parse(rawJson);
 		return json.healthicon;
 	}
 

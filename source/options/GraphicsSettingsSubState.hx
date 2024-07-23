@@ -1,5 +1,6 @@
 package options;
 
+import backend.ClientPrefs;
 import flixel.text.FlxText;
 import flixel.FlxG;
 import flixel.FlxSprite;

@@ -1,13 +1,14 @@
 package ui;
 
-import flixel.*;
 import flixel.addons.ui.FlxUIPopup;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import openfl.geom.Rectangle;
+import states.MusicBeatSubstate;
+import flixel.FlxSprite;
 
-class Prompt extends states.MusicBeatSubstate
+class Prompt extends MusicBeatSubstate
 {
 	var selected = 0;
 	public var okc:Void->Void;

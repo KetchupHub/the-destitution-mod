@@ -1,5 +1,9 @@
 package states;
 
+import backend.ClientPrefs;
+import ui.Alphabet;
+import ui.AttachedText;
+import ui.CheckboxThingie;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;

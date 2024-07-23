@@ -1,5 +1,7 @@
 package states;
 
+import backend.ClientPrefs;
+import backend.WeekData;
 import util.CoolUtil;
 import util.MemoryUtil;
 import openfl.system.System;
@@ -38,6 +40,7 @@ class MainMenuState extends MusicBeatState
 	];
 
 	var magenta:FlxSprite;
+	
 	var debugKeys:Array<FlxKey>;
 
 	var sideThing:FlxSprite;

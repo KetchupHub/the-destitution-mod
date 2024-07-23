@@ -1,5 +1,9 @@
 package states;
 
+import backend.ClientPrefs;
+import ui.CustomFadeTransition;
+import backend.PlayerSettings;
+import backend.Controls;
 import flixel.FlxG;
 import flixel.addons.ui.FlxUIState;
 import flixel.addons.transition.FlxTransitionableState;
@@ -17,12 +21,12 @@ class MusicBeatState extends FlxUIState
 
 	private var curDecStep:Float = 0;
 	private var curDecBeat:Float = 0;
-	private var controls(get, never):backend.Controls;
+	private var controls(get, never):Controls;
 
 	public static var camBeat:FlxCamera;
 
-	inline function get_controls():backend.Controls
-		return backend.PlayerSettings.player1.controls;
+	inline function get_controls():Controls
+		return PlayerSettings.player1.controls;
 
 	override function create()
 	{
@@ -34,7 +38,7 @@ class MusicBeatState extends FlxUIState
 
 		if(!skip)
 		{
-			openSubState(new ui.CustomFadeTransition(0.7, true));
+			openSubState(new CustomFadeTransition(0.7, true));
 		}
 
 		FlxTransitionableState.skipNextTransOut = false;
@@ -89,6 +93,7 @@ class MusicBeatState extends FlxUIState
 		var lastSection:Int = curSection;
 		curSection = 0;
 		stepsToDo = 0;
+
 		for (i in 0...PlayState.SONG.notes.length)
 		{
 			if (PlayState.SONG.notes[i] != null)
@@ -115,7 +120,7 @@ class MusicBeatState extends FlxUIState
 	{
 		var lastChange = Conductor.getBPMFromSeconds(Conductor.songPosition);
 
-		var shit = ((Conductor.songPosition - backend.ClientPrefs.noteOffset) - lastChange.songTime) / lastChange.stepCrochet;
+		var shit = ((Conductor.songPosition - ClientPrefs.noteOffset) - lastChange.songTime) / lastChange.stepCrochet;
 		curDecStep = lastChange.stepTime + shit;
 		curStep = lastChange.stepTime + Math.floor(shit);
 	}
@@ -127,26 +132,26 @@ class MusicBeatState extends FlxUIState
 		var leState:MusicBeatState = curState;
 		if(!FlxTransitionableState.skipNextTransIn)
 		{
-			leState.openSubState(new ui.CustomFadeTransition(0.6, false));
+			leState.openSubState(new CustomFadeTransition(0.6, false));
 
 			if(nextState == FlxG.state)
 			{
-				ui.CustomFadeTransition.finishCallback = function()
+				CustomFadeTransition.finishCallback = function()
 				{
 					FlxG.resetState();
 				};
 			}
 			else
 			{
-				ui.CustomFadeTransition.finishCallback = function()
+				CustomFadeTransition.finishCallback = function()
 				{
-					FlxG.switchState(nextState);
+					FlxG.switchState(()->nextState);
 				};
 			}
 			return;
 		}
 		FlxTransitionableState.skipNextTransIn = false;
-		FlxG.switchState(nextState);
+		FlxG.switchState(()->nextState);
 	}
 
 	public static function resetState()

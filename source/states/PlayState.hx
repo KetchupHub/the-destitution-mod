@@ -1,5 +1,11 @@
 package states;
 
+import backend.WeekData;
+import ui.CustomFadeTransition;
+import backend.Highscore;
+import backend.Song;
+import backend.Conductor;
+import backend.ClientPrefs;
 import util.CoolUtil;
 import lime.app.Application;
 #if desktop
@@ -15,9 +21,11 @@ import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
+import flixel.animation.FlxAnimationController;
 import flixel.sound.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -27,18 +35,28 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
+import flixel.util.FlxSave;
+import flixel.input.keyboard.FlxKey;
 import openfl.display.BlendMode;
 import openfl.utils.Assets as OpenFlAssets;
 import editors.ChartingState;
 import editors.CharacterEditorState;
-import flixel.group.FlxSpriteGroup;
-import flixel.input.keyboard.FlxKey;
-import ui.Note.EventNote;
 import openfl.events.KeyboardEvent;
-import flixel.util.FlxSave;
-import flixel.animation.FlxAnimationController;
 import backend.StageData;
 import backend.Conductor.Rating;
+import visuals.Character;
+import visuals.Boyfriend;
+import visuals.AttachedSprite;
+import visuals.BGSprite;
+import visuals.BucksGraphBar;
+import visuals.WiggleEffect;
+import ui.Note;
+import ui.Note.EventNote;
+import ui.StrumNote;
+import ui.NoteSplash;
+import ui.HealthIcon;
+import ui.AttachedText;
+import songs.*;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -481,14 +499,17 @@ class PlayState extends MusicBeatState
 			cameraSpeed = stageData.camera_speed;
 
 		boyfriendCameraOffset = stageData.camera_boyfriend;
-		if(boyfriendCameraOffset == null) //Fucks sake should have done it since the start :rolling_eyes:
+
+		if(boyfriendCameraOffset == null)
 			boyfriendCameraOffset = [0, 0];
 
 		opponentCameraOffset = stageData.camera_opponent;
+
 		if(opponentCameraOffset == null)
 			opponentCameraOffset = [0, 0];
 
 		girlfriendCameraOffset = stageData.camera_girlfriend;
+		
 		if(girlfriendCameraOffset == null)
 			girlfriendCameraOffset = [0, 0];
 
@@ -718,7 +739,7 @@ class PlayState extends MusicBeatState
 			case 'bucks':
 				var skyish = new FlxSprite(-458, -413);
 				skyish.loadGraphic(Paths.image('bucks/skybox'));
-				skyish.antialiasing = true;
+				skyish.antialiasing = ClientPrefs.globalAntialiasing;
 				skyish.scrollFactor.set();
 				add(skyish);
 
@@ -728,28 +749,28 @@ class PlayState extends MusicBeatState
 				tvs.animation.play('idle');
 				tvs.scale.set(2, 2);
 				tvs.updateHitbox();
-				tvs.antialiasing = true;
+				tvs.antialiasing = ClientPrefs.globalAntialiasing;
 				tvs.scrollFactor.set(0.2, 0.1);
 				add(tvs);
 
 				var lump = new FlxSprite(-350, 270).loadGraphic(Paths.image('bucks/lump'));
-				lump.antialiasing = true;
+				lump.antialiasing = ClientPrefs.globalAntialiasing;
 				lump.scrollFactor.set(0.45, 0.7);
 				add(lump);
 
 				stockboy = new Character(-245, 275, 'brokerboy', false, false);
-				stockboy.antialiasing = true;
+				stockboy.antialiasing = ClientPrefs.globalAntialiasing;
 				stockboy.playAnim('walk', true);
 				stockboy.animation.pause();
 				stockboy.scrollFactor.set(0.45, 0.7);
 				add(stockboy);
 				
 				var floor = new FlxSprite(-445, 200).loadGraphic(Paths.image('bucks/floor'));
-				floor.antialiasing = true;
+				floor.antialiasing = ClientPrefs.globalAntialiasing;
 				add(floor);
 
 				var screen = new FlxSprite(30, -250).loadGraphic(Paths.image('bucks/screen'));
-				screen.antialiasing = true;
+				screen.antialiasing = ClientPrefs.globalAntialiasing;
 				add(screen);
 
 				for(i in 0...7)
@@ -762,13 +783,13 @@ class PlayState extends MusicBeatState
 				yais.frames = Paths.getSparrowAtlas('bucks/youre_accuracy_inc_stock');
 				yais.animation.addByPrefix('idle', 'yais', 24, true);
 				yais.animation.play('idle');
-				yais.antialiasing = true;
+				yais.antialiasing = ClientPrefs.globalAntialiasing;
 				add(yais);
 
 				ref = new FlxSprite(-458, -413);
 				ref.loadGraphic(Paths.image('bucks/possy'));
 				ref.alpha = 0.65;
-				ref.antialiasing = true;
+				ref.antialiasing = ClientPrefs.globalAntialiasing;
 				ref.visible = false;
 				add(ref);
 			case 'april':

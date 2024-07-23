@@ -1,5 +1,8 @@
 package states;
 
+import backend.WeekData;
+import backend.Conductor;
+import visuals.Boyfriend;
 import util.CoolUtil;
 import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.text.FlxText;

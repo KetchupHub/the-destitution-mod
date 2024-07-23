@@ -3,6 +3,10 @@ package songs;
 import flixel.tweens.FlxEase;
 import flixel.FlxG;
 import flixel.tweens.FlxTween;
+import visuals.Boyfriend;
+import visuals.Character;
+import backend.Conductor;
+import states.PlayState;
 
 /**
  * Superseded's song class.

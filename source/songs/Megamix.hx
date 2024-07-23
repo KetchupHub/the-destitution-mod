@@ -1,5 +1,10 @@
 package songs;
 
+import visuals.Boyfriend;
+import visuals.Character;
+import backend.Conductor;
+import states.PlayState;
+
 /**
  * Megamix's song class.
  */

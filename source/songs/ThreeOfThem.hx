@@ -2,6 +2,10 @@ package songs;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import visuals.Boyfriend;
+import visuals.Character;
+import backend.Conductor;
+import states.PlayState;
 
 /**
  * Three of Them's song class.
