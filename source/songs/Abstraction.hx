@@ -20,6 +20,7 @@ class Abstraction extends SongClass
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
         this.songDescription = "Experience the magic of Mark's very own self written television program firsthand!";
+        this.startSwing = false;
     }
 
     public override function stepHitEvent(curStep:Float)

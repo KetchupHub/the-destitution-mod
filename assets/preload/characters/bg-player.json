@@ -14,7 +14,7 @@
 		{
 			"offsets": [
 				0,
-				-30
+				0
 			],
 			"loop": true,
 			"anim": "walk",
@@ -52,5 +52,5 @@
 		0
 	],
 	"sing_duration": 6,
-	"scale": 1
+	"scale": 2
 }

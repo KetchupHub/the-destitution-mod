@@ -1,5 +1,6 @@
 package songs;
 
+import backend.ClientPrefs;
 import visuals.Boyfriend;
 import visuals.Character;
 import backend.Conductor;
@@ -25,6 +26,7 @@ class Destitution extends SongClass
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
         this.songDescription = "Mark and the gang show Nopeboy how to be a master investor!";
+        this.startSwing = false;
     }
 
     public override function stepHitEvent(curStep:Float)
@@ -344,8 +346,10 @@ class Destitution extends SongClass
                 PlayState.instance.whaleFuckShit = true;
             case 1572:
                 //DONT MISS, PAL
+                PlayState.instance.instakillOnMiss = true;
             case 1604:
                 //ok yoyu can miss again
+                PlayState.instance.instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
                 PlayState.instance.whaleFuckShit = false;
                 FlxG.camera.flash();
             case 1768:
@@ -487,6 +491,7 @@ class Destitution extends SongClass
                 PlayState.instance.dad.canDance = false;
                 PlayState.instance.dad.playAnim("scared", true);
             case 2972:
+                PlayState.instance.swingSec = true;
                 PlayState.instance.funBackCamFadeShit = true;
                 PlayState.instance.centerCamOnBg = false;
                 PlayState.instance.defaultCamZoom += 0.15;
@@ -533,6 +538,7 @@ class Destitution extends SongClass
                 PlayState.instance.zamMarkCamFlipShit.visible = true;
                 PlayState.instance.zamMarkCamFlipShit.animation.play("idle", true);
             case 3500:
+                PlayState.instance.swingSec = false;
                 PlayState.instance.zamMarkCamFlipShit.visible = false;
                 PlayState.instance.zamMarkCamFlipShit.destroy();
 

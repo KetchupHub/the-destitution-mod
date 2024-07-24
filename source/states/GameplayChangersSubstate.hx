@@ -10,8 +10,6 @@ import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
-using StringTools;
-
 class GameplayChangersSubstate extends MusicBeatSubstate
 {
 	private var curOption:GameplayOption = null;

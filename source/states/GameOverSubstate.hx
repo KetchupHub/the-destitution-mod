@@ -1,5 +1,6 @@
 package states;
 
+import util.MemoryUtil;
 import backend.WeekData;
 import backend.Conductor;
 import visuals.Boyfriend;
@@ -101,9 +102,12 @@ class GameOverSubstate extends MusicBeatSubstate
 			PlayState.seenCutscene = false;
 			PlayState.chartingMode = false;
 
+			MemoryUtil.collect(true);
+			MemoryUtil.compact();
+
 			WeekData.loadTheFirstEnabledMod();
 
-			MusicBeatState.switchState(new FreeplayState());
+			MusicBeatState.switchState(new MainMenuState());
 
 			FlxG.sound.playMusic(Paths.music('mus_pauperized'));
 		}

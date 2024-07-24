@@ -6,8 +6,6 @@ import visuals.ColorSwap;
 import backend.ClientPrefs;
 import states.PlayState;
 
-using StringTools;
-
 class StrumNote extends FlxSprite
 {
 	private var colorSwap:ColorSwap;

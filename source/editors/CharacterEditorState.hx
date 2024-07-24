@@ -1,5 +1,6 @@
 package editors;
 
+import flixel.addons.ui.FlxUIDropDownMenu;
 import util.CoolUtil;
 import states.TitleState;
 import states.PlayState;
@@ -35,19 +36,13 @@ import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
 import lime.system.Clipboard;
 import flixel.animation.FlxAnimation;
 import ui.HealthIcon;
-import ui.FlxUIDropDownMenuCustom;
 import backend.ClientPrefs;
 
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
 
-using StringTools;
-
-/**
-	*DEBUG MODE
- */
-class CharacterEditorState extends states.MusicBeatState
+class CharacterEditorState extends MusicBeatState
 {
 	var char:Character;
 	var ghostChar:Character;
@@ -211,109 +206,162 @@ class CharacterEditorState extends states.MusicBeatState
 	function reloadBGs()
 	{
 		var i:Int = bgLayer.members.length-1;
-		while(i >= 0) {
+		while(i >= 0)
+		{
 			var memb:FlxSprite = bgLayer.members[i];
-			if(memb != null) {
+
+			if(memb != null)
+			{
 				memb.kill();
 				bgLayer.remove(memb);
 				memb.destroy();
 			}
+
 			--i;
 		}
+
 		bgLayer.clear();
+
 		var playerXDifference = 0;
-		if(char.isPlayer) playerXDifference = 670;
 
-		var bg:BGSprite = new BGSprite('stageback', -600 + OFFSET_X - playerXDifference, -300, 0.9, 0.9);
+		if(char.isPlayer)
+			playerXDifference = 670;
+
+		var bg:BGSprite = new BGSprite('destitution/start', -680 + OFFSET_X - playerXDifference, -320);
+		bg.scale.set(2, 2);
+		bg.updateHitbox();
 		bgLayer.add(bg);
-
-		var stageFront:BGSprite = new BGSprite('stagefront', -650 + OFFSET_X - playerXDifference, 500, 0.9, 0.9);
-		stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
-		stageFront.updateHitbox();
-		bgLayer.add(stageFront);
 	}
 
-	var TemplateCharacter:String = '{
-			"animations": [
-				{
-					"loop": false,
-					"offsets": [
-						0,
-						0
-					],
-					"fps": 24,
-					"anim": "idle",
-					"indices": [],
-					"name": "Dad idle dance"
-				},
-				{
-					"offsets": [
-						0,
-						0
-					],
-					"indices": [],
-					"fps": 24,
-					"anim": "singLEFT",
-					"loop": false,
-					"name": "Dad Sing Note LEFT"
-				},
-				{
-					"offsets": [
-						0,
-						0
-					],
-					"indices": [],
-					"fps": 24,
-					"anim": "singDOWN",
-					"loop": false,
-					"name": "Dad Sing Note DOWN"
-				},
-				{
-					"offsets": [
-						0,
-						0
-					],
-					"indices": [],
-					"fps": 24,
-					"anim": "singUP",
-					"loop": false,
-					"name": "Dad Sing Note UP"
-				},
-				{
-					"offsets": [
-						0,
-						0
-					],
-					"indices": [],
-					"fps": 24,
-					"anim": "singRIGHT",
-					"loop": false,
-					"name": "Dad Sing Note RIGHT"
-				}
-			],
-			"no_antialiasing": false,
-			"image": "characters/DADDY_DEAREST",
-			"position": [
-				0,
-				0
-			],
-			"healthicon": "face",
-			"flip_x": false,
-			"healthbar_colors": [
-				161,
-				161,
-				161
-			],
-			"camera_position": [
-				0,
-				0
-			],
-			"sing_duration": 6.1,
-			"scale": 1
-		}';
+	var TemplateCharacter:String = 
+	'{
+		"animations": [
+			{
+				"loop": false,
+				"offsets": [
+					0,
+					0
+				],
+				"anim": "idle",
+				"fps": 24,
+				"name": "idle",
+				"indices": []
+			},
+			{
+				"loop": false,
+				"offsets": [
+					140,
+					2
+				],
+				"anim": "singLEFT",
+				"fps": 24,
+				"name": "left",
+				"indices": []
+			},
+			{
+				"loop": false,
+				"offsets": [
+					87,
+					3
+				],
+				"anim": "singDOWN",
+				"fps": 24,
+				"name": "down",
+				"indices": []
+			},
+			{
+				"loop": false,
+				"offsets": [
+					20,
+					155
+				],
+				"anim": "singUP",
+				"fps": 24,
+				"name": "up",
+				"indices": []
+			},
+			{
+				"loop": false,
+				"offsets": [
+					-13,
+					3
+				],
+				"anim": "singRIGHT",
+				"fps": 24,
+				"name": "right",
+				"indices": []
+			},
+			{
+				"offsets": [
+					16,
+					0
+				],
+				"loop": true,
+				"fps": 24,
+				"anim": "singLEFTmiss",
+				"indices": [],
+				"name": "miss"
+			},
+			{
+				"offsets": [
+					16,
+					0
+				],
+				"loop": true,
+				"fps": 24,
+				"anim": "singDOWNmiss",
+				"indices": [],
+				"name": "miss"
+			},
+			{
+				"offsets": [
+					16,
+					0
+				],
+				"loop": true,
+				"fps": 24,
+				"anim": "singUPmiss",
+				"indices": [],
+				"name": "miss"
+			},
+			{
+				"offsets": [
+					16,
+					0
+				],
+				"loop": true,
+				"fps": 24,
+				"anim": "singRIGHTmiss",
+				"indices": [],
+				"name": "miss"
+			}
+		],
+		"no_antialiasing": false,
+		"image": "characters/nopeboy_2d",
+		"position": [
+			50,
+			270
+		],
+		"healthicon": "bf",
+		"flip_x": true,
+		"healthbar_colors": [
+			14,
+			133,
+			163
+		],
+		"camera_position": [
+			170,
+			20
+		],
+		"sing_duration": 15,
+		"scale": 1,
+		"_editor_isPlayer": true
+	}';
 
-	var charDropDown:FlxUIDropDownMenuCustom;
-	function addSettingsUI() {
+	var charDropDown:FlxUIDropDownMenu;
+
+	function addSettingsUI()
+	{
 		var tab_group = new FlxUI(null, UI_box);
 		tab_group.name = "Settings";
 
@@ -328,7 +376,7 @@ class CharacterEditorState extends states.MusicBeatState
 			ghostChar.flipX = char.flipX;
 		};
 
-		charDropDown = new FlxUIDropDownMenuCustom(10, 30, FlxUIDropDownMenuCustom.makeStrIdLabelArray([''], true), function(character:String)
+		charDropDown = new FlxUIDropDownMenu(10, 30, FlxUIDropDownMenu.makeStrIdLabelArray([''], true), function(character:String)
 		{
 			daAnim = characterList[Std.parseInt(character)];
 			check_player.checked = daAnim.startsWith('bf');
@@ -506,14 +554,16 @@ class CharacterEditorState extends states.MusicBeatState
 		UI_characterbox.addGroup(tab_group);
 	}
 
-	var ghostDropDown:FlxUIDropDownMenuCustom;
-	var animationDropDown:FlxUIDropDownMenuCustom;
+	var ghostDropDown:FlxUIDropDownMenu;
+	var animationDropDown:FlxUIDropDownMenu;
 	var animationInputText:FlxUIInputText;
 	var animationNameInputText:FlxUIInputText;
 	var animationIndicesInputText:FlxUIInputText;
 	var animationNameFramerate:FlxUINumericStepper;
 	var animationLoopCheckBox:FlxUICheckBox;
-	function addAnimationsUI() {
+
+	function addAnimationsUI()
+	{
 		var tab_group = new FlxUI(null, UI_box);
 		tab_group.name = "Animations";
 
@@ -523,7 +573,7 @@ class CharacterEditorState extends states.MusicBeatState
 		animationNameFramerate = new FlxUINumericStepper(animationInputText.x + 170, animationInputText.y, 1, 24, 0, 240, 0);
 		animationLoopCheckBox = new FlxUICheckBox(animationNameInputText.x + 170, animationNameInputText.y - 1, null, null, "Should it Loop?", 100);
 
-		animationDropDown = new FlxUIDropDownMenuCustom(15, animationInputText.y - 55, FlxUIDropDownMenuCustom.makeStrIdLabelArray([''], true), function(pressed:String) {
+		animationDropDown = new FlxUIDropDownMenu(15, animationInputText.y - 55, FlxUIDropDownMenu.makeStrIdLabelArray([''], true), function(pressed:String) {
 			var selectedAnimation:Int = Std.parseInt(pressed);
 			var anim:AnimArray = char.animationsArray[selectedAnimation];
 			animationInputText.text = anim.anim;
@@ -535,7 +585,7 @@ class CharacterEditorState extends states.MusicBeatState
 			animationIndicesInputText.text = indicesStr.substr(1, indicesStr.length - 2);
 		});
 
-		ghostDropDown = new FlxUIDropDownMenuCustom(animationDropDown.x + 150, animationDropDown.y, FlxUIDropDownMenuCustom.makeStrIdLabelArray([''], true), function(pressed:String) {
+		ghostDropDown = new FlxUIDropDownMenu(animationDropDown.x + 150, animationDropDown.y, FlxUIDropDownMenu.makeStrIdLabelArray([''], true), function(pressed:String) {
 			var selectedAnimation:Int = Std.parseInt(pressed);
 			ghostChar.visible = false;
 			char.alpha = 1;
@@ -898,8 +948,8 @@ class CharacterEditorState extends states.MusicBeatState
 		}
 		if(anims.length < 1) anims.push('NO ANIMATIONS'); //Prevents crash
 
-		animationDropDown.setData(FlxUIDropDownMenuCustom.makeStrIdLabelArray(anims, true));
-		ghostDropDown.setData(FlxUIDropDownMenuCustom.makeStrIdLabelArray(ghostAnims, true));
+		animationDropDown.setData(FlxUIDropDownMenu.makeStrIdLabelArray(anims, true));
+		ghostDropDown.setData(FlxUIDropDownMenu.makeStrIdLabelArray(ghostAnims, true));
 		reloadGhost();
 	}
 
@@ -953,7 +1003,7 @@ class CharacterEditorState extends states.MusicBeatState
 			}
 		}
 
-		charDropDown.setData(FlxUIDropDownMenuCustom.makeStrIdLabelArray(characterList, true));
+		charDropDown.setData(FlxUIDropDownMenu.makeStrIdLabelArray(characterList, true));
 		charDropDown.selectedLabel = daAnim;
 	}
 
@@ -999,12 +1049,17 @@ class CharacterEditorState extends states.MusicBeatState
 		FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 		FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 
-		if(!charDropDown.dropPanel.visible) {
-			if (FlxG.keys.justPressed.ESCAPE) {
-				if(goToPlayState) {
+		if(!charDropDown.dropPanel.visible)
+		{
+			if (FlxG.keys.justPressed.ESCAPE)
+			{
+				if(goToPlayState)
+				{
 					MusicBeatState.switchState(new PlayState());
-				} else {
-					MusicBeatState.switchState(new editors.MasterEditorMenu());
+				}
+				else
+				{
+					MusicBeatState.switchState(new MasterEditorMenu());
 					FlxG.sound.playMusic(Paths.music('mus_pauperized'));
 				}
 				FlxG.mouse.visible = false;

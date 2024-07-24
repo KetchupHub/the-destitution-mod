@@ -7,8 +7,6 @@ import haxe.Json;
 import sys.io.File;
 #end
 
-using StringTools;
-
 typedef SwagSong =
 {
 	var song:String;

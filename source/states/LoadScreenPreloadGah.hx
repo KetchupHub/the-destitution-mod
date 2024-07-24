@@ -1,5 +1,7 @@
 package states;
 
+import flixel.input.FlxInput;
+import flixel.input.keyboard.FlxKey;
 import visuals.Character;
 import util.CoolUtil;
 import util.MemoryUtil;
@@ -28,6 +30,10 @@ class LoadScreenPreloadGah extends MusicBeatState
     var finishedPreloading:Bool = false;
 
     var startedSwitching:Bool = false;
+
+    var holdingEscText:FlxText;
+
+    var escHoldTimer:Float;
 
 	override function create()
     {
@@ -69,6 +75,12 @@ class LoadScreenPreloadGah extends MusicBeatState
 		add(versionShit);
 		#end
 
+        holdingEscText = new FlxText(6, FlxG.height - 28, FlxG.width - 4, 'Going Back...', 16);
+        holdingEscText.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 2);
+        holdingEscText.scrollFactor.set();
+        holdingEscText.alpha = 0;
+        add(holdingEscText);
+
         super.create();
     }
 
@@ -77,6 +89,27 @@ class LoadScreenPreloadGah extends MusicBeatState
 		super.update(elapsed);
 
         loadCooldown -= elapsed;
+
+        //escape hgolding thing, so if you stop holding for a second the timer doenst completely restart
+        if(FlxG.keys.pressed.ESCAPE)
+        {
+            escHoldTimer += elapsed;
+        }
+        else
+        {
+            if(escHoldTimer > 0)
+            {
+                escHoldTimer -= elapsed;
+            }
+        }
+
+        if(escHoldTimer >= 1.5)
+        {
+            startedSwitching = true;
+            MusicBeatState.switchState(new MainMenuState());
+        }
+
+        holdingEscText.alpha = FlxMath.bound(escHoldTimer * 2, 0, 1);
 
         if(!startedSwitching)
         {

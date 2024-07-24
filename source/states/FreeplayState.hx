@@ -11,9 +11,6 @@ import openfl.utils.AssetType;
 import lime.utils.AssetType;
 import sys.FileSystem;
 import util.MemoryUtil;
-#if desktop
-import backend.Discord.DiscordClient;
-#end
 import editors.ChartingState;
 import flash.text.TextField;
 import flixel.FlxG;
@@ -30,7 +27,9 @@ import flixel.sound.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
 import backend.WeekData;
 
-using StringTools;
+#if desktop
+import backend.Discord.DiscordClient;
+#end
 
 class FreeplayState extends MusicBeatState
 {

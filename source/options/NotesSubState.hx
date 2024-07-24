@@ -9,8 +9,6 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import states.MusicBeatSubstate;
 
-using StringTools;
-
 class NotesSubState extends MusicBeatSubstate
 {
 	private static var curSelected:Int = 0;

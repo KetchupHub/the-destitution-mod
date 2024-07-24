@@ -19,8 +19,6 @@ import sys.FileSystem;
 #end
 import states.MusicBeatState;
 
-using StringTools;
-
 class MasterEditorMenu extends MusicBeatState
 {
 	var options:Array<String> = [

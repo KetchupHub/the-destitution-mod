@@ -1,5 +1,6 @@
 package options;
 
+import util.MemoryUtil;
 import backend.Conductor;
 import ui.Alphabet;
 import backend.ClientPrefs;
@@ -17,8 +18,6 @@ import flixel.FlxG;
 import flixel.ui.FlxBar;
 import flixel.math.FlxPoint;
 import states.MusicBeatState;
-
-using StringTools;
 
 class NoteOffsetState extends MusicBeatState
 {
@@ -61,6 +60,9 @@ class NoteOffsetState extends MusicBeatState
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 		CustomFadeTransition.nextCamera = camOther;
 		FlxG.camera.scroll.set(120, 130);
+
+		MemoryUtil.collect(true);
+        MemoryUtil.compact();
 
 		persistentUpdate = true;
 		FlxG.sound.pause();

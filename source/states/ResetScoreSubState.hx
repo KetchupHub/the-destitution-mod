@@ -8,8 +8,6 @@ import flixel.util.FlxColor;
 import ui.Alphabet;
 import ui.HealthIcon;
 
-using StringTools;
-
 class ResetScoreSubState extends MusicBeatSubstate
 {
 	var bg:FlxSprite;

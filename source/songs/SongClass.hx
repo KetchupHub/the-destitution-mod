@@ -21,6 +21,8 @@ class SongClass
 
     public var songHasSections:Bool = false;
 
+    public var startSwing:Bool = false;
+
 	public function new()
     {
         

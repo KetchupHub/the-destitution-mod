@@ -2,7 +2,6 @@ package options;
 
 import backend.ClientPrefs;
 import ui.Alphabet;
-using StringTools;
 
 class Option
 {

@@ -5,10 +5,12 @@ import backend.ClientPrefs;
 import util.MemoryUtil;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
+
 #if gl_stats
 import openfl.display._internal.stats.Context3DStats;
 import openfl.display._internal.stats.DrawCallContext;
 #end
+
 #if flash
 import openfl.Lib;
 #end

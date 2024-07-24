@@ -18,6 +18,7 @@ class SongTemplate extends SongClass
         this.introType = 'Default';
         this.songVariants = ["Normal"];
         this.songDescription = "Placeholder";
+        this.startSwing = false;
     }
 
     public override function stepHitEvent(curStep:Float)

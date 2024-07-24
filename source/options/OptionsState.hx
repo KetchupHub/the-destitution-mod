@@ -7,9 +7,6 @@ import states.LoadingState;
 import ui.Alphabet;
 import util.CoolUtil;
 import util.MemoryUtil;
-#if desktop
-import backend.Discord.DiscordClient;
-#end
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -22,7 +19,9 @@ import flixel.input.keyboard.FlxKey;
 import backend.Controls;
 import states.MusicBeatState;
 
-using StringTools;
+#if desktop
+import backend.Discord.DiscordClient;
+#end
 
 class OptionsState extends MusicBeatState
 {

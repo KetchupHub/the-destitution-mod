@@ -5,9 +5,6 @@ import backend.WeekData;
 import util.CoolUtil;
 import util.MemoryUtil;
 import openfl.system.System;
-#if desktop
-import backend.Discord.DiscordClient;
-#end
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -23,7 +20,9 @@ import flixel.util.FlxColor;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 
-using StringTools;
+#if desktop
+import backend.Discord.DiscordClient;
+#end
 
 class MainMenuState extends MusicBeatState
 {

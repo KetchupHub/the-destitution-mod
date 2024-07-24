@@ -99,10 +99,10 @@
 	<!--Disable the Flixel core focus lost screen-->
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
 
-	<!--dont know the dirty details of this but it sounds good to me-->
-	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
-	<haxedef name="HXCPP_GC_MOVING" />
-	<haxedef name="HXCPP_GC_DYNAMIC_SIZE" />
+	<!--after clearing out my haxelibs and reinstalling because of a nondescript error, these started triggering invalid memory reads, so theyre gone now-->
+	<!--haxedef name="HXCPP_GC_BIG_BLOCKS"-->
+	<!--haxedef name="HXCPP_GC_MOVING"-->
+	<!--haxedef name="HXCPP_GC_DYNAMIC_SIZE"-->
 	
 	<!--Disable the Flixel core debugger. Automatically gets set whenever you compile in release mode!-->
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />

@@ -24,8 +24,6 @@ import flixel.util.FlxSort;
 import openfl.events.KeyboardEvent;
 import states.MusicBeatState;
 
-using StringTools;
-
 class EditorPlayState extends MusicBeatState
 {
 	// Yes, this is mostly a copy of PlayState, it's kinda dumb to make a direct copy of it but... ehhh

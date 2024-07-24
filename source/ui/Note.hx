@@ -3,12 +3,9 @@ package ui;
 import backend.Conductor;
 import states.PlayState;
 import backend.ClientPrefs;
-import openfl.display.BlendMode;
 import flixel.FlxSprite;
 import editors.ChartingState;
 import visuals.ColorSwap;
-
-using StringTools;
 
 typedef EventNote = {
 	strumTime:Float,

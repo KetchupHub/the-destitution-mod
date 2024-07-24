@@ -23,6 +23,7 @@ class NewHampshire extends SongClass
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
         this.songDescription = "More alternate universe shenanigans?! This time, it's just Mark's bucksian-self and Nopeboy angling to impress!";
+        this.startSwing = false;
     }
 
     public override function stepHitEvent(curStep:Float)

@@ -26,6 +26,7 @@ class DStitution extends SongClass
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
         this.songDescription = "Mark enlists Nopeboy to test the new dimension shifter on his time machine, and shenanigans ensue!";
+        this.startSwing = false;
     }
 
     public override function stepHitEvent(curStep:Float)
@@ -115,6 +116,7 @@ class DStitution extends SongClass
         {
             case 512:
                 //pinkerton
+                PlayState.instance.fuckMyLife = true;
                 PlayState.instance.lightningBg();
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
@@ -142,6 +144,7 @@ class DStitution extends SongClass
             case 520:
                 PlayState.instance.strikeyStrikes = true;
             case 920:
+                PlayState.instance.fuckMyLife = false;
                 PlayState.instance.karmScaredy.visible = false;
                 PlayState.instance.karmScaredy.destroy();
                 PlayState.instance.train.visible = true;
@@ -167,6 +170,7 @@ class DStitution extends SongClass
 
                 Paths.clearUnusedMemory();
             case 992:
+                PlayState.instance.swingSec = true;
                 PlayState.instance.iconP2.visible = true;
                 PlayState.instance.train.visible = false;
                 PlayState.instance.train.destroy();
@@ -182,6 +186,8 @@ class DStitution extends SongClass
                 Paths.clearUnusedMemory();
             case 1336:
                 FlxG.camera.flash();
+
+                PlayState.instance.swingSec = false;
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
@@ -229,6 +235,8 @@ class DStitution extends SongClass
             case 2072:
                 FlxG.camera.flash();
 
+                PlayState.instance.swingSec = true;
+
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(0, 0, 'd-rules', false, false);
@@ -261,6 +269,8 @@ class DStitution extends SongClass
                 Paths.clearUnusedMemory();
             case 2504:
                 FlxG.camera.flash();
+
+                PlayState.instance.swingSec = false;
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
@@ -331,7 +341,7 @@ class DStitution extends SongClass
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
 
-                PlayState.instance.sectionIntroThing("Karm Kurt Karmason Jr. (Finale)");
+                PlayState.instance.sectionIntroThing("Karm Kurt Karmason Jr. (C)");
 
                 Paths.clearUnusedMemory();
         }

@@ -21,6 +21,7 @@ class Countdown extends SongClass
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
         this.songDescription = "It's a slice of life episode! Mark and the gang play sports with Nopeboy and his friends!";
+        this.startSwing = false;
     }
 
     public override function stepHitEvent(curStep:Float)

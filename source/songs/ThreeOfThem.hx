@@ -22,6 +22,7 @@ class ThreeOfThem extends SongClass
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal"];
         this.songDescription = "The Fool's Third.";
+        this.startSwing = false;
     }
 
     public override function stepHitEvent(curStep:Float)

@@ -26,8 +26,6 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.Assets;
 
-using StringTools;
-
 typedef TitleData =
 {
 

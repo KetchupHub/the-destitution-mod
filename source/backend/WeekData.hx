@@ -5,8 +5,6 @@ import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
 import haxe.Json;
 
-using StringTools;
-
 typedef WeekFile =
 {
 	var songs:Array<Dynamic>;

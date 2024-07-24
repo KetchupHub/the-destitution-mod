@@ -7,8 +7,6 @@ import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 
-using StringTools;
-
 enum Alignment
 {
 	LEFT;

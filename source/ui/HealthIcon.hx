@@ -3,8 +3,6 @@ package ui;
 import backend.ClientPrefs;
 import flixel.FlxSprite;
 
-using StringTools;
-
 class HealthIcon extends FlxSprite
 {
 	public var sprTracker:FlxSprite;

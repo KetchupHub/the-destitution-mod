@@ -16,8 +16,6 @@ import flixel.input.keyboard.FlxKey;
 import backend.Controls;
 import states.MusicBeatSubstate;
 
-using StringTools;
-
 class ControlsSubState extends MusicBeatSubstate
 {
 	private static var curSelected:Int = 1;
