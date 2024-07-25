@@ -64,9 +64,9 @@ class LoadingState extends MusicBeatState
 			{
 				callbacks = new MultiCallback(onLoad);
 				var introComplete = callbacks.add("introComplete");
-				checkLibrary("shared");
+				checkLibrary("rhythm");
 
-				if(directory != null && directory.length > 0 && directory != 'shared')
+				if(directory != null && directory.length > 0 && directory != 'rhythm' && directory != 'rpg')
 				{
 					checkLibrary(directory);
 				}
@@ -139,7 +139,7 @@ class LoadingState extends MusicBeatState
 	
 	static function getNextState(target:FlxState, stopMusic = false):FlxState
 	{
-		var directory:String = 'shared';
+		var directory:String = 'rhythm';
 		var weekDir:String = StageData.forceNextDirectory;
 		StageData.forceNextDirectory = null;
 
@@ -152,7 +152,7 @@ class LoadingState extends MusicBeatState
 		var loaded:Bool = false;
 		if (PlayState.SONG != null)
 		{
-			loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded(directory);
+			loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("rhythm") && isLibraryLoaded(directory);
 		}
 		
 		if (!loaded)

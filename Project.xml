@@ -42,12 +42,13 @@
 
 	<!-- this is probably an insanely stupid decision that will cause SO much delay on start up, but its better than shit just taking forever when its called ingame (which is higher stakes) so -->
 	<library name="songs"         preload="true" />
-	<library name="shared"        preload="true" />
+	<library name="rhythm"        preload="true" />
 	<assets path="assets/preload" 			rename="assets" 		preload="true" />
 	
 	<assets path="assets/videos"        library="videos"        if="VIDEOS_ALLOWED"/>
 	<assets path="assets/songs"         library="songs"/>
-	<assets path="assets/shared"        library="shared"/>
+	<assets path="assets/rhythm"        library="rhythm"/>
+	<assets path="assets/rpg"        library="rpg"/>
 	
 	<assets path="assets/fonts" />
 

@@ -32,7 +32,7 @@ class Paths
 	public static var dumpExclusions:Array<String> =
 	[
 		'assets/music/mus_pauperized.$SOUND_EXT',
-		'assets/shared/music/mus_lunch_break.$SOUND_EXT',
+		'assets/rhythm/music/mus_lunch_break.$SOUND_EXT',
 	];
 
 	public static function clearUnusedMemory() 
@@ -194,7 +194,7 @@ class Paths
 		if (currentLevel != null)
 		{
 			var levelPath:String = '';
-			if(currentLevel != 'shared')
+			if(currentLevel != 'rhythm' && currentLevel != 'rpg')
 			{
 				levelPath = getLibraryPathForce(file, currentLevel);
 
@@ -202,7 +202,7 @@ class Paths
 					return levelPath;
 			}
 
-			levelPath = getLibraryPathForce(file, "shared");
+			levelPath = getLibraryPathForce(file, "rhythm");
 			
 			if (OpenFlAssets.exists(levelPath, type))
 				return levelPath;
@@ -314,14 +314,14 @@ class Paths
 		{
 			var levelPath:String = '';
 
-			if(currentLevel != 'shared')
+			if(currentLevel != 'rhythm' && currentLevel != 'rpg')
 			{
 				levelPath = getLibraryPathForce(key, currentLevel);
 				if (FileSystem.exists(levelPath))
 					return File.getContent(levelPath);
 			}
 
-			levelPath = getLibraryPathForce(key, 'shared');
+			levelPath = getLibraryPathForce(key, 'rhythm');
 
 			if (FileSystem.exists(levelPath))
 				return File.getContent(levelPath);

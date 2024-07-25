@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="rulez_guy_screen_transition.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="anim part 10000" x="648" y="2188" width="640" height="360"/>
+	<SubTexture name="anim part 10001" x="648" y="2552" width="640" height="360"/>
+	<SubTexture name="anim part 10002" x="1292" y="1096" width="640" height="360"/>
+	<SubTexture name="anim part 10003" x="1936" y="1096" width="640" height="360"/>
+	<SubTexture name="anim part 10004" x="2580" y="1096" width="640" height="360"/>
+	<SubTexture name="anim part 10005" x="1292" y="1460" width="640" height="360"/>
+	<SubTexture name="anim part 10006" x="1936" y="1460" width="640" height="360"/>
+	<SubTexture name="anim part 10007" x="2580" y="1460" width="640" height="360"/>
+	<SubTexture name="anim part 10008" x="1292" y="1824" width="640" height="360"/>
+	<SubTexture name="anim part 10009" x="1292" y="2188" width="640" height="360"/>
+	<SubTexture name="anim part 10010" x="1292" y="2552" width="640" height="360"/>
+	<SubTexture name="anim part 10011" x="1936" y="1824" width="640" height="360"/>
+	<SubTexture name="anim part 10012" x="2580" y="1824" width="640" height="360"/>
+	<SubTexture name="anim part 10013" x="4" y="4" width="640" height="360"/>
+	<SubTexture name="anim part 20000" x="4" y="4" width="640" height="360"/>
+	<SubTexture name="anim part 20001" x="648" y="4" width="640" height="360"/>
+	<SubTexture name="anim part 20002" x="1292" y="4" width="640" height="360"/>
+	<SubTexture name="anim part 20003" x="1936" y="4" width="640" height="360"/>
+	<SubTexture name="anim part 20004" x="2580" y="4" width="640" height="360"/>
+	<SubTexture name="anim part 20005" x="4" y="368" width="640" height="360"/>
+	<SubTexture name="anim part 20006" x="4" y="732" width="640" height="360"/>
+	<SubTexture name="anim part 20007" x="4" y="1096" width="640" height="360"/>
+	<SubTexture name="anim part 20008" x="4" y="1460" width="640" height="360"/>
+	<SubTexture name="anim part 20009" x="4" y="1824" width="640" height="360"/>
+	<SubTexture name="anim part 20010" x="4" y="2188" width="640" height="360"/>
+	<SubTexture name="anim part 20011" x="4" y="2552" width="640" height="360"/>
+	<SubTexture name="anim part 20012" x="648" y="368" width="640" height="360"/>
+	<SubTexture name="anim part 20013" x="1292" y="368" width="640" height="360"/>
+	<SubTexture name="anim part 20014" x="1936" y="368" width="640" height="360"/>
+	<SubTexture name="anim part 20015" x="2580" y="368" width="640" height="360"/>
+	<SubTexture name="anim part 20016" x="648" y="732" width="640" height="360"/>
+	<SubTexture name="anim part 20017" x="1292" y="732" width="640" height="360"/>
+	<SubTexture name="anim part 20018" x="1936" y="732" width="640" height="360"/>
+	<SubTexture name="anim part 20019" x="2580" y="732" width="640" height="360"/>
+	<SubTexture name="anim part 20020" x="648" y="1096" width="640" height="360"/>
+	<SubTexture name="anim part 20021" x="648" y="1460" width="640" height="360"/>
+	<SubTexture name="anim part 20022" x="648" y="1824" width="640" height="360"/>
+	<SubTexture name="anim part 20023" x="648" y="1824" width="640" height="360"/>
+</TextureAtlas>
