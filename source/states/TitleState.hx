@@ -26,19 +26,6 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.Assets;
 
-typedef TitleData =
-{
-
-	titlex:Float,
-	titley:Float,
-	startx:Float,
-	starty:Float,
-	gfx:Float,
-	gfy:Float,
-	backgroundSprite:String,
-	bpm:Int
-}
-
 class TitleState extends MusicBeatState
 {
 	public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO];
@@ -56,19 +43,19 @@ class TitleState extends MusicBeatState
 	var blackScreen:FlxSprite;
 
 	var credGroup:FlxGroup;
-	var credTextShit:ui.Alphabet;
+	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
-	
-	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
-	var titleTextAlphas:Array<Float> = [1, .64];
+
+	var exitButton:FlxSprite;
+	var playButton:FlxSprite;
+
+	var charec:String = 'mark';
 
 	var curWacky:Array<String> = [];
 
 	var tppLogo:FlxSprite;
 
 	var mustUpdate:Bool = false;
-
-	var titleJSON:TitleData;
 
 	var skippedIntro:Bool = false;
 	
@@ -80,7 +67,7 @@ class TitleState extends MusicBeatState
 
 	var swagShader:ColorSwap = null;
 
-	var titleText:FlxSprite;
+	var closeSequenceStarted:Bool = false;
 
 	override public function create():Void
 	{
@@ -110,8 +97,6 @@ class TitleState extends MusicBeatState
 
 		Highscore.load();
 
-		titleJSON = Json.parse(Paths.getTextFromFile('images/gfDanceTitle.json'));
-
 		if(!initialized)
 		{
 			if(FlxG.save.data != null && FlxG.save.data.fullscreen)
@@ -123,7 +108,7 @@ class TitleState extends MusicBeatState
 			persistentDraw = true;
 		}
 
-		FlxG.mouse.visible = false;
+		FlxG.mouse.visible = true;
 
 		if(FlxG.save.data.flashing == null && !FlashingState.leftState)
 		{
@@ -156,90 +141,86 @@ class TitleState extends MusicBeatState
 			{
 				FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0);
 
-				Conductor.changeBPM(titleJSON.bpm);
+				Conductor.changeBPM(150);
 			}
 		}
 		
 		persistentUpdate = true;
 
 		var bg:FlxSprite = new FlxSprite();
-		if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none")
-		{
-			bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
-		}
-		else
-		{
-			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		}
+		bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
 		add(bg);
 
 		swagShader = new ColorSwap();
 
-		logo = new FlxSprite(titleJSON.titlex, titleJSON.titley);
-		logo.frames = Paths.getSparrowAtlas('destitution_mod_logo');
-		logo.antialiasing = false;
-		logo.animation.addByPrefix('bump', 'idle', 24, false);
-		logo.animation.play('bump');
-		logo.screenCenter();
-		logo.x += 300;
-		logo.shader = swagShader.shader;
-		add(logo);
-
-		var arrey:Array<String> = ['mark', 'bf', 'item', 'whale', 'crypteh', 'lock', 'plant'];
-		var charec:String = arrey[FlxG.random.int(0, arrey.length - 1)];
-		if(charec == 'plant' || charec == 'lock')
+		var arrey:Array<String> = ['bf', 'crypteh', 'ili', 'karm', 'mark', 'ploinky', 'rulez', 'whale'];
+		if(FlxG.random.bool(10))
 		{
-			//reroll for lower chances, ik im dumb ok :sob:
-			charec = arrey[FlxG.random.int(0, arrey.length - 1)];
-			charec = arrey[FlxG.random.int(0, arrey.length - 1)];
+			arrey = ['blocken', 'plant'];
 		}
-		var loopey:Bool = (charec == 'plant' || charec == 'item' || charec == 'whale' || charec == 'ploinky');
-
-		titleCharacter = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
-		titleCharacter.frames = Paths.getSparrowAtlas('title/$charec');
-		titleCharacter.animation.addByPrefix('idle', charec, 24, loopey);
-		titleCharacter.animation.play('idle', true);
-		titleCharacter.setGraphicSize(1080);
+		var holidayChar = CoolUtil.getHolidayCharacter();
+		if(holidayChar != null)
+		{
+			//should i be nice and make the holidays the only ones you can get on that day?
+			//nah
+			//except as im typing this i realize that seems like a dick move so i wont
+			//still ends up trolling the people who wouldve rolled the 1/10 chance ones though so lol
+			arrey = [holidayChar];
+		}
+		charec = arrey[FlxG.random.int(0, arrey.length - 1)];
+		if(Paths.image('title/char/$charec') == null)
+		{
+			//precaution
+			charec = 'mark';
+		}
+		#if SHOWCASEVIDEO
+		//force set to mark for showcase video, cuz i want it to be as non random as possible.
+		charec = 'mark';
+		#end
+		titleCharacter = new FlxSprite(0, 0).loadGraphic(Paths.image('title/char/$charec'), true, 320, 360);
+		titleCharacter.animation.add(charec, [0, 1], 0, false);
+		titleCharacter.animation.play(charec, true);
+		titleCharacter.antialiasing = false;
+		titleCharacter.scale.set(2, 2);
 		titleCharacter.updateHitbox();
-		titleCharacter.screenCenter(Y);
-		titleCharacter.x = 0;
-		if(charec == 'lock')
-		{
-			titleCharacter.x += 125;
-		}
 		titleCharacter.shader = swagShader.shader;
 		add(titleCharacter);
 
-		titleText = new FlxSprite(titleJSON.startx, titleJSON.starty);
-		titleText.frames = Paths.getSparrowAtlas('titleEnter');
+		var objects:FlxSprite = new FlxSprite(640, 0).loadGraphic(Paths.image('title/obj'));
+		objects.antialiasing = false;
+		objects.scale.set(2, 2);
+		objects.updateHitbox();
+		objects.shader = swagShader.shader;
+		add(objects);
 
-		var animFrames:Array<FlxFrame> = [];
+		logo = new FlxSprite(490, 0);
+		logo.frames = Paths.getSparrowAtlas('title/logo');
+		logo.antialiasing = false;
+		logo.animation.addByPrefix('bump', 'idle', 24, false);
+		logo.animation.play('bump');
+		add(logo);
 
-		@:privateAccess
-		{
-			titleText.animation.findByPrefix(animFrames, "ENTER IDLE");
-			titleText.animation.findByPrefix(animFrames, "ENTER FREEZE");
-		}
-		
-		if (animFrames.length > 0)
-		{
-			newTitle = true;
-			
-			titleText.animation.addByPrefix('idle', "ENTER IDLE", 24);
-			titleText.animation.addByPrefix('press', ClientPrefs.flashing ? "ENTER PRESSED" : "ENTER FREEZE", 24);
-		}
-		else
-		{
-			newTitle = false;
-			
-			titleText.animation.addByPrefix('idle', "Press Enter to Begin", 24);
-			titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
-		}
-		
-		titleText.antialiasing = ClientPrefs.globalAntialiasing;
-		titleText.animation.play('idle');
-		titleText.updateHitbox();
-		add(titleText);
+		var tppWatermarkTittle:FlxSprite = new FlxSprite(8, 590).loadGraphic(Paths.image("title/tpp"));
+		tppWatermarkTittle.setGraphicSize(256);
+		tppWatermarkTittle.updateHitbox();
+		add(tppWatermarkTittle);
+
+		#if DEVELOPERBUILD
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
+		#end
+
+		exitButton = new FlxSprite(8, 8).loadGraphic(Paths.image('title/close'));
+		exitButton.scale.set(2, 2);
+		exitButton.updateHitbox();
+		add(exitButton);
+
+		playButton = new FlxSprite(FlxG.width - 210, FlxG.height - 210).loadGraphic(Paths.image('title/play'));
+		playButton.scale.set(2, 2);
+		playButton.updateHitbox();
+		add(playButton);
 
 		credGroup = new FlxGroup();
 		add(credGroup);
@@ -249,23 +230,16 @@ class TitleState extends MusicBeatState
 		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		credGroup.add(blackScreen);
 
-		credTextShit = new ui.Alphabet(0, 20, "", true);
+		credTextShit = new Alphabet(0, 20, "", true);
 		credTextShit.screenCenter();
 		credTextShit.visible = false;
 
-		tppLogo = new FlxSprite().loadGraphic(Paths.image("team productions presents"));
+		tppLogo = new FlxSprite().loadGraphic(Paths.image("title/tpp"));
 		tppLogo.screenCenter();
 		tppLogo.y = 70;
 		tppLogo.antialiasing = false;
 		tppLogo.visible = false;
 		add(tppLogo);
-
-		#if DEVELOPERBUILD
-		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
-		#end
 
 		if (initialized)
 		{
@@ -294,7 +268,7 @@ class TitleState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (FlxG.sound.music != null)
+		if (!closeSequenceStarted && FlxG.sound.music != null)
 		{
 			Conductor.songPosition = FlxG.sound.music.time;
 		}
@@ -303,9 +277,25 @@ class TitleState extends MusicBeatState
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		if (gamepad != null)
+		if (!closeSequenceStarted && gamepad != null)
 		{
 			if (gamepad.justPressed.START)
+			{
+				pressedEnter = true;
+			}
+		}
+
+		if(!closeSequenceStarted && skippedIntro && FlxG.mouse.overlaps(exitButton, FlxG.camera))
+		{
+			if(FlxG.mouse.justPressed)
+			{
+				gameCloseSequence();
+			}
+		}
+
+		if(!closeSequenceStarted && skippedIntro && FlxG.mouse.overlaps(playButton, FlxG.camera))
+		{
+			if(FlxG.mouse.justPressed)
 			{
 				pressedEnter = true;
 			}
@@ -321,7 +311,7 @@ class TitleState extends MusicBeatState
 			}
 		}
 
-		if (initialized && !transitioning && skippedIntro)
+		if (!closeSequenceStarted && initialized && !transitioning && skippedIntro)
 		{
 			if (newTitle && !pressedEnter)
 			{
@@ -332,21 +322,10 @@ class TitleState extends MusicBeatState
 				}
 				
 				timer = FlxEase.quadInOut(timer);
-				
-				titleText.color = FlxColor.interpolate(titleTextColors[0], titleTextColors[1], timer);
-				titleText.alpha = FlxMath.lerp(titleTextAlphas[0], titleTextAlphas[1], timer);
 			}
 			
 			if(pressedEnter)
 			{
-				titleText.color = FlxColor.WHITE;
-				titleText.alpha = 1;
-				
-				if(titleText != null)
-				{
-					titleText.animation.play('press');
-				}
-
 				FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF);
 				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
@@ -361,7 +340,7 @@ class TitleState extends MusicBeatState
 			}
 		}
 
-		if (initialized && pressedEnter && !skippedIntro)
+		if (!closeSequenceStarted && initialized && pressedEnter && !skippedIntro)
 		{
 			skipIntro();
 		}
@@ -380,6 +359,18 @@ class TitleState extends MusicBeatState
 		}
 
 		super.update(elapsed);
+	}
+
+	function gameCloseSequence()
+	{
+		closeSequenceStarted = true;
+		titleCharacter.animation.curAnim.curFrame = 0;
+		FlxG.sound.music.stop();
+		FlxG.sound.play(Paths.sound('titleExit/$charec'), 1, false);
+		var timeyTheTimer:FlxTimer = new FlxTimer().start(2.5, function photoshopTimey(timeyX:FlxTimer)
+		{
+			Application.current.window.close();
+		});
 	}
 
 	function createCoolText(textArray:Array<String>, ?offset:Float = 0)
@@ -439,9 +430,13 @@ class TitleState extends MusicBeatState
 	
 			if(titleCharacter != null)
 			{
-				if(!titleCharacter.animation.getByName('idle').looped)
+				if(titleCharacter.animation.curAnim.curFrame == 0)
 				{
-					titleCharacter.animation.play('idle', true);
+					titleCharacter.animation.curAnim.curFrame = 1;
+				}
+				else
+				{
+					titleCharacter.animation.curAnim.curFrame = 0;
 				}
 			}
 		}

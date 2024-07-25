@@ -51,6 +51,8 @@ class MainMenuState extends MusicBeatState
         MemoryUtil.collect(true);
         MemoryUtil.compact();
 
+		FlxG.mouse.visible = false;
+
 		WeekData.loadTheFirstEnabledMod();
 
 		#if desktop
@@ -77,7 +79,7 @@ class MainMenuState extends MusicBeatState
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('bg/menuBG'));
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
@@ -85,7 +87,7 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
+		magenta = new FlxSprite(-80).loadGraphic(Paths.image('bg/menuDesat'));
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
@@ -101,7 +103,7 @@ class MainMenuState extends MusicBeatState
 
 		FlxTween.tween(funkay, {y: 0}, 1, {startDelay: 0.75, ease: FlxEase.expoOut});
 
-		sideThing = new FlxSprite().loadGraphic(Paths.image("mm_side"));
+		sideThing = new FlxSprite().loadGraphic(Paths.image("mainmenu/mm_side"));
 		sideThing.x -= 512;
 		add(sideThing);
 		

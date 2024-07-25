@@ -97,19 +97,19 @@ class FreeplayState extends MusicBeatState
 		}
 		WeekData.loadTheFirstEnabledMod();
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.alpha = 0.35;
 		add(bg);
 		bg.screenCenter();
 
-		var freePaper = new FlxSprite().loadGraphic(Paths.image('freeplay_paper'));
+		var freePaper = new FlxSprite().loadGraphic(Paths.image('freeplay/paper'));
 		freePaper.scale.set(2, 2);
 		freePaper.updateHitbox();
 		freePaper.antialiasing = false;
 		add(freePaper);
 
-		var freeMetal = new FlxSprite(804, 0).loadGraphic(Paths.image('freeplay_metal'));
+		var freeMetal = new FlxSprite(804, 0).loadGraphic(Paths.image('freeplay/metal'));
 		freeMetal.scale.set(2, 2);
 		freeMetal.updateHitbox();
 		freeMetal.antialiasing = false;

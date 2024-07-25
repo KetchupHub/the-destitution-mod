@@ -117,7 +117,9 @@
 
 	<haxedef name="message.reporting" value="pretty" />
 
-	<haxedef name="DEVELOPERBUILD" />
+	<!--Custom haxedefs for destitution mod purposes, such as displaying dev build id and making certain random stuff Not for showcase purposes-->
+	<!--haxedef name="SHOWCASEVIDEO" -->
+	<haxedef name="DEVELOPERBUILD" unless="SHOWCASEVIDEO"/>
 
 	<!-- _________________________________ Custom _______________________________ -->
 

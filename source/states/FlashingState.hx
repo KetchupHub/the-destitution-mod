@@ -38,7 +38,7 @@ class FlashingState extends MusicBeatState
 		warnText.screenCenter(Y);
 		add(warnText);
 
-		warnMark = new FlxSprite(640).loadGraphic(Paths.image('flashing'));
+		warnMark = new FlxSprite(640).loadGraphic(Paths.image('options/flashing'));
 		warnMark.scale.set(2, 2);
 		warnMark.updateHitbox();
 		warnMark.antialiasing = false;

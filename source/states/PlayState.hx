@@ -322,6 +322,8 @@ class PlayState extends MusicBeatState
 	{
 		instance = this;
 
+		FlxG.mouse.visible = false;
+
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
 		PauseSubState.songName = null;
@@ -3131,7 +3133,6 @@ class PlayState extends MusicBeatState
 		}
 
 		rating.setGraphicSize(Std.int(rating.width * 0.7));
-		rating.antialiasing = ClientPrefs.globalAntialiasing;
 		rating.updateHitbox();
 
 		var seperatedScore:Array<Int> = [];
@@ -3172,7 +3173,6 @@ class PlayState extends MusicBeatState
 				lastScore.push(numScore);
 			}
 
-			numScore.antialiasing = ClientPrefs.globalAntialiasing;
 			numScore.setGraphicSize(Std.int(numScore.width * 0.5));
 			numScore.updateHitbox();
 			numScore.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
