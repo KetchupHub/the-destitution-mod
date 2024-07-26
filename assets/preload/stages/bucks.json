@@ -1,7 +1,5 @@
 {
-	"directory": "",
 	"defaultZoom": 0.775,
-	"isPixelStage": false,
 
 	"boyfriend": [955, 390],
 	"girlfriend": [400, 130],
@@ -11,5 +9,7 @@
 	"camera_boyfriend": [-180, 0],
 	"camera_opponent": [180, 0],
 	"camera_girlfriend": [0, 0],
-	"camera_speed": 1.25
+	"camera_speed": 1.25,
+
+	"artist": "Cynda"
 }

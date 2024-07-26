@@ -58,7 +58,8 @@ class ControlsSubState extends MusicBeatSubstate
 	var rebindingKey:Bool = false;
 	var nextAccept:Int = 5;
 
-	public function new() {
+	public function new()
+	{
 		super();
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));

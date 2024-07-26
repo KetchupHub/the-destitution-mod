@@ -1,5 +1,6 @@
 package states;
 
+import util.CoolUtil;
 import backend.WeekData;
 import backend.ClientPrefs;
 import backend.Conductor;
@@ -35,6 +36,8 @@ class PauseSubState extends MusicBeatSubstate
 	public function new(x:Float, y:Float)
 	{
 		super();
+
+		CoolUtil.rerollRandomness();
 
 		if(PlayState.chartingMode)
 		{

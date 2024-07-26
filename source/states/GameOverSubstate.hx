@@ -5,7 +5,6 @@ import backend.WeekData;
 import backend.Conductor;
 import visuals.Boyfriend;
 import util.CoolUtil;
-import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.text.FlxText;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -48,6 +47,8 @@ class GameOverSubstate extends MusicBeatSubstate
 	public function new(x:Float, y:Float, camX:Float, camY:Float)
 	{
 		super();
+
+		CoolUtil.rerollRandomness();
 
 		Conductor.songPosition = 0;
 

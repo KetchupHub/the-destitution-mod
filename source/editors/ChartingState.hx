@@ -1,5 +1,6 @@
 package editors;
 
+import util.CoolUtil;
 import visuals.Character;
 import visuals.Character.CharacterFile;
 import backend.StageData;
@@ -209,7 +210,6 @@ class ChartingState extends MusicBeatState
 				notes: [],
 				events: [],
 				bpm: 188.0,
-				needsVoices: true,
 				arrowSkin: '',
 				splashSkin: 'noteSplashes',
 				player1: 'bf-mark',
@@ -217,13 +217,16 @@ class ChartingState extends MusicBeatState
 				gfVersion: 'gf',
 				speed: 2.95,
 				stage: 'mark',
-				validScore: false
+				composer: 'Cynda',
+				charter: 'Cynda'
 			};
 
 			addSection();
 			PlayState.SONG = _song;
 		}
 
+		CoolUtil.rerollRandomness();
+		
 		MemoryUtil.collect(true);
         MemoryUtil.compact();
 
@@ -406,13 +409,6 @@ class ChartingState extends MusicBeatState
 	{
 		UI_songTitle = new FlxUIInputText(10, 10, 70, _song.song, 8);
 		blockPressWhileTypingOn.push(UI_songTitle);
-
-		var check_voices = new FlxUICheckBox(10, 25, null, null, "Has voice track", 100);
-		check_voices.checked = _song.needsVoices;
-		check_voices.callback = function()
-		{
-			_song.needsVoices = check_voices.checked;
-		};
 
 		var saveButton:FlxButton = new FlxButton(110, 8, "Save", function()
 		{
@@ -600,7 +596,6 @@ class ChartingState extends MusicBeatState
 		tab_group_song.name = "Song";
 		tab_group_song.add(UI_songTitle);
 
-		tab_group_song.add(check_voices);
 		tab_group_song.add(clear_events);
 		tab_group_song.add(clear_notes);
 		tab_group_song.add(saveButton);
@@ -1677,21 +1672,16 @@ class ChartingState extends MusicBeatState
 
 		if (!blockInput)
 		{
-			if (FlxG.keys.justPressed.ESCAPE)
-			{
-				autosaveSong();
-				LoadingState.loadAndSwitchState(new editors.EditorPlayState(sectionStartTime()));
-			}
-			if (FlxG.keys.justPressed.ENTER)
+			if (FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.ESCAPE)
 			{
 				autosaveSong();
 				FlxG.mouse.visible = false;
 				PlayState.SONG = _song;
 				FlxG.sound.music.stop();
-				if(vocals != null) vocals.stop();
-				if(opponentVocals != null) opponentVocals.stop();
-
-				//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
+				if(vocals != null)
+					vocals.stop();
+				if(opponentVocals != null)
+					opponentVocals.stop();
 				StageData.loadDirectory(_song);
 				LoadingState.loadAndSwitchState(new PlayState());
 			}

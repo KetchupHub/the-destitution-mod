@@ -24,7 +24,9 @@ class NotesSubState extends MusicBeatSubstate
 	var hsbText:Alphabet;
 
 	var posX = 230;
-	public function new() {
+	
+	public function new()
+	{
 		super();
 		
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));

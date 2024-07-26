@@ -1,5 +1,6 @@
 package states;
 
+import util.MemoryUtil;
 import backend.StageData;
 import util.CoolUtil;
 import flixel.util.FlxColor;
@@ -40,6 +41,11 @@ class LoadingState extends MusicBeatState
 
 	override function create()
 	{
+		CoolUtil.rerollRandomness();
+
+		MemoryUtil.collect(true);
+        MemoryUtil.compact();
+
 		funkay = new FlxSprite(0, 0).loadGraphic(Paths.image("loading/funkay"));
 		funkay.setGraphicSize(FlxG.width, FlxG.height);
 		funkay.updateHitbox();
@@ -140,11 +146,6 @@ class LoadingState extends MusicBeatState
 	static function getNextState(target:FlxState, stopMusic = false):FlxState
 	{
 		var directory:String = 'rhythm';
-		var weekDir:String = StageData.forceNextDirectory;
-		StageData.forceNextDirectory = null;
-
-		if(weekDir != null && weekDir.length > 0 && weekDir != '')
-			directory = weekDir;
 
 		Paths.setCurrentLevel(directory);
 

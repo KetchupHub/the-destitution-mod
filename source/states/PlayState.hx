@@ -324,6 +324,8 @@ class PlayState extends MusicBeatState
 
 		FlxG.mouse.visible = false;
 
+		CoolUtil.rerollRandomness();
+
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
 		PauseSubState.songName = null;
@@ -447,9 +449,7 @@ class PlayState extends MusicBeatState
 		if(stageData == null)
 		{
 			stageData = {
-				directory: "",
 				defaultZoom: 0.9,
-				isPixelStage: false,
 
 				boyfriend: [770, 100],
 				girlfriend: [400, 130],
@@ -459,7 +459,8 @@ class PlayState extends MusicBeatState
 				camera_boyfriend: [0, 0],
 				camera_opponent: [0, 0],
 				camera_girlfriend: [0, 0],
-				camera_speed: 1
+				camera_speed: 1,
+				artist: 'Cynda'
 			};
 		}
 
@@ -559,8 +560,8 @@ class PlayState extends MusicBeatState
 				spaceItems = new FlxTypedGroup<FlxSprite>();
 				for(i in 0...10)
 				{
-					var fucksprit:FlxSprite = new FlxSprite(FlxG.random.float(space.x + 150, space.x + space.width - 150), FlxG.random.float(space.y + 150, space.y + space.height - 150));
-					fucksprit.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(FlxG.random.int(0, 10))));
+					var fucksprit:FlxSprite = new FlxSprite(CoolUtil.randomLogic.float(space.x + 150, space.x + space.width - 150), CoolUtil.randomLogic.float(space.y + 150, space.y + space.height - 150));
+					fucksprit.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(CoolUtil.randomVisuals.int(0, 10))));
 					fucksprit.antialiasing = false;
 					fucksprit.ID = i;
 					fucksprit.scale.set(2, 2);
@@ -1608,16 +1609,17 @@ class PlayState extends MusicBeatState
 		opponentVocals = new FlxSound();
 		try
 		{
-			if (songData.needsVoices)
-			{
-				var playerVocals = Paths.voices(songData.song, 'Player');
-				vocals.loadEmbedded(playerVocals);
+			var playerVocals = Paths.voices(songData.song, 'Player');
+			vocals.loadEmbedded(playerVocals);
 				
-				var oppVocals = Paths.voices(songData.song, 'Opponent');
-				if(oppVocals != null) opponentVocals.loadEmbedded(oppVocals);
-			}
+			var oppVocals = Paths.voices(songData.song, 'Opponent');
+			if(oppVocals != null)
+				opponentVocals.loadEmbedded(oppVocals);
 		}
-		catch(e:Dynamic) {}
+		catch(e:Dynamic)
+		{
+			trace('wow youre so fucking stupid you forgot the damned vocals huh');
+		}
 
 		vocals.pitch = playbackRate;
 		opponentVocals.pitch = playbackRate;
@@ -2087,7 +2089,7 @@ class PlayState extends MusicBeatState
 
 			if(bucksBarUpdateCountdown <= 0)
 			{
-				bucksBarUpdateCountdown = FlxG.random.float(2.75, 6.5);
+				bucksBarUpdateCountdown = CoolUtil.randomVisuals.float(2.75, 6.5);
 				bucksBarHistoryFuck = bucksBarHistoryFuck.slice(1, 7);
 
 				if(cpuControlled || (combo == 0 && songMisses == 0))
@@ -2988,14 +2990,15 @@ class PlayState extends MusicBeatState
 
 		if(!transitioning)
 		{
-			if (SONG.validScore)
+			#if !switch
+			var percent:Float = ratingPercent;
+			if(Math.isNaN(percent))
 			{
-				#if !switch
-				var percent:Float = ratingPercent;
-				if(Math.isNaN(percent)) percent = 0;
-				Highscore.saveScore(SONG.song, songScore, percent);
-				#end
+				percent = 0;
 			}
+
+			Highscore.saveScore(SONG.song, songScore, percent);
+			#end
 			
 			playbackRate = 1;
 
@@ -3113,9 +3116,10 @@ class PlayState extends MusicBeatState
 		rating.screenCenter();
 		rating.x = 998;
 		rating.y = ratingY;
-		rating.acceleration.y = 550 * playbackRate * playbackRate;
-		rating.velocity.y -= FlxG.random.int(140, 175) * playbackRate;
-		rating.velocity.x -= FlxG.random.int(0, 10) * playbackRate;
+		//was torn on using randomVisuals or randomLogic for this, but i guess it is position related
+		rating.acceleration.y = CoolUtil.randomLogic.int(500, 600) * playbackRate * playbackRate;
+		rating.velocity.y -= CoolUtil.randomLogic.int(140, 175) * playbackRate;
+		rating.velocity.x -= CoolUtil.randomLogic.int(0, 10) * playbackRate;
 		rating.visible = (!ClientPrefs.hideHud && showRating);
 		rating.x += ClientPrefs.comboOffset[0];
 		rating.y -= ClientPrefs.comboOffset[1];
@@ -3175,9 +3179,10 @@ class PlayState extends MusicBeatState
 
 			numScore.setGraphicSize(Std.int(numScore.width * 0.5));
 			numScore.updateHitbox();
-			numScore.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
-			numScore.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
-			numScore.velocity.x = FlxG.random.float(-5, 5) * playbackRate;
+			//was torn on using randomVisuals or randomLogic for this, but i guess it is position related
+			numScore.acceleration.y = CoolUtil.randomLogic.int(200, 300) * playbackRate * playbackRate;
+			numScore.velocity.y -= CoolUtil.randomLogic.int(140, 160) * playbackRate;
+			numScore.velocity.x = CoolUtil.randomLogic.float(-5, 5) * playbackRate;
 			numScore.visible = !ClientPrefs.hideHud;
 
 			if(showComboNum)
@@ -3464,18 +3469,24 @@ class PlayState extends MusicBeatState
 			}
 			combo = 0;
 
-			if(!practiceMode) songScore -= 10;
-			if(!endingSong) {
+			if(!practiceMode)
+				songScore -= 10;
+
+			if(!endingSong)
+			{
 				songMisses++;
 			}
+
 			totalPlayed++;
 			RecalculateRating(true);
 
-			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
+			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), CoolUtil.randomAudio.float(0.1, 0.2));
 
-			if(boyfriend.hasMissAnimations) {
+			if(boyfriend.hasMissAnimations)
+			{
 				boyfriend.playAnim(singAnimations[Std.int(Math.abs(direction))] + 'miss', true);
 			}
+
 			vocals.volume = 0;
 		}
 	}
@@ -3721,7 +3732,7 @@ class PlayState extends MusicBeatState
 
 		songObj.stepHitEvent(curStep);
 
-		if (SONG.needsVoices && FlxG.sound.music.time >= -ClientPrefs.noteOffset)
+		if (FlxG.sound.music.time >= -ClientPrefs.noteOffset)
 		{
 			var timeSub:Float = Conductor.songPosition - Conductor.offset;
 			var syncTime:Float = 20 * playbackRate;
@@ -3786,7 +3797,7 @@ class PlayState extends MusicBeatState
 			funnyBgColors.alpha = 0.1;
 			if(bgColorsRandom)
 			{
-				funnyBgColors.color = funnyColorsArray[FlxG.random.int(0, funnyColorsArray.length - 1)];
+				funnyBgColors.color = funnyColorsArray[CoolUtil.randomVisuals.int(0, funnyColorsArray.length - 1)];
 			}
 			FlxTween.tween(funnyBgColors, {alpha: 0.5}, Conductor.crochet / 750, {ease: FlxEase.smootherStepOut});
 		}

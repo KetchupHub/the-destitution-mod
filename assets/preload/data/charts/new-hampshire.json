@@ -4151,12 +4151,12 @@
 			}
 		],
 		"player2": "bucks-mark",
-		"player3": null,
+		"player3": "gf",
 		"song": "New-Hampshire",
 		"stage": "bucks",
-		"needsVoices": true,
-		"validScore": true,
 		"bpm": 120,
-		"speed": 2.95
+		"speed": 2.95,
+		"composer": "Cynda ft. Lexicord",
+		"charter": "Cynda"
 	}
 }

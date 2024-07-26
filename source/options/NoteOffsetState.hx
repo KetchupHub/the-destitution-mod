@@ -1,5 +1,6 @@
 package options;
 
+import util.CoolUtil;
 import util.MemoryUtil;
 import backend.Conductor;
 import ui.Alphabet;
@@ -61,6 +62,8 @@ class NoteOffsetState extends MusicBeatState
 		CustomFadeTransition.nextCamera = camOther;
 		FlxG.camera.scroll.set(120, 130);
 
+		CoolUtil.rerollRandomness();
+		
 		MemoryUtil.collect(true);
         MemoryUtil.compact();
 
@@ -92,7 +95,6 @@ class NoteOffsetState extends MusicBeatState
 		rating.cameras = [camHUD];
 		rating.setGraphicSize(Std.int(rating.width * 0.7));
 		rating.updateHitbox();
-		rating.antialiasing = ClientPrefs.globalAntialiasing;
 		
 		add(rating);
 
@@ -103,7 +105,7 @@ class NoteOffsetState extends MusicBeatState
 		var seperatedScore:Array<Int> = [];
 		for (i in 0...3)
 		{
-			seperatedScore.push(FlxG.random.int(0, 9));
+			seperatedScore.push(CoolUtil.randomVisuals.int(0, 9));
 		}
 
 		var daLoop:Int = 0;

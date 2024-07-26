@@ -35,6 +35,10 @@ typedef CharacterFile = {
 	var no_antialiasing:Bool;
 	var healthbar_colors:Array<Int>;
 
+	var artist:String;
+	var animator:String;
+	var whoDoneWhat:String;
+
 	var _editor_isPlayer:Bool;
 }
 

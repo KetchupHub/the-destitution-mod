@@ -1,5 +1,7 @@
 package states;
 
+import backend.PlayerSettings;
+import backend.Controls;
 import backend.ClientPrefs;
 import flixel.FlxSubState;
 import backend.Conductor;
@@ -19,10 +21,10 @@ class MusicBeatSubstate extends FlxSubState
 
 	private var curDecStep:Float = 0;
 	private var curDecBeat:Float = 0;
-	private var controls(get, never):backend.Controls;
+	private var controls(get, never):Controls;
 
-	inline function get_controls():backend.Controls
-		return backend.PlayerSettings.player1.controls;
+	inline function get_controls():Controls
+		return PlayerSettings.player1.controls;
 
 	override function update(elapsed:Float)
 	{

@@ -30184,12 +30184,12 @@
 			}
 		],
 		"player2": "karm",
-		"player3": null,
+		"player3": "gf",
 		"song": "D-Stitution",
 		"stage": "dsides",
-		"needsVoices": true,
-		"validScore": true,
 		"bpm": 188,
-		"speed": 2.95
+		"speed": 2.95,
+		"composer": "Cynda",
+		"charter": "Cynda"
 	}
 }

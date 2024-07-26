@@ -1,8 +1,8 @@
 #if !macro
 package;
 
+import util.CoolUtil;
 import adobeanimate.FlxAtlasSprite;
-
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.utils.AssetType;
@@ -275,7 +275,7 @@ class Paths
 
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
 	{
-		return sound(key + FlxG.random.int(min, max), library);
+		return sound(key + CoolUtil.randomAudio.int(min, max), library);
 	}
 
 	inline static public function music(key:String, ?library:String):Sound

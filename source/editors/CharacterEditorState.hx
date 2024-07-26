@@ -77,6 +77,8 @@ class CharacterEditorState extends MusicBeatState
 
 	override function create()
 	{
+		CoolUtil.rerollRandomness();
+
 		MemoryUtil.collect(true);
         MemoryUtil.compact();
 
@@ -355,6 +357,9 @@ class CharacterEditorState extends MusicBeatState
 		],
 		"sing_duration": 15,
 		"scale": 1,
+		"artist": "Unknown",
+		"animator": "Unknown",
+		"whoDoneWhat": "Unknown",
 		"_editor_isPlayer": true
 	}';
 

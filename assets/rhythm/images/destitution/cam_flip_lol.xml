@@ -1,17 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas imagePath="cam_flip_lol.png">
-	<!-- Created with Adobe Animate version 22.0.0.93 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="idle0000" x="8" y="8" width="1280" height="720"/>
-	<SubTexture name="idle0001" x="8" y="8" width="1280" height="720"/>
-	<SubTexture name="idle0002" x="1296" y="8" width="1280" height="720"/>
-	<SubTexture name="idle0003" x="1296" y="8" width="1280" height="720"/>
-	<SubTexture name="idle0004" x="2584" y="8" width="1280" height="720"/>
-	<SubTexture name="idle0005" x="2584" y="8" width="1280" height="720"/>
-	<SubTexture name="idle0006" x="8" y="736" width="1280" height="720"/>
-	<SubTexture name="idle0007" x="8" y="736" width="1280" height="720"/>
-	<SubTexture name="idle0008" x="1296" y="736" width="1280" height="720"/>
-	<SubTexture name="idle0009" x="1296" y="736" width="1280" height="720"/>
-	<SubTexture name="idle0010" x="2584" y="736" width="1280" height="720"/>
-	<SubTexture name="idle0011" x="2584" y="736" width="1280" height="720"/>
+	<SubTexture name="idle0000" x="8" y="8" width="1280" height="720" />
+	<SubTexture name="idle0001" x="8" y="8" width="1280" height="720" />
+	<SubTexture name="idle0002" x="1296" y="8" width="1280" height="720" />
+	<SubTexture name="idle0003" x="1296" y="8" width="1280" height="720" />
+	<SubTexture name="idle0004" x="2584" y="8" width="1280" height="720" />
+	<SubTexture name="idle0005" x="2584" y="8" width="1280" height="720" />
+	<SubTexture name="idle0006" x="8" y="736" width="1280" height="720" />
+	<SubTexture name="idle0007" x="8" y="736" width="1280" height="720" />
+	<SubTexture name="idle0008" x="1296" y="736" width="1280" height="720" />
+	<SubTexture name="idle0009" x="1296" y="736" width="1280" height="720" />
+	<SubTexture name="idle0010" x="2584" y="736" width="1280" height="720" />
+	<SubTexture name="idle0011" x="2584" y="736" width="1280" height="720" />
 </TextureAtlas>

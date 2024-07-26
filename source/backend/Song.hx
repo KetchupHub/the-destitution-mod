@@ -13,7 +13,6 @@ typedef SwagSong =
 	var notes:Array<SwagSection>;
 	var events:Array<Dynamic>;
 	var bpm:Float;
-	var needsVoices:Bool;
 	var speed:Float;
 
 	var player1:String;
@@ -23,7 +22,9 @@ typedef SwagSong =
 
 	var arrowSkin:String;
 	var splashSkin:String;
-	var validScore:Bool;
+
+	var composer:String;
+	var charter:String;
 }
 
 class Song
@@ -32,14 +33,15 @@ class Song
 	public var notes:Array<SwagSection>;
 	public var events:Array<Dynamic>;
 	public var bpm:Float;
-	public var needsVoices:Bool = true;
 	public var arrowSkin:String;
 	public var splashSkin:String;
 	public var speed:Float = 1;
 	public var stage:String;
 	public var player1:String = 'bf';
-	public var player2:String = 'dad';
+	public var player2:String = 'mark';
 	public var gfVersion:String = 'gf';
+	public var composer:String = 'Cynda';
+	public var charter:String = 'Cynda';
 
 	private static function onLoadJson(songJson:Dynamic)
 	{
@@ -119,7 +121,6 @@ class Song
 	public static function parseJSONshit(rawJson:String):SwagSong
 	{
 		var swagShit:SwagSong = cast Json.parse(rawJson).song;
-		swagShit.validScore = true;
 		return swagShit;
 	}
 }

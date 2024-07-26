@@ -5,25 +5,24 @@ import haxe.Json;
 import backend.Song;
 
 typedef StageFile = {
-	var directory:String;
 	var defaultZoom:Float;
-	var isPixelStage:Bool;
 
 	var boyfriend:Array<Dynamic>;
 	var girlfriend:Array<Dynamic>;
 	var opponent:Array<Dynamic>;
+
 	var hide_girlfriend:Bool;
 
 	var camera_boyfriend:Array<Float>;
 	var camera_opponent:Array<Float>;
 	var camera_girlfriend:Array<Float>;
 	var camera_speed:Null<Float>;
+
+	var artist:String;
 }
 
 class StageData
 {
-	public static var forceNextDirectory:String = null;
-
 	public static function loadDirectory(SONG:SwagSong)
 	{
 		var stage:String = '';
@@ -34,19 +33,10 @@ class StageData
 		}
 		else
 		{
-			stage = 'stage';
+			stage = 'mark';
 		}
 
 		var stageFile:StageFile = getStageFile(stage);
-
-		if(stageFile == null)
-		{
-			forceNextDirectory = '';
-		}
-		else
-		{
-			forceNextDirectory = stageFile.directory;
-		}
 	}
 
 	public static function getStageFile(stage:String):StageFile

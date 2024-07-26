@@ -34630,12 +34630,12 @@
 			}
 		],
 		"player2": "mark",
-		"player3": null,
+		"player3": "gf",
 		"song": "Destitution",
 		"stage": "mark",
-		"needsVoices": true,
-		"validScore": true,
 		"bpm": 188,
-		"speed": 3.15
+		"speed": 3.15,
+		"composer": "Cynda",
+		"charter": "Cynda"
 	}
 }

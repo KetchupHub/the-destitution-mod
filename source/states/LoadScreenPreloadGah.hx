@@ -37,6 +37,8 @@ class LoadScreenPreloadGah extends MusicBeatState
 
 	override function create()
     {
+        CoolUtil.rerollRandomness();
+
         MemoryUtil.collect(true);
         MemoryUtil.compact();
 
@@ -47,7 +49,8 @@ class LoadScreenPreloadGah extends MusicBeatState
         var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("loading/loadBg"));
         add(bg);
         var marksSuffix:String = "";
-        if(FlxG.random.int(1, 32) == 1)
+        //1/32 chance
+        if(CoolUtil.randomVisuals.bool(3.125))
         {
             marksSuffix = "_secret";
         }

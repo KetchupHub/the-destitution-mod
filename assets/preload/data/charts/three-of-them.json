@@ -2796,11 +2796,11 @@
 			}
 		],
 		"player2": "mark-the-fool",
-		"player3": null,
+		"player3": "gf",
 		"song": "Three-of-Them",
-		"needsVoices": true,
-		"validScore": true,
 		"bpm": 195.401,
-		"speed": 3.15
+		"speed": 3.15,
+		"composer": "Cynda",
+		"charter": "Cynda"
 	}
 }

@@ -1,8 +1,8 @@
 package ui;
 
+import util.CoolUtil;
 import backend.ClientPrefs;
 import states.PlayState;
-import openfl.display.BlendMode;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import visuals.ColorSwap;
@@ -54,11 +54,11 @@ class NoteSplash extends FlxSprite
 		colorSwap.brightness = brtColor;
 		offset.set(10, 10);
 
-		var animNum:Int = FlxG.random.int(1, 2);
+		var animNum:Int = CoolUtil.randomVisuals.int(1, 2);
 		animation.play('note' + note + '-' + animNum, true);
 
 		if(animation.curAnim != null)
-			animation.curAnim.frameRate = 24 + FlxG.random.int(-2, 2);
+			animation.curAnim.frameRate = 24 + CoolUtil.randomVisuals.int(-2, 2);
 	}
 
 	function loadAnims(skin:String)

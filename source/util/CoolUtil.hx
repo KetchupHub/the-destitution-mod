@@ -1,5 +1,6 @@
 package util;
 
+import flixel.math.FlxRandom;
 import util.macro.GitCommit;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
@@ -21,6 +22,30 @@ class CoolUtil
 	public static var gitCommitBranch:String = GitCommit.getGitBranch();
 
 	public static var gitCommitHash:String = GitCommit.getGitCommitHash();
+
+	//using the same FlxRandom for everything can cause a lot of predictability so im not doing that anymore
+
+	/**
+	 * Use for VISUALS, as in the ACTUAL ASSETS THEMSELVES, and ANIMATIONS! not POSITIONING! use the logic one for that
+	 */
+	public static var randomVisuals:FlxRandom = new FlxRandom();
+
+	/**
+	 * Use for AUDIO, and VOLUMES, and such
+	 */
+	public static var randomAudio:FlxRandom = new FlxRandom();
+
+	/**
+	 * Use for CODE STUFF, BACKEND STUFF, SECRETS, MOST RPG THINGS
+	 */
+	public static var randomLogic:FlxRandom = new FlxRandom();
+
+	public static function rerollRandomness()
+	{
+		randomVisuals.resetInitialSeed();
+		randomAudio.resetInitialSeed();
+		randomLogic.resetInitialSeed();
+	}
 
 	inline public static function quantize(f:Float, snap:Float)
 	{

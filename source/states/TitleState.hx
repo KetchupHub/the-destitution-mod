@@ -83,7 +83,7 @@ class TitleState extends MusicBeatState
 
 		PlayerSettings.init();
 
-		curWacky = FlxG.random.getObject(getIntroTextShit());
+		curWacky = CoolUtil.randomLogic.getObject(getIntroTextShit());
 
 		swagShader = new ColorSwap();
 
@@ -153,8 +153,13 @@ class TitleState extends MusicBeatState
 
 		swagShader = new ColorSwap();
 
+		if(initialized)
+		{
+			CoolUtil.rerollRandomness();
+		}
+
 		var arrey:Array<String> = ['bf', 'crypteh', 'ili', 'karm', 'mark', 'ploinky', 'rulez', 'whale'];
-		if(FlxG.random.bool(10))
+		if(CoolUtil.randomLogic.bool(10))
 		{
 			arrey = ['blocken', 'plant'];
 		}
@@ -167,7 +172,7 @@ class TitleState extends MusicBeatState
 			//still ends up trolling the people who wouldve rolled the 1/10 chance ones though so lol
 			arrey = [holidayChar];
 		}
-		charec = arrey[FlxG.random.int(0, arrey.length - 1)];
+		charec = arrey[CoolUtil.randomVisuals.int(0, arrey.length - 1)];
 		if(Paths.image('title/char/$charec') == null)
 		{
 			//precaution
@@ -205,13 +210,6 @@ class TitleState extends MusicBeatState
 		tppWatermarkTittle.updateHitbox();
 		add(tppWatermarkTittle);
 
-		#if DEVELOPERBUILD
-		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
-		#end
-
 		exitButton = new FlxSprite(8, 8).loadGraphic(Paths.image('title/close'));
 		exitButton.scale.set(2, 2);
 		exitButton.updateHitbox();
@@ -221,6 +219,13 @@ class TitleState extends MusicBeatState
 		playButton.scale.set(2, 2);
 		playButton.updateHitbox();
 		add(playButton);
+
+		#if DEVELOPERBUILD
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
+		#end
 
 		credGroup = new FlxGroup();
 		add(credGroup);
@@ -268,82 +273,86 @@ class TitleState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (!closeSequenceStarted && FlxG.sound.music != null)
+		if(!closeSequenceStarted)
 		{
-			Conductor.songPosition = FlxG.sound.music.time;
-		}
-
-		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
-
-		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-
-		if (!closeSequenceStarted && gamepad != null)
-		{
-			if (gamepad.justPressed.START)
+			if (FlxG.sound.music != null)
 			{
-				pressedEnter = true;
+				Conductor.songPosition = FlxG.sound.music.time;
 			}
-		}
-
-		if(!closeSequenceStarted && skippedIntro && FlxG.mouse.overlaps(exitButton, FlxG.camera))
-		{
-			if(FlxG.mouse.justPressed)
-			{
-				gameCloseSequence();
-			}
-		}
-
-		if(!closeSequenceStarted && skippedIntro && FlxG.mouse.overlaps(playButton, FlxG.camera))
-		{
-			if(FlxG.mouse.justPressed)
-			{
-				pressedEnter = true;
-			}
-		}
 		
-		if (newTitle)
-		{
-			titleTimer += CoolUtil.boundTo(elapsed, 0, 1);
+			var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
 
-			if (titleTimer > 2)
+			var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		
+			if (gamepad != null)
 			{
-				titleTimer -= 2;
-			}
-		}
-
-		if (!closeSequenceStarted && initialized && !transitioning && skippedIntro)
-		{
-			if (newTitle && !pressedEnter)
-			{
-				var timer:Float = titleTimer;
-				if (timer >= 1)
+				if (gamepad.justPressed.START)
 				{
-					timer = (-timer) + 2;
+					pressedEnter = true;
 				}
-				
-				timer = FlxEase.quadInOut(timer);
 			}
-			
-			if(pressedEnter)
+		
+			if(skippedIntro && FlxG.mouse.overlaps(exitButton, FlxG.camera) && !transitioning)
 			{
-				FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF);
-				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
-
-				transitioning = true;
-
-				new FlxTimer().start(1, function(tmr:FlxTimer)
+				if(FlxG.mouse.justPressed)
 				{
-					MusicBeatState.switchState(new MainMenuState());
-
-					closedState = true;
-				});
+					gameCloseSequence();
+				}
+			}
+		
+			if(skippedIntro && FlxG.mouse.overlaps(playButton, FlxG.camera) && !transitioning)
+			{
+				if(FlxG.mouse.justPressed)
+				{
+					pressedEnter = true;
+				}
+			}
+				
+			if (newTitle)
+			{
+				titleTimer += CoolUtil.boundTo(elapsed, 0, 1);
+		
+				if (titleTimer > 2)
+				{
+					titleTimer -= 2;
+				}
+			}
+		
+			if (initialized && !transitioning && skippedIntro)
+			{
+				if (newTitle && !pressedEnter)
+				{
+					var timer:Float = titleTimer;
+					if (timer >= 1)
+					{
+						timer = (-timer) + 2;
+					}
+					
+					timer = FlxEase.quadInOut(timer);
+				}
+					
+				if(pressedEnter)
+				{
+					FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF);
+					FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+		
+					transitioning = true;
+		
+					new FlxTimer().start(1, function(tmr:FlxTimer)
+					{
+						MusicBeatState.switchState(new MainMenuState());
+		
+						closedState = true;
+					});
+				}
+			}
+		
+			if (initialized && pressedEnter && !skippedIntro)
+			{
+				skipIntro();
 			}
 		}
 
-		if (!closeSequenceStarted && initialized && pressedEnter && !skippedIntro)
-		{
-			skipIntro();
-		}
 
 		if(swagShader != null)
 		{
@@ -367,6 +376,21 @@ class TitleState extends MusicBeatState
 		titleCharacter.animation.curAnim.curFrame = 0;
 		FlxG.sound.music.stop();
 		FlxG.sound.play(Paths.sound('titleExit/$charec'), 1, false);
+
+		FlxTween.tween(playButton, {'scale.x': 0.01, 'scale.y': 0.01}, 0.35, {ease: FlxEase.backOut, onComplete: function fuckstween(t:FlxTween)
+		{
+			playButton.alpha = 0;
+			playButton.visible = false;
+			playButton.destroy();
+		}});
+
+		FlxTween.tween(exitButton, {'scale.x': 0.01, 'scale.y': 0.01}, 0.35, {ease: FlxEase.backOut, onComplete: function fuckstween(t:FlxTween)
+		{
+			exitButton.alpha = 0;
+			exitButton.visible = false;
+			exitButton.destroy();
+		}});
+
 		var timeyTheTimer:FlxTimer = new FlxTimer().start(2.5, function photoshopTimey(timeyX:FlxTimer)
 		{
 			Application.current.window.close();

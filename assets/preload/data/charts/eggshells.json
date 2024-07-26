@@ -2822,12 +2822,12 @@
 			}
 		],
 		"player2": "gary",
-		"player3": null,
+		"player3": "gf-eggshells",
 		"song": "Eggshells",
 		"stage": "eggshells",
-		"needsVoices": true,
-		"validScore": true,
 		"bpm": 220,
-		"speed": 3.2
+		"speed": 3.2,
+		"composer": "Cynda",
+		"charter": "Cynda"
 	}
 }

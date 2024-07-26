@@ -1,19 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas imagePath="destitution_bg_ittem_whalez.png">
-	<!-- Created with Adobe Animate version 22.0.0.93 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0000" x="4" y="4" width="1280" height="720"/>
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0001" x="4" y="4" width="1280" height="720"/>
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0002" x="4" y="728" width="1280" height="720"/>
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0003" x="4" y="728" width="1280" height="720"/>
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0004" x="4" y="1452" width="1280" height="720"/>
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0005" x="4" y="1452" width="1280" height="720"/>
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0006" x="1288" y="4" width="1280" height="720"/>
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0007" x="1288" y="4" width="1280" height="720"/>
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0008" x="2572" y="4" width="1280" height="720"/>
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0009" x="2572" y="4" width="1280" height="720"/>
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0010" x="1288" y="728" width="1280" height="720"/>
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0011" x="1288" y="728" width="1280" height="720"/>
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0012" x="2572" y="728" width="1280" height="720"/>
-	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0013" x="2572" y="728" width="1280" height="720"/>
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0000" x="4" y="4" width="1280" height="720" />
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0001" x="4" y="4" width="1280" height="720" />
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0002" x="4" y="728" width="1280" height="720" />
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0003" x="4" y="728" width="1280" height="720" />
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0004" x="4" y="1452" width="1280" height="720" />
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0005" x="4" y="1452" width="1280" height="720" />
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0006" x="1288" y="4" width="1280" height="720" />
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0007" x="1288" y="4" width="1280" height="720" />
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0008" x="2572" y="4" width="1280" height="720" />
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0009" x="2572" y="4" width="1280" height="720" />
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0010" x="1288" y="728" width="1280" height="720" />
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0011" x="1288" y="728" width="1280" height="720" />
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0012" x="2572" y="728" width="1280" height="720" />
+	<SubTexture name="ITEM MAN TO THE WHALES OF THE WORLD0013" x="2572" y="728" width="1280" height="720" />
 </TextureAtlas>

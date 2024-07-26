@@ -1,5 +1,6 @@
 package editors;
 
+import util.CoolUtil;
 import states.FreeplayState;
 import states.LoadingState;
 import visuals.Character;
@@ -39,6 +40,8 @@ class MasterEditorMenu extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Editors Main Menu", null);
 		#end
+
+		CoolUtil.rerollRandomness();
 
 		MemoryUtil.collect(true);
         MemoryUtil.compact();
@@ -111,9 +114,6 @@ class MasterEditorMenu extends MusicBeatState
 					LoadingState.loadAndSwitchState(new ChartingState(), false);
 			}
 			FlxG.sound.music.volume = 0;
-			#if PRELOAD_ALL
-			FreeplayState.destroyFreeplayVocals();
-			#end
 		}
 		
 		var bullShit:Int = 0;
