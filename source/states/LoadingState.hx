@@ -41,6 +41,10 @@ class LoadingState extends MusicBeatState
 
 	override function create()
 	{
+		#if DEVELOPERBUILD
+        var perf = new Perf("LoadingState create()");
+		#end
+
 		CoolUtil.rerollRandomness();
 
 		MemoryUtil.collect(true);
@@ -82,6 +86,10 @@ class LoadingState extends MusicBeatState
 				new FlxTimer().start(fadeTime + MIN_TIME, function(_) introComplete());
 			}
 		);
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 	
 	function checkLoadSong(path:String)

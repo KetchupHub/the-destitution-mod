@@ -23,6 +23,10 @@ class ResetScoreSubState extends MusicBeatSubstate
 	// Week -1 = Freeplay
 	public function new(song:String, character:String, week:Int = -1)
 	{
+		#if DEVELOPERBUILD
+		var perf = new Perf("ResetScoreSubState new()");
+		#end
+
 		this.song = song;
 		this.week = week;
 
@@ -82,6 +86,10 @@ class ResetScoreSubState extends MusicBeatSubstate
 		add(noText);
 
 		updateOptions();
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	override function update(elapsed:Float)

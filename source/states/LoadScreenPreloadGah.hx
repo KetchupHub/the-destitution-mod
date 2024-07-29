@@ -1,7 +1,5 @@
 package states;
 
-import flixel.input.FlxInput;
-import flixel.input.keyboard.FlxKey;
 import visuals.Character;
 import util.CoolUtil;
 import util.MemoryUtil;
@@ -64,7 +62,7 @@ class LoadScreenPreloadGah extends MusicBeatState
             /*case 'superseded':
                 charactersToLoad = ['superseded-mark', 'superseded-mark-graph', 'superseded-creature', 'superseded-bf', 'stop-loading'];*/
             case 'd-stitution':
-                charactersToLoad = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'd-ili', 'douglass', 'karm-scold', 'douglass-player', 'd-rules', 'd-bf-rules', 'maestro', 'd-bf-rules-flipped', 'zamboney', 'karm-finale', 'stop-loading'];
+                charactersToLoad = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'd-ili', 'd-bf-doug', 'douglass', 'karm-scold', 'douglass-player', 'd-rules', 'd-bf-rules', 'maestro', 'd-bf-rules-flipped', 'zamboney', 'karm-finale', 'stop-loading'];
             default:
                 charactersToLoad = ['bf', 'gf', 'stop-loading'];
         }
@@ -126,7 +124,9 @@ class LoadScreenPreloadGah extends MusicBeatState
                     }
                     else
                     {
+                        #if DEVELOPERBUILD
                         trace("finished loading");
+                        #end
                         loadCooldown = 1;
                         finishedPreloading = true;
                     }
@@ -146,15 +146,23 @@ class LoadScreenPreloadGah extends MusicBeatState
             funkay.y = 100;
         }
 
-        funkay.y = FlxMath.lerp(0, funkay.y, util.CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
+        funkay.y = FlxMath.lerp(0, funkay.y, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
     }
 
     public function preloadCharacter(charName:String) 
     {
-        //calculated it, seems to be the most efficient time. idc man this preloader sucks shit
-        loadCooldown = 0.45;
+        //perf leads me to believe that 0.6 is the maximum reasonable character load time
+        loadCooldown = 0.6;
+        if(FlxG.keys.pressed.SHIFT)
+        {
+            //speedup for impatient people (me)
+            loadCooldown = 0.25;
+        }
 
+        #if DEVELOPERBUILD
+        var perf = new Perf("Preload Character: " + charName);
         trace("loading " + charName);
+        #end
 
         var chrazy:Character = new Character(1279, 719, charName);
         chrazy.scale.set(0.1, 0.1);
@@ -164,5 +172,9 @@ class LoadScreenPreloadGah extends MusicBeatState
         insert(members.indexOf(funkay) - 1, chrazy);
         characters.push(chrazy);
         charactersToLoad.remove(charName);
+
+        #if DEVELOPERBUILD
+        perf.print();
+        #end
     }
 }

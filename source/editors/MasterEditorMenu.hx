@@ -35,6 +35,10 @@ class MasterEditorMenu extends MusicBeatState
 
 	override function create()
 	{
+		#if DEVELOPERBUILD
+		var perf = new Perf("Total MasterEditorMenu create()");
+		#end
+
 		FlxG.camera.bgColor = FlxColor.BLACK;
 		#if desktop
 		// Updating Discord Rich Presence
@@ -86,6 +90,10 @@ class MasterEditorMenu extends MusicBeatState
 
 		FlxG.mouse.visible = false;
 		super.create();
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	override function update(elapsed:Float)

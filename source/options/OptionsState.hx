@@ -54,6 +54,10 @@ class OptionsState extends MusicBeatState
 
 	override function create()
 	{
+		#if DEVELOPERBUILD
+		var perf = new Perf("Total OptionsState create()");
+		#end
+
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
@@ -101,6 +105,10 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 
 		super.create();
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	override function closeSubState()

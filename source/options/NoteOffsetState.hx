@@ -47,6 +47,10 @@ class NoteOffsetState extends MusicBeatState
 
 	override public function create()
 	{
+		#if DEVELOPERBUILD
+		var perf = new Perf("Total NoteOffsetState create()");
+		#end
+
 		// Cameras
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
@@ -91,7 +95,7 @@ class NoteOffsetState extends MusicBeatState
 		coolText.screenCenter();
 		coolText.x = FlxG.width * 0.35;
 
-		rating = new FlxSprite().loadGraphic(Paths.image('ui/sick'));
+		rating = new FlxSprite().loadGraphic(Paths.image('ui/ratings/sick'));
 		rating.cameras = [camHUD];
 		rating.setGraphicSize(Std.int(rating.width * 0.7));
 		rating.updateHitbox();
@@ -111,7 +115,7 @@ class NoteOffsetState extends MusicBeatState
 		var daLoop:Int = 0;
 		for (i in seperatedScore)
 		{
-			var numScore:FlxSprite = new FlxSprite(43 * daLoop).loadGraphic(Paths.image('ui/num' + i));
+			var numScore:FlxSprite = new FlxSprite(43 * daLoop).loadGraphic(Paths.image('ui/ratings/num' + i));
 			numScore.cameras = [camHUD];
 			numScore.setGraphicSize(Std.int(numScore.width * 0.5));
 			numScore.updateHitbox();
@@ -185,6 +189,10 @@ class NoteOffsetState extends MusicBeatState
 		FlxG.sound.playMusic(Paths.music('mus_neutral_drive'), 1, true);
 
 		super.create();
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	var holdTime:Float = 0;

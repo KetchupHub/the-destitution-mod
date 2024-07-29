@@ -96,6 +96,10 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 	public function new()
 	{
+		#if DEVELOPERBUILD
+		var perf = new Perf("Total GameplayChangersSubstate new()");
+		#end
+
 		super();
 		
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -149,6 +153,10 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 		changeSelection();
 		reloadCheckboxes();
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	var nextAccept:Int = 5;

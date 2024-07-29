@@ -78,6 +78,9 @@ class MemoryUtil
   public static function enable():Void
   {
     #if cpp
+    #if DEVELOPERBUILD
+    trace("Enabling GC...");
+    #end
     cpp.vm.Gc.enable(true);
     #else
     throw "Not implemented!";
@@ -90,6 +93,9 @@ class MemoryUtil
   public static function disable():Void
   {
     #if cpp
+    #if DEVELOPERBUILD
+    trace("Disabling GC... (Why)");
+    #end
     cpp.vm.Gc.enable(false);
     #else
     throw "Not implemented!";
@@ -104,7 +110,14 @@ class MemoryUtil
   public static function collect(major:Bool = false):Void
   {
     #if cpp
+    #if DEVELOPERBUILD
+    trace("Collecting...");
+    var perf = new Perf("MemoryUtil collect()");
+    #end
     cpp.vm.Gc.run(major);
+    #if DEVELOPERBUILD
+    perf.print();
+    #end
     #else
     throw "Not implemented!";
     #end
@@ -119,7 +132,14 @@ class MemoryUtil
   public static function compact():Void
   {
     #if cpp
+    #if DEVELOPERBUILD
+    trace('Compacting...');
+    var perf = new Perf("MemoryUtil compact()");
+    #end
     cpp.vm.Gc.compact();
+    #if DEVELOPERBUILD
+    perf.print();
+    #end
     #else
     throw "Not implemented!";
     #end

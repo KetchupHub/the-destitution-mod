@@ -27,6 +27,8 @@ class Destitution extends SongClass
         this.songVariants = ["Normal", "Erect"];
         this.songDescription = "Mark and the gang show Nopeboy how to be a master investor!";
         this.startSwing = false;
+        this.ratingsType = "";
+        this.skipCountdown = false;
     }
 
     public override function stepHitEvent(curStep:Float)
@@ -106,7 +108,8 @@ class Destitution extends SongClass
                 FlxG.camera.flash();
                 PlayState.instance.bgPlayerWalkTarget += 2800;
             case 576:
-                PlayState.instance.defaultCamZoom = 1;
+                //1.01 instead of just 1 to prevent weird edge clipping? damn
+                PlayState.instance.defaultCamZoom = 1.01;
                 PlayState.instance.remove(PlayState.instance.ploinkyTransition, true);
                 PlayState.instance.ploinkyTransition.cameras = [PlayState.instance.camGame];
                 PlayState.instance.add(PlayState.instance.ploinkyTransition);
@@ -140,12 +143,12 @@ class Destitution extends SongClass
                 PlayState.instance.dad = new Character(0, 0, 'ploinky', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
                 PlayState.instance.dad.screenCenter();
-                PlayState.instance.dad.x += 75;
+                PlayState.instance.dad.x += 76;
                 PlayState.instance.dad.y += 200;
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
                 PlayState.instance.boyfriend.destroy();
-                PlayState.instance.boyfriend = new Boyfriend(-75, -85, 'bf-mark-ploink', false);
+                PlayState.instance.boyfriend = new Boyfriend(-74, -84, 'bf-mark-ploink', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
@@ -189,7 +192,7 @@ class Destitution extends SongClass
                 PlayState.instance.dad.visible = true;
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
-                PlayState.instance.dad = new Character(800, 345, 'item', false, false);
+                PlayState.instance.dad = new Character(800, 344, 'item', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
                 PlayState.instance.dad.x += 160;
                 PlayState.instance.dad.y -= 520;
@@ -199,7 +202,7 @@ class Destitution extends SongClass
                 PlayState.instance.boyfriend = new Boyfriend(-370, 220, 'bf-mark-item', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
                 PlayState.instance.boyfriend.x -= 700;
-                PlayState.instance.boyfriend.y -= 575;
+                PlayState.instance.boyfriend.y -= 574;
                 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
@@ -301,7 +304,7 @@ class Destitution extends SongClass
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
                 PlayState.instance.boyfriend.destroy();
-                PlayState.instance.boyfriend = new Boyfriend(-200, 65, 'bf-mark-annoyed', false);
+                PlayState.instance.boyfriend = new Boyfriend(-200, 64, 'bf-mark-annoyed', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
                 PlayState.instance.boyfriend.visible = false;
                 
@@ -373,7 +376,7 @@ class Destitution extends SongClass
                 PlayState.instance.boyfriend.visible = true;
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
-                PlayState.instance.dad = new Character(-215, -60, 'mark-annoyed', false, false);
+                PlayState.instance.dad = new Character(-214, -60, 'mark-annoyed', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 FlxTween.completeTweensOf(PlayState.instance.dad);
@@ -420,7 +423,7 @@ class Destitution extends SongClass
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
-                PlayState.instance.dad = new Character(75, 115, 'rulez', false, false);
+                PlayState.instance.dad = new Character(74, 114, 'rulez', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
@@ -457,12 +460,12 @@ class Destitution extends SongClass
                 FlxG.camera.flash();
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
-                PlayState.instance.dad = new Character(-235, -460, 'crypteh', false, false);
+                PlayState.instance.dad = new Character(-234, -460, 'crypteh', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
                 PlayState.instance.boyfriend.destroy();
-                PlayState.instance.boyfriend = new Boyfriend(-135, -205, 'bf-mark-crypteh', false);
+                PlayState.instance.boyfriend = new Boyfriend(-134, -204, 'bf-mark-crypteh', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
                 PlayState.instance.boyfriend.x -= 1280;
@@ -550,14 +553,14 @@ class Destitution extends SongClass
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
-                PlayState.instance.dad = new Character(125, 80, 'mark-angry', false, false);
+                PlayState.instance.dad = new Character(126, 80, 'mark-angry', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
                 PlayState.instance.dad.screenCenter();
-                PlayState.instance.dad.x += 325;
+                PlayState.instance.dad.x += 326;
                 PlayState.instance.dad.y += 320;
 
                 PlayState.instance.boyfriend.screenCenter();
-                PlayState.instance.boyfriend.x += 185;
+                PlayState.instance.boyfriend.x += 186;
                 PlayState.instance.boyfriend.y += 350;
 
                 PlayState.instance.dad.alpha = 1;

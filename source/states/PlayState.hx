@@ -1,5 +1,6 @@
 package states;
 
+import flixel.addons.effects.FlxClothSprite;
 import backend.WeekData;
 import ui.CustomFadeTransition;
 import backend.Highscore;
@@ -241,6 +242,8 @@ class PlayState extends MusicBeatState
 	public var YOUSTUPIDSONOFABITCH:FlxSprite;
 	public var zamMarkCamFlipShit:FlxSprite;
 	public var ref:FlxSprite;
+	public var chefBanner:FlxSprite;
+	public var chefTable:FlxSprite;
 	public var train:FlxSprite;
 	public var karmScaredy:FlxSprite;
 	public var cabinBg:FlxSprite;
@@ -260,12 +263,14 @@ class PlayState extends MusicBeatState
 	public var itemManFucked:FlxSprite;
 	public var cuttingSceneThing:FlxSprite;
 	public var cyndaBeatsWaterMark:FlxSprite;
-	public var funnyBgColors:FlxSprite = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.width * 3, FlxColor.WHITE);
+	public var funnyBgColors:FlxSprite = new FlxSprite().makeGraphic(1, 1, FlxColor.WHITE);
 	public var boyfriendGroup:FlxSpriteGroup;
 	public var dadGroup:FlxSpriteGroup;
 	public var gfGroup:FlxSpriteGroup;
 	public static var lastScore:Array<FlxSprite> = [];
 	public var spaceItems:FlxTypedGroup<FlxSprite>;
+
+	public var chefCurtains:FlxClothSprite;
 
 	public var healthBarBG:AttachedSprite;
 
@@ -321,6 +326,10 @@ class PlayState extends MusicBeatState
 	override public function create()
 	{
 		instance = this;
+
+		#if DEVELOPERBUILD
+		var perf = new Perf("Total PlayState create()");
+		#end
 
 		FlxG.mouse.visible = false;
 
@@ -437,8 +446,6 @@ class PlayState extends MusicBeatState
 					curStage = 'eggshells';
 				case 'new-hampshire':
 					curStage = 'bucks';
-				case 'three-of-them':
-					curStage = 'april';
 				default:
 					curStage = 'mark';
 			}
@@ -498,6 +505,11 @@ class PlayState extends MusicBeatState
 		GameOverSubstate.loopSoundName = 'mus_overtime' + songObj.gameoverMusicSuffix;
 		GameOverSubstate.endSoundName = 'mus_overtime_end' + songObj.gameoverMusicSuffix;
 
+		skipCountdown = songObj.skipCountdown;
+
+		#if DEVELOPERBUILD
+		var stagePerf = new Perf("Stage Creation");
+		#end
 		switch (curStage)
 		{
 			case 'mark':
@@ -632,7 +644,6 @@ class PlayState extends MusicBeatState
 				add(cuttingSceneThing);
 				cuttingSceneThing.visible = false;
 			case 'superseded':
-				skipCountdown = true;
 				tweeningCam = true;
 				camHUD.zoom = 15;
 
@@ -653,7 +664,9 @@ class PlayState extends MusicBeatState
 				spaceWiggle.waveFrequency = 8;
 				spaceWiggle.waveSpeed = 2;
 			case 'dsides':
-				var pureWhiteAbyss:FlxSprite = new FlxSprite().makeGraphic(2560, 2560, FlxColor.WHITE);
+				var pureWhiteAbyss:FlxSprite = new FlxSprite().makeGraphic(1, 1, FlxColor.WHITE);
+				pureWhiteAbyss.scale.set(2560, 2560);
+				pureWhiteAbyss.updateHitbox();
 				pureWhiteAbyss.screenCenter();
 				pureWhiteAbyss.scrollFactor.set();
 				add(pureWhiteAbyss);
@@ -681,15 +694,51 @@ class PlayState extends MusicBeatState
 				add(starting);
 				starting.screenCenter();
 
-				karmScaredy = new FlxSprite(starting.x + 40.75, starting.y + 610.35);
+				karmScaredy = new FlxSprite(starting.x + 42, starting.y + 612);
 				karmScaredy.frames = Paths.getSparrowAtlas("dsides/karm_scaredy");
 				karmScaredy.animation.addByPrefix("idle", "idle", 24, false);
 				karmScaredy.animation.play("idle", true);
 				add(karmScaredy);
-
 				karmScaredy.visible = false;
 
-				lightningStrikes = new FlxSprite().makeGraphic(5000, 5000, FlxColor.fromRGB(255, 241, 185));
+				chefTable = new FlxSprite().loadGraphic(Paths.image('dsides/chefTable'));
+				chefTable.scale.set(4, 4);
+				chefTable.updateHitbox();
+				chefTable.antialiasing = false;
+				chefTable.screenCenter();
+				chefTable.y -= 2560;
+				add(chefTable);
+				chefTable.visible = false;
+
+				chefBanner = new FlxSprite().loadGraphic(Paths.image('dsides/chefBanner'));
+				chefBanner.scale.set(4, 4);
+				chefBanner.updateHitbox();
+				chefBanner.antialiasing = false;
+				chefBanner.screenCenter();
+				chefBanner.y -= 2560;
+				add(chefBanner);
+				chefBanner.visible = false;
+
+				chefCurtains = new FlxClothSprite();
+				chefCurtains.loadGraphic(Paths.image('dsides/chefCurtains'));
+				chefCurtains.scale.set(4, 4);
+				chefCurtains.updateHitbox();
+				chefCurtains.antialiasing = false;
+				chefCurtains.screenCenter();
+				chefCurtains.y -= 2560;
+				chefCurtains.meshScale.set(1.5, 1);
+				chefCurtains.setMesh(15, 10, 0, 0, [0, 14]);
+				chefCurtains.iterations = 8;
+				chefCurtains.maxVelocity.set(200, 200);
+				chefCurtains.meshVelocity.x = 40;
+				chefCurtains.meshVelocity.y = 40;
+				add(chefCurtains);
+				chefCurtains.active = false;
+				chefCurtains.visible = false;
+
+				lightningStrikes = new FlxSprite().makeGraphic(1, 1, FlxColor.fromRGB(255, 241, 185));
+				lightningStrikes.scale.set(5000, 5000);
+				lightningStrikes.updateHitbox();
 				if(ClientPrefs.shaders)
 				{
 					lightningStrikes.blend = BlendMode.ADD;
@@ -697,10 +746,8 @@ class PlayState extends MusicBeatState
 				lightningStrikes.screenCenter();
 				lightningStrikes.alpha = 0;
 
-				lightningBg();
-				
-				unLightningBg();
-
+				funnyBgColors.scale.set(FlxG.width * 3, FlxG.width * 3);
+				funnyBgColors.updateHitbox();
 				funnyBgColors.screenCenter();
 				add(funnyBgColors);
 				funnyBgColors.alpha = 0;
@@ -717,6 +764,23 @@ class PlayState extends MusicBeatState
 				train.screenCenter();
 				add(train);
 				train.visible = false;
+
+				precacheList.set('dsides/karm_scaredy', 'image');
+				precacheList.set('dsides/dark backing', 'image');
+				precacheList.set('dsides/dark front', 'image');
+				precacheList.set('dsides/dark sky', 'image');
+				precacheList.set('dsides/train funny', 'image');
+				precacheList.set('dsides/iliBacking', 'image');
+				precacheList.set('dsides/iliRoom', 'image');
+				precacheList.set('dsides/iliSky', 'image');
+				precacheList.set('dsides/chefBanner', 'image');
+				precacheList.set('dsides/chefCurtains', 'image');
+				precacheList.set('dsides/chefTable', 'image');
+				precacheList.set('dsides/dougBacking', 'image');
+				precacheList.set('dsides/dougRoom', 'image');
+				precacheList.set('dsides/dougSky', 'image');
+				precacheList.set('dsides/skyworldSky', 'image');
+				precacheList.set('dsides/skyworldStage', 'image');
 
 				precacheList.set('dsides/karmFlees', 'sound');
 				precacheList.set('dsides/storm0', 'sound');
@@ -781,20 +845,10 @@ class PlayState extends MusicBeatState
 				yais.animation.play('idle');
 				yais.antialiasing = ClientPrefs.globalAntialiasing;
 				add(yais);
-
-				ref = new FlxSprite(-458, -413);
-				ref.loadGraphic(Paths.image('bucks/possy'));
-				ref.alpha = 0.65;
-				ref.antialiasing = ClientPrefs.globalAntialiasing;
-				ref.visible = false;
-				add(ref);
-			case 'april':
-				var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('april/bg'));
-				bg.scale.set(1.2, 1.2);
-				bg.updateHitbox();
-				bg.screenCenter();
-				add(bg);
 		}
+		#if DEVELOPERBUILD
+		stagePerf.print();
+		#end
 
 		add(gfGroup); //Needed for blammed lights
 
@@ -803,14 +857,10 @@ class PlayState extends MusicBeatState
 		add(boyfriendGroup);
 
 		var gfVersion:String = SONG.gfVersion;
+
 		if(gfVersion == null || gfVersion.length < 1)
 		{
-			switch (curStage)
-			{
-				default:
-					gfVersion = 'gf';
-			}
-
+			gfVersion = 'gf';
 			SONG.gfVersion = gfVersion; //Fix for the Chart Editor
 		}
 
@@ -818,7 +868,6 @@ class PlayState extends MusicBeatState
 		{
 			gf = new Character(0, 0, gfVersion);
 			startCharacterPos(gf);
-			gf.scrollFactor.set(0.95, 0.95);
 			gfGroup.add(gf);
 		}
 
@@ -860,7 +909,8 @@ class PlayState extends MusicBeatState
 		storageLol = ClientPrefs.middleScroll;
 
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
-		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
+		if(ClientPrefs.downScroll)
+			strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
 
 		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
@@ -877,8 +927,6 @@ class PlayState extends MusicBeatState
 		{
 			timeTxt.size = 36;
 			timeTxt.underline = true;
-			//will fuck up middlescroll
-			//timeTxt.y = strumLine.y;
 			fullLength = new FlxText(timeTxt.x, timeTxt.y + 36, 400, "", 24);
 			fullLength.setFormat(Paths.font(songFont), 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.NONE, FlxColor.WHITE);
 			fullLength.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 1.5, 0);
@@ -1067,6 +1115,10 @@ class PlayState extends MusicBeatState
 		
 		CustomFadeTransition.nextCamera = camOther;
 		if(eventNotes.length < 1) checkEventNote();
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	#if (!flash && sys)
@@ -1198,7 +1250,6 @@ class PlayState extends MusicBeatState
 				if(gf != null && !gfMap.exists(newCharacter))
 				{
 					var newGf:Character = new Character(0, 0, newCharacter);
-					newGf.scrollFactor.set(0.95, 0.95);
 					gfMap.set(newCharacter, newGf);
 					gfGroup.add(newGf);
 					startCharacterPos(newGf);
@@ -1209,9 +1260,9 @@ class PlayState extends MusicBeatState
 
 	function startCharacterPos(char:Character, ?gfCheck:Bool = false)
 	{
-		if(gfCheck && char.curCharacter.startsWith('gf')) { //IF DAD IS GIRLFRIEND, HE GOES TO HER POSITION
+		if(gfCheck && char.curCharacter.startsWith('gf'))
+		{ //IF DAD IS GIRLFRIEND, HE GOES TO HER POSITION
 			char.setPosition(GF_X, GF_Y);
-			char.scrollFactor.set(0.95, 0.95);
 			char.danceEveryNumBeats = 2;
 		}
 		char.x += char.positionArray[0];
@@ -1260,20 +1311,13 @@ class PlayState extends MusicBeatState
 	var startTimer:FlxTimer;
 	var finishTimer:FlxTimer = null;
 
-	public var countdownReady:FlxSprite;
-	public var countdownSet:FlxSprite;
-	public var countdownGo:FlxSprite;
+	public var songIntro:FlxSprite;
+
 	public static var startOnTime:Float = 0;
 
 	function cacheCountdown()
 	{
-		var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
-		introAssets.set('default', ['ui/ready', 'ui/set', 'ui/go']);
-
-		var introAlts:Array<String> = introAssets.get('default');
-		
-		for (asset in introAlts)
-			Paths.image(asset);
+		Paths.image('ui/songIntro');
 		
 		Paths.sound('intro' + songObj.introType + '/intro3' + introSoundsSuffix);
 		Paths.sound('intro' + songObj.introType + '/intro2' + introSoundsSuffix);
@@ -1314,6 +1358,19 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
+		songIntro = new FlxSprite();
+		songIntro.frames = Paths.getSparrowAtlas('ui/songIntro');
+		songIntro.animation.addByPrefix('3', '3', 24, false);
+		songIntro.animation.addByPrefix('2', '2', 24, false);
+		songIntro.animation.addByPrefix('1', '1', 24, false);
+		songIntro.animation.addByPrefix('go', 'go', 24, false);
+		songIntro.animation.play("3", true);
+		songIntro.scale.set(2, 2);
+		songIntro.updateHitbox();
+		songIntro.screenCenter();
+		songIntro.cameras = [camHUD];
+		add(songIntro);
+
 		startTimer = new FlxTimer().start(Conductor.crochet / 1000 / playbackRate, function(tmr:FlxTimer)
 		{
 			if (gf != null && tmr.loopsLeft % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
@@ -1329,76 +1386,34 @@ class PlayState extends MusicBeatState
 				dad.dance();
 			}
 
-			var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
-			introAssets.set('default', ['ui/ready', 'ui/set', 'ui/go']);
-
-			var introAlts:Array<String> = introAssets.get('default');
-			var antialias:Bool = ClientPrefs.globalAntialiasing;
-
 			switch (swagCounter)
 			{
 				case 0:
 					FlxG.sound.play(Paths.sound('intro' + songObj.introType + '/' + 'intro3' + introSoundsSuffix), 0.6);
+					songIntro.animation.play("3", true);
 				case 1:
-					countdownReady = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
-					countdownReady.cameras = [camHUD];
-					countdownReady.scrollFactor.set();
-					countdownReady.updateHitbox();
-					countdownReady.screenCenter();
-					countdownReady.antialiasing = antialias;
-					insert(members.indexOf(notes), countdownReady);
-					FlxTween.tween(countdownReady, {alpha: 0}, Conductor.crochet / 1000,
-					{
-						ease: FlxEase.cubeInOut,
-						onComplete: function(twn:FlxTween)
-						{
-							remove(countdownReady);
-							countdownReady.destroy();
-						}
-					});
 					FlxG.sound.play(Paths.sound('intro' + songObj.introType + '/' + 'intro2' + introSoundsSuffix), 0.6);
+					songIntro.animation.play("2", true);
 				case 2:
-					countdownSet = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
-					countdownSet.cameras = [camHUD];
-					countdownSet.scrollFactor.set();
-					countdownSet.screenCenter();
-					countdownSet.antialiasing = antialias;
-					insert(members.indexOf(notes), countdownSet);
-
-					FlxTween.tween(countdownSet, {alpha: 0}, Conductor.crochet / 1000,
-					{
-						ease: FlxEase.cubeInOut,
-						onComplete: function(twn:FlxTween)
-						{
-							remove(countdownSet);
-							countdownSet.destroy();
-						}
-					});
-
+					songIntro.animation.play("1", true);
 					FlxG.sound.play(Paths.sound('intro' + songObj.introType + '/' + 'intro1' + introSoundsSuffix), 0.6);
 				case 3:
-					countdownGo = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
-					countdownGo.cameras = [camHUD];
-					countdownGo.scrollFactor.set();
-					countdownGo.updateHitbox();
-					countdownGo.screenCenter();
-					countdownGo.antialiasing = antialias;
+					songIntro.animation.play("go", true);
 
-					insert(members.indexOf(notes), countdownGo);
-
-					FlxTween.tween(countdownGo, {alpha: 0}, Conductor.crochet / 1000,
+					FlxTween.tween(songIntro, {alpha: 0}, Conductor.crochet / 1000,
 					{
 						ease: FlxEase.cubeInOut,
+						startDelay: 0.1,
 						onComplete: function(twn:FlxTween)
 						{
-							remove(countdownGo);
-							countdownGo.destroy();
+							remove(songIntro);
+							songIntro.destroy();
 						}
 					});
 
 					FlxG.sound.play(Paths.sound('intro' + songObj.introType + '/' + 'introGo' + introSoundsSuffix), 0.6);
 
-					if(SONG.song.toLowerCase() == "d-stitution")
+					if(SONG.song.toLowerCase() == "d-stitution" || SONG.song.toLowerCase() == "d-stitution-erect")
 					{
 						dad.visible = true;
 						dad.canDance = false;
@@ -1618,7 +1633,9 @@ class PlayState extends MusicBeatState
 		}
 		catch(e:Dynamic)
 		{
+			#if DEVELOPERBUILD
 			trace('wow youre so fucking stupid you forgot the damned vocals huh');
+			#end
 		}
 
 		vocals.pitch = playbackRate;
@@ -1650,6 +1667,7 @@ class PlayState extends MusicBeatState
 		{
 		#end
 			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
+
 			for (event in eventsData) //Event Notes
 			{
 				for (i in 0...event[1].length)
@@ -1682,6 +1700,7 @@ class PlayState extends MusicBeatState
 				}
 
 				var oldNote:Note;
+
 				if (unspawnNotes.length > 0)
 					oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 				else
@@ -1692,7 +1711,9 @@ class PlayState extends MusicBeatState
 				swagNote.sustainLength = songNotes[2];
 				swagNote.gfNote = (section.gfSection && (songNotes[1]<4));
 				swagNote.noteType = songNotes[3];
-				if(!Std.isOfType(songNotes[3], String)) swagNote.noteType = ChartingState.noteTypeList[songNotes[3]];
+
+				if(!Std.isOfType(songNotes[3], String))
+					swagNote.noteType = ChartingState.noteTypeList[songNotes[3]];
 
 				swagNote.scrollFactor.set();
 
@@ -1702,8 +1723,10 @@ class PlayState extends MusicBeatState
 				unspawnNotes.push(swagNote);
 
 				var floorSus:Int = Math.floor(susLength);
-				if(floorSus > 0) {
-					for (susNote in 0...floorSus+1)
+
+				if(floorSus > 0)
+				{
+					for (susNote in 0...floorSus + 1)
 					{
 						oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 
@@ -1723,6 +1746,7 @@ class PlayState extends MusicBeatState
 						else if(ClientPrefs.middleScroll)
 						{
 							sustainNote.x += 310;
+
 							if(daNoteData > 1) //Up and Right
 							{
 								sustainNote.x += FlxG.width / 2 + 25;
@@ -3044,17 +3068,16 @@ class PlayState extends MusicBeatState
 
 	private function cachePopUpScore()
 	{
-		var pixelShitPart1:String = 'ui/';
-		var pixelShitPart2:String = '';
+		var ratingsSuffix:String = songObj.ratingsType;
 
-		Paths.image(pixelShitPart1 + "sick" + pixelShitPart2);
-		Paths.image(pixelShitPart1 + "good" + pixelShitPart2);
-		Paths.image(pixelShitPart1 + "bad" + pixelShitPart2);
-		Paths.image(pixelShitPart1 + "shit" + pixelShitPart2);
+		Paths.image('ui/ratings' + ratingsSuffix + "/sick");
+		Paths.image('ui/ratings' + ratingsSuffix + "/good");
+		Paths.image('ui/ratings' + ratingsSuffix + "/bad");
+		Paths.image('ui/ratings' + ratingsSuffix + "/shit");
 		
 		for (i in 0...10)
 		{
-			Paths.image(pixelShitPart1 + 'num' + i + pixelShitPart2);
+			Paths.image('ui/ratings' + ratingsSuffix + '/num' + i);
 		}
 	}
 
@@ -3108,10 +3131,9 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		var pixelShitPart1:String = "ui/";
-		var pixelShitPart2:String = '';
+		var ratingsSuffix:String = songObj.ratingsType;
 
-		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating.image + pixelShitPart2));
+		rating.loadGraphic(Paths.image('ui/ratings' + ratingsSuffix + '/' + daRating.image));
 		rating.cameras = [camHUD];
 		rating.screenCenter();
 		rating.x = 998;
@@ -3163,7 +3185,7 @@ class PlayState extends MusicBeatState
 		}
 		for (i in seperatedScore)
 		{
-			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'num' + Std.int(i) + pixelShitPart2));
+			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/ratings' + ratingsSuffix + '/num' + Std.int(i)));
 			numScore.cameras = [camHUD];
 			numScore.screenCenter();
 			numScore.x = 998 + (43 * daLoop) - 43;

@@ -22,8 +22,10 @@ class Superseded extends SongClass
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
-        this.songDescription = "Mark's experimental time machine brings Nopeboy back to 2022  - 20, when everything was terrible!";
+        this.songDescription = "Mark's experimental time machine brings Nopeboy back to 2022 - 20, when everything was terrible!";
         this.startSwing = false;
+        this.ratingsType = "";
+        this.skipCountdown = true;
     }
 
     public override function stepHitEvent(curStep:Float)

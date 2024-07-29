@@ -71,6 +71,8 @@ class Perf
   {
     var label:String = label ?? (posInfos == null ? 'unknown' : '${posInfos.className}#${posInfos.methodName}()');
 
+    #if DEVELOPERBUILD
     trace('[PERF] [$label] Took ${durationClean()}ms.');
+    #end
   }
 }

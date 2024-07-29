@@ -77,6 +77,10 @@ class CharacterEditorState extends MusicBeatState
 
 	override function create()
 	{
+		#if DEVELOPERBUILD
+		var perf = new Perf("Total CharacterEditorState create()");
+		#end
+
 		CoolUtil.rerollRandomness();
 
 		MemoryUtil.collect(true);
@@ -201,6 +205,10 @@ class CharacterEditorState extends MusicBeatState
 		#end
 
 		super.create();
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	var OFFSET_X:Float = 300;

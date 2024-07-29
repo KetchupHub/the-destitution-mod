@@ -27,6 +27,8 @@ class DStitution extends SongClass
         this.songVariants = ["Normal", "Erect"];
         this.songDescription = "Mark enlists Nopeboy to test the new dimension shifter on his time machine, and shenanigans ensue!";
         this.startSwing = false;
+        this.ratingsType = "Dsides";
+        this.skipCountdown = false;
     }
 
     public override function stepHitEvent(curStep:Float)

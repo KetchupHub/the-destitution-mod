@@ -48,6 +48,10 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+		#if DEVELOPERBUILD
+        var perf = new Perf("MainMenuState create()");
+		#end
+
 		CoolUtil.rerollRandomness();
 
         MemoryUtil.collect(true);
@@ -146,6 +150,10 @@ class MainMenuState extends MusicBeatState
 		changeItem();
 
 		super.create();
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	var selectedSomethin:Bool = false;

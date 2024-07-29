@@ -21,6 +21,10 @@ class FlashingState extends MusicBeatState
 
 	override function create()
 	{
+		#if DEVELOPERBUILD
+		var perf = new Perf("Total FlashingState create()");
+		#end
+
 		super.create();
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -50,6 +54,10 @@ class FlashingState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
+		#end
+
+		#if DEVELOPERBUILD
+		perf.print();
 		#end
 	}
 

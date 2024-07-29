@@ -23,6 +23,10 @@ class SongClass
 
     public var startSwing:Bool = false;
 
+    public var ratingsType:String = "";
+
+    public var skipCountdown:Bool = false;
+
 	public function new()
     {
         

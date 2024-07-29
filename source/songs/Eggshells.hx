@@ -21,6 +21,8 @@ class Eggshells extends SongClass
         this.songVariants = ["Normal", "Erect"];
         this.songDescription = "Mark's lonely cousin seems like he's not much for conversation, but that won't stop Nopeboy from trying!";
         this.startSwing = true;
+        this.ratingsType = "";
+        this.skipCountdown = false;
     }
 
     public override function stepHitEvent(curStep:Float)

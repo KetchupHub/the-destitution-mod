@@ -71,6 +71,10 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
+		#if DEVELOPERBUILD
+		var perf = new Perf("Total TitleState create()");
+		#end
+
 		WeekData.loadTheFirstEnabledMod();
 
 		FlxG.game.focusLostFramerate = 24;
@@ -131,10 +135,18 @@ class TitleState extends MusicBeatState
 				});
 			}
 		}
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	function startIntro()
 	{
+		#if DEVELOPERBUILD
+        var perf = new Perf("TitleState startIntro()");
+		#end
+
 		if (!initialized)
 		{
 			if(FlxG.sound.music == null)
@@ -254,6 +266,10 @@ class TitleState extends MusicBeatState
 		{
 			initialized = true;
 		}
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	function getIntroTextShit():Array<Array<String>>

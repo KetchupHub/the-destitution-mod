@@ -99,6 +99,10 @@ class Character extends FlxSprite
 
 	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false, ?doPositioning = true)
 	{
+		#if DEVELOPERBUILD
+		var perf = new Perf("Creating Character: " + character + ', ' + x + ', ' + y);
+		#end
+
 		super(x, y);
 
 		animation = new FlxAnimationController(this);
@@ -135,13 +139,19 @@ class Character extends FlxSprite
 				}
 				catch(e:Dynamic)
 				{
+					#if DEVELOPERBUILD
 					trace('Error loading character file of "$character": $e');
+					#end
 				}
 		}
 
 		if(animOffsets.exists('singLEFTmiss') || animOffsets.exists('singDOWNmiss') || animOffsets.exists('singUPmiss') || animOffsets.exists('singRIGHTmiss')) hasMissAnimations = true;
 		recalculateDanceIdle();
 		dance();
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	public function loadCharacterFile(json:Dynamic)
@@ -227,9 +237,9 @@ class Character extends FlxSprite
 			}
 		}
 		#if flxanimate
-		if(isAnimateAtlas) copyAtlasValues();
+		if(isAnimateAtlas)
+			copyAtlasValues();
 		#end
-		//trace('Loaded file to character ' + curCharacter);
 	}
 
 	override function update(elapsed:Float)

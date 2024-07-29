@@ -22,36 +22,29 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Toggle Practice Mode', 'Exit to menu'];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
 	var practiceText:FlxText;
-	var skipTimeText:FlxText;
-	var skipTimeTracker:Alphabet;
-	var curTime:Float = Math.max(0, Conductor.songPosition);
 
 	public static var songName:String = '';
 
 	public function new(x:Float, y:Float)
 	{
+		#if DEVELOPERBUILD
+		var perf = new Perf("Total PauseSubState new()");
+		#end
+
 		super();
 
 		CoolUtil.rerollRandomness();
 
 		if(PlayState.chartingMode)
 		{
-			menuItemsOG.insert(2, 'Leave Charting Mode');
-			
-			var num:Int = 0;
-			if(!PlayState.instance.startingSong)
-			{
-				num = 1;
-				menuItemsOG.insert(3, 'Skip Time');
-			}
-			menuItemsOG.insert(3 + num, 'End Song');
-			menuItemsOG.insert(4 + num, 'Toggle Practice Mode');
-			menuItemsOG.insert(5 + num, 'Toggle Botplay');
+			menuItemsOG.insert(3, 'Leave Charting Mode');
+			menuItemsOG.insert(4, 'End Song');
+			menuItemsOG.insert(5, 'Toggle Botplay');
 		}
 		menuItems = menuItemsOG;
 
@@ -135,6 +128,10 @@ class PauseSubState extends MusicBeatSubstate
 
 		regenMenu();
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	var holdTime:Float = 0;
@@ -147,7 +144,6 @@ class PauseSubState extends MusicBeatSubstate
 			pauseMusic.volume += 0.01 * elapsed;
 
 		super.update(elapsed);
-		updateSkipTextStuff();
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
@@ -165,47 +161,12 @@ class PauseSubState extends MusicBeatSubstate
 
 		var daSelected:String = menuItems[curSelected];
 
-		switch (daSelected)
-		{
-			case 'Skip Time':
-				if (controls.UI_LEFT_P)
-				{
-					FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
-					curTime -= 1000;
-					holdTime = 0;
-				}
-
-				if (controls.UI_RIGHT_P)
-				{
-					FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
-					curTime += 1000;
-					holdTime = 0;
-				}
-
-				if(controls.UI_LEFT || controls.UI_RIGHT)
-				{
-					holdTime += elapsed;
-
-					if(holdTime > 0.5)
-					{
-						curTime += 45000 * elapsed * (controls.UI_LEFT ? -1 : 1);
-					}
-
-					if(curTime >= FlxG.sound.music.length)
-						curTime -= FlxG.sound.music.length;
-					else if(curTime < 0)
-						curTime += FlxG.sound.music.length;
-
-					updateSkipTimeText();
-				}
-		}
-
 		if (accepted && (cantUnpause <= 0 || !ClientPrefs.controllerMode))
 		{
 			switch (daSelected)
 			{
 				case "Resume":
-					Application.current.window.title = util.CoolUtil.appTitleString + " - Playing " + PlayState.SONG.song;
+					Application.current.window.title = CoolUtil.appTitleString + " - Playing " + PlayState.SONG.song;
 					FlxTween.globalManager.forEach(function killsSelf(i:FlxTween)
 					{
 						i.active = true;
@@ -215,29 +176,13 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
 					practiceText.visible = PlayState.instance.practiceMode;
 				case "Restart Song":
-					Application.current.window.title = util.CoolUtil.appTitleString + " - Playing " + PlayState.SONG.song;
+					Application.current.window.title = CoolUtil.appTitleString + " - Playing " + PlayState.SONG.song;
 					restartSong();
 				case "Leave Charting Mode":
 					restartSong();
 					PlayState.chartingMode = false;
-				case 'Skip Time':
-					if(curTime < Conductor.songPosition)
-					{
-						PlayState.startOnTime = curTime;
-
-						restartSong(true);
-					}
-					else
-					{
-						if (curTime != Conductor.songPosition)
-						{
-							PlayState.instance.clearNotesBefore(curTime);
-							PlayState.instance.setSongTime(curTime);
-						}
-						close();
-					}
 				case "End Song":
-					Application.current.window.title = util.CoolUtil.appTitleString;
+					Application.current.window.title = CoolUtil.appTitleString;
 					close();
 					PlayState.instance.finishSong(true);
 				case 'Toggle Botplay':
@@ -245,7 +190,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
 					PlayState.instance.botplayTxt.alpha = 1;
 				case "Exit to menu":
-					Application.current.window.title = util.CoolUtil.appTitleString;
+					Application.current.window.title = CoolUtil.appTitleString;
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 
@@ -260,34 +205,16 @@ class PauseSubState extends MusicBeatSubstate
 		}
 	}
 
-	function deleteSkipTimeText()
-	{
-		if(skipTimeText != null)
-		{
-			skipTimeText.kill();
-			remove(skipTimeText);
-			skipTimeText.destroy();
-		}
-
-		skipTimeText = null;
-		skipTimeTracker = null;
-	}
-
-	public static function restartSong(noTrans:Bool = false)
+	public static function restartSong()
 	{
 		PlayState.instance.paused = true;
 		FlxG.sound.music.volume = 0;
 		PlayState.instance.vocals.volume = 0;
 
-		if(noTrans)
-		{
-			FlxTransitionableState.skipNextTransOut = true;
-			FlxG.resetState();
-		}
-		else
-		{
-			MusicBeatState.resetState();
-		}
+		FlxTransitionableState.skipNextTransIn = true;
+		FlxTransitionableState.skipNextTransOut = true;
+
+		MusicBeatState.switchState(new PlayState());
 	}
 
 	override function destroy()
@@ -320,12 +247,6 @@ class PauseSubState extends MusicBeatSubstate
 			if (item.targetY == 0)
 			{
 				item.alpha = 1;
-
-				if(item == skipTimeTracker)
-				{
-					curTime = Math.max(0, Conductor.songPosition);
-					updateSkipTimeText();
-				}
 			}
 		}
 	}
@@ -346,36 +267,8 @@ class PauseSubState extends MusicBeatSubstate
 			item.isMenuItem = true;
 			item.targetY = i;
 			grpMenuShit.add(item);
-
-			if(menuItems[i] == 'Skip Time')
-			{
-				skipTimeText = new FlxText(0, 0, 0, '', 64);
-				skipTimeText.setFormat(Paths.font("BAUHS93.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				skipTimeText.scrollFactor.set();
-				skipTimeText.borderSize = 2;
-				skipTimeTracker = item;
-				add(skipTimeText);
-
-				updateSkipTextStuff();
-				updateSkipTimeText();
-			}
 		}
 		curSelected = 0;
 		changeSelection();
-	}
-	
-	function updateSkipTextStuff()
-	{
-		if(skipTimeText == null || skipTimeTracker == null)
-			return;
-
-		skipTimeText.x = skipTimeTracker.x + skipTimeTracker.width + 60;
-		skipTimeText.y = skipTimeTracker.y;
-		skipTimeText.visible = (skipTimeTracker.alpha >= 1);
-	}
-
-	function updateSkipTimeText()
-	{
-		skipTimeText.text = FlxStringUtil.formatTime(Math.max(0, Math.floor(curTime / 1000)), false) + ' / ' + FlxStringUtil.formatTime(Math.max(0, Math.floor(FlxG.sound.music.length / 1000)), false);
 	}
 }

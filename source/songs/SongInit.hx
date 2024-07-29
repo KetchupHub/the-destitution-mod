@@ -39,8 +39,23 @@ class SongInit
                 returnSong = new NewHampshire();
             case 'abstraction':
                 returnSong = new Abstraction();
-            case 'three-of-them':
-                returnSong = new ThreeOfThem();
+            //erects
+            case 'destitution-erect':
+                returnSong = new Destitution();
+            case 'superseded-erect':
+                returnSong = new Superseded();
+            case 'd-stitution-erect':
+                returnSong = new DStitution();
+            case 'countdown-erect':
+                returnSong = new Countdown();
+            case 'eggshells-erect':
+                returnSong = new Eggshells();
+            case 'collapse-erect':
+                returnSong = new Collapse();
+            case 'new-hampshire-erect':
+                returnSong = new NewHampshire();
+            case 'abstraction-erect':
+                returnSong = new Abstraction();
         }
 
         return returnSong;

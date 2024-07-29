@@ -201,6 +201,10 @@ class ChartingState extends MusicBeatState
 
 	override function create()
 	{
+		#if DEVELOPERBUILD
+		var perf = new Perf("Total ChartingState create()");
+		#end
+
 		if (PlayState.SONG != null)
 			_song = PlayState.SONG;
 		else
@@ -392,6 +396,10 @@ class ChartingState extends MusicBeatState
 		updateGrid();
 
 		super.create();
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	var check_mute_inst:FlxUICheckBox = null;

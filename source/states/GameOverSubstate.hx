@@ -48,6 +48,10 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		super();
 
+		#if DEVELOPERBUILD
+		var perf = new Perf("Total GameOverSubstate new()");
+		#end
+
 		CoolUtil.rerollRandomness();
 
 		Conductor.songPosition = 0;
@@ -76,6 +80,10 @@ class GameOverSubstate extends MusicBeatSubstate
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		camFollowPos.setPosition(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2));
 		add(camFollowPos);
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	var isFollowingAlready:Bool = false;

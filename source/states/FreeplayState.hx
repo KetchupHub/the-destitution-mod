@@ -48,6 +48,10 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
+		#if DEVELOPERBUILD
+		var perf = new Perf("Total FreeplayState create()");
+		#end
+
 		CoolUtil.rerollRandomness();
 
         MemoryUtil.collect(true);
@@ -182,6 +186,10 @@ class FreeplayState extends MusicBeatState
 		#end
 		
 		super.create();
+
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	override function closeSubState()

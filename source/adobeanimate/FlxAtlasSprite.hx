@@ -132,7 +132,9 @@ class FlxAtlasSprite extends FlxAnimate
     // Skip if the animation doesn't exist
     if (!hasAnimation(id))
     {
+      #if DEVELOPERBUILD
       trace('Animation ' + id + ' not found');
+      #end
       return;
     }
 

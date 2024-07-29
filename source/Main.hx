@@ -3,7 +3,6 @@ package;
 import states.TitleState;
 import backend.ClientPrefs;
 import util.CoolUtil;
-import util.logging.AnsiTrace;
 import flixel.FlxG;
 import flixel.FlxGame;
 import openfl.Lib;
@@ -168,8 +167,6 @@ class Main extends Sprite
 
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
-		//Sys.println("\n");
-		//AnsiTrace.traceMark();
 
 		Application.current.window.alert("\nUnfortunately, The Destitution Mod has stopped.\n\nMore Details:\n" + errMsg, "The Destitution Mod Crash Handler");
 		DiscordClient.shutdown();
