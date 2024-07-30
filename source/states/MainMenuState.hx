@@ -110,6 +110,8 @@ class MainMenuState extends MusicBeatState
 		FlxTween.tween(funkay, {y: 0}, 1, {startDelay: 0.75, ease: FlxEase.expoOut});
 
 		sideThing = new FlxSprite().loadGraphic(Paths.image("mainmenu/mm_side"));
+		sideThing.scale.set(2, 2);
+		sideThing.updateHitbox();
 		sideThing.x -= 512;
 		add(sideThing);
 		
@@ -144,7 +146,7 @@ class MainMenuState extends MusicBeatState
 
 		var versionShit:FlxText = new FlxText(-4, #if DEVELOPERBUILD FlxG.height - 44 #else FlxG.height - 24 #end, FlxG.width, "The Destitution Mod v" + psychEngineVersion #if DEVELOPERBUILD + "\n(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")" #end, 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 		add(versionShit);
 
 		changeItem();

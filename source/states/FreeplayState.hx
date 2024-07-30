@@ -112,8 +112,6 @@ class FreeplayState extends MusicBeatState
 		add(freeMetal);
 
 		songCover = new FlxSprite(936, 0).loadGraphic(Paths.image('song_covers/placeholder'));
-		songCover.setGraphicSize(256);
-		songCover.updateHitbox();
 		songCover.x = 936;
 		songCover.y = 204;
 		songCover.antialiasing = false;
@@ -142,14 +140,13 @@ class FreeplayState extends MusicBeatState
 		WeekData.setDirectoryFromWeek();
 
 		scoreText = new FlxText(872, 5, 403, "", 38);
-		scoreText.setFormat(Paths.font("BAUHS93.ttf"), 38, FlxColor.WHITE, CENTER);
-		scoreText.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 1.5, 0);
+		scoreText.setFormat(Paths.font("BAUHS93.ttf"), 38, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+		scoreText.borderSize = 1.5;
 		add(scoreText);
 
 		descText = new FlxText(872, songCover.y + songCover.height + 21, 403, "Placeholder", 30);
-		//descText.setFormat(Paths.font("BAUHS93.ttf"), 30, songs[curSelected].color, CENTER);
-		descText.setFormat(Paths.font("BAUHS93.ttf"), 30, FlxColor.WHITE, CENTER);
-		descText.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 1.5, 0);
+		descText.setFormat(Paths.font("BAUHS93.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+		descText.borderSize = 1.5;
 		add(descText);
 
 		if(curSelected >= songs.length) curSelected = 0;
@@ -181,7 +178,7 @@ class FreeplayState extends MusicBeatState
 		#if DEVELOPERBUILD
 		var versionShit:FlxText = new FlxText(4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 		add(versionShit);
 		#end
 		
@@ -438,8 +435,6 @@ class FreeplayState extends MusicBeatState
 		{
 			songCover.loadGraphic(Paths.image('song_covers/placeholder'));
 		}
-		songCover.setGraphicSize(256);
-		songCover.updateHitbox();
 		songCover.x = 936;
 		songCover.y = 204;
 

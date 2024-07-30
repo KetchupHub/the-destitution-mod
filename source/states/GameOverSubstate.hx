@@ -1,5 +1,6 @@
 package states;
 
+import flixel.sound.FlxSound;
 import util.MemoryUtil;
 import backend.WeekData;
 import backend.Conductor;
@@ -63,7 +64,11 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
 
-		FlxG.sound.play(Paths.sound(deathSoundName));
+		FlxG.sound.play(Paths.sound(deathSoundName), 1, false, null, true, function oncompey()
+		{
+			playingDeathSound = false;
+		});
+		playingDeathSound = true;
 		Conductor.changeBPM(95);
 		FlxG.camera.scroll.set();
 		FlxG.camera.target = null;
@@ -73,7 +78,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		#if DEVELOPERBUILD
 		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 		add(versionShit);
 		#end
 
@@ -94,7 +99,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if(updateCamera)
 		{
-			var lerpVal:Float = util.CoolUtil.boundTo(elapsed * 0.6, 0, 1);
+			var lerpVal:Float = CoolUtil.boundTo(elapsed * 0.6, 0, 1);
 
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 		}
@@ -107,6 +112,10 @@ class GameOverSubstate extends MusicBeatSubstate
 		if (controls.BACK)
 		{
 			FlxG.sound.music.stop();
+			FlxG.sound.list.forEach(function ficks(fuc:FlxSound)
+			{
+				fuc.stop();
+			});
 			PlayState.deathCounter = 0;
 			PlayState.seenCutscene = false;
 			PlayState.chartingMode = false;
@@ -167,7 +176,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			{
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
 				{
-					MusicBeatState.resetState();
+					MusicBeatState.switchState(new PlayState());
 				});
 			});
 		}

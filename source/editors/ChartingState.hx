@@ -2614,13 +2614,15 @@ class ChartingState extends MusicBeatState
 				curRenderedSustains.add(setupSusNote(note, beats));
 			}
 
-			if(i[3] != null && note.noteType != null && note.noteType.length > 0) {
+			if(i[3] != null && note.noteType != null && note.noteType.length > 0)
+			{
 				var typeInt:Null<Int> = noteTypeMap.get(i[3]);
 				var theType:String = '' + typeInt;
-				if(typeInt == null) theType = '?';
+				if(typeInt == null)
+					theType = '?';
 
 				var daText:AttachedFlxText = new AttachedFlxText(0, 0, 100, theType, 24);
-				daText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				daText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 				daText.xAdd = -32;
 				daText.yAdd = 6;
 				daText.borderSize = 1;

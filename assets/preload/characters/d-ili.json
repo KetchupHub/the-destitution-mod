@@ -1,37 +1,26 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"anim": "singLEFT",
 			"fps": 24,
-			"name": "right",
-			"indices": []
-		},
-		{
-			"offsets": [
-				0,
-				0
-			],
-			"loop": false,
 			"anim": "singDOWN",
-			"fps": 24,
-			"name": "down",
-			"indices": []
+			"indices": [],
+			"name": "down"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
+			"fps": 24,
 			"anim": "singUP",
-			"fps": 24,
-			"name": "up",
-			"indices": []
+			"indices": [],
+			"name": "up"
 		},
 		{
 			"offsets": [
@@ -39,42 +28,53 @@
 				0
 			],
 			"loop": false,
-			"anim": "singRIGHT",
 			"fps": 24,
-			"name": "left",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
 			"anim": "idle",
-			"fps": 24,
-			"name": "idle",
-			"indices": []
+			"indices": [],
+			"name": "idle"
 		},
 		{
-			"loop": true,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "floaty space mcgee",
+			"loop": true,
 			"fps": 24,
-			"name": "floaty space mcgee",
-			"indices": []
+			"anim": "chef",
+			"indices": [],
+			"name": "chef"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT",
+			"loop": false,
+			"name": "left"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "right"
 		}
 	],
 	"no_antialiasing": true,
-	"image": "characters/destitution/i_liek_item",
+	"image": "characters/dsides/d_ili",
 	"position": [
 		0,
 		0
 	],
 	"healthicon": "item",
-	"flip_x": true,
+	"flip_x": false,
 	"healthbar_colors": [
 		0,
 		204,
@@ -85,5 +85,5 @@
 		0
 	],
 	"sing_duration": 15,
-	"scale": 1
+	"scale": 2
 }

@@ -95,6 +95,8 @@ class TitleState extends MusicBeatState
 
 		Application.current.window.title = CoolUtil.appTitleString;
 
+		FlxG.mouse.load(Paths.image('cursor').bitmap, 2, 2, 2);
+
 		FlxG.save.bind('destitution', CoolUtil.getSavePath());
 
 		ClientPrefs.loadPrefs();
@@ -235,7 +237,7 @@ class TitleState extends MusicBeatState
 		#if DEVELOPERBUILD
 		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 		add(versionShit);
 		#end
 

@@ -45,6 +45,8 @@ class LoadScreenPreloadGah extends MusicBeatState
         loadedBar.createFilledBar(FlxColor.GRAY, FlxColor.WHITE);
         add(loadedBar);
         var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("loading/loadBg"));
+        bg.scale.set(2, 2);
+        bg.updateHitbox();
         add(bg);
         var marksSuffix:String = "";
         //1/32 chance
@@ -53,6 +55,8 @@ class LoadScreenPreloadGah extends MusicBeatState
             marksSuffix = "_secret";
         }
         funkay = new FlxSprite(0, 0).loadGraphic(Paths.image("loading/loadMark" + marksSuffix));
+        funkay.scale.set(2, 2);
+        funkay.updateHitbox();
         add(funkay);
 
         switch(PlayState.SONG.song.toLowerCase())
@@ -72,12 +76,12 @@ class LoadScreenPreloadGah extends MusicBeatState
         #if DEVELOPERBUILD
 		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 		add(versionShit);
 		#end
 
         holdingEscText = new FlxText(6, FlxG.height - 28, FlxG.width - 4, 'Going Back...', 16);
-        holdingEscText.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 2);
+        holdingEscText.setBorderStyle(FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK, 2);
         holdingEscText.scrollFactor.set();
         holdingEscText.alpha = 0;
         add(holdingEscText);

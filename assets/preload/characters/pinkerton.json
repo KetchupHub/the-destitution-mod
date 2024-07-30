@@ -51,7 +51,7 @@
 				0
 			],
 			"fps": 24,
-			"anim": "danceLeft",
+			"anim": "idle",
 			"indices": [],
 			"name": "danceLeft"
 		},
@@ -62,9 +62,9 @@
 				0
 			],
 			"fps": 24,
-			"anim": "danceRight",
+			"anim": "idle-alt",
 			"indices": [],
-			"name": "danceRight"
+			"name": "altDanceLeft"
 		},
 		{
 			"loop": false,
@@ -109,61 +109,6 @@
 			"anim": "singRIGHT-alt",
 			"indices": [],
 			"name": "altright"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"fps": 24,
-			"anim": "danceLeft-alt",
-			"indices": [],
-			"name": "altDanceLeft"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"fps": 24,
-			"anim": "danceRight-alt",
-			"indices": [],
-			"name": "altDanceRight"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"fps": 24,
-			"anim": "coolify",
-			"indices": [],
-			"name": "coolify"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"fps": 24,
-			"anim": "decool",
-			"indices": [],
-			"name": "decool"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"fps": 24,
-			"anim": "lipsync",
-			"indices": [],
-			"name": "lipsync"
 		}
 	],
 	"no_antialiasing": true,
@@ -172,7 +117,7 @@
 		0,
 		0
 	],
-	"healthicon": "karm",
+	"healthicon": "pinkerton",
 	"flip_x": false,
 	"healthbar_colors": [
 		206,

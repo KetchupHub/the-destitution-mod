@@ -102,14 +102,14 @@ class CharacterEditorState extends MusicBeatState
 		charLayer = new FlxTypedGroup<Character>();
 		add(charLayer);
 
-		var pointer:FlxGraphic = FlxGraphic.fromClass(GraphicCursorCross);
-		cameraFollowPointer = new FlxSprite().loadGraphic(pointer);
-		cameraFollowPointer.setGraphicSize(40, 40);
+		cameraFollowPointer = new FlxSprite().loadGraphic(Paths.image('debug/reticle'));
 		cameraFollowPointer.updateHitbox();
 		cameraFollowPointer.color = FlxColor.WHITE;
-		add(cameraFollowPointer);
+		//cameraFollowPointer.blend = BlendMode.INVERT;
 
 		loadChar(!daAnim.startsWith('bf'), false);
+
+		add(cameraFollowPointer);
 
 		healthBarBG = new FlxSprite(30, FlxG.height - 75).loadGraphic(Paths.image('ui/healthBar'));
 		healthBarBG.scrollFactor.set();
@@ -126,9 +126,8 @@ class CharacterEditorState extends MusicBeatState
 		dumbTexts.cameras = [camHUD];
 
 		textAnim = new FlxText(300, 16);
-		textAnim.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		textAnim.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 		textAnim.borderSize = 1;
-		textAnim.size = 32;
 		textAnim.scrollFactor.set();
 		textAnim.cameras = [camHUD];
 		add(textAnim);
@@ -200,7 +199,8 @@ class CharacterEditorState extends MusicBeatState
 		#if DEVELOPERBUILD
 		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+		versionShit.cameras = [camHUD];
 		add(versionShit);
 		#end
 
@@ -237,9 +237,11 @@ class CharacterEditorState extends MusicBeatState
 		if(char.isPlayer)
 			playerXDifference = 670;
 
-		var bg:BGSprite = new BGSprite('destitution/start', -680 + OFFSET_X - playerXDifference, -320);
-		bg.scale.set(2, 2);
+		var bg = new FlxSprite().makeGraphic(1, 1, FlxColor.GRAY);
+		bg.scale.set(2560, 2560);
 		bg.updateHitbox();
+		bg.screenCenter();
+		bg.scrollFactor.set();
 		bgLayer.add(bg);
 	}
 
@@ -392,11 +394,12 @@ class CharacterEditorState extends MusicBeatState
 		charDropDown = new FlxUIDropDownMenu(10, 30, FlxUIDropDownMenu.makeStrIdLabelArray([''], true), function(character:String)
 		{
 			daAnim = characterList[Std.parseInt(character)];
-			check_player.checked = daAnim.startsWith('bf');
 			loadChar(!check_player.checked);
+			check_player.checked = char._editor_isPlayer;
 			updatePresence();
 			reloadCharacterDropDown();
 		});
+		charDropDown.dropDirection = Down;
 		charDropDown.selectedLabel = daAnim;
 		reloadCharacterDropDown();
 
@@ -597,6 +600,7 @@ class CharacterEditorState extends MusicBeatState
 			var indicesStr:String = anim.indices.toString();
 			animationIndicesInputText.text = indicesStr.substr(1, indicesStr.length - 2);
 		});
+		animationDropDown.dropDirection = Down;
 
 		ghostDropDown = new FlxUIDropDownMenu(animationDropDown.x + 150, animationDropDown.y, FlxUIDropDownMenu.makeStrIdLabelArray([''], true), function(pressed:String) {
 			var selectedAnimation:Int = Std.parseInt(pressed);
@@ -608,6 +612,7 @@ class CharacterEditorState extends MusicBeatState
 				char.alpha = 0.85;
 			}
 		});
+		ghostDropDown.dropDirection = Down;
 
 		var addUpdateButton:FlxButton = new FlxButton(70, animationIndicesInputText.y + 30, "Add/Update", function() {
 			var indices:Array<Int> = [];
@@ -849,7 +854,7 @@ class CharacterEditorState extends MusicBeatState
 		for (anim => offsets in char.animOffsets)
 		{
 			var text:FlxText = new FlxText(10, 20 + (18 * daLoop), 0, anim + ": " + offsets, 15);
-			text.setFormat(null, 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			text.setFormat(null, 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 			text.scrollFactor.set();
 			text.borderSize = 1;
 			dumbTexts.add(text);
@@ -868,26 +873,34 @@ class CharacterEditorState extends MusicBeatState
 		}
 	}
 
-	function loadChar(isDad:Bool, blahBlahBlah:Bool = true) {
-		var i:Int = charLayer.members.length-1;
-		while(i >= 0) {
+	function loadChar(isDad:Bool, blahBlahBlah:Bool = true)
+	{
+		var i:Int = charLayer.members.length - 1;
+
+		while(i >= 0)
+		{
 			var memb:Character = charLayer.members[i];
-			if(memb != null) {
+			if(memb != null)
+			{
 				memb.kill();
 				charLayer.remove(memb);
 				memb.destroy();
 			}
 			--i;
 		}
+
 		charLayer.clear();
 		ghostChar = new Character(0, 0, daAnim, !isDad);
 		ghostChar.debugMode = true;
 		ghostChar.alpha = 0.6;
 
 		char = new Character(0, 0, daAnim, !isDad);
-		if(char.animationsArray[0] != null) {
+
+		if(char.animationsArray[0] != null)
+		{
 			char.playAnim(char.animationsArray[0].anim, true);
 		}
+
 		char.debugMode = true;
 
 		charLayer.add(ghostChar);
@@ -895,9 +908,11 @@ class CharacterEditorState extends MusicBeatState
 
 		char.setPosition(char.positionArray[0] + OFFSET_X + 100, char.positionArray[1]);
 
-		if(blahBlahBlah) {
+		if(blahBlahBlah)
+		{
 			genBoyOffsets();
 		}
+
 		reloadCharacterOptions();
 		reloadBGs();
 		updatePointerPos();
@@ -907,11 +922,16 @@ class CharacterEditorState extends MusicBeatState
 	{
 		var x:Float = char.getMidpoint().x;
 		var y:Float = char.getMidpoint().y;
-		if(!char.isPlayer) {
+
+		if(!char.isPlayer)
+		{
 			x += 150 + char.cameraPosition[0];
-		} else {
+		}
+		else
+		{
 			x -= 100 + char.cameraPosition[0];
 		}
+
 		y -= 100 - char.cameraPosition[1];
 
 		x -= cameraFollowPointer.width / 2;
@@ -928,12 +948,14 @@ class CharacterEditorState extends MusicBeatState
 				return anim;
 			}
 		}
+
 		return null;
 	}
 
 	function reloadCharacterOptions()
 	{
-		if(UI_characterbox != null) {
+		if(UI_characterbox != null)
+		{
 			imageInputText.text = char.imageFile;
 			healthIconInputText.text = char.healthIcon;
 			singDurationStepper.value = char.singDuration;

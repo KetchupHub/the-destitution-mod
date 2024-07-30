@@ -30,6 +30,12 @@ class PauseSubState extends MusicBeatSubstate
 
 	public static var songName:String = '';
 
+	var songCover:FlxSprite;
+	var descText:FlxText;
+
+	var holdTime:Float = 0;
+	var cantUnpause:Float = 0.1;
+
 	public function new(x:Float, y:Float)
 	{
 		#if DEVELOPERBUILD
@@ -37,6 +43,8 @@ class PauseSubState extends MusicBeatSubstate
 		#end
 
 		super();
+
+		songName = PlayState.instance.songObj.songNameForDisplay;
 
 		CoolUtil.rerollRandomness();
 
@@ -46,6 +54,7 @@ class PauseSubState extends MusicBeatSubstate
 			menuItemsOG.insert(4, 'End Song');
 			menuItemsOG.insert(5, 'Toggle Botplay');
 		}
+
 		menuItems = menuItemsOG;
 
 		pauseMusic = new FlxSound();
@@ -84,6 +93,7 @@ class PauseSubState extends MusicBeatSubstate
 		sectionTxt.scrollFactor.set();
 		sectionTxt.setFormat(Paths.font("BAUHS93.ttf"), 32);
 		sectionTxt.updateHitbox();
+
 		if(PlayState.songHasSections)
 		{
 			add(sectionTxt);
@@ -106,27 +116,49 @@ class PauseSubState extends MusicBeatSubstate
 		chartingText.visible = PlayState.chartingMode;
 		add(chartingText);
 
+		songCover = new FlxSprite(936, 0).loadGraphic(Paths.image('song_covers/' + PlayState.SONG.song.toLowerCase()));
+		songCover.screenCenter();
+		songCover.x = FlxG.width - (256 + 15);
+		songCover.y -= 76;
+		songCover.antialiasing = false;
+		add(songCover);
+
+		descText = new FlxText(872, songCover.y + songCover.height + 21, 400, PlayState.instance.songObj.songDescription, 30);
+		descText.setFormat(Paths.font("BAUHS93.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+		descText.borderSize = 1.5;
+		descText.x = FlxG.width - 415;
+		descText.y = songCover.y + songCover.height + 21;
+		add(descText);
+
 		blueballedTxt.alpha = 0;
 		levelInfo.alpha = 0;
 		sectionTxt.alpha = 0;
 		practiceText.alpha = 0;
 		chartingText.alpha = 0;
+		songCover.alpha = 0;
+		descText.alpha = 0;
 
 		levelInfo.x = FlxG.width - (levelInfo.width + 20);
 		blueballedTxt.x = FlxG.width - (blueballedTxt.width + 20);
 		sectionTxt.x = FlxG.width - (sectionTxt.width + 20);
+		
+		songCover.y -= 5;
+		descText.y -= 5;
 
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
-		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.6});
-		FlxTween.tween(sectionTxt, {alpha: 1, y: sectionTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.9});
-		FlxTween.tween(practiceText, {alpha: 1, y: practiceText.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 1.2});
-		FlxTween.tween(chartingText, {alpha: 1, y: chartingText.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 1.5});
+		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(sectionTxt, {alpha: 1, y: sectionTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(practiceText, {alpha: 1, y: practiceText.y + 5}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(chartingText, {alpha: 1, y: chartingText.y + 5}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(songCover, {alpha: 1, y: songCover.y + 5}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(descText, {alpha: 1, y: descText.y + 5}, 0.4, {ease: FlxEase.quartInOut});
 
 		grpMenuShit = new FlxTypedGroup<Alphabet>();
 		add(grpMenuShit);
 
 		regenMenu();
+
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 
 		#if DEVELOPERBUILD
@@ -134,14 +166,14 @@ class PauseSubState extends MusicBeatSubstate
 		#end
 	}
 
-	var holdTime:Float = 0;
-	var cantUnpause:Float = 0.1;
-
 	override function update(elapsed:Float)
 	{
 		cantUnpause -= elapsed;
+
 		if (pauseMusic.volume < 0.5)
+		{
 			pauseMusic.volume += 0.01 * elapsed;
+		}
 
 		super.update(elapsed);
 
@@ -166,32 +198,44 @@ class PauseSubState extends MusicBeatSubstate
 			switch (daSelected)
 			{
 				case "Resume":
-					Application.current.window.title = CoolUtil.appTitleString + " - Playing " + PlayState.SONG.song;
+					Application.current.window.title = CoolUtil.appTitleString + " - Playing " + PlayState.instance.songObj.songNameForDisplay;
+
 					FlxTween.globalManager.forEach(function killsSelf(i:FlxTween)
 					{
 						i.active = true;
 					});
+
 					close();
 				case 'Toggle Practice Mode':
 					PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
+
 					practiceText.visible = PlayState.instance.practiceMode;
 				case "Restart Song":
-					Application.current.window.title = CoolUtil.appTitleString + " - Playing " + PlayState.SONG.song;
+					Application.current.window.title = CoolUtil.appTitleString + " - Playing " + PlayState.instance.songObj.songNameForDisplay;
+
 					restartSong();
 				case "Leave Charting Mode":
 					restartSong();
+
 					PlayState.chartingMode = false;
 				case "End Song":
 					Application.current.window.title = CoolUtil.appTitleString;
+
 					close();
+
 					PlayState.instance.finishSong(true);
 				case 'Toggle Botplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
+
+					#if !SHOWCASEVIDEO
 					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
 					PlayState.instance.botplayTxt.alpha = 1;
+					#end
 				case "Exit to menu":
 					Application.current.window.title = CoolUtil.appTitleString;
+
 					PlayState.deathCounter = 0;
+
 					PlayState.seenCutscene = false;
 
 					WeekData.loadTheFirstEnabledMod();
@@ -199,7 +243,9 @@ class PauseSubState extends MusicBeatSubstate
 					MusicBeatState.switchState(new FreeplayState());
 
 					PlayState.cancelMusicFadeTween();
+
 					FlxG.sound.playMusic(Paths.music('mus_pauperized'));
+
 					PlayState.chartingMode = false;
 			}
 		}
@@ -220,6 +266,7 @@ class PauseSubState extends MusicBeatSubstate
 	override function destroy()
 	{
 		pauseMusic.destroy();
+
 		super.destroy();
 	}
 
@@ -230,10 +277,14 @@ class PauseSubState extends MusicBeatSubstate
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
 		if (curSelected < 0)
+		{
 			curSelected = menuItems.length - 1;
+		}
 
 		if (curSelected >= menuItems.length)
+		{
 			curSelected = 0;
+		}
 
 		var bullShit:Int = 0;
 
@@ -268,6 +319,7 @@ class PauseSubState extends MusicBeatSubstate
 			item.targetY = i;
 			grpMenuShit.add(item);
 		}
+
 		curSelected = 0;
 		changeSelection();
 	}

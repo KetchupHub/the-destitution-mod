@@ -51,8 +51,8 @@ class LoadingState extends MusicBeatState
         MemoryUtil.compact();
 
 		funkay = new FlxSprite(0, 0).loadGraphic(Paths.image("loading/funkay"));
-		funkay.setGraphicSize(FlxG.width, FlxG.height);
-		funkay.updateHitbox();
+        funkay.scale.set(2, 2);
+        funkay.updateHitbox();
 		add(funkay);
 		funkay.scrollFactor.set();
 		funkay.screenCenter();
@@ -64,7 +64,7 @@ class LoadingState extends MusicBeatState
 		#if DEVELOPERBUILD
 		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 		add(versionShit);
 		#end
 		

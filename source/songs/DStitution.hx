@@ -155,7 +155,7 @@ class DStitution extends SongClass
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
-                PlayState.instance.dad = new Character(0, 0, 'd-ili', false, false);
+                PlayState.instance.dad = new Character(0, 196, 'd-ili', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
@@ -179,6 +179,11 @@ class DStitution extends SongClass
                 PlayState.instance.dad.visible = true;
                 FlxG.camera.flash();
 
+                PlayState.instance.defaultCamZoom -= 0.15;
+                FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, Conductor.crochet / 250, {ease: FlxEase.smootherStepOut});
+
+                FlxTween.tween(PlayState.instance.boyfriend, {y: PlayState.instance.boyfriend.y + 136}, Conductor.crochet / 250, {ease: FlxEase.backOut});
+
                 PlayState.instance.sky.loadGraphic(Paths.image('dsides/iliSky'));
                 PlayState.instance.backing.loadGraphic(Paths.image('dsides/iliBacking'));
                 PlayState.instance.starting.loadGraphic(Paths.image('dsides/iliRoom'));
@@ -186,10 +191,52 @@ class DStitution extends SongClass
                 PlayState.instance.sectionIntroThing("I LIEK ITEM");
 
                 Paths.clearUnusedMemory();
+            case 1120:
+                PlayState.instance.chefCurtains.visible = true;
+                PlayState.instance.chefCurtains.active = true;
+                FlxTween.tween(PlayState.instance.chefCurtains, {y: PlayState.instance.sky.y}, Conductor.crochet / 500, {ease: FlxEase.quadOut});
+                PlayState.instance.chefCurtains.meshVelocity.x = PlayState.instance.chefCurtains.maxVelocity.x;
+                PlayState.instance.chefCurtains.meshVelocity.y = PlayState.instance.chefCurtains.maxVelocity.y;
+            case 1124:
+                PlayState.instance.chefBanner.visible = true;
+                FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.sky.y}, Conductor.crochet / 1000, {ease: FlxEase.smootherStepOut});
+            case 1128:
+                PlayState.instance.swingSec = false;
+                PlayState.instance.chefTable.visible = true;
+                FlxTween.tween(PlayState.instance.chefTable, {y: PlayState.instance.sky.y}, Conductor.crochet / 500, {ease: FlxEase.backInOut});
+                PlayState.instance.dad.canDance = false;
+                PlayState.instance.dad.canSing = false;
+                PlayState.instance.dad.playAnim('chef', true);
+                FlxG.camera.flash();
+            case 1192:
+                PlayState.instance.defaultCamZoom += 0.2;
+            case 1256:
+                PlayState.instance.defaultCamZoom -= 0.05;
+                PlayState.instance.dad.canDance = true;
+                PlayState.instance.dad.canSing = true;
+                PlayState.instance.dad.dance();
+                PlayState.instance.chefCurtains.active = false;
+                PlayState.instance.chefTable.visible = false;
+                PlayState.instance.chefBanner.visible = false;
+                PlayState.instance.chefCurtains.visible = false;
+                PlayState.instance.chefTable.destroy();
+                PlayState.instance.chefBanner.destroy();
+                PlayState.instance.chefCurtains.destroy();
+                FlxG.camera.flash();
+            case 1260:
+                PlayState.instance.swingSec = true;
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 1264:
+                FlxG.camera.flash();
+                PlayState.instance.defaultCamZoom -= 0.1;
+                Paths.clearUnusedMemory();
             case 1336:
                 FlxG.camera.flash();
 
                 PlayState.instance.swingSec = false;
+
+                PlayState.instance.defaultCamZoom += 0.15;
+                FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, 1, {ease: FlxEase.smootherStepOut});
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();

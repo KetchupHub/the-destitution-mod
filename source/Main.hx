@@ -96,7 +96,7 @@ class Main extends Sprite
 		game.skipSplash,
 		game.startFullscreen));
 
-		#if !mobile
+		#if !SHOWCASEVIDEO
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 
