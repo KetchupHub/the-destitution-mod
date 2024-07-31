@@ -2,8 +2,8 @@
 	"animations": [
 		{
 			"offsets": [
-				-100,
-				-20
+				0,
+				0
 			],
 			"loop": false,
 			"anim": "singLEFT",
@@ -13,8 +13,8 @@
 		},
 		{
 			"offsets": [
-				-100,
-				-20
+				0,
+				0
 			],
 			"loop": false,
 			"anim": "singDOWN",
@@ -24,8 +24,8 @@
 		},
 		{
 			"offsets": [
-				-100,
-				-20
+				0,
+				0
 			],
 			"loop": false,
 			"anim": "singUP",
@@ -35,8 +35,8 @@
 		},
 		{
 			"offsets": [
-				-100,
-				-20
+				0,
+				0
 			],
 			"loop": false,
 			"anim": "singRIGHT",
@@ -46,8 +46,8 @@
 		},
 		{
 			"offsets": [
-				-100,
-				-20
+				0,
+				0
 			],
 			"loop": true,
 			"anim": "idle",
@@ -57,21 +57,65 @@
 		},
 		{
 			"offsets": [
-				-100,
-				-20
+				0,
+				0
 			],
 			"loop": false,
-			"anim": "scared",
+			"anim": "singLEFT-alt",
 			"fps": 24,
-			"name": "scared",
+			"name": "altleft",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "singDOWN-alt",
+			"fps": 24,
+			"name": "altdown",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "singUP-alt",
+			"fps": 24,
+			"name": "altup",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "singRIGHT-alt",
+			"fps": 24,
+			"name": "altright",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": true,
+			"anim": "idle-alt",
+			"fps": 24,
+			"name": "altidle",
 			"indices": []
 		}
 	],
 	"no_antialiasing": true,
-	"image": "characters/destitution/misteh_crypteh",
+	"image": "characters/dsides/maestro",
 	"position": [
-		40,
-		70
+		0,
+		0
 	],
 	"healthicon": "maestro",
 	"flip_x": false,
@@ -81,9 +125,9 @@
 		0
 	],
 	"camera_position": [
-		-480,
-		-400
+		0,
+		0
 	],
 	"sing_duration": 15,
-	"scale": 1.6
+	"scale": 2
 }
