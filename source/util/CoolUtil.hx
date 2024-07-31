@@ -1,5 +1,6 @@
 package util;
 
+import openfl.display.Bitmap;
 import flixel.math.FlxRandom;
 import util.macro.GitCommit;
 import flixel.FlxSprite;
@@ -22,6 +23,8 @@ class CoolUtil
 	public static var gitCommitBranch:String = GitCommit.getGitBranch();
 
 	public static var gitCommitHash:String = GitCommit.getGitCommitHash();
+
+	public static var lastStateScreenShot:Bitmap;
 
 	//using the same FlxRandom for everything can cause a lot of predictability so im not doing that anymore
 

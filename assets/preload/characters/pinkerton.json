@@ -120,13 +120,13 @@
 	"healthicon": "pinkerton",
 	"flip_x": false,
 	"healthbar_colors": [
-		206,
-		163,
-		61
+		55,
+		43,
+		48
 	],
 	"camera_position": [
-		20,
-		30
+		0,
+		0
 	],
 	"sing_duration": 15,
 	"scale": 1

@@ -3239,6 +3239,9 @@ class PlayState extends MusicBeatState
 			WeekData.loadTheFirstEnabledMod();
 			cancelMusicFadeTween();
 
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+
 			if(FlxTransitionableState.skipNextTransIn)
 			{
 				CustomFadeTransition.nextCamera = null;

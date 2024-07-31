@@ -2,8 +2,8 @@
 	"animations": [
 		{
 			"offsets": [
-				766,
-				-1
+				0,
+				0
 			],
 			"loop": false,
 			"anim": "singLEFT",
@@ -13,7 +13,7 @@
 		},
 		{
 			"offsets": [
-				104,
+				0,
 				0
 			],
 			"loop": false,
@@ -24,8 +24,8 @@
 		},
 		{
 			"offsets": [
-				117,
-				381
+				0,
+				0
 			],
 			"loop": false,
 			"anim": "singUP",
@@ -35,7 +35,7 @@
 		},
 		{
 			"offsets": [
-				105,
+				0,
 				0
 			],
 			"loop": false,
@@ -59,19 +59,19 @@
 	"no_antialiasing": true,
 	"image": "characters/destitution/rules_guy",
 	"position": [
-		-30,
-		230
+		0,
+		0
 	],
 	"healthicon": "irules",
 	"flip_x": false,
 	"healthbar_colors": [
-		237,
-		147,
-		98
+		204,
+		138,
+		68
 	],
 	"camera_position": [
-		-170,
-		-990
+		0,
+		0
 	],
 	"sing_duration": 15,
 	"scale": 1

@@ -1,5 +1,6 @@
 package states;
 
+import flixel.graphics.FlxGraphic;
 import visuals.ColorSwap;
 import backend.Highscore;
 import backend.PlayerSettings;
@@ -260,6 +261,19 @@ class TitleState extends MusicBeatState
 		tppLogo.visible = false;
 		add(tppLogo);
 
+		var transThing:FlxSprite = new FlxSprite();
+
+		if(CoolUtil.lastStateScreenShot != null)
+		{
+			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
+			add(transThing);
+			FlxTween.tween(transThing, {alpha: 0}, 0.35, {startDelay: 0.05, ease: FlxEase.sineOut, onComplete: function transThingDiesIrl(stupidScr:FlxTween)
+			{
+				transThing.visible = false;
+				transThing.destroy();
+			}});
+		}
+
 		if (initialized)
 		{
 			skipIntro();
@@ -351,13 +365,16 @@ class TitleState extends MusicBeatState
 					
 				if(pressedEnter)
 				{
-					FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF);
+					//FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF);
 					FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 		
 					transitioning = true;
 		
 					new FlxTimer().start(1, function(tmr:FlxTimer)
 					{
+						FlxTransitionableState.skipNextTransIn = true;
+						FlxTransitionableState.skipNextTransOut = true;
+
 						MusicBeatState.switchState(new MainMenuState());
 		
 						closedState = true;
@@ -523,7 +540,7 @@ class TitleState extends MusicBeatState
 			remove(tppLogo);
 			remove(credGroup);
 
-			FlxG.camera.flash();
+			//FlxG.camera.flash();
 
 			skippedIntro = true;
 		}

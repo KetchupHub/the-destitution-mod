@@ -1,5 +1,9 @@
 package states;
 
+import lime.math.Rectangle;
+import openfl.display.BitmapData;
+import openfl.display.Bitmap;
+import util.CoolUtil;
 import backend.ClientPrefs;
 import ui.CustomFadeTransition;
 import backend.PlayerSettings;
@@ -26,7 +30,9 @@ class MusicBeatState extends FlxUIState
 	public static var camBeat:FlxCamera;
 
 	inline function get_controls():Controls
+	{
 		return PlayerSettings.player1.controls;
+	}
 
 	override function create()
 	{
@@ -54,19 +60,27 @@ class MusicBeatState extends FlxUIState
 		if (oldStep != curStep)
 		{
 			if(curStep > 0)
+			{
 				stepHit();
+			}
 
 			if(PlayState.SONG != null)
 			{
 				if (oldStep < curStep)
+				{
 					updateSection();
+				}
 				else
+				{
 					rollbackSection();
+				}
 			}
 		}
 
 		if(FlxG.save.data != null)
+		{
 			FlxG.save.data.fullscreen = FlxG.fullscreen;
+		}
 
 		super.update(elapsed);
 	}
@@ -74,13 +88,18 @@ class MusicBeatState extends FlxUIState
 	private function updateSection():Void
 	{
 		if(stepsToDo < 1)
+		{
 			stepsToDo = Math.round(getBeatsOnSection() * 4);
+		}
 
 		while(curStep >= stepsToDo)
 		{
 			curSection++;
+
 			var beats:Float = getBeatsOnSection();
+
 			stepsToDo += Math.round(beats * 4);
+
 			sectionHit();
 		}
 	}
@@ -88,9 +107,12 @@ class MusicBeatState extends FlxUIState
 	private function rollbackSection():Void
 	{
 		if(curStep < 0)
+		{
 			return;
+		}
 
 		var lastSection:Int = curSection;
+
 		curSection = 0;
 		stepsToDo = 0;
 
@@ -101,13 +123,18 @@ class MusicBeatState extends FlxUIState
 				stepsToDo += Math.round(getBeatsOnSection() * 4);
 
 				if(stepsToDo > curStep)
+				{
 					break;
+				}
 				
 				curSection++;
 			}
 		}
 
-		if(curSection > lastSection) sectionHit();
+		if(curSection > lastSection)
+		{
+			sectionHit();
+		}
 	}
 
 	private function updateBeat():Void
@@ -127,9 +154,11 @@ class MusicBeatState extends FlxUIState
 
 	public static function switchState(nextState:FlxState)
 	{
-		// Custom made Trans in
+		gameStateScreenshot();
+
 		var curState:Dynamic = FlxG.state;
 		var leState:MusicBeatState = curState;
+
 		if(!FlxTransitionableState.skipNextTransIn)
 		{
 			leState.openSubState(new CustomFadeTransition(0.6, false));
@@ -148,15 +177,30 @@ class MusicBeatState extends FlxUIState
 					FlxG.switchState(()->nextState);
 				};
 			}
+
 			return;
 		}
+
 		FlxTransitionableState.skipNextTransIn = false;
+
 		FlxG.switchState(()->nextState);
 	}
 
 	public static function resetState()
 	{
+		gameStateScreenshot();
 		FlxG.resetState();
+	}
+
+	public static function gameStateScreenshot()
+	{
+		#if DEVELOPERBUILD
+        var perf = new Perf("MusicBeatState gameStateScreenshot()");
+		#end
+		CoolUtil.lastStateScreenShot = new Bitmap(BitmapData.fromImage(FlxG.stage.window.readPixels(new Rectangle(0, 0, FlxG.stage.stageWidth, FlxG.stage.stageHeight))));
+		#if DEVELOPERBUILD
+		perf.print();
+		#end
 	}
 
 	public static function getState():MusicBeatState
@@ -170,7 +214,9 @@ class MusicBeatState extends FlxUIState
 	public function stepHit():Void
 	{
 		if (curStep % 4 == 0)
+		{
 			beatHit();
+		}
 	}
 
 	public function beatHit():Void
@@ -188,7 +234,9 @@ class MusicBeatState extends FlxUIState
 		var val:Null<Float> = 4;
 
 		if(PlayState.SONG != null && PlayState.SONG.notes[curSection] != null)
+		{
 			val = PlayState.SONG.notes[curSection].sectionBeats;
+		}
 
 		return val == null ? 4 : val;
 	}

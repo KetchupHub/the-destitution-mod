@@ -81,6 +81,8 @@ class FlashingState extends MusicBeatState
 					{
 						new FlxTimer().start(0.5, function (tmr:FlxTimer)
 						{
+							FlxTransitionableState.skipNextTransIn = false;
+							FlxTransitionableState.skipNextTransOut = false;
 							MusicBeatState.switchState(new TitleState());
 						});
 					});
@@ -96,6 +98,8 @@ class FlashingState extends MusicBeatState
 					{
 						onComplete: function (twn:FlxTween)
 						{
+							FlxTransitionableState.skipNextTransIn = false;
+							FlxTransitionableState.skipNextTransOut = false;
 							MusicBeatState.switchState(new TitleState());
 						}
 					});

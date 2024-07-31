@@ -1,5 +1,6 @@
 package states;
 
+import flixel.addons.transition.FlxTransitionableState;
 import util.MemoryUtil;
 import backend.StageData;
 import util.CoolUtil;
@@ -133,6 +134,8 @@ class LoadingState extends MusicBeatState
 		if (stopMusic && FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 		
+		FlxTransitionableState.skipNextTransIn = false;
+		FlxTransitionableState.skipNextTransOut = false;
 		MusicBeatState.switchState(target);
 	}
 	

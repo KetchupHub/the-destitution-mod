@@ -240,6 +240,9 @@ class PauseSubState extends MusicBeatSubstate
 
 					WeekData.loadTheFirstEnabledMod();
 
+					FlxTransitionableState.skipNextTransIn = true;
+					FlxTransitionableState.skipNextTransOut = true;
+
 					MusicBeatState.switchState(new FreeplayState());
 
 					PlayState.cancelMusicFadeTween();

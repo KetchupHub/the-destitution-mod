@@ -1,5 +1,6 @@
 package states;
 
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.sound.FlxSound;
 import util.MemoryUtil;
 import backend.WeekData;
@@ -125,6 +126,9 @@ class GameOverSubstate extends MusicBeatSubstate
 
 			WeekData.loadTheFirstEnabledMod();
 
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+
 			MusicBeatState.switchState(new MainMenuState());
 
 			FlxG.sound.playMusic(Paths.music('mus_pauperized'));
@@ -176,6 +180,8 @@ class GameOverSubstate extends MusicBeatSubstate
 			{
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
 				{
+					FlxTransitionableState.skipNextTransIn = false;
+					FlxTransitionableState.skipNextTransOut = false;
 					MusicBeatState.switchState(new PlayState());
 				});
 			});

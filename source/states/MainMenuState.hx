@@ -1,5 +1,8 @@
 package states;
 
+import flixel.graphics.FlxGraphic;
+import flixel.system.FlxAssets.FlxGraphicAsset;
+import options.OptionsState;
 import backend.ClientPrefs;
 import backend.WeekData;
 import util.CoolUtil;
@@ -103,6 +106,19 @@ class MainMenuState extends MusicBeatState
 		magenta.color = 0xFFfd719b;
 		add(magenta);
 
+		var transThing:FlxSprite = new FlxSprite();
+
+		if(CoolUtil.lastStateScreenShot != null)
+		{
+			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
+			add(transThing);
+			FlxTween.tween(transThing, {alpha: 0}, 0.35, {startDelay: 0.05, ease: FlxEase.sineOut, onComplete: function transThingDiesIrl(stupidScr:FlxTween)
+			{
+				transThing.visible = false;
+				transThing.destroy();
+			}});
+		}
+
         funkay = new FlxSprite(0, 800).loadGraphic(Paths.image("mainmenu/mark_story_mode"));
 		funkay.antialiasing = ClientPrefs.globalAntialiasing;
         add(funkay);
@@ -185,6 +201,8 @@ class MainMenuState extends MusicBeatState
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
+				FlxTransitionableState.skipNextTransIn = true;
+				FlxTransitionableState.skipNextTransOut = true;
 				MusicBeatState.switchState(new TitleState());
 			}
 
@@ -234,11 +252,17 @@ class MainMenuState extends MusicBeatState
 							switch (daChoice)
 							{
 								case 'story_mode':
+									FlxTransitionableState.skipNextTransIn = true;
+									FlxTransitionableState.skipNextTransOut = true;
 									MusicBeatState.switchState(new FreeplayState());
 								case 'freeplay':
+									FlxTransitionableState.skipNextTransIn = true;
+									FlxTransitionableState.skipNextTransOut = true;
 									MusicBeatState.switchState(new FreeplayState());
 								case 'options':
-									LoadingState.loadAndSwitchState(new options.OptionsState());
+									FlxTransitionableState.skipNextTransIn = true;
+									FlxTransitionableState.skipNextTransOut = true;
+									LoadingState.loadAndSwitchState(new OptionsState());
 							}
 						});
 					}

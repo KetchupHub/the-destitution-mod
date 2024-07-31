@@ -1,5 +1,9 @@
 package states;
 
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.graphics.FlxGraphic;
+import flixel.addons.transition.FlxTransitionableState;
 import visuals.Character;
 import util.CoolUtil;
 import util.MemoryUtil;
@@ -59,6 +63,19 @@ class LoadScreenPreloadGah extends MusicBeatState
         funkay.updateHitbox();
         add(funkay);
 
+        var transThing:FlxSprite = new FlxSprite();
+
+		if(CoolUtil.lastStateScreenShot != null)
+		{
+			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
+            add(transThing);
+			FlxTween.tween(transThing, {alpha: 0}, 0.35, {ease: FlxEase.sineOut, onComplete: function transThingDiesIrl(stupidScr:FlxTween)
+            {
+                transThing.visible = false;
+                transThing.destroy();
+            }});
+		}
+
         switch(PlayState.SONG.song.toLowerCase())
         {
             case 'destitution':
@@ -111,6 +128,8 @@ class LoadScreenPreloadGah extends MusicBeatState
         if(escHoldTimer >= 1.5)
         {
             startedSwitching = true;
+            FlxTransitionableState.skipNextTransIn = true;
+            FlxTransitionableState.skipNextTransOut = true;
             MusicBeatState.switchState(new MainMenuState());
         }
 
@@ -139,6 +158,8 @@ class LoadScreenPreloadGah extends MusicBeatState
             else if(finishedPreloading && loadCooldown >= 0)
             {
                 startedSwitching = true;
+                FlxTransitionableState.skipNextTransIn = false;
+                FlxTransitionableState.skipNextTransOut = false;
                 MusicBeatState.switchState(new PlayState());
             }
         }
