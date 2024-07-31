@@ -103,8 +103,8 @@
 	"no_antialiasing": true,
 	"image": "characters/destitution/ploinky_bf",
 	"position": [
-		-200,
-		-100
+		-208,
+		-96
 	],
 	"healthicon": "bf",
 	"flip_x": true,
@@ -114,8 +114,8 @@
 		163
 	],
 	"camera_position": [
-		320,
-		-80
+		324,
+		-84
 	],
 	"sing_duration": 15,
 	"scale": 1,

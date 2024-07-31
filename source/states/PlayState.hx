@@ -715,6 +715,7 @@ class PlayState extends MusicBeatState
 				karmScaredy.frames = Paths.getSparrowAtlas("dsides/karm_scaredy");
 				karmScaredy.animation.addByPrefix("idle", "idle", 24, false);
 				karmScaredy.animation.play("idle", true);
+				karmScaredy.scrollFactor.set(0.9, 0.9);
 				add(karmScaredy);
 				karmScaredy.visible = false;
 
@@ -723,6 +724,7 @@ class PlayState extends MusicBeatState
 				chefTable.updateHitbox();
 				chefTable.antialiasing = false;
 				chefTable.screenCenter();
+				chefTable.scrollFactor.set(2, 0.25);
 				chefTable.y -= 4000;
 
 				chefBanner = new FlxSprite().loadGraphic(Paths.image('dsides/chefBanner'));
@@ -730,22 +732,26 @@ class PlayState extends MusicBeatState
 				chefBanner.updateHitbox();
 				chefBanner.antialiasing = false;
 				chefBanner.screenCenter();
+				chefBanner.scrollFactor.set(1.5, 0.5);
 				chefBanner.y -= 4000;
 
 				chefCurtains = new FlxClothSprite();
 				chefCurtains.loadGraphic(Paths.image('dsides/chefCurtains'));
-				chefCurtains.x = sky.x;
-				chefCurtains.y = sky.y;
 				chefCurtains.scale.set(4, 4);
 				chefCurtains.meshScale.set(4, 4);
 				chefCurtains.setMesh(16, 16, 0, 0, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
 				chefCurtains.iterations = 8;
-				chefCurtains.maxVelocity.set(200, 200);
+				chefCurtains.maxVelocity.set(50, 50);
 				chefCurtains.meshVelocity.x = 50;
 				chefCurtains.meshVelocity.y = 50;
 				chefCurtains.updateHitbox();
 				chefCurtains.antialiasing = false;
+				chefCurtains.screenCenter();
+				chefCurtains.x -= 512;
+				chefCurtains.y -= 648;
+				chefCurtains.scrollFactor.set(0.05, 0.05);
 				chefCurtains.y -= 4000;
+
 
 				lightningStrikes = new FlxSprite().makeGraphic(1, 1, FlxColor.fromRGB(255, 241, 185));
 				lightningStrikes.scale.set(5000, 5000);
@@ -757,12 +763,14 @@ class PlayState extends MusicBeatState
 				}
 
 				lightningStrikes.screenCenter();
+				lightningStrikes.scrollFactor.set();
 				lightningStrikes.alpha = 0;
 
 				funnyBgColors = new FlxSprite().makeGraphic(1, 1, FlxColor.WHITE);
 				funnyBgColors.scale.set(FlxG.width * 3, FlxG.width * 3);
 				funnyBgColors.updateHitbox();
 				funnyBgColors.screenCenter();
+				funnyBgColors.scrollFactor.set();
 				add(funnyBgColors);
 				funnyBgColors.alpha = 0;
 				funnyBgColors.color = FlxColor.BLACK;
@@ -4093,8 +4101,8 @@ class PlayState extends MusicBeatState
 		{
 			if(chefCurtains.active)
 			{
-				chefCurtains.meshVelocity.x += CoolUtil.randomVisuals.float(-50, 50);
-				chefCurtains.meshVelocity.y += CoolUtil.randomVisuals.float(-50, 50);
+				chefCurtains.meshVelocity.x += CoolUtil.randomVisuals.float(-12.5, 12.5);
+				chefCurtains.meshVelocity.y += CoolUtil.randomVisuals.float(0, 12.5);
 			}
 		}
 
@@ -4171,8 +4179,8 @@ class PlayState extends MusicBeatState
 		{
 			if(chefCurtains.active)
 			{
-				chefCurtains.meshVelocity.x += CoolUtil.randomVisuals.float(-200, chefCurtains.maxVelocity.x);
-				chefCurtains.meshVelocity.y += CoolUtil.randomVisuals.float(-200, chefCurtains.maxVelocity.y);
+				chefCurtains.meshVelocity.x += CoolUtil.randomVisuals.float(-40, 40);
+				chefCurtains.meshVelocity.y += CoolUtil.randomVisuals.float(0, 40);
 			}
 		}
 	}

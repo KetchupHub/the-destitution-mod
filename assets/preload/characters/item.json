@@ -71,7 +71,7 @@
 	"image": "characters/destitution/i_liek_item",
 	"position": [
 		0,
-		40
+		48
 	],
 	"healthicon": "item",
 	"flip_x": false,
@@ -81,8 +81,8 @@
 		153
 	],
 	"camera_position": [
-		-700,
-		-100
+		-696,
+		-96
 	],
 	"sing_duration": 15,
 	"scale": 1.5

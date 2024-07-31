@@ -114,8 +114,8 @@
 	"no_antialiasing": true,
 	"image": "characters/destitution/mark_bf_item",
 	"position": [
-		-330,
-		-180
+		-332,
+		-182
 	],
 	"healthicon": "bf",
 	"flip_x": true,
@@ -125,7 +125,7 @@
 		163
 	],
 	"camera_position": [
-		-340,
+		-348,
 		0
 	],
 	"sing_duration": 15,

@@ -155,7 +155,7 @@ class DStitution extends SongClass
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
-                PlayState.instance.dad = new Character(0, 196, 'd-ili', false, false);
+                PlayState.instance.dad = new Character(64, 196, 'd-ili', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
@@ -203,7 +203,7 @@ class DStitution extends SongClass
             case 1128:
                 PlayState.instance.swingSec = false;
                 PlayState.instance.chefTable.visible = true;
-                FlxTween.tween(PlayState.instance.chefTable, {y: PlayState.instance.sky.y}, Conductor.crochet / 500, {ease: FlxEase.backInOut});
+                FlxTween.tween(PlayState.instance.chefTable, {y: PlayState.instance.sky.y + 64}, Conductor.crochet / 500, {ease: FlxEase.backInOut});
                 PlayState.instance.dad.canDance = false;
                 PlayState.instance.dad.canSing = false;
                 PlayState.instance.dad.playAnim('chef', true);

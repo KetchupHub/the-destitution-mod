@@ -103,8 +103,8 @@
 	"no_antialiasing": false,
 	"image": "characters/nopeboy_2d",
 	"position": [
-		50,
-		270
+		48,
+		264
 	],
 	"healthicon": "bf",
 	"flip_x": true,
@@ -114,8 +114,8 @@
 		163
 	],
 	"camera_position": [
-		170,
-		20
+		164,
+		24
 	],
 	"sing_duration": 15,
 	"scale": 1,

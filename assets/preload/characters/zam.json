@@ -70,8 +70,8 @@
 	"no_antialiasing": true,
 	"image": "characters/destitution/zamboni_guy",
 	"position": [
-		40,
-		70
+		48,
+		64
 	],
 	"healthicon": "zam",
 	"flip_x": false,
@@ -81,8 +81,8 @@
 		255
 	],
 	"camera_position": [
-		-150,
-		-60
+		-148,
+		-64
 	],
 	"sing_duration": 4,
 	"scale": 1

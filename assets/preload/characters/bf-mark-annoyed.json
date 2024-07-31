@@ -103,8 +103,8 @@
 	"no_antialiasing": true,
 	"image": "characters/destitution/mark_annoyed_bf",
 	"position": [
-		-50,
-		40
+		-52,
+		48
 	],
 	"healthicon": "bf",
 	"flip_x": true,
@@ -114,8 +114,8 @@
 		163
 	],
 	"camera_position": [
-		220,
-		-30
+		224,
+		-32
 	],
 	"sing_duration": 15,
 	"scale": 1.3,

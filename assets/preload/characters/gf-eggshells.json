@@ -49,8 +49,8 @@
 	"no_antialiasing": true,
 	"image": "characters/girlspeaks",
 	"position": [
-		160,
-		210
+		164,
+		212
 	],
 	"healthicon": "gf",
 	"flip_x": false,

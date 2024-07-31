@@ -103,8 +103,8 @@
 	"no_antialiasing": true,
 	"image": "characters/destitution/zamboni_b",
 	"position": [
-		20,
-		30
+		24,
+		32
 	],
 	"healthicon": "bf",
 	"flip_x": true,
@@ -114,8 +114,8 @@
 		163
 	],
 	"camera_position": [
-		100,
-		-30
+		96,
+		-32
 	],
 	"sing_duration": 15,
 	"scale": 1.5,
