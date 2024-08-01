@@ -33,25 +33,28 @@ class Song
 	public var notes:Array<SwagSection>;
 	public var events:Array<Dynamic>;
 	public var bpm:Float;
-	public var arrowSkin:String;
-	public var splashSkin:String;
 	public var speed:Float = 1;
-	public var stage:String;
+	
 	public var player1:String = 'bf';
 	public var player2:String = 'mark';
 	public var gfVersion:String = 'gf';
+	public var stage:String;
+
+	public var arrowSkin:String;
+	public var splashSkin:String;
+
 	public var composer:String = 'Cynda';
 	public var charter:String = 'Cynda';
 
 	private static function onLoadJson(songJson:Dynamic)
 	{
-		if(songJson.gfVersion == null)
+		if (songJson.gfVersion == null)
 		{
 			songJson.gfVersion = songJson.player3;
 			songJson.player3 = null;
 		}
 
-		if(songJson.events == null)
+		if (songJson.events == null)
 		{
 			songJson.events = [];
 
@@ -62,17 +65,21 @@ class Song
 				var i:Int = 0;
 				var notes:Array<Dynamic> = sec.sectionNotes;
 				var len:Int = notes.length;
-				while(i < len)
+
+				while (i < len)
 				{
 					var note:Array<Dynamic> = notes[i];
 
-					if(note[1] < 0)
+					if (note[1] < 0)
 					{
 						songJson.events.push([note[0], [[note[2], note[3], note[4]]]]);
 						notes.remove(note);
 						len = notes.length;
 					}
-					else i++;
+					else
+					{
+						i++;
+					}
 				}
 			}
 		}
@@ -88,11 +95,10 @@ class Song
 	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong
 	{
 		var rawJson = null;
-		
 		var formattedFolder:String = Paths.formatToSongPath(folder);
 		var formattedSong:String = Paths.formatToSongPath(jsonInput);
 
-		if(rawJson == null)
+		if (rawJson == null)
 		{
 			#if sys
 			rawJson = File.getContent(Paths.json('charts/' + formattedSong)).trim();
@@ -121,6 +127,7 @@ class Song
 	public static function parseJSONshit(rawJson:String):SwagSong
 	{
 		var swagShit:SwagSong = cast Json.parse(rawJson).song;
+
 		return swagShit;
 	}
 }

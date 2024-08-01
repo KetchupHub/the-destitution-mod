@@ -27,7 +27,7 @@ class StageData
 	{
 		var stage:String = '';
 
-		if(SONG.stage != null)
+		if (SONG.stage != null)
 		{
 			stage = SONG.stage;
 		}
@@ -45,7 +45,7 @@ class StageData
 
 		var path:String = Paths.getPreloadPath('stages/' + stage + '.json');
 
-		if(Assets.exists(path))
+		if (Assets.exists(path))
 		{
 			rawJson = Assets.getText(path);
 		}

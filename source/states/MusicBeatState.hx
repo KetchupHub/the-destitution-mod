@@ -152,9 +152,12 @@ class MusicBeatState extends FlxUIState
 		curStep = lastChange.stepTime + Math.floor(shit);
 	}
 
-	public static function switchState(nextState:FlxState)
+	public static function switchState(nextState:FlxState, libraryToLoad:String = 'rhythm')
 	{
 		gameStateScreenshot();
+
+		//loading state used to do this with load and switch state. but, we don't need the rest of the functionality from loadingstate, and having a whole state for just this one function call is fucking stupid, so
+		Paths.setCurrentLevel(libraryToLoad);
 
 		var curState:Dynamic = FlxG.state;
 		var leState:MusicBeatState = curState;

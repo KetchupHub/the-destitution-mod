@@ -67,7 +67,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.onChange = onChangeHitsoundVolume;
 
 		var option:Option = new Option('Rating Offset',
-			'Changes how late/early you have to hit for a "Sick!"\nHigher values mean you have to hit later.',
+			'Changes how late/early you have to hit for a "Synergy!"\nHigher values mean you have to hit later.',
 			'ratingOffset',
 			'int',
 			0);
@@ -78,8 +78,8 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		addOption(option);
 
 		var option:Option = new Option('Sick! Hit Window',
-			'Changes the amount of time you have\nfor hitting a "Sick!" in milliseconds.',
-			'sickWindow',
+			'Changes the amount of time you have\nfor hitting a "Synergy!" in milliseconds.',
+			'synergyWindow',
 			'int',
 			45);
 		option.displayFormat = '%vms';
@@ -99,9 +99,9 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.maxValue = 90;
 		addOption(option);
 
-		var option:Option = new Option('Bad Hit Window',
-			'Changes the amount of time you have\nfor hitting a "Bad" in milliseconds.',
-			'badWindow',
+		var option:Option = new Option('Egh Hit Window',
+			'Changes the amount of time you have\nfor hitting a "Egh" in milliseconds.',
+			'eghWindow',
 			'int',
 			135);
 		option.displayFormat = '%vms';

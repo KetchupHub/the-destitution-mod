@@ -19,8 +19,6 @@ class ClientPrefs
 	public static var lowQuality:Bool = false;
 	public static var shaders:Bool = true;
 	public static var framerate:Int = 240;
-	public static var cursing:Bool = true;
-	public static var violence:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
 	public static var noteOffset:Int = 0;
@@ -29,11 +27,10 @@ class ClientPrefs
 	public static var timeBarType:String = 'Time Left';
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
-	public static var healthBarAlpha:Float = 1;
 	public static var controllerMode:Bool = false;
 	public static var hitsoundVolume:Float = 0;
-	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = false;
+
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -48,14 +45,12 @@ class ClientPrefs
 
 	public static var comboOffset:Array<Int> = [0, 0, 0, 0];
 	public static var ratingOffset:Int = 0;
-	public static var sickWindow:Int = 45;
+	public static var synergyWindow:Int = 45;
 	public static var goodWindow:Int = 90;
-	public static var badWindow:Int = 135;
+	public static var eghWindow:Int = 135;
 	public static var safeFrames:Float = 10;
 
-	//Every key has two binds, add your key bind down here and then add your control on options/ControlsSubState.hx and Controls.hx
 	public static var keyBinds:Map<String, Array<FlxKey>> = [
-		//Key Bind, Name for ControlsSubState
 		'note_left'		=> [A, LEFT],
 		'note_down'		=> [S, DOWN],
 		'note_up'		=> [W, UP],
@@ -106,74 +101,82 @@ class ClientPrefs
 		FlxG.save.data.timeBarType = timeBarType;
 		FlxG.save.data.scoreZoom = scoreZoom;
 		FlxG.save.data.noReset = noReset;
-		FlxG.save.data.healthBarAlpha = healthBarAlpha;
 		FlxG.save.data.comboOffset = comboOffset;
 		FlxG.save.data.ratingOffset = ratingOffset;
-		FlxG.save.data.sickWindow = sickWindow;
+		FlxG.save.data.synergyWindow = synergyWindow;
 		FlxG.save.data.goodWindow = goodWindow;
-		FlxG.save.data.badWindow = badWindow;
+		FlxG.save.data.eghWindow = eghWindow;
 		FlxG.save.data.safeFrames = safeFrames;
 		FlxG.save.data.gameplaySettings = gameplaySettings;
 		FlxG.save.data.controllerMode = controllerMode;
 		FlxG.save.data.hitsoundVolume = hitsoundVolume;
-		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
 	
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
-		save.bind('controls', CoolUtil.getSavePath()); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
+		save.bind('controls', CoolUtil.getSavePath());
 		save.data.customControls = keyBinds;
 		save.flush();
-		FlxG.log.add("Settings saved!");
 	}
 
 	public static function loadPrefs()
 	{
-		if(FlxG.save.data.downScroll != null)
+		if (FlxG.save.data.downScroll != null)
 		{
 			downScroll = FlxG.save.data.downScroll;
 		}
-		if(FlxG.save.data.middleScroll != null)
+
+		if (FlxG.save.data.middleScroll != null)
 		{
 			middleScroll = FlxG.save.data.middleScroll;
 		}
-		if(FlxG.save.data.opponentStrums != null)
+
+		if (FlxG.save.data.opponentStrums != null)
 		{
 			opponentStrums = FlxG.save.data.opponentStrums;
 		}
-		if(FlxG.save.data.showFPS != null)
+
+		if (FlxG.save.data.showFPS != null)
 		{
 			showFPS = FlxG.save.data.showFPS;
-			if(Main.fpsVar != null)
+
+			if (Main.fpsVar != null)
 			{
 				Main.fpsVar.visible = showFPS;
 			}
 		}
-		if(FlxG.save.data.flashing != null)
+
+		if (FlxG.save.data.flashing != null)
 		{
 			flashing = FlxG.save.data.flashing;
 		}
-		if(FlxG.save.data.globalAntialiasing != null)
+
+		if (FlxG.save.data.globalAntialiasing != null)
 		{
 			globalAntialiasing = FlxG.save.data.globalAntialiasing;
 		}
-		if(FlxG.save.data.noteSplashes != null)
+
+		if (FlxG.save.data.noteSplashes != null)
 		{
 			noteSplashes = FlxG.save.data.noteSplashes;
 		}
-		if(FlxG.save.data.lowQuality != null)
+
+		if (FlxG.save.data.lowQuality != null)
 		{
 			lowQuality = FlxG.save.data.lowQuality;
 		}
-		if(FlxG.save.data.shaders != null)
+
+		if (FlxG.save.data.shaders != null)
 		{
 			shaders = FlxG.save.data.shaders;
 		}
-		if(FlxG.save.data.framerate != null)
+
+		if (FlxG.save.data.framerate != null)
 		{
 			framerate = FlxG.save.data.framerate;
-			if(framerate > FlxG.drawFramerate)
+
+			if (framerate > FlxG.drawFramerate)
 			{
 				FlxG.updateFramerate = framerate;
 				FlxG.drawFramerate = framerate;
@@ -184,94 +187,107 @@ class ClientPrefs
 				FlxG.updateFramerate = framerate;
 			}
 		}
-		if(FlxG.save.data.camZooms != null)
+
+		if (FlxG.save.data.camZooms != null)
 		{
 			camZooms = FlxG.save.data.camZooms;
 		}
-		if(FlxG.save.data.hideHud != null)
+
+		if (FlxG.save.data.hideHud != null)
 		{
 			hideHud = FlxG.save.data.hideHud;
 		}
-		if(FlxG.save.data.noteOffset != null)
+
+		if (FlxG.save.data.noteOffset != null)
 		{
 			noteOffset = FlxG.save.data.noteOffset;
 		}
-		if(FlxG.save.data.arrowHSV != null)
+
+		if (FlxG.save.data.arrowHSV != null)
 		{
 			arrowHSV = FlxG.save.data.arrowHSV;
 		}
-		if(FlxG.save.data.ghostTapping != null)
+
+		if (FlxG.save.data.ghostTapping != null)
 		{
 			ghostTapping = FlxG.save.data.ghostTapping;
 		}
-		if(FlxG.save.data.timeBarType != null)
+
+		if (FlxG.save.data.timeBarType != null)
 		{
 			timeBarType = FlxG.save.data.timeBarType;
 		}
-		if(FlxG.save.data.scoreZoom != null)
+
+		if (FlxG.save.data.scoreZoom != null)
 		{
 			scoreZoom = FlxG.save.data.scoreZoom;
 		}
-		if(FlxG.save.data.noReset != null)
+
+		if (FlxG.save.data.noReset != null)
 		{
 			noReset = FlxG.save.data.noReset;
 		}
-		if(FlxG.save.data.healthBarAlpha != null)
-		{
-			healthBarAlpha = FlxG.save.data.healthBarAlpha;
-		}
-		if(FlxG.save.data.comboOffset != null)
+
+		if (FlxG.save.data.comboOffset != null)
 		{
 			comboOffset = FlxG.save.data.comboOffset;
 		}
-		if(FlxG.save.data.ratingOffset != null)
+
+		if (FlxG.save.data.ratingOffset != null)
 		{
 			ratingOffset = FlxG.save.data.ratingOffset;
 		}
-		if(FlxG.save.data.sickWindow != null)
+
+		if (FlxG.save.data.synergyWindow != null)
 		{
-			sickWindow = FlxG.save.data.sickWindow;
+			synergyWindow = FlxG.save.data.synergyWindow;
 		}
-		if(FlxG.save.data.goodWindow != null)
+
+		if (FlxG.save.data.goodWindow != null)
 		{
 			goodWindow = FlxG.save.data.goodWindow;
 		}
-		if(FlxG.save.data.badWindow != null)
+
+		if (FlxG.save.data.eghWindow != null)
 		{
-			badWindow = FlxG.save.data.badWindow;
+			eghWindow = FlxG.save.data.eghWindow;
 		}
-		if(FlxG.save.data.safeFrames != null)
+
+		if (FlxG.save.data.safeFrames != null)
 		{
 			safeFrames = FlxG.save.data.safeFrames;
 		}
-		if(FlxG.save.data.controllerMode != null)
+
+		if (FlxG.save.data.controllerMode != null)
 		{
 			controllerMode = FlxG.save.data.controllerMode;
 		}
-		if(FlxG.save.data.hitsoundVolume != null)
+
+		if (FlxG.save.data.hitsoundVolume != null)
 		{
 			hitsoundVolume = FlxG.save.data.hitsoundVolume;
 		}
-		if(FlxG.save.data.gameplaySettings != null)
+
+		if (FlxG.save.data.gameplaySettings != null)
 		{
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;
+
 			for (name => value in savedMap)
 			{
 				gameplaySettings.set(name, value);
 			}
 		}
-		if(FlxG.save.data.volume != null)
+
+		if (FlxG.save.data.volume != null)
 		{
 			FlxG.sound.volume = FlxG.save.data.volume;
 		}
+
 		if (FlxG.save.data.mute != null)
 		{
 			FlxG.sound.muted = FlxG.save.data.mute;
 		}
-		if (FlxG.save.data.checkForUpdates != null)
-		{
-			checkForUpdates = FlxG.save.data.checkForUpdates;
-		}
+
 		if (FlxG.save.data.comboStacking != null)
 		{
 			comboStacking = FlxG.save.data.comboStacking;
@@ -281,13 +297,15 @@ class ClientPrefs
 
 		save.bind('controls', CoolUtil.getSavePath());
 
-		if(save != null && save.data.customControls != null)
+		if (save != null && save.data.customControls != null)
 		{
 			var loadedControls:Map<String, Array<FlxKey>> = save.data.customControls;
+
 			for (control => keys in loadedControls)
 			{
 				keyBinds.set(control, keys);
 			}
+
 			reloadControls();
 		}
 	}
@@ -300,9 +318,11 @@ class ClientPrefs
 	public static function reloadControls()
 	{
 		PlayerSettings.player1.controls.setKeyboardScheme(KeyboardScheme.Solo);
+
 		TitleState.muteKeys = copyKey(keyBinds.get('volume_mute'));
 		TitleState.volumeDownKeys = copyKey(keyBinds.get('volume_down'));
 		TitleState.volumeUpKeys = copyKey(keyBinds.get('volume_up'));
+
 		FlxG.sound.muteKeys = TitleState.muteKeys;
 		FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 		FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
@@ -316,13 +336,14 @@ class ClientPrefs
 
 		while (i < len)
 		{
-			if(copiedArray[i] == NONE)
+			if (copiedArray[i] == NONE)
 			{
 				copiedArray.remove(NONE);
 				--i;
 			}
 
 			i++;
+
 			len = copiedArray.length;
 		}
 

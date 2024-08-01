@@ -105,7 +105,6 @@ class FreeplayState extends MusicBeatState
 		enteringMenu = true;
 
 		bg = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.alpha = 0.35;
 		add(bg);
 		bg.screenCenter();
@@ -436,13 +435,13 @@ class FreeplayState extends MusicBeatState
 				{
 					FlxTransitionableState.skipNextTransIn = false;
 					FlxTransitionableState.skipNextTransOut = false;
-					LoadingState.loadAndSwitchState(new ChartingState());
+					MusicBeatState.switchState(new ChartingState());
 				}
 				else
 				{
 					FlxTransitionableState.skipNextTransIn = true;
 					FlxTransitionableState.skipNextTransOut = true;
-					LoadingState.loadAndSwitchState(new LoadScreenPreloadGah());
+					MusicBeatState.switchState(new LoadingScreenState());
 				}
 	
 				FlxG.sound.music.volume = 0;

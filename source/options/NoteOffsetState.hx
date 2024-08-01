@@ -1,5 +1,7 @@
 package options;
 
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.graphics.FlxGraphic;
 import util.CoolUtil;
 import util.MemoryUtil;
 import backend.Conductor;
@@ -95,7 +97,7 @@ class NoteOffsetState extends MusicBeatState
 		coolText.screenCenter();
 		coolText.x = FlxG.width * 0.35;
 
-		rating = new FlxSprite().loadGraphic(Paths.image('ui/ratings/sick'));
+		rating = new FlxSprite().loadGraphic(Paths.image('ui/ratings/synergy'));
 		rating.cameras = [camHUD];
 		rating.setGraphicSize(Std.int(rating.width * 0.7));
 		rating.updateHitbox();
@@ -184,6 +186,19 @@ class NoteOffsetState extends MusicBeatState
 		changeModeText.cameras = [camHUD];
 		add(changeModeText);
 		updateMode();
+
+		var transThing:FlxSprite = new FlxSprite();
+
+		if(CoolUtil.lastStateScreenShot != null)
+		{
+			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
+			add(transThing);
+			FlxTween.tween(transThing, {alpha: 0}, 0.35, {ease: FlxEase.sineOut, onComplete: function transThingDiesIrl(stupidScr:FlxTween)
+			{
+				transThing.visible = false;
+				transThing.destroy();
+			}});
+		}
 
 		Conductor.changeBPM(128.0);
 		FlxG.sound.playMusic(Paths.music('mus_neutral_drive'), 1, true);
@@ -346,6 +361,8 @@ class NoteOffsetState extends MusicBeatState
 
 			persistentUpdate = false;
 			CustomFadeTransition.nextCamera = camOther;
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new OptionsState());
 			FlxG.sound.playMusic(Paths.music('mus_machinations'), 1, true);
 			FlxG.mouse.visible = false;

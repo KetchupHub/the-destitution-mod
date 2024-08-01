@@ -174,10 +174,10 @@ class PlayState extends MusicBeatState
 	public var gfSpeed:Int = 1;
 	public var combo:Int = 0;
 	public static var storyWeek:Int = 0;
-	public var sicks:Int = 0;
+	public var synergys:Int = 0;
 	public var goods:Int = 0;
-	public var bads:Int = 0;
-	public var shits:Int = 0;
+	public var eghs:Int = 0;
+	public var bleghs:Int = 0;
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
@@ -264,6 +264,7 @@ class PlayState extends MusicBeatState
 	public var sky:FlxSprite;
 	public var lightningStrikes:FlxSprite;
 	public var angry:FlxSprite;
+	public var angryDadCover:FlxSprite;
 	public var zamboni:FlxSprite;
 	public var cryptehB:FlxSprite;
 	public var office:FlxSprite;
@@ -356,7 +357,7 @@ class PlayState extends MusicBeatState
 			'NOTE_RIGHT'
 		];
 
-		ratingsData.push(new Rating('sick'));
+		ratingsData.push(new Rating('synergy'));
 
 		var rating:Rating = new Rating('good');
 		rating.ratingMod = 0.7;
@@ -364,13 +365,13 @@ class PlayState extends MusicBeatState
 		rating.noteSplash = false;
 		ratingsData.push(rating);
 
-		var rating:Rating = new Rating('bad');
+		var rating:Rating = new Rating('egh');
 		rating.ratingMod = 0.4;
 		rating.score = 100;
 		rating.noteSplash = false;
 		ratingsData.push(rating);
 
-		var rating:Rating = new Rating('shit');
+		var rating:Rating = new Rating('blegh');
 		rating.ratingMod = 0;
 		rating.score = 50;
 		rating.noteSplash = false;
@@ -532,6 +533,11 @@ class PlayState extends MusicBeatState
 				angry.updateHitbox();
 				angry.antialiasing = false;
 				add(angry);
+				angryDadCover = new FlxSprite(600, -320).loadGraphic(Paths.image('destitution/angry_dadcover'));
+				angryDadCover.scale.set(2, 2);
+				angryDadCover.updateHitbox();
+				angryDadCover.antialiasing = false;
+				angryDadCover.visible = false;
 				zamboni = new FlxSprite(-680, -320).loadGraphic(Paths.image('destitution/zamboni'));
 				zamboni.scale.set(2, 2);
 				zamboni.updateHitbox();
@@ -575,6 +581,7 @@ class PlayState extends MusicBeatState
 				space.scale.set(8, 8);
 				space.updateHitbox();
 				space.screenCenter();
+				space.scrollFactor.set(0.5, 0.5);
 				space.visible = false;
 				add(space);
 
@@ -586,14 +593,15 @@ class PlayState extends MusicBeatState
 				space.shader = spaceWiggle.shader;
 
 				spaceItems = new FlxTypedGroup<FlxSprite>();
-				for(i in 0...10)
+				for(i in 0...7)
 				{
-					var fucksprit:FlxSprite = new FlxSprite(CoolUtil.randomLogic.float(space.x + 150, space.x + space.width - 150), CoolUtil.randomLogic.float(space.y + 150, space.y + space.height - 150));
+					var fucksprit:FlxSprite = new FlxSprite(CoolUtil.randomLogic.float(-32, 1248), CoolUtil.randomLogic.float(-32, 688));
 					fucksprit.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(CoolUtil.randomVisuals.int(0, 10))));
 					fucksprit.antialiasing = false;
 					fucksprit.ID = i;
 					fucksprit.scale.set(2, 2);
 					fucksprit.updateHitbox();
+					fucksprit.scrollFactor.set(CoolUtil.randomLogic.float(0.05, 0.2), CoolUtil.randomLogic.float(0.05, 0.2));
 					spaceItems.add(fucksprit);
 				}
 				add(spaceItems);
@@ -659,6 +667,32 @@ class PlayState extends MusicBeatState
 				cuttingSceneThing.screenCenter();
 				add(cuttingSceneThing);
 				cuttingSceneThing.visible = false;
+
+				precacheList.set('destitution/start', 'image');
+				precacheList.set('destitution/mark_ploinky_transition', 'image');
+				precacheList.set('destitution/ploinky', 'image');
+				precacheList.set('destitution/destitution_bg_ittem_whalez', 'image');
+				precacheList.set('destitution/space', 'image');
+				precacheList.set('destitution/itemShit/0', 'image');
+				precacheList.set('destitution/itemShit/1', 'image');
+				precacheList.set('destitution/itemShit/2', 'image');
+				precacheList.set('destitution/itemShit/3', 'image');
+				precacheList.set('destitution/itemShit/4', 'image');
+				precacheList.set('destitution/itemShit/5', 'image');
+				precacheList.set('destitution/itemShit/6', 'image');
+				precacheList.set('destitution/itemShit/7', 'image');
+				precacheList.set('destitution/itemShit/8', 'image');
+				precacheList.set('destitution/itemShit/9', 'image');
+				precacheList.set('destitution/itemShit/10', 'image');
+				precacheList.set('ui/cutting_scene', 'image');
+				precacheList.set('destitution/destitution_bg_heyheyheywahtsallthis', 'image');
+				precacheList.set('destitution/rulez_guy_screen_transition', 'image');
+				precacheList.set('destitution/destitution_bg_buy_my_new_shitcoin', 'image');
+				precacheList.set('destitution/cryptehB', 'image');
+				precacheList.set('destitution/zamboni', 'image');
+				precacheList.set('destitution/cam_flip_lol', 'image');
+				precacheList.set('destitution/angry', 'image');
+				precacheList.set('destitution/angry_dadcover', 'image');
 			case 'superseded':
 				tweeningCam = true;
 				camHUD.zoom = 15;
@@ -903,30 +937,35 @@ class PlayState extends MusicBeatState
 
 		dadGroup.add(dad);
 
+		if (angryDadCover != null)
+		{
+			add(angryDadCover);
+		}
+
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
 
 		startCharacterPos(boyfriend);
 
 		boyfriendGroup.add(boyfriend);
 
-		if(supersededIntro != null)
+		if (supersededIntro != null)
 		{
 			add(supersededIntro);
 		}
 
-		if(chefTable != null)
+		if (chefTable != null)
 		{
 			add(chefTable);
 			chefTable.visible = false;
 		}
 
-		if(chefBanner != null)
+		if (chefBanner != null)
 		{
 			add(chefBanner);
 			chefBanner.visible = false;
 		}
 
-		if(chefCurtains != null)
+		if (chefCurtains != null)
 		{
 			add(chefCurtains);
 			chefCurtains.active = false;
@@ -935,7 +974,7 @@ class PlayState extends MusicBeatState
 
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 
-		if(gf != null)
+		if (gf != null)
 		{
 			camPos.x += gf.getGraphicMidpoint().x + gf.cameraPosition[0];
 			camPos.y += gf.getGraphicMidpoint().y + gf.cameraPosition[1];
@@ -1072,20 +1111,17 @@ class PlayState extends MusicBeatState
 			'smoothenedHealth', 0, 2);
 		healthBar.scrollFactor.set();
 		healthBar.visible = !ClientPrefs.hideHud;
-		healthBar.alpha = ClientPrefs.healthBarAlpha;
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.hideHud;
-		iconP1.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
 		iconP2.y = healthBar.y - 75;
 		iconP2.visible = !ClientPrefs.hideHud;
-		iconP2.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP2);
 		reloadHealthBarColors();
 
@@ -3284,10 +3320,10 @@ class PlayState extends MusicBeatState
 	{
 		var ratingsSuffix:String = songObj.ratingsType;
 
-		Paths.image('ui/ratings' + ratingsSuffix + "/sick");
+		Paths.image('ui/ratings' + ratingsSuffix + "/synergy");
 		Paths.image('ui/ratings' + ratingsSuffix + "/good");
-		Paths.image('ui/ratings' + ratingsSuffix + "/bad");
-		Paths.image('ui/ratings' + ratingsSuffix + "/shit");
+		Paths.image('ui/ratings' + ratingsSuffix + "/egh");
+		Paths.image('ui/ratings' + ratingsSuffix + "/blegh");
 
 		for (i in 0...10)
 		{
@@ -4236,7 +4272,7 @@ class PlayState extends MusicBeatState
 
 		ratingFC = "";
 
-		if (sicks > 0)
+		if (synergys > 0)
 		{
 			ratingFC = "SFC";
 		}
@@ -4244,7 +4280,7 @@ class PlayState extends MusicBeatState
 		{
 			ratingFC = "GFC";
 		}
-		if (bads > 0 || shits > 0)
+		if (eghs > 0 || bleghs > 0)
 		{
 			ratingFC = "FC";
 		}

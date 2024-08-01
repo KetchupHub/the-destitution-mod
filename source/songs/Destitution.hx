@@ -551,6 +551,8 @@ class Destitution extends SongClass
                 PlayState.instance.zamboni.visible = false;
                 PlayState.instance.zamboni.destroy();
 
+                PlayState.instance.angryDadCover.visible = true;
+
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(126, 80, 'mark-angry', false, false);

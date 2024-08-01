@@ -2,7 +2,6 @@ package editors;
 
 import util.CoolUtil;
 import states.FreeplayState;
-import states.LoadingState;
 import visuals.Character;
 import states.MainMenuState;
 import ui.Alphabet;
@@ -117,9 +116,9 @@ class MasterEditorMenu extends MusicBeatState
 			switch(options[curSelected])
 			{
 				case 'Character Editor':
-					LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
+					MusicBeatState.switchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
 				case 'Chart Editor':
-					LoadingState.loadAndSwitchState(new ChartingState(), false);
+					MusicBeatState.switchState(new ChartingState());
 			}
 			FlxG.sound.music.volume = 0;
 		}

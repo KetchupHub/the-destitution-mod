@@ -12,6 +12,7 @@ import llua.State;
 class DiscordClient
 {
 	public static var isInitialized:Bool = false;
+
 	public function new()
 	{
 		DiscordRpc.start({
@@ -62,12 +63,13 @@ class DiscordClient
 		{
 			new DiscordClient();
 		});
+
 		isInitialized = true;
 	}
 
 	public static function changePresence(details:String, state:Null<String>, ?smallImageKey : String, ?hasStartTimestamp : Bool, ?endTimestamp: Float)
 	{
-		var startTimestamp:Float = if(hasStartTimestamp) Date.now().getTime() else 0;
+		var startTimestamp:Float = if (hasStartTimestamp) Date.now().getTime() else 0;
 
 		if (endTimestamp > 0)
 		{
@@ -86,7 +88,7 @@ class DiscordClient
 		largoText = 'The Destitution Mod (DevBuild ' + CoolUtil.gitCommitBranch + ' : ' + CoolUtil.gitCommitHash + ')';
 		#end
 
-		if(smallImageKey != null)
+		if (smallImageKey != null)
 		{
 			#if DEVELOPERBUILD
 			alrgey = 'icon';
@@ -103,7 +105,6 @@ class DiscordClient
 			largeImageKey: alrgey,
 			largeImageText: largoText,
 			smallImageKey : smalley,
-			// Obtained times are in milliseconds so they are divided so Discord can use it
 			startTimestamp : Std.int(startTimestamp / 1000),
             endTimestamp : Std.int(endTimestamp / 1000)
 		});

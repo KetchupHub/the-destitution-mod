@@ -15,7 +15,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.math.FlxMath;
 
-class LoadScreenPreloadGah extends MusicBeatState
+class LoadingScreenState extends MusicBeatState
 {
     var funkay:FlxSprite;
 

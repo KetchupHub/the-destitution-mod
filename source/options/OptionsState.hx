@@ -1,9 +1,11 @@
 package options;
 
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.tweens.FlxEase;
+import flixel.graphics.FlxGraphic;
 import states.MainMenuState;
 import states.FreeplayState;
 import backend.ClientPrefs;
-import states.LoadingState;
 import ui.Alphabet;
 import util.CoolUtil;
 import util.MemoryUtil;
@@ -45,7 +47,9 @@ class OptionsState extends MusicBeatState
 			case 'Gameplay':
 				openSubState(new GameplaySettingsSubState());
 			case 'Adjust Delay and Combo':
-				LoadingState.loadAndSwitchState(new NoteOffsetState());
+				FlxTransitionableState.skipNextTransIn = true;
+				FlxTransitionableState.skipNextTransOut = true;
+				MusicBeatState.switchState(new NoteOffsetState());
 		}
 	}
 
@@ -73,9 +77,7 @@ class OptionsState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.updateHitbox();
-
 		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
@@ -93,6 +95,19 @@ class OptionsState extends MusicBeatState
 		add(selectorLeft);
 		selectorRight = new Alphabet(0, 0, '<', true);
 		add(selectorRight);
+
+		var transThing:FlxSprite = new FlxSprite();
+
+		if(CoolUtil.lastStateScreenShot != null)
+		{
+			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
+			add(transThing);
+			FlxTween.tween(transThing, {alpha: 0}, 0.35, {ease: FlxEase.sineOut, onComplete: function transThingDiesIrl(stupidScr:FlxTween)
+			{
+				transThing.visible = false;
+				transThing.destroy();
+			}});
+		}
 
 		#if DEVELOPERBUILD
 		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
@@ -141,6 +156,8 @@ class OptionsState extends MusicBeatState
 			FlxG.sound.music.stop();
 			FlxG.sound.music = null;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
