@@ -200,7 +200,27 @@ class MusicBeatState extends FlxUIState
 		#if DEVELOPERBUILD
         var perf = new Perf("MusicBeatState gameStateScreenshot()");
 		#end
+
+		var mouseVisi = FlxG.mouse.visible;
+		var fpsVisi:Bool = true;
+
+		if (Main.fpsVar != null)
+		{
+			fpsVisi = Main.fpsVar.visible;
+			Main.fpsVar.visible = false;
+		}
+
+		FlxG.mouse.visible = false;
+		
 		CoolUtil.lastStateScreenShot = new Bitmap(BitmapData.fromImage(FlxG.stage.window.readPixels(new Rectangle(0, 0, FlxG.stage.stageWidth, FlxG.stage.stageHeight))));
+
+		if (Main.fpsVar != null)
+		{
+			Main.fpsVar.visible = fpsVisi;
+		}
+
+		FlxG.mouse.visible = mouseVisi;
+
 		#if DEVELOPERBUILD
 		perf.print();
 		#end
