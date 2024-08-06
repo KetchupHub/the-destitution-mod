@@ -1,111 +1,169 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
-				82,
-				-23
+				35,
+				-8
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "left"
+			"fps": 24,
+			"name": "left0",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-37,
-				-102
+				-23,
+				-84
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "down"
+			"fps": 24,
+			"name": "down0",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
-				37,
-				92
+				-20,
+				25
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singUP",
-			"indices": [],
-			"name": "up"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-59,
-				-10
-			],
 			"fps": 24,
-			"anim": "singRIGHT",
-			"indices": [],
-			"name": "right"
+			"name": "up0",
+			"indices": []
 		},
 		{
+			"offsets": [
+				-52,
+				-37
+			],
 			"loop": false,
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "right0",
+			"indices": []
+		},
+		{
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"anim": "idle-alt",
 			"fps": 24,
+			"name": "idle",
+			"indices": []
+		},
+		{
+			"offsets": [
+				28,
+				-12
+			],
+			"loop": false,
+			"anim": "singLEFT-alt",
+			"fps": 24,
+			"name": "left-alt",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				-74
+			],
+			"loop": false,
+			"anim": "singDOWN-alt",
+			"fps": 24,
+			"name": "down-alt",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-31,
+				25
+			],
+			"loop": false,
+			"anim": "singUP-alt",
+			"fps": 24,
+			"name": "up-alt",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-20,
+				-10
+			],
+			"loop": false,
+			"anim": "singRIGHT-alt",
+			"fps": 24,
+			"name": "right-alt",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
 			"anim": "idle",
-			"indices": [],
-			"name": "idle"
+			"fps": 24,
+			"name": "idle",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
-				5,
+				0,
 				0
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "lookBack",
-			"indices": [],
-			"name": "look back"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				89,
-				17
-			],
 			"fps": 24,
-			"anim": "turnHappy",
-			"indices": [],
-			"name": "turn back around happy"
+			"name": "look back",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
-				181,
+				0,
 				0
 			],
+			"loop": false,
+			"anim": "turnHappy",
 			"fps": 24,
-			"anim": "turnNeutral",
-			"indices": [],
-			"name": "turn back around neutral"
+			"name": "turn back around happy",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
-				90,
-				16
+				0,
+				0
 			],
+			"loop": false,
+			"anim": "turnNeutral",
 			"fps": 24,
+			"name": "turn back around neutral",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
 			"anim": "turnSad",
-			"indices": [],
-			"name": "turn back around sad"
+			"fps": 24,
+			"name": "turn back around sad",
+			"indices": []
 		}
 	],
+	"animator": "Cynda, PhoneyX",
 	"no_antialiasing": false,
+	"artist": "PhoneyX",
 	"image": "characters/bucks/bucksmark",
 	"position": [
 		0,
 		0
 	],
+	"whoDoneWhat": "PhoneyX did all assets and animated the midsong event animations\nCynda animated the idle and poses",
 	"healthicon": "mark",
 	"flip_x": false,
 	"healthbar_colors": [
@@ -118,5 +176,6 @@
 		10
 	],
 	"sing_duration": 5.50000000000001,
-	"scale": 1
+	"scale": 1,
+	"_editor_isPlayer": false
 }
