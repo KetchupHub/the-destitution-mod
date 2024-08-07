@@ -185,8 +185,6 @@ class PlayState extends MusicBeatState
 	public static var campaignMisses:Int = 0;
 	public static var deathCounter:Int = 0;
 	public var bucksBarHistoryFuck:Array<Int> = [9, 9, 9, 9, 9, 9, 9, 9];
-
-	public var songIntro:FlxSprite;
 	
 	public var fuckMyLife:Bool = false;
 	public var swingSec:Bool = false;
@@ -247,6 +245,7 @@ class PlayState extends MusicBeatState
 	#if !SHOWCASEVIDEO
 	public var botplayTxt:FlxSprite;
 	#end
+	public var songIntro:FlxSprite;
 	public var strumLine:FlxSprite;
 	public static var lastRating:FlxSprite;
 	public var ploinkyTransition:FlxSprite;
@@ -276,6 +275,7 @@ class PlayState extends MusicBeatState
 	public var itemManFucked:FlxSprite;
 	public var cuttingSceneThing:FlxSprite;
 	public var funnyBgColors:FlxSprite;
+	public var healthBarBG:FlxSprite;
 	public var boyfriendGroup:FlxSpriteGroup;
 	public var dadGroup:FlxSpriteGroup;
 	public var gfGroup:FlxSpriteGroup;
@@ -283,9 +283,7 @@ class PlayState extends MusicBeatState
 	public var spaceItems:FlxTypedGroup<FlxSprite>;
 
 	public var chefCurtains:FlxClothSprite;
-
-	public var healthBarBG:AttachedSprite;
-
+	
 	public var healthBar:FlxBar;
 
 	public var iconP1:HealthIcon;
@@ -1097,22 +1095,21 @@ class PlayState extends MusicBeatState
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
 
-		healthBarBG = new AttachedSprite('ui/healthBar');
-		healthBarBG.y = FlxG.height * 0.89;
-		healthBarBG.screenCenter(X);
+		healthBarBG = new FlxSprite(308, 532).loadGraphic(Paths.image('ui/healthBar'));
+		healthBarBG.antialiasing = false;
+		healthBarBG.scale.set(2, 2);
+		healthBarBG.updateHitbox();
 		healthBarBG.scrollFactor.set();
 		healthBarBG.visible = !ClientPrefs.hideHud;
-		healthBarBG.xAdd = -4;
-		healthBarBG.yAdd = -4;
-		add(healthBarBG);
-		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
+		if(ClientPrefs.downScroll) healthBarBG.y = 6;
 
-		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
+		healthBar = new FlxBar(healthBarBG.x + 24, healthBarBG.y + 72, RIGHT_TO_LEFT, 616, 46, this,
 			'smoothenedHealth', 0, 2);
 		healthBar.scrollFactor.set();
 		healthBar.visible = !ClientPrefs.hideHud;
 		add(healthBar);
-		healthBarBG.sprTracker = healthBar;
+
+		add(healthBarBG);
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
@@ -1125,9 +1122,9 @@ class PlayState extends MusicBeatState
 		add(iconP2);
 		reloadHealthBarColors();
 
-		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font(songFont), 20 + 10, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
-		scoreTxt.borderSize = 1.5;
+		scoreTxt = new FlxText(healthBarBG.x, healthBarBG.y + healthBarBG.height - 44, healthBarBG.width, "", 24);
+		scoreTxt.setFormat(Paths.font("Calculator.ttf"), 24, FlxColor.fromRGB(30, 173, 25), CENTER, FlxTextBorderStyle.SHADOW, FlxColor.fromRGB(6, 59, 5));
+		scoreTxt.borderSize = 2;
 		scoreTxt.scrollFactor.set();
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
@@ -2184,7 +2181,7 @@ class PlayState extends MusicBeatState
 
 	function resyncVocals():Void
 	{
-		if(finishTimer != null)
+		if (finishTimer != null)
 		{
 			return;
 		}
@@ -2210,44 +2207,44 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
-		if(!inCutscene)
+		if (!inCutscene)
 		{
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 		}
 
-		if(ref != null)
+		if (ref != null)
 		{
-			if(FlxG.keys.justPressed.P)
+			if (FlxG.keys.justPressed.P)
 			{
 				ref.visible = !ref.visible;
 			}
 		}
 
-		if(spaceWiggle != null)
+		if (spaceWiggle != null)
 		{
 			spaceWiggle.update(elapsed);
 		}
 
-		if(chefCurtains != null)
+		if (chefCurtains != null)
 		{
-			if(chefCurtains.active)
+			if (chefCurtains.active)
 			{
 				chefCurtains.meshVelocity.x = FlxMath.lerp(0, chefCurtains.meshVelocity.x, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
 				chefCurtains.meshVelocity.y = FlxMath.lerp(0, chefCurtains.meshVelocity.y, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
 			}
 		}
 		
-		if(startedCountdown && generatedMusic && bucksBars[5] != null)
+		if (startedCountdown && generatedMusic && bucksBars[5] != null)
 		{
 			bucksBarUpdateCountdown -= 1 * elapsed;
 
-			if(bucksBarUpdateCountdown <= 0)
+			if (bucksBarUpdateCountdown <= 0)
 			{
 				bucksBarUpdateCountdown = CoolUtil.randomVisuals.float(2.75, 6.5);
 				bucksBarHistoryFuck = bucksBarHistoryFuck.slice(1, 7);
 
-				if(cpuControlled || (combo == 0 && songMisses == 0))
+				if (cpuControlled || (combo == 0 && songMisses == 0))
 				{
 					bucksBarHistoryFuck.push(9);
 				}
@@ -2256,7 +2253,7 @@ class PlayState extends MusicBeatState
 					bucksBarHistoryFuck.push(Std.int((ratingPercent * 10) - 1));
 				}
 
-				for(i in 0...7)
+				for (i in 0...7)
 				{
 					bucksBars[i].changeGraphPos(bucksBarHistoryFuck[i]);
 				}
@@ -2300,20 +2297,20 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if(boyfriend != null)
+		if (boyfriend != null)
 		{
-			if(boyfriend.animation.curAnim != null)
+			if (boyfriend.animation.curAnim != null)
 			{
-				if(boyfriend.animation.curAnim.name.toLowerCase().startsWith("sing"))
+				if (boyfriend.animation.curAnim.name.toLowerCase().startsWith("sing"))
 				{
-					if(boyfriend.singDuration >= 10)
+					if (boyfriend.singDuration >= 10)
 					{
-						if(boyfriend.animation.curAnim.finished)
+						if (boyfriend.animation.curAnim.finished)
 						{
 							boyfriend.dance();
 							boyfriend.holdTimer = 0;
 
-							if(!boyfriend.animation.curAnim.looped)
+							if (!boyfriend.animation.curAnim.looped)
 							{
 								boyfriend.animation.finish();
 							}
@@ -2323,7 +2320,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if(spaceTime)
+		if (spaceTime)
 		{
 			dad.y += Math.sin(elapsedTotal) * 0.3;
 			boyfriend.y += Math.sin(elapsedTotal) * 0.3;
@@ -2334,11 +2331,11 @@ class PlayState extends MusicBeatState
 			dad.angle += Math.sin(elapsedTotal) * 0.1;
 			boyfriend.angle += Math.sin(elapsedTotal) * 0.1;
 
-			for(i in spaceItems.members)
+			for (i in spaceItems.members)
 			{
 				i.angle += 2;
 
-				if(i.ID % 2 == 0)
+				if (i.ID % 2 == 0)
 				{
 					i.x += Math.sin(elapsedTotal) * 0.4;
 				}
@@ -2349,7 +2346,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if(whaleFuckShit)
+		if (whaleFuckShit)
 		{
 			dad.y += ((Math.cos(elapsedTotal * 4)));
 		}
@@ -2364,49 +2361,12 @@ class PlayState extends MusicBeatState
 			openChartEditor();
 		}
 
-		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
-		var multDos:Float = FlxMath.lerp(1, iconP1.scale.y, CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
-		iconP1.scale.set(mult, multDos);
-		iconP1.updateHitbox();
-	
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
-		var multDos:Float = FlxMath.lerp(1, iconP2.scale.y, CoolUtil.boundTo(1 - (elapsed * 13 * camZoomingDecay * playbackRate), 0, 1));
-		iconP2.scale.set(mult, multDos);
-		iconP2.updateHitbox();
-	
-		var iconOffset:Int = 26;
-	
-		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
-
-		iconP1.y = healthBar.y - 75;
-		iconP2.y = healthBar.y - 75;
-
-		iconP1.angle = 0;
-		iconP2.angle = 0;
-
 		if (health > 2)
 		{
 			health = 2;
 		}
 
-		if (healthBar.percent < 20)
-		{
-			iconP1.animation.curAnim.curFrame = 1;
-		}
-		else
-		{
-			iconP1.animation.curAnim.curFrame = 0;
-		}
-
-		if (healthBar.percent > 80)
-		{
-			iconP2.animation.curAnim.curFrame = 1;
-		}
-		else
-		{
-			iconP2.animation.curAnim.curFrame = 0;
-		}
+		updateIconStuff(elapsed);
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene)
 		{
@@ -2427,7 +2387,7 @@ class PlayState extends MusicBeatState
 			{
 				startSong();
 			}
-			else if(!startedCountdown)
+			else if (!startedCountdown)
 			{
 				Conductor.songPosition = -Conductor.crochet * 5;
 			}
@@ -4219,6 +4179,21 @@ class PlayState extends MusicBeatState
 				chefCurtains.meshVelocity.y += CoolUtil.randomVisuals.float(0, 40);
 			}
 		}
+	}
+
+	function updateIconStuff(elapsed:Float)
+	{
+		iconP1.iconLerp(elapsed, camZoomingDecay, playbackRate);
+		iconP2.iconLerp(elapsed, camZoomingDecay, playbackRate);
+		
+		iconP1.x = (healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - 26) + 10;
+		iconP2.x = (healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - 26 * 2) + 10;
+
+		iconP1.y = healthBar.y - 55;
+		iconP2.y = healthBar.y - 55;
+
+		iconP1.setFrameWithHealth(healthBar.percent, 1);
+		iconP2.setFrameWithHealth(healthBar.percent, 2);
 	}
 
 	function StrumPlayAnim(isDad:Bool, id:Int, time:Float)

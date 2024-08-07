@@ -1,5 +1,7 @@
 package ui;
 
+import flixel.math.FlxMath;
+import util.CoolUtil;
 import backend.ClientPrefs;
 import flixel.FlxSprite;
 
@@ -53,6 +55,40 @@ class HealthIcon extends FlxSprite
 			this.char = char;
 
 			antialiasing = ClientPrefs.globalAntialiasing;
+		}
+	}
+
+	public function iconLerp(e:Float, cZoomingDec:Float, pbR:Float)
+	{
+		var mult:Float = FlxMath.lerp(1, scale.x, CoolUtil.boundTo(1 - (e * 13 * cZoomingDec * pbR), 0, 1));
+		var multDos:Float = FlxMath.lerp(1, scale.y, CoolUtil.boundTo(1 - (e * 13 * cZoomingDec * pbR), 0, 1));
+		scale.set(mult, multDos);
+		updateHitbox();
+	}
+
+	public function setFrameWithHealth(healthes:Float, player:Int)
+	{
+		if (healthes < 20)
+		{
+			if (player == 2)
+			{
+				animation.curAnim.curFrame = 0;
+			}
+			else
+			{
+				animation.curAnim.curFrame = 1;
+			}
+		}
+		else if (healthes > 80)
+		{
+			if (player == 2)
+			{
+				animation.curAnim.curFrame = 1;
+			}
+			else
+			{
+				animation.curAnim.curFrame = 0;
+			}
 		}
 	}
 
