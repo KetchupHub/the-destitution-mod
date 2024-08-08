@@ -1,67 +1,81 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
-				0,
-				-3
+				-58,
+				-66
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "left"
+			"fps": 24,
+			"name": "left",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
-				0,
-				-2
+				-44,
+				-140
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "down"
+			"fps": 24,
+			"name": "down",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
-				2,
-				3
+				-64,
+				-64
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singUP",
-			"indices": [],
-			"name": "up"
+			"fps": 24,
+			"name": "up",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-63,
-				-7
+				-64,
+				-64
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "right"
+			"fps": 24,
+			"name": "right",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
-				0,
-				0
+				-64,
+				-68
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "idle",
-			"indices": [],
-			"name": "idle"
+			"fps": 24,
+			"name": "idle",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-64,
+				-68
+			],
+			"loop": false,
+			"anim": "lipsync",
+			"fps": 24,
+			"name": "lipsync",
+			"indices": []
 		}
 	],
+	"animator": null,
 	"no_antialiasing": true,
+	"artist": null,
 	"image": "characters/destitution/markmcmarketing_alt",
 	"position": [
 		0,
 		0
 	],
+	"whoDoneWhat": null,
 	"healthicon": "mark",
 	"flip_x": false,
 	"healthbar_colors": [
@@ -74,5 +88,6 @@
 		-128
 	],
 	"sing_duration": 15,
-	"scale": 1.5
+	"scale": 2,
+	"_editor_isPlayer": null
 }

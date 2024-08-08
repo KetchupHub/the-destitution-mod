@@ -3065,17 +3065,17 @@ class PlayState extends MusicBeatState
 
 	public function moveCameraSection():Void
 	{
-		if(disallowCamMove)
+		if (disallowCamMove)
 		{
 			return;
 		}
 
-		if(SONG.notes[curSection] == null)
+		if (SONG.notes[curSection] == null)
 		{
 			return;
 		}
 
-		if(centerCamOnBg)
+		if (centerCamOnBg)
 		{
 			camFollow.set(angry.getMidpoint().x, angry.getMidpoint().y);
 			camZoomAdditive = 0;
@@ -3096,12 +3096,13 @@ class PlayState extends MusicBeatState
 		{
 			moveCamera(true);
 
-			if(shoulderCam || funBackCamFadeShit)
+			if (shoulderCam || funBackCamFadeShit)
 			{
 				camZoomAdditive = 0.175;
-				if(funBackCamFadeShit)
+
+				if (funBackCamFadeShit)
 				{
-					if(bfAlphaTwnBack == null)
+					if (bfAlphaTwnBack == null)
 					{
 						bfAlphaTwnBack = FlxTween.tween(boyfriend, {alpha: 0.5}, Conductor.crochet / 1000, {ease: FlxEase.quadOut, onComplete: function onCompleete(twn:FlxTween)
 						{
@@ -3117,9 +3118,9 @@ class PlayState extends MusicBeatState
 
 			camZoomAdditive = 0;
 
-			if(funBackCamFadeShit)
+			if (funBackCamFadeShit)
 			{
-				if(bfAlphaTwnBack == null)
+				if (bfAlphaTwnBack == null)
 				{
 					bfAlphaTwnBack = FlxTween.tween(boyfriend, {alpha: 1}, Conductor.crochet / 1000, {ease: FlxEase.quadIn, onComplete: function onCompleete(twn:FlxTween)
 					{
@@ -3132,7 +3133,22 @@ class PlayState extends MusicBeatState
 
 	public function moveCamera(isDad:Bool)
 	{
-		if(isDad)
+		if (SONG.notes[curSection].middleCamSection)
+		{
+			camFollow.set(((dad.getMidpoint().x - dad.x) / 2) + ((boyfriend.getMidpoint().x - boyfriend.x) / 2) + 100, dad.getMidpoint().y - 100);
+
+			if (isDad)
+			{
+				camFollow.x += dad.curFunnyPosition[0];
+				camFollow.y += dad.curFunnyPosition[1];
+			}
+			else
+			{
+				camFollow.x += boyfriend.curFunnyPosition[0];
+				camFollow.y += boyfriend.curFunnyPosition[1];
+			}
+		}
+		else if (isDad)
 		{
 			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
 			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];

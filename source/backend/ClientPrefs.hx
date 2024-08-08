@@ -76,6 +76,8 @@ class ClientPrefs
 
 	public static var defaultKeys:Map<String, Array<FlxKey>> = null;
 
+	public static var lastEggshellsEnding:String = '';
+
 	public static function loadDefaultKeys()
 	{
 		defaultKeys = keyBinds.copy();
@@ -111,6 +113,7 @@ class ClientPrefs
 		FlxG.save.data.controllerMode = controllerMode;
 		FlxG.save.data.hitsoundVolume = hitsoundVolume;
 		FlxG.save.data.comboStacking = comboStacking;
+		FlxG.save.data.lastEggshellsEnding = lastEggshellsEnding;
 	
 		FlxG.save.flush();
 
@@ -291,6 +294,11 @@ class ClientPrefs
 		if (FlxG.save.data.comboStacking != null)
 		{
 			comboStacking = FlxG.save.data.comboStacking;
+		}
+
+		if (FlxG.save.data.lastEggshellsEnding != null)
+		{
+			lastEggshellsEnding = FlxG.save.data.lastEggshellsEnding;
 		}
 
 		var save:FlxSave = new FlxSave();
