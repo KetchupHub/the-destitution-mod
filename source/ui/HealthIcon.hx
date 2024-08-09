@@ -24,22 +24,28 @@ class HealthIcon extends FlxSprite
 		super.update(elapsed);
 
 		if (sprTracker != null)
+		{
 			setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
+		}
 	}
 
 	private var iconOffsets:Array<Float> = [0, 0];
 
 	public function changeIcon(char:String)
 	{
-		if(this.char != char)
+		if (this.char != char)
 		{
 			var name:String = 'icons/' + char;
 
-			if(!Paths.fileExists('images/' + name + '.png', IMAGE, false, 'rhythm'))
-				name = 'icons/icon-' + char; //Older versions of psych engine's support
+			if (!Paths.fileExists('images/' + name + '.png', IMAGE, false, 'rhythm'))
+			{
+				name = 'icons/icon-' + char;
+			}
 
-			if(!Paths.fileExists('images/' + name + '.png', IMAGE, false, 'rhythm'))
-				name = 'icons/icon-face'; //Prevents crash from missing icon
+			if (!Paths.fileExists('images/' + name + '.png', IMAGE, false, 'rhythm'))
+			{
+				name = 'icons/icon-face';
+			}
 
 			var file:Dynamic = Paths.image(name);
 
@@ -50,7 +56,9 @@ class HealthIcon extends FlxSprite
 			updateHitbox();
 
 			animation.add(char, [0, 1], 0, false, isPlayer);
-			animation.play(char);
+			animation.play(char, true);
+
+			setFrameWithHealth(50, 1);
 
 			this.char = char;
 
@@ -68,20 +76,25 @@ class HealthIcon extends FlxSprite
 
 	public function setFrameWithHealth(healthes:Float, player:Int)
 	{
-		if (healthes < 20)
+		// oh my fucking god im an idiot it took me 5 eternities to realize i was doing this completely fuckin wrong
+		// see basically the old code checked things yada blada but i didnt actually pay attention to specific variables
+		// so basically it was running the code for being a player1 icon for everything
+		// fun.
+		
+		if (player == 2)
 		{
-			if (player == 2)
-			{
-				animation.curAnim.curFrame = 0;
-			}
-			else
+			if (healthes > 80)
 			{
 				animation.curAnim.curFrame = 1;
 			}
+			else
+			{
+				animation.curAnim.curFrame = 0;
+			}
 		}
-		else if (healthes > 80)
+		else
 		{
-			if (player == 2)
+			if (healthes < 20)
 			{
 				animation.curAnim.curFrame = 1;
 			}

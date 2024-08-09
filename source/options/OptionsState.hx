@@ -32,6 +32,11 @@ class OptionsState extends MusicBeatState
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
 
+	//make false when you get off your ass and finish this
+	var finishedIntro:Bool = true;
+
+	var optionsThingy:FlxSprite;
+
 	function openSelectedSubstate(label:String)
 	{
 		switch(label)
@@ -88,12 +93,15 @@ class OptionsState extends MusicBeatState
 			var optionText:Alphabet = new Alphabet(0, 0, options[i], true);
 			optionText.screenCenter();
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
+			//optionText.alpha = 0;
 			grpOptions.add(optionText);
 		}
 
 		selectorLeft = new Alphabet(0, 0, '>', true);
+		//selectorLeft.alpha = 0;
 		add(selectorLeft);
 		selectorRight = new Alphabet(0, 0, '<', true);
+		//selectorRight.alpha = 0;
 		add(selectorRight);
 
 		var transThing:FlxSprite = new FlxSprite();
@@ -142,16 +150,16 @@ class OptionsState extends MusicBeatState
 
 		super.update(elapsed);
 
-		if (controls.UI_UP_P)
+		if (controls.UI_UP_P && finishedIntro)
 		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P)
+		if (controls.UI_DOWN_P && finishedIntro)
 		{
 			changeSelection(1);
 		}
 
-		if (controls.BACK)
+		if (controls.BACK && finishedIntro)
 		{
 			FlxG.sound.music.stop();
 			FlxG.sound.music = null;
@@ -161,7 +169,7 @@ class OptionsState extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
-		if (controls.ACCEPT)
+		if (controls.ACCEPT && finishedIntro)
 		{
 			openSelectedSubstate(options[curSelected]);
 		}
