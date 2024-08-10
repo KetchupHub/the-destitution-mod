@@ -39,9 +39,9 @@ class Option
 		this.defaultValue = defaultValue;
 		this.options = options;
 
-		if(defaultValue == 'null variable value')
+		if (defaultValue == 'null variable value')
 		{
-			switch(type)
+			switch (type)
 			{
 				case 'bool':
 					defaultValue = false;
@@ -52,24 +52,24 @@ class Option
 				case 'string':
 					defaultValue = '';
 					
-					if(options.length > 0)
+					if (options.length > 0)
 					{
 						defaultValue = options[0];
 					}
 			}
 		}
 
-		if(getValue() == null)
+		if (getValue() == null)
 		{
 			setValue(defaultValue);
 		}
 
-		switch(type)
+		switch (type)
 		{
 			case 'string':
 				var num:Int = options.indexOf(getValue());
 
-				if(num > -1)
+				if (num > -1)
 				{
 					curOption = num;
 				}
@@ -85,7 +85,7 @@ class Option
 
 	public function change()
 	{
-		if(onChange != null)
+		if (onChange != null)
 		{
 			onChange();
 		}
@@ -95,6 +95,7 @@ class Option
 	{
 		return Reflect.getProperty(ClientPrefs, variable);
 	}
+
 	public function setValue(value:Dynamic)
 	{
 		Reflect.setProperty(ClientPrefs, variable, value);
@@ -107,7 +108,7 @@ class Option
 
 	private function get_text()
 	{
-		if(child != null)
+		if (child != null)
 		{
 			return child.text;
 		}
@@ -116,7 +117,7 @@ class Option
 	}
 	private function set_text(newValue:String = '')
 	{
-		if(child != null)
+		if (child != null)
 		{
 			child.text = newValue;
 		}
@@ -128,12 +129,16 @@ class Option
 	{
 		var newValue:String = 'bool';
 
-		switch(type.toLowerCase().trim())
+		switch (type.toLowerCase().trim())
 		{
-			case 'int' | 'float' | 'percent' | 'string': newValue = type;
-			case 'integer': newValue = 'int';
-			case 'str': newValue = 'string';
-			case 'fl': newValue = 'float';
+			case 'int' | 'float' | 'percent' | 'string':
+				newValue = type;
+			case 'integer':
+				newValue = 'int';
+			case 'str':
+				newValue = 'string';
+			case 'fl':
+				newValue = 'float';
 		}
 
 		type = newValue;

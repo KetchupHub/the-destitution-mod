@@ -1101,10 +1101,17 @@ class PlayState extends MusicBeatState
 		healthBarBG.updateHitbox();
 		healthBarBG.scrollFactor.set();
 		healthBarBG.visible = !ClientPrefs.hideHud;
-		if(ClientPrefs.downScroll) healthBarBG.y = 6;
+		if (ClientPrefs.downScroll)
+		{
+			healthBarBG.y = 6;
+		}
 
 		healthBar = new FlxBar(healthBarBG.x + 24, healthBarBG.y + 72, RIGHT_TO_LEFT, 616, 46, this,
 			'smoothenedHealth', 0, 2);
+		if (ClientPrefs.smootherBars)
+		{
+			healthBar.numDivisions = 616;
+		}
 		healthBar.scrollFactor.set();
 		healthBar.visible = !ClientPrefs.hideHud;
 		add(healthBar);
@@ -1114,13 +1121,15 @@ class PlayState extends MusicBeatState
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.hideHud;
-		add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
 		iconP2.y = healthBar.y - 75;
 		iconP2.visible = !ClientPrefs.hideHud;
 		add(iconP2);
 		reloadHealthBarColors();
+
+		//adding p1 second, solely for the visual gag with pinkerton's losing icon, lol
+		add(iconP1);
 
 		scoreTxt = new FlxText(healthBarBG.x, healthBarBG.y + healthBarBG.height - 44, healthBarBG.width, "", 24);
 		scoreTxt.setFormat(Paths.font("Calculator.ttf"), 24, FlxColor.fromRGB(30, 173, 25), CENTER, FlxTextBorderStyle.SHADOW, FlxColor.fromRGB(6, 59, 5));
@@ -1142,11 +1151,11 @@ class PlayState extends MusicBeatState
 		notes.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
-		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
+		iconP1.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
-		if(fullLength != null)
+		if (fullLength != null)
 		{
 			fullLength.cameras = [camHUD];
 		}
@@ -2277,6 +2286,8 @@ class PlayState extends MusicBeatState
 
 		smoothenedHealth = FlxMath.lerp(smoothenedHealth, health, CoolUtil.boundTo(elapsed * 13, 0, 1));
 
+		healthBar.value = smoothenedHealth;
+
 		updateIconStuff(elapsed);
 
 		super.update(elapsed);
@@ -3244,6 +3255,7 @@ class PlayState extends MusicBeatState
 	{
 		moveCamera(false, true);
 		disallowCamMove = true;
+		camZooming = false;
 		FlxTween.tween(camHUD, {alpha: 0}, 2, {ease: FlxEase.smootherStepOut, onComplete: function the(flucks:FlxTween)
 		{
 			var dieIril:FlxTimer = new FlxTimer().start(0.5, function imKingMyS(fuckYouTimer:FlxTimer)
@@ -4254,7 +4266,7 @@ class PlayState extends MusicBeatState
 	}
 
 	function updateIconStuff(elapsed:Float)
-	{
+	{		
 		iconP1.iconLerp(elapsed, camZoomingDecay, playbackRate);
 		iconP2.iconLerp(elapsed, camZoomingDecay, playbackRate);
 		

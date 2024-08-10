@@ -1,5 +1,6 @@
 package states;
 
+import backend.ClientPrefs;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.graphics.FlxGraphic;
@@ -25,7 +26,7 @@ class LoadingScreenState extends MusicBeatState
 
     var characters:Array<Character> = [];
 
-    var loadCooldown:Float = 0.25;
+    var loadCooldown:Float = 0.525;
 
     var toLoad:Int;
 
@@ -37,27 +38,44 @@ class LoadingScreenState extends MusicBeatState
 
     var escHoldTimer:Float;
 
+    var realPercent:Float = 0;
+    var smoothenedPercent:Float = 0;
+
 	override function create()
     {
+        #if DEVELOPERBUILD
+		var perf = new Perf("Total LoadingScreenState create()");
+		#end
+
         CoolUtil.rerollRandomness();
 
         MemoryUtil.collect(true);
         MemoryUtil.compact();
 
         loadedBar = new FlxBar(74, 199, FlxBarFillDirection.TOP_TO_BOTTOM, 370, 247, this, "loaded", 0, 2, false);
+        if (ClientPrefs.smootherBars)
+		{
+            loadedBar.numDivisions = 247;
+        }
         loadedBar.percent = 0;
         loadedBar.createFilledBar(FlxColor.GRAY, FlxColor.WHITE);
         add(loadedBar);
+
         var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("loading/loadBg"));
         bg.scale.set(2, 2);
         bg.updateHitbox();
         add(bg);
+
         var marksSuffix:String = "";
+
+        #if !SHOWCASEVIDEO
         //1/32 chance
-        if(CoolUtil.randomVisuals.bool(3.125))
+        if (CoolUtil.randomVisuals.bool(3.125))
         {
             marksSuffix = "_secret";
         }
+        #end
+
         funkay = new FlxSprite(0, 0).loadGraphic(Paths.image("loading/loadMark" + marksSuffix));
         funkay.scale.set(2, 2);
         funkay.updateHitbox();
@@ -65,11 +83,11 @@ class LoadingScreenState extends MusicBeatState
 
         var transThing:FlxSprite = new FlxSprite();
 
-		if(CoolUtil.lastStateScreenShot != null)
+		if (CoolUtil.lastStateScreenShot != null)
 		{
 			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
             add(transThing);
-			FlxTween.tween(transThing, {alpha: 0}, 0.35, {ease: FlxEase.sineOut, onComplete: function transThingDiesIrl(stupidScr:FlxTween)
+			FlxTween.tween(transThing, {alpha: 0}, 0.5, {ease: FlxEase.sineOut, onComplete: function transThingDiesIrl(stupidScr:FlxTween)
             {
                 transThing.visible = false;
                 transThing.destroy();
@@ -105,6 +123,10 @@ class LoadingScreenState extends MusicBeatState
         holdingEscText.alpha = 0;
         add(holdingEscText);
 
+        #if DEVELOPERBUILD
+        perf.print();
+        #end
+
         super.create();
     }
 
@@ -115,19 +137,19 @@ class LoadingScreenState extends MusicBeatState
         loadCooldown -= elapsed;
 
         //escape hgolding thing, so if you stop holding for a second the timer doenst completely restart
-        if(FlxG.keys.pressed.ESCAPE)
+        if (FlxG.keys.pressed.ESCAPE)
         {
             escHoldTimer += elapsed;
         }
         else
         {
-            if(escHoldTimer > 0)
+            if (escHoldTimer > 0)
             {
                 escHoldTimer -= elapsed;
             }
         }
 
-        if(escHoldTimer >= 1.5)
+        if (escHoldTimer >= 1.5)
         {
             startedSwitching = true;
             FlxTransitionableState.skipNextTransIn = true;
@@ -137,13 +159,13 @@ class LoadingScreenState extends MusicBeatState
 
         holdingEscText.alpha = FlxMath.bound(escHoldTimer * 2, 0, 1);
 
-        if(!startedSwitching)
+        if (!startedSwitching)
         {
-            if(!finishedPreloading)
+            if (!finishedPreloading)
             {
-                if(loadCooldown <= 0)
+                if (loadCooldown <= 0)
                 {
-                    if(charactersToLoad[0] != "stop-loading")
+                    if (charactersToLoad[0] != "stop-loading")
                     {
                         preloadCharacter(charactersToLoad[0]);
                     }
@@ -157,7 +179,7 @@ class LoadingScreenState extends MusicBeatState
                     }
                 }
             }
-            else if(finishedPreloading && loadCooldown >= 0)
+            else if (finishedPreloading && loadCooldown >= 0)
             {
                 startedSwitching = true;
                 FlxTransitionableState.skipNextTransIn = false;
@@ -166,21 +188,25 @@ class LoadingScreenState extends MusicBeatState
             }
         }
 
-        loadedBar.percent = ((charactersToLoad.length - 1) / toLoad) * 100;
+        realPercent = ((charactersToLoad.length - 1) / toLoad) * 100;
 
-        if(FlxG.keys.justPressed.SPACE)
+        smoothenedPercent = FlxMath.lerp(smoothenedPercent, realPercent, CoolUtil.boundTo(elapsed * 6, 0, 1));
+
+        loadedBar.percent = smoothenedPercent;
+
+        if (FlxG.keys.justPressed.SPACE)
         {
             funkay.y = 100;
         }
 
-        funkay.y = FlxMath.lerp(0, funkay.y, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
+        funkay.y = FlxMath.lerp(0, funkay.y, CoolUtil.boundTo(1 - (elapsed * 4), 0, 1));
     }
 
     public function preloadCharacter(charName:String) 
     {
         //perf leads me to believe that 0.6 is the maximum reasonable character load time
         loadCooldown = 0.6;
-        if(FlxG.keys.pressed.SHIFT)
+        if (FlxG.keys.pressed.SHIFT)
         {
             //speedup for impatient people (me)
             loadCooldown = 0.25;

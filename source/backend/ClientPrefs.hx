@@ -30,6 +30,7 @@ class ClientPrefs
 	public static var controllerMode:Bool = false;
 	public static var hitsoundVolume:Float = 0;
 	public static var comboStacking = false;
+	public static var smootherBars = true;
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -113,6 +114,7 @@ class ClientPrefs
 		FlxG.save.data.controllerMode = controllerMode;
 		FlxG.save.data.hitsoundVolume = hitsoundVolume;
 		FlxG.save.data.comboStacking = comboStacking;
+		FlxG.save.data.smootherBars = smootherBars;
 		FlxG.save.data.lastEggshellsEnding = lastEggshellsEnding;
 	
 		FlxG.save.flush();
@@ -294,6 +296,11 @@ class ClientPrefs
 		if (FlxG.save.data.comboStacking != null)
 		{
 			comboStacking = FlxG.save.data.comboStacking;
+		}
+
+		if (FlxG.save.data.smootherBars != null)
+		{
+			smootherBars = FlxG.save.data.smootherBars;
 		}
 
 		if (FlxG.save.data.lastEggshellsEnding != null)

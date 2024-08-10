@@ -11,7 +11,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		rpcTitle = 'Visuals & UI Settings Menu'; //for Discord Rich Presence
 
 		var option:Option = new Option('Note Splashes',
-			"If unchecked, hitting \"Sick!\" notes won't show particles.",
+			"If unchecked, hitting \"Synergy!\" notes won't show particles.",
 			'noteSplashes',
 			'bool',
 			true);
@@ -66,6 +66,13 @@ class VisualsUISubState extends BaseOptionsMenu
 		var option:Option = new Option('Combo Stacking',
 			"If checked, combo graphics will stack like in basegame FNF.",
 			'comboStacking',
+			'bool',
+			false);
+		addOption(option);
+
+		var option:Option = new Option('Smoother Bars',
+			"If checked, bars such as the health bar will be subdivided more, resulting in smoother movement. This also leads to more CPU usage!",
+			'smootherBars',
 			'bool',
 			false);
 		addOption(option);

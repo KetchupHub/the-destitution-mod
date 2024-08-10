@@ -100,7 +100,7 @@ class Note extends FlxSprite
 
 	public function resizeByRatio(ratio:Float) //haha funny twitter shit
 	{
-		if(isSustainNote && !animation.curAnim.name.endsWith('end'))
+		if (isSustainNote && !animation.curAnim.name.endsWith('end'))
 		{
 			scale.y *= ratio;
 			updateHitbox();
@@ -109,7 +109,7 @@ class Note extends FlxSprite
 
 	private function set_texture(value:String):String
 	{
-		if(texture != value)
+		if (texture != value)
 		{
 			reloadNote('', value);
 		}
@@ -127,9 +127,9 @@ class Note extends FlxSprite
 			colorSwap.brightness = ClientPrefs.arrowHSV[noteData][2] / 100;
 		}
 
-		if(noteData > -1 && noteType != value)
+		if (noteData > -1 && noteType != value)
 		{
-			switch(value)
+			switch (value)
 			{
 				case 'Alt Animation':
 					animSuffix = '-alt';
@@ -165,7 +165,7 @@ class Note extends FlxSprite
 
 		this.noteData = noteData;
 
-		if(noteData > -1)
+		if (noteData > -1)
 		{
 			texture = '';
 			colorSwap = new ColorSwap();
@@ -173,7 +173,7 @@ class Note extends FlxSprite
 
 			x += swagWidth * (noteData);
 
-			if(!isSustainNote && noteData > -1 && noteData < 4)
+			if (!isSustainNote && noteData > -1 && noteData < 4)
 			{
 				var animToPlay:String = '';
 				animToPlay = colArray[noteData % 4];
@@ -181,22 +181,20 @@ class Note extends FlxSprite
 			}
 		}
 
-		if(prevNote!=null)
+		if (prevNote!=null)
 			prevNote.nextNote = this;
 
 		if (isSustainNote && prevNote != null)
 		{
-			alpha = 0.75;
-			multAlpha = 0.75;
-
-			//dont look good
-			/*if(ClientPrefs.shaders)
-			{
-				blend = BlendMode.ADD;
-			}*/
+			alpha = 0.5;
+			multAlpha = 0.5;
 			
 			hitsoundDisabled = true;
-			if(ClientPrefs.downScroll) flipY = true;
+
+			if (ClientPrefs.downScroll)
+			{
+				flipY = true;
+			}
 
 			offsetX += width / 2;
 			copyAngle = false;
@@ -212,7 +210,8 @@ class Note extends FlxSprite
 				prevNote.animation.play(colArray[prevNote.noteData % 4] + 'hold');
 
 				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.05;
-				if(PlayState.instance != null)
+
+				if (PlayState.instance != null)
 				{
 					prevNote.scale.y *= PlayState.instance.songSpeed;
 				}
@@ -234,29 +233,29 @@ class Note extends FlxSprite
 
 	function reloadNote(?prefix:String = '', ?texture:String = '', ?suffix:String = '')
 	{
-		if(prefix == null)
+		if (prefix == null)
 			prefix = '';
 
-		if(texture == null)
+		if (texture == null)
 			texture = '';
 
-		if(suffix == null)
+		if (suffix == null)
 			suffix = '';
 
 		var skin:String = texture;
 
-		if(texture.length < 1)
+		if (texture.length < 1)
 		{
 			skin = PlayState.SONG.arrowSkin;
 
-			if(skin == null || skin.length < 1)
+			if (skin == null || skin.length < 1)
 			{
-				skin = 'ui/NOTE_assets';
+				skin = 'ui/notes';
 			}
 		}
 
 		var animName:String = null;
-		if(animation.curAnim != null)
+		if (animation.curAnim != null)
 		{
 			animName = animation.curAnim.name;
 		}
@@ -271,17 +270,17 @@ class Note extends FlxSprite
 		loadNoteAnims();
 		antialiasing = ClientPrefs.globalAntialiasing;
 		
-		if(isSustainNote)
+		if (isSustainNote)
 		{
 			scale.y = lastScaleY;
 		}
 
 		updateHitbox();
 
-		if(animName != null)
+		if (animName != null)
 			animation.play(animName, true);
 
-		if(inEditor)
+		if (inEditor)
 		{
 			setGraphicSize(ChartingState.GRID_SIZE, ChartingState.GRID_SIZE);
 			updateHitbox();
@@ -304,7 +303,7 @@ class Note extends FlxSprite
 
 	function loadPixelNoteAnims()
 	{
-		if(isSustainNote)
+		if (isSustainNote)
 		{
 			animation.add(colArray[noteData] + 'holdend', [pixelInt[noteData] + 4], 24);
 			animation.add(colArray[noteData] + 'hold', [pixelInt[noteData]], 24);
@@ -336,7 +335,7 @@ class Note extends FlxSprite
 
 			if (strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult))
 			{
-				if((isSustainNote && prevNote.wasGoodHit) || strumTime <= Conductor.songPosition)
+				if ((isSustainNote && prevNote.wasGoodHit) || strumTime <= Conductor.songPosition)
 					wasGoodHit = true;
 			}
 		}

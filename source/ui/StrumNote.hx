@@ -41,9 +41,9 @@ class StrumNote extends FlxSprite
 
 		super(x, y);
 
-		var skin:String = 'ui/NOTE_assets';
+		var skin:String = 'ui/notes';
 
-		if(PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1)
+		if (PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1)
 		{
 			skin = PlayState.SONG.arrowSkin;
 		}
@@ -57,7 +57,7 @@ class StrumNote extends FlxSprite
 	{
 		var lastAnim:String = null;
 
-		if(animation.curAnim != null)
+		if (animation.curAnim != null)
 		{
 			lastAnim = animation.curAnim.name;
 		}
@@ -93,7 +93,7 @@ class StrumNote extends FlxSprite
 		
 		updateHitbox();
 
-		if(lastAnim != null)
+		if (lastAnim != null)
 		{
 			playAnim(lastAnim, true);
 		}
@@ -101,7 +101,7 @@ class StrumNote extends FlxSprite
 
 	public function postAddedToGroup()
 	{
-		playAnim('static');
+		playAnim('static', true);
 
 		x += Note.swagWidth * noteData;
 		x += 50;
@@ -112,19 +112,19 @@ class StrumNote extends FlxSprite
 
 	override function update(elapsed:Float)
 	{
-		if(resetAnim > 0)
+		if (resetAnim > 0)
 		{
 			resetAnim -= elapsed;
 
-			if(resetAnim <= 0)
+			if (resetAnim <= 0)
 			{
-				playAnim('static');
+				playAnim('static', true);
 
 				resetAnim = 0;
 			}
 		}
 
-		if(animation.curAnim.name == 'confirm')
+		if (animation.curAnim.name == 'confirm')
 		{
 			centerOrigin();
 		}
@@ -139,7 +139,7 @@ class StrumNote extends FlxSprite
 		centerOffsets();
 		centerOrigin();
 
-		if(animation.curAnim == null || animation.curAnim.name == 'static')
+		if (animation.curAnim == null || animation.curAnim.name == 'static')
 		{
 			colorSwap.hue = 0;
 			colorSwap.saturation = 0;
@@ -154,7 +154,7 @@ class StrumNote extends FlxSprite
 				colorSwap.brightness = ClientPrefs.arrowHSV[noteData][2] / 100;
 			}
 
-			if(animation.curAnim.name == 'confirm')
+			if (animation.curAnim.name == 'confirm')
 			{
 				centerOrigin();
 			}
