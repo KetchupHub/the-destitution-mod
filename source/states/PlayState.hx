@@ -3131,12 +3131,53 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public function moveCamera(isDad:Bool)
+	public var curTheCube:FlxSprite;
+
+	public function moveCamera(isDad:Bool, forceMiddleCam:Bool = false)
 	{
-		if (SONG.notes[curSection].middleCamSection)
+		if (SONG.notes[curSection].middleCamSection || forceMiddleCam)
 		{
+			//rip the large square
+			/*if (curTheCube == null)
+			{
+				var theCube:FlxSprite;
+				var targetXforCube:Float = 0;
+				var targetYforCube:Float = 0;
+				var targetWidthForCube:Float = 1;
+				var targetHeightForCube:Float = 1;
+	
+				// x
+				if ((boyfriend.x + boyfriendGroup.x) > (dad.x + dadGroup.x))
+				{
+					targetXforCube = boyfriend.x + boyfriendGroup.x;
+					targetWidthForCube = boyfriend.width + (targetXforCube - (dad.x + dadGroup.x)) + dad.width;
+				}
+				else
+				{
+					targetXforCube = dad.x + dadGroup.x;
+					targetWidthForCube = dad.width + (targetXforCube - (boyfriend.x + boyfriendGroup.x)) + boyfriend.width;
+				}
+	
+				// y
+				if ((boyfriend.y + boyfriendGroup.y) > (dad.y + dadGroup.y))
+				{
+					targetYforCube = boyfriend.y + boyfriendGroup.y;
+					targetHeightForCube = boyfriend.height + (targetYforCube - (dad.y + dadGroup.y)) + dad.height;
+				}
+				else
+				{
+					targetYforCube = dad.y + dadGroup.y;
+					targetHeightForCube = dad.height + (targetYforCube - (boyfriend.y + boyfriendGroup.y)) + boyfriend.height;
+				}
+	
+				theCube = new FlxSprite(targetXforCube, targetYforCube).makeGraphic(Std.int(targetWidthForCube), Std.int(targetHeightForCube));
+
+				curTheCube = theCube;
+			}*/
+
 			camFollow.set(((dad.getMidpoint().x - dad.x) / 2) + ((boyfriend.getMidpoint().x - boyfriend.x) / 2) + 150, dad.getMidpoint().y - 150);
 			camFollow.y += dad.cameraPosition[1];
+			//camFollow.set(curTheCube.getMidpoint().x, curTheCube.getMidpoint().y);
 
 			if (isDad)
 			{
@@ -3175,7 +3216,7 @@ class PlayState extends MusicBeatState
 
 	public function finishSong(?ignoreNoteOffset:Bool = false):Void
 	{
-		var finishCallback:Void->Void = endSong;
+		var finishCallback:Void->Void = songEndTransitionThing;
 
 		songHasSections = false;
 		sectionNum = 1;
@@ -3186,7 +3227,7 @@ class PlayState extends MusicBeatState
 		opponentVocals.volume = 0;
 		opponentVocals.pause();
 
-		if(ClientPrefs.noteOffset <= 0 || ignoreNoteOffset)
+		if (ClientPrefs.noteOffset <= 0 || ignoreNoteOffset)
 		{
 			finishCallback();
 		}
@@ -3199,15 +3240,28 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	public function songEndTransitionThing():Void
+	{
+		moveCamera(false, true);
+		disallowCamMove = true;
+		FlxTween.tween(camHUD, {alpha: 0}, 2, {ease: FlxEase.smootherStepOut, onComplete: function the(flucks:FlxTween)
+		{
+			var dieIril:FlxTimer = new FlxTimer().start(0.5, function imKingMyS(fuckYouTimer:FlxTimer)
+			{
+				endSong();				
+			});
+		}});
+	}
+
 	public var transitioning = false;
 
 	public function endSong():Void
 	{
-		if(!startingSong)
+		if (!startingSong)
 		{
 			notes.forEach(function(daNote:Note)
 			{
-				if(daNote.strumTime < songLength - Conductor.safeZoneOffset)
+				if (daNote.strumTime < songLength - Conductor.safeZoneOffset)
 				{
 					health -= 0.05 * healthLoss;
 				}
@@ -3215,13 +3269,13 @@ class PlayState extends MusicBeatState
 
 			for (daNote in unspawnNotes)
 			{
-				if(daNote.strumTime < songLength - Conductor.safeZoneOffset)
+				if (daNote.strumTime < songLength - Conductor.safeZoneOffset)
 				{
 					health -= 0.05 * healthLoss;
 				}
 			}
 
-			if(doDeathCheck())
+			if (doDeathCheck())
 			{
 				return;
 			}
@@ -3242,7 +3296,7 @@ class PlayState extends MusicBeatState
 		{
 			var percent:Float = ratingPercent;
 
-			if(Math.isNaN(percent))
+			if (Math.isNaN(percent))
 			{
 				percent = 0;
 			}
@@ -3263,7 +3317,7 @@ class PlayState extends MusicBeatState
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 
-			if(FlxTransitionableState.skipNextTransIn)
+			if (FlxTransitionableState.skipNextTransIn)
 			{
 				CustomFadeTransition.nextCamera = null;
 			}

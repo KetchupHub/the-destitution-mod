@@ -76,7 +76,7 @@ class LoadingScreenState extends MusicBeatState
             }});
 		}
 
-        switch(PlayState.SONG.song.toLowerCase())
+        switch(PlayState.SONG.song.toLowerCase().replace('-erect', ''))
         {
             case 'destitution':
                 charactersToLoad = ['mark', 'bf-mark', 'mark-alt', 'mark-annoyed', 'mark-angry', 'ploinky', 'item', 'whale', 'rulez', 'crypteh', 'zam', 'bf-mark-ploink', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh', 'bf-mark-annoyed', 'bg-player', 'stop-loading'];
@@ -84,6 +84,8 @@ class LoadingScreenState extends MusicBeatState
                 charactersToLoad = ['superseded-mark', 'superseded-mark-graph', 'superseded-creature', 'superseded-bf', 'stop-loading'];*/
             case 'd-stitution':
                 charactersToLoad = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'd-ili', 'd-bf-doug', 'douglass', 'karm-scold', 'douglass-player', 'd-rules', 'd-bf-rules', 'maestro', 'd-bf-rules-flipped', 'zamboney', 'karm-finale', 'stop-loading'];
+            case 'new-hampshire':
+                charactersToLoad = ['bucks-mark', 'bucks-bf', 'brokerboy', 'stop-loading'];
             default:
                 charactersToLoad = ['bf', 'gf', 'stop-loading'];
         }
