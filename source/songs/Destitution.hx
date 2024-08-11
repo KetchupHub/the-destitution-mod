@@ -1,5 +1,6 @@
 package songs;
 
+import flixel.util.FlxColor;
 import backend.ClientPrefs;
 import visuals.Boyfriend;
 import visuals.Character;
@@ -176,18 +177,38 @@ class Destitution extends SongClass
                 PlayState.instance.dad.canSing = true;
                 FlxG.camera.flash();
             case 948:
-                PlayState.instance.dad.visible = false;
-                PlayState.instance.itemManFucked = new FlxSprite(1182 + PlayState.instance.ploinky.x, 586 + PlayState.instance.ploinky.y).loadGraphic(Paths.image("destitution/sacry"));
-                PlayState.instance.add(PlayState.instance.itemManFucked);
-                FlxG.camera.flash();
-            case 1020:
                 PlayState.instance.shoulderCam = false;
-                PlayState.instance.itemManFucked.visible = false;
-                PlayState.instance.itemManFucked.destroy();
-                PlayState.instance.dad.alpha = 1;
-                FlxG.camera.flash();
+
+                PlayState.instance.defaultCamZoom = 1;
+
                 PlayState.instance.ploinky.visible = false;
                 PlayState.instance.ploinky.destroy();
+
+                PlayState.instance.blackVoid.visible = true;
+
+                PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad.destroy();
+                PlayState.instance.dad = new Character(564 - PlayState.instance.dadGroup.x, 64 - PlayState.instance.dadGroup.y, 'ili-devil', false, false);
+                PlayState.instance.dadGroup.add(PlayState.instance.dad);
+                PlayState.instance.dad.scrollFactor.set(0, 0);
+                PlayState.instance.dadGroup.scrollFactor.set(0, 0);
+
+                PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend.destroy();
+                PlayState.instance.boyfriend = new Boyfriend(128, 84, 'bf-mark-lurking', false);
+                PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend.scrollFactor.set(0, 0);
+                PlayState.instance.boyfriendGroup.scrollFactor.set(0, 0);
+
+                FlxG.camera.flash(FlxColor.RED, 3);
+
+                Paths.clearUnusedMemory();
+            case 1020:
+                FlxG.camera.flash();
+
+                PlayState.instance.blackVoid.visible = false;
+
+                PlayState.instance.defaultCamZoom = 0.875;
 
                 PlayState.instance.dad.visible = true;
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
@@ -196,6 +217,8 @@ class Destitution extends SongClass
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
                 PlayState.instance.dad.x += 160;
                 PlayState.instance.dad.y -= 520;
+                PlayState.instance.dad.scrollFactor.set(1, 1);
+                PlayState.instance.dadGroup.scrollFactor.set(1, 1);
                 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
                 PlayState.instance.boyfriend.destroy();
@@ -203,6 +226,8 @@ class Destitution extends SongClass
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
                 PlayState.instance.boyfriend.x -= 700;
                 PlayState.instance.boyfriend.y -= 574;
+                PlayState.instance.boyfriend.scrollFactor.set(1, 1);
+                PlayState.instance.boyfriendGroup.scrollFactor.set(1, 1);
                 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
@@ -229,30 +254,55 @@ class Destitution extends SongClass
                 
                 Paths.clearUnusedMemory();
             case 1148 | 1228:
-                FlxG.camera.flash();
+                if (curBeat < 1228)
+                {
+                    FlxG.camera.flash();
+                }
+
                 PlayState.instance.camZooming = false;
                 PlayState.instance.camZoomingMult = 1;
                 PlayState.instance.camZoomingDecay = 1;
                 PlayState.instance.space.visible = false;
                 PlayState.instance.spaceTime = false;
                 PlayState.instance.spaceItems.visible = false;
-                if(curBeat >= 1228)
+
+                if (curBeat >= 1228)
                 {
-                    for(spitem in PlayState.instance.spaceItems.members)
+                    for (spitem in PlayState.instance.spaceItems.members)
                     {
-                        spitem.destroy();
+                        FlxTween.tween(spitem, {'scale.x': 0, 'scale.y': 0}, 1.5, {ease: FlxEase.circOut});
                     }
-                    PlayState.instance.spaceItems.destroy();
-                    PlayState.instance.space.destroy();
+
+                    FlxTween.tween(PlayState.instance.space, {x: 2000}, 0.5, {ease: FlxEase.backInOut});
+
+                    var fuckyouman:FlxTimer = new FlxTimer().start(1.55, function dierels(fuck:FlxTimer)
+                    {
+                        for (spitem in PlayState.instance.spaceItems.members)
+                        {
+                            FlxTween.completeTweensOf(spitem);
+                            spitem.destroy();
+                        }
+
+                        PlayState.instance.spaceItems.destroy();
+                        FlxTween.completeTweensOf(PlayState.instance.space);
+                        PlayState.instance.space.destroy();
+                    });
+
+                    FlxTween.tween(PlayState.instance.dad, {x: PlayState.instance.spaceTimeDadArray[0], y: PlayState.instance.spaceTimeDadArray[1], angle: 0}, 1, {ease: FlxEase.smootherStepOut});
+                    FlxTween.tween(PlayState.instance.boyfriend, {x: PlayState.instance.spaceTimeBfArray[0], y: PlayState.instance.spaceTimeBfArray[1], angle: 0}, 1, {ease: FlxEase.smootherStepOut});
                 }
+                else
+                {
+                    PlayState.instance.dad.setPosition(PlayState.instance.spaceTimeDadArray[0], PlayState.instance.spaceTimeDadArray[1]);
+                    PlayState.instance.boyfriend.setPosition(PlayState.instance.spaceTimeBfArray[0], PlayState.instance.spaceTimeBfArray[1]);
+                    PlayState.instance.dad.angle = 0;
+                    PlayState.instance.boyfriend.angle = 0;
+                }
+
                 PlayState.instance.boyfriend.canDance = true;
                 PlayState.instance.boyfriend.canSing = true;
                 PlayState.instance.dad.canDance = true;
                 PlayState.instance.dad.canSing = true;
-                PlayState.instance.dad.setPosition(PlayState.instance.spaceTimeDadArray[0], PlayState.instance.spaceTimeDadArray[1]);
-                PlayState.instance.boyfriend.setPosition(PlayState.instance.spaceTimeBfArray[0], PlayState.instance.spaceTimeBfArray[1]);
-                PlayState.instance.dad.angle = 0;
-                PlayState.instance.boyfriend.angle = 0;
                 PlayState.instance.dad.dance();
                 PlayState.instance.boyfriend.dance();
             case 1164 | 1236:
@@ -260,7 +310,8 @@ class Destitution extends SongClass
                 PlayState.instance.camZooming = true;
                 PlayState.instance.camZoomingMult = 1.5;
                 PlayState.instance.camZoomingDecay = 1.5;
-                if(curBeat <= 1164)
+
+                if (curBeat <= 1164)
                 {
                     PlayState.instance.spaceItems.visible = true;
                     PlayState.instance.spaceTime = true;
@@ -289,11 +340,13 @@ class Destitution extends SongClass
                 PlayState.instance.centerCamOnBg = true;
                 PlayState.instance.liek.animation.play("idle", true);
                 PlayState.instance.cuttingSceneThing.visible = true;
-                for(i in PlayState.instance.opponentStrums.members)
+
+                for (i in PlayState.instance.opponentStrums.members)
                 {
                     FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
                 }
-                for(i in PlayState.instance.playerStrums.members)
+
+                for (i in PlayState.instance.playerStrums.members)
                 {
                     FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
                 }
@@ -323,17 +376,14 @@ class Destitution extends SongClass
                 FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500);
                 FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500);
                 
-                for(i in PlayState.instance.opponentStrums.members)
+                for (i in PlayState.instance.opponentStrums.members)
                 {
-                    //i.x -= ((FlxG.width / 2) * 1);
-                    //i.x += ((FlxG.width / 2) * 0);
                     FlxTween.completeTweensOf(i);
                     FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
                 }
-                for(i in PlayState.instance.playerStrums.members)
+
+                for (i in PlayState.instance.playerStrums.members)
                 {
-                    //i.x -= ((FlxG.width / 2) * 0);
-                    //i.x += ((FlxG.width / 2) * 1);
                     FlxTween.completeTweensOf(i);
                     FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
                 }
@@ -391,11 +441,12 @@ class Destitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("Mark Mc. Marketing (B)");
 
-                for(i in PlayState.instance.opponentStrums.members)
+                for (i in PlayState.instance.opponentStrums.members)
                 {
                     FlxTween.tween(i, {x: i.x + 575}, 1, {ease: FlxEase.quadInOut});
                 }
-                for(i in PlayState.instance.playerStrums.members)
+
+                for (i in PlayState.instance.playerStrums.members)
                 {
                     FlxTween.tween(i, {x: i.x - -320}, 1, {ease: FlxEase.quadInOut});
                 }
@@ -525,11 +576,12 @@ class Destitution extends SongClass
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
 
-                for(i in PlayState.instance.opponentStrums.members)
+                for (i in PlayState.instance.opponentStrums.members)
                 {
                     FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
                 }
-                for(i in PlayState.instance.playerStrums.members)
+
+                for (i in PlayState.instance.playerStrums.members)
                 {
                     FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
                 }

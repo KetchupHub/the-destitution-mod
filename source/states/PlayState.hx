@@ -270,9 +270,10 @@ class PlayState extends MusicBeatState
 	public var annoyed:FlxSprite;
 	public var liek:FlxSprite;
 	public var space:FlxSprite;
+	public var blackVoid:FlxSprite;
+	public var iliDevilJumpscare:FlxSprite;
 	public var ploinky:FlxSprite;
 	public var starting:FlxSprite;
-	public var itemManFucked:FlxSprite;
 	public var cuttingSceneThing:FlxSprite;
 	public var funnyBgColors:FlxSprite;
 	public var healthBarBG:FlxSprite;
@@ -531,23 +532,27 @@ class PlayState extends MusicBeatState
 				angry.updateHitbox();
 				angry.antialiasing = false;
 				add(angry);
+				
 				angryDadCover = new FlxSprite(600, -320).loadGraphic(Paths.image('destitution/angry_dadcover'));
 				angryDadCover.scale.set(2, 2);
 				angryDadCover.updateHitbox();
 				angryDadCover.antialiasing = false;
 				angryDadCover.visible = false;
+
 				zamboni = new FlxSprite(-680, -320).loadGraphic(Paths.image('destitution/zamboni'));
 				zamboni.scale.set(2, 2);
 				zamboni.updateHitbox();
 				zamboni.antialiasing = false;
 				add(zamboni);
+
 				cryptehB = new FlxSprite(-680, -320).loadGraphic(Paths.image('destitution/cryptehB'));
 				cryptehB.scale.set(2, 2);
 				cryptehB.updateHitbox();
 				cryptehB.antialiasing = false;
 				add(cryptehB);
+
 				office = new FlxSprite(-680, -320);
-				office.frames = Paths.getSparrowAtlas('destitution/destitution_bg_buy_my_new_shitcoin');
+				office.frames = Paths.getSparrowAtlas('destitution/bg_rulez_crypteh');
 				office.animation.addByPrefix("idle", "ROOLZ ARE FOUR TOOLZ", 24, false);
 				office.animation.play("idle", true);
 				office.animation.pause();
@@ -555,8 +560,9 @@ class PlayState extends MusicBeatState
 				office.updateHitbox();
 				office.antialiasing = false;
 				add(office);
+
 				annoyed = new FlxSprite(-680, -320);
-				annoyed.frames = Paths.getSparrowAtlas('destitution/destitution_bg_heyheyheywahtsallthis');
+				annoyed.frames = Paths.getSparrowAtlas('destitution/bg_annoyed');
 				annoyed.animation.addByPrefix("idle", "whale world to somewhat peterbed man", 24, false);
 				annoyed.animation.play("idle", true);
 				annoyed.animation.pause();
@@ -564,8 +570,9 @@ class PlayState extends MusicBeatState
 				annoyed.updateHitbox();
 				annoyed.antialiasing = false;
 				add(annoyed);
+
 				liek = new FlxSprite(-680, -320);
-				liek.frames = Paths.getSparrowAtlas('destitution/destitution_bg_ittem_whalez');
+				liek.frames = Paths.getSparrowAtlas('destitution/bg_item_whale');
 				liek.animation.addByPrefix("idle", "ITEM MAN TO THE WHALES OF THE WORLD", 24, false);
 				liek.animation.play("idle", true);
 				liek.animation.pause();
@@ -573,6 +580,7 @@ class PlayState extends MusicBeatState
 				liek.updateHitbox();
 				liek.antialiasing = false;
 				add(liek);
+
 				space = new FlxSprite(-680, -320);
 				space.loadGraphic(Paths.image("destitution/space"));
 				space.antialiasing = false;
@@ -591,7 +599,7 @@ class PlayState extends MusicBeatState
 				space.shader = spaceWiggle.shader;
 
 				spaceItems = new FlxTypedGroup<FlxSprite>();
-				for(i in 0...7)
+				for (i in 0...7)
 				{
 					var fucksprit:FlxSprite = new FlxSprite(CoolUtil.randomLogic.float(-32, 1248), CoolUtil.randomLogic.float(-32, 688));
 					fucksprit.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(CoolUtil.randomVisuals.int(0, 10))));
@@ -605,11 +613,20 @@ class PlayState extends MusicBeatState
 				add(spaceItems);
 				spaceItems.visible = false;
 
+				blackVoid = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
+				blackVoid.scale.set(2560, 2560);
+				blackVoid.updateHitbox();
+				blackVoid.screenCenter();
+				blackVoid.scrollFactor.set();
+				add(blackVoid);
+				blackVoid.visible = false;
+
 				ploinky = new FlxSprite(-680, -320).loadGraphic(Paths.image('destitution/ploinky'));
 				ploinky.antialiasing = false;
 				ploinky.scale.set(2, 2);
 				ploinky.updateHitbox();
 				add(ploinky);
+
 				starting = new FlxSprite(-680, -320).loadGraphic(Paths.image('destitution/start'));
 				starting.antialiasing = false;
 				starting.scale.set(2, 2);
@@ -669,7 +686,7 @@ class PlayState extends MusicBeatState
 				precacheList.set('destitution/start', 'image');
 				precacheList.set('destitution/mark_ploinky_transition', 'image');
 				precacheList.set('destitution/ploinky', 'image');
-				precacheList.set('destitution/destitution_bg_ittem_whalez', 'image');
+				precacheList.set('destitution/bg_item_whale', 'image');
 				precacheList.set('destitution/space', 'image');
 				precacheList.set('destitution/itemShit/0', 'image');
 				precacheList.set('destitution/itemShit/1', 'image');
@@ -683,9 +700,9 @@ class PlayState extends MusicBeatState
 				precacheList.set('destitution/itemShit/9', 'image');
 				precacheList.set('destitution/itemShit/10', 'image');
 				precacheList.set('ui/cutting_scene', 'image');
-				precacheList.set('destitution/destitution_bg_heyheyheywahtsallthis', 'image');
+				precacheList.set('destitution/bg_annoyed', 'image');
 				precacheList.set('destitution/rulez_guy_screen_transition', 'image');
-				precacheList.set('destitution/destitution_bg_buy_my_new_shitcoin', 'image');
+				precacheList.set('destitution/bg_rulez_crypteh', 'image');
 				precacheList.set('destitution/cryptehB', 'image');
 				precacheList.set('destitution/zamboni', 'image');
 				precacheList.set('destitution/cam_flip_lol', 'image');
@@ -756,7 +773,7 @@ class PlayState extends MusicBeatState
 				chefTable.updateHitbox();
 				chefTable.antialiasing = false;
 				chefTable.screenCenter();
-				chefTable.scrollFactor.set(2, 0.25);
+				chefTable.scrollFactor.set(1.6, 0.55);
 				chefTable.y -= 4000;
 
 				chefBanner = new FlxSprite().loadGraphic(Paths.image('dsides/chefBanner'));
@@ -764,7 +781,7 @@ class PlayState extends MusicBeatState
 				chefBanner.updateHitbox();
 				chefBanner.antialiasing = false;
 				chefBanner.screenCenter();
-				chefBanner.scrollFactor.set(1.5, 0.5);
+				chefBanner.scrollFactor.set(1.25, 0.75);
 				chefBanner.y -= 4000;
 
 				chefCurtains = new FlxClothSprite();
@@ -781,15 +798,15 @@ class PlayState extends MusicBeatState
 				chefCurtains.screenCenter();
 				chefCurtains.x -= 512;
 				chefCurtains.y -= 648;
-				chefCurtains.scrollFactor.set(0.05, 0.05);
+				chefCurtains.y -= 256;
+				chefCurtains.scrollFactor.set(0.1, 0.1);
 				chefCurtains.y -= 4000;
-
 
 				lightningStrikes = new FlxSprite().makeGraphic(1, 1, FlxColor.fromRGB(255, 241, 185));
 				lightningStrikes.scale.set(5000, 5000);
 				lightningStrikes.updateHitbox();
 
-				if(ClientPrefs.shaders)
+				if (ClientPrefs.shaders)
 				{
 					lightningStrikes.blend = BlendMode.ADD;
 				}
@@ -807,7 +824,7 @@ class PlayState extends MusicBeatState
 				funnyBgColors.alpha = 0;
 				funnyBgColors.color = FlxColor.BLACK;
 
-				if(ClientPrefs.shaders)
+				if (ClientPrefs.shaders)
 				{
 					funnyBgColors.blend = BlendMode.MULTIPLY;
 				}
@@ -3184,11 +3201,13 @@ class PlayState extends MusicBeatState
 				theCube = new FlxSprite(targetXforCube, targetYforCube).makeGraphic(Std.int(targetWidthForCube), Std.int(targetHeightForCube));
 
 				curTheCube = theCube;
-			}*/
+			}
 
-			camFollow.set(((dad.getMidpoint().x - dad.x) / 2) + ((boyfriend.getMidpoint().x - boyfriend.x) / 2) + 150, dad.getMidpoint().y - 150);
+			camFollow.set(curTheCube.getMidpoint().x, curTheCube.getMidpoint().y);*/
+
+			camFollow.set(((dad.getMidpoint().x - dad.x) / 2) + ((boyfriend.getMidpoint().x - boyfriend.x) / 2) + 148, dad.getMidpoint().y - 148);
 			camFollow.y += dad.cameraPosition[1];
-			//camFollow.set(curTheCube.getMidpoint().x, curTheCube.getMidpoint().y);
+			camFollow.y += 64;
 
 			if (isDad)
 			{
@@ -3203,7 +3222,7 @@ class PlayState extends MusicBeatState
 		}
 		else if (isDad)
 		{
-			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
+			camFollow.set(dad.getMidpoint().x + 148, dad.getMidpoint().y - 100);
 			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
 			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
 			camFollow.x += dad.curFunnyPosition[0];
@@ -3253,9 +3272,11 @@ class PlayState extends MusicBeatState
 
 	public function songEndTransitionThing():Void
 	{
-		moveCamera(false, true);
+		moveCamera(false, false);
 		disallowCamMove = true;
 		camZooming = false;
+		FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom - 0.15}, 1.5, {ease: FlxEase.expoOut});
+		defaultCamZoom -= 0.15;
 		FlxTween.tween(camHUD, {alpha: 0}, 2, {ease: FlxEase.smootherStepOut, onComplete: function the(flucks:FlxTween)
 		{
 			var dieIril:FlxTimer = new FlxTimer().start(0.5, function imKingMyS(fuckYouTimer:FlxTimer)

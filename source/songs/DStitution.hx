@@ -194,7 +194,7 @@ class DStitution extends SongClass
             case 1120:
                 PlayState.instance.chefCurtains.visible = true;
                 PlayState.instance.chefCurtains.active = true;
-                FlxTween.tween(PlayState.instance.chefCurtains, {y: PlayState.instance.sky.y}, Conductor.crochet / 500, {ease: FlxEase.quadOut});
+                FlxTween.tween(PlayState.instance.chefCurtains, {y: PlayState.instance.chefCurtains.y + 4000}, Conductor.crochet / 500, {ease: FlxEase.quadOut});
                 PlayState.instance.chefCurtains.meshVelocity.x = PlayState.instance.chefCurtains.maxVelocity.x;
                 PlayState.instance.chefCurtains.meshVelocity.y = PlayState.instance.chefCurtains.maxVelocity.y;
             case 1124:
