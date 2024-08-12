@@ -30,21 +30,6 @@ class Conductor
 		
 	}
 
-	public static function judgeNote(note:Note, diff:Float = 0):Rating
-	{
-		var data:Array<Rating> = PlayState.instance.ratingsData;
-
-		for (i in 0...data.length - 1)
-		{
-			if (diff <= data[i].hitWindow)
-			{
-				return data[i];
-			}
-		}
-
-		return data[data.length - 1];
-	}
-
 	public static function getCrotchetAtTime(time:Float)
 	{
 		var lastChange = getBPMFromSeconds(time);
@@ -179,34 +164,5 @@ class Conductor
 		crochet = calculateCrochet(bpm);
 
 		stepCrochet = crochet / 4;
-	}
-}
-
-class Rating
-{
-	public var name:String = '';
-	public var image:String = '';
-	public var counter:String = '';
-	public var hitWindow:Null<Int> = 0;
-	public var ratingMod:Float = 1;
-	public var score:Int = 350;
-	public var noteSplash:Bool = true;
-
-	public function new(name:String)
-	{
-		this.name = name;
-		this.image = name;
-		this.counter = name + 's';
-		this.hitWindow = Reflect.field(ClientPrefs, name + 'Window');
-
-		if (hitWindow == null)
-		{
-			hitWindow = 0;
-		}
-	}
-
-	public function increase(blah:Int = 1)
-	{
-		Reflect.setField(PlayState.instance, counter, Reflect.field(PlayState.instance, counter) + blah);
 	}
 }

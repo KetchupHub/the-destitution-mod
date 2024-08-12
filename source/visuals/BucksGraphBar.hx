@@ -32,10 +32,13 @@ class BucksGraphBar extends FlxSprite
     {
         super.update(elapsed);
 
-        if(curPos != targetPos)
+        curPos = Math.floor(FlxMath.lerp(targetPos, curPos, CoolUtil.boundTo(1 - (elapsed * 6), 0, 1)));
+
+        if (Math.abs(curPos - targetPos) <= 2)
         {
-            curPos = Std.int(FlxMath.lerp(targetPos, curPos, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1)));
-            animation.play('idle', true, false, curPos);
+            curPos = targetPos;
         }
+
+        animation.play('idle', true, false, curPos);
     }
 }

@@ -124,7 +124,7 @@ class NewHampshire extends SongClass
                     }
                     else
                     {
-                        switch ((PlayState.instance.ratingPercent * 10) - 1)
+                        switch (Std.int((PlayState.instance.ratingPercent * 10) - 1))
                         {
                             case 0 | 1 | 2 | 3:
                                 {

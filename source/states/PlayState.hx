@@ -1,5 +1,6 @@
 package states;
 
+import backend.Scoring;
 import flixel.addons.effects.FlxClothSprite;
 import backend.WeekData;
 import ui.CustomFadeTransition;
@@ -40,7 +41,6 @@ import editors.ChartingState;
 import editors.CharacterEditorState;
 import openfl.events.KeyboardEvent;
 import backend.StageData;
-import backend.Conductor.Rating;
 import visuals.Character;
 import visuals.Boyfriend;
 import visuals.AttachedSprite;
@@ -93,8 +93,6 @@ class PlayState extends MusicBeatState
 		['Synergy!', 1] //The value on this one isn't used actually, since Perfect is always "1"
 	];
 	private var keysArray:Array<Dynamic>;
-
-	public var ratingsData:Array<Rating> = [];
 
 	public var camFollow:FlxPoint;
 	public static var prevCamFollow:FlxPoint;
@@ -336,6 +334,11 @@ class PlayState extends MusicBeatState
 
 		CoolUtil.rerollRandomness();
 
+		Scoring.PBOT1_SYNERGY_THRESHOLD = ClientPrefs.synergyWindow;
+		Scoring.PBOT1_GOOD_THRESHOLD = ClientPrefs.goodWindow;
+		Scoring.PBOT1_EGH_THRESHOLD = ClientPrefs.eghWindow;
+		Scoring.PBOT1_BLEGH_THRESHOLD = ClientPrefs.bleghWindow;
+
 		debugKeysChart = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
 		debugKeysCharacter = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
@@ -355,26 +358,6 @@ class PlayState extends MusicBeatState
 			'NOTE_UP',
 			'NOTE_RIGHT'
 		];
-
-		ratingsData.push(new Rating('synergy'));
-
-		var rating:Rating = new Rating('good');
-		rating.ratingMod = 0.7;
-		rating.score = 200;
-		rating.noteSplash = false;
-		ratingsData.push(rating);
-
-		var rating:Rating = new Rating('egh');
-		rating.ratingMod = 0.4;
-		rating.score = 100;
-		rating.noteSplash = false;
-		ratingsData.push(rating);
-
-		var rating:Rating = new Rating('blegh');
-		rating.ratingMod = 0;
-		rating.score = 50;
-		rating.noteSplash = false;
-		ratingsData.push(rating);
 
 		for (i in 0...keysArray.length)
 		{
@@ -3360,7 +3343,7 @@ class PlayState extends MusicBeatState
 				FlxG.sound.music.stop();
 			}
 
-			MusicBeatState.switchState(new ResultsState(songScore, Highscore.getScore(SONG.song), synergys, goods, eghs, bleghs, cpuControlled, percent));
+			MusicBeatState.switchState(new ResultsState(songScore, Highscore.getScore(SONG.song), synergys, goods, eghs, bleghs, cpuControlled, Highscore.floorDecimal(ratingPercent * 100, 2), songMisses));
 
 			transitioning = true;
 		}
@@ -3418,30 +3401,47 @@ class PlayState extends MusicBeatState
 		}
 
 		var rating:FlxSprite = new FlxSprite(998, ratingY);
-		var score:Int = 350;
-		var daRating:Rating = Conductor.judgeNote(note, noteDiff / playbackRate);
+		var score:Int = Scoring.scoreNote(noteDiff / playbackRate);
+		var daRating:String = Scoring.judgeNote(noteDiff / playbackRate);
 
-		totalNotesHit += daRating.ratingMod;
-		note.ratingMod = daRating.ratingMod;
-
-		if(!note.ratingDisabled)
+		var ratingMod:Float = 1;
+		switch (daRating)
 		{
-			daRating.increase();
+			case 'blegh':
+				ratingMod = 0;
+			case 'egh':
+				ratingMod = 0.4;
+			case 'good':
+				ratingMod = 0.7;
 		}
 
-		note.rating = daRating.name;
-		score = daRating.score;
+		totalNotesHit += ratingMod;
+		note.ratingMod = ratingMod;
 
-		if(daRating.noteSplash && !note.noteSplashDisabled)
+		switch (daRating)
+		{
+			case 'blegh':
+				bleghs++;
+			case 'egh':
+				eghs++;
+			case 'good':
+				goods++;
+			case 'synergy':
+				synergys++;
+		}
+
+		note.rating = daRating;
+
+		if (daRating == "synergy" && !note.noteSplashDisabled)
 		{
 			spawnNoteSplashOnNote(note);
 		}
 
-		if(!practiceMode && !cpuControlled)
+		if (!practiceMode && !cpuControlled)
 		{
 			songScore += score;
 
-			if(!note.ratingDisabled)
+			if (!note.ratingDisabled)
 			{
 				songHits++;
 				totalPlayed++;
@@ -3451,7 +3451,7 @@ class PlayState extends MusicBeatState
 
 		var ratingsSuffix:String = songObj.ratingsType;
 
-		rating.loadGraphic(Paths.image('ui/ratings' + ratingsSuffix + '/' + daRating.image));
+		rating.loadGraphic(Paths.image('ui/ratings' + ratingsSuffix + '/' + daRating.toLowerCase()));
 		rating.cameras = [camHUD];
 		rating.screenCenter();
 		rating.x = 998;
@@ -4314,7 +4314,7 @@ class PlayState extends MusicBeatState
 	{
 		var spr:StrumNote = null;
 
-		if(isDad)
+		if (isDad)
 		{
 			spr = strumLineNotes.members[id];
 		}
@@ -4323,7 +4323,7 @@ class PlayState extends MusicBeatState
 			spr = playerStrums.members[id];
 		}
 
-		if(spr != null)
+		if (spr != null)
 		{
 			spr.playAnim('confirm', true);
 			spr.resetAnim = time;
@@ -4332,7 +4332,7 @@ class PlayState extends MusicBeatState
 
 	public function RecalculateRating(badHit:Bool = false)
 	{
-		if(totalPlayed < 1) //Prevent divide by 0
+		if (totalPlayed < 1) //Prevent divide by 0
 		{
 			ratingName = '?';
 		}
@@ -4342,7 +4342,7 @@ class PlayState extends MusicBeatState
 			ratingPercent = Math.min(1, Math.max(0, totalNotesHit / totalPlayed));
 
 			// Rating Name
-			if(ratingPercent >= 1)
+			if (ratingPercent >= 1)
 			{
 				ratingName = ratingStuff[ratingStuff.length - 1][0]; //Uses last string
 			}
@@ -4350,7 +4350,7 @@ class PlayState extends MusicBeatState
 			{
 				for (i in 0...ratingStuff.length - 1)
 				{
-					if(ratingPercent < ratingStuff[i][1])
+					if (ratingPercent < ratingStuff[i][1])
 					{
 						ratingName = ratingStuff[i][0];
 						break;

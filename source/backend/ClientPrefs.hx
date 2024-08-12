@@ -49,6 +49,7 @@ class ClientPrefs
 	public static var synergyWindow:Int = 45;
 	public static var goodWindow:Int = 90;
 	public static var eghWindow:Int = 135;
+	public static var bleghWindow:Int = 160;
 	public static var safeFrames:Float = 10;
 
 	public static var keyBinds:Map<String, Array<FlxKey>> = [
@@ -109,6 +110,7 @@ class ClientPrefs
 		FlxG.save.data.synergyWindow = synergyWindow;
 		FlxG.save.data.goodWindow = goodWindow;
 		FlxG.save.data.eghWindow = eghWindow;
+		FlxG.save.data.bleghWindow = bleghWindow;
 		FlxG.save.data.safeFrames = safeFrames;
 		FlxG.save.data.gameplaySettings = gameplaySettings;
 		FlxG.save.data.controllerMode = controllerMode;
@@ -256,6 +258,11 @@ class ClientPrefs
 		if (FlxG.save.data.eghWindow != null)
 		{
 			eghWindow = FlxG.save.data.eghWindow;
+		}
+
+		if (FlxG.save.data.bleghWindow != null)
+		{
+			bleghWindow = FlxG.save.data.bleghWindow;
 		}
 
 		if (FlxG.save.data.safeFrames != null)

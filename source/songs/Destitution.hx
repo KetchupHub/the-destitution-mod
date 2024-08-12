@@ -399,10 +399,12 @@ class Destitution extends SongClass
                 PlayState.instance.whaleFuckShit = true;
             case 1572:
                 //DONT MISS, PAL
-                PlayState.instance.instakillOnMiss = true;
+                //scrapped because i suck
+                //PlayState.instance.instakillOnMiss = true;
             case 1604:
                 //ok yoyu can miss again
-                PlayState.instance.instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
+                //scrapped because i suck
+                //PlayState.instance.instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
                 PlayState.instance.whaleFuckShit = false;
                 FlxG.camera.flash();
             case 1768:
