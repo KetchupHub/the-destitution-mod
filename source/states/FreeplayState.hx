@@ -1,5 +1,6 @@
 package states;
 
+import flixel.util.FlxStringUtil;
 import backend.Conductor;
 import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
@@ -348,7 +349,7 @@ class FreeplayState extends MusicBeatState
 				myFuck = '';
 			}
 	
-			scoreText.text = 'Best Score: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)' + myFuck;
+			scoreText.text = 'Best Score: ' + FlxStringUtil.formatMoney(lerpScore, false, true) + ' (' + ratingSplit.join('.') + '%)' + myFuck;
 			positionHighscore();
 	
 			if (controls.BACK)

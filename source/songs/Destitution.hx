@@ -268,12 +268,14 @@ class Destitution extends SongClass
 
                 if (curBeat >= 1228)
                 {
+                    FlxG.camera.flash();
+
                     for (spitem in PlayState.instance.spaceItems.members)
                     {
                         FlxTween.tween(spitem, {'scale.x': 0, 'scale.y': 0}, 1.5, {ease: FlxEase.circOut});
                     }
 
-                    FlxTween.tween(PlayState.instance.space, {x: 2000}, 0.5, {ease: FlxEase.backInOut});
+                    PlayState.instance.space.destroy();
 
                     var fuckyouman:FlxTimer = new FlxTimer().start(1.55, function dierels(fuck:FlxTimer)
                     {
@@ -284,8 +286,6 @@ class Destitution extends SongClass
                         }
 
                         PlayState.instance.spaceItems.destroy();
-                        FlxTween.completeTweensOf(PlayState.instance.space);
-                        PlayState.instance.space.destroy();
                     });
 
                     FlxTween.tween(PlayState.instance.dad, {x: PlayState.instance.spaceTimeDadArray[0], y: PlayState.instance.spaceTimeDadArray[1], angle: 0}, 1, {ease: FlxEase.smootherStepOut});

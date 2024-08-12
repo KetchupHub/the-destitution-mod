@@ -1204,6 +1204,11 @@ class PlayState extends MusicBeatState
 		precacheList.set("mus_lunch_break", 'music');
 
 		precacheList.set('alphabet', 'image');
+
+		precacheList.set('ui/splashes/0', 'image');
+		precacheList.set('ui/splashes/1', 'image');
+		precacheList.set('ui/splashes/2', 'image');
+		precacheList.set('ui/splashes/3', 'image');
 	
 		#if desktop
 		DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase());
@@ -1595,7 +1600,7 @@ class PlayState extends MusicBeatState
 
 	public function updateScore(miss:Bool = false)
 	{
-		scoreTxt.text = 'Score: ' + songScore
+		scoreTxt.text = 'Score: ' + FlxStringUtil.formatMoney(songScore, false, true)
 		+ ' | Misses: ' + songMisses
 		+ ' | Rating: ' + ratingName
 		+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');

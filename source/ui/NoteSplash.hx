@@ -17,66 +17,67 @@ class NoteSplash extends FlxSprite
 	{
 		super(x, y);
 
-		var skin:String = 'ui/noteSplashes';
+		var skin:String = 'ui/splashes/';
 
-		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0)
+		if (PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0)
 			skin = PlayState.SONG.splashSkin;
 
-		loadAnims(skin);
+		loadAnims(skin, Std.string(note));
+
+		scale.set(2, 2);
+		updateHitbox();
 		
 		colorSwap = new ColorSwap();
 		shader = colorSwap.shader;
 
 		setupNoteSplash(x, y, note);
-		antialiasing = ClientPrefs.globalAntialiasing;
 	}
 
 	public function setupNoteSplash(x:Float, y:Float, note:Int = 0, texture:String = null, hueColor:Float = 0, satColor:Float = 0, brtColor:Float = 0)
 	{
-		setPosition(x - Note.swagWidth * 0.95, y - Note.swagWidth);
-		alpha = 0.45;
+		setPosition((x - Note.swagWidth * 0.95) + 106, (y - Note.swagWidth) + 128);
+		alpha = 0.6;
 
-		if(texture == null)
+		if (texture == null)
 		{
-			texture = 'ui/noteSplashes';
+			texture = 'ui/splashes/';
 
 			if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0)
 				texture = PlayState.SONG.splashSkin;
 		}
 
-		if(textureLoaded != texture)
+		if (textureLoaded != texture)
 		{
-			loadAnims(texture);
+			loadAnims(texture, Std.string(note));
 		}
+
+		scale.set(2, 2);
+		updateHitbox();
 
 		colorSwap.hue = hueColor;
 		colorSwap.saturation = satColor;
 		colorSwap.brightness = brtColor;
-		offset.set(10, 10);
+		offset.set(8, 8);
 
-		var animNum:Int = CoolUtil.randomVisuals.int(1, 2);
-		animation.play('note' + note + '-' + animNum, true);
+		var animNum:Int = CoolUtil.randomVisuals.int(0, 1);
+		animation.play(Std.string(animNum), true);
 
-		if(animation.curAnim != null)
+		if (animation.curAnim != null)
 			animation.curAnim.frameRate = 24 + CoolUtil.randomVisuals.int(-2, 2);
 	}
 
-	function loadAnims(skin:String)
+	function loadAnims(skin:String, arrow:String)
 	{
-		frames = Paths.getSparrowAtlas(skin);
-		for (i in 1...3)
-		{
-			animation.addByPrefix("note1-" + i, "note splash blue " + i, 24, false);
-			animation.addByPrefix("note2-" + i, "note splash green " + i, 24, false);
-			animation.addByPrefix("note0-" + i, "note splash purple " + i, 24, false);
-			animation.addByPrefix("note3-" + i, "note splash red " + i, 24, false);
-		}
+		frames = Paths.getSparrowAtlas(skin + arrow);
+
+		animation.addByPrefix("0", "splash1", 24, false);
+		animation.addByPrefix("1", "splash2", 24, false);
 	}
 
 	override function update(elapsed:Float)
 	{
-		if(animation.curAnim != null)
-			if(animation.curAnim.finished)
+		if (animation.curAnim != null)
+			if (animation.curAnim.finished)
 				kill();
 
 		super.update(elapsed);

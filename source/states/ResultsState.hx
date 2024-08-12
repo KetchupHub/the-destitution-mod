@@ -1,5 +1,6 @@
 package states;
 
+import flixel.util.FlxStringUtil;
 import backend.Conductor;
 import flixel.util.FlxTimer;
 import flixel.addons.display.FlxBackdrop;
@@ -274,10 +275,13 @@ class ResultsState extends MusicBeatState
 
         bgMovementMulti = FlxMath.lerp(bgMovementMulti, bgMovementMultiTarget, CoolUtil.boundTo(elapsed * 6, 0, 1));
 
+        var scort:String = FlxStringUtil.formatMoney(scoreLerp, false, true);
+        var hiscort:String = FlxStringUtil.formatMoney(hiscoreLerp, false, true);
+
 		super.update(elapsed);
 
         statsText.text = 'Missed: $missedLerp\nBlegh: $bleghsLerp\nEgh: $eghsLerp\nGood: $goodsLerp\nSynergy: $synergysLerp\nTotal: $totalLerp\nPercent: $percentLerp%';
-        scoreText.text = 'Score: $scoreLerp\nHi-Score: $hiscoreLerp';
+        scoreText.text = 'Score: $scort\nHi-Score: $hiscort';
 
         transThing.x += (225 * bgMovementMulti) * elapsed;
         transThing.y += (225 * bgMovementMulti) * elapsed;
