@@ -1,5 +1,6 @@
 package states;
 
+import backend.Conductor;
 import backend.ClientPrefs;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -133,6 +134,11 @@ class LoadingScreenState extends MusicBeatState
     override function update(elapsed:Float)
     {
 		super.update(elapsed);
+
+        if (FlxG.sound.music != null)
+        {
+            Conductor.songPosition = FlxG.sound.music.time;
+        }
 
         loadCooldown -= elapsed;
 

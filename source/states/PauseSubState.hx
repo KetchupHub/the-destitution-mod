@@ -243,11 +243,13 @@ class PauseSubState extends MusicBeatSubstate
 					FlxTransitionableState.skipNextTransIn = true;
 					FlxTransitionableState.skipNextTransOut = true;
 
-					MusicBeatState.switchState(new FreeplayState());
+					MusicBeatState.switchState(new MainMenuState());
 
 					PlayState.cancelMusicFadeTween();
 
 					FlxG.sound.playMusic(Paths.music('mus_pauperized'));
+					Conductor.songPosition = 0;
+					Conductor.changeBPM(150);
 
 					PlayState.chartingMode = false;
 			}

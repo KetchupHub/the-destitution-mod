@@ -1,5 +1,6 @@
 package states;
 
+import backend.Conductor;
 import flixel.graphics.FlxGraphic;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import options.OptionsState;
@@ -71,9 +72,10 @@ class MainMenuState extends MusicBeatState
 
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
-		if(FlxG.sound.music == null)
+		if (FlxG.sound.music == null)
 		{
 			FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0);
+			Conductor.changeBPM(150);
 		}
 
 		camGame = new FlxCamera();
@@ -104,7 +106,7 @@ class MainMenuState extends MusicBeatState
 
 		var transThing:FlxSprite = new FlxSprite();
 
-		if(CoolUtil.lastStateScreenShot != null)
+		if (CoolUtil.lastStateScreenShot != null)
 		{
 			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
 			add(transThing);
@@ -174,13 +176,35 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (FlxG.sound.music.volume < 0.8)
+		if (FlxG.sound.music != null)
 		{
-			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+			if (FlxG.sound.music.volume < 0.8)
+			{
+				FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+			}
+			
+			Conductor.songPosition = FlxG.sound.music.time;
 		}
 
 		if (!selectedSomethin)
 		{
+			#if DEVELOPERBUILD
+			if (FlxG.keys.justPressed.TAB)
+			{
+				selectedSomethin = true;
+
+				FlxTransitionableState.skipNextTransIn = true;
+				FlxTransitionableState.skipNextTransOut = true;
+	
+				if (FlxG.sound.music != null)
+				{
+					FlxG.sound.music.stop();
+				}
+				
+				MusicBeatState.switchState(new ResultsState(999999, 999999, 9999, 999, 99, 9, FlxG.keys.pressed.SHIFT, 99.9, 99));
+			}
+			#end
+
 			if (controls.UI_UP_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));

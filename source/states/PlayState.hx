@@ -1397,7 +1397,7 @@ class PlayState extends MusicBeatState
 
 	function startAndEnd()
 	{
-		if(endingSong)
+		if (endingSong)
 		{
 			endSong();
 		}
@@ -1440,7 +1440,7 @@ class PlayState extends MusicBeatState
 
 		var swagCounter:Int = 0;
 
-		if(startOnTime < 0)
+		if (startOnTime < 0)
 		{
 			startOnTime = 0;
 		}
@@ -2233,6 +2233,8 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
+		elapsedTotal += elapsed;
+
 		if (!inCutscene)
 		{
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
@@ -2285,8 +2287,6 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
-
-		elapsedTotal += elapsed;
 
 		if (SONG.notes[curSection] != null)
 		{
@@ -2422,7 +2422,7 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
-			if (!paused)
+			if (!paused && FlxG.sound.music != null)
 			{
 				songTime += FlxG.game.ticks - previousFrameTime;
 				previousFrameTime = FlxG.game.ticks;
@@ -2433,11 +2433,11 @@ class PlayState extends MusicBeatState
 					Conductor.lastSongPos = Conductor.songPosition;
 				}
 
-				if(updateTime)
+				if (updateTime)
 				{
 					var curTime:Float = Conductor.songPosition - ClientPrefs.noteOffset;
 
-					if(curTime < 0)
+					if (curTime < 0)
 					{
 						curTime = 0;
 					}
@@ -2446,19 +2446,19 @@ class PlayState extends MusicBeatState
 
 					var songCalc:Float = (songLength - curTime);
 
-					if(ClientPrefs.timeBarType == 'Time Elapsed')
+					if (ClientPrefs.timeBarType == 'Time Elapsed')
 					{
 						songCalc = curTime;
 					}
 
 					var secondsTotal:Int = Math.floor(songCalc / 1000);
 
-					if(secondsTotal < 0)
+					if (secondsTotal < 0)
 					{
 						secondsTotal = 0;
 					}
 
-					if(ClientPrefs.timeBarType != 'Song Name')
+					if (ClientPrefs.timeBarType != 'Song Name')
 					{
 						timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
 					}
@@ -2483,12 +2483,12 @@ class PlayState extends MusicBeatState
 		{
 			var time:Float = spawnTime;
 
-			if(songSpeed < 1)
+			if (songSpeed < 1)
 			{
 				time /= songSpeed;
 			}
 
-			if(unspawnNotes[0].multSpeed < 1)
+			if (unspawnNotes[0].multSpeed < 1)
 			{
 				time /= unspawnNotes[0].multSpeed;
 			}
@@ -2504,15 +2504,15 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (generatedMusic)
+		if (generatedMusic && FlxG.sound.music != null)
 		{
 			if(!inCutscene)
 			{
-				if(!cpuControlled)
+				if (!cpuControlled)
 				{
 					keyShit();
 				}
-				else if(boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
+				else if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
 				{
 					boyfriend.dance();
 				}
@@ -3325,7 +3325,7 @@ class PlayState extends MusicBeatState
 		deathCounter = 0;
 		seenCutscene = false;
 
-		if(!transitioning)
+		if (!transitioning)
 		{
 			var percent:Float = ratingPercent;
 
@@ -3355,9 +3355,12 @@ class PlayState extends MusicBeatState
 				CustomFadeTransition.nextCamera = null;
 			}
 
-			MusicBeatState.switchState(new FreeplayState());
+			if (FlxG.sound.music != null)
+			{
+				FlxG.sound.music.stop();
+			}
 
-			FlxG.sound.playMusic(Paths.music('mus_pauperized'));
+			MusicBeatState.switchState(new ResultsState(songScore, Highscore.getScore(SONG.song), synergys, goods, eghs, bleghs, cpuControlled, percent));
 
 			transitioning = true;
 		}
@@ -3365,7 +3368,7 @@ class PlayState extends MusicBeatState
 
 	public function KillNotes()
 	{
-		while(notes.length > 0)
+		while (notes.length > 0)
 		{
 			var daNote:Note = notes.members[0];
 			daNote.active = false;
@@ -4100,19 +4103,25 @@ class PlayState extends MusicBeatState
 		}
 
 		FlxAnimationController.globalSpeed = 1;
-		FlxG.sound.music.pitch = 1;
+		if (FlxG.sound.music != null)
+		{
+			FlxG.sound.music.pitch = 1;
+		}
 
 		super.destroy();
 	}
 
 	public static function cancelMusicFadeTween()
 	{
-		if (FlxG.sound.music.fadeTween != null)
+		if (FlxG.sound.music != null)
 		{
-			FlxG.sound.music.fadeTween.cancel();
-		}
+			if (FlxG.sound.music.fadeTween != null)
+			{
+				FlxG.sound.music.fadeTween.cancel();
+			}
 
-		FlxG.sound.music.fadeTween = null;
+			FlxG.sound.music.fadeTween = null;
+		}
 	}
 
 	override function stepHit()

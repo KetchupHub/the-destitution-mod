@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="textbop.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="textbop0000" x="1048" y="221" width="543" height="135" frameX="0" frameY="-39" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0001" x="1595" y="221" width="543" height="135" frameX="0" frameY="-39" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0002" x="1048" y="4" width="440" height="213" frameX="-52" frameY="0" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0003" x="1492" y="4" width="440" height="213" frameX="-52" frameY="0" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0004" x="534" y="4" width="510" height="196" frameX="-17" frameY="-8" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0005" x="534" y="204" width="510" height="196" frameX="-17" frameY="-8" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0006" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0007" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0008" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0009" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0010" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0011" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0012" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0013" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0014" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0015" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0016" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0017" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0018" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0019" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0020" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0021" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0022" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0023" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0024" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0025" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0026" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0027" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0028" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0029" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0030" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0031" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0032" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0033" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0034" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0035" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0036" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0037" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0038" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0039" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0040" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0041" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0042" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0043" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0044" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0045" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0046" x="4" y="4" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+	<SubTexture name="textbop0047" x="4" y="210" width="526" height="202" frameX="-9" frameY="-5" frameWidth="543" frameHeight="213"/>
+</TextureAtlas>

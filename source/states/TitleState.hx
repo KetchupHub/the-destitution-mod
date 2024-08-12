@@ -152,10 +152,9 @@ class TitleState extends MusicBeatState
 
 		if (!initialized)
 		{
-			if(FlxG.sound.music == null)
+			if (FlxG.sound.music == null)
 			{
 				FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0);
-
 				Conductor.changeBPM(150);
 			}
 		}
@@ -480,16 +479,16 @@ class TitleState extends MusicBeatState
 	{
 		super.beatHit();
 
-		if(curBeat % 2 == 0)
+		if (curBeat % 2 == 0)
 		{
-			if(logo != null)
+			if (logo != null)
 			{
 				logo.animation.play('bump', true);
 			}
 	
-			if(titleCharacter != null)
+			if (titleCharacter != null)
 			{
-				if(titleCharacter.animation.curAnim.curFrame == 0)
+				if (titleCharacter.animation.curAnim.curFrame == 0)
 				{
 					titleCharacter.animation.curAnim.curFrame = 1;
 				}

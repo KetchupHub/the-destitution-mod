@@ -107,21 +107,24 @@ class NewHampshire extends SongClass
                     PlayState.instance.dad.canSing = false;
                     PlayState.instance.dad.playAnim('lookBack', true);
                     PlayState.instance.stockboy.playAnim('walk', true);
-                }
-            case 167:
-                {
-                    PlayState.instance.brokerBop = true;
+                    PlayState.instance.stockboy.animation.finishCallback = function dirt(namb:String)
+                    {
+                        PlayState.instance.stockboy.animation.finishCallback = null;
+                        PlayState.instance.brokerBop = true;
+                        PlayState.instance.stockboy.playAnim('idle', true);
+                        PlayState.instance.stockboy.finishAnimation();
+                    }
                 }
             case 175:
                 {
-                    if(PlayState.instance.cpuControlled)
+                    if (PlayState.instance.cpuControlled)
                     {
                         whichEndingYouGet = 0;
                         PlayState.instance.dad.playAnim('turnHappy', true);
                     }
                     else
                     {
-                        switch((PlayState.instance.ratingPercent * 10) - 1)
+                        switch ((PlayState.instance.ratingPercent * 10) - 1)
                         {
                             case 0 | 1 | 2 | 3:
                                 {

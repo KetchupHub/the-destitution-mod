@@ -42,7 +42,7 @@ class MusicBeatState extends FlxUIState
 
 		super.create();
 
-		if(!skip)
+		if (!skip)
 		{
 			openSubState(new CustomFadeTransition(0.7, true));
 		}
@@ -59,12 +59,12 @@ class MusicBeatState extends FlxUIState
 
 		if (oldStep != curStep)
 		{
-			if(curStep > 0)
+			if (curStep > 0)
 			{
 				stepHit();
 			}
 
-			if(PlayState.SONG != null)
+			if (PlayState.SONG != null)
 			{
 				if (oldStep < curStep)
 				{
@@ -77,7 +77,7 @@ class MusicBeatState extends FlxUIState
 			}
 		}
 
-		if(FlxG.save.data != null)
+		if (FlxG.save.data != null)
 		{
 			FlxG.save.data.fullscreen = FlxG.fullscreen;
 		}
@@ -87,12 +87,12 @@ class MusicBeatState extends FlxUIState
 
 	private function updateSection():Void
 	{
-		if(stepsToDo < 1)
+		if (stepsToDo < 1)
 		{
 			stepsToDo = Math.round(getBeatsOnSection() * 4);
 		}
 
-		while(curStep >= stepsToDo)
+		while (curStep >= stepsToDo)
 		{
 			curSection++;
 
@@ -106,7 +106,7 @@ class MusicBeatState extends FlxUIState
 
 	private function rollbackSection():Void
 	{
-		if(curStep < 0)
+		if (curStep < 0)
 		{
 			return;
 		}
@@ -122,7 +122,7 @@ class MusicBeatState extends FlxUIState
 			{
 				stepsToDo += Math.round(getBeatsOnSection() * 4);
 
-				if(stepsToDo > curStep)
+				if (stepsToDo > curStep)
 				{
 					break;
 				}
@@ -131,7 +131,7 @@ class MusicBeatState extends FlxUIState
 			}
 		}
 
-		if(curSection > lastSection)
+		if (curSection > lastSection)
 		{
 			sectionHit();
 		}
@@ -140,7 +140,7 @@ class MusicBeatState extends FlxUIState
 	private function updateBeat():Void
 	{
 		curBeat = Math.floor(curStep / 4);
-		curDecBeat = curDecStep/4;
+		curDecBeat = curDecStep / 4;
 	}
 
 	private function updateCurStep():Void
@@ -162,11 +162,11 @@ class MusicBeatState extends FlxUIState
 		var curState:Dynamic = FlxG.state;
 		var leState:MusicBeatState = curState;
 
-		if(!FlxTransitionableState.skipNextTransIn)
+		if (!FlxTransitionableState.skipNextTransIn)
 		{
 			leState.openSubState(new CustomFadeTransition(0.6, false));
 
-			if(nextState == FlxG.state)
+			if (nextState == FlxG.state)
 			{
 				CustomFadeTransition.finishCallback = function()
 				{
@@ -202,23 +202,18 @@ class MusicBeatState extends FlxUIState
 		#end
 
 		var mouseVisi = FlxG.mouse.visible;
-		var fpsVisi:Bool = true;
-
-		if (Main.fpsVar != null)
-		{
-			fpsVisi = Main.fpsVar.visible;
-			Main.fpsVar.visible = false;
-		}
+		
+		#if !SHOWCASEVIDEO
+		Main.fpsVar.visible = false;
+		#end
 
 		FlxG.mouse.visible = false;
 		
 		CoolUtil.lastStateScreenShot = new Bitmap(BitmapData.fromImage(FlxG.stage.window.readPixels(new Rectangle(0, 0, FlxG.stage.stageWidth, FlxG.stage.stageHeight))));
 
-		if (Main.fpsVar != null)
-		{
-			Main.fpsVar.visible = fpsVisi;
-		}
-
+		#if !SHOWCASEVIDEO
+		Main.fpsVar.visible = ClientPrefs.showFPS;
+		#end
 		FlxG.mouse.visible = mouseVisi;
 
 		#if DEVELOPERBUILD
@@ -256,7 +251,7 @@ class MusicBeatState extends FlxUIState
 	{
 		var val:Null<Float> = 4;
 
-		if(PlayState.SONG != null && PlayState.SONG.notes[curSection] != null)
+		if (PlayState.SONG != null && PlayState.SONG.notes[curSection] != null)
 		{
 			val = PlayState.SONG.notes[curSection].sectionBeats;
 		}

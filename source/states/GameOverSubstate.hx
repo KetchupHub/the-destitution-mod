@@ -98,6 +98,11 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		super.update(elapsed);
 
+		if (FlxG.sound.music != null)
+		{
+			Conductor.songPosition = FlxG.sound.music.time;
+		}
+
 		if(updateCamera)
 		{
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 0.6, 0, 1);

@@ -1,5 +1,6 @@
 package states;
 
+import backend.Conductor;
 import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.graphics.FlxGraphic;
@@ -112,7 +113,7 @@ class FreeplayState extends MusicBeatState
 
 		var transThing:FlxSprite = new FlxSprite();
 
-		if(CoolUtil.lastStateScreenShot != null)
+		if (CoolUtil.lastStateScreenShot != null)
 		{
 			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
 			add(transThing);
@@ -259,6 +260,7 @@ class FreeplayState extends MusicBeatState
 			{
 				lerpScore = intendedScore;
 			}
+
 			if (Math.abs(lerpRating - intendedRating) <= 0.01)
 			{
 				lerpRating = intendedRating;
@@ -395,11 +397,22 @@ class FreeplayState extends MusicBeatState
 				if (instPlaying != curSelected)
 				{
 					#if PRELOAD_ALL
+					var suffy:String = '';
+
+					switch (songVariantCur)
+					{
+						case 'Erect':
+						{
+							suffy = '-erect';
+						}
+					}
+
 					FlxG.sound.music.volume = 0;
 					Paths.currentModDirectory = songs[curSelected].folder;
-					var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase());
-					PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+					var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase() + suffy);
+					PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase() + suffy);
 					FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
+					Conductor.changeBPM(PlayState.SONG.bpm);
 					instPlaying = curSelected;
 					#end
 				}

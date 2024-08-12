@@ -12,7 +12,7 @@
 			"name": "stock broker 1 bop head"
 		},
 		{
-			"loop": true,
+			"loop": false,
 			"offsets": [
 				0,
 				0
