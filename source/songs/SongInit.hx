@@ -53,7 +53,7 @@ class SongInit
             case 'collapse-erect':
                 returnSong = new Collapse();
             case 'new-hampshire-erect':
-                returnSong = new NewHampshire();
+                returnSong = new NewHampshireErect();
             case 'abstraction-erect':
                 returnSong = new Abstraction();
         }
