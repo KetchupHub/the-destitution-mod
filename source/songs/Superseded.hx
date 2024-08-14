@@ -43,6 +43,7 @@ class Superseded extends SongClass
         {
             case 28:
                 PlayState.instance.supersededIntro.animation.play("open", true);
+                PlayState.instance.boyfriend.visible = false;
             case 29:
                 PlayState.instance.defaultCamZoom += 15;
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, Conductor.crochet / 500, {ease: FlxEase.quadInOut});
@@ -54,6 +55,15 @@ class Superseded extends SongClass
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, Conductor.crochet / 1000, {ease: FlxEase.circOut});
             case 32:
                 PlayState.instance.tweeningCam = false;
+            case 156:
+                PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad.destroy();
+                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'mark-old-turn', false, false);
+                PlayState.instance.dadGroup.add(PlayState.instance.dad);
+                PlayState.instance.boyfriend.visible = true;
+            case 160:
+                FlxG.camera.flash();
+                PlayState.instance.defaultCamZoom = 0.875;
         }
     }
 }

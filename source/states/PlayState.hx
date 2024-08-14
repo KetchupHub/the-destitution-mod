@@ -695,7 +695,7 @@ class PlayState extends MusicBeatState
 				tweeningCam = true;
 				camHUD.zoom = 15;
 
-				starting = new FlxSprite(0, 0).loadGraphic(Paths.image('superseded/bg'));
+				starting = new FlxSprite(-574, 96).loadGraphic(Paths.image('superseded/bg'));
 				starting.antialiasing = false;
 				add(starting);
 
