@@ -1,0 +1,82 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "left",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "down",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "singUP",
+			"fps": 24,
+			"name": "up",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "right",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "idle",
+			"fps": 24,
+			"name": "idle",
+			"indices": []
+		}
+	],
+	"animator": null,
+	"no_antialiasing": true,
+	"artist": null,
+	"image": "characters/superseded/old_mark_intro",
+	"position": [
+		0,
+		0
+	],
+	"whoDoneWhat": null,
+	"healthicon": "mark-old",
+	"flip_x": false,
+	"healthbar_colors": [
+		151,
+		38,
+		19
+	],
+	"camera_position": [
+		-144,
+		32
+	],
+	"sing_duration": 15,
+	"scale": 1,
+	"_editor_isPlayer": null
+}

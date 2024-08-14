@@ -49,10 +49,20 @@
 				0,
 				0
 			],
-			"loop": true,
-			"anim": "talk",
+			"loop": false,
+			"anim": "idle",
 			"fps": 24,
-			"name": "talk",
+			"name": "idle",
+			"indices": []
+		},
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "singLEFT-alt",
+			"fps": 24,
+			"name": "alt-left",
 			"indices": []
 		},
 		{
@@ -60,30 +70,55 @@
 				0,
 				0
 			],
-			"indices": [],
-			"fps": 24,
-			"anim": "danceLeft",
 			"loop": false,
-			"name": "danceLeft"
+			"anim": "singDOWN-alt",
+			"fps": 24,
+			"name": "alt-down",
+			"indices": []
 		},
 		{
 			"offsets": [
 				0,
 				0
 			],
-			"indices": [],
-			"fps": 24,
-			"anim": "danceRight",
 			"loop": false,
-			"name": "danceRight"
+			"anim": "singUP-alt",
+			"fps": 24,
+			"name": "alt-up",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "singRIGHT-alt",
+			"fps": 24,
+			"name": "alt-right",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "idle-alt",
+			"fps": 24,
+			"name": "alt-idle",
+			"indices": []
 		}
 	],
+	"animator": null,
 	"no_antialiasing": true,
-	"image": "characters/superseded/mark_superseded",
+	"artist": null,
+	"image": "characters/superseded/old_mark_angled",
 	"position": [
 		0,
 		0
 	],
+	"whoDoneWhat": null,
 	"healthicon": "mark-old",
 	"flip_x": false,
 	"healthbar_colors": [
@@ -92,9 +127,10 @@
 		19
 	],
 	"camera_position": [
-		-148,
-		8
+		0,
+		32
 	],
 	"sing_duration": 15,
-	"scale": 1
+	"scale": 1,
+	"_editor_isPlayer": null
 }

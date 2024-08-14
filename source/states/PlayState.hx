@@ -1228,7 +1228,7 @@ class PlayState extends MusicBeatState
 
 		for (key => type in precacheList)
 		{
-			switch(type)
+			switch (type)
 			{
 				case 'image':
 					Paths.image(key);
