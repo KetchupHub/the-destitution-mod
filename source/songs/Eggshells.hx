@@ -23,6 +23,7 @@ class Eggshells extends SongClass
         this.startSwing = true;
         this.ratingsType = "";
         this.skipCountdown = false;
+        this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
     }
 
     public override function stepHitEvent(curStep:Float)

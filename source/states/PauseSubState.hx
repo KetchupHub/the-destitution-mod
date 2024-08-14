@@ -48,7 +48,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		CoolUtil.rerollRandomness();
 
-		if(PlayState.chartingMode)
+		if (PlayState.chartingMode)
 		{
 			menuItemsOG.insert(3, 'Leave Charting Mode');
 			menuItemsOG.insert(4, 'End Song');
@@ -94,7 +94,7 @@ class PauseSubState extends MusicBeatSubstate
 		sectionTxt.setFormat(Paths.font("BAUHS93.ttf"), 32);
 		sectionTxt.updateHitbox();
 
-		if(PlayState.songHasSections)
+		if (PlayState.songHasSections)
 		{
 			add(sectionTxt);
 		}
@@ -116,7 +116,7 @@ class PauseSubState extends MusicBeatSubstate
 		chartingText.visible = PlayState.chartingMode;
 		add(chartingText);
 
-		songCover = new FlxSprite(936, 0).loadGraphic(Paths.image('song_covers/' + PlayState.SONG.song.toLowerCase()));
+		songCover = new FlxSprite(936, 0).loadGraphic(Paths.image('song_covers/' + PlayState.SONG.song.toLowerCase().replace('-erect', '')));
 		songCover.screenCenter();
 		songCover.x = FlxG.width - (256 + 15);
 		songCover.y -= 76;

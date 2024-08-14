@@ -288,7 +288,6 @@ class MainMenuState extends MusicBeatState
 					}
 				});
 			}
-
 			#if desktop
 			else if (FlxG.keys.anyJustPressed(debugKeys))
 			{
@@ -306,9 +305,14 @@ class MainMenuState extends MusicBeatState
 		curSelected += huh;
 
 		if (curSelected >= menuItems.length)
+		{
 			curSelected = 0;
+		}
+
 		if (curSelected < 0)
+		{
 			curSelected = menuItems.length - 1;
+		}
 
 		funkay.loadGraphic(Paths.image('mainmenu/mark_' + optionShit[curSelected]));
 
@@ -320,7 +324,7 @@ class MainMenuState extends MusicBeatState
 
 			if (spr.ID == curSelected)
 			{
-				spr.animation.play('selected');
+				spr.animation.play('selected', true);
 				spr.centerOffsets();
 				spr.x = 35;
 			}

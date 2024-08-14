@@ -475,19 +475,26 @@ class Character extends FlxSprite
 		{
 			if (AnimName.startsWith("singLEFT"))
 			{
-				curFunnyPosition = [-10, 0];
+				curFunnyPosition = [-8, 0];
 			}
 			else if (AnimName.startsWith("singDOWN"))
 			{
-				curFunnyPosition = [0, 10];
+				if (curCharacter == "rulez")
+				{
+					curFunnyPosition = [0, 96];
+				}
+				else
+				{
+					curFunnyPosition = [0, 8];
+				}
 			}
 			else if (AnimName.startsWith("singUP"))
 			{
-				curFunnyPosition = [0, -10];
+				curFunnyPosition = [0, -8];
 			}
 			else if (AnimName.startsWith("singRIGHT"))
 			{
-				curFunnyPosition = [10, 0];
+				curFunnyPosition = [8, 0];
 			}
 			else
 			{

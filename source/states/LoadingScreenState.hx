@@ -1,5 +1,6 @@
 package states;
 
+import songs.SongInit;
 import backend.Conductor;
 import backend.ClientPrefs;
 import flixel.tweens.FlxEase;
@@ -95,19 +96,7 @@ class LoadingScreenState extends MusicBeatState
             }});
 		}
 
-        switch(PlayState.SONG.song.toLowerCase().replace('-erect', ''))
-        {
-            case 'destitution':
-                charactersToLoad = ['mark', 'mark-alt', 'mark-annoyed', 'mark-angry', 'ploinky', 'ili-devil', 'item', 'whale', 'rulez', 'crypteh', 'zam', 'bf-mark', 'bf-mark-ploink', 'bf-mark-lurking', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh', 'bf-mark-annoyed', 'bg-player', 'stop-loading'];
-            case 'superseded':
-                charactersToLoad = ['mark-old', 'mark-old-turn', 'bf-old', 'stop-loading'];
-            case 'd-stitution':
-                charactersToLoad = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'd-ili', 'd-bf-doug', 'douglass', 'karm-scold', 'douglass-player', 'd-rules', 'd-bf-rules', 'maestro', 'd-bf-rules-flipped', 'zamboney', 'karm-finale', 'stop-loading'];
-            case 'new-hampshire':
-                charactersToLoad = ['bucks-mark', 'bucks-bf', 'brokerboy', 'stop-loading'];
-            default:
-                charactersToLoad = ['bf', 'gf', 'stop-loading'];
-        }
+        charactersToLoad = SongInit.genSongObj(PlayState.SONG.song.toLowerCase()).preloadCharacters;
 
         toLoad = charactersToLoad.length - 1;
 

@@ -13,16 +13,18 @@ class EggshellsGoodEnd extends SongClass
 	public override function new()
     {
         super();
-        this.songNameForDisplay = 'Eggshells';
+        this.songNameForDisplay = 'Eggshells (Good Ending)';
         this.songHasSections = false;
         this.introType = 'Eggshells';
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal"];
+        //songVariants doesnt matter for the ending classes (since theyre just loaded in by force at the end of eggshells)
         this.songDescription = "Mark's lonely cousin seems like he's not much for conversation, but that won't stop Nopeboy from trying!";
         this.startSwing = true;
         this.ratingsType = "";
         this.skipCountdown = true;
+        this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
     }
 
     public override function stepHitEvent(curStep:Float)

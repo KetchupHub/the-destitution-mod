@@ -27,6 +27,8 @@ class SongClass
 
     public var skipCountdown:Bool = false;
 
+    public var preloadCharacters:Array<String> = ["bf-mark", "gf", "stop-loading"];
+
 	public function new()
     {
         

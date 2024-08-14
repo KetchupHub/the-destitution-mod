@@ -24,6 +24,7 @@ class Countdown extends SongClass
         this.startSwing = false;
         this.ratingsType = "";
         this.skipCountdown = false;
+        this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
     }
 
     public override function stepHitEvent(curStep:Float)
