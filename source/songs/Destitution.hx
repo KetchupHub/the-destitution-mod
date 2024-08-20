@@ -57,6 +57,450 @@ class Destitution extends SongClass
                 PlayState.instance.dad.canSing = true;
                 PlayState.instance.defaultCamZoom -= 0.3;
                 FlxG.camera.flash();
+            case 496:
+                PlayState.instance.defaultCamZoom += 0.15;
+            case 504:
+                PlayState.instance.defaultCamZoom -= 0.3;
+            case 508:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 512:
+                FlxG.camera.flash();
+                PlayState.instance.defaultCamZoom += 0.4;
+            case 576:
+                PlayState.instance.defaultCamZoom -= 0.15;
+            case 640:
+                PlayState.instance.defaultCamZoom += 0.35;
+                PlayState.instance.camGame.zoom = PlayState.instance.defaultCamZoom;
+                PlayState.instance.moveCamera(true);
+                PlayState.instance.disallowCamMove = true;
+                PlayState.instance.snapCamFollowToPos(PlayState.instance.camFollow.x, PlayState.instance.camFollow.y);
+            case 656:
+                PlayState.instance.disallowCamMove = false;
+                FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom - 0.4}, Conductor.crochet / 1000, {ease: FlxEase.circOut});
+                PlayState.instance.defaultCamZoom -= 0.4;
+            case 672:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 688:
+                PlayState.instance.defaultCamZoom += 0.15;
+            case 696 | 700:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 704:
+                PlayState.instance.defaultCamZoom -= 0.25;
+            case 760 | 764:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 768:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 792 | 796:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 800:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 816:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 820:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 824:
+                PlayState.instance.defaultCamZoom = 0.8;
+            case 832:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 848:
+                PlayState.instance.defaultCamZoom -= 0.025;
+            case 864:
+                PlayState.instance.defaultCamZoom -= 0.1;
+                FlxG.camera.zoom = PlayState.instance.defaultCamZoom;
+            case 868:
+                PlayState.instance.defaultCamZoom += 0.2;
+            case 872:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 876:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 880:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 896:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 912:
+                PlayState.instance.defaultCamZoom -= 0.05;
+                FlxG.camera.zoom = PlayState.instance.defaultCamZoom;
+            case 916 | 920 | 924:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 936 | 940 | 952 | 956:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 944 | 960:
+                PlayState.instance.defaultCamZoom -= 0.2;
+            case 1024:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 1040:
+                PlayState.instance.defaultCamZoom += 0.25;
+            case 1088:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 1096:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 1296:
+                PlayState.instance.defaultCamZoom += 0.25;
+            case 1312:
+                PlayState.instance.defaultCamZoom -= 0.3;
+            case 1328:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 1344:
+                PlayState.instance.defaultCamZoom = 0.875;
+            case 1424 | 1488:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 1440 | 1504:
+                PlayState.instance.defaultCamZoom -= 0.15;
+            case 1456 | 1520:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 1536:
+                PlayState.instance.camGame.zoom = PlayState.instance.defaultCamZoom;
+                PlayState.instance.moveCamera(true);
+                PlayState.instance.disallowCamMove = true;
+                PlayState.instance.snapCamFollowToPos(PlayState.instance.camFollow.x, PlayState.instance.camFollow.y);
+            case 1538 | 1602:
+                PlayState.instance.disallowCamMove = false;
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 1588 | 1652:
+                PlayState.instance.defaultCamZoom -= 0.15;
+            case 1592 | 1656:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 1600:
+                PlayState.instance.camGame.zoom = PlayState.instance.defaultCamZoom;
+                PlayState.instance.moveCamera(false);
+                PlayState.instance.disallowCamMove = true;
+                PlayState.instance.snapCamFollowToPos(PlayState.instance.camFollow.x, PlayState.instance.camFollow.y);
+            case 1664:
+                PlayState.instance.defaultCamZoom -= 0.15;
+            case 1728 | 1734 | 1740:
+                PlayState.instance.defaultCamZoom += 0.01666666666;
+            case 1744:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 1784:
+                PlayState.instance.defaultCamZoom = 0.875;
+                FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, Conductor.crochet / 500, {ease: FlxEase.quadInOut});
+            case 1792:
+                FlxG.camera.flash();
+                PlayState.instance.defaultCamZoom -= 0.15;
+            case 1920:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 2032:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 2040:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 2044:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 2048:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 2560:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 2568:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 2576:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 2588:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 2592 | 2598 | 2608 | 2614:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 2624:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 2736:
+                PlayState.instance.defaultCamZoom += 0.25;
+            case 2740 | 2742 | 2744 | 2748 | 2750:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 2752:
+                PlayState.instance.defaultCamZoom = 0.875;
+            case 2816:
+                PlayState.instance.defaultCamZoom += 0.15;
+            case 2880:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 2944:
+                PlayState.instance.defaultCamZoom -= 0.2;
+            case 3008:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 3072:
+                PlayState.instance.defaultCamZoom += 0.25;
+            case 3088 | 3124:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 3104:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 3134:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 3140:
+                PlayState.instance.defaultCamZoom = 0.875;
+            case 3216:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 3344:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 3376 | 3380 | 3384 | 3388 | 3440 | 3444 | 3448 | 3452:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 3392 | 3456:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 3408 | 3472:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 3536 | 3664:
+                PlayState.instance.defaultCamZoom += 0.075;
+            case 3600:
+                PlayState.instance.defaultCamZoom -= 0.075;
+            case 3696 | 3704 | 3712 | 3720:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 3728:
+                PlayState.instance.defaultCamZoom = 0.875;
+            case 4144:
+                PlayState.instance.defaultCamZoom = 0.875;
+            case 4208:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 4328:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 4332:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 4336:
+                PlayState.instance.defaultCamZoom -= 0.15;
+            case 4400:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 4464:
+                PlayState.instance.defaultCamZoom += 0.15;
+            case 4480 | 4512:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 4496:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 4528:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 4536 | 4540:
+                FlxG.camera.zoom += 0.075;
+            case 4784:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 4912 | 4918 | 4924:
+                PlayState.instance.defaultCamZoom += 0.01666666666;
+            case 4937:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 4944:
+                PlayState.instance.defaultCamZoom = 0.825;
+            case 5008:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 5064 | 5068:
+                PlayState.instance.defaultCamZoom -= 0.025;
+            case 5072:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 5136:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 5200:
+                PlayState.instance.defaultCamZoom = 1;
+            case 5204:
+                PlayState.instance.defaultCamZoom -= 0.15;
+            case 5264:
+                PlayState.instance.defaultCamZoom += 0.15;
+            case 5296 | 5304 | 5312 | 5320:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 5328:
+                PlayState.instance.defaultCamZoom = 0.75;
+            case 5392:
+                PlayState.instance.defaultCamZoom = 0.825;
+            case 5648:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 5904:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 6032:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 6160:
+                PlayState.instance.defaultCamZoom += 0.25;
+            case 6418:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 6912:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 6928:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 7056:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 7088:
+                PlayState.instance.defaultCamZoom = 1;
+            case 7122:
+                PlayState.instance.defaultCamZoom -= 0.125;
+            case 7624:
+                PlayState.instance.defaultCamZoom += 0.2;
+            case 7626 | 7628 | 7630:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 7632:
+                PlayState.instance.defaultCamZoom = 0.825;
+            case 7888:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 8144 | 8152 | 8160:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 8202:
+                PlayState.instance.defaultCamZoom = 0.875;
+            case 8208:
+                PlayState.instance.camZoomingMult = 1.25;
+                PlayState.instance.camZoomingDecay = 1.5;
+            case 8338:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 8468:
+                PlayState.instance.defaultCamZoom -= 0.2;
+            case 8528:
+                PlayState.instance.defaultCamZoom += 0.15;
+            case 8592:
+                PlayState.instance.defaultCamZoom = 0.875;
+            case 8720:
+                PlayState.instance.camZoomingMult = 1;
+                PlayState.instance.camZoomingDecay = 1;
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 8848:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 8976:
+                PlayState.instance.camZoomingMult = 1.25;
+                PlayState.instance.camZoomingDecay = 1.5;
+            case 9104 | 9110 | 9114 | 9126 | 9130 | 9142 | 9146 | 9158 | 9162:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 9120 | 9136 | 9152 | 9168:
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 9232:
+                FlxG.camera.flash(FlxColor.WHITE, 0.25);
+                PlayState.instance.defaultCamZoom = 0.875;
+                PlayState.instance.camZoomingMult = 1.75;
+                PlayState.instance.camZoomingDecay = 2.25;
+            case 9360:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 9488:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 9616:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 9744:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 9872:
+                PlayState.instance.defaultCamZoom = 0.875;
+                PlayState.instance.camZoomingMult = 1.25;
+                PlayState.instance.camZoomingDecay = 1.5;
+            case 10000:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 10016 | 10064 | 10080 | 10088:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 10048 | 10096 | 10104 | 10112 | 10120:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 10128:
+                FlxG.camera.flash();
+                PlayState.instance.defaultCamZoom = 0.875;
+                PlayState.instance.camZoomingMult = 1;
+                PlayState.instance.camZoomingDecay = 1;
+            case 10752 | 10756 | 10760 | 10764:
+                PlayState.instance.defaultCamZoom += 0.05;
+            case 10768:
+                FlxG.camera.flash(FlxColor.WHITE, 0.5);
+                PlayState.instance.defaultCamZoom -= 0.25;
+            case 10896:
+                PlayState.instance.defaultCamZoom += 0.05;
+                PlayState.instance.camZoomingMult = 2;
+                PlayState.instance.camZoomingDecay = 1.5;
+            case 11008 | 11014 | 11020:
+                FlxG.camera.zoom += 0.1;
+            case 11024:
+                FlxG.camera.zoom += 0.1;
+                PlayState.instance.camZoomingMult = 0;
+                PlayState.instance.camZoomingDecay = 1;
+            case 11056:
+                PlayState.instance.defaultCamZoom += 0.1;
+                PlayState.instance.camZoomingMult = 0.75;
+                PlayState.instance.camZoomingDecay = 0.75;
+            case 11248:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 11312:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 11440:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 11504:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 11568:
+                FlxG.camera.flash();
+                PlayState.instance.defaultCamZoom -= 0.05;
+                PlayState.instance.camZoomingMult = 1;
+                PlayState.instance.camZoomingDecay = 1;
+            case 11824:
+                FlxG.camera.flash(FlxColor.WHITE, (Conductor.crochet / 250) * 2);
+            case 12144 | 12176 | 12208 | 12240:
+                PlayState.instance.camGame.zoom = PlayState.instance.defaultCamZoom;
+                PlayState.instance.moveCamera(true);
+                PlayState.instance.disallowCamMove = true;
+                PlayState.instance.snapCamFollowToPos(PlayState.instance.camFollow.x, PlayState.instance.camFollow.y);
+                PlayState.instance.disallowCamMove = false;
+                FlxTween.completeTweensOf(PlayState.instance.boyfriend);
+                PlayState.instance.bfAlphaTwnBack = null;
+                PlayState.instance.boyfriend.alpha = 0.5;
+            case 12304 | 12336 | 12386:
+                PlayState.instance.camGame.zoom = PlayState.instance.defaultCamZoom;
+                PlayState.instance.moveCamera(false);
+                PlayState.instance.disallowCamMove = true;
+                PlayState.instance.snapCamFollowToPos(PlayState.instance.camFollow.x, PlayState.instance.camFollow.y);
+                PlayState.instance.disallowCamMove = false;
+                FlxTween.completeTweensOf(PlayState.instance.boyfriend);
+                PlayState.instance.bfAlphaTwnBack = null;
+                PlayState.instance.boyfriend.alpha = 1;
+            case 12400:
+                FlxG.camera.flash();
+            case 12404 | 12408 | 12412:
+                PlayState.instance.defaultCamZoom -= 0.05;
+            case 12416:
+                FlxG.camera.flash();
+                FlxG.camera.zoom += 0.1;
+                PlayState.instance.defaultCamZoom += 0.2;
+            case 12432 | 12448 | 12464 | 12496 | 12512 | 12528 | 13072 | 13088 | 13104 | 13120 | 13136 | 13152 | 13168 | 13184 | 13200 | 13216 | 13232 | 13248 | 13264 | 13280 | 13296:
+                FlxG.camera.zoom += 0.1;
+            case 12480:
+                FlxG.camera.flash();
+                FlxG.camera.zoom += 0.1;
+            case 12544:
+                PlayState.instance.defaultCamZoom -= 0.05;
+                FlxG.camera.zoom += 0.1;
+            case 13312 | 13318 | 13324:
+                FlxG.camera.flash(FlxColor.WHITE, 0.75, null, true);
+                FlxG.camera.zoom += 0.1;
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 13344:
+                FlxG.camera.flash();
+                PlayState.instance.defaultCamZoom -= 0.3;
+            case 13584:
+                FlxG.camera.flash();
+                PlayState.instance.camZoomingDecay = 1.75;
+                PlayState.instance.camZoomingMult = 2;
+            case 13840:
+                FlxG.camera.flash();
+                PlayState.instance.defaultCamZoom -= 0.05;
+                PlayState.instance.camZoomingMult = 0;
+                PlayState.instance.camZoomingDecay = 1;
+            case 13872:
+                FlxG.camera.flash();
+                PlayState.instance.defaultCamZoom += 0.05;
+                PlayState.instance.camZoomingMult = 1;
+            case 14000:
+                FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250);
+                FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.1}, Conductor.crochet / 500, {ease: FlxEase.cubeOut});
+                PlayState.instance.defaultCamZoom += 0.1;
+                PlayState.instance.dad.canDance = false;
+                PlayState.instance.dad.canSing = false;
+                PlayState.instance.dad.playAnim("lipsync", true);
+            case 14120:
+                FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 500);
+                FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.2}, Conductor.crochet / 500, {ease: FlxEase.cubeInOut});
+                PlayState.instance.defaultCamZoom += 0.2;
+            case 14128:
+                PlayState.instance.dad.canDance = true;
+                PlayState.instance.dad.canSing = true;
+                PlayState.instance.defaultCamZoom -= 0.3;
+                FlxG.camera.flash();
+            case 14384:
+                PlayState.instance.defaultCamZoom += 0.1;
+            case 14636:
+                PlayState.instance.camGame.zoom = PlayState.instance.defaultCamZoom;
+                PlayState.instance.moveCamera(true);
+                PlayState.instance.disallowCamMove = true;
+                PlayState.instance.snapCamFollowToPos(PlayState.instance.camFollow.x, PlayState.instance.camFollow.y);
+            case 14640:
+                PlayState.instance.disallowCamMove = false;
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 15408:
+                FlxG.camera.flash();
+                PlayState.instance.defaultCamZoom += 0.2;
+            case 15536:
+                FlxG.camera.flash();
+                PlayState.instance.defaultCamZoom -= 0.1;
+            case 15664:
+                FlxG.camera.flash(FlxColor.WHITE, (Conductor.crochet / 250) * 4);
+                PlayState.instance.dad.visible = false;
+                PlayState.instance.boyfriend.visible = false;
+                PlayState.instance.angryDadCover.visible = false;
+                PlayState.instance.angry.visible = false;
         }
     }
     
@@ -180,6 +624,9 @@ class Destitution extends SongClass
             case 948:
                 PlayState.instance.shoulderCam = false;
 
+                PlayState.instance.camZoomingMult = 2;
+                PlayState.instance.camZoomingDecay = 0.8;
+
                 PlayState.instance.defaultCamZoom = 1;
 
                 PlayState.instance.ploinky.visible = false;
@@ -210,6 +657,7 @@ class Destitution extends SongClass
                 PlayState.instance.blackVoid.visible = false;
 
                 PlayState.instance.defaultCamZoom = 0.875;
+                PlayState.instance.defaultCamZoom -= 0.125;
 
                 PlayState.instance.dad.visible = true;
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
@@ -324,14 +772,11 @@ class Destitution extends SongClass
                     PlayState.instance.dad.canSing = false;
                     PlayState.instance.dad.playAnim("floaty space mcgee", true);
                 }
-            case 1324 | 1326 | 1328 | 1330:
-                PlayState.instance.defaultCamZoom += 0.05;
             case 1332:
                 PlayState.instance.camZoomingMult = 1;
                 PlayState.instance.camZoomingDecay = 1;
                 //chrm ab should stop pulsing here
                 FlxG.camera.flash();
-                PlayState.instance.defaultCamZoom -= 0.2;
             case 1340:
                 FlxTween.completeTweensOf(PlayState.instance.dad);
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
@@ -596,6 +1041,7 @@ class Destitution extends SongClass
                 PlayState.instance.zamMarkCamFlipShit.visible = true;
                 PlayState.instance.zamMarkCamFlipShit.animation.play("idle", true);
             case 3500:
+                PlayState.instance.funBackCamFadeShit = false;
                 PlayState.instance.swingSec = false;
                 PlayState.instance.zamMarkCamFlipShit.visible = false;
                 PlayState.instance.zamMarkCamFlipShit.destroy();
@@ -621,7 +1067,7 @@ class Destitution extends SongClass
                 PlayState.instance.boyfriend.y += 350;
 
                 PlayState.instance.dad.alpha = 1;
-                PlayState.instance.boyfriend.alpha = 0.5;
+                PlayState.instance.boyfriend.alpha = 1;
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();

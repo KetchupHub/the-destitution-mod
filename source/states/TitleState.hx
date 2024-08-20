@@ -96,7 +96,7 @@ class TitleState extends MusicBeatState
 
 		Application.current.window.title = CoolUtil.appTitleString;
 
-		FlxG.mouse.load(Paths.image('cursor').bitmap, 2, 2, 2);
+		FlxG.mouse.load(Paths.image('cursor').bitmap, 2);
 
 		FlxG.save.bind('destitution', CoolUtil.getSavePath());
 
