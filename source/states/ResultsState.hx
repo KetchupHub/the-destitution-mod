@@ -176,6 +176,14 @@ class ResultsState extends MusicBeatState
     {
         elapsedTotal += elapsed;
 
+        if (CoolUtil.randomAudio.bool(0.003))
+        {
+            #if DEVELOPERBUILD
+			trace('yous won: rare sound');
+			#end
+            FlxG.sound.play(Paths.sound('rare'));
+        }
+
         if (FlxG.sound.music != null)
 		{
 			Conductor.songPosition = FlxG.sound.music.time;

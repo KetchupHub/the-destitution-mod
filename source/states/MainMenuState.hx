@@ -176,6 +176,14 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		if (CoolUtil.randomAudio.bool(0.003))
+		{
+			#if DEVELOPERBUILD
+			trace('yous won: rare sound');
+			#end
+			FlxG.sound.play(Paths.sound('rare'));
+		}
+
 		if (FlxG.sound.music != null)
 		{
 			if (FlxG.sound.music.volume < 0.8)

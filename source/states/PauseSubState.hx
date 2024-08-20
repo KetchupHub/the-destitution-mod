@@ -191,6 +191,14 @@ class PauseSubState extends MusicBeatSubstate
 			changeSelection(1);
 		}
 
+		if (CoolUtil.randomAudio.bool(0.003))
+		{
+			#if DEVELOPERBUILD
+			trace('yous won: rare sound');
+			#end
+			FlxG.sound.play(Paths.sound('rare'));
+		}
+
 		var daSelected:String = menuItems[curSelected];
 
 		if (accepted && (cantUnpause <= 0 || !ClientPrefs.controllerMode))
@@ -205,27 +213,39 @@ class PauseSubState extends MusicBeatSubstate
 						i.active = true;
 					});
 
+					FlxG.sound.play(Paths.sound('resume'));
+
 					close();
 				case 'Toggle Practice Mode':
 					PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
+
+					FlxG.sound.play(Paths.sound('toggle'));
 
 					practiceText.visible = PlayState.instance.practiceMode;
 				case "Restart Song":
 					Application.current.window.title = CoolUtil.appTitleString + " - Playing " + PlayState.instance.songObj.songNameForDisplay;
 
+					FlxG.sound.play(Paths.sound('resume'));
+
 					restartSong();
 				case "Leave Charting Mode":
 					restartSong();
 
+					FlxG.sound.play(Paths.sound('resume'));
+
 					PlayState.chartingMode = false;
 				case "End Song":
 					Application.current.window.title = CoolUtil.appTitleString;
+
+					FlxG.sound.play(Paths.sound('resume'));
 
 					close();
 
 					PlayState.instance.finishSong(true);
 				case 'Toggle Botplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
+
+					FlxG.sound.play(Paths.sound('toggle'));
 
 					#if !SHOWCASEVIDEO
 					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
@@ -242,6 +262,8 @@ class PauseSubState extends MusicBeatSubstate
 
 					FlxTransitionableState.skipNextTransIn = true;
 					FlxTransitionableState.skipNextTransOut = true;
+
+					FlxG.sound.play(Paths.sound('cancelMenu'));
 
 					MusicBeatState.switchState(new MainMenuState());
 

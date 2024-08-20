@@ -103,7 +103,15 @@ class GameOverSubstate extends MusicBeatSubstate
 			Conductor.songPosition = FlxG.sound.music.time;
 		}
 
-		if(updateCamera)
+		if (CoolUtil.randomAudio.bool(0.003))
+		{
+			#if DEVELOPERBUILD
+			trace('yous won: rare sound');
+			#end
+			FlxG.sound.play(Paths.sound('rare'));
+		}
+
+		if (updateCamera)
 		{
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 0.6, 0, 1);
 

@@ -219,10 +219,21 @@ class NoteOffsetState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
-		var addNum:Int = 1;
-		if(FlxG.keys.pressed.SHIFT) addNum = 10;
+		if (CoolUtil.randomAudio.bool(0.003))
+		{
+			#if DEVELOPERBUILD
+			trace('yous won: rare sound');
+			#end
+			FlxG.sound.play(Paths.sound('rare'));
+		}
 
-		if(onComboMenu)
+		var addNum:Int = 1;
+		if (FlxG.keys.pressed.SHIFT)
+		{
+			addNum = 10;
+		}
+
+		if (onComboMenu)
 		{
 			var controlArray:Array<Bool> = [
 				FlxG.keys.justPressed.LEFT,
@@ -236,13 +247,13 @@ class NoteOffsetState extends MusicBeatState
 				FlxG.keys.justPressed.S
 			];
 
-			if(controlArray.contains(true))
+			if (controlArray.contains(true))
 			{
 				for (i in 0...controlArray.length)
 				{
-					if(controlArray[i])
+					if (controlArray[i])
 					{
-						switch(i)
+						switch (i)
 						{
 							case 0:
 								ClientPrefs.comboOffset[0] -= addNum;
@@ -286,13 +297,15 @@ class NoteOffsetState extends MusicBeatState
 					startComboOffset.y = ClientPrefs.comboOffset[1];
 				}
 			}
-			if(FlxG.mouse.justReleased) {
+
+			if (FlxG.mouse.justReleased)
+			{
 				holdingObjectType = null;
 			}
 
-			if(holdingObjectType != null)
+			if (holdingObjectType != null)
 			{
-				if(FlxG.mouse.justMoved)
+				if (FlxG.mouse.justMoved)
 				{
 					var mousePos:FlxPoint = FlxG.mouse.getScreenPosition(camHUD);
 					var addNum:Int = holdingObjectType ? 2 : 0;
@@ -302,7 +315,7 @@ class NoteOffsetState extends MusicBeatState
 				}
 			}
 
-			if(controls.RESET)
+			if (controls.RESET)
 			{
 				for (i in 0...ClientPrefs.comboOffset.length)
 				{
@@ -313,34 +326,37 @@ class NoteOffsetState extends MusicBeatState
 		}
 		else
 		{
-			if(controls.UI_LEFT_P)
+			if (controls.UI_LEFT_P)
 			{
 				barPercent = Math.max(delayMin, Math.min(ClientPrefs.noteOffset - 1, delayMax));
 				updateNoteDelay();
 			}
-			else if(controls.UI_RIGHT_P)
+			else if (controls.UI_RIGHT_P)
 			{
 				barPercent = Math.max(delayMin, Math.min(ClientPrefs.noteOffset + 1, delayMax));
 				updateNoteDelay();
 			}
 
 			var mult:Int = 1;
-			if(controls.UI_LEFT || controls.UI_RIGHT)
+			if (controls.UI_LEFT || controls.UI_RIGHT)
 			{
 				holdTime += elapsed;
-				if(controls.UI_LEFT) mult = -1;
+				if (controls.UI_LEFT)
+				{
+					mult = -1;
+				}
 			}
 
 			if(controls.UI_LEFT_R || controls.UI_RIGHT_R) holdTime = 0;
 
-			if(holdTime > 0.5)
+			if (holdTime > 0.5)
 			{
 				barPercent += 100 * elapsed * mult;
 				barPercent = Math.max(delayMin, Math.min(barPercent, delayMax));
 				updateNoteDelay();
 			}
 
-			if(controls.RESET)
+			if (controls.RESET)
 			{
 				holdTime = 0;
 				barPercent = 0;
@@ -348,16 +364,23 @@ class NoteOffsetState extends MusicBeatState
 			}
 		}
 
-		if(controls.ACCEPT)
+		if (controls.ACCEPT)
 		{
 			onComboMenu = !onComboMenu;
 			updateMode();
 		}
 
-		if(controls.BACK)
+		if (controls.BACK)
 		{
-			if(zoomTween != null) zoomTween.cancel();
-			if(beatTween != null) beatTween.cancel();
+			if (zoomTween != null)
+			{
+				zoomTween.cancel();
+			}
+			
+			if (beatTween != null)
+			{
+				beatTween.cancel();
+			}
 
 			persistentUpdate = false;
 			CustomFadeTransition.nextCamera = camOther;

@@ -1,5 +1,6 @@
 package states;
 
+import util.CoolUtil;
 import backend.ClientPrefs;
 import ui.Alphabet;
 import ui.AttachedText;
@@ -183,6 +184,14 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
+		if (CoolUtil.randomAudio.bool(0.003))
+		{
+			#if DEVELOPERBUILD
+			trace('yous won: rare sound');
+			#end
+			FlxG.sound.play(Paths.sound('rare'));
+		}
+
 		if (nextAccept <= 0)
 		{
 			var usesCheckbox = true;
@@ -195,7 +204,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 			{
 				if (controls.ACCEPT)
 				{
-					FlxG.sound.play(Paths.sound('scrollMenu'));
+					FlxG.sound.play(Paths.sound('toggle'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);
 					curOption.change();
 					reloadCheckboxes();

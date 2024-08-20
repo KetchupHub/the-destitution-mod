@@ -475,13 +475,20 @@ class Character extends FlxSprite
 		{
 			if (AnimName.startsWith("singLEFT"))
 			{
-				curFunnyPosition = [-8, 0];
+				if (curCharacter == "rulez")
+				{
+					curFunnyPosition = [-64, 0];
+				}
+				else
+				{
+					curFunnyPosition = [-8, 0];
+				}
 			}
 			else if (AnimName.startsWith("singDOWN"))
 			{
 				if (curCharacter == "rulez")
 				{
-					curFunnyPosition = [0, 96];
+					curFunnyPosition = [0, 136];
 				}
 				else
 				{
@@ -490,11 +497,25 @@ class Character extends FlxSprite
 			}
 			else if (AnimName.startsWith("singUP"))
 			{
-				curFunnyPosition = [0, -8];
+				if (curCharacter == "rulez")
+				{
+					curFunnyPosition = [0, -48];
+				}
+				else
+				{
+					curFunnyPosition = [0, -8];
+				}
 			}
 			else if (AnimName.startsWith("singRIGHT"))
 			{
-				curFunnyPosition = [8, 0];
+				if (curCharacter == "rulez")
+				{
+					curFunnyPosition = [48, 0];
+				}
+				else
+				{
+					curFunnyPosition = [8, 0];
+				}
 			}
 			else
 			{

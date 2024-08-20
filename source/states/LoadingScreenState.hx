@@ -129,6 +129,14 @@ class LoadingScreenState extends MusicBeatState
             Conductor.songPosition = FlxG.sound.music.time;
         }
 
+		if (CoolUtil.randomAudio.bool(0.003))
+        {
+            #if DEVELOPERBUILD
+			trace('yous won: rare sound');
+			#end
+            FlxG.sound.play(Paths.sound('rare'));
+        }
+
         loadCooldown -= elapsed;
 
         //escape hgolding thing, so if you stop holding for a second the timer doenst completely restart

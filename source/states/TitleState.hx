@@ -262,7 +262,7 @@ class TitleState extends MusicBeatState
 
 		var transThing:FlxSprite = new FlxSprite();
 
-		if(CoolUtil.lastStateScreenShot != null)
+		if (CoolUtil.lastStateScreenShot != null)
 		{
 			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
 			add(transThing);
@@ -304,7 +304,7 @@ class TitleState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if(!closeSequenceStarted)
+		if (!closeSequenceStarted)
 		{
 			if (FlxG.sound.music != null)
 			{
@@ -322,20 +322,23 @@ class TitleState extends MusicBeatState
 					pressedEnter = true;
 				}
 			}
-		
-			if(skippedIntro && FlxG.mouse.overlaps(exitButton, FlxG.camera) && !transitioning)
+
+			if (!transitioning)
 			{
-				if(FlxG.mouse.justPressed)
+				if (skippedIntro && FlxG.mouse.overlaps(exitButton, FlxG.camera) && !transitioning)
 				{
-					gameCloseSequence();
+					if (FlxG.mouse.justPressed)
+					{
+						gameCloseSequence();
+					}
 				}
-			}
-		
-			if(skippedIntro && FlxG.mouse.overlaps(playButton, FlxG.camera) && !transitioning)
-			{
-				if(FlxG.mouse.justPressed)
+			
+				if (skippedIntro && FlxG.mouse.overlaps(playButton, FlxG.camera) && !transitioning)
 				{
-					pressedEnter = true;
+					if (FlxG.mouse.justPressed)
+					{
+						pressedEnter = true;
+					}
 				}
 			}
 				
@@ -354,6 +357,7 @@ class TitleState extends MusicBeatState
 				if (newTitle && !pressedEnter)
 				{
 					var timer:Float = titleTimer;
+
 					if (timer >= 1)
 					{
 						timer = (-timer) + 2;
@@ -362,12 +366,26 @@ class TitleState extends MusicBeatState
 					timer = FlxEase.quadInOut(timer);
 				}
 					
-				if(pressedEnter)
+				if (pressedEnter)
 				{
 					//FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF);
 					FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 		
 					transitioning = true;
+
+					FlxTween.tween(playButton, {'scale.x': 0.01, 'scale.y': 0.01}, 0.35, {ease: FlxEase.backOut, onComplete: function fuckstween(t:FlxTween)
+					{
+						playButton.alpha = 0;
+						playButton.visible = false;
+						playButton.destroy();
+					}});
+				
+					FlxTween.tween(exitButton, {'scale.x': 0.01, 'scale.y': 0.01}, 0.35, {ease: FlxEase.backOut, onComplete: function fuckstween(t:FlxTween)
+					{
+						exitButton.alpha = 0;
+						exitButton.visible = false;
+						exitButton.destroy();
+					}});
 		
 					new FlxTimer().start(1, function(tmr:FlxTimer)
 					{
@@ -387,15 +405,23 @@ class TitleState extends MusicBeatState
 			}
 		}
 
-
-		if(swagShader != null)
+		if (CoolUtil.randomAudio.bool(0.003))
 		{
-			if(controls.UI_LEFT && !controls.UI_RIGHT)
+			#if DEVELOPERBUILD
+			trace('yous won: rare sound');
+			#end
+			FlxG.sound.play(Paths.sound('rare'));
+		}
+
+
+		if (swagShader != null)
+		{
+			if (controls.UI_LEFT && !controls.UI_RIGHT)
 			{
 				swagShader.hue -= elapsed * 0.1;
 			}
 
-			if(controls.UI_RIGHT && !controls.UI_LEFT)
+			if (controls.UI_RIGHT && !controls.UI_LEFT)
 			{
 				swagShader.hue += elapsed * 0.1;
 			}
