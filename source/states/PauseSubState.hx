@@ -19,22 +19,22 @@ import flixel.util.FlxStringUtil;
 
 class PauseSubState extends MusicBeatSubstate
 {
-	var grpMenuShit:FlxTypedGroup<Alphabet>;
+	public var grpMenuShit:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Toggle Practice Mode', 'Exit to menu'];
-	var curSelected:Int = 0;
+	public var menuItems:Array<String> = [];
+	public var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Toggle Practice Mode', 'Exit to menu'];
+	public var curSelected:Int = 0;
 
-	var pauseMusic:FlxSound;
-	var practiceText:FlxText;
+	public var pauseMusic:FlxSound;
+	public var practiceText:FlxText;
 
 	public static var songName:String = '';
 
-	var songCover:FlxSprite;
-	var descText:FlxText;
+	public var songCover:FlxSprite;
+	public var descText:FlxText;
 
-	var holdTime:Float = 0;
-	var cantUnpause:Float = 0.1;
+	public var holdTime:Float = 0;
+	public var cantUnpause:Float = 0.1;
 
 	public function new(x:Float, y:Float)
 	{
@@ -303,7 +303,7 @@ class PauseSubState extends MusicBeatSubstate
 		super.destroy();
 	}
 
-	function changeSelection(change:Int = 0):Void
+	public function changeSelection(change:Int = 0):Void
 	{
 		curSelected += change;
 
@@ -335,7 +335,7 @@ class PauseSubState extends MusicBeatSubstate
 		}
 	}
 
-	function regenMenu():Void
+	public function regenMenu():Void
 	{
 		for (i in 0...grpMenuShit.members.length)
 		{

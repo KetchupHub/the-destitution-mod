@@ -24,6 +24,7 @@ class Abstraction extends SongClass
         this.ratingsType = "";
         this.skipCountdown = true;
         this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
+        this.startPpCam = false;
     }
 
     public override function stepHitEvent(curStep:Float)

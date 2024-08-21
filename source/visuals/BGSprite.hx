@@ -5,7 +5,7 @@ import flixel.FlxSprite;
 
 class BGSprite extends FlxSprite
 {
-	private var idleAnim:String;
+	public var idleAnim:String;
 	
 	public function new(image:String, x:Float = 0, y:Float = 0, ?scrollX:Float = 1, ?scrollY:Float = 1, ?animArray:Array<String> = null, ?loop:Bool = false)
 	{
@@ -14,11 +14,14 @@ class BGSprite extends FlxSprite
 		if (animArray != null)
 		{
 			frames = Paths.getSparrowAtlas(image);
+
 			for (i in 0...animArray.length)
 			{
 				var anim:String = animArray[i];
+
 				animation.addByPrefix(anim, anim, 24, loop);
-				if(idleAnim == null)
+
+				if (idleAnim == null)
 				{
 					idleAnim = anim;
 					animation.play(anim);
@@ -27,19 +30,22 @@ class BGSprite extends FlxSprite
 		}
 		else
 		{
-			if(image != null)
+			if (image != null)
 			{
 				loadGraphic(Paths.image(image));
 			}
+			
 			active = false;
 		}
+
 		scrollFactor.set(scrollX, scrollY);
+
 		antialiasing = ClientPrefs.globalAntialiasing;
 	}
 
 	public function dance(?forceplay:Bool = false)
 	{
-		if(idleAnim != null)
+		if (idleAnim != null)
 		{
 			animation.play(idleAnim, forceplay);
 		}

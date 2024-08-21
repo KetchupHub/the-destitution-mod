@@ -29,33 +29,33 @@ import backend.Discord.DiscordClient;
 
 class FreeplayState extends MusicBeatState
 {
-	var songs:Array<SongMetadata> = [];
+	public var songs:Array<SongMetadata> = [];
 
-	var enteringMenu:Bool = false;
+	public var enteringMenu:Bool = false;
 
-	var songCover:FlxSprite;
+	public var songCover:FlxSprite;
 
-	var selector:FlxText;
-	private static var curSelected:Int = 0;
+	public var selector:FlxText;
+	public static var curSelected:Int = 0;
 
-	var scoreText:FlxText;
-	var descText:FlxText;
-	var lerpScore:Int = 0;
-	var lerpRating:Float = 0;
-	var intendedScore:Int = 0;
-	var intendedRating:Float = 0;
+	public var scoreText:FlxText;
+	public var descText:FlxText;
+	public var lerpScore:Int = 0;
+	public var lerpRating:Float = 0;
+	public var intendedScore:Int = 0;
+	public var intendedRating:Float = 0;
 
-	private var grpSongs:FlxTypedGroup<Alphabet>;
-	private var curPlaying:Bool = false;
+	public var grpSongs:FlxTypedGroup<Alphabet>;
+	public var curPlaying:Bool = false;
 
-	var bg:FlxSprite;
-	var intendedColor:Int;
-	var colorTween:FlxTween;
+	public var bg:FlxSprite;
+	public var intendedColor:Int;
+	public var colorTween:FlxTween;
 
-	var songVariantCur:String = 'Normal';
+	public var songVariantCur:String = 'Normal';
 	
-	var freePaper:FlxSprite;
-	var freeMetal:FlxSprite;
+	public var freePaper:FlxSprite;
+	public var freeMetal:FlxSprite;
 
 	override function create()
 	{
@@ -581,7 +581,7 @@ class FreeplayState extends MusicBeatState
 		super.closeSubState();
 	}
 
-	private function positionHighscore()
+	public function positionHighscore()
 	{
 		scoreText.x = FlxG.width - scoreText.width - 6;
 	}

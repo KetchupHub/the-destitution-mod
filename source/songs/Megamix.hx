@@ -24,6 +24,7 @@ class Megamix extends SongClass
         this.ratingsType = "";
         this.skipCountdown = false;
         this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
+        this.startPpCam = true;
     }
 
     public override function stepHitEvent(curStep:Float)

@@ -5,7 +5,7 @@ import openfl.display.BitmapData;
 import openfl.display.Bitmap;
 import util.CoolUtil;
 import backend.ClientPrefs;
-import ui.CustomFadeTransition;
+import ui.MarkHeadTransition;
 import backend.PlayerSettings;
 import backend.Controls;
 import flixel.FlxG;
@@ -17,15 +17,15 @@ import backend.Conductor;
 
 class MusicBeatState extends FlxUIState
 {
-	private var curSection:Int = 0;
-	private var stepsToDo:Int = 0;
+	public var curSection:Int = 0;
+	public var stepsToDo:Int = 0;
 
-	private var curStep:Int = 0;
-	private var curBeat:Int = 0;
+	public var curStep:Int = 0;
+	public var curBeat:Int = 0;
 
-	private var curDecStep:Float = 0;
-	private var curDecBeat:Float = 0;
-	private var controls(get, never):Controls;
+	public var curDecStep:Float = 0;
+	public var curDecBeat:Float = 0;
+	public var controls(get, never):Controls;
 
 	public static var camBeat:FlxCamera;
 
@@ -44,7 +44,7 @@ class MusicBeatState extends FlxUIState
 
 		if (!skip)
 		{
-			openSubState(new CustomFadeTransition(0.7, true));
+			openSubState(new MarkHeadTransition(0.7, true));
 		}
 
 		FlxTransitionableState.skipNextTransOut = false;
@@ -85,7 +85,7 @@ class MusicBeatState extends FlxUIState
 		super.update(elapsed);
 	}
 
-	private function updateSection():Void
+	public function updateSection():Void
 	{
 		if (stepsToDo < 1)
 		{
@@ -104,7 +104,7 @@ class MusicBeatState extends FlxUIState
 		}
 	}
 
-	private function rollbackSection():Void
+	public function rollbackSection():Void
 	{
 		if (curStep < 0)
 		{
@@ -137,13 +137,13 @@ class MusicBeatState extends FlxUIState
 		}
 	}
 
-	private function updateBeat():Void
+	public function updateBeat():Void
 	{
 		curBeat = Math.floor(curStep / 4);
 		curDecBeat = curDecStep / 4;
 	}
 
-	private function updateCurStep():Void
+	public function updateCurStep():Void
 	{
 		var lastChange = Conductor.getBPMFromSeconds(Conductor.songPosition);
 
@@ -164,18 +164,18 @@ class MusicBeatState extends FlxUIState
 
 		if (!FlxTransitionableState.skipNextTransIn)
 		{
-			leState.openSubState(new CustomFadeTransition(0.6, false));
+			leState.openSubState(new MarkHeadTransition(0.6, false));
 
 			if (nextState == FlxG.state)
 			{
-				CustomFadeTransition.finishCallback = function()
+				MarkHeadTransition.finishCallback = function()
 				{
 					FlxG.resetState();
 				};
 			}
 			else
 			{
-				CustomFadeTransition.finishCallback = function()
+				MarkHeadTransition.finishCallback = function()
 				{
 					FlxG.switchState(()->nextState);
 				};
@@ -247,7 +247,7 @@ class MusicBeatState extends FlxUIState
 
 	}
 
-	function getBeatsOnSection()
+	public function getBeatsOnSection()
 	{
 		var val:Null<Float> = 4;
 

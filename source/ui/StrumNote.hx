@@ -8,9 +8,9 @@ import states.PlayState;
 
 class StrumNote extends FlxSprite
 {
-	private var colorSwap:ColorSwap;
+	public var colorSwap:ColorSwap;
 	public var resetAnim:Float = 0;
-	private var noteData:Int = 0;
+	public var noteData:Int = 0;
 	public var direction:Float = 90;
 	public var downScroll:Bool = false;
 	public var sustainReduce:Bool = true;
@@ -19,13 +19,14 @@ class StrumNote extends FlxSprite
 	
 	public var texture(default, set):String = null;
 
-	private function set_texture(value:String):String
+	public function set_texture(value:String):String
 	{
-		if(texture != value)
+		if (texture != value)
 		{
 			texture = value;
 			reloadNote();
 		}
+
 		return value;
 	}
 
@@ -119,7 +120,6 @@ class StrumNote extends FlxSprite
 			if (resetAnim <= 0)
 			{
 				playAnim('static', true);
-
 				resetAnim = 0;
 			}
 		}

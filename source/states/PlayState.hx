@@ -3,7 +3,7 @@ package states;
 import backend.Scoring;
 import flixel.addons.effects.FlxClothSprite;
 import backend.WeekData;
-import ui.CustomFadeTransition;
+import ui.MarkHeadTransition;
 import backend.Highscore;
 import backend.Song;
 import backend.Conductor;
@@ -92,7 +92,8 @@ class PlayState extends MusicBeatState
 		['Incredible!', 0.99], //From 90% to 98%
 		['Synergy!', 1] //The value on this one isn't used actually, since Perfect is always "1"
 	];
-	private var keysArray:Array<Dynamic>;
+
+	public var keysArray:Array<Dynamic>;
 
 	public var camFollow:FlxPoint;
 	public static var prevCamFollow:FlxPoint;
@@ -104,25 +105,25 @@ class PlayState extends MusicBeatState
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
 
-	private var debugKeysChart:Array<FlxKey>;
-	private var debugKeysCharacter:Array<FlxKey>;
+	public var debugKeysChart:Array<FlxKey>;
+	public var debugKeysCharacter:Array<FlxKey>;
 
 	public var ratingName:String = '?';
 	public var ratingFC:String;
 	public var songFont:String = "BAUHS93.ttf";
 	public var songSpeedType:String = "multiplicative";
 	public static var curStage:String = '';
-	private var curSong:String = "";
-	var detailsText:String = "Playing the Game";
-	var detailsPausedText:String = "Paused";
+	public var curSong:String = "";
+	public var detailsText:String = "Playing the Game";
+	public var detailsPausedText:String = "Paused";
 	public var introSoundsSuffix:String = '';
-	private var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
+	public var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
 	public var precacheList:Map<String, String> = new Map<String, String>();
-	private var controlArray:Array<String>;
+	public var controlArray:Array<String>;
 	public static var storyPlaylist:Array<String> = [];
 
-	var songTime:Float = 0;
-	var elapsedTotal:Float;
+	public var songTime:Float = 0;
+	public var elapsedTotal:Float;
 	public var totalNotesHit:Float = 0.0;
 	public var camZoomAdditive:Float = 0;
 	public var ratingPercent:Float;
@@ -147,9 +148,9 @@ class PlayState extends MusicBeatState
 	public var heyTimer:Float;
 	public static var daPixelZoom:Float = 6;
 	public var defaultCamZoom:Float = 1.05;
-	var songLength:Float = 0;
+	public var songLength:Float = 0;
 	public var bgPlayerWalkTarget:Float;
-	var bucksBarUpdateCountdown:Float = 10;
+	public var bucksBarUpdateCountdown:Float = 10;
 	public static var startOnTime:Float = 0;
 	public var spaceTimeDadArray:Array<Float> = [0, 0];
 	public var spaceTimeBfArray:Array<Float> = [0, 0];
@@ -161,14 +162,14 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X_MIDDLESCROLL = -278;
 	public var totalPlayed:Int = 0;
 	public static var sectionNum:Int = 1;
-	var debugNum:Int = 0;
-	var previousFrameTime:Int = 0;
-	var lastReportedPlayheadPosition:Int = 0;
-	var lastStepHit:Int = -1;
+	public var debugNum:Int = 0;
+	public var previousFrameTime:Int = 0;
+	public var lastReportedPlayheadPosition:Int = 0;
+	public var lastStepHit:Int = -1;
 	public var bgColorsCrazyBeats:Int = 4;
-	var lightningStrikeBeat:Int = 0;
-	var lightningOffset:Int = 8;
-	var lastBeatHit:Int = -1;
+	public var lightningStrikeBeat:Int = 0;
+	public var lightningOffset:Int = 8;
+	public var lastBeatHit:Int = -1;
 	public var gfSpeed:Int = 1;
 	public var combo:Int = 0;
 	public static var storyWeek:Int = 0;
@@ -184,22 +185,23 @@ class PlayState extends MusicBeatState
 	public static var deathCounter:Int = 0;
 	public var bucksBarHistoryFuck:Array<Int> = [9, 9, 9, 9, 9, 9, 9, 9];
 	
+	public static var isStoryMode:Bool = false;
+	public static var songHasSections:Bool = false;
+	public static var chartingMode:Bool = false;
+	public static var seenCutscene:Bool = false;
+	public var pixelPerfectishCamera:Bool = false;
 	public var fuckMyLife:Bool = false;
 	public var swingSec:Bool = false;
 	public var isCameraOnForcedPos:Bool = false;
 	public var brokerBop:Bool = false;
-	public static var isStoryMode:Bool = false;
 	public var camZooming:Bool = true;
-	public static var songHasSections:Bool = false;
-	private var generatedMusic:Bool = false;
+	public var generatedMusic:Bool = false;
 	public var endingSong:Bool = false;
 	public var startingSong:Bool = false;
-	private var updateTime:Bool = true;
-	public static var chartingMode:Bool = false;
+	public var updateTime:Bool = true;
 	public var instakillOnMiss:Bool = false;
 	public var cpuControlled:Bool = false;
 	public var practiceMode:Bool = false;
-	public static var seenCutscene:Bool = false;
 	public var inCutscene:Bool = false;
 	public var skipCountdown:Bool = false;
 	public var strikeyStrikes:Bool = false;
@@ -216,16 +218,16 @@ class PlayState extends MusicBeatState
 	public var skipArrowStartTween:Bool = false;
 	public var paused:Bool = false;
 	public var canReset:Bool = true;
-	var startedCountdown:Bool = false;
-	var canPause:Bool = true;
+	public var startedCountdown:Bool = false;
+	public var canPause:Bool = true;
 	public var isDead:Bool = false;
 	public var funBackCamFadeShit:Bool = false;
 	public var funnyBgColorsPumpin:Bool = false;
 	public var bgColorsRandom:Bool = false;
-	var keysPressed:Array<Bool> = [];
+	public var keysPressed:Array<Bool> = [];
 	public var strumsBlocked:Array<Bool> = [];
-	private var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
-	private var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
+	public var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
+	public var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
 
 	public var scoreTxt:FlxText;
 	public var timeTxt:FlxText;
@@ -308,8 +310,8 @@ class PlayState extends MusicBeatState
 
 	public var funnyColorsArray:Array<FlxColor> = [FlxColor.BLUE, FlxColor.CYAN, FlxColor.GREEN, FlxColor.LIME, FlxColor.MAGENTA, FlxColor.ORANGE, FlxColor.PINK, FlxColor.PURPLE, FlxColor.RED, FlxColor.YELLOW, FlxColor.BROWN];
 
-	var startTimer:FlxTimer;
-	var finishTimer:FlxTimer = null;
+	public var startTimer:FlxTimer;
+	public var finishTimer:FlxTimer = null;
 
 	public var spaceWiggle:WiggleEffect;
 
@@ -367,7 +369,7 @@ class PlayState extends MusicBeatState
 
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 
-		CustomFadeTransition.nextCamera = camOther;
+		MarkHeadTransition.nextCamera = camOther;
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -790,7 +792,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 		
-		CustomFadeTransition.nextCamera = camOther;
+		MarkHeadTransition.nextCamera = camOther;
 
 		if (eventNotes.length < 1)
 		{
@@ -1656,7 +1658,7 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	private function generateSong(dataPath:String):Void
+	public function generateSong(dataPath:String):Void
 	{
 		songSpeedType = ClientPrefs.getGameplaySetting('scrolltype','multiplicative');
 
@@ -1955,7 +1957,7 @@ class PlayState extends MusicBeatState
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
 	}
 
-	private function generateStaticArrows(player:Int):Void
+	public function generateStaticArrows(player:Int):Void
 	{
 		for (i in 0...4)
 		{
@@ -2182,7 +2184,25 @@ class PlayState extends MusicBeatState
 		if (!inCutscene)
 		{
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
-			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
+
+			var targets:Array<Float> = [FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal)];
+
+			//i fucking hate math
+			/*if (pixelPerfectishCamera)
+			{
+				var backup:Array<Float> = targets;
+
+				targets = [((Math.floor(backup[0]) + 2 / 2) / 2) * 2, ((Math.floor(backup[1]) + 2 / 2) / 2) * 2];
+
+				//if (targets[0] % 2 == 0)
+				//{
+				camFollowPos.setPosition(targets[0], targets[1]);
+				//}
+			}
+			else
+			{*/
+				camFollowPos.setPosition(targets[0], targets[1]);
+			//}
 		}
 
 		if (ref != null)
@@ -3298,7 +3318,7 @@ class PlayState extends MusicBeatState
 
 			if (FlxTransitionableState.skipNextTransIn)
 			{
-				CustomFadeTransition.nextCamera = null;
+				MarkHeadTransition.nextCamera = null;
 			}
 
 			if (FlxG.sound.music != null)
@@ -3329,7 +3349,7 @@ class PlayState extends MusicBeatState
 		eventNotes = [];
 	}
 
-	private function cachePopUpScore()
+	public function cachePopUpScore()
 	{
 		var ratingsSuffix:String = songObj.ratingsType;
 
@@ -3344,7 +3364,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	private function popUpScore(note:Note = null):Void
+	public function popUpScore(note:Note = null):Void
 	{
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
 
@@ -3535,7 +3555,7 @@ class PlayState extends MusicBeatState
 		});
 	}
 
-	private function onKeyPress(event:KeyboardEvent):Void
+	public function onKeyPress(event:KeyboardEvent):Void
 	{
 		var eventKey:FlxKey = event.keyCode;
 		var key:Int = getKeyFromEvent(eventKey);
@@ -3630,7 +3650,7 @@ class PlayState extends MusicBeatState
 		return FlxSort.byValues(FlxSort.ASCENDING, a.strumTime, b.strumTime);
 	}
 
-	private function onKeyRelease(event:KeyboardEvent):Void
+	public function onKeyRelease(event:KeyboardEvent):Void
 	{
 		var eventKey:FlxKey = event.keyCode;
 		var key:Int = getKeyFromEvent(eventKey);
@@ -3647,7 +3667,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	private function getKeyFromEvent(key:FlxKey):Int
+	public function getKeyFromEvent(key:FlxKey):Int
 	{
 		if (key != NONE)
 		{
@@ -3666,7 +3686,7 @@ class PlayState extends MusicBeatState
 		return -1;
 	}
 
-	private function keyShit():Void
+	public function keyShit():Void
 	{
 		var parsedHoldArray:Array<Bool> = parseKeys();
 
@@ -3718,7 +3738,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	private function parseKeys(?suffix:String = ''):Array<Bool>
+	public function parseKeys(?suffix:String = ''):Array<Bool>
 	{
 		var ret:Array<Bool> = [];
 
@@ -4398,6 +4418,7 @@ class PlayState extends MusicBeatState
 		
 		swingSec = songObj.startSwing;
 		songHasSections = songObj.songHasSections;
+		pixelPerfectishCamera = songObj.startPpCam;
 		sectionNum = 1;
 
 		Application.current.window.title = CoolUtil.appTitleString + " - Playing " + songObj.songNameForDisplay;

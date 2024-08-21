@@ -1,5 +1,6 @@
 package ui;
 
+import util.CoolUtil;
 import backend.ClientPrefs;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -57,7 +58,7 @@ class Alphabet extends FlxSpriteGroup
 		}
 	}
 
-	private function set_alignment(align:Alignment)
+	public function set_alignment(align:Alignment)
 	{
 		alignment = align;
 		updateAlignment();
@@ -65,7 +66,7 @@ class Alphabet extends FlxSpriteGroup
 		return align;
 	}
 
-	private function updateAlignment()
+	public function updateAlignment()
 	{
 		for (letter in letters)
 		{
@@ -86,7 +87,7 @@ class Alphabet extends FlxSpriteGroup
 		}
 	}
 
-	private function set_text(newText:String)
+	public function set_text(newText:String)
 	{
 		newText = newText.replace('\\n', '\n');
 		clearLetters();
@@ -115,10 +116,12 @@ class Alphabet extends FlxSpriteGroup
 		rows = 0;
 	}
 
-	private function set_scaleX(value:Float)
+	public function set_scaleX(value:Float)
 	{
 		if (value == scaleX)
+		{
 			return value;
+		}
 
 		scale.x = value;
 
@@ -137,11 +140,15 @@ class Alphabet extends FlxSpriteGroup
 		return value;
 	}
 
-	private function set_scaleY(value:Float)
+	public function set_scaleY(value:Float)
 	{
-		if (value == scaleY) return value;
+		if (value == scaleY)
+		{
+			return value;
+		}
 
 		scale.y = value;
+
 		for (letter in letters)
 		{
 			if (letter != null)
@@ -152,7 +159,9 @@ class Alphabet extends FlxSpriteGroup
 				letter.y = letter.spawnPos.y * ratio;
 			}
 		}
+
 		scaleY = value;
+
 		return value;
 	}
 
@@ -160,12 +169,17 @@ class Alphabet extends FlxSpriteGroup
 	{
 		if (isMenuItem)
 		{
-			var lerpVal:Float = util.CoolUtil.boundTo(elapsed * 9.6, 0, 1);
+			var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
 
 			if (changeX)
+			{
 				x = FlxMath.lerp(x, (targetY * distancePerItem.x) + startPosition.x, lerpVal);
+			}
+
 			if (changeY)
+			{
 				y = FlxMath.lerp(y, (targetY * 1.3 * distancePerItem.y) + startPosition.y, lerpVal);
+			}
 		}
 
 		super.update(elapsed);
@@ -176,15 +190,20 @@ class Alphabet extends FlxSpriteGroup
 		if (isMenuItem)
 		{
 			if (changeX)
+			{
 				x = (targetY * distancePerItem.x) + startPosition.x;
+			}
+
 			if (changeY)
+			{
 				y = (targetY * 1.3 * distancePerItem.y) + startPosition.y;
+			}
 		}
 	}
 
-	private static var Y_PER_ROW:Float = 85;
+	public static var Y_PER_ROW:Float = 85;
 
-	private function createLetters(newText:String)
+	public function createLetters(newText:String)
 	{
 		var consecutiveSpaces:Int = 0;
 
@@ -194,13 +213,14 @@ class Alphabet extends FlxSpriteGroup
 
 		for (character in newText.split(''))
 		{
-			
 			if (character != '\n')
 			{
 				var spaceChar:Bool = (character == " " || (bold && character == "_"));
 
 				if (spaceChar)
+				{
 					consecutiveSpaces++;
+				}
 
 				var isAlphabet:Bool = AlphaCharacter.isTypeAlphabet(character.toLowerCase());
 
@@ -210,7 +230,7 @@ class Alphabet extends FlxSpriteGroup
 					{
 						xPos += 28 * consecutiveSpaces * scaleX;
 
-						if(!bold && xPos >= FlxG.width * 0.65)
+						if (!bold && xPos >= FlxG.width * 0.65)
 						{
 							xPos = 0;
 							rows++;
@@ -226,15 +246,17 @@ class Alphabet extends FlxSpriteGroup
 					letter.row = rows;
 
 					var off:Float = 0;
+
 					if (!bold)
+					{
 						off = 2;
+					}
 
 					xPos += letter.width + (letter.letterOffset[0] + off) * scaleX;
 
 					rowData[rows] = xPos;
 
 					add(letter);
-					
 					letters.push(letter);
 				}
 			}
@@ -253,7 +275,9 @@ class Alphabet extends FlxSpriteGroup
 		}
 
 		if (letters.length > 0)
+		{
 			rows++;
+		}
 	}
 }
 
@@ -314,7 +338,7 @@ class AlphaCharacter extends FlxSprite
 		'~'  => {offsets: [0, 16]}
 	];
 
-	var parent:Alphabet;
+	public var parent:Alphabet;
 	public var alignOffset:Float = 0; //Don't change this
 	public var letterOffset:Array<Float> = [0, 0];
 	public var spawnPos:FlxPoint = new FlxPoint();
@@ -332,23 +356,32 @@ class AlphaCharacter extends FlxSprite
 
 		var curLetter:Letter = allLetters.get('?');
 		var lowercase = character.toLowerCase();
-		if(allLetters.exists(lowercase))
+
+		if (allLetters.exists(lowercase))
+		{
 			curLetter = allLetters.get(lowercase);
+		}
 
 		var suffix:String = '';
-		if(!bold)
+
+		if (!bold)
 		{
-			if(isTypeAlphabet(lowercase))
+			if (isTypeAlphabet(lowercase))
 			{
-				if(lowercase != character)
+				if (lowercase != character)
+				{
 					suffix = ' uppercase';
+				}
 				else
+				{
 					suffix = ' lowercase';
+				}
 			}
 			else
 			{
 				suffix = ' normal';
-				if(curLetter != null && curLetter.offsets != null)
+
+				if (curLetter != null && curLetter.offsets != null)
 				{
 					letterOffset[0] = curLetter.offsets[0];
 					letterOffset[1] = curLetter.offsets[1];
@@ -358,7 +391,8 @@ class AlphaCharacter extends FlxSprite
 		else
 		{
 			suffix = ' bold';
-			if(curLetter != null && curLetter.offsetsBold != null)
+
+			if (curLetter != null && curLetter.offsetsBold != null)
 			{
 				letterOffset[0] = curLetter.offsetsBold[0];
 				letterOffset[1] = curLetter.offsetsBold[1];
@@ -366,20 +400,29 @@ class AlphaCharacter extends FlxSprite
 		}
 
 		var alphaAnim:String = lowercase;
-		if(curLetter != null && curLetter.anim != null)
+		
+		if (curLetter != null && curLetter.anim != null)
+		{
 			alphaAnim = curLetter.anim;
+		}
 
 		var anim:String = alphaAnim + suffix;
+
 		animation.addByPrefix(anim, anim, 24);
 		animation.play(anim, true);
-		if(animation.curAnim == null)
+
+		if (animation.curAnim == null)
 		{
-			if(suffix != ' bold')
+			if (suffix != ' bold')
+			{
 				suffix = ' normal';
+			}
+
 			anim = 'question' + suffix;
 			animation.addByPrefix(anim, anim, 24);
 			animation.play(anim, true);
 		}
+
 		updateHitbox();
 		updateLetterOffset();
 	}
@@ -390,7 +433,7 @@ class AlphaCharacter extends FlxSprite
 		return (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122);
 	}
 
-	private function set_image(name:String)
+	public function set_image(name:String)
 	{
 		var lastAnim:String = null;
 
@@ -420,9 +463,11 @@ class AlphaCharacter extends FlxSprite
 	public function updateLetterOffset()
 	{
 		if (animation.curAnim == null)
+		{
 			return;
+		}
 
-		if(!animation.curAnim.name.endsWith('bold'))
+		if (!animation.curAnim.name.endsWith('bold'))
 		{
 			offset.y += -(110 - height);
 		}

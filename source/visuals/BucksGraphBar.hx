@@ -10,8 +10,7 @@ using StringTools;
 class BucksGraphBar extends FlxSprite
 {
     public var curPos:Int = 9;
-
-    var targetPos:Int = 9;
+    public var targetPos:Int = 9;
 
 	public function new(x:Float, y:Float)
     {

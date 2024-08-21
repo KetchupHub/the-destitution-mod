@@ -31,6 +31,7 @@ class Destitution extends SongClass
         this.ratingsType = "";
         this.skipCountdown = false;
         this.preloadCharacters = ['mark', 'mark-alt', 'mark-annoyed', 'mark-angry', 'ploinky', 'ili-devil', 'item', 'whale', 'rulez', 'crypteh', 'zam', 'bf-mark', 'bf-mark-ploink', 'bf-mark-lurking', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh', 'bf-mark-annoyed', 'bg-player', 'stop-loading'];
+        this.startPpCam = true;
     }
 
     public override function stepHitEvent(curStep:Float)

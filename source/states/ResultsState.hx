@@ -20,49 +20,51 @@ import flixel.math.FlxMath;
 
 class ResultsState extends MusicBeatState
 {
-    var transThing:FlxBackdrop;
+    public var screenshotBackdrop:FlxBackdrop;
 
-    var resultsText:FlxSprite;
+    public var resultsText:FlxSprite;
 
-    var nopeboyRes:FlxSprite;
+    public var nopeboyRes:FlxSprite;
 
-    var score:Int = 0;
-    var hiscore:Int = 0;
+    public var score:Int = 0;
+    public var hiscore:Int = 0;
 
-    var scoreLerp:Int = 0;
-    var hiscoreLerp:Int = 0;
+    public var scoreLerp:Int = 0;
+    public var hiscoreLerp:Int = 0;
 
-    var synergys:Int = 0;
-    var goods:Int = 0;
-    var eghs:Int = 0;
-    var bleghs:Int = 0;
-    var total:Int = 0;
+    public var synergys:Int = 0;
+    public var goods:Int = 0;
+    public var eghs:Int = 0;
+    public var bleghs:Int = 0;
+    public var total:Int = 0;
 
-    var synergysLerp:Int = 0;
-    var goodsLerp:Int = 0;
-    var eghsLerp:Int = 0;
-    var bleghsLerp:Int = 0;
-    var totalLerp:Int = 0;
+    public var synergysLerp:Int = 0;
+    public var goodsLerp:Int = 0;
+    public var eghsLerp:Int = 0;
+    public var bleghsLerp:Int = 0;
+    public var totalLerp:Int = 0;
 
-    var missed:Int = 0;
-    var missedLerp:Int = 0;
+    public var missed:Int = 0;
+    public var missedLerp:Int = 0;
 
-    var percent:Float = 0;
-    var percentLerp:Float = 0;
+    public var percent:Float = 0;
+    public var percentLerp:Float = 0;
 
-    var statsText:FlxText;
-    var scoreText:FlxText;
+    public var statsText:FlxText;
+    public var scoreText:FlxText;
 
-    var botplay:Bool;
+    public var botplay:Bool;
     
-    var yellow:FlxSprite;
-    var sideGuy:FlxSprite;
-    var botplayThing:FlxSprite;
+    public var yellow:FlxSprite;
+    public var sideGuy:FlxSprite;
+    public var botplayThing:FlxSprite;
 
-    var elapsedTotal:Float;
+    public var elapsedTotal:Float;
 
-    var bgMovementMulti:Float = 0;
-    var bgMovementMultiTarget:Float = 1;
+    public var bgMovementMulti:Float = 0;
+    public var bgMovementMultiTarget:Float = 1;
+
+    public var selectedSomethin:Bool = false;
 
     public override function new(score:Int = 0, hiscore:Int = 0, synergys:Int = 0, goods:Int = 0, eghs:Int = 0, bleghs:Int = 0, botplay:Bool = false, percent:Float = 0, missed:Int = 0)
     {
@@ -98,11 +100,11 @@ class ResultsState extends MusicBeatState
         Conductor.songPosition = 0;
         Conductor.changeBPM(112);
 
-        transThing = new FlxBackdrop(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
-        transThing.repeatAxes = XY;
-        FlxTween.tween(transThing, {'scale.x': 0.25, 'scale.y': 0.25}, 1, {startDelay: 0.25, ease: FlxEase.circOut});
-        transThing.antialiasing = ClientPrefs.globalAntialiasing;
-        add(transThing);
+        screenshotBackdrop = new FlxBackdrop(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
+        screenshotBackdrop.repeatAxes = XY;
+        FlxTween.tween(screenshotBackdrop, {'scale.x': 0.25, 'scale.y': 0.25}, 1, {startDelay: 0.25, ease: FlxEase.circOut});
+        screenshotBackdrop.antialiasing = ClientPrefs.globalAntialiasing;
+        add(screenshotBackdrop);
 
         yellow = new FlxSprite().makeGraphic(1, 1, FlxColor.fromRGB(255, 204, 102));
         yellow.scale.set(2560, 2560);
@@ -173,8 +175,6 @@ class ResultsState extends MusicBeatState
 
         super.create();
     }
-
-    var selectedSomethin:Bool = false;
 
     override function update(elapsed:Float)
     {
@@ -295,8 +295,8 @@ class ResultsState extends MusicBeatState
         statsText.text = 'Missed: $missedLerp\nBlegh: $bleghsLerp\nEgh: $eghsLerp\nGood: $goodsLerp\nSynergy: $synergysLerp\nTotal: $totalLerp\nPercent: $percentLerp%';
         scoreText.text = 'Score: $scort\nHi-Score: $hiscort';
 
-        transThing.x += (225 * bgMovementMulti) * elapsed;
-        transThing.y += (225 * bgMovementMulti) * elapsed;
+        screenshotBackdrop.x += (225 * bgMovementMulti) * elapsed;
+        screenshotBackdrop.y += (225 * bgMovementMulti) * elapsed;
     }
 
     override function beatHit()

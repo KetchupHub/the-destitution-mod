@@ -11,14 +11,18 @@ import ui.HealthIcon;
 
 class ResetScoreSubState extends MusicBeatSubstate
 {
-	var bg:FlxSprite;
-	var alphabetArray:Array<Alphabet> = [];
-	var icon:HealthIcon;
-	var onYes:Bool = false;
-	var yesText:Alphabet;
-	var noText:Alphabet;
+	public var bg:FlxSprite;
 
-	var song:String;
+	public var alphabetArray:Array<Alphabet> = [];
+
+	public var icon:HealthIcon;
+
+	public var onYes:Bool = false;
+	
+	public var yesText:Alphabet;
+	public var noText:Alphabet;
+
+	public var song:String;
 
 	public function new(song:String, character:String)
 	{

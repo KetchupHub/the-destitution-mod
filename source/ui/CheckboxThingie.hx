@@ -35,7 +35,8 @@ class CheckboxThingie extends FlxSprite
 		if (sprTracker != null)
 		{
 			setPosition(sprTracker.x - 130 + offsetX, sprTracker.y + 30 + offsetY);
-			if(copyAlpha)
+			
+			if (copyAlpha)
 			{
 				alpha = sprTracker.alpha;
 			}
@@ -44,9 +45,9 @@ class CheckboxThingie extends FlxSprite
 		super.update(elapsed);
 	}
 
-	private function set_daValue(check:Bool):Bool
+	public function set_daValue(check:Bool):Bool
 	{
-		if(check)
+		if (check)
 		{
 			if (animation.curAnim.name != 'checked' && animation.curAnim.name != 'checking')
 			{
@@ -54,7 +55,7 @@ class CheckboxThingie extends FlxSprite
 				offset.set(34, 25);
 			}
 		}
-		else if(animation.curAnim.name != 'unchecked' && animation.curAnim.name != 'unchecking')
+		else if (animation.curAnim.name != 'unchecked' && animation.curAnim.name != 'unchecking')
 		{
 			animation.play("unchecking", true);
 			offset.set(25, 28);
@@ -63,14 +64,13 @@ class CheckboxThingie extends FlxSprite
 		return check;
 	}
 
-	private function animationFinished(name:String)
+	public function animationFinished(name:String)
 	{
-		switch(name)
+		switch (name)
 		{
 			case 'checking':
 				animation.play('checked', true);
 				offset.set(3, 12);
-
 			case 'unchecking':
 				animation.play('unchecked', true);
 				offset.set(0, 2);

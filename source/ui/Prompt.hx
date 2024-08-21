@@ -10,18 +10,18 @@ import flixel.FlxSprite;
 
 class Prompt extends MusicBeatSubstate
 {
-	var selected = 0;
+	public var selected = 0;
 	public var okc:Void->Void;
 	public var cancelc:Void->Void;
-	var buttons:FlxSprite = new FlxSprite(473.3, 450);
-	var theText:String = '';
-	var goAnyway:Bool = false;
-	var UI_box:FlxUIPopup;
-	var panel:FlxSprite;
-	var panelbg:FlxSprite;
-	var buttonAccept:FlxButton;
-	var buttonNo:FlxButton;
-	var cornerSize:Int = 10;
+	public var buttons:FlxSprite = new FlxSprite(473.3, 450);
+	public var theText:String = '';
+	public var goAnyway:Bool = false;
+	public var UI_box:FlxUIPopup;
+	public var panel:FlxSprite;
+	public var panelbg:FlxSprite;
+	public var buttonAccept:FlxButton;
+	public var buttonNo:FlxButton;
+	public var cornerSize:Int = 10;
 
 	public function new(promptText:String = '', defaultSelected:Int = 0, okCallback:Void->Void, cancelCallback:Void->Void, acceptOnDefault:Bool=false, option1:String=null, option2:String=null) 
 	{
@@ -47,7 +47,7 @@ class Prompt extends MusicBeatSubstate
 
 		buttonAccept = new FlxButton(473.3, 450, op1, function()
 		{
-			if(okc != null)
+			if (okc != null)
 			{
 				okc();
 			}
@@ -57,7 +57,7 @@ class Prompt extends MusicBeatSubstate
 
 		buttonNo = new FlxButton(633.3, 450, op2, function()
 		{
-			if(cancelc != null)
+			if (cancelc != null)
 			{
 				cancelc();
 			}
@@ -74,7 +74,7 @@ class Prompt extends MusicBeatSubstate
 
 		if (goAnyway)
 		{
-			if(okc != null)
+			if (okc != null)
 			{
 				okc();
 			}
@@ -111,7 +111,7 @@ class Prompt extends MusicBeatSubstate
 		}
 	}
 	
-	function makeSelectorGraphic(panel:FlxSprite, w, h, color:FlxColor)
+	public function makeSelectorGraphic(panel:FlxSprite, w, h, color:FlxColor)
 	{
 		panel.makeGraphic(w, h, color);
 		panel.pixels.fillRect(new Rectangle(0, 190, panel.width, 5), 0x0);
@@ -128,26 +128,26 @@ class Prompt extends MusicBeatSubstate
 		drawCircleCornerOnSelector(panel, true, true, color);
 	}
 
-	function drawCircleCornerOnSelector(panel:FlxSprite,flipX:Bool, flipY:Bool,color:FlxColor)
+	public function drawCircleCornerOnSelector(panel:FlxSprite, flipX:Bool, flipY:Bool, color:FlxColor)
 	{
 		var antiX:Float = (panel.width - cornerSize);
 		var antiY:Float = flipY ? (panel.height - 1) : 0;
 
-		if(flipY) 
+		if (flipY) 
 		{
 			antiY -= 2;
 		}
 
 		panel.pixels.fillRect(new Rectangle((flipX ? antiX : 1), Std.int(Math.abs(antiY - 8)), 10, 3), color);
 
-		if(flipY) 
+		if (flipY) 
 		{
 			antiY += 1;
 		}
 
 		panel.pixels.fillRect(new Rectangle((flipX ? antiX : 2), Std.int(Math.abs(antiY - 6)), 9, 2), color);
 
-		if(flipY)
+		if (flipY)
 		{
 			antiY += 1;
 		}

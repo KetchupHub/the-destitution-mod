@@ -1,5 +1,6 @@
 package states;
 
+import ui.MarkHeadTransition;
 import songs.SongInit;
 import backend.Conductor;
 import backend.ClientPrefs;
@@ -20,28 +21,28 @@ import flixel.math.FlxMath;
 
 class LoadingScreenState extends MusicBeatState
 {
-    var funkay:FlxSprite;
+    public var funkay:FlxSprite;
 
-    var loadedBar:FlxBar;
+    public var loadedBar:FlxBar;
 
-    var charactersToLoad:Array<String> = [];
+    public var charactersToLoad:Array<String> = [];
 
-    var characters:Array<Character> = [];
+    public var characters:Array<Character> = [];
 
-    var loadCooldown:Float = 0.525;
+    public var loadCooldown:Float = 0.525;
 
-    var toLoad:Int;
+    public var toLoad:Int;
 
-    var finishedPreloading:Bool = false;
+    public var finishedPreloading:Bool = false;
 
-    var startedSwitching:Bool = false;
+    public var startedSwitching:Bool = false;
 
-    var holdingEscText:FlxText;
+    public var holdingEscText:FlxText;
 
-    var escHoldTimer:Float;
+    public var escHoldTimer:Float;
 
-    var realPercent:Float = 0;
-    var smoothenedPercent:Float = 0;
+    public var realPercent:Float = 0;
+    public var smoothenedPercent:Float = 0;
 
 	override function create()
     {
@@ -189,6 +190,7 @@ class LoadingScreenState extends MusicBeatState
                 startedSwitching = true;
                 FlxTransitionableState.skipNextTransIn = false;
                 FlxTransitionableState.skipNextTransOut = false;
+                MarkHeadTransition.nextCamera = FlxG.camera;
                 MusicBeatState.switchState(new PlayState());
             }
         }

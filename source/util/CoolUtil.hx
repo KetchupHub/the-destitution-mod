@@ -60,45 +60,45 @@ class CoolUtil
 	{
 		var dayLol = Date.now();
 
-		if(dayLol.getMonth() == 11 && (dayLol.getDate() == 24 || dayLol.getDate() == 25))
+		if (dayLol.getMonth() == 11 && (dayLol.getDate() == 24 || dayLol.getDate() == 25))
 		{
 			return 'christmas';
 		}
 		
-		if((dayLol.getMonth() == 0 && dayLol.getDate() == 31) || (dayLol.getMonth() == 0 && dayLol.getDate() == 1))
+		if ((dayLol.getMonth() == 0 && dayLol.getDate() == 31) || (dayLol.getMonth() == 0 && dayLol.getDate() == 1))
 		{
 			return 'newyear';
 		}
 
-		if((dayLol.getMonth() == 2 && dayLol.getDate() == 17))
+		if ((dayLol.getMonth() == 2 && dayLol.getDate() == 17))
 		{
 			return 'patricks';
 		}
 
-		if((dayLol.getMonth() == 1 && dayLol.getDate() == 14))
+		if ((dayLol.getMonth() == 1 && dayLol.getDate() == 14))
 		{
 			return 'valentines';
 		}
 
-		if((dayLol.getMonth() == 6 && dayLol.getDate() == 4))
+		if ((dayLol.getMonth() == 6 && dayLol.getDate() == 4))
 		{
 			return 'july';
 		}
 
-		if((dayLol.getMonth() == 9 && dayLol.getDate() == 31))
+		if ((dayLol.getMonth() == 9 && dayLol.getDate() == 31))
 		{
 			return 'halloween';
 		}
 
 		//literally every possible easter lmao
-		if((dayLol.getMonth() == 3 && (dayLol.getDate() == 20 || dayLol.getDate() == 13 || dayLol.getDate() == 6)) || (dayLol.getMonth() == 2 && (dayLol.getDate() == 31 || dayLol.getDate() == 24)))
+		if ((dayLol.getMonth() == 3 && (dayLol.getDate() == 20 || dayLol.getDate() == 13 || dayLol.getDate() == 6)) || (dayLol.getMonth() == 2 && (dayLol.getDate() == 31 || dayLol.getDate() == 24)))
 		{
 			return 'easter';
 		}
 
 		//same for thanksgiving
 		//fuck dynamic holidays
-		if((dayLol.getMonth() == 10 && dayLol.getDay() == 4 && (dayLol.getDate() == 22 || dayLol.getDate() == 23 || dayLol.getDate() == 24 || dayLol.getDate() == 25 || dayLol.getDate() == 26 || dayLol.getDate() == 27 || dayLol.getDate() == 28)))
+		if ((dayLol.getMonth() == 10 && dayLol.getDay() == 4 && (dayLol.getDate() == 22 || dayLol.getDate() == 23 || dayLol.getDate() == 24 || dayLol.getDate() == 25 || dayLol.getDate() == 26 || dayLol.getDate() == 27 || dayLol.getDate() == 28)))
 		{
 			return 'thanks';
 		}
@@ -116,9 +116,15 @@ class CoolUtil
 		var daList:Array<String> = [];
 		
 		#if sys
-		if(FileSystem.exists(path)) daList = File.getContent(path).trim().split('\n');
+		if (FileSystem.exists(path))
+		{
+			daList = File.getContent(path).trim().split('\n');
+		}
 		#else
-		if(Assets.exists(path)) daList = Assets.getText(path).trim().split('\n');
+		if (Assets.exists(path))
+		{
+			daList = Assets.getText(path).trim().split('\n');
+		}
 		#end
 
 		for (i in 0...daList.length)
@@ -145,18 +151,19 @@ class CoolUtil
 	public static function dominantColor(sprite:FlxSprite):Int
 	{
 		var countByColor:Map<Int, Int> = [];
-		for(col in 0...sprite.frameWidth)
+
+		for (col in 0...sprite.frameWidth)
 		{
-			for(row in 0...sprite.frameHeight)
+			for (row in 0...sprite.frameHeight)
 			{
 				var colorOfThisPixel:Int = sprite.pixels.getPixel32(col, row);
-				if(colorOfThisPixel != 0)
+				if (colorOfThisPixel != 0)
 				{
-					if(countByColor.exists(colorOfThisPixel))
+					if (countByColor.exists(colorOfThisPixel))
 					{
 				    	countByColor[colorOfThisPixel] =  countByColor[colorOfThisPixel] + 1;
 				  	}
-					else if(countByColor[colorOfThisPixel] != 13520687 - (2*13520687))
+					else if (countByColor[colorOfThisPixel] != 13520687 - (2*13520687))
 					{
 						countByColor[colorOfThisPixel] = 1;
 					}
@@ -169,9 +176,9 @@ class CoolUtil
 
 		countByColor[FlxColor.BLACK] = 0;
 
-		for(key in countByColor.keys())
+		for (key in countByColor.keys())
 		{
-			if(countByColor[key] >= maxCount)
+			if (countByColor[key] >= maxCount)
 			{
 				maxCount = countByColor[key];
 				maxKey = key;
@@ -184,10 +191,12 @@ class CoolUtil
 	public static function numberArray(max:Int, ?min = 0):Array<Int>
 	{
 		var dumbArray:Array<Int> = [];
+
 		for (i in min...max)
 		{
 			dumbArray.push(i);
 		}
+
 		return dumbArray;
 	}
 
@@ -210,11 +219,10 @@ class CoolUtil
 		#end
 	}
 
-	public static function getSavePath(folder:String = 'Team-Productions-Presents'):String {
+	public static function getSavePath(folder:String = 'Team-Productions-Presents'):String
+	{
 		@:privateAccess
-		return #if (flixel < "5.0.0") folder #else FlxG.stage.application.meta.get('company')
-			+ '/'
-			+ FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
+		return #if (flixel < "5.0.0") folder #else FlxG.stage.application.meta.get('company') + '/' + FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
 	}
 
 	public static var markAscii:String = "                                                                                                                                     

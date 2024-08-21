@@ -16,8 +16,8 @@ class FlashingState extends MusicBeatState
 {
 	public static var leftState:Bool = false;
 
-	var warnText:FlxText;
-	var warnMark:FlxSprite;
+	public var warnText:FlxText;
+	public var warnMark:FlxSprite;
 
 	override function create()
 	{

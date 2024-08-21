@@ -78,13 +78,17 @@ class Character extends FlxSprite
 	public var idleSuffix:String = '';
 	public var danceIdle:Bool = false; //Character use "danceLeft" and "danceRight" instead of "idle"
 	public var skipDance:Bool = false;
+	public var danceEveryNumBeats:Int = 2;
+	public var danced:Bool = false;
 
 	public var healthIcon:String = 'face';
+	public var healthColorArray:Array<Int> = [255, 0, 0];
+
 	public var animationsArray:Array<AnimArray> = [];
 
 	public var positionArray:Array<Float> = [0, 0];
 	public var cameraPosition:Array<Float> = [0, 0];
-	public var healthColorArray:Array<Int> = [255, 0, 0];
+	public var curFunnyPosition:Array<Float> = [0, 0];
 
 	public var hasMissAnimations:Bool = false;
 	public var vocalsFile:String = '';
@@ -99,6 +103,13 @@ class Character extends FlxSprite
 	public var artist:String = "Unknown";
 	public var animator:String = "Unknown";
 	public var whoDoneWhat:String = "Unknown";
+
+	public var isAnimateAtlas:Bool = false;
+	public var atlas:FlxAtlasSprite;
+	
+	public var settingCharacterUp:Bool = true;
+
+	public var animPaused(get, set):Bool;
 
 	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false, ?doPositioning = true)
 	{
@@ -216,6 +227,7 @@ class Character extends FlxSprite
 		antialiasing = ClientPrefs.globalAntialiasing ? !noAntialiasing : false;
 
 		animationsArray = json.animations;
+
 		if (animationsArray != null && animationsArray.length > 0)
 		{
 			for (anim in animationsArray)
@@ -329,6 +341,7 @@ class Character extends FlxSprite
 		}
 
 		var name:String = getAnimationName();
+
 		if (isAnimationFinished() && animOffsets.exists('$name-loop'))
 		{
 			playAnim('$name-loop');
@@ -381,9 +394,7 @@ class Character extends FlxSprite
 		}
 	}
 
-	public var animPaused(get, set):Bool;
-
-	private function get_animPaused():Bool
+	public function get_animPaused():Bool
 	{
 		if (isAnimationNull())
 		{
@@ -393,7 +404,7 @@ class Character extends FlxSprite
 		return !isAnimateAtlas ? animation.curAnim.paused : atlas.anim.isPlaying;
 	}
 
-	private function set_animPaused(value:Bool):Bool
+	public function set_animPaused(value:Bool):Bool
 	{
 		if (isAnimationNull())
 		{
@@ -418,8 +429,6 @@ class Character extends FlxSprite
 
 		return value;
 	}
-
-	public var danced:Bool = false;
 
 	public function dance(alt:Bool = false)
 	{
@@ -461,8 +470,6 @@ class Character extends FlxSprite
 			}
 		}
 	}
-
-	public var curFunnyPosition:Array<Float> = [0, 0];
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
@@ -562,13 +569,10 @@ class Character extends FlxSprite
 		}
 	}
 
-	function sortAnims(Obj1:Array<Dynamic>, Obj2:Array<Dynamic>):Int
+	public function sortAnims(Obj1:Array<Dynamic>, Obj2:Array<Dynamic>):Int
 	{
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1[0], Obj2[0]);
 	}
-
-	public var danceEveryNumBeats:Int = 2;
-	private var settingCharacterUp:Bool = true;
 
 	public function recalculateDanceIdle()
 	{
@@ -609,9 +613,6 @@ class Character extends FlxSprite
 		animation.addByPrefix(name, anim, 24, false);
 	}
 
-	public var isAnimateAtlas:Bool = false;
-	public var atlas:FlxAtlasSprite;
-
 	public override function draw()
 	{
 		if (isAnimateAtlas)
@@ -649,8 +650,8 @@ class Character extends FlxSprite
 
 	public override function destroy()
 	{
-		super.destroy();
 		destroyAtlas();
+		super.destroy();
 	}
 
 	public function destroyAtlas()

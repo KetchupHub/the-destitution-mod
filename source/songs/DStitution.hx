@@ -31,6 +31,7 @@ class DStitution extends SongClass
         this.ratingsType = "Dsides";
         this.skipCountdown = false;
         this.preloadCharacters = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'd-ili', 'd-bf-doug', 'douglass', 'karm-scold', 'douglass-player', 'd-rules', 'd-bf-rules', 'maestro', 'd-bf-rules-flipped', 'zamboney', 'karm-finale', 'stop-loading'];
+        this.startPpCam = true;
     }
 
     public override function stepHitEvent(curStep:Float)

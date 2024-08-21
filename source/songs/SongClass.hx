@@ -29,6 +29,8 @@ class SongClass
 
     public var preloadCharacters:Array<String> = ["bf-mark", "gf", "stop-loading"];
 
+    public var startPpCam:Bool = false;
+
 	public function new()
     {
         

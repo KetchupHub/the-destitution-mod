@@ -13,13 +13,13 @@ import flixel.FlxSprite;
 
 class GameplayChangersSubstate extends MusicBeatSubstate
 {
-	private var curOption:GameplayOption = null;
-	private var curSelected:Int = 0;
-	private var optionsArray:Array<Dynamic> = [];
+	public var curOption:GameplayOption = null;
+	public var curSelected:Int = 0;
+	public var optionsArray:Array<Dynamic> = [];
 
-	private var grpOptions:FlxTypedGroup<Alphabet>;
-	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
-	private var grpTexts:FlxTypedGroup<AttachedText>;
+	public var grpOptions:FlxTypedGroup<Alphabet>;
+	public var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
+	public var grpTexts:FlxTypedGroup<AttachedText>;
 
 	function getOptions()
 	{
@@ -444,7 +444,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 class GameplayOption
 {
-	private var child:Alphabet;
+	public var child:Alphabet;
 	public var text(get, set):String;
 	public var onChange:Void->Void = null; //Pressed enter (on Bool type options) or pressed/held left/right (on other types)
 
@@ -453,7 +453,7 @@ class GameplayOption
 	public var showBoyfriend:Bool = false;
 	public var scrollSpeed:Float = 50; //Only works on int/float, defines how fast it scrolls per second while holding left/right
 
-	private var variable:String = null; //Variable from ClientPrefs.hx's gameplaySettings
+	public var variable:String = null; //Variable from ClientPrefs.hx's gameplaySettings
 	public var defaultValue:Dynamic = null;
 
 	public var curOption:Int = 0; //Don't change this
@@ -539,7 +539,7 @@ class GameplayOption
 		this.child = child;
 	}
 
-	private function get_text()
+	public function get_text()
 	{
 		if (child != null)
 		{
@@ -548,7 +548,7 @@ class GameplayOption
 		return null;
 	}
 
-	private function set_text(newValue:String = '')
+	public function set_text(newValue:String = '')
 	{
 		if (child != null)
 		{
@@ -557,7 +557,7 @@ class GameplayOption
 		return null;
 	}
 
-	private function get_type()
+	public function get_type()
 	{
 		var newValue:String = 'bool';
 		switch (type.toLowerCase().trim())

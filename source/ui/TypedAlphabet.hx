@@ -9,6 +9,8 @@ class TypedAlphabet extends Alphabet
 	public var delay:Float = 0.05;
 	public var sound:String = 'dialogue';
 	public var volume:Float = 1;
+	public var _curLetter:Int = -1;
+	public var _timeToUpdate:Float = 0;
 
 	public function new(x:Float, y:Float, text:String = "", ?delay:Float = 0.05, ?bold:Bool = false)
 	{
@@ -16,7 +18,7 @@ class TypedAlphabet extends Alphabet
 		this.delay = delay;
 	}
 
-	override private function set_text(newText:String)
+	override public function set_text(newText:String)
 	{
 		super.set_text(newText);
 
@@ -25,23 +27,19 @@ class TypedAlphabet extends Alphabet
 		return newText;
 	}
 
-	private var _curLetter:Int = -1;
-	
-	private var _timeToUpdate:Float = 0;
-
 	override function update(elapsed:Float)
 	{
-		if(!finishedText)
+		if (!finishedText)
 		{
 			var playedSound:Bool = false;
 
 			_timeToUpdate += elapsed;
 
-			while(_timeToUpdate >= delay)
+			while (_timeToUpdate >= delay)
 			{
 				showCharacterUpTo(_curLetter + 1);
 
-				if(!playedSound && sound != '' && (delay > 0.025 || _curLetter % 2 == 0))
+				if (!playedSound && sound != '' && (delay > 0.025 || _curLetter % 2 == 0))
 				{
 					FlxG.sound.play(Paths.sound(sound), volume);
 				}
@@ -50,11 +48,11 @@ class TypedAlphabet extends Alphabet
 
 				_curLetter++;
 
-				if(_curLetter >= letters.length - 1)
+				if (_curLetter >= letters.length - 1)
 				{
 					finishedText = true;
 
-					if(onFinish != null)
+					if (onFinish != null)
 					{
 						onFinish();
 					}
@@ -103,19 +101,21 @@ class TypedAlphabet extends Alphabet
 
 	public function finishText()
 	{
-		if(finishedText)
+		if (finishedText)
+		{
 			return;
+		}
 
 		showCharacterUpTo(letters.length - 1);
 
-		if(sound != '')
+		if (sound != '')
 		{
 			FlxG.sound.play(Paths.sound(sound), volume);
 		}
 
 		finishedText = true;
 		
-		if(onFinish != null)
+		if (onFinish != null)
 		{
 			onFinish();
 		}

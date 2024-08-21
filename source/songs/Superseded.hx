@@ -27,6 +27,7 @@ class Superseded extends SongClass
         this.ratingsType = "";
         this.skipCountdown = true;
         this.preloadCharacters = ['mark-old', 'mark-old-turn', 'bf-old', 'stop-loading'];
+        this.startPpCam = false;
     }
 
     public override function stepHitEvent(curStep:Float)

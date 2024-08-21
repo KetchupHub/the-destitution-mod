@@ -35,40 +35,46 @@ class TitleState extends MusicBeatState
 
 	public static var initialized:Bool = false;
 	
-	var transitioning:Bool = false;	
+	public var transitioning:Bool = false;	
 	
-	var newTitle:Bool = false;
+	public var newTitle:Bool = false;
 
-	var titleTimer:Float = 0;
+	public var titleTimer:Float = 0;
 
-	var blackScreen:FlxSprite;
+	public var sickBeats:Int = 0;
 
-	var credGroup:FlxGroup;
-	var credTextShit:Alphabet;
-	var textGroup:FlxTypedGroup<Alphabet>;
+	public var blackScreen:FlxSprite;
 
-	var exitButton:FlxSprite;
-	var playButton:FlxSprite;
+	public var credGroup:FlxGroup;
+	public var credTextShit:Alphabet;
+	public var textGroup:FlxTypedGroup<Alphabet>;
 
-	var charec:String = 'mark';
+	public var exitButton:FlxSprite;
+	public var playButton:FlxSprite;
 
-	var curWacky:Array<String> = [];
+	public var charec:String = 'mark';
 
-	var tppLogo:FlxSprite;
+	public var curWacky:Array<String> = [];
 
-	var mustUpdate:Bool = false;
+	public var tppLogo:FlxSprite;
 
-	var skippedIntro:Bool = false;
+	public var mustUpdate:Bool = false;
+
+	public var skippedIntro:Bool = false;
 	
-	var increaseVolume:Bool = false;
+	public var increaseVolume:Bool = false;
 
-	var logo:FlxSprite;
+	public var logo:FlxSprite;
 
-	var titleCharacter:FlxSprite;
+	public var titleCharacter:FlxSprite;
 
-	var swagShader:ColorSwap = null;
+	public var swagShader:ColorSwap = null;
 
-	var closeSequenceStarted:Bool = false;
+	public var closeSequenceStarted:Bool = false;
+
+	public var quitDoingIntroShit:Bool = false;
+
+	public static var closedState:Bool = false;
 
 	override public function create():Void
 	{
@@ -144,7 +150,7 @@ class TitleState extends MusicBeatState
 		#end
 	}
 
-	function startIntro()
+	public function startIntro()
 	{
 		#if DEVELOPERBUILD
         var perf = new Perf("TitleState startIntro()");
@@ -288,7 +294,7 @@ class TitleState extends MusicBeatState
 		#end
 	}
 
-	function getIntroTextShit():Array<Array<String>>
+	public function getIntroTextShit():Array<Array<String>>
 	{
 		var fullText:String = Assets.getText(Paths.txt('introText'));
 
@@ -431,7 +437,7 @@ class TitleState extends MusicBeatState
 		super.update(elapsed);
 	}
 
-	function gameCloseSequence()
+	public function gameCloseSequence()
 	{
 		closeSequenceStarted = true;
 		titleCharacter.animation.curAnim.curFrame = 0;
@@ -458,7 +464,7 @@ class TitleState extends MusicBeatState
 		});
 	}
 
-	function createCoolText(textArray:Array<String>, ?offset:Float = 0)
+	public function createCoolText(textArray:Array<String>, ?offset:Float = 0)
 	{
 		for (i in 0...textArray.length)
 		{
@@ -483,7 +489,7 @@ class TitleState extends MusicBeatState
 		}
 	}
 
-	function addMoreText(text:String, ?offset:Float = 0)
+	public function addMoreText(text:String, ?offset:Float = 0)
 	{
 		if (textGroup != null && credGroup != null)
 		{
@@ -505,7 +511,7 @@ class TitleState extends MusicBeatState
 		}
 	}
 
-	function deleteCoolText()
+	public function deleteCoolText()
 	{
 		while (textGroup.members.length > 0)
 		{
@@ -516,10 +522,6 @@ class TitleState extends MusicBeatState
 			thist.destroy();
 		}
 	}
-
-	private var sickBeats:Int = 0;
-
-	public static var closedState:Bool = false;
 
 	override function beatHit()
 	{
@@ -578,9 +580,7 @@ class TitleState extends MusicBeatState
 		}
 	}
 
-	public var quitDoingIntroShit:Bool = false;
-
-	function skipIntro(skipFade:Bool = false):Void
+	public function skipIntro(skipFade:Bool = false):Void
 	{
 		if (!skippedIntro)
 		{

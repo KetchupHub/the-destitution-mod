@@ -33,22 +33,22 @@ class MainMenuState extends MusicBeatState
 	public static var psychEngineVersion:String = '3'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
-	var menuItems:FlxTypedGroup<FlxSprite>;
-	private var camGame:FlxCamera;
+	public var menuItems:FlxTypedGroup<FlxSprite>;
+	public var camGame:FlxCamera;
 	
-	var optionShit:Array<String> = [
+	public var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
 		'options'
 	];
 
-	var magenta:FlxSprite;
+	public var magenta:FlxSprite;
 	
-	var debugKeys:Array<FlxKey>;
+	public var debugKeys:Array<FlxKey>;
 
-	var sideThing:FlxSprite;
+	public var sideThing:FlxSprite;
 
-	var funkay:FlxSprite;
+	public var funkay:FlxSprite;
 
 	override function create()
 	{

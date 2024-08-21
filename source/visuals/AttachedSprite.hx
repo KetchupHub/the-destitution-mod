@@ -21,13 +21,13 @@ class AttachedSprite extends FlxSprite
 	{
 		super();
 
-		if(anim != null)
+		if (anim != null)
 		{
 			frames = Paths.getSparrowAtlas(file, library);
 			animation.addByPrefix('idle', anim, 24, loop);
 			animation.play('idle');
 		}
-		else if(file != null)
+		else if (file != null)
 		{
 			loadGraphic(Paths.image(file));
 		}
@@ -46,14 +46,20 @@ class AttachedSprite extends FlxSprite
 			
 			scrollFactor.set(sprTracker.scrollFactor.x, sprTracker.scrollFactor.y);
 
-			if(copyAngle)
-				angle = sprTracker.angle + angleAdd;
+			if (copyAngle)
+			{
+				angle = sprTracker.angle + angleAdd;				
+			}
 
-			if(copyAlpha)
+			if (copyAlpha)
+			{
 				alpha = sprTracker.alpha * alphaMult;
+			}
 
-			if(copyVisible) 
+			if (copyVisible)
+			{
 				visible = sprTracker.visible;
+			}
 		}
 	}
 }

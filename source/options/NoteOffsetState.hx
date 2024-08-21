@@ -7,7 +7,7 @@ import util.MemoryUtil;
 import backend.Conductor;
 import ui.Alphabet;
 import backend.ClientPrefs;
-import ui.CustomFadeTransition;
+import ui.MarkHeadTransition;
 import visuals.Character;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
@@ -65,7 +65,7 @@ class NoteOffsetState extends MusicBeatState
 		FlxG.cameras.add(camOther, false);
 
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
-		CustomFadeTransition.nextCamera = camOther;
+		MarkHeadTransition.nextCamera = camOther;
 		FlxG.camera.scroll.set(120, 130);
 
 		CoolUtil.rerollRandomness();
@@ -85,7 +85,7 @@ class NoteOffsetState extends MusicBeatState
 		gf = new Character(-50, 115, 'gf');
 		gf.x += gf.positionArray[0];
 		gf.y += gf.positionArray[1];
-		boyfriend = new Character(685, 215, 'mark-bf', true);
+		boyfriend = new Character(685, 215, 'bf-mark', true);
 		boyfriend.x += boyfriend.positionArray[0];
 		boyfriend.y += boyfriend.positionArray[1];
 		add(gf);
@@ -383,9 +383,9 @@ class NoteOffsetState extends MusicBeatState
 			}
 
 			persistentUpdate = false;
-			CustomFadeTransition.nextCamera = camOther;
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
+			MarkHeadTransition.nextCamera = camOther;
+			FlxTransitionableState.skipNextTransIn = false;
+			FlxTransitionableState.skipNextTransOut = false;
 			MusicBeatState.switchState(new OptionsState());
 			FlxG.sound.playMusic(Paths.music('mus_machinations'), 1, true);
 			FlxG.mouse.visible = false;
