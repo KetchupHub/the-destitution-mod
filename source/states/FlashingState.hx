@@ -29,7 +29,7 @@ class FlashingState extends MusicBeatState
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
-
+		
 		warnText = new FlxText(0, 0, 640,
 			"Hey, watch out!\n
 			This Mod contains some flashing lights!\n
@@ -40,6 +40,7 @@ class FlashingState extends MusicBeatState
 			32);
 		warnText.setFormat(Paths.font("BAUHS93.ttf"), 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
+		warnText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(warnText);
 
 		warnMark = new FlxSprite(640).loadGraphic(Paths.image('options/flashing'));
@@ -53,6 +54,7 @@ class FlashingState extends MusicBeatState
 		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+		versionShit.antialiasing = ClientPrefs.globalAntialiasing;
 		add(versionShit);
 		#end
 
@@ -63,7 +65,7 @@ class FlashingState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (CoolUtil.randomAudio.bool(0.003))
+		if (CoolUtil.randomAudio.bool(0.0003))
 		{
 			#if DEVELOPERBUILD
 			trace('yous won: rare sound');

@@ -1,5 +1,6 @@
 package states;
 
+import backend.ClientPrefs;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.sound.FlxSound;
 import util.MemoryUtil;
@@ -80,6 +81,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+		versionShit.antialiasing = ClientPrefs.globalAntialiasing;
 		add(versionShit);
 		#end
 
@@ -103,7 +105,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			Conductor.songPosition = FlxG.sound.music.time;
 		}
 
-		if (CoolUtil.randomAudio.bool(0.003))
+		if (CoolUtil.randomAudio.bool(0.0003))
 		{
 			#if DEVELOPERBUILD
 			trace('yous won: rare sound');

@@ -79,6 +79,7 @@ class PauseSubState extends MusicBeatSubstate
 		levelInfo.scrollFactor.set();
 		levelInfo.setFormat(Paths.font("BAUHS93.ttf"), 32);
 		levelInfo.updateHitbox();
+		levelInfo.antialiasing = ClientPrefs.globalAntialiasing;
 		add(levelInfo);
 
 		var blueballedTxt:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
@@ -86,6 +87,7 @@ class PauseSubState extends MusicBeatSubstate
 		blueballedTxt.scrollFactor.set();
 		blueballedTxt.setFormat(Paths.font("BAUHS93.ttf"), 32);
 		blueballedTxt.updateHitbox();
+		blueballedTxt.antialiasing = ClientPrefs.globalAntialiasing;
 		add(blueballedTxt);
 
 		var sectionTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
@@ -93,6 +95,7 @@ class PauseSubState extends MusicBeatSubstate
 		sectionTxt.scrollFactor.set();
 		sectionTxt.setFormat(Paths.font("BAUHS93.ttf"), 32);
 		sectionTxt.updateHitbox();
+		sectionTxt.antialiasing = ClientPrefs.globalAntialiasing;
 
 		if (PlayState.songHasSections)
 		{
@@ -105,6 +108,7 @@ class PauseSubState extends MusicBeatSubstate
 		practiceText.x = FlxG.width - (practiceText.width + 20);
 		practiceText.updateHitbox();
 		practiceText.visible = PlayState.instance.practiceMode;
+		practiceText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(practiceText);
 
 		var chartingText:FlxText = new FlxText(20, 15 + 165, 0, "CHARTING MODE", 32);
@@ -114,6 +118,7 @@ class PauseSubState extends MusicBeatSubstate
 		chartingText.y = FlxG.height - (chartingText.height + 20);
 		chartingText.updateHitbox();
 		chartingText.visible = PlayState.chartingMode;
+		chartingText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(chartingText);
 
 		songCover = new FlxSprite(936, 0).loadGraphic(Paths.image('song_covers/' + PlayState.SONG.song.toLowerCase().replace('-erect', '')));
@@ -128,6 +133,7 @@ class PauseSubState extends MusicBeatSubstate
 		descText.borderSize = 1.5;
 		descText.x = FlxG.width - 415;
 		descText.y = songCover.y + songCover.height + 21;
+		descText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(descText);
 
 		blueballedTxt.alpha = 0;
@@ -191,7 +197,7 @@ class PauseSubState extends MusicBeatSubstate
 			changeSelection(1);
 		}
 
-		if (CoolUtil.randomAudio.bool(0.003))
+		if (CoolUtil.randomAudio.bool(0.0003))
 		{
 			#if DEVELOPERBUILD
 			trace('yous won: rare sound');

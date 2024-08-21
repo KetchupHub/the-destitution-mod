@@ -70,7 +70,7 @@ class Alphabet extends FlxSpriteGroup
 		for (letter in letters)
 		{
 			var newOffset:Float = 0;
-			switch(alignment)
+			switch (alignment)
 			{
 				case CENTERED:
 					newOffset = letter.rowWidth / 2;
@@ -124,7 +124,7 @@ class Alphabet extends FlxSpriteGroup
 
 		for (letter in letters)
 		{
-			if(letter != null)
+			if (letter != null)
 			{
 				letter.updateHitbox();
 				var ratio:Float = (value / letter.spawnScale.x);
@@ -144,7 +144,7 @@ class Alphabet extends FlxSpriteGroup
 		scale.y = value;
 		for (letter in letters)
 		{
-			if(letter != null)
+			if (letter != null)
 			{
 				letter.updateHitbox();
 				letter.updateLetterOffset();
@@ -162,9 +162,9 @@ class Alphabet extends FlxSpriteGroup
 		{
 			var lerpVal:Float = util.CoolUtil.boundTo(elapsed * 9.6, 0, 1);
 
-			if(changeX)
+			if (changeX)
 				x = FlxMath.lerp(x, (targetY * distancePerItem.x) + startPosition.x, lerpVal);
-			if(changeY)
+			if (changeY)
 				y = FlxMath.lerp(y, (targetY * 1.3 * distancePerItem.y) + startPosition.y, lerpVal);
 		}
 
@@ -175,9 +175,9 @@ class Alphabet extends FlxSpriteGroup
 	{
 		if (isMenuItem)
 		{
-			if(changeX)
+			if (changeX)
 				x = (targetY * distancePerItem.x) + startPosition.x;
-			if(changeY)
+			if (changeY)
 				y = (targetY * 1.3 * distancePerItem.y) + startPosition.y;
 		}
 	}
@@ -195,7 +195,7 @@ class Alphabet extends FlxSpriteGroup
 		for (character in newText.split(''))
 		{
 			
-			if(character != '\n')
+			if (character != '\n')
 			{
 				var spaceChar:Bool = (character == " " || (bold && character == "_"));
 
@@ -226,7 +226,7 @@ class Alphabet extends FlxSpriteGroup
 					letter.row = rows;
 
 					var off:Float = 0;
-					if(!bold)
+					if (!bold)
 						off = 2;
 
 					xPos += letter.width + (letter.letterOffset[0] + off) * scaleX;
@@ -252,7 +252,7 @@ class Alphabet extends FlxSpriteGroup
 			letter.rowWidth = rowData[letter.row];
 		}
 
-		if(letters.length > 0)
+		if (letters.length > 0)
 			rows++;
 	}
 }

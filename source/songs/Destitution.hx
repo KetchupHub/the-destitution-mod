@@ -38,7 +38,7 @@ class Destitution extends SongClass
         //this is where step hit events go
         super.stepHitEvent(curStep);
 
-        switch(curStep)
+        switch (curStep)
         {
             //lipsync shit literally just copied from d-stitution LMAO
             case 128:
@@ -509,10 +509,10 @@ class Destitution extends SongClass
         //this is where beat hit events go
         super.beatHitEvent(curBeat);
 
-        switch(curBeat)
+        switch (curBeat)
         {
             case 288 | 512:
-                if(curBeat == 288)
+                if (curBeat == 288)
                 {
                     PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                     PlayState.instance.dad.destroy();
@@ -528,13 +528,17 @@ class Destitution extends SongClass
 
                     Paths.clearUnusedMemory();
                 }
+
                 PlayState.instance.bgPlayer.canDance = false;
                 PlayState.instance.bgPlayer.playAnim("walk", true);
+
                 var fuckeryWad:Int = 1;
-                if(curBeat >= 512)
+
+                if (curBeat >= 512)
                 {
                     fuckeryWad = 2;
                 }
+
                 FlxTween.tween(PlayState.instance.bgPlayer, {x: PlayState.instance.bgPlayerWalkTarget}, 4 * fuckeryWad, {onComplete: function fucksake(ferkck:FlxTween)
                 {
                     PlayState.instance.bgPlayer.playAnim("notice", true);
@@ -690,13 +694,18 @@ class Destitution extends SongClass
                 PlayState.instance.spaceTimeBfArray[0] = PlayState.instance.boyfriend.x;
                 PlayState.instance.spaceTimeBfArray[1] = PlayState.instance.boyfriend.y;
 
-                for(i in PlayState.instance.opponentStrums.members)
+                if (!ClientPrefs.middleScroll)
                 {
-                    FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
-                }
-                for(i in PlayState.instance.playerStrums.members)
-                {
-                    FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+
+                    for (i in PlayState.instance.opponentStrums.members)
+                    {
+                        FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+                    }
+
+                    for (i in PlayState.instance.playerStrums.members)
+                    {
+                        FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+                    }
                 }
 
                 PlayState.instance.sectionIntroThing("I LIEK ITEM");
@@ -787,14 +796,17 @@ class Destitution extends SongClass
                 PlayState.instance.liek.animation.play("idle", true);
                 PlayState.instance.cuttingSceneThing.visible = true;
 
-                for (i in PlayState.instance.opponentStrums.members)
+                if (!ClientPrefs.middleScroll)
                 {
-                    FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
-                }
+                    for (i in PlayState.instance.opponentStrums.members)
+                    {
+                        FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
+                    }
 
-                for (i in PlayState.instance.playerStrums.members)
-                {
-                    FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
+                    for (i in PlayState.instance.playerStrums.members)
+                    {
+                        FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
+                    }
                 }
             case 1348:
                 PlayState.instance.cuttingSceneThing.visible = false;
@@ -822,16 +834,21 @@ class Destitution extends SongClass
                 FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500);
                 FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500);
                 
-                for (i in PlayState.instance.opponentStrums.members)
-                {
-                    FlxTween.completeTweensOf(i);
-                    FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
-                }
+                PlayState.instance.timerGoMiddlescroll(false);
 
-                for (i in PlayState.instance.playerStrums.members)
+                if (!ClientPrefs.middleScroll)
                 {
-                    FlxTween.completeTweensOf(i);
-                    FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
+                    for (i in PlayState.instance.opponentStrums.members)
+                    {
+                        FlxTween.completeTweensOf(i);
+                        FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
+                    }
+
+                    for (i in PlayState.instance.playerStrums.members)
+                    {
+                        FlxTween.completeTweensOf(i);
+                        FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
+                    }
                 }
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
@@ -889,14 +906,19 @@ class Destitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("Mark Mc. Marketing (B)");
 
-                for (i in PlayState.instance.opponentStrums.members)
+                PlayState.instance.timerGoMiddlescroll(true);
+                
+                if (!ClientPrefs.middleScroll)
                 {
-                    FlxTween.tween(i, {x: i.x + 575}, 1, {ease: FlxEase.quadInOut});
-                }
+                    for (i in PlayState.instance.opponentStrums.members)
+                    {
+                        FlxTween.tween(i, {x: i.x + 575}, 1, {ease: FlxEase.quadInOut});
+                    }
 
-                for (i in PlayState.instance.playerStrums.members)
-                {
-                    FlxTween.tween(i, {x: i.x - -320}, 1, {ease: FlxEase.quadInOut});
+                    for (i in PlayState.instance.playerStrums.members)
+                    {
+                        FlxTween.tween(i, {x: i.x - -320}, 1, {ease: FlxEase.quadInOut});
+                    }
                 }
 
                 Paths.clearUnusedMemory();
@@ -1024,14 +1046,19 @@ class Destitution extends SongClass
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
 
-                for (i in PlayState.instance.opponentStrums.members)
-                {
-                    FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
-                }
+                PlayState.instance.timerGoMiddlescroll(false);
 
-                for (i in PlayState.instance.playerStrums.members)
+                if (!ClientPrefs.middleScroll)
                 {
-                    FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
+                    for (i in PlayState.instance.opponentStrums.members)
+                    {
+                        FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
+                    }
+
+                    for (i in PlayState.instance.playerStrums.members)
+                    {
+                        FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
+                    }
                 }
 
                 PlayState.instance.sectionIntroThing("Guy with a Zamboni");

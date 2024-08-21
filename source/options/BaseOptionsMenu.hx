@@ -319,7 +319,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			nextAccept -= 1;
 		}
 
-		if (CoolUtil.randomAudio.bool(0.005))
+		if (CoolUtil.randomAudio.bool(0.0003))
 		{
 			#if DEVELOPERBUILD
 			trace('yous won: rare sound');

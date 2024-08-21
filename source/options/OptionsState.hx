@@ -239,7 +239,7 @@ class OptionsState extends MusicBeatState
 			}
 		}
 
-		if (CoolUtil.randomAudio.bool(0.003))
+		if (CoolUtil.randomAudio.bool(0.0003))
 		{
 			#if DEVELOPERBUILD
 			trace('yous won: rare sound');

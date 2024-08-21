@@ -1,5 +1,6 @@
 package states;
 
+import backend.ClientPrefs;
 import flixel.util.FlxStringUtil;
 import backend.Conductor;
 import flixel.util.FlxTimer;
@@ -100,7 +101,7 @@ class ResultsState extends MusicBeatState
         transThing = new FlxBackdrop(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
         transThing.repeatAxes = XY;
         FlxTween.tween(transThing, {'scale.x': 0.25, 'scale.y': 0.25}, 1, {startDelay: 0.25, ease: FlxEase.circOut});
-        transThing.antialiasing = true;
+        transThing.antialiasing = ClientPrefs.globalAntialiasing;
         add(transThing);
 
         yellow = new FlxSprite().makeGraphic(1, 1, FlxColor.fromRGB(255, 204, 102));
@@ -116,11 +117,11 @@ class ResultsState extends MusicBeatState
         nopeboyRes.frames = Paths.getSparrowAtlas('results/nopeboy');
         nopeboyRes.animation.addByPrefix('results', 'results', 24, false);
         nopeboyRes.animation.play('results', true);
-        nopeboyRes.antialiasing = true;
+        nopeboyRes.antialiasing = ClientPrefs.globalAntialiasing;
         add(nopeboyRes);
 
         sideGuy = new FlxSprite().loadGraphic(Paths.image('results/side'));
-        sideGuy.antialiasing = true;
+        sideGuy.antialiasing = ClientPrefs.globalAntialiasing;
         sideGuy.x -= 750;
         add(sideGuy);
         FlxTween.tween(sideGuy, {x: 0}, 0.5, {ease: FlxEase.circOut, startDelay: 1});
@@ -130,7 +131,7 @@ class ResultsState extends MusicBeatState
         resultsText.animation.addByPrefix('textbop', 'textbop', 24, false);
         resultsText.animation.play('textbop', true);
         resultsText.y -= 300;
-        resultsText.antialiasing = true;
+        resultsText.antialiasing = ClientPrefs.globalAntialiasing;
         add(resultsText);
         FlxTween.tween(resultsText, {y: 22}, 0.4, {ease: FlxEase.backOut, startDelay: 1.75});
 
@@ -138,12 +139,14 @@ class ResultsState extends MusicBeatState
         statsText.setFormat(Paths.font('BAUHS93.ttf'), 38, FlxColor.WHITE, LEFT, OUTLINE_FAST, FlxColor.BLACK);
         statsText.borderSize = 2;
         statsText.alpha = 0;
+        statsText.antialiasing = ClientPrefs.globalAntialiasing;
         add(statsText);
 
         scoreText = new FlxText(26, 599, 683, 'Score: 0\nHi-Score: 0', 52);
         scoreText.setFormat(Paths.font('BAUHS93.ttf'), 52, FlxColor.WHITE, LEFT, OUTLINE_FAST, FlxColor.BLACK);
         scoreText.borderSize = 2;
         scoreText.alpha = 0;
+        scoreText.antialiasing = ClientPrefs.globalAntialiasing;
         add(scoreText);
 
         FlxTween.tween(statsText, {alpha: 1}, 0.4, {ease: FlxEase.circOut, startDelay: 1.8});
@@ -160,6 +163,7 @@ class ResultsState extends MusicBeatState
 		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+        versionShit.antialiasing = ClientPrefs.globalAntialiasing;
 		add(versionShit);
 		#end
 
@@ -176,7 +180,7 @@ class ResultsState extends MusicBeatState
     {
         elapsedTotal += elapsed;
 
-        if (CoolUtil.randomAudio.bool(0.003))
+        if (CoolUtil.randomAudio.bool(0.0003))
         {
             #if DEVELOPERBUILD
 			trace('yous won: rare sound');

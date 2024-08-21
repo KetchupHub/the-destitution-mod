@@ -555,6 +555,7 @@ class PlayState extends MusicBeatState
 		timeTxt.scrollFactor.set();
 		timeTxt.alpha = 0;
 		timeTxt.visible = showTime;
+		timeTxt.antialiasing = ClientPrefs.globalAntialiasing;
 		
 		if (ClientPrefs.downScroll)
 		{
@@ -571,6 +572,7 @@ class PlayState extends MusicBeatState
 			fullLength.scrollFactor.set();
 			fullLength.alpha = 0;
 			fullLength.visible = showTime;
+			fullLength.antialiasing = ClientPrefs.globalAntialiasing;
 		}
 
 		if (ClientPrefs.timeBarType == 'Song Name')
@@ -673,6 +675,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.borderSize = 2;
 		scoreTxt.scrollFactor.set();
 		scoreTxt.visible = !ClientPrefs.hideHud;
+		scoreTxt.antialiasing = false;
 		add(scoreTxt);
 
 		//adding these now, because its better and such
@@ -693,6 +696,7 @@ class PlayState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 		versionShit.cameras = [camHUD];
+		versionShit.antialiasing = ClientPrefs.globalAntialiasing;
 		add(versionShit);
 		#end
 
@@ -712,6 +716,11 @@ class PlayState extends MusicBeatState
 		#if !SHOWCASEVIDEO
 		botplayTxt.cameras = [camHUD];
 		#end
+
+		if (ClientPrefs.middleScroll)
+		{
+			timerGoMiddlescroll(false);
+		}
 
 		startingSong = true;
 		
@@ -4421,5 +4430,32 @@ class PlayState extends MusicBeatState
 		GameOverSubstate.endSoundName = 'mus_overtime_end' + songObj.gameoverMusicSuffix;
 
 		skipCountdown = songObj.skipCountdown;
+	}
+
+	/**
+	 * rescaling stuff for timer
+	 */
+	public function timerGoMiddlescroll(isFrom:Bool)
+	{
+		var death:Float = timeTxt.y;
+
+		if (isFrom)
+		{
+			FlxTween.tween(timeTxt, {y: timeTxt.y + 12, 'scale.x': 1, 'scale.y': 1}, 1, {ease: FlxEase.smootherStepInOut});
+
+			if (fullLength != null)
+			{
+				FlxTween.tween(fullLength, {y: (death + 12) + 36, 'scale.x': 1, 'scale.y': 1}, 1, {ease: FlxEase.smootherStepInOut});
+			}
+		}
+		else
+		{
+			FlxTween.tween(timeTxt, {y: timeTxt.y - 12, 'scale.x': 0.8, 'scale.y': 0.8}, 1, {ease: FlxEase.smootherStepInOut});
+
+			if (fullLength != null)
+			{
+				FlxTween.tween(fullLength, {y: (death - 12) + (36 * 0.8), 'scale.x': 0.8, 'scale.y': 0.8}, 1, {ease: FlxEase.smootherStepInOut});
+			}
+		}
 	}
 }

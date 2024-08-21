@@ -184,7 +184,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
-		if (CoolUtil.randomAudio.bool(0.003))
+		if (CoolUtil.randomAudio.bool(0.0003))
 		{
 			#if DEVELOPERBUILD
 			trace('yous won: rare sound');

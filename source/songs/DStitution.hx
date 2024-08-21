@@ -1,5 +1,6 @@
 package songs;
 
+import backend.ClientPrefs;
 import visuals.Boyfriend;
 import visuals.Character;
 import backend.Conductor;
@@ -37,7 +38,7 @@ class DStitution extends SongClass
         //this is where step hit events go
         super.stepHitEvent(curStep);
 
-        switch(curStep)
+        switch (curStep)
         {
             case 96:
                 FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250);
@@ -83,10 +84,7 @@ class DStitution extends SongClass
             case 640:
                 PlayState.instance.defaultCamZoom -= 0.1;
                 PlayState.instance.bgColorsCrazyBeats = 2;
-            case 760:
-                //FlxG.camera.fade(FlxColor.WHITE, Conductor.crochet / 500);
             case 768:
-                //FlxG.camera.fade(FlxColor.TRANSPARENT, 0.000001, false);
                 FlxG.camera.flash();
                 PlayState.instance.defaultCamZoom -= 0.1;
                 PlayState.instance.bgColorsCrazyBeats = 2;
@@ -115,7 +113,7 @@ class DStitution extends SongClass
         //this is where beat hit events go
         super.beatHitEvent(curBeat);
 
-        switch(curBeat)
+        switch (curBeat)
         {
             case 512:
                 //pinkerton
@@ -307,13 +305,17 @@ class DStitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("I, Rules");
 
-                for(i in PlayState.instance.opponentStrums.members)
+                if (!ClientPrefs.middleScroll)
                 {
-                    FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
-                }
-                for(i in PlayState.instance.playerStrums.members)
-                {
-                    FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+                    for (i in PlayState.instance.opponentStrums.members)
+                    {
+                        FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+                    }
+
+                    for (i in PlayState.instance.playerStrums.members)
+                    {
+                        FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+                    }
                 }
 
                 Paths.clearUnusedMemory();
@@ -336,13 +338,17 @@ class DStitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("Maestro Cryptehnt");
 
-                for(i in PlayState.instance.opponentStrums.members)
+                if (!ClientPrefs.middleScroll)
                 {
-                    FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
-                }
-                for(i in PlayState.instance.playerStrums.members)
-                {
-                    FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
+                    for (i in PlayState.instance.opponentStrums.members)
+                    {
+                        FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
+                    }
+
+                    for (i in PlayState.instance.playerStrums.members)
+                    {
+                        FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, Conductor.crochet / 1005, {ease: FlxEase.quadInOut});
+                    }
                 }
 
                 Paths.clearUnusedMemory();
@@ -366,15 +372,21 @@ class DStitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("Zam-boney!");
 
-                for(i in PlayState.instance.opponentStrums.members)
+                PlayState.instance.timerGoMiddlescroll(false);
+
+                if (!ClientPrefs.middleScroll)
                 {
-                    FlxTween.completeTweensOf(i);
-                    FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
-                }
-                for(i in PlayState.instance.playerStrums.members)
-                {
-                    FlxTween.completeTweensOf(i);
-                    FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
+                    for (i in PlayState.instance.opponentStrums.members)
+                    {
+                        FlxTween.completeTweensOf(i);
+                        FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
+                    }
+
+                    for (i in PlayState.instance.playerStrums.members)
+                    {
+                        FlxTween.completeTweensOf(i);
+                        FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
+                    }
                 }
 
                 Paths.clearUnusedMemory();

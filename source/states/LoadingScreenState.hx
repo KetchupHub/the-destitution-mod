@@ -100,18 +100,20 @@ class LoadingScreenState extends MusicBeatState
 
         toLoad = charactersToLoad.length - 1;
 
-        #if DEVELOPERBUILD
-		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
-		add(versionShit);
-		#end
-
         holdingEscText = new FlxText(6, FlxG.height - 28, FlxG.width - 4, 'Going Back...', 16);
         holdingEscText.setBorderStyle(FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK, 2);
         holdingEscText.scrollFactor.set();
         holdingEscText.alpha = 0;
+        holdingEscText.antialiasing = false;
         add(holdingEscText);
+
+        #if DEVELOPERBUILD
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+		versionShit.antialiasing = ClientPrefs.globalAntialiasing;
+        add(versionShit);
+		#end
 
         #if DEVELOPERBUILD
         perf.print();
@@ -129,7 +131,7 @@ class LoadingScreenState extends MusicBeatState
             Conductor.songPosition = FlxG.sound.music.time;
         }
 
-		if (CoolUtil.randomAudio.bool(0.003))
+		if (CoolUtil.randomAudio.bool(0.0003))
         {
             #if DEVELOPERBUILD
 			trace('yous won: rare sound');

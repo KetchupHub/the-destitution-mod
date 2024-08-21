@@ -178,6 +178,7 @@ class FreeplayState extends MusicBeatState
 		scoreText.setFormat(Paths.font("BAUHS93.ttf"), 38, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 		scoreText.borderSize = 1.5;
 		scoreText.alpha = 0;
+		scoreText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(scoreText);
 
 		FlxTween.tween(scoreText, {alpha: 1}, 0.5, {ease: FlxEase.cubeOut});
@@ -186,6 +187,7 @@ class FreeplayState extends MusicBeatState
 		descText.setFormat(Paths.font("BAUHS93.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 		descText.borderSize = 1.5;
 		descText.alpha = 0;
+		descText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(descText);
 
 		changeSelection(0, false);
@@ -224,12 +226,14 @@ class FreeplayState extends MusicBeatState
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
 		text.setFormat(Paths.font("BAUHS93.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
+		text.antialiasing = ClientPrefs.globalAntialiasing;
 		add(text);
 
 		#if DEVELOPERBUILD
 		var versionShit:FlxText = new FlxText(4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+		versionShit.antialiasing = ClientPrefs.globalAntialiasing;
 		add(versionShit);
 		#end
 		
@@ -252,7 +256,7 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
-		if (CoolUtil.randomAudio.bool(0.003))
+		if (CoolUtil.randomAudio.bool(0.0003))
 		{
 			#if DEVELOPERBUILD
 			trace('yous won: rare sound');

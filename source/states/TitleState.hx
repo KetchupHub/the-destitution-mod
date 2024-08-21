@@ -45,7 +45,7 @@ class TitleState extends MusicBeatState
 
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
-	var textGroup:FlxGroup;
+	var textGroup:FlxTypedGroup<Alphabet>;
 
 	var exitButton:FlxSprite;
 	var playButton:FlxSprite;
@@ -167,18 +167,18 @@ class TitleState extends MusicBeatState
 
 		swagShader = new ColorSwap();
 
-		if(initialized)
+		if (initialized)
 		{
 			CoolUtil.rerollRandomness();
 		}
 
 		var arrey:Array<String> = ['bf', 'crypteh', 'ili', 'karm', 'mark', 'ploinky', 'rulez', 'whale'];
-		if(CoolUtil.randomLogic.bool(10))
+		if (CoolUtil.randomLogic.bool(10))
 		{
 			arrey = ['blocken', 'plant'];
 		}
 		var holidayChar = CoolUtil.getHolidayCharacter();
-		if(holidayChar != null)
+		if (holidayChar != null)
 		{
 			//should i be nice and make the holidays the only ones you can get on that day?
 			//nah
@@ -187,7 +187,7 @@ class TitleState extends MusicBeatState
 			arrey = [holidayChar];
 		}
 		charec = arrey[CoolUtil.randomVisuals.int(0, arrey.length - 1)];
-		if(Paths.image('title/char/$charec') == null)
+		if (Paths.image('title/char/$charec') == null)
 		{
 			//precaution
 			charec = 'mark';
@@ -234,19 +234,12 @@ class TitleState extends MusicBeatState
 		playButton.updateHitbox();
 		add(playButton);
 
-		#if DEVELOPERBUILD
-		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
-		add(versionShit);
-		#end
-
 		credGroup = new FlxGroup();
 		add(credGroup);
 
-		textGroup = new FlxGroup();
+		textGroup = new FlxTypedGroup<Alphabet>();
 
-		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
 		credGroup.add(blackScreen);
 
 		credTextShit = new Alphabet(0, 20, "", true);
@@ -273,9 +266,17 @@ class TitleState extends MusicBeatState
 			}});
 		}
 
+		#if DEVELOPERBUILD
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+		versionShit.antialiasing = ClientPrefs.globalAntialiasing;
+		add(versionShit);
+		#end
+
 		if (initialized)
 		{
-			skipIntro();
+			skipIntro(true);
 		}
 		else
 		{
@@ -405,7 +406,7 @@ class TitleState extends MusicBeatState
 			}
 		}
 
-		if (CoolUtil.randomAudio.bool(0.003))
+		if (CoolUtil.randomAudio.bool(0.0003))
 		{
 			#if DEVELOPERBUILD
 			trace('yous won: rare sound');
@@ -464,9 +465,17 @@ class TitleState extends MusicBeatState
 			var money:Alphabet = new Alphabet(0, 0, textArray[i], true);
 
 			money.screenCenter(X);
-			money.y += (i * 60) + 200 + offset;
+			money.y += (i * 70) + 200 + offset;
+			money.ID = textGroup.length;
 
-			if(credGroup != null && textGroup != null)
+			//money.scaleX = 1.5;
+			//money.scaleY = 0.5;
+			money.alpha = 0;
+
+			//FlxTween.tween(money, {scaleX: 1, scaleY: 1}, 0.5, {ease: FlxEase.backInOut});
+			FlxTween.tween(money, {alpha: 1}, 0.25, {ease: FlxEase.smootherStepOut});
+
+			if (credGroup != null && textGroup != null)
 			{
 				credGroup.add(money);
 				textGroup.add(money);
@@ -476,12 +485,20 @@ class TitleState extends MusicBeatState
 
 	function addMoreText(text:String, ?offset:Float = 0)
 	{
-		if(textGroup != null && credGroup != null)
+		if (textGroup != null && credGroup != null)
 		{
 			var coolText:Alphabet = new Alphabet(0, 0, text, true);
 
 			coolText.screenCenter(X);
-			coolText.y += (textGroup.length * 60) + 200 + offset;
+			coolText.y += (textGroup.length * 70) + 200 + offset;
+			coolText.ID = textGroup.length;
+
+			//coolText.scaleX = 1.5;
+			//coolText.scaleY = 0.5;
+			coolText.alpha = 0;
+
+			//FlxTween.tween(coolText, {scaleX: 1, scaleY: 1}, 0.5, {ease: FlxEase.backInOut});
+			FlxTween.tween(coolText, {alpha: 1}, 0.25, {ease: FlxEase.smootherStepOut});
 
 			credGroup.add(coolText);
 			textGroup.add(coolText);
@@ -492,8 +509,11 @@ class TitleState extends MusicBeatState
 	{
 		while (textGroup.members.length > 0)
 		{
-			credGroup.remove(textGroup.members[0], true);
-			textGroup.remove(textGroup.members[0], true);
+			var thist = textGroup.members[0];
+			FlxTween.completeTweensOf(thist);
+			credGroup.remove(thist, true);
+			textGroup.remove(thist, true);
+			thist.destroy();
 		}
 	}
 
@@ -525,7 +545,7 @@ class TitleState extends MusicBeatState
 			}
 		}
 
-		if(!closedState)
+		if (!closedState && !quitDoingIntroShit)
 		{
 			sickBeats++;
 
@@ -558,14 +578,32 @@ class TitleState extends MusicBeatState
 		}
 	}
 
-	function skipIntro():Void
+	public var quitDoingIntroShit:Bool = false;
+
+	function skipIntro(skipFade:Bool = false):Void
 	{
 		if (!skippedIntro)
 		{
-			remove(tppLogo);
-			remove(credGroup);
+			quitDoingIntroShit = true;
 
-			//FlxG.camera.flash();
+			remove(tppLogo);
+
+			if (skipFade)
+			{
+				remove(credGroup);
+			}
+			else
+			{
+				for (cool in textGroup)
+				{
+					FlxTween.tween(cool, {alpha: 0, y: cool.y + 720}, 0.25, {startDelay: 0.2 * cool.ID, ease: FlxEase.backInOut});
+				}
+
+				FlxTween.tween(blackScreen, {alpha: 0}, 2, {ease: FlxEase.smootherStepOut, onComplete: function die(fuuuck:FlxTween)
+				{
+					remove(credGroup);
+				}});
+			}
 
 			skippedIntro = true;
 		}
