@@ -1,5 +1,6 @@
 package states;
 
+import ui.MarkHeadTransition;
 import backend.ClientPrefs;
 import util.CoolUtil;
 import flixel.tweens.FlxEase;
@@ -24,6 +25,8 @@ class FlashingState extends MusicBeatState
 		#if DEVELOPERBUILD
 		var perf = new Perf("Total FlashingState create()");
 		#end
+
+		MarkHeadTransition.nextCamera = FlxG.camera;
 
 		super.create();
 
@@ -79,8 +82,6 @@ class FlashingState extends MusicBeatState
 			if (controls.ACCEPT || back)
 			{
 				leftState = true;
-				FlxTransitionableState.skipNextTransIn = true;
-				FlxTransitionableState.skipNextTransOut = true;
 
 				if (!back)
 				{
@@ -93,6 +94,7 @@ class FlashingState extends MusicBeatState
 						{
 							FlxTransitionableState.skipNextTransIn = false;
 							FlxTransitionableState.skipNextTransOut = false;
+							MarkHeadTransition.nextCamera = FlxG.camera;
 							MusicBeatState.switchState(new TitleState());
 						});
 					});
@@ -110,6 +112,7 @@ class FlashingState extends MusicBeatState
 						{
 							FlxTransitionableState.skipNextTransIn = false;
 							FlxTransitionableState.skipNextTransOut = false;
+							MarkHeadTransition.nextCamera = FlxG.camera;
 							MusicBeatState.switchState(new TitleState());
 						}
 					});

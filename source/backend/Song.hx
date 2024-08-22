@@ -113,13 +113,20 @@ class Song
 		var formattedFolder:String = Paths.formatToSongPath(folder);
 		var formattedSong:String = Paths.formatToSongPath(jsonInput);
 
-		if (rawJson == null)
+		try
 		{
-			#if sys
-			rawJson = File.getContent(Paths.json('charts/' + formattedSong)).trim();
-			#else
-			rawJson = Assets.getText(Paths.json('charts/' + formattedSong)).trim();
-			#end
+			if (rawJson == null)
+			{
+				#if sys
+				rawJson = File.getContent(Paths.json('charts/' + formattedSong)).trim();
+				#else
+				rawJson = Assets.getText(Paths.json('charts/' + formattedSong)).trim();
+				#end
+			}
+		}
+		catch (e:Dynamic)
+		{
+			throw "Chart for '" + formattedSong + "' not found!";
 		}
 
 		while (!rawJson.endsWith("}"))

@@ -1,5 +1,6 @@
 package states;
 
+import ui.MarkHeadTransition;
 import flixel.graphics.FlxGraphic;
 import visuals.ColorSwap;
 import backend.Highscore;
@@ -92,6 +93,8 @@ class TitleState extends MusicBeatState
 
 		FlxG.keys.preventDefaultKeys = [TAB];
 
+		//FlxG.log.redirectTraces = true;
+
 		PlayerSettings.init();
 
 		curWacky = CoolUtil.randomLogic.getObject(getIntroTextShit());
@@ -110,9 +113,9 @@ class TitleState extends MusicBeatState
 
 		Highscore.load();
 
-		if(!initialized)
+		if (!initialized)
 		{
-			if(FlxG.save.data != null && FlxG.save.data.fullscreen)
+			if (FlxG.save.data != null && FlxG.save.data.fullscreen)
 			{
 				FlxG.fullscreen = FlxG.save.data.fullscreen;
 			}
@@ -123,10 +126,12 @@ class TitleState extends MusicBeatState
 
 		FlxG.mouse.visible = true;
 
-		if(FlxG.save.data.flashing == null && !FlashingState.leftState)
+		if (FlxG.save.data.flashing == null && !FlashingState.leftState)
 		{
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
+			FlxTransitionableState.skipNextTransIn = false;
+			FlxTransitionableState.skipNextTransOut = false;
+
+			MarkHeadTransition.nextCamera = FlxG.camera;
 
 			MusicBeatState.switchState(new FlashingState());
 		}

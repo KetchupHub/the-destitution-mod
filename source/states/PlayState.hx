@@ -1619,20 +1619,28 @@ class PlayState extends MusicBeatState
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
 
-		FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
+		try
+		{
+			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
+		}
+		catch (e:Dynamic)
+		{
+			throw "Missing instrumental!";
+		}
+
 		FlxG.sound.music.pitch = playbackRate;
 		FlxG.sound.music.onComplete = finishSong.bind();
 		vocals.play();
 		opponentVocals.play();
 
-		if(startOnTime > 0)
+		if (startOnTime > 0)
 		{
 			setSongTime(startOnTime - 500);
 		}
 
 		startOnTime = 0;
 
-		if(paused)
+		if (paused)
 		{
 			FlxG.sound.music.pause();
 			vocals.pause();
@@ -1643,11 +1651,11 @@ class PlayState extends MusicBeatState
 
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
-		if(fullLength != null)
+		if (fullLength != null)
 		{
 			FlxTween.tween(fullLength, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
-			if(fullLength != null)
+			if (fullLength != null)
 			{
 					fullLength.text = FlxStringUtil.formatTime(Math.floor(songLength / 1000), false);
 			}
@@ -1660,7 +1668,7 @@ class PlayState extends MusicBeatState
 
 	public function generateSong(dataPath:String):Void
 	{
-		songSpeedType = ClientPrefs.getGameplaySetting('scrolltype','multiplicative');
+		songSpeedType = ClientPrefs.getGameplaySetting('scrolltype', 'multiplicative');
 
 		switch (songSpeedType)
 		{
@@ -1688,20 +1696,16 @@ class PlayState extends MusicBeatState
 		}
 		catch (e:Dynamic)
 		{
-			#if DEVELOPERBUILD
-			trace('wow youre so fucking stupid you forgot the damned vocals huh');
-			#end
+			throw "Player vocals and/or Opponent vocals not found!";
 		}
 
 		vocals.pitch = playbackRate;
 		opponentVocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(opponentVocals);
-
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
 
 		notes = new FlxTypedGroup<Note>();
-		//add(notes);
 
 		var noteData:Array<SwagSection>;
 

@@ -1,5 +1,6 @@
 package states;
 
+import ui.MarkHeadTransition;
 import flixel.util.FlxStringUtil;
 import backend.Conductor;
 import flixel.util.FlxTimer;
@@ -458,6 +459,7 @@ class FreeplayState extends MusicBeatState
 				{
 					FlxTransitionableState.skipNextTransIn = false;
 					FlxTransitionableState.skipNextTransOut = false;
+					MarkHeadTransition.nextCamera = FlxG.camera;
 					MusicBeatState.switchState(new ChartingState());
 				}
 				else

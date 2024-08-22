@@ -176,9 +176,9 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		cantUnpause -= elapsed;
 
-		if (pauseMusic.volume < 0.5)
+		if (pauseMusic.volume < 0.75)
 		{
-			pauseMusic.volume += 0.01 * elapsed;
+			pauseMusic.volume += 0.075 * elapsed;
 		}
 
 		super.update(elapsed);

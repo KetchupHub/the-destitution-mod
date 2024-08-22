@@ -9,9 +9,7 @@ class SongInit
 {
 	public static function genSongObj(songName:String):SongClass
     {
-        var returnSong:SongClass;
-
-        returnSong = new SongTemplate();
+        var returnSong:SongClass = null;
 
         switch (songName.toLowerCase())
         {
@@ -54,6 +52,15 @@ class SongInit
                 returnSong = new NewHampshireErect();
             case 'abstraction-erect':
                 returnSong = new Abstraction();
+        }
+
+        try
+        {
+            var fun:String = returnSong.introType;
+        }
+        catch (e:Dynamic)
+        {
+            throw "Error loading song object! Class is missing or not assigned in SongInit!";
         }
 
         return returnSong;
