@@ -236,7 +236,7 @@ class DStitution extends SongClass
                 PlayState.instance.swingSec = false;
 
                 PlayState.instance.defaultCamZoom += 0.15;
-                FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, 1, {ease: FlxEase.smootherStepOut});
+                FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.smootherStepOut});
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
@@ -310,12 +310,12 @@ class DStitution extends SongClass
                 {
                     for (i in PlayState.instance.opponentStrums.members)
                     {
-                        FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+                        FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.quadInOut});
                     }
 
                     for (i in PlayState.instance.playerStrums.members)
                     {
-                        FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+                        FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.quadInOut});
                     }
                 }
 
@@ -380,13 +380,13 @@ class DStitution extends SongClass
                     for (i in PlayState.instance.opponentStrums.members)
                     {
                         FlxTween.completeTweensOf(i);
-                        FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
+                        FlxTween.tween(i, {x: i.x - 575}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.quadInOut});
                     }
 
                     for (i in PlayState.instance.playerStrums.members)
                     {
                         FlxTween.completeTweensOf(i);
-                        FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
+                        FlxTween.tween(i, {x: i.x + -320}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.quadInOut});
                     }
                 }
 

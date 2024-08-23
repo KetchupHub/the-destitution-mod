@@ -540,7 +540,7 @@ class Destitution extends SongClass
                     fuckeryWad = 2;
                 }
 
-                FlxTween.tween(PlayState.instance.bgPlayer, {x: PlayState.instance.bgPlayerWalkTarget}, 4 * fuckeryWad, {onComplete: function fucksake(ferkck:FlxTween)
+                FlxTween.tween(PlayState.instance.bgPlayer, {x: PlayState.instance.bgPlayerWalkTarget}, (4 * fuckeryWad) / PlayState.instance.playbackRate, {onComplete: function fucksake(ferkck:FlxTween)
                 {
                     PlayState.instance.bgPlayer.playAnim("notice", true);
                 }});
@@ -702,12 +702,12 @@ class Destitution extends SongClass
                 {
                     for (i in PlayState.instance.opponentStrums.members)
                     {
-                        FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+                        FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.quadInOut});
                     }
 
                     for (i in PlayState.instance.playerStrums.members)
                     {
-                        FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
+                        FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.quadInOut});
                     }
                 }
 
@@ -733,12 +733,12 @@ class Destitution extends SongClass
 
                     for (spitem in PlayState.instance.spaceItems.members)
                     {
-                        FlxTween.tween(spitem, {'scale.x': 0, 'scale.y': 0}, 1.5, {ease: FlxEase.circOut});
+                        FlxTween.tween(spitem, {'scale.x': 0, 'scale.y': 0}, 1.5 / PlayState.instance.playbackRate, {ease: FlxEase.circOut});
                     }
 
                     PlayState.instance.space.destroy();
 
-                    var fuckyouman:FlxTimer = new FlxTimer().start(1.55, function dierels(fuck:FlxTimer)
+                    var fuckyouman:FlxTimer = new FlxTimer().start(1.55 / PlayState.instance.playbackRate, function dierels(fuck:FlxTimer)
                     {
                         for (spitem in PlayState.instance.spaceItems.members)
                         {
@@ -792,8 +792,8 @@ class Destitution extends SongClass
             case 1340:
                 FlxTween.completeTweensOf(PlayState.instance.dad);
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
-                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500);
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500);
+                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
             case 1344:
                 PlayState.instance.centerCamOnBg = true;
                 PlayState.instance.liek.animation.play("idle", true);
@@ -834,8 +834,8 @@ class Destitution extends SongClass
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 PlayState.instance.dad.alpha = 0;
                 PlayState.instance.boyfriend.alpha = 0;
-                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500);
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500);
+                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
 
                 if (!ClientPrefs.middleScroll)
                 {
@@ -844,13 +844,13 @@ class Destitution extends SongClass
                     for (i in PlayState.instance.opponentStrums.members)
                     {
                         FlxTween.completeTweensOf(i);
-                        FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
+                        FlxTween.tween(i, {x: i.x - 575}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.quadInOut});
                     }
 
                     for (i in PlayState.instance.playerStrums.members)
                     {
                         FlxTween.completeTweensOf(i);
-                        FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
+                        FlxTween.tween(i, {x: i.x + -320}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.quadInOut});
                     }
                 }
 
@@ -876,8 +876,8 @@ class Destitution extends SongClass
             case 1768:
                 FlxTween.completeTweensOf(PlayState.instance.dad);
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
-                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500);
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500);
+                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
             case 1776:
                 PlayState.instance.cuttingSceneThing.visible = true;
                 PlayState.instance.liek.visible = false;
@@ -901,8 +901,8 @@ class Destitution extends SongClass
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 PlayState.instance.dad.alpha = 0;
                 PlayState.instance.boyfriend.alpha = 0;
-                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500);
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500);
+                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
@@ -915,12 +915,12 @@ class Destitution extends SongClass
 
                     for (i in PlayState.instance.opponentStrums.members)
                     {
-                        FlxTween.tween(i, {x: i.x + 575}, 1, {ease: FlxEase.quadInOut});
+                        FlxTween.tween(i, {x: i.x + 575}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.quadInOut});
                     }
 
                     for (i in PlayState.instance.playerStrums.members)
                     {
-                        FlxTween.tween(i, {x: i.x - -320}, 1, {ease: FlxEase.quadInOut});
+                        FlxTween.tween(i, {x: i.x - -320}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.quadInOut});
                     }
                 }
 
@@ -959,8 +959,8 @@ class Destitution extends SongClass
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 PlayState.instance.dad.alpha = 0;
                 PlayState.instance.boyfriend.alpha = 0;
-                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500);
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500);
+                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
@@ -971,8 +971,8 @@ class Destitution extends SongClass
             case 2557:
                 FlxTween.completeTweensOf(PlayState.instance.dad);
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
-                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500);
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500);
+                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
             case 2560:
                 PlayState.instance.cuttingSceneThing.visible = true;
                 PlayState.instance.centerCamOnBg = true;
@@ -989,7 +989,7 @@ class Destitution extends SongClass
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
                 PlayState.instance.boyfriend.destroy();
-                PlayState.instance.boyfriend = new Boyfriend(-134, -204, 'bf-mark-crypteh', false);
+                PlayState.instance.boyfriend = new Boyfriend(-128, -164, 'bf-mark-crypteh', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
                 PlayState.instance.boyfriend.x -= 1280;
@@ -998,8 +998,8 @@ class Destitution extends SongClass
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 PlayState.instance.dad.alpha = 0;
                 PlayState.instance.boyfriend.alpha = 0;
-                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500);
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1, x: PlayState.instance.boyfriend.x + 1280}, Conductor.crochet / 500);
+                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.backInOut});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1, x: PlayState.instance.boyfriend.x + 1280}, Conductor.crochet / 500, {ease: FlxEase.backInOut});
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
@@ -1055,12 +1055,12 @@ class Destitution extends SongClass
 
                     for (i in PlayState.instance.opponentStrums.members)
                     {
-                        FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});
+                        FlxTween.tween(i, {x: i.x - 575}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.quadInOut});
                     }
 
                     for (i in PlayState.instance.playerStrums.members)
                     {
-                        FlxTween.tween(i, {x: i.x + -320}, 1, {ease: FlxEase.quadInOut});
+                        FlxTween.tween(i, {x: i.x + -320}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.quadInOut});
                     }
                 }
 

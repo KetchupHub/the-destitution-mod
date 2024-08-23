@@ -130,7 +130,13 @@ class PauseSubState extends MusicBeatSubstate
 		chartingText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(chartingText);
 
-		songCover = new FlxSprite(936, 0).loadGraphic(Paths.image('song_covers/' + PlayState.SONG.song.toLowerCase().replace('-erect', '')));
+		var theCover:String = 'song_covers/' + PlayState.SONG.song.toLowerCase().replace('-erect', '');
+		if (Paths.image(theCover, null, true) == null)
+		{
+			theCover = 'song_covers/placeholder';
+		}
+
+		songCover = new FlxSprite(936, 0).loadGraphic(Paths.image(theCover));
 		songCover.screenCenter();
 		songCover.x = FlxG.width - (256 + 15);
 		songCover.y -= 76;

@@ -314,11 +314,11 @@ class Paths
 		return inst;
 	}
 
-	inline static public function image(key:String, ?library:String):FlxGraphic
+	inline static public function image(key:String, ?library:String, allowNullReturns:Bool = false):FlxGraphic
 	{
 		var returnAsset:FlxGraphic = returnGraphic(key, library);
 
-		if (returnAsset == null)
+		if (returnAsset == null && !allowNullReturns)
 		{
 			returnAsset = returnGraphic('debug/placeholder_graphic');
 		}

@@ -144,7 +144,7 @@ class FreeplayState extends MusicBeatState
 
 		FlxTween.tween(freeMetal, {x: 804}, 0.5, {ease: FlxEase.circOut});
 
-		songCover = new FlxSprite(936, 0).loadGraphic(Paths.image('song_covers/placeholder'));
+		songCover = new FlxSprite(936, 0).loadGraphic(Paths.image('song_covers/placeholder', null, true));
 		songCover.x = 936;
 		songCover.y = 204;
 		songCover.antialiasing = false;
@@ -544,7 +544,7 @@ class FreeplayState extends MusicBeatState
 
 		if (songs[curSelected].songName.toLowerCase() == 'eggshells')
 		{
-			if (Paths.image('song_covers/' + songs[curSelected].songName.toLowerCase() + ClientPrefs.lastEggshellsEnding) != null)
+			if (Paths.image('song_covers/' + songs[curSelected].songName.toLowerCase() + ClientPrefs.lastEggshellsEnding, null, true) != null)
 			{
 				songCover.loadGraphic(Paths.image('song_covers/' + songs[curSelected].songName.toLowerCase() + ClientPrefs.lastEggshellsEnding));
 			}
@@ -553,7 +553,7 @@ class FreeplayState extends MusicBeatState
 				songCover.loadGraphic(Paths.image('song_covers/placeholder'));
 			}
 		}
-		else if (Paths.image('song_covers/' + songs[curSelected].songName.toLowerCase()) != null)
+		else if (Paths.image('song_covers/' + songs[curSelected].songName.toLowerCase(), null, true) != null)
 		{
 			songCover.loadGraphic(Paths.image('song_covers/' + songs[curSelected].songName.toLowerCase()));
 		}

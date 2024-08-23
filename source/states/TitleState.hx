@@ -198,7 +198,7 @@ class TitleState extends MusicBeatState
 			arrey = [holidayChar];
 		}
 		charec = arrey[CoolUtil.randomVisuals.int(0, arrey.length - 1)];
-		if (Paths.image('title/char/$charec') == null)
+		if (Paths.image('title/char/$charec', null, true) == null)
 		{
 			//precaution
 			charec = 'mark';

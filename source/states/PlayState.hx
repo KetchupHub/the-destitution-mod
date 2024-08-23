@@ -1573,7 +1573,7 @@ class PlayState extends MusicBeatState
 			scoreTxt.scale.x = 1.075;
 			scoreTxt.scale.y = 1.075;
 
-			scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2,
+			scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2 / playbackRate,
 			{
 				onComplete: function(twn:FlxTween)
 				{
@@ -1649,15 +1649,15 @@ class PlayState extends MusicBeatState
 
 		songLength = FlxG.sound.music.length;
 
-		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		FlxTween.tween(timeTxt, {alpha: 1}, 0.5 / playbackRate, {ease: FlxEase.circOut});
 
 		if (fullLength != null)
 		{
-			FlxTween.tween(fullLength, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+			FlxTween.tween(fullLength, {alpha: 1}, 0.5 / playbackRate, {ease: FlxEase.circOut});
 
 			if (fullLength != null)
 			{
-					fullLength.text = FlxStringUtil.formatTime(Math.floor(songLength / 1000), false);
+				fullLength.text = FlxStringUtil.formatTime(Math.floor(songLength / 1000), false);
 			}
 		}
 
@@ -1899,13 +1899,13 @@ class PlayState extends MusicBeatState
 		sectNameText.color = FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]);
 		sectNameText.y -= 150;
 
-		FlxTween.tween(sectText, {alpha: 1, y: sectText.y + 200}, 0.75, {ease: FlxEase.backOut});
-		FlxTween.tween(sectNameText, {alpha: 1, y: sectNameText.y + 200}, 0.75, {ease: FlxEase.backOut});
+		FlxTween.tween(sectText, {alpha: 1, y: sectText.y + 200}, 0.75 / playbackRate, {ease: FlxEase.backOut});
+		FlxTween.tween(sectNameText, {alpha: 1, y: sectNameText.y + 200}, 0.75 / playbackRate, {ease: FlxEase.backOut});
 
 		var gghg:FlxTimer = new FlxTimer().start(2.5, function fggjg(ss:FlxTimer)
 		{
-			FlxTween.tween(sectText, {alpha: 0, y: sectText.y + 200}, 0.75, {ease: FlxEase.backIn});
-			FlxTween.tween(sectNameText, {alpha: 0, y: sectNameText.y + 200}, 0.75, {ease: FlxEase.backIn});
+			FlxTween.tween(sectText, {alpha: 0, y: sectText.y + 200}, 0.75 / playbackRate, {ease: FlxEase.backIn});
+			FlxTween.tween(sectNameText, {alpha: 0, y: sectNameText.y + 200}, 0.75 / playbackRate, {ease: FlxEase.backIn});
 		});
 	}
 	
@@ -1985,7 +1985,7 @@ class PlayState extends MusicBeatState
 			if (!isStoryMode && !skipArrowStartTween)
 			{
 				babyArrow.alpha = 0;
-				FlxTween.tween(babyArrow, {alpha: targetAlpha}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
+				FlxTween.tween(babyArrow, {alpha: targetAlpha}, 1 / playbackRate, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
 			}
 			else
 			{
@@ -3245,11 +3245,11 @@ class PlayState extends MusicBeatState
 		moveCamera(false, false);
 		disallowCamMove = true;
 		camZooming = false;
-		FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom - 0.1}, 1.5, {ease: FlxEase.expoOut});
+		FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom - 0.1}, 1.5 / playbackRate, {ease: FlxEase.expoOut});
 		defaultCamZoom -= 0.1;
-		FlxTween.tween(camHUD, {alpha: 0}, 2, {ease: FlxEase.smootherStepOut, onComplete: function the(flucks:FlxTween)
+		FlxTween.tween(camHUD, {alpha: 0}, 2 / playbackRate, {ease: FlxEase.smootherStepOut, onComplete: function the(flucks:FlxTween)
 		{
-			var dieIril:FlxTimer = new FlxTimer().start(0.5, function imKingMyS(fuckYouTimer:FlxTimer)
+			var dieIril:FlxTimer = new FlxTimer().start(0.5 / playbackRate, function imKingMyS(fuckYouTimer:FlxTimer)
 			{
 				endSong();				
 			});
@@ -4476,20 +4476,20 @@ class PlayState extends MusicBeatState
 
 		if (isFrom)
 		{
-			FlxTween.tween(timeTxt, {y: timeTxt.y + 12, 'scale.x': 1, 'scale.y': 1}, 1, {ease: FlxEase.smootherStepInOut});
+			FlxTween.tween(timeTxt, {y: timeTxt.y + 12, 'scale.x': 1, 'scale.y': 1}, 1 / playbackRate, {ease: FlxEase.smootherStepInOut});
 
 			if (fullLength != null)
 			{
-				FlxTween.tween(fullLength, {y: (death + 12) + 36, 'scale.x': 1, 'scale.y': 1}, 1, {ease: FlxEase.smootherStepInOut});
+				FlxTween.tween(fullLength, {y: (death + 12) + 36, 'scale.x': 1, 'scale.y': 1}, 1 / playbackRate, {ease: FlxEase.smootherStepInOut});
 			}
 		}
 		else
 		{
-			FlxTween.tween(timeTxt, {y: timeTxt.y - 12, 'scale.x': 0.8, 'scale.y': 0.8}, 1, {ease: FlxEase.smootherStepInOut});
+			FlxTween.tween(timeTxt, {y: timeTxt.y - 12, 'scale.x': 0.8, 'scale.y': 0.8}, 1 / playbackRate, {ease: FlxEase.smootherStepInOut});
 
 			if (fullLength != null)
 			{
-				FlxTween.tween(fullLength, {y: (death - 12) + (36 * 0.8), 'scale.x': 0.8, 'scale.y': 0.8}, 1, {ease: FlxEase.smootherStepInOut});
+				FlxTween.tween(fullLength, {y: (death - 12) + (36 * 0.8), 'scale.x': 0.8, 'scale.y': 0.8}, 1 / playbackRate, {ease: FlxEase.smootherStepInOut});
 			}
 		}
 	}
