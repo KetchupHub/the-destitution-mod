@@ -125,6 +125,7 @@ class Main extends Sprite
 		if (!DiscordClient.isInitialized)
 		{
 			DiscordClient.initialize();
+			
 			Application.current.window.onClose.add(function()
 			{
 				DiscordClient.shutdown();
@@ -162,7 +163,9 @@ class Main extends Sprite
 		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error on the GameJolt page if you are able to replicate it!\n\n> Crash Handler written by: sqirra-rng\n> Modified for The Destitution Mod by: Cynda";
 
 		if (!FileSystem.exists("./logs/"))
+		{
 			FileSystem.createDirectory("./logs/");
+		}
 
 		File.saveContent(path, errMsg + "\n" + CoolUtil.markAscii + "\n");
 

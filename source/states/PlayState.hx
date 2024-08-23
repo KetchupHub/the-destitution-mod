@@ -4161,6 +4161,16 @@ class PlayState extends MusicBeatState
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 
+		try
+		{
+			var thisTestThing;
+			thisTestThing = SONG.notes[curSection].altAnim;
+		}
+		catch (e:Dynamic)
+		{
+			throw "Null section! You need to open the chart editor and play the song to the end to generate missing sections.";
+		}
+
 		songObj.beatHitEvent(curBeat);
 
 		if (brokerBop)

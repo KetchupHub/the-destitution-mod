@@ -138,6 +138,7 @@ class CoolUtil
 	public static function listFromString(string:String):Array<String>
 	{
 		var daList:Array<String> = [];
+		
 		daList = string.trim().split('\n');
 
 		for (i in 0...daList.length)
@@ -157,6 +158,7 @@ class CoolUtil
 			for (row in 0...sprite.frameHeight)
 			{
 				var colorOfThisPixel:Int = sprite.pixels.getPixel32(col, row);
+
 				if (colorOfThisPixel != 0)
 				{
 					if (countByColor.exists(colorOfThisPixel))

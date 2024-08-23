@@ -52,7 +52,7 @@ class MemoryUtil
   {
     #if cpp
     // There is also Gc.MEM_INFO_RESERVED, MEM_INFO_CURRENT, and MEM_INFO_LARGE.
-    if(cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_USAGE) < 0)
+    if (cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_USAGE) < 0)
     {
       return cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_USAGE) * -1;
     }
@@ -61,7 +61,7 @@ class MemoryUtil
       return cpp.vm.Gc.memInfo(cpp.vm.Gc.MEM_INFO_USAGE);
     }
     #else
-    if(openfl.system.System.totalMemory < 0)
+    if (openfl.system.System.totalMemory < 0)
     {
       return openfl.system.System.totalMemory * -1;
     }

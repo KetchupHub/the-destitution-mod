@@ -13,6 +13,7 @@ class ArrayTools
   public static function unique<T>(array:Array<T>):Array<T>
   {
     var result:Array<T> = [];
+
     for (element in array)
     {
       if (!result.contains(element))
@@ -20,6 +21,7 @@ class ArrayTools
         result.push(element);
       }
     }
+
     return result;
   }
 
@@ -31,6 +33,7 @@ class ArrayTools
   public static function nonNull<T>(array:Array<Null<T>>):Array<T>
   {
     var result:Array<T> = [];
+
     for (element in array)
     {
       if (element != null)
@@ -38,6 +41,7 @@ class ArrayTools
         result.push(element);
       }
     }
+
     return result;
   }
 
@@ -51,8 +55,12 @@ class ArrayTools
   {
     for (element in input)
     {
-      if (predicate(element)) return element;
+      if (predicate(element))
+      {
+        return element;
+      }
     }
+
     return null;
   }
 
@@ -66,8 +74,12 @@ class ArrayTools
   {
     for (index in 0...input.length)
     {
-      if (predicate(input[index])) return index;
+      if (predicate(input[index]))
+      {
+        return index;
+      }
     }
+
     return -1;
   }
 
@@ -79,8 +91,13 @@ class ArrayTools
    */
   public static function pushUnique<T>(input:Array<T>, element:T):Bool
   {
-    if (input.contains(element)) return false;
+    if (input.contains(element))
+    {
+      return false;
+    }
+
     input.push(element);
+
     return true;
   }
 
@@ -92,7 +109,9 @@ class ArrayTools
   {
     // This method is faster than array.splice(0, array.length)
     while (array.length > 0)
+    {
       array.pop();
+    }
   }
 
   /**
@@ -119,15 +138,27 @@ class ArrayTools
    */
   public static function isEqualUnordered<T>(a:Array<T>, b:Array<T>):Bool
   {
-    if (a.length != b.length) return false;
+    if (a.length != b.length)
+    {
+      return false;
+    }
+
     for (element in a)
     {
-      if (!b.contains(element)) return false;
+      if (!b.contains(element))
+      {
+        return false;
+      }
     }
+
     for (element in b)
     {
-      if (!a.contains(element)) return false;
+      if (!a.contains(element))
+      {
+        return false;
+      }
     }
+
     return true;
   }
 
@@ -140,14 +171,26 @@ class ArrayTools
   public static function isSuperset<T>(superset:Array<T>, subset:Array<T>):Bool
   {
     // Shortcuts.
-    if (subset.length == 0) return true;
-    if (subset.length > superset.length) return false;
+
+    if (subset.length == 0)
+    {
+      return true;
+    }
+
+    if (subset.length > superset.length)
+    {
+      return false;
+    }
 
     // Check each element.
     for (element in subset)
     {
-      if (!superset.contains(element)) return false;
+      if (!superset.contains(element))
+      {
+        return false;
+      }
     }
+    
     return true;
   }
 

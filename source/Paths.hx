@@ -26,7 +26,9 @@ class Paths
 	public static function excludeAsset(key:String)
 	{
 		if (!dumpExclusions.contains(key))
+		{
 			dumpExclusions.push(key);
+		}
 	}
 
 	public static var dumpExclusions:Array<String> =
@@ -99,27 +101,21 @@ class Paths
 		var imageLoaded:FlxGraphic = image(key, library);
 
 		var myXml:Dynamic = getPath('images/$key.xml', TEXT, library);
-		if(OpenFlAssets.exists(myXml) #if MODS_ALLOWED || (FileSystem.exists(myXml) && (useMod = true)) #end )
+
+		if (OpenFlAssets.exists(myXml))
 		{
-			#if MODS_ALLOWED
-			return FlxAtlasFrames.fromSparrow(imageLoaded, (useMod ? File.getContent(myXml) : myXml));
-			#else
 			return FlxAtlasFrames.fromSparrow(imageLoaded, myXml);
-			#end
 		}
 		else
 		{
 			var myJson:Dynamic = getPath('images/$key.json', TEXT, library);
 
-			if(OpenFlAssets.exists(myJson) #if MODS_ALLOWED || (FileSystem.exists(myJson) && (useMod = true)) #end )
+			if (OpenFlAssets.exists(myJson))
 			{
-				#if MODS_ALLOWED
-				return FlxAtlasFrames.fromTexturePackerJson(imageLoaded, (useMod ? File.getContent(myJson) : myJson));
-				#else
 				return FlxAtlasFrames.fromTexturePackerJson(imageLoaded, myJson);
-				#end
 			}
 		}
+
 		return getPackerAtlas(key, library);
 	}
 
@@ -129,32 +125,36 @@ class Paths
 		var changedAtlasJson = false;
 		var changedImage = false;
 		
-		if(spriteJson != null)
+		if (spriteJson != null)
 		{
 			changedAtlasJson = true;
 			spriteJson = File.getContent(spriteJson);
 		}
 
-		if(animationJson != null) 
+		if (animationJson != null) 
 		{
 			changedAnimJson = true;
 			animationJson = File.getContent(animationJson);
 		}
 
-		if(Std.isOfType(folderOrImg, String))
+		if (Std.isOfType(folderOrImg, String))
 		{
 			var originalPath:String = folderOrImg;
+
 			for (i in 0...10)
 			{
 				var st:String = '$i';
 
-				if(i == 0)
+				if (i == 0)
+				{
 					st = '';
+				}
 
-				if(!changedAtlasJson)
+				if (!changedAtlasJson)
 				{
 					spriteJson = getTextFromFile('images/$originalPath/spritemap$st.json');
-					if(spriteJson != null)
+
+					if (spriteJson != null)
 					{
 						changedImage = true;
 						changedAtlasJson = true;
@@ -162,21 +162,23 @@ class Paths
 						break;
 					}
 				}
-				else if(Paths.fileExists('images/$originalPath/spritemap$st.png', IMAGE))
+				else if (Paths.fileExists('images/$originalPath/spritemap$st.png', IMAGE))
 				{
 					changedImage = true;
+
 					folderOrImg = Paths.image('$originalPath/spritemap$st');
+
 					break;
 				}
 			}
 
-			if(!changedImage)
+			if (!changedImage)
 			{
 				changedImage = true;
 				folderOrImg = Paths.image(originalPath);
 			}
 
-			if(!changedAnimJson)
+			if (!changedAnimJson)
 			{
 				changedAnimJson = true;
 				animationJson = getTextFromFile('images/$originalPath/Animation.json');
@@ -189,23 +191,30 @@ class Paths
 	public static function getPath(file:String, type:AssetType, ?library:Null<String> = null)
 	{
 		if (library != null)
+		{
 			return getLibraryPath(file, library);
+		}
 
 		if (currentLevel != null)
 		{
 			var levelPath:String = '';
-			if(currentLevel != 'rhythm' && currentLevel != 'rpg')
+
+			if (currentLevel != 'rhythm' && currentLevel != 'rpg')
 			{
 				levelPath = getLibraryPathForce(file, currentLevel);
 
 				if (OpenFlAssets.exists(levelPath, type))
+				{
 					return levelPath;
+				}
 			}
 
 			levelPath = getLibraryPathForce(file, "rhythm");
 			
 			if (OpenFlAssets.exists(levelPath, type))
+			{
 				return levelPath;
+			}
 		}
 
 		return getPreloadPath(file);
@@ -213,12 +222,13 @@ class Paths
 
 	static public function getLibraryPath(file:String, library = "preload")
 	{
-		return if (library == "preload" || library == "default") getPreloadPath(file); else getLibraryPathForce(file, library);
+		return if (library == "preload" || library == "default") { getPreloadPath(file); } else { getLibraryPathForce(file, library); }
 	}
 
 	inline static function getLibraryPathForce(file:String, library:String)
 	{
 		var returnPath = '$library:assets/$library/$file';
+
 		return returnPath;
 	}
 
@@ -270,6 +280,7 @@ class Paths
 	static public function sound(key:String, ?library:String):Sound
 	{
 		var sound:Sound = returnSound('sounds', key, library);
+
 		return sound;
 	}
 
@@ -281,26 +292,37 @@ class Paths
 	inline static public function music(key:String, ?library:String):Sound
 	{
 		var file:Sound = returnSound('music', key, library);
+
 		return file;
 	}
 
 	inline static public function voices(song:String, whichSide:String = 'Player'):Any
 	{
 		var songKey:String = '${formatToSongPath(song)}/Voices-$whichSide';
+
 		var voices = returnSound('songs', songKey);
+
 		return voices;
 	}
 
 	inline static public function inst(song:String):Any
 	{
 		var songKey:String = '${formatToSongPath(song)}/Inst';
+
 		var inst = returnSound('songs', songKey);
+
 		return inst;
 	}
 
 	inline static public function image(key:String, ?library:String):FlxGraphic
 	{
 		var returnAsset:FlxGraphic = returnGraphic(key, library);
+
+		if (returnAsset == null)
+		{
+			returnAsset = returnGraphic('debug/placeholder_graphic');
+		}
+
 		return returnAsset;
 	}
 
@@ -308,23 +330,30 @@ class Paths
 	{
 		#if sys
 		if (FileSystem.exists(getPreloadPath(key)))
+		{
 			return File.getContent(getPreloadPath(key));
+		}
 
 		if (currentLevel != null)
 		{
 			var levelPath:String = '';
 
-			if(currentLevel != 'rhythm' && currentLevel != 'rpg')
+			if (currentLevel != 'rhythm' && currentLevel != 'rpg')
 			{
 				levelPath = getLibraryPathForce(key, currentLevel);
+
 				if (FileSystem.exists(levelPath))
+				{
 					return File.getContent(levelPath);
+				}
 			}
 
 			levelPath = getLibraryPathForce(key, 'rhythm');
 
 			if (FileSystem.exists(levelPath))
+			{
 				return File.getContent(levelPath);
+			}
 		}
 		#end
 		return Assets.getText(getPath(key, TEXT));
@@ -337,7 +366,7 @@ class Paths
 
 	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
 	{
-		if(OpenFlAssets.exists(getPath(key, type)))
+		if (OpenFlAssets.exists(getPath(key, type)))
 		{
 			return true;
 		}
@@ -362,6 +391,7 @@ class Paths
 		var hideChars = ~/[.,'"%?!]/;
 
 		var path = invalidChars.split(path.replace(' ', '-')).join("-");
+
 		return hideChars.split(path).join("").toLowerCase();
 	}
 
@@ -370,9 +400,10 @@ class Paths
 	public static function returnGraphic(key:String, ?library:String)
 	{
 		var path = getPath('images/$key.png', IMAGE, library);
+
 		if (OpenFlAssets.exists(path, IMAGE))
 		{
-			if(!currentTrackedAssets.exists(path))
+			if (!currentTrackedAssets.exists(path))
 			{
 				var newGraphic:FlxGraphic = FlxG.bitmap.add(path, false, path);
 				newGraphic.persist = true;
@@ -380,8 +411,10 @@ class Paths
 			}
 
 			localTrackedAssets.push(path);
+
 			return currentTrackedAssets.get(path);
 		}
+
 		return null;
 	}
 
@@ -390,14 +423,17 @@ class Paths
 	public static function returnSound(path:String, key:String, ?library:String)
 	{
 		var gottenPath:String = getPath('$path/$key.$SOUND_EXT', SOUND, library);
+
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 
-		if(!currentTrackedSounds.exists(gottenPath))
+		if (!currentTrackedSounds.exists(gottenPath))
 		{
 			var folder:String = '';
 
-			if(path == 'songs')
+			if (path == 'songs')
+			{
 				folder = 'songs:';
+			}
 
 			currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(folder + getPath('$path/$key.$SOUND_EXT', SOUND, library)));
 		}

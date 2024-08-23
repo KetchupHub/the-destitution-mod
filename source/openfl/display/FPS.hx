@@ -73,19 +73,30 @@ class FPS extends TextField
 	@:noCompletion
 	private #if !flash override #end function __enterFrame(deltaTime:Float):Void
 	{
-		if (deltaTimeout > 1000) {
+		if (deltaTimeout > 1000)
+		{
 			// there's no need to update this every frame and it only causes performance losses.
 			deltaTimeout = 0.0;
 			return;
 		}
+
 		currentTime += deltaTime;
+
 		times.push(currentTime);
+
 		while (times[0] < currentTime - 1000)
+		{
 			times.shift();
+		}
 
 		var currentCount = times.length;
+
 		currentFPS = Math.round((currentCount + cacheCount) / 2);
-		if (currentFPS > ClientPrefs.framerate) currentFPS = ClientPrefs.framerate;
+
+		if (currentFPS > ClientPrefs.framerate)
+		{
+			currentFPS = ClientPrefs.framerate;
+		}
 
 		if (currentCount != cacheCount)
 		{
@@ -94,8 +105,11 @@ class FPS extends TextField
 			text += '\nMemory: ${FlxStringUtil.formatBytes(MemoryUtil.getMemoryUsed())}';
 
 			textColor = 0xFFFFFFFF;
+
 			if (currentFPS <= 30)
+			{
 				textColor = 0xFFFF0000;
+			}
 
 			#if (gl_stats && !disable_cffi && (!html5 || !canvas))
 			text += "\ntotalDC: " + Context3DStats.totalDrawCalls();

@@ -1,10 +1,13 @@
 package util.logging;
 
+import haxe.PosInfos;
+import haxe.exceptions.NotImplementedException;
+
 class AnsiTrace
 {
   // mostly a copy of haxe.Log.trace()
   // but adds nice cute ANSI things
-  public static function trace(v:Dynamic, ?info:haxe.PosInfos)
+  public static function trace(v:Dynamic, ?info:PosInfos)
   {
     var str = formatOutput(v, info);
     #if js
@@ -14,7 +17,7 @@ class AnsiTrace
     #elseif sys
     Sys.println(str);
     #else
-    throw new haxe.exceptions.NotImplementedException()
+    throw new NotImplementedException()
     #end
   }
 
@@ -29,14 +32,19 @@ class AnsiTrace
   public static inline var ITALIC = "\x1b[3m";
 
   // where the real mf magic happens with ansi stuff!
-  public static function formatOutput(v:Dynamic, infos:haxe.PosInfos):String
+  public static function formatOutput(v:Dynamic, infos:PosInfos):String
   {
     var str = Std.string(v);
-    if (infos == null) return str;
+
+    if (infos == null)
+    {
+      return str;
+    }
 
     if (colorSupported)
     {
       var dirs:Array<String> = infos.fileName.split("/");
+
       dirs[dirs.length - 1] = ansiWrap(dirs[dirs.length - 1], BOLD);
 
       // rejoin the dirs
@@ -45,7 +53,10 @@ class AnsiTrace
 
     var pstr = infos.fileName + ":" + ansiWrap(infos.lineNumber, BOLD);
     if (infos.customParams != null) for (v in infos.customParams)
+    {
       str += ", " + Std.string(v);
+    }
+
     return pstr + ": " + str;
   }
 
@@ -54,7 +65,10 @@ class AnsiTrace
     if (colorSupported)
     {
       for (line in ansiMark)
+      {
         Sys.stdout().writeString(line + "\n");
+      }
+
       Sys.stdout().flush();
     }
   }
