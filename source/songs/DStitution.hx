@@ -373,10 +373,10 @@ class DStitution extends SongClass
 
                 PlayState.instance.sectionIntroThing("Zam-boney!");
 
-                PlayState.instance.timerGoMiddlescroll(false);
-
                 if (!ClientPrefs.middleScroll)
                 {
+                    PlayState.instance.timerGoMiddlescroll(false);
+                    
                     for (i in PlayState.instance.opponentStrums.members)
                     {
                         FlxTween.completeTweensOf(i);

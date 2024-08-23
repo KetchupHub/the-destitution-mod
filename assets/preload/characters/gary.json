@@ -65,9 +65,9 @@
 	"healthicon": "gary",
 	"flip_x": false,
 	"healthbar_colors": [
-		151,
-		38,
-		19
+		37,
+		77,
+		52
 	],
 	"camera_position": [
 		-164,

@@ -1213,7 +1213,7 @@ class PlayState extends MusicBeatState
 
 	function set_songSpeed(value:Float):Float
 	{
-		if(generatedMusic)
+		if (generatedMusic)
 		{
 			var ratio:Float = value / songSpeed;
 

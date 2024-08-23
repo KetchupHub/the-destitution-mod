@@ -1,12 +1,12 @@
 {
 	"songs": [
-		["Destitution", "mark", [158, 41, 16]],
-		["Superseded", "mark-old", [105, 27, 11]],
+		["Destitution", "mark", [151, 38, 19]],
+		["Superseded", "mark-old", [151, 38, 19]],
 		["D-Stitution", "karm", [229, 163, 43]],
 		["Countdown", "mark-sports", [158, 41, 16]],
-		["Eggshells", "gary", [158, 41, 16]],
-		["Collapse", "mark", [158, 41, 16]],
-		["Megamix", "mark", [158, 41, 16]]
+		["Eggshells", "gary", [37, 77, 52]],
+		["Collapse", "mark", [151, 38, 19]],
+		["Megamix", "mark", [151, 38, 19]]
 	],
 
 	"weekCharacters": [

@@ -655,6 +655,9 @@ class Destitution extends SongClass
 
                 FlxG.camera.flash(FlxColor.RED, 3);
 
+                PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
+                PlayState.instance.reloadHealthBarColors();
+
                 Paths.clearUnusedMemory();
             case 1020:
                 FlxG.camera.flash();
@@ -697,7 +700,6 @@ class Destitution extends SongClass
 
                 if (!ClientPrefs.middleScroll)
                 {
-
                     for (i in PlayState.instance.opponentStrums.members)
                     {
                         FlxTween.tween(i, {x: i.x + ((FlxG.width / 2) * 1)}, 1, {ease: FlxEase.quadInOut});
@@ -834,11 +836,11 @@ class Destitution extends SongClass
                 PlayState.instance.boyfriend.alpha = 0;
                 FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500);
                 FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500);
-                
-                PlayState.instance.timerGoMiddlescroll(false);
 
                 if (!ClientPrefs.middleScroll)
                 {
+                    PlayState.instance.timerGoMiddlescroll(false);
+
                     for (i in PlayState.instance.opponentStrums.members)
                     {
                         FlxTween.completeTweensOf(i);
@@ -906,11 +908,11 @@ class Destitution extends SongClass
                 PlayState.instance.reloadHealthBarColors();
 
                 PlayState.instance.sectionIntroThing("Mark Mc. Marketing (B)");
-
-                PlayState.instance.timerGoMiddlescroll(true);
                 
                 if (!ClientPrefs.middleScroll)
                 {
+                    PlayState.instance.timerGoMiddlescroll(true);
+
                     for (i in PlayState.instance.opponentStrums.members)
                     {
                         FlxTween.tween(i, {x: i.x + 575}, 1, {ease: FlxEase.quadInOut});
@@ -1047,10 +1049,10 @@ class Destitution extends SongClass
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
 
-                PlayState.instance.timerGoMiddlescroll(false);
-
                 if (!ClientPrefs.middleScroll)
                 {
+                    PlayState.instance.timerGoMiddlescroll(false);
+
                     for (i in PlayState.instance.opponentStrums.members)
                     {
                         FlxTween.tween(i, {x: i.x - 575}, 1, {ease: FlxEase.quadInOut});

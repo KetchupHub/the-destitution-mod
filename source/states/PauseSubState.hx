@@ -74,6 +74,15 @@ class PauseSubState extends MusicBeatSubstate
 		bg.scrollFactor.set();
 		add(bg);
 
+		var credit:FlxText = new FlxText(8, 0, 0, "", 32);
+		credit.text = "Composer: " + PlayState.SONG.composer + "\nCharter: " + PlayState.SONG.charter;
+		credit.scrollFactor.set();
+		credit.setFormat(Paths.font("BAUHS93.ttf"), 32);
+		credit.updateHitbox();
+		credit.antialiasing = ClientPrefs.globalAntialiasing;
+		credit.alpha = 0;
+		add(credit);
+
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
 		levelInfo.text += PlayState.instance.songObj.songNameForDisplay;
 		levelInfo.scrollFactor.set();
@@ -152,6 +161,7 @@ class PauseSubState extends MusicBeatSubstate
 		descText.y -= 5;
 
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(credit, {alpha: 1, y: 8}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(sectionTxt, {alpha: 1, y: sectionTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut});

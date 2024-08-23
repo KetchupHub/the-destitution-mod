@@ -98,6 +98,7 @@ class Main extends Sprite
 
 		#if !SHOWCASEVIDEO
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
+		fpsVar.visible = false;
 		addChild(fpsVar);
 
 		Lib.current.stage.align = "tl";
