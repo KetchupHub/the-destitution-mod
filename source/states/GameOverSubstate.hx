@@ -66,7 +66,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		bg.alpha = 0;
 		add(bg);
 
-		FlxG.camera.setPosition(camX, camY);
+		//FlxG.camera.setPosition(camX, camY);
 
 		CoolUtil.rerollRandomness();
 
