@@ -1,5 +1,7 @@
 package states;
 
+import visuals.Character;
+import flixel.FlxSprite;
 import backend.ClientPrefs;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.sound.FlxSound;
@@ -18,6 +20,7 @@ import flixel.util.FlxTimer;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
+	public var dad:Character;
 	public var boyfriend:Boyfriend;
 	public var camFollow:FlxPoint;
 	public var camFollowPos:FlxObject;
@@ -47,7 +50,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		super.create();
 	}
 
-	public function new(x:Float, y:Float, camX:Float, camY:Float)
+	public function new(x:Float, y:Float, camX:Float, camY:Float, bfCamOffset:Array<Float>, dadName:String, dadX:Float, dadY:Float, bfVisible:Bool, followNonMidpoint:Bool)
 	{
 		super();
 
@@ -55,16 +58,41 @@ class GameOverSubstate extends MusicBeatSubstate
 		var perf = new Perf("Total GameOverSubstate new()");
 		#end
 
+		var bg:FlxSprite = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
+		bg.scale.set(2560, 2560);
+		bg.updateHitbox();
+		bg.screenCenter();
+		bg.scrollFactor.set();
+		bg.alpha = 0;
+		add(bg);
+
+		FlxG.camera.setPosition(camX, camY);
+
 		CoolUtil.rerollRandomness();
 
 		Conductor.songPosition = 0;
 
+		dad = new Character(dadX, dadY, dadName, false, false);
+		add(dad);
+
 		boyfriend = new Boyfriend(x, y, characterName);
-		boyfriend.x += boyfriend.positionArray[0];
-		boyfriend.y += boyfriend.positionArray[1];
+		boyfriend.visible = bfVisible;
 		add(boyfriend);
 
 		camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
+		
+		if (followNonMidpoint)
+		{
+			camFollow.set(boyfriend.x, boyfriend.y);
+		}
+		else
+		{
+			camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
+			camFollow.x -= boyfriend.cameraPosition[0] - bfCamOffset[0];
+			camFollow.y += boyfriend.cameraPosition[1] + bfCamOffset[1];
+			camFollow.x += boyfriend.curFunnyPosition[0];
+			camFollow.y += boyfriend.curFunnyPosition[1];
+		}
 
 		FlxG.sound.play(Paths.sound(deathSoundName), 1, false, null, true, function oncompey()
 		{
@@ -72,10 +100,25 @@ class GameOverSubstate extends MusicBeatSubstate
 		});
 		playingDeathSound = true;
 		Conductor.changeBPM(95);
-		FlxG.camera.scroll.set();
-		FlxG.camera.target = null;
 
-		boyfriend.playAnim('firstDeath');
+		boyfriend.playAnim('firstDeath', true);
+		boyfriend.animation.pause();
+
+		dad.dance();
+		dad.animation.finish();
+
+		var fuckingHeaven:FlxTimer = new FlxTimer().start(0.05, function the(f:FlxTimer)
+		{
+			boyfriend.playAnim('firstDeath', true);
+		});
+
+		var fuckingHell:FlxTimer = new FlxTimer().start(0.5, function the(f:FlxTimer)
+		{
+			if (dad.animOffsets.exists('gameover'))
+			{
+				dad.playAnim('gameover', true);
+			}
+		});
 
 		#if DEVELOPERBUILD
 		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
@@ -86,7 +129,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		#end
 
 		camFollowPos = new FlxObject(0, 0, 1, 1);
-		camFollowPos.setPosition(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2));
+		camFollowPos.setPosition(camX, camY);
 		add(camFollowPos);
 
 		#if DEVELOPERBUILD
@@ -115,7 +158,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (updateCamera)
 		{
-			var lerpVal:Float = CoolUtil.boundTo(elapsed * 0.6, 0, 1);
+			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * PlayState.instance.cameraSpeed, 0, 1);
 
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 		}
@@ -151,7 +194,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name == 'firstDeath')
 		{
-			if(boyfriend.animation.curAnim.curFrame >= 12 && !isFollowingAlready)
+			if (boyfriend.animation.curAnim.curFrame >= 12 && !isFollowingAlready)
 			{
 				FlxG.camera.follow(camFollowPos, LOCKON, 1);
 				updateCamera = true;

@@ -65,6 +65,17 @@
 			"anim": "floaty space mcgee",
 			"indices": [],
 			"name": "floaty space mcgee"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "gameover",
+			"indices": [],
+			"name": "gameover"
 		}
 	],
 	"no_antialiasing": true,

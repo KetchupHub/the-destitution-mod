@@ -2646,7 +2646,7 @@ class PlayState extends MusicBeatState
 
 		FlxG.sound.play(Paths.sound('pause'));
 
-		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		openSubState(new PauseSubState(boyfriend.x + boyfriendGroup.x, boyfriend.y + boyfriendGroup.y));
 
 		#if desktop
 		DiscordClient.changePresence(detailsPausedText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''));
@@ -2680,7 +2680,7 @@ class PlayState extends MusicBeatState
 			FlxG.sound.music.stop();
 
 			persistentUpdate = false;
-			persistentDraw = false;
+			persistentDraw = true;
 
 			for (tween in modchartTweens)
 			{
@@ -2692,7 +2692,34 @@ class PlayState extends MusicBeatState
 				timer.active = true;
 			}
 
-			openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
+			GameOverSubstate.characterName = songObj.gameoverChar;
+			GameOverSubstate.loopSoundName = 'mus_overtime' + songObj.gameoverMusicSuffix;
+			GameOverSubstate.endSoundName = 'mus_overtime_end' + songObj.gameoverMusicSuffix;
+
+			boyfriend.visible = false;
+			dad.visible = false;
+
+			camHUD.visible = false;
+
+			var bfTarX:Float = boyfriend.x;
+			var bfTarY:Float = boyfriend.y;
+			var dadTarX:Float = dad.x;
+			var dadTarY:Float = dad.y;
+			var bfCamOffsetTar:Array<Float> = boyfriendCameraOffset;
+			var cFollowPosTarX:Float = camFollowPos.x;
+			var cFollowPosTarY:Float = camFollowPos.y;
+			var letBfBeVisible:Bool = boyfriend.visible;
+			var dadTar:String = dad.curCharacter;
+			var followNotMidpoint:Bool = false;
+
+			if (dad.curCharacter == "whale")
+			{
+				letBfBeVisible = false;
+				bfTarX = cFollowPosTarX;
+				bfTarY = cFollowPosTarY + 200;
+			}
+
+			openSubState(new GameOverSubstate(bfTarX, bfTarY, cFollowPosTarX, cFollowPosTarY, bfCamOffsetTar, dadTar, dadTarX, dadTarY, letBfBeVisible, followNotMidpoint));
 
 			#if desktop
 			DiscordClient.changePresence("Game Over", songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''));
