@@ -275,6 +275,7 @@ class PlayState extends MusicBeatState
 	public var ploinky:FlxSprite;
 	public var starting:FlxSprite;
 	public var cuttingSceneThing:FlxSprite;
+	public var theSmog:FlxSprite;
 	public var funnyBgColors:FlxSprite;
 	public var healthBarBG:FlxSprite;
 	public var boyfriendGroup:FlxSpriteGroup;
@@ -510,6 +511,11 @@ class PlayState extends MusicBeatState
 			add(chefCurtains);
 			chefCurtains.active = false;
 			chefCurtains.visible = false;
+		}
+
+		if (theSmog != null)
+		{
+			add(theSmog);
 		}
 
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
@@ -1002,6 +1008,12 @@ class PlayState extends MusicBeatState
 				starting = new FlxSprite(-574, 96).loadGraphic(Paths.image('superseded/bg'));
 				starting.antialiasing = false;
 				add(starting);
+
+				theSmog = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
+				theSmog.scale.set(2560, 2560);
+				theSmog.updateHitbox();
+				theSmog.screenCenter();
+				theSmog.alpha = 0;
 
 				supersededIntro = new FlxSprite(0, 0);
 				supersededIntro.frames = Paths.getSparrowAtlas("superseded/superseded_time");
@@ -2696,11 +2708,6 @@ class PlayState extends MusicBeatState
 			GameOverSubstate.loopSoundName = 'mus_overtime' + songObj.gameoverMusicSuffix;
 			GameOverSubstate.endSoundName = 'mus_overtime_end' + songObj.gameoverMusicSuffix;
 
-			boyfriend.visible = false;
-			dad.visible = false;
-
-			camHUD.visible = false;
-
 			var bfTarX:Float = boyfriend.x;
 			var bfTarY:Float = boyfriend.y;
 			var dadTarX:Float = dad.x;
@@ -2718,6 +2725,10 @@ class PlayState extends MusicBeatState
 				bfTarX = cFollowPosTarX;
 				bfTarY = cFollowPosTarY + 200;
 			}
+
+			boyfriend.visible = false;
+			dad.visible = false;
+			camHUD.visible = false;
 
 			openSubState(new GameOverSubstate(bfTarX, bfTarY, cFollowPosTarX, cFollowPosTarY, bfCamOffsetTar, dadTar, dadTarX, dadTarY, letBfBeVisible, followNotMidpoint));
 

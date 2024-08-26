@@ -66,8 +66,6 @@ class GameOverSubstate extends MusicBeatSubstate
 		bg.alpha = 0;
 		add(bg);
 
-		//FlxG.camera.setPosition(camX, camY);
-
 		CoolUtil.rerollRandomness();
 
 		Conductor.songPosition = 0;
@@ -131,6 +129,9 @@ class GameOverSubstate extends MusicBeatSubstate
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		camFollowPos.setPosition(camX, camY);
 		add(camFollowPos);
+
+		FlxG.camera.follow(camFollowPos, LOCKON, 1);
+		FlxG.camera.focusOn(camFollowPos.getPosition());
 
 		#if DEVELOPERBUILD
 		perf.print();
@@ -196,7 +197,6 @@ class GameOverSubstate extends MusicBeatSubstate
 		{
 			if (boyfriend.animation.curAnim.curFrame >= 12 && !isFollowingAlready)
 			{
-				FlxG.camera.follow(camFollowPos, LOCKON, 1);
 				updateCamera = true;
 				isFollowingAlready = true;
 			}
@@ -217,6 +217,11 @@ class GameOverSubstate extends MusicBeatSubstate
 	override function beatHit()
 	{
 		super.beatHit();
+
+		if (boyfriend.startedDeath)
+		{
+			boyfriend.playAnim('deathLoop', true);
+		}
 	}
 
 	var isEnding:Bool = false;
@@ -233,6 +238,10 @@ class GameOverSubstate extends MusicBeatSubstate
 			isEnding = true;
 			boyfriend.playAnim('deathConfirm', true);
 			FlxG.sound.music.stop();
+			FlxG.sound.list.forEach(function ficks(fuc:FlxSound)
+			{
+				fuc.stop();
+			});
 			FlxG.sound.play(Paths.music(endSoundName));
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 			{

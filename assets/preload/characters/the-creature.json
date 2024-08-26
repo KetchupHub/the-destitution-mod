@@ -1,93 +1,82 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
-			"fps": 24,
-			"name": "idle",
-			"indices": []
-		},
-		{
 			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
 			"anim": "singLEFT",
 			"fps": 24,
 			"name": "left",
 			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
 			"anim": "singDOWN",
 			"fps": 24,
 			"name": "down",
 			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
 			"anim": "singUP",
 			"fps": 24,
 			"name": "up",
 			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
 			"anim": "singRIGHT",
 			"fps": 24,
 			"name": "right",
 			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "notice",
+			"loop": false,
+			"anim": "idle",
 			"fps": 24,
-			"name": "notice",
+			"name": "idle",
 			"indices": []
 		}
 	],
-	"animator": "Cynda",
+	"animator": null,
 	"no_antialiasing": true,
-	"artist": "Cynda",
-	"image": "characters/superseded/shitty_bf",
+	"artist": null,
+	"image": "characters/superseded/old_mark_intro",
 	"position": [
 		0,
 		0
 	],
-	"whoDoneWhat": "Cynda made model and animated sprites",
-	"healthicon": "bf-old",
-	"flip_x": true,
+	"whoDoneWhat": null,
+	"healthicon": "mark-old",
+	"flip_x": false,
 	"healthbar_colors": [
-		233,
-		255,
-		72
+		151,
+		38,
+		19
 	],
 	"camera_position": [
-		192,
-		38
+		-144,
+		32
 	],
 	"sing_duration": 15,
 	"scale": 1,
-	"_editor_isPlayer": true
+	"_editor_isPlayer": null
 }

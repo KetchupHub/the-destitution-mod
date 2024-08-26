@@ -311,7 +311,7 @@ class ChartingState extends MusicBeatState
 		strumLine = new FlxSprite(0, 50).makeGraphic(Std.int(GRID_SIZE * 9), 4);
 		add(strumLine);
 
-		quant = new AttachedSprite('chart_quant', 'chart_quant');
+		quant = new AttachedSprite('ui/chart_quant', 'chart_quant');
 		quant.animation.addByPrefix('q', 'chart_quant', 0, false);
 		quant.animation.play('q', true, false, 0);
 		quant.sprTracker = strumLine;

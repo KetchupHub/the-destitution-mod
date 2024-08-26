@@ -26,7 +26,7 @@ class Superseded extends SongClass
         this.startSwing = false;
         this.ratingsType = "";
         this.skipCountdown = true;
-        this.preloadCharacters = ['mark-old', 'mark-old-turn', 'bf-old', 'stop-loading'];
+        this.preloadCharacters = ['mark-old', 'mark-old-turn', 'bf-old', 'the-creature', 'bf-hunter', 'stop-loading'];
         this.startPpCam = false;
     }
 
@@ -45,7 +45,7 @@ class Superseded extends SongClass
         {
             case 28:
                 PlayState.instance.supersededIntro.animation.play("open", true);
-                PlayState.instance.boyfriend.visible = false;
+                //PlayState.instance.boyfriend.visible = false;
             case 29:
                 PlayState.instance.defaultCamZoom += 15;
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, Conductor.crochet / 500, {ease: FlxEase.quadInOut});
@@ -62,10 +62,49 @@ class Superseded extends SongClass
                 PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'mark-old-turn', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
-                PlayState.instance.boyfriend.visible = true;
+                //PlayState.instance.boyfriend.visible = true;
             case 160:
                 FlxG.camera.flash();
                 PlayState.instance.defaultCamZoom = 0.875;
+            case 304:
+                FlxTween.tween(PlayState.instance.theSmog, {alpha: 1}, (Conductor.crochet / 250) * 4, {ease: FlxEase.expoIn});
+            case 312:
+                PlayState.instance.boyfriend.canSing = false;
+                PlayState.instance.boyfriend.canDance = false;
+                PlayState.instance.boyfriend.playAnim('notice', true);
+            case 320:
+                PlayState.instance.boyfriend.canSing = true;
+                PlayState.instance.boyfriend.canDance = true;
+                FlxG.camera.flash();
+                PlayState.instance.defaultCamZoom = 1;
+                PlayState.instance.starting.visible = false;
+                PlayState.instance.starting.destroy();
+                FlxTween.completeTweensOf(PlayState.instance.theSmog);
+                PlayState.instance.theSmog.visible = false;
+                PlayState.instance.theSmog.destroy();
+
+                PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad.destroy();
+                PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'the-creature', false, false);
+                PlayState.instance.dad.screenCenter();
+                PlayState.instance.dad.y -= 128;
+                PlayState.instance.dad.y -= 2048;
+                PlayState.instance.dadGroup.add(PlayState.instance.dad);
+                FlxTween.tween(PlayState.instance.boyfriend, {y: PlayState.instance.boyfriend.y - 832}, 2, {ease: FlxEase.cubeOut});
+
+                PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                PlayState.instance.boyfriend.destroy();
+                PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'bf-hunter', false);
+                PlayState.instance.boyfriend.screenCenter();
+                PlayState.instance.boyfriend.y += 348;
+                PlayState.instance.boyfriend.y += 832;
+                PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
+                FlxTween.tween(PlayState.instance.boyfriend, {y: PlayState.instance.boyfriend.y - 832}, 2, {ease: FlxEase.cubeOut});
+
+                PlayState.instance.dadGroup.scrollFactor.set(0, 0);
+                PlayState.instance.boyfriendGroup.scrollFactor.set(0, 0);
+            case 328:
+                FlxTween.tween(PlayState.instance.dad, {y: PlayState.instance.dad.y + 2048}, 1, {ease: FlxEase.backInOut});
         }
     }
 }
