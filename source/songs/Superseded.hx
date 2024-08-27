@@ -77,34 +77,43 @@ class Superseded extends SongClass
                 PlayState.instance.boyfriend.canDance = true;
                 FlxG.camera.flash();
                 PlayState.instance.defaultCamZoom = 1;
-                PlayState.instance.starting.visible = false;
-                PlayState.instance.starting.destroy();
                 FlxTween.completeTweensOf(PlayState.instance.theSmog);
                 PlayState.instance.theSmog.visible = false;
                 PlayState.instance.theSmog.destroy();
+
+                PlayState.instance.starting.loadGraphic(Paths.image('superseded/bg_puppet_mark'));
+                PlayState.instance.starting.scale.set(2, 2);
+                PlayState.instance.starting.updateHitbox();
+                PlayState.instance.starting.screenCenter();
+                PlayState.instance.starting.shader = PlayState.instance.spaceWiggle.shader;
+                PlayState.instance.starting.scrollFactor.set();
+
+                //PlayState.instance.supersededOverlay.visible = true;
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'the-creature', false, false);
                 PlayState.instance.dad.screenCenter();
-                PlayState.instance.dad.y -= 128;
-                PlayState.instance.dad.y -= 2048;
+                PlayState.instance.dad.y -= 1512;
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
-                FlxTween.tween(PlayState.instance.boyfriend, {y: PlayState.instance.boyfriend.y - 832}, 2, {ease: FlxEase.cubeOut});
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
                 PlayState.instance.boyfriend.destroy();
                 PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'bf-hunter', false);
                 PlayState.instance.boyfriend.screenCenter();
-                PlayState.instance.boyfriend.y += 348;
+                PlayState.instance.boyfriend.y += 256;
                 PlayState.instance.boyfriend.y += 832;
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
                 FlxTween.tween(PlayState.instance.boyfriend, {y: PlayState.instance.boyfriend.y - 832}, 2, {ease: FlxEase.cubeOut});
 
+                PlayState.instance.dadGroup.x = 0;
+                PlayState.instance.dadGroup.y = 0;
                 PlayState.instance.dadGroup.scrollFactor.set(0, 0);
+                PlayState.instance.boyfriendGroup.x = 0;
+                PlayState.instance.boyfriendGroup.y = 0;
                 PlayState.instance.boyfriendGroup.scrollFactor.set(0, 0);
             case 328:
-                FlxTween.tween(PlayState.instance.dad, {y: PlayState.instance.dad.y + 2048}, 1, {ease: FlxEase.backInOut});
+                FlxTween.tween(PlayState.instance.dad, {y: -16}, 1, {ease: FlxEase.backInOut});
         }
     }
 }

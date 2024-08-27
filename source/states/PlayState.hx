@@ -275,6 +275,7 @@ class PlayState extends MusicBeatState
 	public var ploinky:FlxSprite;
 	public var starting:FlxSprite;
 	public var cuttingSceneThing:FlxSprite;
+	public var supersededOverlay:FlxSprite;
 	public var theSmog:FlxSprite;
 	public var funnyBgColors:FlxSprite;
 	public var healthBarBG:FlxSprite;
@@ -513,6 +514,11 @@ class PlayState extends MusicBeatState
 			chefCurtains.visible = false;
 		}
 
+		//if (supersededOverlay != null)
+		//{
+		//	add(supersededOverlay);
+		//}
+
 		if (theSmog != null)
 		{
 			add(theSmog);
@@ -530,7 +536,7 @@ class PlayState extends MusicBeatState
 		{
 			dad.setPosition(GF_X, GF_Y);
 
-			if(gf != null)
+			if (gf != null)
 			{
 				gf.visible = false;
 			}
@@ -1024,10 +1030,27 @@ class PlayState extends MusicBeatState
 				supersededIntro.scrollFactor.set();
 
 				spaceWiggle = new WiggleEffect();
-				spaceWiggle.effectType = WiggleEffectType.HEAT_WAVE_VERTICAL;
-				spaceWiggle.waveAmplitude = 0.25;
-				spaceWiggle.waveFrequency = 8;
-				spaceWiggle.waveSpeed = 2;
+				spaceWiggle.effectType = WiggleEffectType.DREAMY;
+				spaceWiggle.waveAmplitude = 0.3;
+				spaceWiggle.waveFrequency = 6;
+				spaceWiggle.waveSpeed = 0.75;
+
+				/*supersededOverlay = new FlxSprite().loadGraphic(Paths.image('superseded/overlay'));
+				supersededOverlay.scale.set(2, 2);
+				supersededOverlay.updateHitbox();
+				supersededOverlay.screenCenter();
+				supersededOverlay.scrollFactor.set();
+				supersededOverlay.alpha = 0.25;
+				supersededOverlay.blend = BlendMode.SCREEN;
+				supersededOverlay.visible = false;*/
+
+				precacheList.set('superseded/bg_puppet_mark', 'image');
+				precacheList.set('superseded/bg_puppet_ploinky', 'image');
+				precacheList.set('superseded/bg_puppet_ili', 'image');
+				precacheList.set('superseded/bg_puppet_whale', 'image');
+				precacheList.set('superseded/bg_puppet_rulez', 'image');
+				precacheList.set('superseded/bg_puppet_crypteh', 'image');
+				precacheList.set('superseded/bg_puppet_zam', 'image');
 			case 'dsides':
 				var pureWhiteAbyss:FlxSprite = new FlxSprite().makeGraphic(1, 1, FlxColor.WHITE);
 				pureWhiteAbyss.scale.set(2560, 2560);
