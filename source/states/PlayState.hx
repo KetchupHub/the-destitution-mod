@@ -1,5 +1,7 @@
 package states;
 
+import ui.SubtitleObject;
+import ui.SubtitleObject.SubtitleTypes;
 import backend.Scoring;
 import flixel.addons.effects.FlxClothSprite;
 import backend.WeekData;
@@ -1011,6 +1013,14 @@ class PlayState extends MusicBeatState
 				tweeningCam = true;
 				camHUD.zoom = 15;
 
+				var computerMonitors:FlxSprite = new FlxSprite().loadGraphic(Paths.image('superseded/monitors'));
+				computerMonitors.antialiasing = false;
+				computerMonitors.scale.set(2, 2);
+				computerMonitors.updateHitbox();
+				computerMonitors.screenCenter();
+				computerMonitors.scrollFactor.set();
+				add(computerMonitors);
+
 				starting = new FlxSprite(-574, 96).loadGraphic(Paths.image('superseded/bg'));
 				starting.antialiasing = false;
 				add(starting);
@@ -1019,6 +1029,7 @@ class PlayState extends MusicBeatState
 				theSmog.scale.set(2560, 2560);
 				theSmog.updateHitbox();
 				theSmog.screenCenter();
+				theSmog.scrollFactor.set();
 				theSmog.alpha = 0;
 
 				supersededIntro = new FlxSprite(0, 0);
@@ -1031,9 +1042,9 @@ class PlayState extends MusicBeatState
 
 				spaceWiggle = new WiggleEffect();
 				spaceWiggle.effectType = WiggleEffectType.DREAMY;
-				spaceWiggle.waveAmplitude = 0.3;
-				spaceWiggle.waveFrequency = 6;
-				spaceWiggle.waveSpeed = 0.75;
+				spaceWiggle.waveAmplitude = 0.15;
+				spaceWiggle.waveFrequency = 4;
+				spaceWiggle.waveSpeed = 0.15;
 
 				/*supersededOverlay = new FlxSprite().loadGraphic(Paths.image('superseded/overlay'));
 				supersededOverlay.scale.set(2, 2);
@@ -1905,7 +1916,7 @@ class PlayState extends MusicBeatState
 		sectionNum++;
 		health = 1;
 
-		if(sectNameText == null)
+		if (sectNameText == null)
 		{
 			sectText = new FlxText(0, 0, FlxG.width, "SECTION 2", 96);
 			sectText.setFormat(Paths.font(songFont), 96 * 2, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
@@ -1961,12 +1972,12 @@ class PlayState extends MusicBeatState
 
 	public function eventPushed(event:EventNote)
 	{
-		switch(event.event)
+		switch (event.event)
 		{
 			case 'Change Character':
 				var charType:Int = 0;
 
-				switch(event.value1.toLowerCase())
+				switch (event.value1.toLowerCase())
 				{
 					case 'gf' | 'girlfriend' | '1':
 						charType = 2;
@@ -1975,7 +1986,7 @@ class PlayState extends MusicBeatState
 					default:
 						charType = Std.parseInt(event.value1);
 
-						if(Math.isNaN(charType))
+						if (Math.isNaN(charType))
 						{
 							charType = 0;
 						}
@@ -1985,7 +1996,7 @@ class PlayState extends MusicBeatState
 				addCharacterToList(newCharacter, charType);
 		}
 
-		if(!eventPushedMap.exists(event.event))
+		if (!eventPushedMap.exists(event.event))
 		{
 			eventPushedMap.set(event.event, true);
 		}
@@ -2046,6 +2057,13 @@ class PlayState extends MusicBeatState
 
 			strumLineNotes.add(babyArrow);
 			babyArrow.postAddedToGroup();
+
+			#if DEVELOPERBUILD
+			//if (player != 1 && ClientPrefs.middleScroll)
+			//{
+			//	trace("Middlescroll Opponent Strum #" + Std.string(i) + " X coord: " + babyArrow.x);
+			//}
+			#end
 		}
 	}
 
@@ -3306,8 +3324,8 @@ class PlayState extends MusicBeatState
 		moveCamera(false, false);
 		disallowCamMove = true;
 		camZooming = false;
-		FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom - 0.1}, 1.5 / playbackRate, {ease: FlxEase.expoOut});
-		defaultCamZoom -= 0.1;
+		//FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom - 0.1}, 1.5 / playbackRate, {ease: FlxEase.expoOut});
+		//defaultCamZoom -= 0.1;
 		FlxTween.tween(camHUD, {alpha: 0}, 2 / playbackRate, {ease: FlxEase.smootherStepOut, onComplete: function the(flucks:FlxTween)
 		{
 			var dieIril:FlxTimer = new FlxTimer().start(0.5 / playbackRate, function imKingMyS(fuckYouTimer:FlxTimer)
@@ -4553,5 +4571,15 @@ class PlayState extends MusicBeatState
 				FlxTween.tween(fullLength, {y: (death - 12) + (36 * 0.8), 'scale.x': 0.8, 'scale.y': 0.8}, 1 / playbackRate, {ease: FlxEase.smootherStepInOut});
 			}
 		}
+	}
+
+	/**
+	 * "COOL" and "MONDO"
+	 */
+	public function addSubtitleObj(text:String, duration:Float, style:SubtitleTypes)
+	{
+		var subOb:SubtitleObject = new SubtitleObject(310, style == SubtitleTypes.SCIENCEY ? 310 : 442, text, duration, style);
+		subOb.scrollFactor.set();
+		add(subOb);
 	}
 }
