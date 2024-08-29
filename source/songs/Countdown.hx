@@ -19,7 +19,7 @@ class Countdown extends SongClass
         //update these when the Sport Gameover later
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
-        this.songVariants = ["Normal", "Erect"];
+        this.songVariants = ["Normal"];
         this.songDescription = "It's a slice of life episode! Mark and the gang play sports with Nopeboy and his friends!";
         this.startSwing = false;
         this.ratingsType = "";

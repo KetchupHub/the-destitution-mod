@@ -103,6 +103,7 @@ class PlayState extends MusicBeatState
 	public var camFollowPos:FlxObject;
 	public static var prevCamFollowPos:FlxObject;
 
+	public var camSubtitlesAndSuch:FlxCamera;
 	public var camHUD:FlxCamera;
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
@@ -361,12 +362,15 @@ class PlayState extends MusicBeatState
 
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
+		camSubtitlesAndSuch = new FlxCamera();
 		camOther = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
+		camSubtitlesAndSuch.bgColor.alpha = 0;
 		camOther.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD, false);
+		FlxG.cameras.add(camSubtitlesAndSuch, false);
 		FlxG.cameras.add(camOther, false);
 
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
@@ -1609,7 +1613,7 @@ class PlayState extends MusicBeatState
 		+ ' | Rating: ' + ratingName
 		+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
 
-		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
+		if (ClientPrefs.scoreZoom && !miss && !cpuControlled)
 		{
 			if(scoreTxtTween != null)
 			{
@@ -2487,10 +2491,11 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if(!tweeningCam)
+		if (!tweeningCam)
 		{
-			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom + camZoomAdditive, FlxG.camera.zoom, util.CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
-			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, util.CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
+			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom + camZoomAdditive, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
+			camSubtitlesAndSuch.zoom = FlxMath.lerp(1, camSubtitlesAndSuch.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
+			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
 		}
 
 		if (!ClientPrefs.noReset && controls.RESET && canReset && !inCutscene && startedCountdown && !endingSong)
@@ -2874,23 +2879,24 @@ class PlayState extends MusicBeatState
 
 				gfSpeed = value;
 			case 'Add Camera Zoom':
-				if(ClientPrefs.camZooms)
+				if (ClientPrefs.camZooms)
 				{
 					var camZoom:Float = Std.parseFloat(value1);
 
-					if(Math.isNaN(camZoom))
+					if (Math.isNaN(camZoom))
 					{
 						camZoom = 0.015;
 					}
 
 					var hudZoom:Float = Std.parseFloat(value2);
 
-					if(Math.isNaN(hudZoom))
+					if (Math.isNaN(hudZoom))
 					{
 						hudZoom = 0.03;
 					}
 
 					FlxG.camera.zoom += camZoom;
+					camSubtitlesAndSuch.zoom += camZoom;
 
 					camHUD.zoom += hudZoom;
 				}
@@ -3322,10 +3328,12 @@ class PlayState extends MusicBeatState
 	public function songEndTransitionThing():Void
 	{
 		moveCamera(false, false);
+
 		disallowCamMove = true;
 		camZooming = false;
-		//FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom - 0.1}, 1.5 / playbackRate, {ease: FlxEase.expoOut});
-		//defaultCamZoom -= 0.1;
+
+		FlxTween.tween(camSubtitlesAndSuch, {alpha: 0}, 2 / playbackRate, {ease: FlxEase.smootherStepOut});
+
 		FlxTween.tween(camHUD, {alpha: 0}, 2 / playbackRate, {ease: FlxEase.smootherStepOut, onComplete: function the(flucks:FlxTween)
 		{
 			var dieIril:FlxTimer = new FlxTimer().start(0.5 / playbackRate, function imKingMyS(fuckYouTimer:FlxTimer)
@@ -4266,7 +4274,8 @@ class PlayState extends MusicBeatState
 		if (rulezBeatSlam && ClientPrefs.camZooms)
 		{
 			FlxG.camera.zoom += 0.075;
-			camHUD.zoom += 0.075;
+			camSubtitlesAndSuch.zoom += 0.075;
+			camHUD.zoom += 0.05;
 		}
 
 		if (fuckMyLife)
@@ -4361,6 +4370,7 @@ class PlayState extends MusicBeatState
 			if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms && !tweeningCam)
 			{
 				FlxG.camera.zoom += 0.015 * camZoomingMult;
+				camSubtitlesAndSuch.zoom += 0.015 * camZoomingMult;
 				camHUD.zoom += 0.03 * camZoomingMult;
 			}
 
@@ -4578,8 +4588,10 @@ class PlayState extends MusicBeatState
 	 */
 	public function addSubtitleObj(text:String, duration:Float, style:SubtitleTypes)
 	{
-		var subOb:SubtitleObject = new SubtitleObject(310, style == SubtitleTypes.SCIENCEY ? 310 : 442, text, duration, style);
+		var subOb:SubtitleObject = new SubtitleObject(310, style == SubtitleTypes.SCIENCEY ? 310 : 496, text, duration, style);
 		subOb.scrollFactor.set();
+		subOb.cameras = [camSubtitlesAndSuch];
 		add(subOb);
+		//insert(members.indexOf(boyfriendGroup) + 1, subOb);
 	}
 }
