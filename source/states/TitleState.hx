@@ -157,6 +157,8 @@ class TitleState extends MusicBeatState
 
 	public function startIntro()
 	{
+		CoolUtil.hasInitializedWindow = true;
+		
 		#if DEVELOPERBUILD
         var perf = new Perf("TitleState startIntro()");
 		#end
@@ -587,6 +589,8 @@ class TitleState extends MusicBeatState
 
 	public function skipIntro(skipFade:Bool = false):Void
 	{
+		CoolUtil.hasInitializedWindow = true;
+		
 		if (!skippedIntro)
 		{
 			quitDoingIntroShit = true;

@@ -26,6 +26,8 @@ class CoolUtil
 
 	public static var lastStateScreenShot:Bitmap;
 
+	public static var hasInitializedWindow:Bool = false;
+
 	//using the same FlxRandom for everything can cause a lot of predictability so im not doing that anymore
 
 	/**
