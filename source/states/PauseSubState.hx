@@ -36,7 +36,7 @@ class PauseSubState extends MusicBeatSubstate
 	public var holdTime:Float = 0;
 	public var cantUnpause:Float = 0.1;
 
-	public function new(x:Float, y:Float)
+	public function new(focusLost:Bool)
 	{
 		#if DEVELOPERBUILD
 		var perf = new Perf("Total PauseSubState new()");
@@ -176,10 +176,23 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(songCover, {alpha: 1, y: songCover.y + 5}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(descText, {alpha: 1, y: descText.y + 5}, 0.4, {ease: FlxEase.quartInOut});
 
+		if (focusLost)
+		{
+			FlxTween.completeTweensOf(bg);
+			FlxTween.completeTweensOf(credit);
+			FlxTween.completeTweensOf(levelInfo);
+			FlxTween.completeTweensOf(blueballedTxt);
+			FlxTween.completeTweensOf(sectionTxt);
+			FlxTween.completeTweensOf(practiceText);
+			FlxTween.completeTweensOf(chartingText);
+			FlxTween.completeTweensOf(songCover);
+			FlxTween.completeTweensOf(descText);
+		}
+
 		grpMenuShit = new FlxTypedGroup<Alphabet>();
 		add(grpMenuShit);
 
-		regenMenu();
+		regenMenu(focusLost);
 
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 
@@ -323,7 +336,10 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		curSelected += change;
 
-		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		if (change != 0)
+		{
+			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		}
 
 		if (curSelected < 0)
 		{
@@ -351,7 +367,7 @@ class PauseSubState extends MusicBeatSubstate
 		}
 	}
 
-	public function regenMenu():Void
+	public function regenMenu(focusLost:Bool):Void
 	{
 		for (i in 0...grpMenuShit.members.length)
 		{
@@ -366,6 +382,12 @@ class PauseSubState extends MusicBeatSubstate
 			var item = new Alphabet(90, 320, menuItems[i], true);
 			item.isMenuItem = true;
 			item.targetY = i;
+
+			if (focusLost)
+			{
+				item.snapToPosition();
+			}
+
 			grpMenuShit.add(item);
 		}
 

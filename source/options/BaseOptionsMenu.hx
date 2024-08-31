@@ -13,13 +13,8 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.FlxSubState;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.util.FlxSave;
-import flixel.tweens.FlxTween;
-import flixel.input.keyboard.FlxKey;
-import backend.Controls;
 import states.MusicBeatSubstate;
 
 class BaseOptionsMenu extends MusicBeatSubstate
@@ -60,7 +55,6 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
 		// avoids lagspikes while scrolling through menus!
@@ -87,6 +81,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		descText.setFormat(Paths.font("BAUHS93.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		descText.borderSize = 2.4;
+		descText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(descText);
 
 		for (i in 0...optionsArray.length)
@@ -108,6 +103,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				optionText.x -= 80;
 				optionText.startPosition.x -= 80;
 				var valueText:AttachedText = new AttachedText('' + optionsArray[i].getValue(), optionText.width + 80);
+				valueText.antialiasing = ClientPrefs.globalAntialiasing;
 				valueText.sprTracker = optionText;
 				valueText.copyAlpha = true;
 				valueText.ID = i;
@@ -330,17 +326,22 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		super.update(elapsed);
 	}
 
-	function updateTextFrom(option:Option) {
+	function updateTextFrom(option:Option)
+	{
 		var text:String = option.displayFormat;
 		var val:Dynamic = option.getValue();
-		if(option.type == 'percent') val *= 100;
+		if (option.type == 'percent')
+		{
+			val *= 100;
+		}
 		var def:Dynamic = option.defaultValue;
 		option.text = text.replace('%v', val).replace('%d', def);
 	}
 
 	function clearHold()
 	{
-		if(holdTime > 0.5) {
+		if (holdTime > 0.5)
+		{
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
 		holdTime = 0;
@@ -360,18 +361,25 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		var bullShit:Int = 0;
 
-		for (item in grpOptions.members) {
+		for (item in grpOptions.members)
+		{
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
 			item.alpha = 0.6;
-			if (item.targetY == 0) {
+
+			if (item.targetY == 0)
+			{
 				item.alpha = 1;
 			}
 		}
-		for (text in grpTexts) {
+
+		for (text in grpTexts)
+		{
 			text.alpha = 0.6;
-			if(text.ID == curSelected) {
+
+			if (text.ID == curSelected)
+			{
 				text.alpha = 1;
 			}
 		}
@@ -380,10 +388,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
 		descBox.updateHitbox();
 
-		if(boyfriend != null)
+		if (boyfriend != null)
 		{
 			boyfriend.visible = optionsArray[curSelected].showBoyfriend;
 		}
+
 		curOption = optionsArray[curSelected]; //shorter lol
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
@@ -392,7 +401,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	{
 		var wasVisible:Bool = false;
 
-		if(boyfriend != null)
+		if (boyfriend != null)
 		{
 			wasVisible = boyfriend.visible;
 			boyfriend.kill();

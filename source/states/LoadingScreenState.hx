@@ -50,6 +50,9 @@ class LoadingScreenState extends MusicBeatState
 		var perf = new Perf("Total LoadingScreenState create()");
 		#end
 
+        persistentUpdate = true;
+		persistentDraw = true;
+
         CoolUtil.rerollRandomness();
 
         MemoryUtil.collect(true);

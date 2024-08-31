@@ -1,5 +1,8 @@
 package options;
 
+import ui.CheckboxThingie;
+import ui.Alphabet;
+import visuals.Character;
 import backend.ClientPrefs;
 import flixel.text.FlxText;
 import flixel.FlxG;
@@ -44,7 +47,7 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 			60);
 		addOption(option);
 
-		option.minValue = 60;
+		option.minValue = 30;
 		option.maxValue = 240;
 		option.displayFormat = '%v FPS';
 		option.onChange = onChangeFramerate;
@@ -53,21 +56,25 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 		super();
 	}
 
-	function onChangeAntiAliasing()
+	function onChangeAntiAliasing():Void
 	{
 		for (sprite in members)
 		{
 			var sprite:Dynamic = sprite; //Make it check for FlxSprite instead of FlxBasic
 			var sprite:FlxSprite = sprite; //Don't judge me ok
-			if(sprite != null && (sprite is FlxSprite) && !(sprite is FlxText)) {
-				sprite.antialiasing = ClientPrefs.globalAntialiasing;
+			if (sprite != null && (sprite is FlxSprite))
+			{
+				if ((sprite is Character) || (sprite is Alphabet) || (sprite is CheckboxThingie) || (sprite is FlxText))
+				{
+					sprite.antialiasing = ClientPrefs.globalAntialiasing;
+				}
 			}
 		}
 	}
 
-	function onChangeFramerate()
+	function onChangeFramerate():Void
 	{
-		if(ClientPrefs.framerate > FlxG.drawFramerate)
+		if (ClientPrefs.framerate > FlxG.drawFramerate)
 		{
 			FlxG.updateFramerate = ClientPrefs.framerate;
 			FlxG.drawFramerate = ClientPrefs.framerate;
@@ -77,5 +84,7 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 			FlxG.drawFramerate = ClientPrefs.framerate;
 			FlxG.updateFramerate = ClientPrefs.framerate;
 		}
+
+		FlxG.game.focusLostFramerate = Std.int(ClientPrefs.framerate / 12);
 	}
 }

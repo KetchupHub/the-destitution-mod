@@ -1,9 +1,8 @@
 package songs;
 
 /**
- * This class is used for storing song events, as opposed to crowding playstate.
+ * This class is used for storing song events and additional data, as opposed to crowding playstate.
  * each song has an override of it.
- * can probably even be used for storing extra data eventually! potentially?
  */
 class SongClass
 {
@@ -20,16 +19,12 @@ class SongClass
     public var songVariants:Array<String> = ["Normal"];
 
     public var songHasSections:Bool = false;
-
-    public var startSwing:Bool = false;
-
+    
     public var ratingsType:String = "";
 
     public var skipCountdown:Bool = false;
 
     public var preloadCharacters:Array<String> = ["bf-mark", "gf", "stop-loading"];
-
-    public var startPpCam:Bool = false;
 
 	public function new()
     {

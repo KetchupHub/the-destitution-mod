@@ -42,8 +42,6 @@ class SongInit
                 returnSong = new Superseded();
             case 'd-stitution-erect':
                 returnSong = new DStitution();
-            case 'countdown-erect':
-                returnSong = new Countdown();
             case 'eggshells-erect':
                 returnSong = new Eggshells();
             case 'collapse-erect':

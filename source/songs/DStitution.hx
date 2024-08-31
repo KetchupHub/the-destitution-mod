@@ -26,11 +26,9 @@ class DStitution extends SongClass
         this.gameoverMusicSuffix = '_dsides';
         this.songVariants = ["Normal", "Erect"];
         this.songDescription = "Mark enlists Nopeboy to test the new dimension shifter on his time machine, and shenanigans ensue!";
-        this.startSwing = false;
         this.ratingsType = "Dsides";
         this.skipCountdown = false;
         this.preloadCharacters = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'd-ili', 'd-bf-doug', 'douglass', 'karm-scold', 'douglass-player', 'd-rules', 'd-bf-rules', 'maestro', 'd-bf-rules-flipped', 'zamboney', 'karm-finale', 'stop-loading'];
-        this.startPpCam = true;
     }
 
     public override function stepHitEvent(curStep:Float)
@@ -171,7 +169,6 @@ class DStitution extends SongClass
 
                 Paths.clearUnusedMemory();
             case 992:
-                PlayState.instance.swingSec = true;
                 PlayState.instance.iconP2.visible = true;
                 PlayState.instance.train.visible = false;
                 PlayState.instance.train.destroy();
@@ -200,7 +197,6 @@ class DStitution extends SongClass
                 PlayState.instance.chefBanner.visible = true;
                 FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.sky.y}, Conductor.crochet / 1000, {ease: FlxEase.smootherStepOut});
             case 1128:
-                PlayState.instance.swingSec = false;
                 PlayState.instance.chefTable.visible = true;
                 FlxTween.tween(PlayState.instance.chefTable, {y: PlayState.instance.sky.y + 64}, Conductor.crochet / 500, {ease: FlxEase.backInOut});
                 PlayState.instance.dad.canDance = false;
@@ -223,7 +219,6 @@ class DStitution extends SongClass
                 PlayState.instance.chefCurtains.destroy();
                 FlxG.camera.flash();
             case 1260:
-                PlayState.instance.swingSec = true;
                 PlayState.instance.defaultCamZoom -= 0.05;
             case 1264:
                 FlxG.camera.flash();
@@ -231,8 +226,6 @@ class DStitution extends SongClass
                 Paths.clearUnusedMemory();
             case 1336:
                 FlxG.camera.flash();
-
-                PlayState.instance.swingSec = false;
 
                 PlayState.instance.defaultCamZoom += 0.15;
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.smootherStepOut});
@@ -283,8 +276,6 @@ class DStitution extends SongClass
             case 2072:
                 FlxG.camera.flash();
 
-                PlayState.instance.swingSec = true;
-
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(0, 0, 'd-rules', false, false);
@@ -321,8 +312,6 @@ class DStitution extends SongClass
                 Paths.clearUnusedMemory();
             case 2504:
                 FlxG.camera.flash();
-
-                PlayState.instance.swingSec = false;
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();

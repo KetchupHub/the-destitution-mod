@@ -21,11 +21,9 @@ class EggshellsBadEnd extends SongClass
         this.songVariants = ["Normal"];
         //songVariants doesnt matter for the ending classes (since theyre just loaded in by force at the end of eggshells)
         this.songDescription = "Mark's lonely cousin seems like he's not much for conversation, but that won't stop Nopeboy from trying!";
-        this.startSwing = true;
         this.ratingsType = "";
         this.skipCountdown = true;
         this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
-        this.startPpCam = true;
     }
 
     public override function stepHitEvent(curStep:Float)

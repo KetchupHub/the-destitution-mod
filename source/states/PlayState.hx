@@ -149,7 +149,6 @@ class PlayState extends MusicBeatState
 	public var smoothenedHealth:Float = 1;
 	public var cameraSpeed:Float = 1;
 	public var heyTimer:Float;
-	public static var daPixelZoom:Float = 6;
 	public var defaultCamZoom:Float = 1.05;
 	public var songLength:Float = 0;
 	public var bgPlayerWalkTarget:Float;
@@ -188,13 +187,10 @@ class PlayState extends MusicBeatState
 	public static var deathCounter:Int = 0;
 	public var bucksBarHistoryFuck:Array<Int> = [9, 9, 9, 9, 9, 9, 9, 9];
 	
-	public static var isStoryMode:Bool = false;
 	public static var songHasSections:Bool = false;
 	public static var chartingMode:Bool = false;
 	public static var seenCutscene:Bool = false;
-	public var pixelPerfectishCamera:Bool = false;
 	public var fuckMyLife:Bool = false;
-	public var swingSec:Bool = false;
 	public var isCameraOnForcedPos:Bool = false;
 	public var brokerBop:Bool = false;
 	public var camZooming:Bool = true;
@@ -336,6 +332,9 @@ class PlayState extends MusicBeatState
 		#if DEVELOPERBUILD
 		var perf = new Perf("Total PlayState create()");
 		#end
+
+		persistentUpdate = true;
+		persistentDraw = true;
 
 		FlxG.mouse.visible = false;
 
@@ -520,11 +519,6 @@ class PlayState extends MusicBeatState
 			chefCurtains.visible = false;
 		}
 
-		//if (supersededOverlay != null)
-		//{
-		//	add(supersededOverlay);
-		//}
-
 		if (theSmog != null)
 		{
 			add(theSmog);
@@ -685,6 +679,7 @@ class PlayState extends MusicBeatState
 		iconP2.y = healthBar.y - 75;
 		iconP2.visible = !ClientPrefs.hideHud;
 		add(iconP2);
+		
 		reloadHealthBarColors();
 
 		//adding p1 second, solely for the visual gag with pinkerton's losing icon, lol
@@ -2032,7 +2027,7 @@ class PlayState extends MusicBeatState
 			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
 			babyArrow.downScroll = ClientPrefs.downScroll;
 
-			if (!isStoryMode && !skipArrowStartTween)
+			if (!skipArrowStartTween)
 			{
 				babyArrow.alpha = 0;
 				FlxTween.tween(babyArrow, {alpha: targetAlpha}, 1 / playbackRate, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
@@ -2202,12 +2197,13 @@ class PlayState extends MusicBeatState
 
 	override public function onFocusLost():Void
 	{
-		#if desktop
 		if (health > 0 && !paused)
 		{
+			#if desktop
 			DiscordClient.changePresence(detailsPausedText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''));
+			#end
+			openPauseMenu(true);
 		}
-		#end
 
 		super.onFocusLost();
 	}
@@ -2248,22 +2244,7 @@ class PlayState extends MusicBeatState
 
 			var targets:Array<Float> = [FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal)];
 
-			//i fucking hate math
-			/*if (pixelPerfectishCamera)
-			{
-				var backup:Array<Float> = targets;
-
-				targets = [((Math.floor(backup[0]) + 2 / 2) / 2) * 2, ((Math.floor(backup[1]) + 2 / 2) / 2) * 2];
-
-				//if (targets[0] % 2 == 0)
-				//{
-				camFollowPos.setPosition(targets[0], targets[1]);
-				//}
-			}
-			else
-			{*/
-				camFollowPos.setPosition(targets[0], targets[1]);
-			//}
+			camFollowPos.setPosition(targets[0], targets[1]);
 		}
 
 		if (ref != null)
@@ -2413,7 +2394,7 @@ class PlayState extends MusicBeatState
 
 		if (controls.PAUSE && startedCountdown && canPause)
 		{
-			openPauseMenu();
+			openPauseMenu(false);
 		}
 
 		if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
@@ -2689,7 +2670,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	function openPauseMenu()
+	public function openPauseMenu(focusLost:Bool):Void
 	{
 		persistentUpdate = false;
 		persistentDraw = true;
@@ -2704,7 +2685,7 @@ class PlayState extends MusicBeatState
 
 		FlxG.sound.play(Paths.sound('pause'));
 
-		openSubState(new PauseSubState(boyfriend.x + boyfriendGroup.x, boyfriend.y + boyfriendGroup.y));
+		openSubState(new PauseSubState(focusLost));
 
 		#if desktop
 		DiscordClient.changePresence(detailsPausedText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''));
@@ -2712,7 +2693,7 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	function openChartEditor()
+	public function openChartEditor():Void
 	{
 		persistentUpdate = false;
 		paused = true;
@@ -2791,23 +2772,23 @@ class PlayState extends MusicBeatState
 
 	public function checkEventNote()
 	{
-		while(eventNotes.length > 0)
+		while (eventNotes.length > 0)
 		{
 			var leStrumTime:Float = eventNotes[0].strumTime;
 
-			if(Conductor.songPosition < leStrumTime)
+			if (Conductor.songPosition < leStrumTime)
 			{
 				return;
 			}
 
 			var value1:String = '';
-			if(eventNotes[0].value1 != null)
+			if (eventNotes[0].value1 != null)
 			{
 				value1 = eventNotes[0].value1;
 			}
 
 			var value2:String = '';
-			if(eventNotes[0].value2 != null)
+			if (eventNotes[0].value2 != null)
 			{
 				value2 = eventNotes[0].value2;
 			}
@@ -2827,7 +2808,7 @@ class PlayState extends MusicBeatState
 
 	public function triggerEventNote(eventName:String, value1:String, value2:String)
 	{
-		switch(eventName)
+		switch (eventName)
 		{
 			case 'Hey!':
 				var value:Int = 2;
@@ -4519,9 +4500,7 @@ class PlayState extends MusicBeatState
 	{
 		GameOverSubstate.resetVariables();
 		
-		swingSec = songObj.startSwing;
 		songHasSections = songObj.songHasSections;
-		pixelPerfectishCamera = songObj.startPpCam;
 		sectionNum = 1;
 
 		Application.current.window.title = CoolUtil.appTitleString + " - Playing " + songObj.songNameForDisplay;

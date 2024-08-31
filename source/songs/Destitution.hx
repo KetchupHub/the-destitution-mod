@@ -28,11 +28,9 @@ class Destitution extends SongClass
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
         this.songDescription = "Mark and the gang show Nopeboy how to be a master investor!";
-        this.startSwing = false;
         this.ratingsType = "";
         this.skipCountdown = false;
         this.preloadCharacters = ['mark', 'mark-alt', 'mark-annoyed', 'mark-angry', 'ploinky', 'ili-devil', 'item', 'whale', 'rulez', 'crypteh', 'zam', 'bf-mark', 'bf-mark-ploink', 'bf-mark-lurking', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh', 'bf-mark-annoyed', 'bg-player', 'stop-loading'];
-        this.startPpCam = true;
     }
 
     public override function stepHitEvent(curStep:Float)
@@ -1021,7 +1019,6 @@ class Destitution extends SongClass
                 PlayState.instance.dad.canDance = false;
                 PlayState.instance.dad.playAnim("scared", true);
             case 2972:
-                PlayState.instance.swingSec = true;
                 PlayState.instance.funBackCamFadeShit = true;
                 PlayState.instance.centerCamOnBg = false;
                 PlayState.instance.defaultCamZoom += 0.15;
@@ -1075,7 +1072,6 @@ class Destitution extends SongClass
                 PlayState.instance.zamMarkCamFlipShit.animation.play("idle", true);
             case 3500:
                 PlayState.instance.funBackCamFadeShit = false;
-                PlayState.instance.swingSec = false;
                 PlayState.instance.zamMarkCamFlipShit.visible = false;
                 PlayState.instance.zamMarkCamFlipShit.destroy();
 

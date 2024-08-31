@@ -1,19 +1,16 @@
 package;
  
 import flixel.system.FlxBasePreloader;
-import openfl.display.Sprite;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
-import flash.display.BlendMode;
 import flash.display.Sprite;
 import flash.Lib;
-import flixel.FlxG;
  
 @:bitmap("art/preloaderArt.png") class LogoImage extends BitmapData { }
  
 class Preloader extends FlxBasePreloader
 {
-    public function new(MinDisplayTime:Float=3, ?AllowedURLs:Array<String>) 
+    public function new(MinDisplayTime:Float = 3, ?AllowedURLs:Array<String>) 
     {
         super(MinDisplayTime, AllowedURLs);
     }
@@ -28,7 +25,7 @@ class Preloader extends FlxBasePreloader
         var ratio:Float = this._width / 2560; //This allows us to scale assets depending on the size of the screen.
          
         logo = new Sprite();
-        logo.addChild(new Bitmap(new LogoImage(0,0))); //Sets the graphic of the sprite to a Bitmap object, which uses our embedded BitmapData class.
+        logo.addChild(new Bitmap(new LogoImage(0, 0))); //Sets the graphic of the sprite to a Bitmap object, which uses our embedded BitmapData class.
         logo.scaleX = logo.scaleY = ratio;
         logo.x = ((this._width) / 2) - ((logo.width) / 2);
         logo.y = (this._height / 2) - ((logo.height) / 2);
@@ -39,7 +36,7 @@ class Preloader extends FlxBasePreloader
      
     override function update(Percent:Float):Void 
     {
-        if(Percent < 69)
+        if (Percent < 69)
         {
             logo.scaleX += Percent / 1920;
             logo.scaleY += Percent / 1920;

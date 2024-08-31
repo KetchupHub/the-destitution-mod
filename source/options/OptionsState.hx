@@ -140,6 +140,7 @@ class OptionsState extends MusicBeatState
 		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+		versionShit.antialiasing = true;
 		add(versionShit);
 		#end
 
@@ -160,16 +161,8 @@ class OptionsState extends MusicBeatState
 		optionsThingy.animation.play('intro', true);
 		optionsThingy.animation.finishCallback = function gah(name:String)
 		{
-			#if DEVELOPERBUILD
-			trace('FINISHED INTRO ANIM FOR OPTION BOY! DEBUGGIN THIS SHIT');
-			#end
-
 			for (i in grpOptions.members)
 			{
-				#if DEVELOPERBUILD
-				trace('TWEEN OPTION TEXT: ' + i.text);
-				#end
-
 				var toal:Float = 0.6;
 
 				if (i.ID == curSelected)
@@ -182,18 +175,12 @@ class OptionsState extends MusicBeatState
 
 			var fucky:FlxTimer = new FlxTimer().start(0.25, function imKillingMyself(buddypal:FlxTimer)
 			{
-				#if DEVELOPERBUILD
-				trace('TWEEN SELECTORS');
-				#end
 				FlxTween.tween(selectorLeft, {alpha: 1}, 0.25, {ease: FlxEase.expoOut});
 				FlxTween.tween(selectorRight, {alpha: 1}, 0.25, {ease: FlxEase.expoOut, onComplete: function dirt(fluck:FlxTween)
 				{
 					finishedIntro = true;
 					changeSelection(0);
 					FlxG.sound.playMusic(Paths.music('mus_machinations'), 0.8);
-					#if DEVELOPERBUILD
-					trace('FINISHED INTRO');
-					#end
 				}});
 			});
 		}

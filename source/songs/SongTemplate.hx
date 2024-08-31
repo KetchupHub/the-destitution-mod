@@ -18,11 +18,9 @@ class SongTemplate extends SongClass
         this.introType = 'Default';
         this.songVariants = ["Normal"];
         this.songDescription = "Placeholder";
-        this.startSwing = false;
         this.ratingsType = "";
         this.skipCountdown = false;
         this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
-        this.startPpCam = false;
     }
 
     public override function stepHitEvent(curStep:Float)

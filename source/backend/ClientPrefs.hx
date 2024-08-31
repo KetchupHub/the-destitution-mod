@@ -193,6 +193,8 @@ class ClientPrefs
 				FlxG.drawFramerate = framerate;
 				FlxG.updateFramerate = framerate;
 			}
+
+			FlxG.game.focusLostFramerate = Std.int(framerate / 12);
 		}
 
 		if (FlxG.save.data.camZooms != null)

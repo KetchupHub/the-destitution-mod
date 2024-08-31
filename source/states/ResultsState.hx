@@ -88,6 +88,9 @@ class ResultsState extends MusicBeatState
 		var perf = new Perf("Total ResultsState create()");
 		#end
 
+        persistentUpdate = true;
+		persistentDraw = true;
+
         CoolUtil.rerollRandomness();
 
         MemoryUtil.collect(true);

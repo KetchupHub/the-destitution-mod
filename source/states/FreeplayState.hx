@@ -64,13 +64,14 @@ class FreeplayState extends MusicBeatState
 		var perf = new Perf("Total FreeplayState create()");
 		#end
 
+		persistentUpdate = true;
+		persistentDraw = true;
+
 		CoolUtil.rerollRandomness();
 
         MemoryUtil.collect(true);
         MemoryUtil.compact();
-		
-		persistentUpdate = true;
-		PlayState.isStoryMode = false;
+
 		WeekData.reloadWeekFiles(false);
 
 		#if desktop
@@ -448,8 +449,7 @@ class FreeplayState extends MusicBeatState
 				var poop:String = Highscore.formatSong(songLowercase);
 	
 				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
-				PlayState.isStoryMode = false;
-	
+
 				if (colorTween != null)
 				{
 					colorTween.cancel();

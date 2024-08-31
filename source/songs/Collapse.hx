@@ -20,11 +20,9 @@ class Collapse extends SongClass
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
         this.songDescription = "It's the end of the Marketing family business when footage of Mark killing Nopeboy leaks. Now it's time to fight off bankruptcy!";
-        this.startSwing = false;
         this.ratingsType = "";
         this.skipCountdown = false;
         this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
-        this.startPpCam = true;
     }
 
     public override function stepHitEvent(curStep:Float)

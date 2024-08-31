@@ -83,17 +83,16 @@ class TitleState extends MusicBeatState
 		var perf = new Perf("Total TitleState create()");
 		#end
 
-		WeekData.loadTheFirstEnabledMod();
+		persistentUpdate = true;
+		persistentDraw = true;
 
-		FlxG.game.focusLostFramerate = 24;
+		WeekData.loadTheFirstEnabledMod();
 
 		FlxG.sound.muteKeys = muteKeys;
 		FlxG.sound.volumeDownKeys = volumeDownKeys;
 		FlxG.sound.volumeUpKeys = volumeUpKeys;
 
 		FlxG.keys.preventDefaultKeys = [TAB];
-
-		//FlxG.log.redirectTraces = true;
 
 		PlayerSettings.init();
 
@@ -119,9 +118,6 @@ class TitleState extends MusicBeatState
 			{
 				FlxG.fullscreen = FlxG.save.data.fullscreen;
 			}
-
-			persistentUpdate = true;
-			persistentDraw = true;
 		}
 
 		FlxG.mouse.visible = true;

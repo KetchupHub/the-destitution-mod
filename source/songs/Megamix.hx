@@ -20,11 +20,9 @@ class Megamix extends SongClass
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal"];
         this.songDescription = "Thanks for playing!";
-        this.startSwing = false;
         this.ratingsType = "";
         this.skipCountdown = false;
         this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
-        this.startPpCam = true;
     }
 
     public override function stepHitEvent(curStep:Float)
