@@ -594,6 +594,7 @@ class CharacterEditorState extends MusicBeatState
 	var animationIndicesInputText:FlxUIInputText;
 	var animationNameFramerate:FlxUINumericStepper;
 	var animationLoopCheckBox:FlxUICheckBox;
+	var animationTransCheckBox:FlxUICheckBox;
 
 	function addAnimationsUI()
 	{
@@ -605,6 +606,7 @@ class CharacterEditorState extends MusicBeatState
 		animationIndicesInputText = new FlxUIInputText(animationNameInputText.x, animationNameInputText.y + 40, 250, '', 8);
 		animationNameFramerate = new FlxUINumericStepper(animationInputText.x + 170, animationInputText.y, 1, 24, 0, 240, 0);
 		animationLoopCheckBox = new FlxUICheckBox(animationNameInputText.x + 170, animationNameInputText.y - 1, null, null, "Should it Loop?", 100);
+		animationTransCheckBox = new FlxUICheckBox(animationNameInputText.x + 170, (animationNameInputText.y - 1) + 40, null, null, "Does it have a transition?", 100);
 
 		animationDropDown = new FlxUIDropDownMenu(15, animationInputText.y - 55, FlxUIDropDownMenu.makeStrIdLabelArray([''], true), function(pressed:String)
 		{
@@ -613,6 +615,7 @@ class CharacterEditorState extends MusicBeatState
 			animationInputText.text = anim.anim;
 			animationNameInputText.text = anim.name;
 			animationLoopCheckBox.checked = anim.loop;
+			animationTransCheckBox.checked = anim.hasTransition;
 			animationNameFramerate.value = anim.fps;
 
 			var indicesStr:String = anim.indices.toString();
@@ -679,6 +682,7 @@ class CharacterEditorState extends MusicBeatState
 				fps: Math.round(animationNameFramerate.value),
 				loop: animationLoopCheckBox.checked,
 				indices: indices,
+				hasTransition: animationTransCheckBox.checked,
 				offsets: lastOffsets
 			};
 
@@ -697,6 +701,8 @@ class CharacterEditorState extends MusicBeatState
 			}
 
 			char.animationsArray.push(newAnim);
+
+			char.hasTransitionsMap.set(newAnim.anim, newAnim.hasTransition);
 
 			if (lastAnim == animationInputText.text)
 			{
@@ -779,6 +785,7 @@ class CharacterEditorState extends MusicBeatState
 		tab_group.add(animationIndicesInputText);
 		tab_group.add(animationNameFramerate);
 		tab_group.add(animationLoopCheckBox);
+		tab_group.add(animationTransCheckBox);
 		tab_group.add(addUpdateButton);
 		tab_group.add(removeButton);
 		tab_group.add(ghostDropDown);

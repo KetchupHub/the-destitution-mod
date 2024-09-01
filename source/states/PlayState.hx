@@ -369,8 +369,8 @@ class PlayState extends MusicBeatState
 		camOther.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
-		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.add(camSubtitlesAndSuch, false);
+		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.add(camOther, false);
 
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
@@ -2316,19 +2316,16 @@ class PlayState extends MusicBeatState
 		{
 			if (dad.animation.curAnim != null)
 			{
-				if (dad.animation.curAnim.name.toLowerCase().startsWith("sing"))
+				if (dad.hasTransitionsMap.get(dad.animation.curAnim.name))
 				{
-					if (dad.singDuration >= 10)
+					if (dad.animation.curAnim.finished)
 					{
-						if (dad.animation.curAnim.finished)
-						{
-							dad.dance(SONG.notes[curSection].altAnim);
-							dad.holdTimer = 0;
+						dad.dance(SONG.notes[curSection].altAnim);
+						dad.holdTimer = 0;
 
-							if (!dad.animation.curAnim.looped)
-							{
-								dad.animation.finish();
-							}
+						if (!dad.animation.curAnim.looped)
+						{
+							dad.animation.finish();
 						}
 					}
 				}
@@ -2339,19 +2336,36 @@ class PlayState extends MusicBeatState
 		{
 			if (boyfriend.animation.curAnim != null)
 			{
-				if (boyfriend.animation.curAnim.name.toLowerCase().startsWith("sing"))
+				if (boyfriend.hasTransitionsMap.get(boyfriend.animation.curAnim.name))
 				{
-					if (boyfriend.singDuration >= 10)
+					if (boyfriend.animation.curAnim.finished)
 					{
-						if (boyfriend.animation.curAnim.finished)
-						{
-							boyfriend.dance();
-							boyfriend.holdTimer = 0;
+						boyfriend.dance();
+						boyfriend.holdTimer = 0;
 
-							if (!boyfriend.animation.curAnim.looped)
-							{
-								boyfriend.animation.finish();
-							}
+						if (!boyfriend.animation.curAnim.looped)
+						{
+							boyfriend.animation.finish();
+						}
+					}
+				}
+			}
+		}
+
+		if (gf != null)
+		{
+			if (gf.animation.curAnim != null)
+			{
+				if (gf.hasTransitionsMap.get(gf.animation.curAnim.name))
+				{
+					if (gf.animation.curAnim.finished)
+					{
+						gf.dance();
+						gf.holdTimer = 0;
+
+						if (!gf.animation.curAnim.looped)
+						{
+							gf.animation.finish();
 						}
 					}
 				}
@@ -4488,6 +4502,9 @@ class PlayState extends MusicBeatState
 		instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
+		#if SHOWCASEVIDEO
+		cpuControlled = true;
+		#end
 	}
 
 	/**

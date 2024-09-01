@@ -130,6 +130,7 @@
 			"fps": 24,
 			"anim": "turnHappy",
 			"indices": [],
+			"hasTransition": true,
 			"name": "rateG"
 		},
 		{
@@ -141,6 +142,7 @@
 			"fps": 24,
 			"anim": "turnNeutral",
 			"indices": [],
+			"hasTransition": true,
 			"name": "rateN"
 		},
 		{
@@ -152,6 +154,7 @@
 			"fps": 24,
 			"anim": "turnSad",
 			"indices": [],
+			"hasTransition": true,
 			"name": "rateB"
 		}
 	],

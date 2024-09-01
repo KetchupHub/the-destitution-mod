@@ -47,6 +47,7 @@ typedef AnimArray = {
 	var name:String;
 	var fps:Int;
 	var loop:Bool;
+	var hasTransition:Bool;
 	var indices:Array<Int>;
 	var offsets:Array<Int>;
 }
@@ -64,6 +65,8 @@ class Character extends FlxSprite
 
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = DEFAULT_CHARACTER;
+
+	public var hasTransitionsMap:Map<String, Bool> = new Map<String, Bool>();
 
 	public var colorTween:FlxTween;
 
@@ -236,7 +239,43 @@ class Character extends FlxSprite
 				var animName:String = '' + anim.name;
 				var animFps:Int = anim.fps;
 				var animLoop:Bool = !!anim.loop;
+				var hasTransition = anim.hasTransition;
 				var animIndices:Array<Int> = anim.indices;
+
+				/* this literally doesnt work and refuses to work, just gonna do it MANUALLY #fun
+				//this might just be the most batshit solution to a stupid problem ever devised
+				//"On static platforms, null can't be used as basic type Bool" well how about you just stop existing
+				var whatTheFuck:String = 'fuck';
+
+				//istg
+				if (json.animations[json.animations.indexOf(anim)].hasTransition == null)
+				{
+					whatTheFuck = 'fuck';
+				}
+
+				if (hasTransition == true || hasTransition == false)
+				{
+					whatTheFuck = 'shit';
+				}
+
+				#if DEVELOPERBUILD
+				trace(curCharacter + ' whatTheFuck status for $animAnim: ' + whatTheFuck);
+				#end
+
+				//so i dont have to manually fix this for every single character file
+				if (singDuration >= 10 && whatTheFuck == 'fuck')
+				{
+					if (animAnim.toLowerCase().startsWith('sing') && !animAnim.endsWith('miss'))
+					{
+						#if DEVELOPERBUILD
+						trace('SET $animAnim on character $curCharacter TO HAVE TRANSITION! MONDO COOL! YOU ARE SUPER PLAYER');
+						#end
+						anim.hasTransition = true;
+						hasTransition = true;
+					}
+				}*/
+
+				hasTransitionsMap.set(animAnim, hasTransition);
 
 				if (!isAnimateAtlas)
 				{

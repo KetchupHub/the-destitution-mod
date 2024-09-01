@@ -27,6 +27,7 @@
 				0,
 				0
 			],
+			"hasTransition": true,
 			"loop": false,
 			"anim": "notice",
 			"fps": 24,

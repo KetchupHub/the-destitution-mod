@@ -14,8 +14,9 @@
 		{
 			"offsets": [
 				234,
-				99
+				98
 			],
+			"hasTransition": true,
 			"loop": false,
 			"fps": 24,
 			"anim": "singLEFT",
@@ -25,11 +26,12 @@
 		{
 			"offsets": [
 				-20,
-				-3
+				-2
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singDOWN",
+			"hasTransition": true,
 			"indices": [],
 			"name": "down"
 		},
@@ -41,17 +43,19 @@
 			"loop": false,
 			"fps": 24,
 			"anim": "singUP",
+			"hasTransition": true,
 			"indices": [],
 			"name": "up"
 		},
 		{
 			"offsets": [
-				-51,
+				-52,
 				60
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singRIGHT",
+			"hasTransition": true,
 			"indices": [],
 			"name": "right"
 		}

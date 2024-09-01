@@ -6,6 +6,7 @@
 				-20
 			],
 			"loop": false,
+			"hasTransition": true,
 			"anim": "singLEFT",
 			"fps": 24,
 			"name": "left",
@@ -17,6 +18,7 @@
 				-20
 			],
 			"loop": false,
+			"hasTransition": true,
 			"anim": "singDOWN",
 			"fps": 24,
 			"name": "down",
@@ -28,6 +30,7 @@
 				-20
 			],
 			"loop": false,
+			"hasTransition": true,
 			"anim": "singUP",
 			"fps": 24,
 			"name": "up",
@@ -40,6 +43,7 @@
 			],
 			"loop": false,
 			"anim": "singRIGHT",
+			"hasTransition": true,
 			"fps": 24,
 			"name": "right",
 			"indices": []

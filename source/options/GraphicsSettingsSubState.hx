@@ -64,7 +64,17 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 			var sprite:FlxSprite = sprite; //Don't judge me ok
 			if (sprite != null && (sprite is FlxSprite))
 			{
-				if ((sprite is Character) || (sprite is Alphabet) || (sprite is CheckboxThingie) || (sprite is FlxText))
+				if ((sprite is Character))
+				{
+					var sprChar:Dynamic = sprite;
+					var sprChar:Character = sprChar;
+
+					if (!sprChar.noAntialiasing)
+					{
+						sprChar.antialiasing = ClientPrefs.globalAntialiasing;
+					}
+				}
+				else if ((sprite is Alphabet) || (sprite is CheckboxThingie) || (sprite is FlxText))
 				{
 					sprite.antialiasing = ClientPrefs.globalAntialiasing;
 				}

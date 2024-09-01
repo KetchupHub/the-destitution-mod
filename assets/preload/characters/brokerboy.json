@@ -20,6 +20,7 @@
 			"fps": 24,
 			"anim": "walk",
 			"indices": [],
+			"hasTransition": true,
 			"name": "stock broker 1 walk up"
 		},
 		{

@@ -9,10 +9,12 @@
 			"fps": 24,
 			"anim": "singLEFT",
 			"indices": [],
+			"hasTransition": true,
 			"name": "left"
 		},
 		{
 			"loop": false,
+			"hasTransition": true,
 			"offsets": [
 				0,
 				0
@@ -24,6 +26,7 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": true,
 			"offsets": [
 				0,
 				0
@@ -35,6 +38,7 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": true,
 			"offsets": [
 				0,
 				0
@@ -68,6 +72,7 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": true,
 			"offsets": [
 				0,
 				0
@@ -79,9 +84,10 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": true,
 			"offsets": [
-				-46,
-				-60
+				0,
+				0
 			],
 			"fps": 24,
 			"anim": "singDOWN-alt",
@@ -90,9 +96,10 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": true,
 			"offsets": [
-				10,
-				10
+				0,
+				0
 			],
 			"fps": 24,
 			"anim": "singUP-alt",
@@ -101,6 +108,7 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": true,
 			"offsets": [
 				0,
 				0

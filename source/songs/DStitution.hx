@@ -28,7 +28,7 @@ class DStitution extends SongClass
         this.songDescription = "Mark enlists Nopeboy to test the new dimension shifter on his time machine, and shenanigans ensue!";
         this.ratingsType = "Dsides";
         this.skipCountdown = false;
-        this.preloadCharacters = ['karm', 'd-bf', 'pinkerton', 'd-bf-dark', 'd-ili', 'd-bf-doug', 'douglass', 'karm-scold', 'douglass-player', 'd-rules', 'd-bf-rules', 'maestro', 'd-bf-rules-flipped', 'zamboney', 'karm-finale', 'stop-loading'];
+        this.preloadCharacters = ['karm', 'd-bf', 'd-gf', 'pinkerton', 'd-bf-dark', 'd-ili', 'd-bf-doug', 'douglass', 'karm-scold', 'douglass-player', 'd-rules', 'd-bf-rules', 'maestro', 'd-bf-rules-flipped', 'zamboney', 'karm-finale', 'stop-loading'];
         this.introCardBeat = 64;
     }
 

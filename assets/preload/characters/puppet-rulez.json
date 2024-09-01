@@ -2,6 +2,7 @@
 	"animations": [
 		{
 			"loop": false,
+			"hasTransition": true,
 			"offsets": [
 				0,
 				0
@@ -13,6 +14,7 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": true,
 			"offsets": [
 				0,
 				0
@@ -24,6 +26,7 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": true,
 			"offsets": [
 				0,
 				0
@@ -35,6 +38,7 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": true,
 			"offsets": [
 				0,
 				0

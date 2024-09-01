@@ -20,6 +20,7 @@
 			"fps": 24,
 			"anim": "singLEFT",
 			"indices": [],
+			"hasTransition": true,
 			"name": "left"
 		},
 		{
@@ -30,6 +31,7 @@
 			"loop": false,
 			"fps": 24,
 			"anim": "singDOWN",
+			"hasTransition": true,
 			"indices": [],
 			"name": "down"
 		},
@@ -39,6 +41,7 @@
 				297
 			],
 			"loop": false,
+			"hasTransition": true,
 			"fps": 24,
 			"anim": "singUP",
 			"indices": [],
@@ -50,6 +53,7 @@
 				0
 			],
 			"loop": false,
+			"hasTransition": true,
 			"fps": 24,
 			"anim": "singRIGHT",
 			"indices": [],
@@ -101,7 +105,7 @@
 		}
 	],
 	"no_antialiasing": true,
-	"image": "characters/destitution/mark_bf",
+	"image": "characters/shared/nopeboy",
 	"position": [
 		0,
 		0

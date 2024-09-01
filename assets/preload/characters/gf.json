@@ -9,6 +9,7 @@
 			"anim": "cheer",
 			"fps": 24,
 			"name": "cheer",
+			"hasTransition": true,
 			"indices": []
 		},
 		{
@@ -18,6 +19,7 @@
 			],
 			"loop": false,
 			"anim": "sad",
+			"hasTransition": true,
 			"fps": 24,
 			"name": "sad",
 			"indices": []
@@ -47,7 +49,7 @@
 	],
 	"vocals_file": "",
 	"no_antialiasing": true,
-	"image": "characters/girlspeaks",
+	"image": "characters/shared/girlspeaks",
 	"position": [
 		164,
 		212

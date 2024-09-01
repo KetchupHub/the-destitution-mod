@@ -13,12 +13,13 @@
 		},
 		{
 			"offsets": [
-				21,
-				-4
+				0,
+				0
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singLEFT",
+			"hasTransition": true,
 			"indices": [],
 			"name": "left"
 		},
@@ -30,15 +31,17 @@
 			"loop": false,
 			"fps": 24,
 			"anim": "singDOWN",
+			"hasTransition": true,
 			"indices": [],
 			"name": "down"
 		},
 		{
 			"offsets": [
 				0,
-				-40
+				0
 			],
 			"loop": false,
+			"hasTransition": true,
 			"fps": 24,
 			"anim": "singUP",
 			"indices": [],
@@ -52,6 +55,7 @@
 			"loop": false,
 			"fps": 24,
 			"anim": "singRIGHT",
+			"hasTransition": true,
 			"indices": [],
 			"name": "right"
 		},
@@ -103,8 +107,8 @@
 	"no_antialiasing": true,
 	"image": "characters/destitution/ploinky_bf",
 	"position": [
-		-208,
-		-96
+		0,
+		0
 	],
 	"healthicon": "bf",
 	"flip_x": true,
@@ -114,8 +118,8 @@
 		163
 	],
 	"camera_position": [
-		324,
-		-84
+		0,
+		0
 	],
 	"sing_duration": 15,
 	"scale": 1,

@@ -14,10 +14,11 @@
 		{
 			"loop": false,
 			"offsets": [
-				201,
+				202,
 				40
 			],
 			"anim": "singLEFT",
+			"hasTransition": true,
 			"fps": 24,
 			"name": "left",
 			"indices": []
@@ -25,10 +26,11 @@
 		{
 			"loop": false,
 			"offsets": [
-				23,
+				24,
 				-6
 			],
 			"anim": "singDOWN",
+			"hasTransition": true,
 			"fps": 24,
 			"name": "down",
 			"indices": []
@@ -42,24 +44,26 @@
 			"anim": "singUP",
 			"fps": 24,
 			"name": "up",
+			"hasTransition": true,
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
-				33,
-				19
+				32,
+				18
 			],
 			"anim": "singRIGHT",
 			"fps": 24,
+			"hasTransition": true,
 			"name": "right",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
-				129,
-				3
+				128,
+				2
 			],
 			"anim": "singLEFTmiss",
 			"fps": 24,
@@ -69,8 +73,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				129,
-				3
+				128,
+				2
 			],
 			"anim": "singDOWNmiss",
 			"fps": 24,
@@ -80,8 +84,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				131,
-				3
+				128,
+				2
 			],
 			"anim": "singUPmiss",
 			"fps": 24,
@@ -91,8 +95,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				131,
-				3
+				128,
+				2
 			],
 			"anim": "singRIGHTmiss",
 			"fps": 24,

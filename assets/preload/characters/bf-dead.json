@@ -35,7 +35,7 @@
 		}
 	],
 	"no_antialiasing": true,
-	"image": "characters/destitution/destitution_bf_die",
+	"image": "characters/shared/nopeboy_basic_death",
 	"position": [
 		0,
 		0

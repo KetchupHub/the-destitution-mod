@@ -9,6 +9,7 @@
 			"fps": 24,
 			"anim": "singLEFT",
 			"indices": [],
+			"hasTransition": true,
 			"name": "left"
 		},
 		{
@@ -19,11 +20,13 @@
 			],
 			"fps": 24,
 			"anim": "singDOWN",
+			"hasTransition": true,
 			"indices": [],
 			"name": "down"
 		},
 		{
 			"loop": false,
+			"hasTransition": true,
 			"offsets": [
 				0,
 				0
@@ -35,6 +38,7 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": true,
 			"offsets": [
 				0,
 				0
@@ -57,6 +61,7 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": false,
 			"offsets": [
 				0,
 				0
@@ -68,6 +73,7 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": false,
 			"offsets": [
 				0,
 				0
@@ -79,6 +85,7 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": false,
 			"offsets": [
 				0,
 				0
@@ -90,6 +97,7 @@
 		},
 		{
 			"loop": false,
+			"hasTransition": false,
 			"offsets": [
 				0,
 				0

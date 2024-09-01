@@ -8,6 +8,7 @@
 			"loop": false,
 			"fps": 24,
 			"anim": "singLEFT",
+			"hasTransition": true,
 			"indices": [],
 			"name": "left"
 		},
@@ -19,6 +20,7 @@
 			"loop": false,
 			"fps": 24,
 			"anim": "singDOWN",
+			"hasTransition": true,
 			"indices": [],
 			"name": "down"
 		},
@@ -28,6 +30,7 @@
 				0
 			],
 			"loop": false,
+			"hasTransition": true,
 			"fps": 24,
 			"anim": "singUP",
 			"indices": [],
@@ -41,8 +44,68 @@
 			"loop": false,
 			"fps": 24,
 			"anim": "singRIGHT",
+			"hasTransition": true,
 			"indices": [],
 			"name": "right"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT-alt",
+			"hasTransition": true,
+			"indices": [],
+			"name": "left-alt"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN-alt",
+			"hasTransition": true,
+			"indices": [],
+			"name": "down-alt"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"hasTransition": true,
+			"fps": 24,
+			"anim": "singUP-alt",
+			"indices": [],
+			"name": "up-alt"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT-alt",
+			"hasTransition": true,
+			"indices": [],
+			"name": "right-alt"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle-alt",
+			"indices": [],
+			"name": "idle-alt"
 		},
 		{
 			"offsets": [
