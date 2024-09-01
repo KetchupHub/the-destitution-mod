@@ -24,6 +24,7 @@ class EggshellsBadEnd extends SongClass
         this.ratingsType = "";
         this.skipCountdown = true;
         this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
+        this.introCardBeat = 999999;
     }
 
     public override function stepHitEvent(curStep:Float)

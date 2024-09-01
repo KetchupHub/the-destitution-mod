@@ -1,5 +1,6 @@
 package states;
 
+import ui.SongIntroCard;
 import ui.SubtitleObject;
 import ui.SubtitleObject.SubtitleTypes;
 import backend.Scoring;
@@ -1045,15 +1046,6 @@ class PlayState extends MusicBeatState
 				spaceWiggle.waveFrequency = 4;
 				spaceWiggle.waveSpeed = 0.15;
 
-				/*supersededOverlay = new FlxSprite().loadGraphic(Paths.image('superseded/overlay'));
-				supersededOverlay.scale.set(2, 2);
-				supersededOverlay.updateHitbox();
-				supersededOverlay.screenCenter();
-				supersededOverlay.scrollFactor.set();
-				supersededOverlay.alpha = 0.25;
-				supersededOverlay.blend = BlendMode.SCREEN;
-				supersededOverlay.visible = false;*/
-
 				precacheList.set('superseded/bg_puppet_mark', 'image');
 				precacheList.set('superseded/bg_puppet_ploinky', 'image');
 				precacheList.set('superseded/bg_puppet_ili', 'image');
@@ -1507,10 +1499,15 @@ class PlayState extends MusicBeatState
 						{
 							remove(songIntro);
 							songIntro.destroy();
+
+							if (songObj.introCardBeat == 0)
+							{
+								songIntroCard();
+							}
 						}
 					});
 
-					if(SONG.song.toLowerCase() == "d-stitution" || SONG.song.toLowerCase() == "d-stitution-erect")
+					if (SONG.song.toLowerCase().startsWith("d-stitution"))
 					{
 						dad.visible = true;
 						dad.canDance = false;
@@ -4571,6 +4568,17 @@ class PlayState extends MusicBeatState
 		subOb.scrollFactor.set();
 		subOb.cameras = [camSubtitlesAndSuch];
 		add(subOb);
-		//insert(members.indexOf(boyfriendGroup) + 1, subOb);
+	}
+
+	/**
+	 * "MONDO" Rad
+	 */
+	public function songIntroCard()
+	{
+		var songCard:SongIntroCard = new SongIntroCard(0, -128, SONG.song.toLowerCase().replace('-erect', ''), songObj.songNameForDisplay, SONG.composer, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
+		songCard.alpha = 0;
+		songCard.cameras = [camSubtitlesAndSuch];
+		add(songCard);
+		FlxTween.tween(songCard, {alpha: 1, y: 0}, 0.25 / playbackRate, {ease: FlxEase.quadOut});
 	}
 }

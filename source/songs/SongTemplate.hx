@@ -21,6 +21,7 @@ class SongTemplate extends SongClass
         this.ratingsType = "";
         this.skipCountdown = false;
         this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
+        this.introCardBeat = 0;
     }
 
     public override function stepHitEvent(curStep:Float)

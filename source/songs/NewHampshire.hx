@@ -26,6 +26,7 @@ class NewHampshire extends SongClass
         this.ratingsType = "";
         this.skipCountdown = false;
         this.preloadCharacters = ['bucks-mark', 'bucks-bf', 'brokerboy', 'stop-loading'];
+        this.introCardBeat = 0;
     }
 
     public override function stepHitEvent(curStep:Float)

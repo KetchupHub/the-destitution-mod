@@ -28,6 +28,7 @@ class Superseded extends SongClass
         this.ratingsType = "";
         this.skipCountdown = true;
         this.preloadCharacters = ['mark-old', 'mark-old-turn', 'bf-old', 'the-creature', 'the-creature-gorilla', 'puppet-ploinky', 'puppet-ili', 'puppet-whale', 'puppet-rulez', 'puppet-crypteh', 'puppet-zam', 'bf-hunter', 'stop-loading'];
+        this.introCardBeat = 32;
     }
 
     public override function stepHitEvent(curStep:Float)
@@ -41,7 +42,7 @@ class Superseded extends SongClass
         //this is where beat hit events go
         super.beatHitEvent(curBeat);
 
-        switch(curBeat)
+        switch (curBeat)
         {
             case 28:
                 PlayState.instance.supersededIntro.animation.play("open", true);
