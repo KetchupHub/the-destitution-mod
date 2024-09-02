@@ -13,7 +13,7 @@ class Abstraction extends SongClass
 	public override function new()
     {
         super();
-        this.songNameForDisplay = 'Abstraction';
+        this.songNameForDisplay = 'ABSTRACTION';
         this.songHasSections = false;
         this.introType = 'Mark';
         this.gameoverChar = 'bf-dead';

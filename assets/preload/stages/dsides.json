@@ -2,9 +2,9 @@
 	"defaultZoom": 1.15,
 
 	"boyfriend": [764, 242],
-	"girlfriend": [400, 132],
+	"girlfriend": [660, 40],
 	"opponent": [-100, 114],
-	"hide_girlfriend": true,
+	"hide_girlfriend": false,
 
 	"camera_boyfriend": [0, 0],
 	"camera_opponent": [0, 0],

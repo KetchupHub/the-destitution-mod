@@ -458,6 +458,11 @@ class PlayState extends MusicBeatState
 
 		makeStage(curStage);
 
+		if (curStage == 'dsides')
+		{
+			gfGroup.setPosition(starting.x + 660, starting.y + 40);
+		}
+
 		add(gfGroup);
 		add(dadGroup);
 		add(boyfriendGroup);
@@ -1359,7 +1364,9 @@ class PlayState extends MusicBeatState
 		if (!OpenFlAssets.exists(filepath))
 		#end
 		{
+			#if DEVELOPERBUILD
 			FlxG.log.warn('Couldnt find video file: ' + name);
+			#end
 			startAndEnd();
 			return;
 		}
@@ -1372,7 +1379,9 @@ class PlayState extends MusicBeatState
 			return;
 		}
 		#else
+		#if DEVELOPERBUILD
 		FlxG.log.warn('Platform not supported!');
+		#end
 		startAndEnd();
 		return;
 		#end
@@ -1507,6 +1516,51 @@ class PlayState extends MusicBeatState
 						}
 					});
 
+					//idfk man i just bullshitted some of these
+					var acceptableAnims:Array<String> = ['hey', 'cheer', 'yeah', 'pose', 'ay', 'idle', 'danceLeft'];
+					
+					var acceptableAnimsDad = acceptableAnims;
+					for (anny in acceptableAnimsDad)
+					{
+						if (!dad.animOffsets.exists(anny))
+						{
+							acceptableAnimsDad.remove(anny);
+						}
+					}
+					if (acceptableAnimsDad[0] != 'idle' && acceptableAnimsDad[0] != 'danceLeft')
+					{
+						dad.playAnim(acceptableAnimsDad[0], true);
+					}
+
+					var acceptableAnimsBf = acceptableAnims;
+					for (anny in acceptableAnimsBf)
+					{
+						if (!boyfriend.animOffsets.exists(anny))
+						{
+							acceptableAnimsBf.remove(anny);
+						}
+					}
+					if (acceptableAnimsBf[0] != 'idle' && acceptableAnimsBf[0] != 'danceLeft')
+					{
+						boyfriend.playAnim(acceptableAnimsBf[0], true);
+					}
+
+					if (gf != null)
+					{
+						var acceptableAnimsGf = acceptableAnims;
+						for (anny in acceptableAnimsGf)
+						{
+							if (!gf.animOffsets.exists(anny))
+							{
+								acceptableAnimsGf.remove(anny);
+							}
+						}
+						if (acceptableAnimsGf[0] != 'idle' && acceptableAnimsGf[0] != 'danceLeft')
+						{
+							gf.playAnim(acceptableAnimsGf[0], true);
+						}
+					}
+
 					if (SONG.song.toLowerCase().startsWith("d-stitution"))
 					{
 						dad.visible = true;
@@ -1524,12 +1578,12 @@ class PlayState extends MusicBeatState
 
 			notes.forEachAlive(function(note:Note)
 			{
-				if(ClientPrefs.opponentStrums || note.mustPress)
+				if (ClientPrefs.opponentStrums || note.mustPress)
 				{
 					note.copyAlpha = false;
 					note.alpha = note.multAlpha;
 
-					if(ClientPrefs.middleScroll && !note.mustPress)
+					if (ClientPrefs.middleScroll && !note.mustPress)
 					{
 						note.alpha *= 0.35;
 					}
