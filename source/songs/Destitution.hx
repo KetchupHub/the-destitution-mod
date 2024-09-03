@@ -502,6 +502,7 @@ class Destitution extends SongClass
                 PlayState.instance.boyfriend.visible = false;
                 PlayState.instance.angryDadCover.visible = false;
                 PlayState.instance.angry.visible = false;
+                PlayState.instance.skyboxThingy.visible = false;
         }
     }
     

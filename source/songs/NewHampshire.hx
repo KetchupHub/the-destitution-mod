@@ -26,7 +26,7 @@ class NewHampshire extends SongClass
         this.ratingsType = "";
         this.skipCountdown = false;
         this.preloadCharacters = ['bucks-mark', 'bucks-bf', 'brokerboy', 'stop-loading'];
-        this.introCardBeat = 0;
+        this.introCardBeat = 16;
     }
 
     public override function stepHitEvent(curStep:Float)
@@ -103,54 +103,42 @@ class NewHampshire extends SongClass
         switch(curBeat)
         {
             case 165:
+                PlayState.instance.dad.canDance = false;
+                PlayState.instance.dad.canSing = false;
+                PlayState.instance.dad.playAnim('lookBack', true);
+                PlayState.instance.stockboy.playAnim('walk', true);
+                PlayState.instance.stockboy.animation.finishCallback = function dirt(namb:String)
                 {
-                    PlayState.instance.dad.canDance = false;
-                    PlayState.instance.dad.canSing = false;
-                    PlayState.instance.dad.playAnim('lookBack', true);
-                    PlayState.instance.stockboy.playAnim('walk', true);
-                    PlayState.instance.stockboy.animation.finishCallback = function dirt(namb:String)
-                    {
-                        PlayState.instance.stockboy.animation.finishCallback = null;
-                        PlayState.instance.brokerBop = true;
-                        PlayState.instance.stockboy.playAnim('idle', true);
-                        PlayState.instance.stockboy.finishAnimation();
-                    }
+                    PlayState.instance.stockboy.animation.finishCallback = null;
+                    PlayState.instance.brokerBop = true;
+                    PlayState.instance.stockboy.playAnim('idle', true);
+                    PlayState.instance.stockboy.finishAnimation();
                 }
             case 175:
+                PlayState.instance.dad.canDance = true;
+                PlayState.instance.dad.canSing = true;
+
+                if (PlayState.instance.cpuControlled)
                 {
-                    if (PlayState.instance.cpuControlled)
-                    {
-                        whichEndingYouGet = 0;
-                        PlayState.instance.dad.playAnim('turnHappy', true);
-                    }
-                    else
-                    {
-                        switch (Std.int((PlayState.instance.ratingPercent * 10) - 1))
-                        {
-                            case 0 | 1 | 2 | 3:
-                                {
-                                    whichEndingYouGet = 2;
-                                    PlayState.instance.dad.playAnim('turnSad', true);
-                                    PlayState.instance.brokerBop = false;
-                                    PlayState.instance.stockboy.playAnim('die', true);
-                                }
-                            case 7 | 8 | 9 | 10:
-                                {
-                                    whichEndingYouGet = 0;
-                                    PlayState.instance.dad.playAnim('turnHappy', true);
-                                }
-                            default:
-                                {
-                                    whichEndingYouGet = 1;
-                                    PlayState.instance.dad.playAnim('turnNeutral', true);
-                                }
-                        }
-                    }
+                    whichEndingYouGet = 0;
+                    PlayState.instance.dad.playAnim('turnHappy', true);
                 }
-            case 178:
+                else
                 {
-                    PlayState.instance.dad.canDance = true;
-                    PlayState.instance.dad.canSing = true;
+                    switch (Std.int((PlayState.instance.ratingPercent * 10) - 1))
+                    {
+                        case 0 | 1 | 2 | 3:
+                            whichEndingYouGet = 2;
+                            PlayState.instance.dad.playAnim('turnSad', true);
+                            PlayState.instance.brokerBop = false;
+                            PlayState.instance.stockboy.playAnim('die', true);
+                        case 7 | 8 | 9 | 10:
+                            whichEndingYouGet = 0;
+                            PlayState.instance.dad.playAnim('turnHappy', true);
+                        default:
+                            whichEndingYouGet = 1;
+                            PlayState.instance.dad.playAnim('turnNeutral', true);
+                    }
                 }
         }
     }
