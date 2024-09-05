@@ -627,18 +627,34 @@ class Destitution extends SongClass
                 PlayState.instance.dad.canDance = true;
                 PlayState.instance.dad.canSing = true;
                 FlxG.camera.flash();
+            case 940:
+                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, (Conductor.crochet / 250) - 0.05, {ease: FlxEase.quadOut});
+            case 944:
+                PlayState.instance.shoulderCam = false;
+
+                PlayState.instance.ploinky.visible = false;
+                PlayState.instance.ploinky.destroy();
+
+                PlayState.instance.dad.visible = false;
+                PlayState.instance.boyfriend.visible = false;
+
+                PlayState.instance.lurkingTransition.animation.play('idle', true);
             case 948:
                 PlayState.instance.shoulderCam = false;
+
+                PlayState.instance.lurkingTransition.visible = false;
+                PlayState.instance.lurkingTransition.destroy();
 
                 PlayState.instance.camZoomingMult = 2;
                 PlayState.instance.camZoomingDecay = 0.8;
 
                 PlayState.instance.defaultCamZoom = 1;
 
-                PlayState.instance.ploinky.visible = false;
-                PlayState.instance.ploinky.destroy();
-
                 PlayState.instance.blackVoid.visible = true;
+
+                PlayState.instance.dad.alpha = 1;
+                PlayState.instance.dad.visible = true;
+                PlayState.instance.boyfriend.visible = true;
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();

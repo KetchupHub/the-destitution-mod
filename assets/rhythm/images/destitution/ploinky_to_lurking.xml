@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="ploinky_to_lurking.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="bg0000" x="4" y="4" width="1280" height="720"/>
+	<SubTexture name="bg0001" x="4" y="4" width="1280" height="720"/>
+	<SubTexture name="bg0002" x="4" y="4" width="1280" height="720"/>
+	<SubTexture name="bg0003" x="4" y="4" width="1280" height="720"/>
+	<SubTexture name="bg0004" x="4" y="728" width="1280" height="720"/>
+	<SubTexture name="bg0005" x="4" y="728" width="1280" height="720"/>
+	<SubTexture name="bg0006" x="4" y="728" width="1280" height="720"/>
+	<SubTexture name="bg0007" x="4" y="728" width="1280" height="720"/>
+	<SubTexture name="bg0008" x="4" y="1452" width="1280" height="720"/>
+	<SubTexture name="bg0009" x="4" y="1452" width="1280" height="720"/>
+	<SubTexture name="bg0010" x="4" y="1452" width="1280" height="720"/>
+	<SubTexture name="bg0011" x="4" y="1452" width="1280" height="720"/>
+	<SubTexture name="bg0012" x="1288" y="4" width="1280" height="720"/>
+	<SubTexture name="bg0013" x="1288" y="4" width="1280" height="720"/>
+	<SubTexture name="bg0014" x="1288" y="4" width="1280" height="720"/>
+	<SubTexture name="bg0015" x="1288" y="4" width="1280" height="720"/>
+	<SubTexture name="bg0016" x="2572" y="4" width="1280" height="720"/>
+	<SubTexture name="bg0017" x="2572" y="4" width="1280" height="720"/>
+	<SubTexture name="bg0018" x="2572" y="4" width="1280" height="720"/>
+	<SubTexture name="bg0019" x="2572" y="4" width="1280" height="720"/>
+	<SubTexture name="bg0020" x="1288" y="728" width="1280" height="720"/>
+	<SubTexture name="bg0021" x="1288" y="728" width="1280" height="720"/>
+	<SubTexture name="bg0022" x="1288" y="728" width="1280" height="720"/>
+	<SubTexture name="bg0023" x="1288" y="728" width="1280" height="720"/>
+	<SubTexture name="bg0024" x="1288" y="1452" width="1280" height="720"/>
+	<SubTexture name="bg0025" x="1288" y="1452" width="1280" height="720"/>
+	<SubTexture name="bg0026" x="1288" y="1452" width="1280" height="720"/>
+	<SubTexture name="bg0027" x="1288" y="1452" width="1280" height="720"/>
+</TextureAtlas>

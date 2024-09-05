@@ -249,6 +249,7 @@ class PlayState extends MusicBeatState
 	public var strumLine:FlxSprite;
 	public static var lastRating:FlxSprite;
 	public var ploinkyTransition:FlxSprite;
+	public var lurkingTransition:FlxSprite;
 	public var rulezGuySlideScaleWorldFunnyClips:FlxSprite;
 	public var YOUSTUPIDSONOFABITCH:FlxSprite;
 	public var zamMarkCamFlipShit:FlxSprite;
@@ -936,6 +937,16 @@ class PlayState extends MusicBeatState
 				add(blackVoid);
 				blackVoid.visible = false;
 
+				lurkingTransition = new FlxSprite(-680, -320);
+				lurkingTransition.frames = Paths.getSparrowAtlas('destitution/ploinky_to_lurking');
+				lurkingTransition.animation.addByPrefix('idle', 'bg', 24, false);
+				lurkingTransition.animation.play('idle', true);
+				lurkingTransition.animation.pause();
+				lurkingTransition.antialiasing = false;
+				lurkingTransition.scale.set(2, 2);
+				lurkingTransition.updateHitbox();
+				add(lurkingTransition);
+
 				ploinky = new FlxSprite(-680, -320).loadGraphic(Paths.image('destitution/ploinky'));
 				ploinky.antialiasing = false;
 				ploinky.scale.set(2, 2);
@@ -1001,6 +1012,7 @@ class PlayState extends MusicBeatState
 				precacheList.set('destitution/start', 'image');
 				precacheList.set('destitution/mark_ploinky_transition', 'image');
 				precacheList.set('destitution/ploinky', 'image');
+				precacheList.set('destitution/ploinky_to_lurking', 'image');
 				precacheList.set('destitution/bg_item_whale', 'image');
 				precacheList.set('destitution/space', 'image');
 				precacheList.set('destitution/itemShit/0', 'image');
