@@ -3504,7 +3504,15 @@ class PlayState extends MusicBeatState
 				FlxG.sound.music.stop();
 			}
 
-			MusicBeatState.switchState(new ResultsState(songScore, Highscore.getScore(SONG.song), synergys, goods, eghs, bleghs, cpuControlled, Highscore.floorDecimal(ratingPercent * 100, 2), songMisses));
+			if (songObj.songNameForDisplay.toLowerCase() == 'eggshells')
+			{
+				//uhhh change when dialogue happen
+				MusicBeatState.switchState(new MainMenuState());
+			}
+			else
+			{
+				MusicBeatState.switchState(new ResultsState(songScore, Highscore.getScore(SONG.song), synergys, goods, eghs, bleghs, cpuControlled, Highscore.floorDecimal(ratingPercent * 100, 2), songMisses));
+			}
 
 			transitioning = true;
 		}

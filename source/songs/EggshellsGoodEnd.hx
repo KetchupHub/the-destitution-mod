@@ -19,10 +19,10 @@ class EggshellsGoodEnd extends SongClass
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal"];
-        //songVariants doesnt matter for the ending classes (since theyre just loaded in by force at the end of eggshells)
-        this.songDescription = "Mark's lonely cousin seems like he's not much for conversation, but that won't stop Nopeboy from trying!";
+        //songVariants doesnt matter for the ending classes (since theyre just loaded in by force at the end of eggshells' dialogue)
+        this.songDescription = "Good job! You done it! You Are Super Player! Mondo!";
         this.ratingsType = "";
-        this.skipCountdown = true;
+        this.skipCountdown = false;
         this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
         this.introCardBeat = 999999;
     }
