@@ -1,73 +1,84 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				-58,
 				-66
 			],
-			"loop": false,
-			"anim": "singLEFT",
-			"hasTransition": true,
 			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
 			"name": "left",
-			"indices": []
+			"hasTransition": true
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-44,
 				-140
 			],
-			"loop": false,
+			"fps": 24,
 			"anim": "singDOWN",
-			"hasTransition": true,
-			"fps": 24,
+			"indices": [],
 			"name": "down",
-			"indices": []
+			"hasTransition": true
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-64,
 				-64
 			],
-			"loop": false,
-			"hasTransition": true,
+			"fps": 24,
 			"anim": "singUP",
-			"fps": 24,
+			"indices": [],
 			"name": "up",
-			"indices": []
+			"hasTransition": true
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-64,
 				-64
 			],
-			"loop": false,
+			"fps": 24,
 			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "right",
+			"indices": [],
 			"hasTransition": true,
-			"indices": []
+			"name": "right"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-64,
 				-68
 			],
-			"loop": false,
+			"fps": 24,
 			"anim": "idle",
-			"fps": 24,
-			"name": "idle",
-			"indices": []
+			"indices": [],
+			"name": "idle"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-64,
 				-68
 			],
-			"loop": false,
-			"anim": "lipsync",
 			"fps": 24,
-			"name": "lipsync",
+			"anim": "lipsync",
+			"indices": [],
+			"name": "lipsync"
+		},
+		{
+			"offsets": [
+				-60,
+				-78
+			],
+			"loop": false,
+			"anim": "gameover",
+			"fps": 24,
+			"name": "gameover",
 			"indices": []
 		}
 	],

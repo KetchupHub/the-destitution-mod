@@ -2828,12 +2828,24 @@ class PlayState extends MusicBeatState
 			var bfTarY:Float = boyfriend.y;
 			var dadTarX:Float = dad.x;
 			var dadTarY:Float = dad.y;
+			var gfTarX:Float = boyfriend.x;
+			var gfTarY:Float = boyfriend.y;
 			var bfCamOffsetTar:Array<Float> = boyfriendCameraOffset;
 			var cFollowPosTarX:Float = camFollowPos.x;
 			var cFollowPosTarY:Float = camFollowPos.y;
 			var letBfBeVisible:Bool = boyfriend.visible;
 			var dadTar:String = dad.curCharacter;
+			var gfTar:String = 'gf';
+			var gfVisible:Bool = false;
 			var followNotMidpoint:Bool = false;
+
+			if (gf != null)
+			{
+				gfTarX = gf.x;
+				gfTarY = gf.y;
+				gfVisible = true;
+				gfTar = gf.curCharacter;
+			}
 
 			if (dad.curCharacter == "whale")
 			{
@@ -2844,9 +2856,14 @@ class PlayState extends MusicBeatState
 
 			boyfriend.visible = false;
 			dad.visible = false;
+			if (gf != null)
+			{
+				gf.visible = false;
+			}
 			camHUD.visible = false;
+			camSubtitlesAndSuch.visible = false;
 
-			openSubState(new GameOverSubstate(bfTarX, bfTarY, cFollowPosTarX, cFollowPosTarY, bfCamOffsetTar, dadTar, dadTarX, dadTarY, letBfBeVisible, followNotMidpoint));
+			openSubState(new GameOverSubstate(bfTarX, bfTarY, cFollowPosTarX, cFollowPosTarY, bfCamOffsetTar, dadTar, dadTarX, dadTarY, letBfBeVisible, followNotMidpoint, gfTar, gfVisible, gfTarX, gfTarY));
 
 			#if desktop
 			DiscordClient.changePresence("Game Over", songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''));

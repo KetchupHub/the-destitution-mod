@@ -20,11 +20,15 @@ import flixel.util.FlxTimer;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
+	public var gf:Character;
 	public var dad:Character;
 	public var boyfriend:Boyfriend;
+
 	public var camFollow:FlxPoint;
 	public var camFollowPos:FlxObject;
+
 	public var updateCamera:Bool = false;
+
 	public var playingDeathSound:Bool = false;
 
 	public var stageSuffix:String = "";
@@ -50,7 +54,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		super.create();
 	}
 
-	public function new(x:Float, y:Float, camX:Float, camY:Float, bfCamOffset:Array<Float>, dadName:String, dadX:Float, dadY:Float, bfVisible:Bool, followNonMidpoint:Bool)
+	public function new(x:Float, y:Float, camX:Float, camY:Float, bfCamOffset:Array<Float>, dadName:String, dadX:Float, dadY:Float, bfVisible:Bool, followNonMidpoint:Bool, gfTarg:String, gfArrival:Bool, gfTargX:Float, gfTargY:Float)
 	{
 		super();
 
@@ -69,6 +73,12 @@ class GameOverSubstate extends MusicBeatSubstate
 		CoolUtil.rerollRandomness();
 
 		Conductor.songPosition = 0;
+
+		if (gfArrival)
+		{
+			gf = new Character(gfTargX, gfTargY, gfTarg, false, false);
+			add(gf);
+		}
 
 		dad = new Character(dadX, dadY, dadName, false, false);
 		add(dad);
@@ -103,15 +113,30 @@ class GameOverSubstate extends MusicBeatSubstate
 		boyfriend.animation.pause();
 
 		dad.dance();
-		dad.animation.finish();
+		dad.finishAnimation();
 
-		var fuckingHeaven:FlxTimer = new FlxTimer().start(0.05, function the(f:FlxTimer)
+		if (gf != null)
+		{
+			gf.dance();
+			gf.finishAnimation();
+		}
+
+		var fuckingHell:FlxTimer = new FlxTimer().start(0.05, function the(f:FlxTimer)
 		{
 			boyfriend.playAnim('firstDeath', true);
-		});
 
-		var fuckingHell:FlxTimer = new FlxTimer().start(0.5, function the(f:FlxTimer)
-		{
+			if (gf != null)
+			{
+				gf.playAnim('sad', true);
+				
+				gf.animation.finishCallback = function gunInMouth(str:String)
+				{
+					gf.animation.finishCallback = null;
+					gf.dance();
+					gf.finishAnimation();
+				}
+			}
+
 			if (dad.animOffsets.exists('gameover'))
 			{
 				dad.playAnim('gameover', true);
