@@ -22,8 +22,8 @@ class Eggshells extends SongClass
         this.songDescription = "Mark's lonely cousin seems like he's not much for conversation, but that won't stop Nopeboy from trying!";
         this.ratingsType = "";
         this.skipCountdown = false;
-        this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
-        this.introCardBeat = 0;
+        this.preloadCharacters = ["gary", "bf-eggshells", "gf-eggshells", "stop-loading"];
+        this.introCardBeat = 64;
     }
 
     public override function stepHitEvent(curStep:Float)
