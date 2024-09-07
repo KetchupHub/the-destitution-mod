@@ -61,62 +61,14 @@
 		},
 		{
 			"loop": false,
-			"hasTransition": false,
 			"offsets": [
 				0,
 				0
 			],
 			"fps": 24,
-			"anim": "singLEFT-alt",
+			"anim": "gameover",
 			"indices": [],
-			"name": "alt-left"
-		},
-		{
-			"loop": false,
-			"hasTransition": false,
-			"offsets": [
-				0,
-				0
-			],
-			"fps": 24,
-			"anim": "singDOWN-alt",
-			"indices": [],
-			"name": "alt-down"
-		},
-		{
-			"loop": false,
-			"hasTransition": false,
-			"offsets": [
-				0,
-				0
-			],
-			"fps": 24,
-			"anim": "singUP-alt",
-			"indices": [],
-			"name": "alt-up"
-		},
-		{
-			"loop": false,
-			"hasTransition": false,
-			"offsets": [
-				0,
-				0
-			],
-			"fps": 24,
-			"anim": "singRIGHT-alt",
-			"indices": [],
-			"name": "alt-right"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"fps": 24,
-			"anim": "idle-alt",
-			"indices": [],
-			"name": "alt-idle"
+			"name": "gameover"
 		}
 	],
 	"animator": null,

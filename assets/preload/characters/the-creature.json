@@ -58,65 +58,6 @@
 			"anim": "idle",
 			"indices": [],
 			"name": "idle"
-		},
-		{
-			"loop": false,
-			"hasTransition": true,
-			"offsets": [
-				288,
-				22
-			],
-			"fps": 24,
-			"anim": "singLEFT-alt",
-			"indices": [],
-			"name": "left"
-		},
-		{
-			"loop": false,
-			"hasTransition": true,
-			"offsets": [
-				60,
-				2
-			],
-			"fps": 24,
-			"anim": "singDOWN-alt",
-			"indices": [],
-			"name": "down"
-		},
-		{
-			"loop": false,
-			"hasTransition": true,
-			"offsets": [
-				82,
-				92
-			],
-			"fps": 24,
-			"anim": "singUP-alt",
-			"indices": [],
-			"name": "up"
-		},
-		{
-			"loop": false,
-			"hasTransition": true,
-			"offsets": [
-				14,
-				14
-			],
-			"fps": 24,
-			"anim": "singRIGHT-alt",
-			"indices": [],
-			"name": "right"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"fps": 24,
-			"anim": "idle-alt",
-			"indices": [],
-			"name": "idle"
 		}
 	],
 	"animator": null,

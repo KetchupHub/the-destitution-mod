@@ -1,0 +1,86 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"hasTransition": true,
+			"name": "left"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"fps": 24,
+			"anim": "singDOWN",
+			"hasTransition": true,
+			"indices": [],
+			"name": "down"
+		},
+		{
+			"loop": false,
+			"hasTransition": true,
+			"offsets": [
+				0,
+				0
+			],
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "up"
+		},
+		{
+			"loop": false,
+			"hasTransition": true,
+			"offsets": [
+				0,
+				0
+			],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "right"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "idle"
+		}
+	],
+	"animator": null,
+	"no_antialiasing": true,
+	"artist": null,
+	"image": "characters/superseded/old_mark_turn",
+	"position": [
+		0,
+		0
+	],
+	"whoDoneWhat": null,
+	"healthicon": "mark-old",
+	"flip_x": false,
+	"healthbar_colors": [
+		151,
+		38,
+		19
+	],
+	"camera_position": [
+		64,
+		32
+	],
+	"sing_duration": 15,
+	"scale": 1,
+	"_editor_isPlayer": null
+}

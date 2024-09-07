@@ -22,12 +22,12 @@ class Superseded extends SongClass
         this.songHasSections = false;
         this.introType = 'Mark'; //wont be used anyways because superseded skips the countdown
         this.gameoverChar = 'bf-dead';
-        this.gameoverMusicSuffix = '';
+        this.gameoverMusicSuffix = '_old';
         this.songVariants = ["Normal", "Erect"];
         this.songDescription = "Mark's experimental time machine brings Nopeboy back to 2022 - 20, when everything was terrible!";
         this.ratingsType = "";
         this.skipCountdown = true;
-        this.preloadCharacters = ['mark-old', 'mark-old-turn', 'bf-old', 'the-creature', 'the-creature-gorilla', 'puppet-ploinky', 'puppet-ili', 'puppet-whale', 'puppet-rulez', 'puppet-crypteh', 'puppet-zam', 'bf-hunter', 'stop-loading'];
+        this.preloadCharacters = ['mark-old', 'mark-old-turn', 'mark-old-glitch', 'bf-old', 'the-creature', 'the-creature-gorilla', 'puppet-ploinky', 'puppet-ili', 'puppet-whale', 'puppet-rulez', 'puppet-crypteh', 'puppet-zam', 'bf-hunter', 'stop-loading'];
         this.introCardBeat = 32;
     }
 

@@ -4066,6 +4066,11 @@ class PlayState extends MusicBeatState
 
 			var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))] + altAnim;
 
+			if (!char.animOffsets.exists(animToPlay))
+			{
+				animToPlay = singAnimations[Std.int(Math.abs(note.noteData))];
+			}
+
 			if (note.gfNote)
 			{
 				char = gf;
@@ -4153,21 +4158,36 @@ class PlayState extends MusicBeatState
 
 			health += note.hitHealth * healthGain;
 
+			var altAnim:String = note.animSuffix;
+
+			if (SONG.notes[curSection] != null)
+			{
+				if (SONG.notes[curSection].altAnim && !SONG.notes[curSection].gfSection)
+				{
+					altAnim = '-alt';
+				}
+			}
+
 			if (!note.noAnimation)
 			{
-				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
+				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))] + altAnim;
+
+				if (!boyfriend.animOffsets.exists(animToPlay))
+				{
+					animToPlay = singAnimations[Std.int(Math.abs(note.noteData))];
+				}
 
 				if (note.gfNote)
 				{
 					if (gf != null)
 					{
-						gf.playAnim(animToPlay + note.animSuffix, true);
+						gf.playAnim(animToPlay, true);
 						gf.holdTimer = 0;
 					}
 				}
 				else
 				{
-					boyfriend.playAnim(animToPlay + note.animSuffix, true);
+					boyfriend.playAnim(animToPlay, true);
 					boyfriend.holdTimer = 0;
 				}
 
@@ -4422,17 +4442,38 @@ class PlayState extends MusicBeatState
 		//
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith('sing') && !gf.hasTransitionsMap.get(gf.animation.curAnim.name))
 		{
-			gf.dance();
+			if (gf.animOffsets.exists('idle-alt') || gf.animOffsets.exists('danceLeft-alt') || gf.animOffsets.exists('danceRight-alt'))
+			{
+				gf.dance(SONG.notes[curSection].altAnim);
+			}
+			else
+			{
+				gf.dance();
+			}
 		}
 
 		if (curBeat % boyfriend.danceEveryNumBeats == 0 && boyfriend.animation.curAnim != null && !boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.hasTransitionsMap.get(boyfriend.animation.curAnim.name))
 		{
-			boyfriend.dance();
+			if (boyfriend.animOffsets.exists('idle-alt') || boyfriend.animOffsets.exists('danceLeft-alt') || boyfriend.animOffsets.exists('danceRight-alt'))
+			{
+				boyfriend.dance(SONG.notes[curSection].altAnim);
+			}
+			else
+			{
+				boyfriend.dance();
+			}
 		}
 
 		if (curBeat % dad.danceEveryNumBeats == 0 && dad.animation.curAnim != null && !dad.animation.curAnim.name.startsWith('sing') && !dad.hasTransitionsMap.get(dad.animation.curAnim.name))
 		{
-			dad.dance(SONG.notes[curSection].altAnim);
+			if (dad.animOffsets.exists('idle-alt') || dad.animOffsets.exists('danceLeft-alt') || dad.animOffsets.exists('danceRight-alt'))
+			{
+				dad.dance(SONG.notes[curSection].altAnim);
+			}
+			else
+			{
+				dad.dance();
+			}
 		}
 
 		if (curBeat % 2 == 0 && bgPlayer != null)
