@@ -77,7 +77,7 @@ class FreeplayState extends MusicBeatState
 		WeekData.reloadWeekFiles(false);
 
 		#if desktop
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("In the Freeplay Menu", null, null, '-inst');
 		#end
 
 		for (i in 0...WeekData.weeksList.length)

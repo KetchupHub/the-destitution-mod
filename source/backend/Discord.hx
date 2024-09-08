@@ -1,5 +1,6 @@
 package backend;
 
+import states.MainMenuState;
 import util.CoolUtil;
 import Sys.sleep;
 import discord_rpc.DiscordRpc;
@@ -67,7 +68,7 @@ class DiscordClient
 		isInitialized = true;
 	}
 
-	public static function changePresence(details:String, state:Null<String>, ?smallImageKey : String, ?hasStartTimestamp : Bool, ?endTimestamp: Float)
+	public static function changePresence(details:String, state:Null<String>, ?smallImageKey:String, iconSuffix:String = '', ?hasStartTimestamp:Bool, ?endTimestamp:Float)
 	{
 		var startTimestamp:Float = if (hasStartTimestamp) Date.now().getTime() else 0;
 
@@ -76,26 +77,25 @@ class DiscordClient
 			endTimestamp = startTimestamp + endTimestamp;
 		}
 
-		var alrgey:String = "icon";
+		var alrgey:String = "icon" + iconSuffix;
 		var smalley:String = "";
 		var stateo:String = state;
 		var detailso:String = details;
-		var largoText:String = 'The Destitution Mod';
+		var largoText:String = 'The Destitution Mod ' + MainMenuState.psychEngineVersion;
 
 		#if DEVELOPERBUILD
-		stateo = 'DEVELOPER BUILD, NO RPC';
-		detailso = 'DEVELOPER BUILD, NO RPC';
+		stateo = 'State Redacted';
+		detailso = 'Details Redacted';
 		largoText = 'The Destitution Mod (DevBuild ' + CoolUtil.gitCommitBranch + ' : ' + CoolUtil.gitCommitHash + ')';
 		#end
 
 		if (smallImageKey != null)
 		{
 			#if DEVELOPERBUILD
-			alrgey = 'icon';
+			smalley = 'icon';
 			#else
-			alrgey = smallImageKey;
+			smalley = smallImageKey;
 			#end
-			smalley = "icon";
 		}
 
 		DiscordRpc.presence(

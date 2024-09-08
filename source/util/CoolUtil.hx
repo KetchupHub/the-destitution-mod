@@ -28,6 +28,8 @@ class CoolUtil
 
 	public static var hasInitializedWindow:Bool = false;
 
+	public static var rpgSave:FlxSave;
+
 	//using the same FlxRandom for everything can cause a lot of predictability so im not doing that anymore
 
 	/**

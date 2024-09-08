@@ -1,5 +1,8 @@
 package states;
 
+#if desktop
+import backend.Discord.DiscordClient;
+#end
 import ui.MarkHeadTransition;
 import songs.SongInit;
 import backend.Conductor;
@@ -57,6 +60,10 @@ class LoadingScreenState extends MusicBeatState
 
         MemoryUtil.collect(true);
         MemoryUtil.compact();
+
+        #if desktop
+		DiscordClient.changePresence("Loading!", null, null, '-menus');
+		#end
 
         loadedBar = new FlxBar(74, 199, FlxBarFillDirection.TOP_TO_BOTTOM, 370, 247, this, "loaded", 0, 2, false);
         if (ClientPrefs.smootherBars)

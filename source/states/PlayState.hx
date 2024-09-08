@@ -790,7 +790,12 @@ class PlayState extends MusicBeatState
 		precacheList.set('ui/splashes/3', 'image');
 	
 		#if desktop
-		DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''));
+		var erectness:String = '';
+		if (SONG.song.toLowerCase().contains('-erect'))
+		{
+			erectness = '-erect';
+		}
+		DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), erectness);
 		#end
 
 		if (!ClientPrefs.controllerMode)
@@ -1793,7 +1798,13 @@ class PlayState extends MusicBeatState
 		}
 
 		#if desktop
-		DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), true, songLength);
+		var erectness:String = '';
+		if (SONG.song.toLowerCase().contains('-erect'))
+		{
+			erectness = '-erect';
+		}
+
+		DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), erectness, true, songLength);
 		#end
 	}
 
@@ -2250,13 +2261,19 @@ class PlayState extends MusicBeatState
 			paused = false;
 
 			#if desktop
+			var erectness:String = '';
+			if (SONG.song.toLowerCase().contains('-erect'))
+			{
+				erectness = '-erect';
+			}
+
 			if (startTimer != null && startTimer.finished)
 			{
-				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), erectness, true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''));
+				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), erectness);
 			}
 			#end
 		}
@@ -2267,15 +2284,21 @@ class PlayState extends MusicBeatState
 	override public function onFocus():Void
 	{
 		#if desktop
+		var erectness:String = '';
+		if (SONG.song.toLowerCase().contains('-erect'))
+		{
+			erectness = '-erect';
+		}
+
 		if (health > 0 && !paused)
 		{
 			if (Conductor.songPosition > 0.0)
 			{
-				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), erectness, true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''));
+				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), erectness);
 			}
 		}
 		#end
@@ -2288,7 +2311,7 @@ class PlayState extends MusicBeatState
 		if (health > 0 && !paused)
 		{
 			#if desktop
-			DiscordClient.changePresence(detailsPausedText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''));
+			DiscordClient.changePresence(detailsPausedText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), '-menus');
 			#end
 			openPauseMenu(true);
 		}
@@ -2819,7 +2842,7 @@ class PlayState extends MusicBeatState
 		openSubState(new PauseSubState(focusLost));
 
 		#if desktop
-		DiscordClient.changePresence(detailsPausedText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''));
+		DiscordClient.changePresence(detailsPausedText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), '-menus');
 		Application.current.window.title = CoolUtil.appTitleString + " - PAUSED on " + songObj.songNameForDisplay;
 		#end
 	}
@@ -2834,7 +2857,7 @@ class PlayState extends MusicBeatState
 		chartingMode = true;
 		#if desktop
 		Application.current.window.title = CoolUtil.appTitleString + " - Chart Editor";
-		DiscordClient.changePresence("Chart Editor", null, null, true);
+		DiscordClient.changePresence("Chart Editor", null, null, '-menus', true);
 		#end
 	}
 	#end
@@ -2910,7 +2933,7 @@ class PlayState extends MusicBeatState
 			openSubState(new GameOverSubstate(bfTarX, bfTarY, cFollowPosTarX, cFollowPosTarY, bfCamOffsetTar, dadTar, dadTarX, dadTarY, letBfBeVisible, followNotMidpoint, gfTar, gfVisible, gfTarX, gfTarY));
 
 			#if desktop
-			DiscordClient.changePresence("Game Over", songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''));
+			DiscordClient.changePresence("Game Over", songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), '-menus');
 			Application.current.window.title = CoolUtil.appTitleString + " - GAME OVER on " + songObj.songNameForDisplay;
 			#end
 			isDead = true;

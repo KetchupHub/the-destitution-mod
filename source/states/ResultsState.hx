@@ -1,5 +1,8 @@
 package states;
 
+#if desktop
+import backend.Discord.DiscordClient;
+#end
 import backend.ClientPrefs;
 import flixel.util.FlxStringUtil;
 import backend.Conductor;
@@ -96,6 +99,10 @@ class ResultsState extends MusicBeatState
         MemoryUtil.collect(true);
         MemoryUtil.compact();
 
+        #if desktop
+		DiscordClient.changePresence("Results Screen", null, null, '-menus');
+		#end
+
         FlxG.sound.music.stop();
         FlxG.sound.music = null;
 
@@ -182,7 +189,7 @@ class ResultsState extends MusicBeatState
     override function update(elapsed:Float)
     {
         elapsedTotal += elapsed;
-        
+
         if (FlxG.sound.music != null)
 		{
 			Conductor.songPosition = FlxG.sound.music.time;

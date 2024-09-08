@@ -19,10 +19,6 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import visuals.Character;
 
-#if MODS_ALLOWED
-import sys.FileSystem;
-#end
-
 class ShadersTestState extends MusicBeatState
 {
 	var charPx:Character;
@@ -49,6 +45,10 @@ class ShadersTestState extends MusicBeatState
 
 		MemoryUtil.collect(true);
         MemoryUtil.compact();
+
+		#if desktop
+		DiscordClient.changePresence("Shader Test Screen", null, null, '-menus');
+		#end
 
 		camEditor = new FlxCamera();
 		FlxG.cameras.reset(camEditor);

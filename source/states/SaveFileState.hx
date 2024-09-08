@@ -1,5 +1,6 @@
 package states;
 
+import flixel.util.FlxSave;
 import backend.Conductor;
 import flixel.graphics.FlxGraphic;
 import flixel.system.FlxAssets.FlxGraphicAsset;
@@ -37,6 +38,12 @@ class SaveFileState extends MusicBeatState
 	public var swirls:FlxSprite;
     public var guys:FlxSprite;
 
+    public var indi:FlxSprite;
+
+    public var slotUsedArray:Array<Bool> = [ClientPrefs.rpgSave1Used, ClientPrefs.rpgSave2Used, ClientPrefs.rpgSave3Used];
+
+    public var slots:Array<FlxSprite> = [];
+
 	override function create()
 	{
 		#if DEVELOPERBUILD
@@ -57,7 +64,7 @@ class SaveFileState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Picking a Save File for Story Mode", null);
+		DiscordClient.changePresence("Picking a Save File", null, null, '-rpg');
 		#end
 
 		if (FlxG.sound.music == null)
@@ -65,6 +72,8 @@ class SaveFileState extends MusicBeatState
 			FlxG.sound.playMusic(Paths.music('mus_save_select'), 0);
 			Conductor.changeBPM(136);
 		}
+
+        slotUsedArray = [ClientPrefs.rpgSave1Used, ClientPrefs.rpgSave2Used, ClientPrefs.rpgSave3Used];
 
 		camGame = new FlxCamera();
 
@@ -97,6 +106,38 @@ class SaveFileState extends MusicBeatState
         guys.x = 1280 - 404;
 		add(guys);
 
+        for (i in 1...4)
+        {
+            var slotterson:FlxSprite = new FlxSprite(0, 240 * (i - 1)).loadGraphic(Paths.image('saves/s' + (i)), true, 164, 120);
+            slotterson.animation.add('idle', [0, 1], 0, false);
+            slotterson.animation.play('idle', true);
+            slotterson.scale.set(2, 2);
+            slotterson.updateHitbox();
+            slotterson.ID = i - 1;
+            if (slotUsedArray[i - 1] == true)
+            {
+                slotterson.animation.frameIndex = 1;
+            }
+            add(slotterson);
+            slots.push(slotterson);
+        }
+
+        indi = new FlxSprite().loadGraphic(Paths.image('saves/indi'));
+        indi.scale.set(2, 2);
+        indi.updateHitbox();
+        add(indi);
+
+        var title:FlxSprite = new FlxSprite().loadGraphic(Paths.image('saves/title'));
+        title.scale.set(2, 2);
+        title.updateHitbox();
+        add(title);
+
+        var delText:FlxText = new FlxText(4, FlxG.height - 24, FlxG.width, "Hold X to delete hovered save!", 12);
+		delText.scrollFactor.set();
+		delText.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+		delText.antialiasing = ClientPrefs.globalAntialiasing;
+		add(delText);
+
 		var versionShit:FlxText = new FlxText(-4, #if DEVELOPERBUILD FlxG.height - 44 #else FlxG.height - 24 #end, FlxG.width, "The Destitution Mod v" + MainMenuState.psychEngineVersion #if DEVELOPERBUILD + "\n(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")" #end, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
@@ -113,6 +154,8 @@ class SaveFileState extends MusicBeatState
 	}
 
 	var selectedSomethin:Bool = false;
+
+    var delTimer:Float = 0;
 
 	override function update(elapsed:Float)
 	{
@@ -151,13 +194,80 @@ class SaveFileState extends MusicBeatState
 				MusicBeatState.switchState(new MainMenuState());
 			}
 
+            if (FlxG.keys.pressed.X)
+            {
+                delTimer += (ClientPrefs.framerate / 24) * elapsed;
+
+                if (delTimer == 3 && slotUsedArray[curSelected] == true)
+                {
+                    resetSave(curSelected + 1);
+                    slots[curSelected].animation.frameIndex = 0;
+                    slotUsedArray[curSelected] = false;
+                    //proabbly stupid but whatever
+                    switch (curSelected)
+                    {
+                        case 0:
+                            ClientPrefs.rpgSave1Used = false;
+                        case 1:
+                            ClientPrefs.rpgSave2Used = false;
+                        case 2:
+                            ClientPrefs.rpgSave3Used = false;
+                    }
+                    FlxG.sound.play(Paths.sound('cancelMenu'));
+                    delTimer = 0;
+                }
+            }
+            else
+            {
+                //reset deltimer for safety
+                delTimer = 0;
+            }
+
 			if (controls.ACCEPT)
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 
+                for (slotto in slots)
+                {
+                    if (slotto.ID != curSelected)
+                    {
+                        FlxTween.tween(slotto, {alpha: 0}, 0.35, {ease: FlxEase.circOut});
+                    }
+                }
+                FlxTween.tween(indi, {alpha: 0, y: 720}, 0.5, {ease: FlxEase.circOut});
+
+                if (slotUsedArray[curSelected] == false)
+                {
+                    prepFreshSave(curSelected + 1);
+                }
+                else
+                {
+                    CoolUtil.rpgSave = new FlxSave();
+                    CoolUtil.rpgSave.bind('destimodRpgSave' + (curSelected + 1), CoolUtil.getSavePath());
+                }
+
+                slotUsedArray[curSelected] = true;
+
+                //proabbly stupid but whatever
+                switch (curSelected)
+                {
+                    case 0:
+                        ClientPrefs.rpgSave1Used = true;
+                    case 1:
+                        ClientPrefs.rpgSave2Used = true;
+                    case 2:
+                        ClientPrefs.rpgSave3Used = true;
+                }
+
+                slots[curSelected].animation.frameIndex = 1;
+
+                FlxG.sound.music.stop();
+                FlxG.sound.music = null;
+
 				FlxTransitionableState.skipNextTransIn = false;
 				FlxTransitionableState.skipNextTransOut = false;
+                MusicBeatState.switchState(new MainMenuState());
 			}
 		}
 
@@ -177,5 +287,42 @@ class SaveFileState extends MusicBeatState
 		{
 			curSelected = 2;
 		}
+
+        indi.y = slots[curSelected].y;
 	}
+
+    function prepFreshSave(num:Int)
+    {
+        CoolUtil.rpgSave = new FlxSave();
+        CoolUtil.rpgSave.bind('destimodRpgSave' + num, CoolUtil.getSavePath());
+        CoolUtil.rpgSave.data.progression = 0;
+        CoolUtil.rpgSave.data.items = ['none', 'none', 'none', 'none', 'none', 'none'];
+        CoolUtil.rpgSave.data.curLocation = 'start';
+        CoolUtil.rpgSave.data.level = 1;
+        CoolUtil.rpgSave.data.hp = 20;
+        CoolUtil.rpgSave.data.atk = 4;
+        CoolUtil.rpgSave.data.def = 3;
+        CoolUtil.rpgSave.data.armor = 'none';
+        CoolUtil.rpgSave.data.weapon = 'none';
+        CoolUtil.rpgSave.data.whichSaveIsThis = num;
+        CoolUtil.rpgSave.flush();
+    }
+
+    function resetSave(num:Int)
+    {
+        CoolUtil.rpgSave = new FlxSave();
+        CoolUtil.rpgSave.bind('destimodRpgSave' + num, CoolUtil.getSavePath());
+        CoolUtil.rpgSave.erase();
+        CoolUtil.rpgSave.data.progression = 0;
+        CoolUtil.rpgSave.data.items = ['none', 'none', 'none', 'none', 'none', 'none'];
+        CoolUtil.rpgSave.data.curLocation = 'start';
+        CoolUtil.rpgSave.data.level = 1;
+        CoolUtil.rpgSave.data.hp = 20;
+        CoolUtil.rpgSave.data.atk = 4;
+        CoolUtil.rpgSave.data.def = 3;
+        CoolUtil.rpgSave.data.armor = 'none';
+        CoolUtil.rpgSave.data.weapon = 'none';
+        CoolUtil.rpgSave.data.whichSaveIsThis = num;
+        CoolUtil.rpgSave.flush();
+    }
 }

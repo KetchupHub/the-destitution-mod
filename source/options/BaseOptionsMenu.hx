@@ -49,7 +49,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 		
 		#if desktop
-		DiscordClient.changePresence(rpcTitle, null);
+		DiscordClient.changePresence(rpcTitle, null, null, '-menus');
 		#end
 		
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));

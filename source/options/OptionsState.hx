@@ -68,7 +68,7 @@ class OptionsState extends MusicBeatState
 		#end
 
 		#if desktop
-		DiscordClient.changePresence("Options Menu", null);
+		DiscordClient.changePresence("Options Menu", null, null, '-menus');
 		#end
 
 		FlxG.sound.music.stop();

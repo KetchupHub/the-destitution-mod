@@ -32,6 +32,10 @@ class ClientPrefs
 	public static var comboStacking = false;
 	public static var smootherBars = true;
 
+	public static var rpgSave1Used = false;
+	public static var rpgSave2Used = false;
+	public static var rpgSave3Used = false;
+
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -310,6 +314,21 @@ class ClientPrefs
 		if (FlxG.save.data.smootherBars != null)
 		{
 			smootherBars = FlxG.save.data.smootherBars;
+		}
+
+		if (FlxG.save.data.rpgSave1Used != null)
+		{
+			rpgSave1Used = FlxG.save.data.rpgSave1Used;
+		}
+
+		if (FlxG.save.data.rpgSave2Used != null)
+		{
+			rpgSave2Used = FlxG.save.data.rpgSave2Used;
+		}
+
+		if (FlxG.save.data.rpgSave3Used != null)
+		{
+			rpgSave3Used = FlxG.save.data.rpgSave3Used;
 		}
 
 		if (FlxG.save.data.lastEggshellsEnding != null)

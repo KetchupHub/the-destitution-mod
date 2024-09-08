@@ -1,5 +1,8 @@
 package options;
 
+#if desktop
+import backend.Discord.DiscordClient;
+#end
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.FlxGraphic;
 import util.CoolUtil;
@@ -51,6 +54,15 @@ class NoteOffsetState extends MusicBeatState
 	{
 		#if DEVELOPERBUILD
 		var perf = new Perf("Total NoteOffsetState create()");
+		#end
+
+		CoolUtil.rerollRandomness();
+
+		MemoryUtil.collect(true);
+        MemoryUtil.compact();
+
+		#if desktop
+		DiscordClient.changePresence("Note Offset Menu", null, null, '-menus');
 		#end
 
 		// Cameras

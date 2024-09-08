@@ -43,7 +43,7 @@ class MasterEditorMenu extends MusicBeatState
 		FlxG.camera.bgColor = FlxColor.BLACK;
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Editors Main Menu", null);
+		DiscordClient.changePresence("Editors Main Menu", null, null, '-menus');
 		#end
 
 		CoolUtil.rerollRandomness();
