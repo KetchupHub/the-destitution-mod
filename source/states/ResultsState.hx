@@ -182,15 +182,7 @@ class ResultsState extends MusicBeatState
     override function update(elapsed:Float)
     {
         elapsedTotal += elapsed;
-
-        if (CoolUtil.randomAudio.bool(0.0003))
-        {
-            #if DEVELOPERBUILD
-			trace('yous won: rare sound');
-			#end
-            FlxG.sound.play(Paths.sound('rare'));
-        }
-
+        
         if (FlxG.sound.music != null)
 		{
 			Conductor.songPosition = FlxG.sound.music.time;

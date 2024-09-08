@@ -2,7 +2,7 @@ package states;
 
 import ui.MarkHeadTransition;
 import flixel.graphics.FlxGraphic;
-import visuals.ColorSwap;
+import shaders.ColorSwap;
 import backend.Highscore;
 import backend.PlayerSettings;
 import backend.WeekData;
@@ -414,15 +414,6 @@ class TitleState extends MusicBeatState
 				skipIntro();
 			}
 		}
-
-		if (CoolUtil.randomAudio.bool(0.0003))
-		{
-			#if DEVELOPERBUILD
-			trace('yous won: rare sound');
-			#end
-			FlxG.sound.play(Paths.sound('rare'));
-		}
-
 
 		if (swagShader != null)
 		{

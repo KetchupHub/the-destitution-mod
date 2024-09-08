@@ -5,7 +5,7 @@ import states.PlayState;
 import backend.ClientPrefs;
 import flixel.FlxSprite;
 import editors.ChartingState;
-import visuals.ColorSwap;
+import shaders.ColorSwap;
 
 typedef EventNote = {
 	strumTime:Float,

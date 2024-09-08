@@ -1,3 +1,4 @@
+#if DEVELOPERBUILD
 package editors;
 
 import flixel.FlxCamera;
@@ -20,7 +21,9 @@ import backend.Song;
 import backend.Section;
 import backend.Discord.DiscordClient;
 import backend.Conductor.BPMChangeEvent;
+#if !macro
 import flash.geom.Rectangle;
+#end
 import haxe.Json;
 import haxe.io.Bytes;
 import flixel.FlxG;
@@ -52,7 +55,9 @@ import openfl.utils.Assets as OpenFlAssets;
 import flixel.addons.ui.FlxUIDropDownMenu;
 
 #if sys
+#if !macro
 import flash.media.Sound;
+#end
 import sys.FileSystem;
 import sys.io.File;
 #end
@@ -236,6 +241,7 @@ class ChartingState extends MusicBeatState
 			};
 
 			addSection();
+
 			PlayState.SONG = _song;
 		}
 
@@ -287,16 +293,16 @@ class ChartingState extends MusicBeatState
 		nextRenderedSustains = new FlxTypedGroup<FlxSprite>();
 		nextRenderedNotes = new FlxTypedGroup<Note>();
 
-		if(curSec >= _song.notes.length) curSec = _song.notes.length - 1;
+		if (curSec >= _song.notes.length)
+		{
+			curSec = _song.notes.length - 1;
+		}
 
 		FlxG.mouse.visible = true;
-		//FlxG.save.bind('funkin', CoolUtil.getSavePath());
 
 		tempBpm = _song.bpm;
 
 		addSection();
-
-		// sections = _song.notes;
 
 		currentSongName = Paths.formatToSongPath(_song.song);
 		loadSong();
@@ -469,11 +475,6 @@ class ChartingState extends MusicBeatState
 			}
 		});
 
-		var saveEvents:FlxButton = new FlxButton(110, reloadSongJson.y, 'Save Events', function ()
-		{
-			saveEvents();
-		});
-
 		var clear_events:FlxButton = new FlxButton(320, 310, 'Clear events', function()
 			{
 				openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, clearEvents, null,ignoreWarnings));
@@ -588,7 +589,10 @@ class ChartingState extends MusicBeatState
 			}
 		}
 
-		if(stages.length < 1) stages.push('stage');
+		if (stages.length < 1)
+		{
+			stages.push('mark');
+		}
 
 		stageDropDown = new FlxUIDropDownMenu(player1DropDown.x + 140, player1DropDown.y, FlxUIDropDownMenu.makeStrIdLabelArray(stages, true), function(character:String)
 		{
@@ -598,14 +602,18 @@ class ChartingState extends MusicBeatState
 		blockPressWhileScrolling.push(stageDropDown);
 
 		var skin = PlayState.SONG.arrowSkin;
-		if(skin == null) skin = '';
+		if (skin == null)
+		{
+			skin = '';
+		}
 		noteSkinInputText = new FlxUIInputText(player2DropDown.x, player2DropDown.y + 50, 150, skin, 8);
 		blockPressWhileTypingOn.push(noteSkinInputText);
 
 		noteSplashesInputText = new FlxUIInputText(noteSkinInputText.x, noteSkinInputText.y + 35, 150, _song.splashSkin, 8);
 		blockPressWhileTypingOn.push(noteSplashesInputText);
 
-		var reloadNotesButton:FlxButton = new FlxButton(noteSplashesInputText.x + 5, noteSplashesInputText.y + 20, 'Change Notes', function() {
+		var reloadNotesButton:FlxButton = new FlxButton(noteSplashesInputText.x + 5, noteSplashesInputText.y + 20, 'Change Notes', function()
+		{
 			_song.arrowSkin = noteSkinInputText.text;
 			updateGrid();
 		});
@@ -613,11 +621,9 @@ class ChartingState extends MusicBeatState
 		var tab_group_song = new FlxUI(null, UI_box);
 		tab_group_song.name = "Song";
 		tab_group_song.add(UI_songTitle);
-
 		tab_group_song.add(clear_events);
 		tab_group_song.add(clear_notes);
 		tab_group_song.add(saveButton);
-		tab_group_song.add(saveEvents);
 		tab_group_song.add(reloadSong);
 		tab_group_song.add(reloadSongJson);
 		tab_group_song.add(loadAutosaveBtn);
@@ -3071,35 +3077,12 @@ class ChartingState extends MusicBeatState
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1[0], Obj2[0]);
 	}
 
-	public function saveEvents()
-	{
-		if(_song.events != null && _song.events.length > 1) _song.events.sort(sortByTime);
-		var eventsSong:Dynamic = {
-			events: _song.events
-		};
-		var json = {
-			"song": eventsSong
-		}
-
-		var data:String = Json.stringify(json, "\t");
-
-		if ((data != null) && (data.length > 0))
-		{
-			_file = new FileReference();
-			_file.addEventListener(Event.COMPLETE, onSaveComplete);
-			_file.addEventListener(Event.CANCEL, onSaveCancel);
-			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-			_file.save(data.trim(), "events.json");
-		}
-	}
-
 	function onSaveComplete(_):Void
 	{
 		_file.removeEventListener(Event.COMPLETE, onSaveComplete);
 		_file.removeEventListener(Event.CANCEL, onSaveCancel);
 		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 		_file = null;
-		FlxG.log.notice("Successfully saved LEVEL DATA.");
 	}
 
 	/**
@@ -3122,15 +3105,23 @@ class ChartingState extends MusicBeatState
 		_file.removeEventListener(Event.CANCEL, onSaveCancel);
 		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 		_file = null;
-		FlxG.log.error("Problem saving Level data");
+		throw "ERROR SAVING CHART! HOW? IDFK";
 	}
 
 	function getSectionBeats(?section:Null<Int> = null)
 	{
-		if (section == null) section = curSec;
+		if (section == null)
+		{
+			section = curSec;
+		}
+
 		var val:Null<Float> = null;
 		
-		if(_song.notes[section] != null) val = _song.notes[section].sectionBeats;
+		if (_song.notes[section] != null)
+		{
+			val = _song.notes[section].sectionBeats;
+		}
+
 		return val != null ? val : 4;
 	}
 }
@@ -3141,7 +3132,8 @@ class AttachedFlxText extends FlxText
 	public var xAdd:Float = 0;
 	public var yAdd:Float = 0;
 
-	public function new(X:Float = 0, Y:Float = 0, FieldWidth:Float = 0, ?Text:String, Size:Int = 8, EmbeddedFont:Bool = true) {
+	public function new(X:Float = 0, Y:Float = 0, FieldWidth:Float = 0, ?Text:String, Size:Int = 8, EmbeddedFont:Bool = true)
+	{
 		super(X, Y, FieldWidth, Text, Size, EmbeddedFont);
 	}
 
@@ -3149,10 +3141,12 @@ class AttachedFlxText extends FlxText
 	{
 		super.update(elapsed);
 
-		if (sprTracker != null) {
+		if (sprTracker != null)
+		{
 			setPosition(sprTracker.x + xAdd, sprTracker.y + yAdd);
 			angle = sprTracker.angle;
 			alpha = sprTracker.alpha;
 		}
 	}
 }
+#end

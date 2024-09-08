@@ -1,7 +1,6 @@
 package ui;
 
 import states.PlayState;
-import visuals.ColorSwap;
 import flixel.FlxSprite;
 import backend.ClientPrefs;
 import flixel.util.FlxColor;
@@ -13,7 +12,6 @@ import flixel.group.FlxSpriteGroup;
 
 class SongIntroCard extends FlxSpriteGroup
 {
-    //public var _colorSwap:ColorSwap;
     public var _charObj:FlxSprite;
     public var _cardObj:FlxSprite;
     public var _cardObjBelly:FlxSprite;
@@ -27,11 +25,6 @@ class SongIntroCard extends FlxSpriteGroup
         super(x, y);
 
         _timer = ((Conductor.crochet / 250) * 2) + (0.25 / PlayState.instance.playbackRate);
-
-        //_colorSwap = new ColorSwap();
-        //_colorSwap.set_hue(color.hue);
-        //_colorSwap.set_brightness(color.brightness);
-        //_colorSwap.set_saturation(color.saturation);
 
         _charObj = new FlxSprite().loadGraphic(Paths.image('ui/songCards/' + cardName, null, true));
         if (Paths.image('ui/songCards/' + cardName, null, true) == null)

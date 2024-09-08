@@ -2,7 +2,7 @@ package ui;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import visuals.ColorSwap;
+import shaders.ColorSwap;
 import backend.ClientPrefs;
 import states.PlayState;
 

@@ -5,7 +5,7 @@ import backend.ClientPrefs;
 import states.PlayState;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import visuals.ColorSwap;
+import shaders.ColorSwap;
 
 class NoteSplash extends FlxSprite
 {

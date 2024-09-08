@@ -174,14 +174,6 @@ class GameOverSubstate extends MusicBeatSubstate
 			Conductor.songPosition = FlxG.sound.music.time;
 		}
 
-		if (CoolUtil.randomAudio.bool(0.0003))
-		{
-			#if DEVELOPERBUILD
-			trace('yous won: rare sound');
-			#end
-			FlxG.sound.play(Paths.sound('rare'));
-		}
-
 		if (updateCamera)
 		{
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * PlayState.instance.cameraSpeed, 0, 1);
@@ -203,7 +195,9 @@ class GameOverSubstate extends MusicBeatSubstate
 			});
 			PlayState.deathCounter = 0;
 			PlayState.seenCutscene = false;
+			#if DEVELOPERBUILD
 			PlayState.chartingMode = false;
+			#end
 
 			MemoryUtil.collect(true);
 			MemoryUtil.compact();

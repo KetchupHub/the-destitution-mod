@@ -183,15 +183,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 			ClientPrefs.saveSettings();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
-
-		if (CoolUtil.randomAudio.bool(0.0003))
-		{
-			#if DEVELOPERBUILD
-			trace('yous won: rare sound');
-			#end
-			FlxG.sound.play(Paths.sound('rare'));
-		}
-
+		
 		if (nextAccept <= 0)
 		{
 			var usesCheckbox = true;

@@ -1,3 +1,4 @@
+#if DEVELOPERBUILD
 package editors;
 
 import util.CoolUtil;
@@ -23,7 +24,8 @@ class MasterEditorMenu extends MusicBeatState
 {
 	var options:Array<String> = [
 		'Character Editor',
-		'Chart Editor'
+		'Chart Editor',
+		'Shader Test'
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
 	private var directories:Array<String> = [null];
@@ -119,6 +121,8 @@ class MasterEditorMenu extends MusicBeatState
 					MusicBeatState.switchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
 				case 'Chart Editor':
 					MusicBeatState.switchState(new ChartingState());
+				case 'Shader Test':
+					MusicBeatState.switchState(new ShadersTestState());
 			}
 			FlxG.sound.music.volume = 0;
 		}
@@ -177,3 +181,4 @@ class MasterEditorMenu extends MusicBeatState
 	}
 	#end
 }
+#end

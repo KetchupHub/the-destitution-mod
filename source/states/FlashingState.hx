@@ -68,14 +68,6 @@ class FlashingState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (CoolUtil.randomAudio.bool(0.0003))
-		{
-			#if DEVELOPERBUILD
-			trace('yous won: rare sound');
-			#end
-			FlxG.sound.play(Paths.sound('rare'));
-		}
-		
 		if (!leftState)
 		{
 			var back:Bool = controls.BACK;

@@ -48,12 +48,14 @@ class PauseSubState extends MusicBeatSubstate
 
 		CoolUtil.rerollRandomness();
 
+		#if DEVELOPERBUILD
 		if (PlayState.chartingMode)
 		{
 			menuItemsOG.insert(3, 'Leave Charting Mode');
 			menuItemsOG.insert(4, 'End Song');
 			menuItemsOG.insert(5, 'Toggle Botplay');
 		}
+		#end
 
 		menuItems = menuItemsOG;
 
@@ -120,6 +122,7 @@ class PauseSubState extends MusicBeatSubstate
 		practiceText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(practiceText);
 
+		#if DEVELOPERBUILD
 		var chartingText:FlxText = new FlxText(20, 15 + 165, 0, "CHARTING MODE", 32);
 		chartingText.scrollFactor.set();
 		chartingText.setFormat(Paths.font("BAUHS93.ttf"), 32);
@@ -129,6 +132,7 @@ class PauseSubState extends MusicBeatSubstate
 		chartingText.visible = PlayState.chartingMode;
 		chartingText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(chartingText);
+		#end
 
 		var theCover:String = 'song_covers/' + PlayState.SONG.song.toLowerCase().replace('-erect', '');
 		if (Paths.image(theCover, null, true) == null)
@@ -155,7 +159,9 @@ class PauseSubState extends MusicBeatSubstate
 		levelInfo.alpha = 0;
 		sectionTxt.alpha = 0;
 		practiceText.alpha = 0;
+		#if DEVELOPERBUILD
 		chartingText.alpha = 0;
+		#end
 		songCover.alpha = 0;
 		descText.alpha = 0;
 
@@ -172,7 +178,9 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(sectionTxt, {alpha: 1, y: sectionTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(practiceText, {alpha: 1, y: practiceText.y + 5}, 0.4, {ease: FlxEase.quartInOut});
+		#if DEVELOPERBUILD
 		FlxTween.tween(chartingText, {alpha: 1, y: chartingText.y + 5}, 0.4, {ease: FlxEase.quartInOut});
+		#end
 		FlxTween.tween(songCover, {alpha: 1, y: songCover.y + 5}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(descText, {alpha: 1, y: descText.y + 5}, 0.4, {ease: FlxEase.quartInOut});
 
@@ -184,7 +192,9 @@ class PauseSubState extends MusicBeatSubstate
 			FlxTween.completeTweensOf(blueballedTxt);
 			FlxTween.completeTweensOf(sectionTxt);
 			FlxTween.completeTweensOf(practiceText);
+			#if DEVELOPERBUILD
 			FlxTween.completeTweensOf(chartingText);
+			#end
 			FlxTween.completeTweensOf(songCover);
 			FlxTween.completeTweensOf(descText);
 		}
@@ -226,14 +236,6 @@ class PauseSubState extends MusicBeatSubstate
 			changeSelection(1);
 		}
 
-		if (CoolUtil.randomAudio.bool(0.0003))
-		{
-			#if DEVELOPERBUILD
-			trace('yous won: rare sound');
-			#end
-			FlxG.sound.play(Paths.sound('rare'));
-		}
-
 		var daSelected:String = menuItems[curSelected];
 
 		if (accepted && (cantUnpause <= 0 || !ClientPrefs.controllerMode))
@@ -263,12 +265,14 @@ class PauseSubState extends MusicBeatSubstate
 					FlxG.sound.play(Paths.sound('resume'));
 
 					restartSong();
+				#if DEVELOPERBUILD
 				case "Leave Charting Mode":
 					restartSong();
 
 					FlxG.sound.play(Paths.sound('resume'));
 
 					PlayState.chartingMode = false;
+				#end
 				case "End Song":
 					Application.current.window.title = CoolUtil.appTitleString;
 
@@ -308,7 +312,9 @@ class PauseSubState extends MusicBeatSubstate
 					Conductor.songPosition = 0;
 					Conductor.changeBPM(150);
 
+					#if DEVELOPERBUILD
 					PlayState.chartingMode = false;
+					#end
 			}
 		}
 	}

@@ -226,13 +226,15 @@ class OptionsState extends MusicBeatState
 			}
 		}
 
-		if (CoolUtil.randomAudio.bool(0.0003))
+		#if !SHOWCASEVIDEO
+		if (CoolUtil.randomAudio.bool(0.0001 / (ClientPrefs.framerate / 8)))
 		{
 			#if DEVELOPERBUILD
 			trace('yous won: rare sound');
 			#end
 			FlxG.sound.play(Paths.sound('rare'));
 		}
+		#end
 
 		super.update(elapsed);
 

@@ -1,5 +1,6 @@
 package states;
 
+import openfl.Lib;
 import ui.SongIntroCard;
 import ui.SubtitleObject;
 import ui.SubtitleObject.SubtitleTypes;
@@ -40,15 +41,17 @@ import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import openfl.display.BlendMode;
 import openfl.utils.Assets as OpenFlAssets;
+#if DEVELOPERBUILD
 import editors.ChartingState;
 import editors.CharacterEditorState;
+#end
 import openfl.events.KeyboardEvent;
 import backend.StageData;
 import visuals.Character;
 import visuals.Boyfriend;
 import visuals.AttachedSprite;
 import visuals.BucksGraphBar;
-import visuals.WiggleEffect;
+import shaders.WiggleEffect;
 import ui.Note;
 import ui.Note.EventNote;
 import ui.StrumNote;
@@ -189,7 +192,9 @@ class PlayState extends MusicBeatState
 	public var bucksBarHistoryFuck:Array<Int> = [9, 9, 9, 9, 9, 9, 9, 9];
 	
 	public static var songHasSections:Bool = false;
+	#if DEVELOPERBUILD
 	public static var chartingMode:Bool = false;
+	#end
 	public static var seenCutscene:Bool = false;
 	public var fuckMyLife:Bool = false;
 	public var isCameraOnForcedPos:Bool = false;
@@ -1225,6 +1230,15 @@ class PlayState extends MusicBeatState
 				skyish.scrollFactor.set();
 				add(skyish);
 
+				/*//tempstuff
+				skyish.visible = false;
+				var fucksly:FlxSprite = new FlxSprite().makeGraphic(2560, 2560, 0xFFC8FF00);
+				fucksly.screenCenter();
+				fucksly.scrollFactor.set();
+				add(fucksly);
+				CppAPI.setTransparency(Lib.application.window.title, 0x00C8FF00);
+				Lib.application.window.borderless = true;*/
+
 				var tvs = new FlxSprite(-610, -750);
 				tvs.frames = Paths.getSparrowAtlas('bucks/tvs');
 				tvs.animation.addByPrefix('idle', 'many tvs flashloop', 24, true);
@@ -1892,10 +1906,12 @@ class PlayState extends MusicBeatState
 				swagNote.gfNote = (section.gfSection && (songNotes[1]<4));
 				swagNote.noteType = songNotes[3];
 
-				if(!Std.isOfType(songNotes[3], String))
+				#if DEVELOPERBUILD
+				if (!Std.isOfType(songNotes[3], String))
 				{
 					swagNote.noteType = ChartingState.noteTypeList[songNotes[3]];
 				}
+				#end
 
 				swagNote.scrollFactor.set();
 
@@ -2397,7 +2413,15 @@ class PlayState extends MusicBeatState
 				{
 					if (dad.animation.curAnim.finished)
 					{
-						dad.dance(SONG.notes[curSection].altAnim);
+						if (dad.animOffsets.exists('idle-alt') || dad.animOffsets.exists('danceLeft-alt') || dad.animOffsets.exists('danceRight-alt'))
+						{
+							dad.dance(SONG.notes[curSection].altAnim);
+						}
+						else
+						{
+							dad.dance();
+						}
+
 						dad.holdTimer = 0;
 
 						if (!dad.animation.curAnim.looped)
@@ -2417,7 +2441,15 @@ class PlayState extends MusicBeatState
 				{
 					if (boyfriend.animation.curAnim.finished)
 					{
-						boyfriend.dance();
+						if (boyfriend.animOffsets.exists('idle-alt') || boyfriend.animOffsets.exists('danceLeft-alt') || boyfriend.animOffsets.exists('danceRight-alt'))
+						{
+							boyfriend.dance(SONG.notes[curSection].altAnim);
+						}
+						else
+						{
+							boyfriend.dance();
+						}
+
 						boyfriend.holdTimer = 0;
 
 						if (!boyfriend.animation.curAnim.looped)
@@ -2437,7 +2469,15 @@ class PlayState extends MusicBeatState
 				{
 					if (gf.animation.curAnim.finished)
 					{
-						gf.dance();
+						if (gf.animOffsets.exists('idle-alt') || gf.animOffsets.exists('danceLeft-alt') || gf.animOffsets.exists('danceRight-alt'))
+						{
+							gf.dance(SONG.notes[curSection].altAnim);
+						}
+						else
+						{
+							gf.dance();
+						}
+
 						gf.holdTimer = 0;
 
 						if (!gf.animation.curAnim.looped)
@@ -2485,6 +2525,7 @@ class PlayState extends MusicBeatState
 			openPauseMenu(false);
 		}
 
+		#if DEVELOPERBUILD
 		if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
 		{
 			openChartEditor();
@@ -2497,6 +2538,7 @@ class PlayState extends MusicBeatState
 			cancelMusicFadeTween();
 			MusicBeatState.switchState(new CharacterEditorState(dad.curCharacter));
 		}
+		#end
 		
 		if (startedCountdown)
 		{
@@ -2782,6 +2824,7 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
+	#if DEVELOPERBUILD
 	public function openChartEditor():Void
 	{
 		persistentUpdate = false;
@@ -2794,6 +2837,7 @@ class PlayState extends MusicBeatState
 		DiscordClient.changePresence("Chart Editor", null, null, true);
 		#end
 	}
+	#end
 
 	function doDeathCheck(?skipHealthCheck:Bool = false)
 	{
@@ -3482,11 +3526,13 @@ class PlayState extends MusicBeatState
 
 			playbackRate = 1;
 
+			#if DEVELOPERBUILD
 			if (chartingMode)
 			{
 				openChartEditor();
 				return;
 			}
+			#end
 
 			WeekData.loadTheFirstEnabledMod();
 			cancelMusicFadeTween();

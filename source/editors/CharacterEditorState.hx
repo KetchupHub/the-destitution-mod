@@ -1,3 +1,4 @@
+#if DEVELOPERBUILD
 package editors;
 
 import flixel.addons.ui.FlxUIDropDownMenu;
@@ -1463,3 +1464,4 @@ class CharacterEditorState extends MusicBeatState
 		return text;
 	}
 }
+#end

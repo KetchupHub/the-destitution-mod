@@ -1,7 +1,7 @@
 package options;
 
 import backend.ClientPrefs;
-import visuals.ColorSwap;
+import shaders.ColorSwap;
 import ui.Alphabet;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxColor;

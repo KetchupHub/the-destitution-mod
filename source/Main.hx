@@ -132,6 +132,46 @@ class Main extends Sprite
 			});
 		}
 		#end
+
+		FlxG.signals.gameResized.add(onResizeGame);
+	}
+
+	function onResizeGame(w:Int, h:Int)
+	{
+		fixShaderSize(this);
+
+		if (FlxG.game != null)
+		{
+			fixShaderSize(FlxG.game);
+		}
+
+		if (FlxG.cameras == null)
+		{
+			return;
+		}
+
+		for (cam in FlxG.cameras.list)
+		{
+			if (cam != null && (cam.filters != null || cam.filters != []))
+			{
+				fixShaderSize(cam.flashSprite);
+			}
+		}	
+	}
+
+	function fixShaderSize(sprite:Sprite)
+	{
+		@:privateAccess
+		{
+			if (sprite != null)
+			{
+				sprite.__cacheBitmap = null;
+				sprite.__cacheBitmapData = null;
+				sprite.__cacheBitmapData2 = null;
+				sprite.__cacheBitmapData3 = null;
+				sprite.__cacheBitmapColorTransform = null;
+			}
+		}
 	}
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!

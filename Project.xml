@@ -30,9 +30,8 @@
 	<classpath name="source" />
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
-	<!-- turn it back on whenever video shit is done idk man-->
 	<define name="VIDEOS_ALLOWED" if="windows" />
-	<define name="CRASH_HANDLER" if="desktop release" />
+	<define name="CRASH_HANDLER" if="desktop" />
 
 	<!-- <define name="PRELOAD_ALL" /> -->
 	<define name="PRELOAD_ALL" unless="web" />
@@ -119,7 +118,7 @@
 
 	<haxedef name="message.reporting" value="pretty" />
 
-	<!--Custom haxedefs for destitution mod purposes, such as displaying dev build id and making certain random stuff Not for showcase purposes-->
+	<!--Custom haxedefs for destitution mod purposes, such as dev build features and making certain random stuff Not for showcase purposes-->
 	<!--haxedef name="SHOWCASEVIDEO" -->
 	<haxedef name="DEVELOPERBUILD" unless="SHOWCASEVIDEO"/>
 

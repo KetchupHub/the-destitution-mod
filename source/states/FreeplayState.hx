@@ -14,7 +14,9 @@ import backend.ClientPrefs;
 import ui.Alphabet;
 import util.CoolUtil;
 import util.MemoryUtil;
+#if DEVELOPERBUILD
 import editors.ChartingState;
+#end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -258,14 +260,6 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
-		if (CoolUtil.randomAudio.bool(0.0003))
-		{
-			#if DEVELOPERBUILD
-			trace('yous won: rare sound');
-			#end
-			FlxG.sound.play(Paths.sound('rare'));
-		}
-
 		if (!exitingMenu && !enteringMenu)
 		{
 			lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
@@ -455,6 +449,7 @@ class FreeplayState extends MusicBeatState
 					colorTween.cancel();
 				}
 				
+				#if DEVELOPERBUILD
 				if (FlxG.keys.pressed.SHIFT)
 				{
 					FlxTransitionableState.skipNextTransIn = false;
@@ -463,11 +458,13 @@ class FreeplayState extends MusicBeatState
 					MusicBeatState.switchState(new ChartingState());
 				}
 				else
-				{
+				{#end
 					FlxTransitionableState.skipNextTransIn = true;
 					FlxTransitionableState.skipNextTransOut = true;
 					MusicBeatState.switchState(new LoadingScreenState());
+				#if DEVELOPERBUILD
 				}
+				#end
 	
 				FlxG.sound.music.volume = 0;
 			}

@@ -1,5 +1,6 @@
 package states;
 
+import ui.MarkHeadTransition;
 import backend.Conductor;
 import flixel.graphics.FlxGraphic;
 import flixel.system.FlxAssets.FlxGraphicAsset;
@@ -21,7 +22,9 @@ import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+#if DEVELOPERBUILD
 import editors.MasterEditorMenu;
+#end
 import flixel.input.keyboard.FlxKey;
 
 #if desktop
@@ -178,14 +181,6 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (CoolUtil.randomAudio.bool(0.0003))
-		{
-			#if DEVELOPERBUILD
-			trace('yous won: rare sound');
-			#end
-			FlxG.sound.play(Paths.sound('rare'));
-		}
-
 		if (FlxG.sound.music != null)
 		{
 			if (FlxG.sound.music.volume < 0.8)
@@ -241,7 +236,10 @@ class MainMenuState extends MusicBeatState
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 
-				if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+				if (ClientPrefs.flashing)
+				{
+					FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+				}
 
 				FlxTween.cancelTweensOf(sideThing);
 				FlxTween.cancelTweensOf(funkay);
@@ -282,9 +280,12 @@ class MainMenuState extends MusicBeatState
 							switch (daChoice)
 							{
 								case 'story_mode':
-									FlxTransitionableState.skipNextTransIn = true;
-									FlxTransitionableState.skipNextTransOut = true;
-									MusicBeatState.switchState(new FreeplayState());
+									FlxTransitionableState.skipNextTransIn = false;
+									FlxTransitionableState.skipNextTransOut = false;
+									//MarkHeadTransition.nextCamera = camGame;
+									FlxG.sound.music.stop();
+									FlxG.sound.music = null;
+									MusicBeatState.switchState(new SaveFileState());
 								case 'freeplay':
 									FlxTransitionableState.skipNextTransIn = true;
 									FlxTransitionableState.skipNextTransOut = true;
@@ -298,7 +299,7 @@ class MainMenuState extends MusicBeatState
 					}
 				});
 			}
-			#if desktop
+			#if DEVELOPERBUILD
 			else if (FlxG.keys.anyJustPressed(debugKeys))
 			{
 				selectedSomethin = true;
