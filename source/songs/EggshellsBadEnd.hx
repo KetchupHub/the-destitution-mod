@@ -1,5 +1,6 @@
 package songs;
 
+import flixel.FlxG;
 import visuals.Boyfriend;
 import visuals.Character;
 import backend.Conductor;
@@ -37,5 +38,23 @@ class EggshellsBadEnd extends SongClass
     {
         //this is where beat hit events go
         super.beatHitEvent(curBeat);
+
+        /*switch (curBeat)
+        {
+            case 104 | 312:
+                PlayState.instance.angelPulsing = true;
+                PlayState.instance.angelPulseBeat = 1;
+                FlxG.camera.flash();
+            case 168:
+                PlayState.instance.angelPulseBeat = 6;
+            case 176:
+                PlayState.instance.angelPulseBeat = 4;
+                PlayState.instance.angelPulsing = false;
+                FlxG.camera.flash();
+            case 376:
+                PlayState.instance.angelPulseBeat = 4;
+                PlayState.instance.angelPulsing = false;
+                FlxG.camera.flash();
+        }*/
     }
 }

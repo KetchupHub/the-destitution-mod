@@ -1,5 +1,6 @@
 package songs;
 
+import openfl.filters.ShaderFilter;
 import ui.SubtitleObject.SubtitleTypes;
 import flixel.util.FlxColor;
 import backend.ClientPrefs;
@@ -709,7 +710,8 @@ class Destitution extends SongClass
                 PlayState.instance.reloadHealthBarColors();
                 PlayState.instance.camZoomingMult = 1.5;
                 PlayState.instance.camZoomingDecay = 0.5;
-                //chrm ab should start pulsing here
+                PlayState.instance.chromAbbPulse = true;
+                PlayState.instance.chromAbbBeat = 1;
                 FlxG.camera.flash();
 
                 PlayState.instance.spaceTimeDadArray[0] = PlayState.instance.dad.x;
@@ -729,6 +731,8 @@ class Destitution extends SongClass
                         FlxTween.tween(i, {x: i.x - ((FlxG.width / 2) * 1)}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.quadInOut});
                     }
                 }
+
+                PlayState.instance.camGame.filters = [new ShaderFilter(PlayState.instance.chromAbb)];
 
                 PlayState.instance.sectionIntroThing("I LIEK ITEM");
                 
@@ -793,6 +797,9 @@ class Destitution extends SongClass
 
                 if (curBeat <= 1164)
                 {
+                    PlayState.instance.chromAbbPulse = true;
+                    PlayState.instance.chromAbbBeat = 2;
+
                     PlayState.instance.spaceItems.visible = true;
                     PlayState.instance.spaceTime = true;
                     PlayState.instance.space.visible = true;
@@ -803,12 +810,19 @@ class Destitution extends SongClass
                     PlayState.instance.dad.canSing = false;
                     PlayState.instance.dad.playAnim("floaty space mcgee", true);
                 }
+                else
+                {
+                    PlayState.instance.chromAbbPulse = true;
+                    PlayState.instance.chromAbbBeat = 1;
+                }
             case 1332:
                 PlayState.instance.camZoomingMult = 1;
                 PlayState.instance.camZoomingDecay = 1;
-                //chrm ab should stop pulsing here
+                PlayState.instance.chromAbbPulse = false;
+                PlayState.instance.chromAbbBeat = 4;
                 FlxG.camera.flash();
             case 1340:
+                PlayState.instance.camGame.filters = [];
                 FlxTween.completeTweensOf(PlayState.instance.dad);
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500, {ease: FlxEase.expoOut});

@@ -121,6 +121,7 @@
 	<!--Custom haxedefs for destitution mod purposes, such as dev build features and making certain random stuff Not for showcase purposes-->
 	<!--haxedef name="SHOWCASEVIDEO" -->
 	<haxedef name="DEVELOPERBUILD" unless="SHOWCASEVIDEO"/>
+	<!--haxedef name="FORCESPORTSEVENT" -->
 
 	<!-- _________________________________ Custom _______________________________ -->
 

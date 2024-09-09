@@ -1,6 +1,7 @@
 #if DEVELOPERBUILD
 package editors;
 
+import states.MainMenuState;
 import flixel.FlxSprite;
 import shaders.*;
 import shaders.NtscShaders.NTSCSFilter;
@@ -33,7 +34,7 @@ class ShadersTestState extends MusicBeatState
 
 	public var curSelc:Int = 0;
 
-	public var shaderz:Array<Dynamic> = [new AngelShader(), new AngelShader(), new BloomShader(), new BrightnessContrastShader(), new CamDupeShader(), new CRTShader(), /*new GlitchCamSplitShader(), new GrayScale(),*/ new NTSCSFilter(), new NTSCGlitch(), new TVStatic(), new Abberation(), /*new OldTVShader(), new OverlayShader(),*/ new RippleShader(), new SilhouetteShader(255, 0, 0), /*new TwoDinThreeD(0.5, 128, 45),*/ new VCRBorder()/*, new VCRFuzzier()*/];
+	public var shaderz:Array<Dynamic> = [new AngelShader(), new AngelShader(), new BloomShader(), new BrightnessContrastShader(), new CamDupeShader(), new CRTShader(), /*new GlitchCamSplitShader(), new GrayScale(),*/ new NTSCSFilter(), new NTSCGlitch(), new TVStatic(), new Abberation(0.5), /*new OldTVShader(), new OverlayShader(),*/ new RippleShader(), new SilhouetteShader(255, 0, 0), /*new TwoDinThreeD(0.5, 128, 45),*/ new VCRBorder()/*, new VCRFuzzier()*/];
 
 	override function create()
 	{
@@ -92,6 +93,11 @@ class ShadersTestState extends MusicBeatState
 			switchShader(1);
 		}
 
+		if (controls.BACK)
+		{
+			MusicBeatState.switchState(new MainMenuState());
+		}
+
 		shaderz[curSelc].update(elapsed);
 
 		super.update(elapsed);
@@ -134,23 +140,18 @@ class ShadersTestState extends MusicBeatState
 		 * brightnesscontrastshader
 		 * camdupeshader
 		 * crtshader
-		 * --not anymore glitchcamsplitshader
-		 * --not anymore grayscale
 		 * ntscsfilter
 		 * ntscsglitch
 		 * tvstatic
 		 * abberation
-		 * --not anymore oldtvshader
-		 * --not anymore overlayshader
 		 * rippleshader
 		 * sillouetteshader
-		 * --not anymore twodinthreed
 		 * vcrborder
-		 * --not anymore vcrfuzzier
 		 */
 		shaderz[1].set_strength(1);
 		shaderz[1].set_pixelSize(2);
 		shaderz[4].set_mult(4);
+		shaderz[9].setChrom(0.25);
 	}
 }
 #end

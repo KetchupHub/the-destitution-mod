@@ -1,5 +1,8 @@
 package states;
 
+import shaders.RippleShader;
+import shaders.NtscShaders.Abberation;
+import shaders.AngelShader;
 import openfl.Lib;
 import ui.SongIntroCard;
 import ui.SubtitleObject;
@@ -190,7 +193,7 @@ class PlayState extends MusicBeatState
 	public static var campaignMisses:Int = 0;
 	public static var deathCounter:Int = 0;
 	public var bucksBarHistoryFuck:Array<Int> = [9, 9, 9, 9, 9, 9, 9, 9];
-	
+
 	public static var songHasSections:Bool = false;
 	#if DEVELOPERBUILD
 	public static var chartingMode:Bool = false;
@@ -323,6 +326,16 @@ class PlayState extends MusicBeatState
 	public var finishTimer:FlxTimer = null;
 
 	public var spaceWiggle:WiggleEffect;
+
+	public var angel:AngelShader;
+	public var angelPulseBeat:Int = 4;
+	public var angelPulsing:Bool = false;
+
+	public var chromAbb:Abberation;
+	public var chromAbbBeat:Int = 4;
+	public var chromAbbPulse:Bool = false;
+
+	public var ripple:RippleShader;
 
 	public var boyfriendMap:Map<String, Boyfriend> = new Map();
 	public var dadMap:Map<String, Character> = new Map();
@@ -501,6 +514,17 @@ class PlayState extends MusicBeatState
 		{
 			add(angryDadCover);
 		}
+
+		/*if (curStage == 'eggshells-bad')
+		{
+			if (ClientPrefs.shaders)
+			{
+				if (angel != null)
+				{
+					dad.shader = angel;
+				}
+			}
+		}*/
 
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
 
@@ -845,6 +869,9 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'mark':
+				chromAbb = new Abberation(0);
+				ripple = new RippleShader();
+
 				skyboxThingy = new FlxSprite().loadGraphic(Paths.image('destitution/skyboxThing'));
 				skyboxThingy.scale.set(2, 2);
 				skyboxThingy.updateHitbox();
@@ -930,6 +957,7 @@ class PlayState extends MusicBeatState
 					var fucksprit:FlxSprite = new FlxSprite(CoolUtil.randomLogic.float(-32, 1248), CoolUtil.randomLogic.float(-32, 688));
 					fucksprit.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(CoolUtil.randomVisuals.int(0, 10))));
 					fucksprit.antialiasing = false;
+					fucksprit.shader = ripple;
 					fucksprit.ID = i;
 					fucksprit.scale.set(2, 2);
 					fucksprit.updateHitbox();
@@ -1220,6 +1248,27 @@ class PlayState extends MusicBeatState
 				precacheList.set('dsides/storm2', 'sound');
 				precacheList.set('dsides/storm3', 'sound');
 			case 'eggshells':
+				cabinBg = new FlxSprite();
+				cabinBg.frames = Paths.getSparrowAtlas('eggshells/cabin');
+				cabinBg.animation.addByPrefix('idle', 'idle', 24, true);
+				cabinBg.animation.play('idle', true);
+				cabinBg.scale.set(2, 2);
+				cabinBg.updateHitbox();
+				cabinBg.screenCenter();
+				add(cabinBg);
+			case 'eggshells-bad':
+				//angel = new AngelShader();
+
+				cabinBg = new FlxSprite().loadGraphic(Paths.image('eggshells/bad_cabin'));
+				cabinBg.scale.set(2, 2);
+				cabinBg.updateHitbox();
+				cabinBg.screenCenter();
+				/*if (ClientPrefs.shaders)
+				{
+					cabinBg.shader = angel;
+				}*/
+				add(cabinBg);
+			case 'eggshells-good':
 				cabinBg = new FlxSprite();
 				cabinBg.frames = Paths.getSparrowAtlas('eggshells/cabin');
 				cabinBg.animation.addByPrefix('idle', 'idle', 24, true);
@@ -2369,6 +2418,23 @@ class PlayState extends MusicBeatState
 		if (spaceWiggle != null)
 		{
 			spaceWiggle.update(elapsed);
+		}
+
+		if (ripple != null)
+		{
+			ripple.update(elapsed);
+		}
+
+		if (chromAbb != null)
+		{
+			chromAbb.setChrom(FlxMath.lerp(chromAbb.aberrationAmount.value[0], 0, CoolUtil.boundTo(elapsed * (6), 0, 1)));
+		}
+
+		if (angel != null)
+		{
+			angel.strength = FlxMath.lerp(angel.strength, 0, CoolUtil.boundTo(elapsed * 8, 0, 1));
+			angel.pixelSize = FlxMath.lerp(angel.pixelSize, 1, CoolUtil.boundTo(elapsed * 4, 0, 1));
+			angel.data.iTime.value = [Conductor.songPosition / 1000];
 		}
 
 		if (chefCurtains != null)
@@ -4443,6 +4509,23 @@ class PlayState extends MusicBeatState
 			throw "Null section! You need to open the chart editor and play the song to the end to generate missing sections.";
 		}
 
+		if (angelPulsing && curBeat % angelPulseBeat == 0)
+		{
+			if (angel != null)
+			{
+				angel.pixelSize = 0.5;
+				angel.strength = 0.1;
+			}
+		}
+
+		if (chromAbbPulse && curBeat % chromAbbBeat == 0)
+		{
+			if (chromAbb != null)
+			{
+				chromAbb.setChrom(0.1 / (chromAbbBeat / 2));
+			}
+		}
+
 		songObj.beatHitEvent(curBeat);
 
 		if (brokerBop)
@@ -4746,8 +4829,12 @@ class PlayState extends MusicBeatState
 					curStage = 'superseded';
 				case 'd-stitution':
 					curStage = 'dsides';
-				case 'eggshells' | 'eggshells-bad' | 'eggshells-good':
+				case 'eggshells':
 					curStage = 'eggshells';
+				case 'eggshells-bad':
+					curStage = 'eggshells-bad';
+				case 'eggshells-good':
+					curStage = 'eggshells-good';
 				case 'new-hampshire':
 					curStage = 'bucks';
 				default:

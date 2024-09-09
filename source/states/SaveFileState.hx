@@ -2,27 +2,18 @@ package states;
 
 import flixel.util.FlxSave;
 import backend.Conductor;
-import flixel.graphics.FlxGraphic;
-import flixel.system.FlxAssets.FlxGraphicAsset;
-import options.OptionsState;
 import backend.ClientPrefs;
 import backend.WeekData;
 import util.CoolUtil;
 import util.MemoryUtil;
-import openfl.system.System;
 import flixel.FlxG;
-import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.effects.FlxFlicker;
-import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
-import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import flixel.input.keyboard.FlxKey;
 
 #if desktop
 import backend.Discord.DiscordClient;

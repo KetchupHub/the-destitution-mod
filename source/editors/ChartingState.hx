@@ -454,7 +454,7 @@ class ChartingState extends MusicBeatState
 		var loadAutosaveBtn:FlxButton = new FlxButton(reloadSongJson.x, reloadSongJson.y + 30, 'Load Autosave', function()
 		{
 			PlayState.SONG = Song.parseJSONshit(FlxG.save.data.autosave);
-			MusicBeatState.resetState();
+			MusicBeatState.switchState(new ChartingState());
 		});
 
 		var loadEventJson:FlxButton = new FlxButton(loadAutosaveBtn.x, loadAutosaveBtn.y + 30, 'Load Events', function()
@@ -3036,7 +3036,7 @@ class ChartingState extends MusicBeatState
 	public function loadJson(song:String):Void
 	{
 		PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
-		MusicBeatState.resetState();
+		MusicBeatState.switchState(new ChartingState());
 	}
 
 	public function autosaveSong():Void

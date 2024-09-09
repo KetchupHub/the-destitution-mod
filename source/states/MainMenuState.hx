@@ -122,6 +122,7 @@ class MainMenuState extends MusicBeatState
 		}
 
         funkay = new FlxSprite(0, 800).loadGraphic(Paths.image("mainmenu/mark_story_mode"));
+		funkay.x = 1280 - funkay.width;
 		funkay.antialiasing = ClientPrefs.globalAntialiasing;
         add(funkay);
 
@@ -326,6 +327,8 @@ class MainMenuState extends MusicBeatState
 		}
 
 		funkay.loadGraphic(Paths.image('mainmenu/mark_' + optionShit[curSelected]));
+
+		funkay.x = 1280 - funkay.width;
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{

@@ -2,15 +2,7 @@
 
 package shaders;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxShaderMaskCamera;
 import flixel.system.FlxAssets.FlxShader;
-import openfl.Lib;
-import openfl.display.BitmapData;
-import openfl.display.Shader;
-import openfl.display.ShaderInput;
-import openfl.utils.Assets;
 
 class RippleShader extends FlxShader
 {

@@ -34,7 +34,10 @@ class Paths
 	public static var dumpExclusions:Array<String> =
 	[
 		'assets/music/mus_pauperized.$SOUND_EXT',
-		'assets/rhythm/music/mus_lunch_break.$SOUND_EXT',
+		'assets/music/mus_overtime.$SOUND_EXT',
+		'assets/music/mus_overtime_end.$SOUND_EXT',
+		'assets/music/mus_quarterly_report.$SOUND_EXT',
+		'assets/rhythm/music/mus_lunch_break.$SOUND_EXT'
 	];
 
 	public static function clearUnusedMemory() 
@@ -86,6 +89,16 @@ class Paths
 		localTrackedAssets = [];
 		#if !html5 openfl.Assets.cache.clear("songs"); #end
 	}
+
+	public static function stripLibrary(path:String):String
+	{
+    	var parts:Array<String> = path.split(':');
+    	if (parts.length < 2)
+		{
+			return path;
+		}
+    	return parts[1];
+  	}
 
 	static public var currentModDirectory:String = '';
 	static public var currentLevel:String;
