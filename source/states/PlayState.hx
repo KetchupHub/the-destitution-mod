@@ -346,6 +346,8 @@ class PlayState extends MusicBeatState
 	public var modchartSounds:Map<String, FlxSound> = new Map<String, FlxSound>();
 	public var modchartSaves:Map<String, FlxSave> = new Map<String, FlxSave>();
 
+	public var camFloatyShit:Bool = false;
+
 	override public function create()
 	{
 		instance = this;
@@ -2444,6 +2446,14 @@ class PlayState extends MusicBeatState
 				chefCurtains.meshVelocity.x = FlxMath.lerp(0, chefCurtains.meshVelocity.x, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
 				chefCurtains.meshVelocity.y = FlxMath.lerp(0, chefCurtains.meshVelocity.y, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
 			}
+		}
+
+		if (camFloatyShit)
+		{
+			camHUD.y = Math.sin((Conductor.songPosition / 1000) * (Conductor.bpm / 60) * 1.0) * 15;
+			camHUD.rotation = Math.sin((Conductor.songPosition / 1200) * (Conductor.bpm / 60) * -1.0) * 1.2;
+			camSubtitlesAndSuch.rotation = Math.sin((Conductor.songPosition / 1200) * (Conductor.bpm / 60) * -1.0) * 1;
+			camGame.rotation = Math.sin((Conductor.songPosition / 1200) * (Conductor.bpm / 60) * -1.0) * 1;
 		}
 		
 		if (startedCountdown && generatedMusic && bucksBars[5] != null)

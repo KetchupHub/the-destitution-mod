@@ -46,7 +46,6 @@ class Superseded extends SongClass
         {
             case 28:
                 PlayState.instance.supersededIntro.animation.play("open", true);
-                //PlayState.instance.boyfriend.visible = false;
             case 29:
                 PlayState.instance.defaultCamZoom += 15;
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, Conductor.crochet / 500, {ease: FlxEase.quadInOut});
@@ -63,10 +62,20 @@ class Superseded extends SongClass
                 PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'mark-old-turn', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
-                //PlayState.instance.boyfriend.visible = true;
             case 160:
                 FlxG.camera.flash();
                 PlayState.instance.defaultCamZoom = 0.875;
+            case 223:
+                PlayState.instance.defaultCamZoom += 0.2;
+            case 224:
+                FlxG.camera.flash();
+                PlayState.instance.defaultCamZoom -= 0.25;
+                PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+                PlayState.instance.dad.destroy();
+                PlayState.instance.dad = new Character(PlayState.instance.dad.x + 16, PlayState.instance.dad.y + 74, 'mark-old-glitch', false, false);
+                PlayState.instance.dadGroup.add(PlayState.instance.dad);
+            case 256:
+                PlayState.instance.defaultCamZoom += 0.05;
             case 304:
                 FlxTween.tween(PlayState.instance.theSmog, {alpha: 1}, (Conductor.crochet / 250) * 4, {ease: FlxEase.expoIn});
             case 312:
@@ -75,6 +84,8 @@ class Superseded extends SongClass
                 PlayState.instance.boyfriend.playAnim('notice', true);
             case 320:
                 PlayState.instance.shoulderCam = true;
+
+                PlayState.instance.camFloatyShit = true;
 
                 PlayState.instance.sectionIntroThing('The Creature and His Puppets');
 
@@ -92,11 +103,8 @@ class Superseded extends SongClass
                 PlayState.instance.defaultCamZoom = 1;
                 FlxTween.completeTweensOf(PlayState.instance.theSmog);
                 PlayState.instance.theSmog.visible = false;
-                //PlayState.instance.theSmog.destroy();
 
                 switchPuppetBg('mark');
-
-                //PlayState.instance.supersededOverlay.visible = true;
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
@@ -147,7 +155,6 @@ class Superseded extends SongClass
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
             case 512 | 592 | 736 | 816 | 896 | 1040 | 1120 | 1200 | 1280 | 1360:
-                //TRANSITION
                 FlxG.camera.flash();
                 FlxTween.tween(PlayState.instance.dad, {y: creatureBaseY + creatureHidingAdditive}, (Conductor.crochet / 250) * 1.75, {ease: FlxEase.backInOut});
                 switchPuppetBg('mark');
@@ -286,12 +293,16 @@ class Superseded extends SongClass
             case 1680:
                 PlayState.instance.defaultCamZoom = 1;
             case 1688:
+                PlayState.instance.camFloatyShit = false;
+                PlayState.instance.camHUD.y = 0;
+                PlayState.instance.camHUD.rotation = 0;
+                PlayState.instance.camSubtitlesAndSuch.rotation = 0;
+                PlayState.instance.camGame.rotation = 0;
                 PlayState.instance.theSmog.alpha = 0;
                 PlayState.instance.theSmog.visible = true;
                 FlxTween.tween(PlayState.instance.theSmog, {alpha: 1}, (Conductor.crochet / 250) * 2, {ease: FlxEase.quadOut});
                 FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, (Conductor.crochet / 250) * 2, {ease: FlxEase.quadOut});
             case 1696:
-                //fade into science monitor. use custom style for subtitles for this
                 PlayState.instance.defaultCamZoom = 1.01;
                 PlayState.instance.boyfriend.visible = false;
                 PlayState.instance.boyfriendGroup.visible = false;
@@ -301,22 +312,16 @@ class Superseded extends SongClass
                 FlxTween.completeTweensOf(PlayState.instance.theSmog);
                 FlxTween.tween(PlayState.instance.theSmog, {alpha: 0}, (Conductor.crochet / 250), {ease: FlxEase.quadOut});
             case 1700:
-                //subtitle: "Attempt 72 has failed."
                 PlayState.instance.addSubtitleObj("Attempt 72 has failed.", (Conductor.crochet / 1000) * 7, SubtitleTypes.SCIENCEY);
             case 1707:
-                //subtitle: "After this many attempts,"
                 PlayState.instance.addSubtitleObj("After this many attempts,", (Conductor.crochet / 1000) * 5, SubtitleTypes.SCIENCEY);
             case 1712:
-                //subtitle: "I almost feel bad for Nopeboy."
                 PlayState.instance.addSubtitleObj("I almost feel bad for Nopeboy.", (Conductor.crochet / 1000) * 10, SubtitleTypes.SCIENCEY);
             case 1722:
-                //subtitle: "Whatever."
                 PlayState.instance.addSubtitleObj("Whatever.", (Conductor.crochet / 1000) * 2, SubtitleTypes.SCIENCEY);
             case 1724:
-                //subtitle: "How many times he dies is of no consequence."
                 PlayState.instance.addSubtitleObj("How many times he dies is of no consequence.", (Conductor.crochet / 1000) * 13, SubtitleTypes.SCIENCEY);
             case 1737:
-                //subtitle: "Science marches on."
                 PlayState.instance.addSubtitleObj("Science marches on.", 999999999 / PlayState.instance.playbackRate, SubtitleTypes.SCIENCEY);
         }
     }

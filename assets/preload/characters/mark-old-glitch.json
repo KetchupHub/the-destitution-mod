@@ -3,8 +3,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				0,
-				0
+				70,
+				-112
 			],
 			"fps": 24,
 			"anim": "singLEFT",
@@ -15,8 +15,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				0,
-				0
+				-62,
+				-146
 			],
 			"fps": 24,
 			"anim": "singDOWN",
@@ -26,44 +26,45 @@
 		},
 		{
 			"loop": false,
-			"hasTransition": true,
 			"offsets": [
-				0,
-				0
+				-58,
+				-90
 			],
 			"fps": 24,
 			"anim": "singUP",
+			"hasTransition": true,
 			"indices": [],
 			"name": "up"
 		},
 		{
 			"loop": false,
-			"hasTransition": true,
 			"offsets": [
-				0,
-				0
+				-214,
+				-154
 			],
 			"fps": 24,
 			"anim": "singRIGHT",
+			"hasTransition": true,
 			"indices": [],
 			"name": "right"
 		},
 		{
-			"loop": false,
+			"loop": true,
 			"offsets": [
-				0,
-				0
+				-56,
+				-76
 			],
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "idle"
+			"fps": 12,
+			"hasTransition": false,
+			"name": "idle",
+			"indices": []
 		}
 	],
 	"animator": null,
 	"no_antialiasing": true,
 	"artist": null,
-	"image": "characters/superseded/old_mark_turn",
+	"image": "characters/superseded/giltch",
 	"position": [
 		0,
 		0
@@ -77,10 +78,10 @@
 		19
 	],
 	"camera_position": [
-		64,
-		32
+		32,
+		-32
 	],
 	"sing_duration": 15,
-	"scale": 1,
+	"scale": 2,
 	"_editor_isPlayer": null
 }
