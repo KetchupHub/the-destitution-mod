@@ -1,20 +1,12 @@
 package flixel.system.ui;
 
+import openfl.utils.Assets;
+import openfl.display.BitmapData;
 #if FLX_SOUND_SYSTEM
 import flixel.FlxG;
 import flixel.system.FlxAssets;
-import flixel.util.FlxColor;
-import openfl.Lib;
 import openfl.display.Bitmap;
-import openfl.display.BitmapData;
 import openfl.display.Sprite;
-import openfl.text.TextField;
-import openfl.text.TextFormat;
-import openfl.text.TextFormatAlign;
-#if flash
-import openfl.text.AntiAliasType;
-import openfl.text.GridFitType;
-#end
 
 /**
  * The flixel sound tray, the little volume meter that pops down sometimes.
@@ -37,21 +29,23 @@ class FlxSoundTray extends Sprite
 	 */
 	var _bars:Array<Bitmap>;
 
-	/**
-	 * How wide the sound tray background is.
-	 */
-	var _width:Int = 80;
+	var capsule:Bitmap;
 
-	var _defaultScale:Float = 2.0;
+	var _defaultScale:Float = 1;
 
 	/**The sound used when increasing the volume.**/
-	public var volumeUpSound:String = "flixel/sounds/beep";
+	public var volumeUpSound:String = 'volume_up';
 
 	/**The sound used when decreasing the volume.**/
-	public var volumeDownSound:String = 'flixel/sounds/beep';
+	public var volumeDownSound:String = 'volume_down';
 
 	/**Whether or not changing the volume should make noise.**/
 	public var silent:Bool = false;
+
+	//main capsule pos is 504, 34
+	//bar x is 532
+	//multiply all by 2 for scale
+	public var barPosses:Array<Float> = [98, 120, 142, 164, 186, 208, 230, 252, 274, 296];
 
 	/**
 	 * Sets up the "sound tray", the little volume meter that pops down sometimes.
@@ -61,50 +55,42 @@ class FlxSoundTray extends Sprite
 	{
 		super();
 
-		visible = false;
-		scaleX = _defaultScale;
-		scaleY = _defaultScale;
-		var tmp:Bitmap = new Bitmap(new BitmapData(_width, 30, true, 0x7F000000));
-		screenCenter();
-		addChild(tmp);
+		x = (504 * 2);
+		y = 68;
 
-		var text:TextField = new TextField();
-		text.width = tmp.width;
-		text.height = tmp.height;
-		text.multiline = true;
-		text.wordWrap = true;
-		text.selectable = false;
+		var theDeFucking = Assets.getBitmapData(Paths.getPath('images/soundtray/capsule.png', IMAGE));
+		//just for testing since the assets were being an ass
+		//theDeFucking = new BitmapData(264, 584, false, 0xFFFF0000);
+		capsule = new Bitmap(theDeFucking);
+		capsule.visible = true;
+		//capsule.scaleX = 2;
+		//capsule.scaleY = 2;
+		capsule.x = 0;
+		capsule.y = 0;
+		capsule.alpha = 0;
+		addChild(capsule);
 
-		#if flash
-		text.embedFonts = true;
-		text.antiAliasType = AntiAliasType.NORMAL;
-		text.gridFitType = GridFitType.PIXEL;
-		#else
-		#end
-		var dtf:TextFormat = new TextFormat(Paths.font('BAUHS93.ttf'), 10, 0xffffff);
-		dtf.align = TextFormatAlign.CENTER;
-		text.defaultTextFormat = dtf;
-		addChild(text);
-		text.text = "VOLUME";
-		text.y = 16;
-
-		var bx:Int = 10;
-		var by:Int = 14;
 		_bars = new Array();
+
+		var barToPush:Bitmap;
+
+		barPosses.reverse();
 
 		for (i in 0...10)
 		{
-			tmp = new Bitmap(new BitmapData(4, i + 1, false, FlxColor.WHITE));
-			tmp.x = bx;
-			tmp.y = by;
-			addChild(tmp);
-			_bars.push(tmp);
-			bx += 6;
-			by--;
+			var theFucking = Assets.getBitmapData(Paths.getPath('images/soundtray/bar.png', IMAGE));
+			//just for testing since the assets were being an ass
+			//theFucking = new BitmapData(156, 42, false, 0xFF0400FF);
+			barToPush = new Bitmap(theFucking);
+			barToPush.visible = true;
+			//barToPush.scaleX = 2;
+			//barToPush.scaleY = 2;
+			barToPush.x = (532 - 504) * 2;
+			barToPush.y = (barPosses[i] * 2) - 68;
+			barToPush.alpha = 0;
+			addChild(barToPush);
+			_bars.push(barToPush);
 		}
-
-		y = -height;
-		visible = false;
 	}
 
 	/**
@@ -117,46 +103,42 @@ class FlxSoundTray extends Sprite
 		{
 			_timer -= (MS / 1000);
 		}
-		else if (y > -height)
+		else
 		{
-			y -= FlxG.height * FlxG.elapsed;
+			capsule.alpha = 0;
 
-			if (y <= -height)
+			for (i in 0..._bars.length)
 			{
-				visible = false;
-				active = false;
-
-				#if FLX_SAVE
-				// Save sound preferences
-				if (FlxG.save.isBound)
-				{
-					FlxG.save.data.mute = FlxG.sound.muted;
-					FlxG.save.data.volume = FlxG.sound.volume;
-					FlxG.save.flush();
-				}
-				#end
+				_bars[i].alpha = 0;
 			}
+
+			#if FLX_SAVE
+			if (FlxG.save.isBound)
+			{
+				FlxG.save.data.mute = FlxG.sound.muted;
+				FlxG.save.data.volume = FlxG.sound.volume;
+				FlxG.save.flush();
+			}
+			#end
+
+			active = false;
 		}
 	}
 
-	/**
-	 * Makes the little volume tray slide out.
-	 *
-	 * @param	up Whether the volume is increasing.
-	 */
 	public function show(up:Bool = false):Void
 	{
-		if (!silent)
-		{
-			var sound = FlxAssets.getSound(up ? volumeUpSound : volumeDownSound);
-			if (sound != null)
-				FlxG.sound.load(sound).play();
-		}
+		#if DEVELOPERBUILD
+		trace('haha i am SHOWING the SOUNDTRAY it is at ' + x + ', ' + y);
+		#end
 
-		_timer = 1;
-		y = 0;
 		visible = true;
 		active = true;
+
+		if (!silent)
+		{
+			FlxG.sound.play(Paths.sound(up ? volumeUpSound : volumeDownSound));
+		}
+
 		var globalVolume:Int = Math.round(FlxG.sound.logToLinear(FlxG.sound.volume) * 10);
 
 		if (FlxG.sound.muted)
@@ -172,17 +154,22 @@ class FlxSoundTray extends Sprite
 			}
 			else
 			{
-				_bars[i].alpha = 0.5;
+				_bars[i].alpha = 0.1;
 			}
 		}
+
+		_timer = 1.5;
+		capsule.alpha = 1;
 	}
 
+	/**
+	 * this DOES NOT center it on the screen this is a LIE
+	 */
 	public function screenCenter():Void
 	{
-		scaleX = _defaultScale;
-		scaleY = _defaultScale;
-
-		x = (0.5 * (Lib.current.stage.stageWidth - _width * _defaultScale) - FlxG.game.x);
+		x = (504 * 2);
+		y = 68;
+		alpha = 1;
 	}
 }
 #end
