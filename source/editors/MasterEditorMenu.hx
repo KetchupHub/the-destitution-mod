@@ -2,7 +2,6 @@
 package editors;
 
 import util.CoolUtil;
-import states.FreeplayState;
 import visuals.Character;
 import states.MainMenuState;
 import ui.Alphabet;

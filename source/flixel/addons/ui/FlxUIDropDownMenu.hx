@@ -19,6 +19,8 @@ import flixel.addons.ui.FlxUI;
 
 /**
  * @author larsiusprime
+ * 
+ * Class shadowed for The Destitution Mod.
  */
 class FlxUIDropDownMenu extends FlxUIGroup implements IFlxUIWidget implements IFlxUIClickable implements IHasParams
 {

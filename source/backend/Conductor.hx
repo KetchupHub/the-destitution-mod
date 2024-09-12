@@ -1,9 +1,14 @@
 package backend;
 
-import states.PlayState;
 import backend.Song.SwagSong;
-import ui.Note;
 
+/**
+ * BPM change event.
+ * @param stepTime Current step, I'm pretty sure?
+ * @param songTime Current song time, in milliseconds.
+ * @param bpm Target tempo.
+ * @param stepCrochet Target step crochet? I think? I'm confused.
+ */
 typedef BPMChangeEvent =
 {
 	var stepTime:Int;
@@ -12,6 +17,9 @@ typedef BPMChangeEvent =
 	@:optional var stepCrochet:Float;
 }
 
+/**
+ * Handles all tempo, beat, step, and section things.
+ */
 class Conductor
 {
 	public static var bpm:Float = 100;
@@ -30,6 +38,11 @@ class Conductor
 		
 	}
 
+	/**
+	 * Get the crotchet for a certain time.
+	 * @param time The time you want the crotchet for.
+	 * @return The crotchet for that time.
+	 */
 	public static function getCrotchetAtTime(time:Float)
 	{
 		var lastChange = getBPMFromSeconds(time);
@@ -37,6 +50,11 @@ class Conductor
 		return lastChange.stepCrochet * 4;
 	}
 
+	/**
+	 * Get the BPM for a certain second in the song.
+	 * @param time The second you want the BPM of.
+	 * @return The BPM for that second.
+	 */
 	public static function getBPMFromSeconds(time:Float)
 	{
 		var lastChange:BPMChangeEvent = {
@@ -57,6 +75,11 @@ class Conductor
 		return lastChange;
 	}
 
+	/**
+	 * Get the BPM for a certain step in the song.
+	 * @param step The step you want the BPM of.
+	 * @return The BPM of that step.
+	 */
 	public static function getBPMFromStep(step:Float)
 	{
 		var lastChange:BPMChangeEvent = {
@@ -77,6 +100,11 @@ class Conductor
 		return lastChange;
 	}
 
+	/**
+	 * Get the time of a beat in seconds.
+	 * @param beat The beat you want the time of.
+	 * @return The time of that beat
+	 */
 	public static function beatToSeconds(beat:Float): Float
 	{
 		var step = beat * 4;
@@ -109,6 +137,10 @@ class Conductor
 		return Math.floor(getStepRounded(time) / 4);
 	}
 
+	/**
+	 * Set up all BPM changes for a song.
+	 * @param song The song data you want to map BPM changes from.
+	 */
 	public static function mapBPMChanges(song:SwagSong)
 	{
 		bpmChangeMap = [];

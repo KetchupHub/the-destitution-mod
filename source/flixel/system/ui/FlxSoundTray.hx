@@ -1,16 +1,16 @@
 package flixel.system.ui;
 
 import openfl.utils.Assets;
-import openfl.display.BitmapData;
 #if FLX_SOUND_SYSTEM
 import flixel.FlxG;
-import flixel.system.FlxAssets;
 import openfl.display.Bitmap;
 import openfl.display.Sprite;
 
 /**
  * The flixel sound tray, the little volume meter that pops down sometimes.
  * Accessed via `FlxG.game.soundTray` or `FlxG.sound.soundTray`.
+ * 
+ * Class shadowed for The Destitution Mod.
  */
 class FlxSoundTray extends Sprite
 {
@@ -29,8 +29,10 @@ class FlxSoundTray extends Sprite
 	 */
 	var _bars:Array<Bitmap>;
 
+	/**The capsule graphic.**/
 	var capsule:Bitmap;
 
+	/**Default scale. I don't think this is used.**/
 	var _defaultScale:Float = 1;
 
 	/**The sound used when increasing the volume.**/
@@ -42,9 +44,7 @@ class FlxSoundTray extends Sprite
 	/**Whether or not changing the volume should make noise.**/
 	public var silent:Bool = false;
 
-	//main capsule pos is 504, 34
-	//bar x is 532
-	//multiply all by 2 for scale
+	/**Bar Y positions, in reverse order. reversed in the new function cuz i was too lazy to do it manually**/
 	public var barPosses:Array<Float> = [98, 120, 142, 164, 186, 208, 230, 252, 274, 296];
 
 	/**
@@ -59,12 +59,8 @@ class FlxSoundTray extends Sprite
 		y = 68;
 
 		var theDeFucking = Assets.getBitmapData(Paths.getPath('images/soundtray/capsule.png', IMAGE));
-		//just for testing since the assets were being an ass
-		//theDeFucking = new BitmapData(264, 584, false, 0xFFFF0000);
 		capsule = new Bitmap(theDeFucking);
 		capsule.visible = true;
-		//capsule.scaleX = 2;
-		//capsule.scaleY = 2;
 		capsule.x = 0;
 		capsule.y = 0;
 		capsule.alpha = 0;
@@ -79,12 +75,8 @@ class FlxSoundTray extends Sprite
 		for (i in 0...10)
 		{
 			var theFucking = Assets.getBitmapData(Paths.getPath('images/soundtray/bar.png', IMAGE));
-			//just for testing since the assets were being an ass
-			//theFucking = new BitmapData(156, 42, false, 0xFF0400FF);
 			barToPush = new Bitmap(theFucking);
 			barToPush.visible = true;
-			//barToPush.scaleX = 2;
-			//barToPush.scaleY = 2;
 			barToPush.x = (532 - 504) * 2;
 			barToPush.y = (barPosses[i] * 2) - 68;
 			barToPush.alpha = 0;
@@ -127,10 +119,6 @@ class FlxSoundTray extends Sprite
 
 	public function show(up:Bool = false):Void
 	{
-		#if DEVELOPERBUILD
-		trace('haha i am SHOWING the SOUNDTRAY it is at ' + x + ', ' + y);
-		#end
-
 		visible = true;
 		active = true;
 
@@ -163,7 +151,7 @@ class FlxSoundTray extends Sprite
 	}
 
 	/**
-	 * this DOES NOT center it on the screen this is a LIE
+	 * this DOES NOT center it on the screen this is a LIE but flxgame needs it so FUCK
 	 */
 	public function screenCenter():Void
 	{

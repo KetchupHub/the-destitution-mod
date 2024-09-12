@@ -1918,7 +1918,7 @@ class PlayState extends MusicBeatState
 		if (OpenFlAssets.exists(file))
 		{
 		#end
-			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
+			var eventsData:Array<Dynamic> = Song.loadFromJson(songName).events;
 
 			for (event in eventsData)
 			{

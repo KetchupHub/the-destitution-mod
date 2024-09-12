@@ -25,6 +25,8 @@ import openfl.utils.AssetType;
 
 /**
  * Accessed via `FlxG.sound`.
+ * 
+ * Class shadowed for The Destitution Mod.
  */
 @:allow(flixel.FlxG)
 class SoundFrontEnd

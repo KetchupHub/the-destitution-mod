@@ -1,7 +1,9 @@
 package flixel.sound;
 
 /**
- * A way of grouping sounds for things such as collective volume control
+ * A way of grouping sounds for things such as collective volume control.
+ * 
+ * Class shadowed for The Destitution Mod.
  */
 class FlxSoundGroup
 {

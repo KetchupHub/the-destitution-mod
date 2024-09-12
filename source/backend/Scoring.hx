@@ -1,7 +1,5 @@
 package backend;
 
-import flixel.FlxG;
-
 /**
  * A static class which holds any functions related to scoring.
  */

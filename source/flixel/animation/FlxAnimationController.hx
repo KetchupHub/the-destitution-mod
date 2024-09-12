@@ -5,6 +5,11 @@ import flixel.FlxSprite;
 import flixel.graphics.frames.FlxFrame;
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
 
+/**
+ * Handles animation controls.
+ * 
+ * Class shadowed for The Destitution Mod.
+ */
 class FlxAnimationController implements IFlxDestroyable
 {
 	/**

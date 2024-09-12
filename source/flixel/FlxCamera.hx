@@ -49,6 +49,8 @@ private typedef FlxDrawItem = flixel.graphics.tile.FlxDrawQuadsItem;
  *         |-> `_rotationCanvas:Sprite` (used for rendering rotated camera in tile render mode)
  *             |-> `canvas:Sprite`        (its graphics is used for rendering objects in tile render mode)
  *             |-> `debugLayer:Sprite`    (this sprite is used in tile render mode for rendering debug info, like bounding boxes)
+ * 
+ * Class shadowed for The Destitution Mod.
  */
 class FlxCamera extends FlxBasic
 {

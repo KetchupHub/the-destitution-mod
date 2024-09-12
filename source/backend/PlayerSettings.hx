@@ -4,6 +4,10 @@ import backend.Controls;
 import flixel.FlxG;
 import flixel.util.FlxSignal;
 
+/**
+ * Additional controls handling.
+ * Also handles gamepads.
+ */
 class PlayerSettings
 {
 	static public var numPlayers(default, null) = 0;
@@ -18,12 +22,21 @@ class PlayerSettings
 
 	public final controls:Controls;
 
+	/**
+	 * Create a new PlayerSettings.
+	 * @param id Player ID.
+	 * @param scheme Default scheme.
+	 */
 	function new(id, scheme)
 	{
 		this.id = id;
 		this.controls = new Controls('player$id', scheme);
 	}
 
+	/**
+	 * Sets the keyboard scheme.
+	 * @param scheme The scheme you want to set it to.
+	 */
 	public function setKeyboardScheme(scheme)
 	{
 		controls.setKeyboardScheme(scheme);

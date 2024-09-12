@@ -25,6 +25,7 @@ import flixel.text.FlxText;
  * License: Creative Commons Attribution 3.0 United States
  * @link http://creativecommons.org/licenses/by/3.0/us/
  * 
+ * Class shadowed for The Destitution Mod.
  */
 class FlxInputText extends FlxText
 {

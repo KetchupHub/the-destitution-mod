@@ -8,6 +8,8 @@ import flixel.system.FlxAssets.FlxShader;
  * Usage notes:
  * - The effect will be applied to the whole screen.
  * - Set the x/y-values on the 'uBlocksize' vector to the desired size (setting this to 0 will make the screen go black)
+ * 
+ * Class shadowed for The Destitution Mod.
  */
 class MosaicShader extends FlxShader
 {

@@ -419,7 +419,7 @@ class FreeplayState extends MusicBeatState
 					FlxG.sound.music.volume = 0;
 					Paths.currentModDirectory = songs[curSelected].folder;
 					var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase() + suffy);
-					PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase() + suffy);
+					PlayState.SONG = Song.loadFromJson(poop);
 					FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
 					Conductor.changeBPM(PlayState.SONG.bpm);
 					instPlaying = curSelected;
@@ -442,7 +442,7 @@ class FreeplayState extends MusicBeatState
 				var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName + suffy);
 				var poop:String = Highscore.formatSong(songLowercase);
 	
-				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+				PlayState.SONG = Song.loadFromJson(poop);
 
 				if (colorTween != null)
 				{

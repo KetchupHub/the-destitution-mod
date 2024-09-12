@@ -7,6 +7,22 @@ import haxe.Json;
 import sys.io.File;
 #end
 
+/**
+ * Song typedef.
+ * @param song The song's name.
+ * @param notes All of the song's sections.
+ * @param events All of the song's events.
+ * @param bpm The song's starting tempo.
+ * @param speed The song's starting scrollspeed.
+ * @param player1 The song's starting player character.
+ * @param player2 The song's starting opponent character.
+ * @param gfVersion The song's starting middle character.
+ * @param stage The song's stage.
+ * @param arrowSkin The song's noteskin.
+ * @param splashSkin The song's notesplash skin.
+ * @param composer The song's composer(s).
+ * @param charter The song's charter(s).
+ */
 typedef SwagSong =
 {
 	var song:String;
@@ -27,6 +43,9 @@ typedef SwagSong =
 	var charter:String;
 }
 
+/**
+ * A Song.
+ */
 class Song
 {
 	public var song:String;
@@ -46,6 +65,10 @@ class Song
 	public var composer:String = 'Unknown';
 	public var charter:String = 'Unknown';
 
+	/**
+	 * Prepares JSON data for use.
+	 * @param songJson The JSON.
+	 */
 	private static function onLoadJson(songJson:Dynamic)
 	{
 		if (songJson.gfVersion == null)
@@ -95,6 +118,12 @@ class Song
 		}
 	}
 
+	/**
+	 * Creates a new Song object.
+	 * @param song The song name.
+	 * @param notes The notes of the song.
+	 * @param bpm The song's BPM.
+	 */
 	public function new(song, notes, bpm)
 	{
 		this.song = song;
@@ -107,10 +136,14 @@ class Song
 		this.charter = 'Unknown';
 	}
 
-	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong
+	/**
+	 * Load a song chart JSON file.
+	 * @param jsonInput The song to be formatted.
+	 * @return Song typedef from the JSON file.
+	 */
+	public static function loadFromJson(jsonInput:String):SwagSong
 	{
 		var rawJson = null;
-		var formattedFolder:String = Paths.formatToSongPath(folder);
 		var formattedSong:String = Paths.formatToSongPath(jsonInput);
 
 		try
@@ -146,6 +179,11 @@ class Song
 		return songJson;
 	}
 
+	/**
+	 * Runs Json.parse on the song.
+	 * @param rawJson 
+	 * @return The formatted song Typedef.
+	 */
 	public static function parseJSONshit(rawJson:String):SwagSong
 	{
 		var swagShit:SwagSong = cast Json.parse(rawJson).song;

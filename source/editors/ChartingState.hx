@@ -62,9 +62,11 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
+/**
+ * Chart editor.
+ */
 @:access(flixel.sound.FlxSound._sound)
 @:access(openfl.media.Sound.__buffer)
-
 class ChartingState extends MusicBeatState
 {
 	public static var noteTypeList:Array<String> = //Used for backwards compatibility with 0.1 - 0.3.2 charts, though, you should add your hardcoded custom note types here too.
@@ -141,7 +143,8 @@ class ChartingState extends MusicBeatState
 	public var curUndoIndex = 0;
 	public var curRedoIndex = 0;
 	public var _song:SwagSong;
-	/*
+
+	/**
 	 * WILL BE THE CURRENT / LAST PLACED NOTE
 	**/
 	public var curSelectedNote:Array<Dynamic> = null;
@@ -174,6 +177,7 @@ class ChartingState extends MusicBeatState
 		16,
 		24
 	];
+
 	public var curZoom:Int = 2;
 
 	public var blockPressWhileTypingOn:Array<FlxUIInputText> = [];
@@ -448,7 +452,7 @@ class ChartingState extends MusicBeatState
 
 		var reloadSongJson:FlxButton = new FlxButton(reloadSong.x, saveButton.y + 30, "Reload JSON", function()
 		{
-			openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function(){loadJson(_song.song.toLowerCase()); }, null,ignoreWarnings));
+			openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function() { loadJson(_song.song.toLowerCase()); }, null, ignoreWarnings));
 		});
 
 		var loadAutosaveBtn:FlxButton = new FlxButton(reloadSongJson.x, reloadSongJson.y + 30, 'Load Autosave', function()
@@ -457,40 +461,27 @@ class ChartingState extends MusicBeatState
 			MusicBeatState.switchState(new ChartingState());
 		});
 
-		var loadEventJson:FlxButton = new FlxButton(loadAutosaveBtn.x, loadAutosaveBtn.y + 30, 'Load Events', function()
-		{
-
-			var songName:String = Paths.formatToSongPath(_song.song);
-			var file:String = Paths.json(songName + '/events');
-			#if sys
-			if (#if MODS_ALLOWED FileSystem.exists(Paths.modsJson(songName + '/events')) || #end FileSystem.exists(file))
-			#else
-			if (OpenFlAssets.exists(file))
-			#end
-			{
-				clearEvents();
-				var events:SwagSong = Song.loadFromJson('events', songName);
-				_song.events = events.events;
-				changeSection(curSec);
-			}
-		});
-
 		var clear_events:FlxButton = new FlxButton(320, 310, 'Clear events', function()
-			{
-				openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, clearEvents, null,ignoreWarnings));
-			});
+		{
+			openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, clearEvents, null,ignoreWarnings));
+		});
 		clear_events.color = FlxColor.RED;
 		clear_events.label.color = FlxColor.WHITE;
 
 		var clear_notes:FlxButton = new FlxButton(320, clear_events.y + 30, 'Clear notes', function()
+		{
+			openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function()
 			{
-				openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function(){for (sec in 0..._song.notes.length) {
+				for (sec in 0..._song.notes.length)
+				{
 					_song.notes[sec].sectionNotes = [];
 				}
-				updateGrid();
-			}, null,ignoreWarnings));
 
-			});
+				updateGrid();
+			},
+			null,
+			ignoreWarnings));
+		});
 		clear_notes.color = FlxColor.RED;
 		clear_notes.label.color = FlxColor.WHITE;
 
@@ -505,7 +496,7 @@ class ChartingState extends MusicBeatState
 		blockPressWhileTypingOnStepper.push(stepperSpeed);
 		#if MODS_ALLOWED
 		var directories:Array<String> = [Paths.mods('characters/'), Paths.mods(Paths.currentModDirectory + '/characters/'), Paths.getPreloadPath('characters/')];
-		for(mod in Paths.getGlobalMods())
+		for (mod in Paths.getGlobalMods())
 			directories.push(Paths.mods(mod + '/characters/'));
 		#else
 		var directories:Array<String> = [Paths.getPreloadPath('characters/')];
@@ -514,14 +505,19 @@ class ChartingState extends MusicBeatState
 		var tempMap:Map<String, Bool> = new Map<String, Bool>();
 		var characters:Array<String> = [];
 
-		for (i in 0...directories.length) {
+		for (i in 0...directories.length)
+		{
 			var directory:String = directories[i];
-			if(FileSystem.exists(directory)) {
-				for (file in FileSystem.readDirectory(directory)) {
+			if (FileSystem.exists(directory))
+			{
+				for (file in FileSystem.readDirectory(directory))
+				{
 					var path = haxe.io.Path.join([directory, file]);
-					if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
+					if (!FileSystem.isDirectory(path) && file.endsWith('.json'))
+					{
 						var charToCheck:String = file.substr(0, file.length - 5);
-						if(!charToCheck.endsWith('-dead') && !tempMap.exists(charToCheck)) {
+						if (!charToCheck.endsWith('-dead') && !tempMap.exists(charToCheck))
+						{
 							tempMap.set(charToCheck, true);
 							characters.push(charToCheck);
 						}
@@ -627,7 +623,6 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(reloadSong);
 		tab_group_song.add(reloadSongJson);
 		tab_group_song.add(loadAutosaveBtn);
-		tab_group_song.add(loadEventJson);
 		tab_group_song.add(stepperBPM);
 		tab_group_song.add(stepperSpeed);
 		tab_group_song.add(reloadNotesButton);
@@ -3035,7 +3030,7 @@ class ChartingState extends MusicBeatState
 
 	public function loadJson(song:String):Void
 	{
-		PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
+		PlayState.SONG = Song.loadFromJson(song.toLowerCase());
 		MusicBeatState.switchState(new ChartingState());
 	}
 

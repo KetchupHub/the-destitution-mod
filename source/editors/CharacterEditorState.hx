@@ -38,6 +38,9 @@ import backend.ClientPrefs;
 import sys.FileSystem;
 #end
 
+/**
+ * The character editor screen.
+ */
 class CharacterEditorState extends MusicBeatState
 {
 	var char:Character;
@@ -51,6 +54,11 @@ class CharacterEditorState extends MusicBeatState
 	var goToPlayState:Bool = true;
 	var camFollow:FlxObject;
 
+	/**
+	 * Generate the character editor screen.
+	 * @param daAnim Character to load.
+	 * @param goToPlayState Are we instantiating this from PlayState?
+	 */
 	public function new(daAnim:String = 'bf-mark', goToPlayState:Bool = true)
 	{
 		super();
@@ -241,134 +249,6 @@ class CharacterEditorState extends MusicBeatState
 		bg.scrollFactor.set();
 		bgLayer.add(bg);
 	}
-
-	var TemplateCharacter:String = 
-	'{
-		"animations": [
-			{
-				"loop": false,
-				"offsets": [
-					0,
-					0
-				],
-				"anim": "idle",
-				"fps": 24,
-				"name": "idle",
-				"indices": []
-			},
-			{
-				"loop": false,
-				"offsets": [
-					140,
-					2
-				],
-				"anim": "singLEFT",
-				"fps": 24,
-				"name": "left",
-				"indices": []
-			},
-			{
-				"loop": false,
-				"offsets": [
-					87,
-					3
-				],
-				"anim": "singDOWN",
-				"fps": 24,
-				"name": "down",
-				"indices": []
-			},
-			{
-				"loop": false,
-				"offsets": [
-					20,
-					155
-				],
-				"anim": "singUP",
-				"fps": 24,
-				"name": "up",
-				"indices": []
-			},
-			{
-				"loop": false,
-				"offsets": [
-					-13,
-					3
-				],
-				"anim": "singRIGHT",
-				"fps": 24,
-				"name": "right",
-				"indices": []
-			},
-			{
-				"offsets": [
-					16,
-					0
-				],
-				"loop": true,
-				"fps": 24,
-				"anim": "singLEFTmiss",
-				"indices": [],
-				"name": "miss"
-			},
-			{
-				"offsets": [
-					16,
-					0
-				],
-				"loop": true,
-				"fps": 24,
-				"anim": "singDOWNmiss",
-				"indices": [],
-				"name": "miss"
-			},
-			{
-				"offsets": [
-					16,
-					0
-				],
-				"loop": true,
-				"fps": 24,
-				"anim": "singUPmiss",
-				"indices": [],
-				"name": "miss"
-			},
-			{
-				"offsets": [
-					16,
-					0
-				],
-				"loop": true,
-				"fps": 24,
-				"anim": "singRIGHTmiss",
-				"indices": [],
-				"name": "miss"
-			}
-		],
-		"no_antialiasing": false,
-		"image": "characters/nopeboy_2d",
-		"position": [
-			50,
-			270
-		],
-		"healthicon": "bf",
-		"flip_x": true,
-		"healthbar_colors": [
-			14,
-			133,
-			163
-		],
-		"camera_position": [
-			170,
-			20
-		],
-		"sing_duration": 15,
-		"scale": 1,
-		"artist": "Unknown",
-		"animator": "Unknown",
-		"whoDoneWhat": "Unknown",
-		"_editor_isPlayer": true
-	}';
 
 	var charDropDown:FlxUIDropDownMenu;
 
@@ -1184,7 +1064,6 @@ class CharacterEditorState extends MusicBeatState
 	function updatePresence()
 	{
 		#if desktop
-		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Character Editor", "Character: " + daAnim, null, '-menus');
 		#end
 	}
@@ -1456,12 +1335,143 @@ class CharacterEditorState extends MusicBeatState
 	{
 		if (prefix.toLowerCase().endsWith('v')) //probably copy paste attempt
 		{
-			prefix = prefix.substring(0, prefix.length-1);
+			prefix = prefix.substring(0, prefix.length - 1);
 		}
 
 		var text:String = prefix + Clipboard.text.replace('\n', '');
 
 		return text;
 	}
+
+	/**
+	 * Template character JSON, stored as a string.
+	 */
+	var TemplateCharacter:String = 
+	'{
+		"animations": [
+			{
+				"loop": false,
+				"offsets": [
+					0,
+					0
+				],
+				"anim": "idle",
+				"fps": 24,
+				"name": "idle",
+				"indices": []
+			},
+			{
+				"loop": false,
+				"offsets": [
+					140,
+					2
+				],
+				"anim": "singLEFT",
+				"fps": 24,
+				"name": "left",
+				"indices": []
+			},
+			{
+				"loop": false,
+				"offsets": [
+					87,
+					3
+				],
+				"anim": "singDOWN",
+				"fps": 24,
+				"name": "down",
+				"indices": []
+			},
+			{
+				"loop": false,
+				"offsets": [
+					20,
+					155
+				],
+				"anim": "singUP",
+				"fps": 24,
+				"name": "up",
+				"indices": []
+			},
+			{
+				"loop": false,
+				"offsets": [
+					-13,
+					3
+				],
+				"anim": "singRIGHT",
+				"fps": 24,
+				"name": "right",
+				"indices": []
+			},
+			{
+				"offsets": [
+					16,
+					0
+				],
+				"loop": true,
+				"fps": 24,
+				"anim": "singLEFTmiss",
+				"indices": [],
+				"name": "miss"
+			},
+			{
+				"offsets": [
+					16,
+					0
+				],
+				"loop": true,
+				"fps": 24,
+				"anim": "singDOWNmiss",
+				"indices": [],
+				"name": "miss"
+			},
+			{
+				"offsets": [
+					16,
+					0
+				],
+				"loop": true,
+				"fps": 24,
+				"anim": "singUPmiss",
+				"indices": [],
+				"name": "miss"
+			},
+			{
+				"offsets": [
+					16,
+					0
+				],
+				"loop": true,
+				"fps": 24,
+				"anim": "singRIGHTmiss",
+				"indices": [],
+				"name": "miss"
+			}
+		],
+		"no_antialiasing": false,
+		"image": "characters/nopeboy_2d",
+		"position": [
+			50,
+			270
+		],
+		"healthicon": "bf",
+		"flip_x": true,
+		"healthbar_colors": [
+			14,
+			133,
+			163
+		],
+		"camera_position": [
+			170,
+			20
+		],
+		"sing_duration": 15,
+		"scale": 1,
+		"artist": "Unknown",
+		"animator": "Unknown",
+		"whoDoneWhat": "Unknown",
+		"_editor_isPlayer": true
+	}';
 }
 #end

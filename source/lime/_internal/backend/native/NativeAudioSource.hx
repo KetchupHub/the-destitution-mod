@@ -10,6 +10,11 @@ import lime.media.vorbis.VorbisFile;
 import lime.media.AudioSource;
 import lime.utils.UInt8Array;
 
+/**
+ * Lime native audio source.
+ * 
+ * Class shadowed for The Destitution Mod.
+ */
 #if !lime_debug
 @:fileXml('tags="haxe,release"')
 @:noDebug

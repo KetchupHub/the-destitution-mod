@@ -71,6 +71,9 @@ enum KeyboardScheme
 	Custom;
 }
 
+/**
+ * Handles (almost) all game controls.
+ */
 class Controls extends FlxActionSet
 {
 	var _ui_up = new FlxActionDigital(Action.UI_UP);

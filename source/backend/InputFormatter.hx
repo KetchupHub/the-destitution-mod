@@ -2,8 +2,16 @@ package backend;
 
 import flixel.input.keyboard.FlxKey;
 
+/**
+ * Formats game inputs.
+ */
 class InputFormatter
 {
+	/**
+	 * Returns the key name for a FlxKey as a string.
+	 * @param key The FlxKey you want the name of.
+	 * @return The name of the FlxKey.
+	 */
 	public static function getKeyName(key:FlxKey):String
 	{
 		switch (key)

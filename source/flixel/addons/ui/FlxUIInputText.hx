@@ -6,6 +6,8 @@ import flixel.addons.ui.interfaces.IResizable;
 
 /**
  * @author Lars Doucet
+ * 
+ * Class shadowed for The Destitution Mod.
  */
 class FlxUIInputText extends FlxInputText implements IResizable implements IFlxUIWidget implements IHasParams
 {

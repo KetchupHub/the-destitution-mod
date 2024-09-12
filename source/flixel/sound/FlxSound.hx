@@ -23,6 +23,8 @@ import openfl.utils.AssetType;
 
 /**
  * This is the universal flixel sound object, used for streaming, music, and sound effects.
+ * 
+ * Class shadowed for The Destitution Mod.
  */
 class FlxSound extends FlxBasic
 {

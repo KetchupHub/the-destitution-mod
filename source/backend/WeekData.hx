@@ -6,6 +6,14 @@ import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
 import haxe.Json;
 
+/**
+ * Week typedef.
+ * @param songs The week's songs.
+ * @param weekBefore The week directly before this week.
+ * @param storyName The story name of this week. This is only used in the score reset menu.
+ * @param weekName The week's proper name.
+ * @param freeplayColor The week's freeplay colors.
+ */
 typedef WeekFile =
 {
 	var songs:Array<Dynamic>;
@@ -15,6 +23,9 @@ typedef WeekFile =
 	var freeplayColor:Array<Int>;
 }
 
+/**
+ * Week data.
+ */
 class WeekData
 {
 	public static var weeksLoaded:Map<String, WeekData> = new Map<String, WeekData>();
@@ -30,6 +41,10 @@ class WeekData
 
 	public var fileName:String;
 
+	/**
+	 * Generates a template week file.
+	 * @return WeekFile
+	 */
 	public static function createWeekFile():WeekFile
 	{
 		var weekFile:WeekFile = {

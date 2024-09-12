@@ -7,6 +7,10 @@ import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import backend.Controls;
 
+/**
+ * Handles all global save data, such as options.
+ * Does NOT handle RPG save data!!! Don't put RPG variables here!!!
+ */
 class ClientPrefs
 {
 	public static var downScroll:Bool = false;
@@ -89,6 +93,9 @@ class ClientPrefs
 		defaultKeys = keyBinds.copy();
 	}
 
+	/**
+	 * Save current options configuration.
+	 */
 	public static function saveSettings()
 	{
 		FlxG.save.data.downScroll = downScroll;
@@ -122,6 +129,9 @@ class ClientPrefs
 		FlxG.save.data.comboStacking = comboStacking;
 		FlxG.save.data.smootherBars = smootherBars;
 		FlxG.save.data.lastEggshellsEnding = lastEggshellsEnding;
+		FlxG.save.data.rpgSave1Used = rpgSave1Used;
+		FlxG.save.data.rpgSave2Used = rpgSave2Used;
+		FlxG.save.data.rpgSave3Used = rpgSave3Used;
 	
 		FlxG.save.flush();
 
@@ -131,6 +141,9 @@ class ClientPrefs
 		save.flush();
 	}
 
+	/**
+	 * Load all saved data.
+	 */
 	public static function loadPrefs()
 	{
 		if (FlxG.save.data.downScroll != null)
@@ -353,11 +366,20 @@ class ClientPrefs
 		}
 	}
 
+	/**
+	 * Returns the value of a Gameplay Setting (set by user in GameplayChangersSubstate).
+	 * @param name The name of the gameplay setting you're retrieving.
+	 * @param defaultValue The default value of the gameplay setting you're retrieving. Will be used if no user setting is found.
+	 * @return The current value of the gameplay setting you're retrieving.
+	 */
 	inline public static function getGameplaySetting(name:String, defaultValue:Dynamic):Dynamic
 	{
 		return (gameplaySettings.exists(name) ? gameplaySettings.get(name) : defaultValue);
 	}
 
+	/**
+	 * Reload controls.
+	 */
 	public static function reloadControls()
 	{
 		PlayerSettings.player1.controls.setKeyboardScheme(KeyboardScheme.Solo);
@@ -370,7 +392,7 @@ class ClientPrefs
 		FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 		FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 	}
-
+	
 	public static function copyKey(arrayToCopy:Array<FlxKey>):Array<FlxKey>
 	{
 		var copiedArray:Array<FlxKey> = arrayToCopy.copy();

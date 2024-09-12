@@ -15,6 +15,8 @@ import flixel.util.FlxColor;
 /**
  * A slider GUI element for float and integer manipulation.
  * @author Gama11
+ * 
+ * Class shadowed for The Destitution Mod.
  */
 class FlxSlider extends FlxSpriteGroup
 {

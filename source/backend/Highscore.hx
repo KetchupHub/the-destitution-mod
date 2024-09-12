@@ -2,11 +2,18 @@ package backend;
 
 import flixel.FlxG;
 
+/**
+ * Handles all song score data.
+ */
 class Highscore
 {
 	public static var songScores:Map<String, Int> = new Map();
 	public static var songRating:Map<String, Float> = new Map();
 
+	/**
+	 * Reset a song's score and rating.
+	 * @param song The song name.
+	 */
 	public static function resetSong(song:String):Void
 	{
 		var daSong:String = formatSong(song);
@@ -15,6 +22,12 @@ class Highscore
 		setRating(daSong, 0);
 	}
 
+	/**
+	 * The math floor function, but for the decimal point in a decimal.
+	 * @param value Value to floor.
+	 * @param decimals Level of decimals.
+	 * @return Value, floored.
+	 */
 	public static function floorDecimal(value:Float, decimals:Int):Float
 	{
 		if (decimals < 1)
@@ -34,6 +47,13 @@ class Highscore
 		return newValue / tempMult;
 	}
 
+	/**
+	 * Save a song's score and rating.
+	 * Won't override high scores.
+	 * @param song The song name.
+	 * @param score The score.
+	 * @param rating The rating.
+	 */
 	public static function saveScore(song:String, score:Int = 0, ?rating:Float = -1):Void
 	{
 		var daSong:String = formatSong(song);
@@ -61,6 +81,12 @@ class Highscore
 		}
 	}
 
+	/**
+	 * Actually set a score value.
+	 * WILL override high scores, this is why saveScore exists.
+	 * @param song The song name.
+	 * @param score The score.
+	 */
 	static function setScore(song:String, score:Int):Void
 	{
 		songScores.set(song, score);
@@ -70,6 +96,12 @@ class Highscore
 		FlxG.save.flush();
 	}
 
+	/**
+	 * Actually set a rating value.
+	 * WILL override highest rating, this is why saveScore exists.
+	 * @param song The song name.
+	 * @param rating The rating.
+	 */
 	static function setRating(song:String, rating:Float):Void
 	{
 		songRating.set(song, rating);
@@ -79,11 +111,22 @@ class Highscore
 		FlxG.save.flush();
 	}
 
+	/**
+	 * Just runs Paths.fromatToSongPath.
+	 * Not sure why this is here.
+	 * @param song The song name.
+	 * @return Literally just the song run through Paths.formatToSongPath. Why.
+	 */
 	public static function formatSong(song:String):String
 	{
 		return Paths.formatToSongPath(song);
 	}
 
+	/**
+	 * Get a song's score.
+	 * @param song The song name.
+	 * @return The player's highest score on the song.
+	 */
 	public static function getScore(song:String):Int
 	{
 		var daSong:String = formatSong(song);
@@ -96,6 +139,11 @@ class Highscore
 		return songScores.get(daSong);
 	}
 
+	/**
+	 * Get a song's rating.
+	 * @param song The song name.
+	 * @return The player's highest rating on the song.
+	 */
 	public static function getRating(song:String):Float
 	{
 		var daSong:String = formatSong(song);
@@ -108,6 +156,9 @@ class Highscore
 		return songRating.get(daSong);
 	}
 
+	/**
+	 * Loads song score data.
+	 */
 	public static function load():Void
 	{
 		if (FlxG.save.data.songScores != null)
