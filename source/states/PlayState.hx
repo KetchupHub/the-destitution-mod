@@ -4903,9 +4903,12 @@ class PlayState extends MusicBeatState
 	public function songIntroCard()
 	{
 		var songCard:SongIntroCard = new SongIntroCard(0, -128, SONG.song.toLowerCase().replace('-erect', ''), songObj.songNameForDisplay, SONG.composer, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
+		songCard.screenCenter();
+		var centeredY:Float = songCard.y;
+		songCard.y = -128;
 		songCard.alpha = 0;
 		songCard.cameras = [camSubtitlesAndSuch];
 		add(songCard);
-		FlxTween.tween(songCard, {alpha: 1, y: 0}, 0.25 / playbackRate, {ease: FlxEase.quadOut});
+		FlxTween.tween(songCard, {alpha: 1, y: centeredY}, 0.1 / playbackRate, {ease: FlxEase.backIn});
 	}
 }
