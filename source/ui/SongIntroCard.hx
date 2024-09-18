@@ -20,41 +20,43 @@ class SongIntroCard extends FlxSpriteGroup
     public var _timer:Float;
     public var _ending:Bool = false;
 
+    public static final _sizeMultipFromSixForty:Float = 1.25;
+
     public override function new(x:Float, y:Float, cardName:String, songDisplayName:String, composer:String, color:FlxColor)
     {
         super(x, y);
 
-        _timer = ((Conductor.crochet / 250) * 2) + (0.25 / PlayState.instance.playbackRate);
+        _timer = ((Conductor.crochet / 250) * 2) + (0.1 / PlayState.instance.playbackRate);
 
         _charObj = new FlxSprite().loadGraphic(Paths.image('ui/songCards/' + cardName, null, true));
         if (Paths.image('ui/songCards/' + cardName, null, true) == null)
         {
             _charObj = new FlxSprite().loadGraphic(Paths.image('ui/songCards/placeholder'));
         }
-        _charObj.setGraphicSize(1280);
+        _charObj.setGraphicSize(640 * _sizeMultipFromSixForty);
         _charObj.updateHitbox();
         _charObj.antialiasing = ClientPrefs.globalAntialiasing;
         add(_charObj);
 
         _cardObj = new FlxSprite().loadGraphic(Paths.image('ui/introCard'));
-        _cardObj.scale.set(2, 2);
+        _cardObj.scale.set(_sizeMultipFromSixForty, _sizeMultipFromSixForty);
         _cardObj.updateHitbox();
         _cardObj.color = color;
         add(_cardObj);
 
         _cardObjBelly = new FlxSprite().loadGraphic(Paths.image('ui/introCardBelly'));
-        _cardObjBelly.scale.set(2, 2);
+        _cardObjBelly.scale.set(_sizeMultipFromSixForty, _sizeMultipFromSixForty);
         _cardObjBelly.updateHitbox();
         add(_cardObjBelly);
 
-        _textObj = new FlxText(211, 438, 860, songDisplayName, 72);
-        _textObj.setFormat(Paths.font("BAUHS93.ttf"), 72 + 8, color, FlxTextAlign.CENTER, NONE);
+        _textObj = new FlxText((211 / 2) * _sizeMultipFromSixForty, (438 / 2) * _sizeMultipFromSixForty, (860 / 2) * _sizeMultipFromSixForty, songDisplayName, Std.int(36 * _sizeMultipFromSixForty));
+        _textObj.setFormat(Paths.font("BAUHS93.ttf"), Std.int(40 * _sizeMultipFromSixForty), color, FlxTextAlign.CENTER, NONE);
         _textObj.antialiasing = ClientPrefs.globalAntialiasing;
         _textObj.bold = true;
         add(_textObj);
 
-        _credObj = new FlxText(211, 438 + 86, 860, "Composed by " + composer, 24);
-        _credObj.setFormat(Paths.font("BAUHS93.ttf"), 24 + 8, FlxColor.BLACK, FlxTextAlign.CENTER, NONE);
+        _credObj = new FlxText((211 / 2) * _sizeMultipFromSixForty, ((438 + 86) / 2) * _sizeMultipFromSixForty, (860 / 2) * _sizeMultipFromSixForty, "Composed by " + composer, Std.int(12 * _sizeMultipFromSixForty));
+        _credObj.setFormat(Paths.font("BAUHS93.ttf"), Std.int(((24 + 8) / 2) * _sizeMultipFromSixForty), FlxColor.BLACK, FlxTextAlign.CENTER, NONE);
         _credObj.antialiasing = ClientPrefs.globalAntialiasing;
         add(_credObj);
     }
@@ -78,27 +80,27 @@ class SongIntroCard extends FlxSpriteGroup
     {
         _ending = true;
 
-        FlxTween.tween(_credObj, {alpha: 0, y: _credObj.y + 128}, Conductor.crochet / 500, {ease: FlxEase.circOut, onComplete: function the(tw:FlxTween)
+        FlxTween.tween(_credObj, {alpha: 0, y: _credObj.y + 128}, Conductor.crochet / 500, {ease: FlxEase.backOut, onComplete: function the(tw:FlxTween)
         {
             _credObj.destroy();
         }});
 
-        FlxTween.tween(_textObj, {alpha: 0, y: _textObj.y + 128}, Conductor.crochet / 1000, {ease: FlxEase.circOut, onComplete: function the(tw:FlxTween)
+        FlxTween.tween(_textObj, {alpha: 0, y: _textObj.y + 128}, Conductor.crochet / 1000, {ease: FlxEase.backOut, onComplete: function the(tw:FlxTween)
         {
             _textObj.destroy();
         }});
 
-        FlxTween.tween(_charObj, {alpha: 0, y: _charObj.y + 128}, Conductor.crochet / 1000, {ease: FlxEase.circOut, onComplete: function the(tw:FlxTween)
+        FlxTween.tween(_charObj, {alpha: 0, y: _charObj.y + 128}, Conductor.crochet / 1000, {ease: FlxEase.backOut, onComplete: function the(tw:FlxTween)
         {
             _charObj.destroy();
         }});
 
-        FlxTween.tween(_cardObjBelly, {alpha: 0, y: _cardObjBelly.y + 128}, Conductor.crochet / 1000, {ease: FlxEase.circOut, onComplete: function the(tw:FlxTween)
+        FlxTween.tween(_cardObjBelly, {alpha: 0, y: _cardObjBelly.y + 128}, Conductor.crochet / 1000, {ease: FlxEase.backOut, onComplete: function the(tw:FlxTween)
         {
             _cardObjBelly.destroy();
         }});
 
-        FlxTween.tween(_cardObj, {alpha: 0, y: _cardObj.y + 128}, Conductor.crochet / 1000, {ease: FlxEase.circOut, onComplete: function the(tw:FlxTween)
+        FlxTween.tween(_cardObj, {alpha: 0, y: _cardObj.y + 128}, Conductor.crochet / 1000, {ease: FlxEase.backOut, onComplete: function the(tw:FlxTween)
         {
             _cardObj.destroy();
             this.destroy();
