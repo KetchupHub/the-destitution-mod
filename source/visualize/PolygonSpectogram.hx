@@ -1,5 +1,6 @@
 package visualize;
 
+import flixel.FlxG;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.sound.FlxSound;
@@ -121,17 +122,24 @@ class PolygonSpectogram extends MeshRender
     {
       if (curTime != vis.snd.time)
       {
-        // trace("DOIN SHIT" + FlxG.random.int(0, 200));
-
-        if (vis.snd.playing) curTime = vis.snd.time;
+        if (vis.snd.playing)
+        {
+          curTime = vis.snd.time;
+        }
         else
         {
-          if (Math.abs(curTime - vis.snd.time) > 10) curTime = FlxMath.lerp(curTime, vis.snd.time, 0.5);
+          if (Math.abs(curTime - vis.snd.time) > 10)
+          {
+            curTime = FlxMath.lerp(curTime, vis.snd.time, 0.5);
+          }
         }
 
         curTime = vis.snd.time;
 
-        if (vis.snd.time < vis.snd.length - realtimeVisLenght) generateSection(vis.snd.time + realtimeStartOffset, realtimeVisLenght);
+        if (vis.snd.time < vis.snd.length - realtimeVisLenght)
+        {
+          generateSection(vis.snd.time + realtimeStartOffset, realtimeVisLenght);
+        }
       }
     }
   }

@@ -1,42 +1,38 @@
 package states;
 
-import ui.MarkHeadTransition;
+import lime.app.Application;
+import ui.MainMenuButton;
 import backend.Conductor;
 import flixel.graphics.FlxGraphic;
-import flixel.system.FlxAssets.FlxGraphicAsset;
 import options.OptionsState;
 import backend.ClientPrefs;
 import backend.WeekData;
 import util.CoolUtil;
 import util.MemoryUtil;
-import openfl.system.System;
 import flixel.FlxG;
-import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.effects.FlxFlicker;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
-import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-#if DEVELOPERBUILD
-import editors.MasterEditorMenu;
-#end
 import flixel.input.keyboard.FlxKey;
 
 #if desktop
 import backend.Discord.DiscordClient;
 #end
 
+#if DEVELOPERBUILD
+import editors.MasterEditorMenu;
+#end
+
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '3'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
-
-	public var menuItems:FlxTypedGroup<FlxSprite>;
+	public var menuItems:FlxTypedGroup<MainMenuButton>;
 	public var camGame:FlxCamera;
 	
 	public var optionShit:Array<String> = [
@@ -134,25 +130,17 @@ class MainMenuState extends MusicBeatState
 		sideThing.x -= 512;
 		add(sideThing);
 		
-		menuItems = new FlxTypedGroup<FlxSprite>();
+		menuItems = new FlxTypedGroup<MainMenuButton>();
 		add(menuItems);
 
 		var scale:Float = 1;
 
 		for (i in 0...optionShit.length)
 		{
-			var menuItem:FlxSprite = new FlxSprite(35, 32.5 + (280 * i));
-			menuItem.scale.x = scale;
-			menuItem.scale.y = scale;
-			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
-			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
-			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
-			menuItem.animation.play('idle');
+			var menuItem:MainMenuButton = new MainMenuButton(35, 32.5 + (280 * i), optionShit[i], scale);
 			menuItem.ID = i;
 			menuItem.alpha = 0;
 			menuItems.add(menuItem);
-			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
-			menuItem.updateHitbox();
 		}
 
 		FlxTween.tween(sideThing, {x: 0}, 0.5, {ease: FlxEase.cubeOut, onComplete: function fuock(fuer:FlxTween)
@@ -163,7 +151,7 @@ class MainMenuState extends MusicBeatState
 			}
 		}});
 
-		var versionShit:FlxText = new FlxText(-4, #if DEVELOPERBUILD FlxG.height - 44 #else FlxG.height - 24 #end, FlxG.width, "The Destitution Mod v" + psychEngineVersion #if DEVELOPERBUILD + "\n(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")" #end, 12);
+		var versionShit:FlxText = new FlxText(-4, #if DEVELOPERBUILD FlxG.height - 44 #else FlxG.height - 24 #end, FlxG.width, "The Destitution Mod v" + Application.current.meta.get('version') #if DEVELOPERBUILD + "\n(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")" #end, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
 		versionShit.antialiasing = ClientPrefs.globalAntialiasing;
@@ -194,7 +182,7 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			#if DEVELOPERBUILD
+			/*#if DEVELOPERBUILD
 			if (FlxG.keys.justPressed.TAB)
 			{
 				selectedSomethin = true;
@@ -209,7 +197,7 @@ class MainMenuState extends MusicBeatState
 				
 				MusicBeatState.switchState(new ResultsState(999999, 999999, 9999, 999, 99, 9, FlxG.keys.pressed.SHIFT, 99.9, 99));
 			}
-			#end
+			#end*/
 
 			if (controls.UI_UP_P)
 			{
@@ -235,6 +223,7 @@ class MainMenuState extends MusicBeatState
 			if (controls.ACCEPT)
 			{
 				selectedSomethin = true;
+				
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 
 				if (ClientPrefs.flashing)
@@ -255,7 +244,7 @@ class MainMenuState extends MusicBeatState
 					ease: FlxEase.quadOut
 				});
 
-				menuItems.forEach(function(spr:FlxSprite)
+				menuItems.forEach(function(spr:MainMenuButton)
 				{
 					if (curSelected != spr.ID)
 					{
@@ -274,7 +263,7 @@ class MainMenuState extends MusicBeatState
 					{
 						FlxTween.cancelTweensOf(spr);
 						spr.alpha = 1;
-						FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
+						spr.buttonFlicker(1, function flck()
 						{
 							var daChoice:String = optionShit[curSelected];
 
@@ -283,7 +272,6 @@ class MainMenuState extends MusicBeatState
 								case 'story_mode':
 									FlxTransitionableState.skipNextTransIn = false;
 									FlxTransitionableState.skipNextTransOut = false;
-									//MarkHeadTransition.nextCamera = camGame;
 									FlxG.sound.music.stop();
 									FlxG.sound.music = null;
 									MusicBeatState.switchState(new SaveFileState());
@@ -330,15 +318,15 @@ class MainMenuState extends MusicBeatState
 
 		funkay.x = 1280 - funkay.width;
 
-		menuItems.forEach(function(spr:FlxSprite)
+		menuItems.forEach(function(spr:MainMenuButton)
 		{
-			spr.animation.play('idle');
+			spr.playAnim('idle');
 			spr.updateHitbox();
 			spr.x = 35;
 
 			if (spr.ID == curSelected)
 			{
-				spr.animation.play('selected', true);
+				spr.playAnim('selected');
 				spr.centerOffsets();
 				spr.x = 35;
 			}

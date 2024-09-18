@@ -129,11 +129,13 @@ class SaveFileState extends MusicBeatState
 		delText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(delText);
 
-		var versionShit:FlxText = new FlxText(-4, #if DEVELOPERBUILD FlxG.height - 44 #else FlxG.height - 24 #end, FlxG.width, "The Destitution Mod v" + MainMenuState.psychEngineVersion #if DEVELOPERBUILD + "\n(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")" #end, 12);
+        #if DEVELOPERBUILD
+		var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width, "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
-		versionShit.antialiasing = ClientPrefs.globalAntialiasing;
+        versionShit.antialiasing = ClientPrefs.globalAntialiasing;
 		add(versionShit);
+		#end
 
 		changeItem();
 

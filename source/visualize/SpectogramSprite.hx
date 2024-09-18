@@ -1,5 +1,7 @@
 package visualize;
 
+import backend.Conductor;
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.math.FlxMath;
@@ -156,7 +158,7 @@ class SpectogramSprite extends FlxTypedSpriteGroup<FlxSprite>
 
         if (vis.snd.playing) remappedShit = Std.int(FlxMath.remapToRange(vis.snd.time, 0, vis.snd.length, 0, numSamples));
         else
-          remappedShit = Std.int(FlxMath.remapToRange(Conductor.instance.songPosition, 0, vis.snd.length, 0, numSamples));
+          remappedShit = Std.int(FlxMath.remapToRange(Conductor.songPosition, 0, vis.snd.length, 0, numSamples));
 
         var fftSamples:Array<Float> = [];
         var i = remappedShit;
@@ -224,15 +226,15 @@ class SpectogramSprite extends FlxTypedSpriteGroup<FlxSprite>
         if (vis.snd.playing) remappedShit = Std.int(FlxMath.remapToRange(vis.snd.time, 0, vis.snd.length, 0, numSamples));
         else
         {
-          if (curTime == Conductor.instance.songPosition)
+          if (curTime == Conductor.songPosition)
           {
             wavOptimiz = 3;
             return; // already did shit, so finishes function early
           }
 
-          curTime = Conductor.instance.songPosition;
+          curTime = Conductor.songPosition;
 
-          remappedShit = Std.int(FlxMath.remapToRange(Conductor.instance.songPosition, 0, vis.snd.length, 0, numSamples));
+          remappedShit = Std.int(FlxMath.remapToRange(Conductor.songPosition, 0, vis.snd.length, 0, numSamples));
         }
 
         wavOptimiz = 8;

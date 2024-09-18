@@ -1,6 +1,5 @@
 package states;
 
-import util.CoolUtil;
 import backend.ClientPrefs;
 import ui.Alphabet;
 import ui.AttachedText;

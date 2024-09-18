@@ -1,9 +1,7 @@
 package flixel.sound;
 
 /**
- * A way of grouping sounds for things such as collective volume control.
- * 
- * Class shadowed for The Destitution Mod.
+ * A way of grouping sounds for things such as collective volume control
  */
 class FlxSoundGroup
 {
@@ -27,16 +25,22 @@ class FlxSoundGroup
 	}
 
 	/**
-	 * Add a sound to this group
+	 * Add a sound to this group, will remove the sound from any group it is currently in
 	 * @param	sound The sound to add to this group
 	 * @return True if sound was successfully added, false otherwise
 	 */
 	public function add(sound:FlxSound):Bool
 	{
-		if (sounds.indexOf(sound) < 0)
+		if (!sounds.contains(sound))
 		{
+			// remove from prev group
+			if (sound.group != null)
+				sound.group.sounds.remove(sound);
+			
 			sounds.push(sound);
+			@:bypassAccessor
 			sound.group = this;
+			sound.updateTransform();
 			return true;
 		}
 		return false;
@@ -49,10 +53,13 @@ class FlxSoundGroup
 	 */
 	public function remove(sound:FlxSound):Bool
 	{
-		if (sounds.indexOf(sound) >= 0)
+		if (sounds.contains(sound))
 		{
+			@:bypassAccessor
 			sound.group = null;
-			return sounds.remove(sound);
+			sounds.remove(sound);
+			sound.updateTransform();
+			return true;
 		}
 		return false;
 	}
@@ -82,7 +89,6 @@ class FlxSoundGroup
 		this.volume = volume;
 		for (sound in sounds)
 		{
-            @:privateAccess
 			sound.updateTransform();
 		}
 		return volume;

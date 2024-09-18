@@ -1,8 +1,5 @@
 package states;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
 import ui.MarkHeadTransition;
 import songs.SongInit;
 import backend.Conductor;
@@ -21,6 +18,10 @@ import flixel.ui.FlxBar;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.math.FlxMath;
+
+#if desktop
+import backend.Discord.DiscordClient;
+#end
 
 class LoadingScreenState extends MusicBeatState
 {

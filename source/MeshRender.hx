@@ -6,6 +6,8 @@ import flixel.util.FlxColor;
 /**
  * Yoinked from AustinEast, thanks hopefully u dont mind me using some of ur good code
  * instead of my dumbass ugly code bro
+ * 
+ * the cycle of life: i yoinked this from base fnf
  */
 class MeshRender extends FlxStrip
 {

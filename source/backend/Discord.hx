@@ -1,5 +1,6 @@
 package backend;
 
+import lime.app.Application;
 import states.MainMenuState;
 import util.CoolUtil;
 import Sys.sleep;
@@ -79,7 +80,7 @@ class DiscordClient
 		var smalley:String = "";
 		var stateo:String = state;
 		var detailso:String = details;
-		var largoText:String = 'The Destitution Mod ' + MainMenuState.psychEngineVersion;
+		var largoText:String = 'The Destitution Mod v' + Application.current.meta.get('version');
 
 		#if DEVELOPERBUILD
 		stateo = 'State Redacted';

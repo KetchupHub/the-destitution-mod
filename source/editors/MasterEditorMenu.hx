@@ -25,7 +25,8 @@ class MasterEditorMenu extends MusicBeatState
 		'Character Editor',
 		'Chart Editor',
 		'Shader Test',
-		'Video Test'
+		'Video Test',
+		'Waveform Test'
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
 	private var directories:Array<String> = [null];
@@ -125,6 +126,8 @@ class MasterEditorMenu extends MusicBeatState
 					MusicBeatState.switchState(new ShadersTestState());
 				case 'Video Test':
 					MusicBeatState.switchState(new VideoTestState());
+				case 'Waveform Test':
+					MusicBeatState.switchState(new WaveformTestState());
 			}
 			FlxG.sound.music.volume = 0;
 		}

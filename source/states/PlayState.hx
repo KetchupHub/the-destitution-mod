@@ -1,9 +1,9 @@
 package states;
 
+import waveform.WaveformSprite;
 import shaders.RippleShader;
 import shaders.NtscShaders.Abberation;
 import shaders.AngelShader;
-import openfl.Lib;
 import ui.SongIntroCard;
 import ui.SubtitleObject;
 import ui.SubtitleObject.SubtitleTypes;
@@ -44,15 +44,10 @@ import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import openfl.display.BlendMode;
 import openfl.utils.Assets as OpenFlAssets;
-#if DEVELOPERBUILD
-import editors.ChartingState;
-import editors.CharacterEditorState;
-#end
 import openfl.events.KeyboardEvent;
 import backend.StageData;
 import visuals.Character;
 import visuals.Boyfriend;
-import visuals.AttachedSprite;
 import visuals.BucksGraphBar;
 import shaders.WiggleEffect;
 import ui.Note;
@@ -66,17 +61,17 @@ import songs.*;
 import backend.Discord.DiscordClient;
 #end
 
-#if !flash 
-import flixel.addons.display.FlxRuntimeShader;
-#end
-
 #if sys
 import sys.FileSystem;
-import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED
-import hxcodec.flixel.*;
+import VideoCutscene;
+#end
+
+#if DEVELOPERBUILD
+import editors.ChartingState;
+import editors.CharacterEditorState;
 #end
 
 class PlayState extends MusicBeatState
@@ -347,6 +342,8 @@ class PlayState extends MusicBeatState
 	public var modchartSaves:Map<String, FlxSave> = new Map<String, FlxSave>();
 
 	public var camFloatyShit:Bool = false;
+
+	public var wave:WaveformSprite;
 
 	override public function create()
 	{
@@ -1449,30 +1446,25 @@ class PlayState extends MusicBeatState
 		inCutscene = true;
 
 		var filepath:String = Paths.video(name);
+
 		#if sys
 		if (!FileSystem.exists(filepath))
 		#else
 		if (!OpenFlAssets.exists(filepath))
 		#end
 		{
-			#if DEVELOPERBUILD
-			FlxG.log.warn('Couldnt find video file: ' + name);
-			#end
 			startAndEnd();
 			return;
 		}
 
-		var video:FlxVideoSprite = new FlxVideoSprite();
-		video.play(filepath);
-		video.animation.finishCallback = function(fff:String)
-		{
-			startAndEnd();
-			return;
-		}
+		var video:VideoCutscene = new VideoCutscene(0, 0);
+		video.camera = camOther;
+		video.scrollFactor.set();
+		add(video);
+
+		video.play(filepath, startAndEnd, FlxG.width, FlxG.height);
+
 		#else
-		#if DEVELOPERBUILD
-		FlxG.log.warn('Platform not supported!');
-		#end
 		startAndEnd();
 		return;
 		#end
@@ -2425,6 +2417,12 @@ class PlayState extends MusicBeatState
 		if (ripple != null)
 		{
 			ripple.update(elapsed);
+		}
+
+		if (wave != null && FlxG.sound.music != null)
+		{
+			wave.time = Conductor.songPosition / 1000;
+			wave.update(elapsed);
 		}
 
 		if (chromAbb != null)

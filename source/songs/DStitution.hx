@@ -1,5 +1,7 @@
 package songs;
 
+import waveform.WaveformDataParser;
+import waveform.WaveformSprite;
 import backend.ClientPrefs;
 import visuals.Boyfriend;
 import visuals.Character;
@@ -344,6 +346,17 @@ class DStitution extends SongClass
                 Paths.clearUnusedMemory();
             case 3056:
                 FlxG.camera.flash();
+
+                PlayState.instance.defaultCamZoom = 1;
+
+                PlayState.instance.wave = new WaveformSprite(WaveformDataParser.interpretFlxSound(FlxG.sound.music), WaveformOrientation.HORIZONTAL, FlxColor.fromRGB(195, 207, 209), Conductor.crochet / 500);
+				PlayState.instance.wave.width = FlxG.width * 1.1;
+				PlayState.instance.wave.height = FlxG.height / 2;
+				PlayState.instance.wave.amplitude = 4;
+				PlayState.instance.wave.screenCenter();
+				PlayState.instance.add(PlayState.instance.wave);
+                PlayState.instance.insert(PlayState.instance.members.indexOf(PlayState.instance.dadGroup) - 1, PlayState.instance.wave);
+                PlayState.instance.wave.scrollFactor.set();
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
