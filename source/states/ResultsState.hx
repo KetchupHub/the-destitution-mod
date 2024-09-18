@@ -1,5 +1,6 @@
 package states;
 
+import visuals.PixelPerfectSprite;
 import backend.ClientPrefs;
 import flixel.util.FlxStringUtil;
 import backend.Conductor;
@@ -61,7 +62,7 @@ class ResultsState extends MusicBeatState
     
     public var yellow:FlxSprite;
     public var sideGuy:FlxSprite;
-    public var botplayThing:FlxSprite;
+    public var botplayThing:PixelPerfectSprite;
 
     public var elapsedTotal:Float;
 
@@ -165,7 +166,7 @@ class ResultsState extends MusicBeatState
         FlxTween.tween(statsText, {alpha: 1}, 0.4, {ease: FlxEase.circOut, startDelay: 1.8});
         FlxTween.tween(scoreText, {alpha: 1}, 0.4, {ease: FlxEase.circOut, startDelay: 1.85});
 
-        botplayThing = new FlxSprite(FlxG.width - 130, 2).loadGraphic(Paths.image('ui/botplay'));
+        botplayThing = new PixelPerfectSprite(FlxG.width - 130, 2).loadGraphic(Paths.image('ui/botplay'));
         botplayThing.scale.set(0.5, 0.5);
         botplayThing.updateHitbox();
         botplayThing.alpha = 0.75;

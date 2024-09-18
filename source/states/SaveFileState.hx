@@ -1,5 +1,6 @@
 package states;
 
+import visuals.PixelPerfectSprite;
 import flixel.util.FlxSave;
 import backend.Conductor;
 import backend.ClientPrefs;
@@ -25,15 +26,15 @@ class SaveFileState extends MusicBeatState
 
 	public var camGame:FlxCamera;
 
-    public var bg:FlxSprite;
-	public var swirls:FlxSprite;
-    public var guys:FlxSprite;
+    public var bg:PixelPerfectSprite;
+	public var swirls:PixelPerfectSprite;
+    public var guys:PixelPerfectSprite;
 
-    public var indi:FlxSprite;
+    public var indi:PixelPerfectSprite;
 
     public var slotUsedArray:Array<Bool> = [ClientPrefs.rpgSave1Used, ClientPrefs.rpgSave2Used, ClientPrefs.rpgSave3Used];
 
-    public var slots:Array<FlxSprite> = [];
+    public var slots:Array<PixelPerfectSprite> = [];
 
 	override function create()
 	{
@@ -74,13 +75,13 @@ class SaveFileState extends MusicBeatState
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 		
-		bg = new FlxSprite().loadGraphic(Paths.image('saves/bg'));
+		bg = new PixelPerfectSprite().loadGraphic(Paths.image('saves/bg'));
         bg.scale.set(2, 2);
 		bg.updateHitbox();
 		bg.screenCenter();
 		add(bg);
 
-        swirls = new FlxSprite().loadGraphic(Paths.image('saves/swirls'), true, 640, 360);
+        swirls = new PixelPerfectSprite().loadGraphic(Paths.image('saves/swirls'), true, 640, 360);
         swirls.animation.add('idle', [0, 1], 1, true);
         swirls.animation.play('idle', true);
         swirls.scale.set(2, 2);
@@ -89,7 +90,7 @@ class SaveFileState extends MusicBeatState
         swirls.alpha = 0.25;
 		add(swirls);
 
-        guys = new FlxSprite().loadGraphic(Paths.image('saves/guys'), true, 202, 360);
+        guys = new PixelPerfectSprite().loadGraphic(Paths.image('saves/guys'), true, 202, 360);
         guys.animation.add('idle', [0, 1], 3, true);
         guys.animation.play('idle', true);
         guys.scale.set(2, 2);
@@ -99,7 +100,7 @@ class SaveFileState extends MusicBeatState
 
         for (i in 1...4)
         {
-            var slotterson:FlxSprite = new FlxSprite(0, 240 * (i - 1)).loadGraphic(Paths.image('saves/s' + (i)), true, 164, 120);
+            var slotterson:PixelPerfectSprite = new PixelPerfectSprite(0, 240 * (i - 1)).loadGraphic(Paths.image('saves/s' + (i)), true, 164, 120);
             slotterson.animation.add('idle', [0, 1], 0, false);
             slotterson.animation.play('idle', true);
             slotterson.scale.set(2, 2);
@@ -113,12 +114,12 @@ class SaveFileState extends MusicBeatState
             slots.push(slotterson);
         }
 
-        indi = new FlxSprite().loadGraphic(Paths.image('saves/indi'));
+        indi = new PixelPerfectSprite().loadGraphic(Paths.image('saves/indi'));
         indi.scale.set(2, 2);
         indi.updateHitbox();
         add(indi);
 
-        var title:FlxSprite = new FlxSprite().loadGraphic(Paths.image('saves/title'));
+        var title:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('saves/title'));
         title.scale.set(2, 2);
         title.updateHitbox();
         add(title);

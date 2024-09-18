@@ -1,5 +1,6 @@
 package states;
 
+import visuals.PixelPerfectSprite;
 import ui.MarkHeadTransition;
 import flixel.util.FlxStringUtil;
 import backend.Conductor;
@@ -36,7 +37,7 @@ class FreeplayState extends MusicBeatState
 
 	public var enteringMenu:Bool = false;
 
-	public var songCover:FlxSprite;
+	public var songCover:PixelPerfectSprite;
 
 	public var selector:FlxText;
 	public static var curSelected:Int = 0;
@@ -51,14 +52,14 @@ class FreeplayState extends MusicBeatState
 	public var grpSongs:FlxTypedGroup<Alphabet>;
 	public var curPlaying:Bool = false;
 
-	public var bg:FlxSprite;
+	public var bg:PixelPerfectSprite;
 	public var intendedColor:Int;
 	public var colorTween:FlxTween;
 
 	public var songVariantCur:String = 'Normal';
 	
-	public var freePaper:FlxSprite;
-	public var freeMetal:FlxSprite;
+	public var freePaper:PixelPerfectSprite;
+	public var freeMetal:PixelPerfectSprite;
 
 	override function create()
 	{
@@ -111,7 +112,7 @@ class FreeplayState extends MusicBeatState
 
 		enteringMenu = true;
 
-		bg = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));
+		bg = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
 		bg.alpha = 0.35;
 		add(bg);
 		bg.screenCenter();
@@ -129,7 +130,7 @@ class FreeplayState extends MusicBeatState
 			}});
 		}
 
-		freePaper = new FlxSprite().loadGraphic(Paths.image('freeplay/paper'));
+		freePaper = new PixelPerfectSprite().loadGraphic(Paths.image('freeplay/paper'));
 		freePaper.scale.set(2, 2);
 		freePaper.updateHitbox();
 		freePaper.antialiasing = false;
@@ -138,7 +139,7 @@ class FreeplayState extends MusicBeatState
 
 		FlxTween.tween(freePaper, {x: 0}, 0.5, {ease: FlxEase.circOut});
 
-		freeMetal = new FlxSprite(804, 0).loadGraphic(Paths.image('freeplay/metal'));
+		freeMetal = new PixelPerfectSprite(804, 0).loadGraphic(Paths.image('freeplay/metal'));
 		freeMetal.scale.set(2, 2);
 		freeMetal.updateHitbox();
 		freeMetal.antialiasing = false;
@@ -147,7 +148,7 @@ class FreeplayState extends MusicBeatState
 
 		FlxTween.tween(freeMetal, {x: 804}, 0.5, {ease: FlxEase.circOut});
 
-		songCover = new FlxSprite(936, 0).loadGraphic(Paths.image('song_covers/placeholder', null, true));
+		songCover = new PixelPerfectSprite(936, 0).loadGraphic(Paths.image('song_covers/placeholder', null, true));
 		songCover.x = 936;
 		songCover.y = 204;
 		songCover.antialiasing = false;

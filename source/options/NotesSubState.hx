@@ -1,5 +1,6 @@
 package options;
 
+import visuals.PixelPerfectSprite;
 import backend.ClientPrefs;
 import shaders.ColorSwap;
 import ui.Alphabet;
@@ -14,7 +15,7 @@ class NotesSubState extends MusicBeatSubstate
 	private static var curSelected:Int = 0;
 	private static var typeSelected:Int = 0;
 	private var grpNumbers:FlxTypedGroup<Alphabet>;
-	private var grpNotes:FlxTypedGroup<FlxSprite>;
+	private var grpNotes:FlxTypedGroup<PixelPerfectSprite>;
 	private var shaderArray:Array<ColorSwap> = [];
 	var curValue:Float = 0;
 	var holdTime:Float = 0;
@@ -29,7 +30,7 @@ class NotesSubState extends MusicBeatSubstate
 	{
 		super();
 		
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));
+		var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -39,7 +40,7 @@ class NotesSubState extends MusicBeatSubstate
 		blackBG.alpha = 0.4;
 		add(blackBG);
 
-		grpNotes = new FlxTypedGroup<FlxSprite>();
+		grpNotes = new FlxTypedGroup<PixelPerfectSprite>();
 		add(grpNotes);
 		grpNumbers = new FlxTypedGroup<Alphabet>();
 		add(grpNumbers);
@@ -54,7 +55,7 @@ class NotesSubState extends MusicBeatSubstate
 				grpNumbers.add(optionText);
 			}
 
-			var note:FlxSprite = new FlxSprite(posX, yPos);
+			var note:PixelPerfectSprite = new PixelPerfectSprite(posX, yPos);
 			note.frames = Paths.getSparrowAtlas('ui/notes');
 			var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
 			note.animation.addByPrefix('idle', animations[i], 24);

@@ -1,5 +1,6 @@
 package states;
 
+import visuals.PixelPerfectSprite;
 import ui.MarkHeadTransition;
 import songs.SongInit;
 import backend.Conductor;
@@ -25,7 +26,7 @@ import backend.Discord.DiscordClient;
 
 class LoadingScreenState extends MusicBeatState
 {
-    public var funkay:FlxSprite;
+    public var funkay:PixelPerfectSprite;
 
     public var loadedBar:FlxBar;
 
@@ -85,7 +86,7 @@ class LoadingScreenState extends MusicBeatState
         loadedBar.createFilledBar(FlxColor.GRAY, FlxColor.WHITE);
         add(loadedBar);
 
-        var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("loading/loadBg"));
+        var bg:PixelPerfectSprite = new PixelPerfectSprite(0, 0).loadGraphic(Paths.image("loading/loadBg"));
         if (gotSportsEvent)
         {
             loadedBar.visible = false;
@@ -113,7 +114,7 @@ class LoadingScreenState extends MusicBeatState
         }
         #end
 
-        funkay = new FlxSprite(0, 0).loadGraphic(Paths.image("loading/loadMark" + marksSuffix));
+        funkay = new PixelPerfectSprite(0, 0).loadGraphic(Paths.image("loading/loadMark" + marksSuffix));
         funkay.scale.set(2, 2);
         funkay.updateHitbox();
         add(funkay);

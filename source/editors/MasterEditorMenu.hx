@@ -1,6 +1,7 @@
 #if DEVELOPERBUILD
 package editors;
 
+import visuals.PixelPerfectSprite;
 import util.CoolUtil;
 import visuals.Character;
 import states.MainMenuState;
@@ -52,7 +53,7 @@ class MasterEditorMenu extends MusicBeatState
 		MemoryUtil.collect(true);
         MemoryUtil.compact();
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));
+		var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
 		bg.scrollFactor.set();
 		bg.color = 0xFF353535;
 		add(bg);

@@ -1,5 +1,6 @@
 package options;
 
+import visuals.PixelPerfectSprite;
 import flixel.util.FlxTimer;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.tweens.FlxEase;
@@ -31,11 +32,11 @@ class OptionsState extends MusicBeatState
 	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
-	public static var menuBG:FlxSprite;
+	public static var menuBG:PixelPerfectSprite;
 
 	var finishedIntro:Bool = false;
 
-	var optionsThingy:FlxSprite;
+	var optionsThingy:PixelPerfectSprite;
 
 	function openSelectedSubstate(label:String)
 	{
@@ -80,7 +81,7 @@ class OptionsState extends MusicBeatState
 
 		finishedIntro = false;
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));
+		var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.updateHitbox();
 		bg.screenCenter();
@@ -99,7 +100,7 @@ class OptionsState extends MusicBeatState
 			}});
 		}
 
-		optionsThingy = new FlxSprite();
+		optionsThingy = new PixelPerfectSprite();
 		optionsThingy.frames = Paths.getSparrowAtlas('options/markbot');
 		optionsThingy.animation.addByPrefix('intro', 'intro', 24, false);
 		optionsThingy.animation.addByPrefix('outro', 'outro', 24, false);

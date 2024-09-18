@@ -1,5 +1,6 @@
 package ui;
 
+import visuals.PixelPerfectSprite;
 import states.PlayState;
 import flixel.FlxSprite;
 import backend.ClientPrefs;
@@ -12,9 +13,9 @@ import flixel.group.FlxSpriteGroup;
 
 class SongIntroCard extends FlxSpriteGroup
 {
-    public var _charObj:FlxSprite;
-    public var _cardObj:FlxSprite;
-    public var _cardObjBelly:FlxSprite;
+    public var _charObj:PixelPerfectSprite;
+    public var _cardObj:PixelPerfectSprite;
+    public var _cardObjBelly:PixelPerfectSprite;
     public var _textObj:FlxText;
     public var _credObj:FlxText;
     public var _timer:Float;
@@ -28,23 +29,23 @@ class SongIntroCard extends FlxSpriteGroup
 
         _timer = ((Conductor.crochet / 250) * 2) + (0.1 / PlayState.instance.playbackRate);
 
-        _charObj = new FlxSprite().loadGraphic(Paths.image('ui/songCards/' + cardName, null, true));
+        _charObj = new PixelPerfectSprite().loadGraphic(Paths.image('ui/songCards/' + cardName, null, true));
         if (Paths.image('ui/songCards/' + cardName, null, true) == null)
         {
-            _charObj = new FlxSprite().loadGraphic(Paths.image('ui/songCards/placeholder'));
+            _charObj.loadGraphic(Paths.image('ui/songCards/placeholder'));
         }
         _charObj.setGraphicSize(640 * _sizeMultipFromSixForty);
         _charObj.updateHitbox();
         _charObj.antialiasing = ClientPrefs.globalAntialiasing;
         add(_charObj);
 
-        _cardObj = new FlxSprite().loadGraphic(Paths.image('ui/introCard'));
+        _cardObj = new PixelPerfectSprite().loadGraphic(Paths.image('ui/introCard'));
         _cardObj.scale.set(_sizeMultipFromSixForty, _sizeMultipFromSixForty);
         _cardObj.updateHitbox();
         _cardObj.color = color;
         add(_cardObj);
 
-        _cardObjBelly = new FlxSprite().loadGraphic(Paths.image('ui/introCardBelly'));
+        _cardObjBelly = new PixelPerfectSprite().loadGraphic(Paths.image('ui/introCardBelly'));
         _cardObjBelly.scale.set(_sizeMultipFromSixForty, _sizeMultipFromSixForty);
         _cardObjBelly.updateHitbox();
         add(_cardObjBelly);

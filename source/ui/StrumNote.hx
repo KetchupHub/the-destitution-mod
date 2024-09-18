@@ -1,12 +1,13 @@
 package ui;
 
+import visuals.PixelPerfectSprite;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import shaders.ColorSwap;
 import backend.ClientPrefs;
 import states.PlayState;
 
-class StrumNote extends FlxSprite
+class StrumNote extends PixelPerfectSprite
 {
 	public var colorSwap:ColorSwap;
 	public var resetAnim:Float = 0;

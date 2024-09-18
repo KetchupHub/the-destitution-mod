@@ -1,5 +1,6 @@
 package options;
 
+import visuals.PixelPerfectSprite;
 import util.CoolUtil;
 import backend.ClientPrefs;
 import visuals.Character;
@@ -52,7 +53,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		DiscordClient.changePresence(rpcTitle, null, null, '-menus');
 		#end
 		
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));
+		var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.screenCenter();
 		add(bg);

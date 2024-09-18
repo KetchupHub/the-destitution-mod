@@ -5,9 +5,10 @@ import backend.ClientPrefs;
 import states.PlayState;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import visuals.PixelPerfectSprite;
 import shaders.ColorSwap;
 
-class NoteSplash extends FlxSprite
+class NoteSplash extends PixelPerfectSprite
 {
 	public var colorSwap:ColorSwap = null;
 	public var idleAnim:String;

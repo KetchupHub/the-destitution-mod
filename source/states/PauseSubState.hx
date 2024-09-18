@@ -1,5 +1,6 @@
 package states;
 
+import visuals.PixelPerfectSprite;
 import util.CoolUtil;
 import backend.WeekData;
 import backend.ClientPrefs;
@@ -29,7 +30,7 @@ class PauseSubState extends MusicBeatSubstate
 
 	public static var songName:String = '';
 
-	public var songCover:FlxSprite;
+	public var songCover:PixelPerfectSprite;
 	public var descText:FlxText;
 
 	public var holdTime:Float = 0;
@@ -139,7 +140,7 @@ class PauseSubState extends MusicBeatSubstate
 			theCover = 'song_covers/placeholder';
 		}
 
-		songCover = new FlxSprite(936, 0).loadGraphic(Paths.image(theCover));
+		songCover = new PixelPerfectSprite(936, 0).loadGraphic(Paths.image(theCover));
 		songCover.screenCenter();
 		songCover.x = FlxG.width - (256 + 15);
 		songCover.y -= 76;

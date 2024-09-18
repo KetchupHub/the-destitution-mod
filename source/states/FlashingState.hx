@@ -1,5 +1,6 @@
 package states;
 
+import visuals.PixelPerfectSprite;
 import ui.MarkHeadTransition;
 import backend.ClientPrefs;
 import util.CoolUtil;
@@ -18,7 +19,7 @@ class FlashingState extends MusicBeatState
 	public static var leftState:Bool = false;
 
 	public var warnText:FlxText;
-	public var warnMark:FlxSprite;
+	public var warnMark:PixelPerfectSprite;
 
 	override function create()
 	{
@@ -46,7 +47,7 @@ class FlashingState extends MusicBeatState
 		warnText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(warnText);
 
-		warnMark = new FlxSprite(640).loadGraphic(Paths.image('options/flashing'));
+		warnMark = new PixelPerfectSprite(640).loadGraphic(Paths.image('options/flashing'));
 		warnMark.scale.set(2, 2);
 		warnMark.updateHitbox();
 		warnMark.antialiasing = false;

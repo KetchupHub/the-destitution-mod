@@ -1,6 +1,7 @@
 #if DEVELOPERBUILD
 package editors;
 
+import visuals.PixelPerfectSprite;
 import flixel.FlxCamera;
 import ui.MarkHeadTransition;
 import util.CoolUtil;
@@ -76,7 +77,8 @@ class ChartingState extends MusicBeatState
 		'Hey!',
 		'Hurt Note',
 		'GF Sing',
-		'No Animation'
+		'No Animation',
+		'Item Note'
 	];
 	public var noteTypeIntMap:Map<Int, String> = new Map<Int, String>();
 	public var noteTypeMap:Map<String, Null<Int>> = new Map<String, Null<Int>>();
@@ -261,7 +263,7 @@ class ChartingState extends MusicBeatState
 
 		vortex = FlxG.save.data.chart_vortex;
 		ignoreWarnings = FlxG.save.data.ignoreWarnings;
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));
+		var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
 		bg.scrollFactor.set();
 		bg.color = 0xFF222222;
 		add(bg);

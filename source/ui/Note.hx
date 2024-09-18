@@ -1,5 +1,7 @@
 package ui;
 
+import visuals.PixelPerfectSprite;
+import util.CoolUtil;
 import backend.Conductor;
 import states.PlayState;
 import backend.ClientPrefs;
@@ -14,7 +16,7 @@ typedef EventNote = {
 	value2:String
 }
 
-class Note extends FlxSprite
+class Note extends PixelPerfectSprite
 {
 	public var extraData:Map<String,Dynamic> = [];
 
@@ -91,6 +93,8 @@ class Note extends FlxSprite
 
 	public var hitsoundDisabled:Bool = false;
 
+	public var itemNote:Bool = false;
+
 	public function set_multSpeed(value:Float):Float
 	{
 		resizeByRatio(value / multSpeed);
@@ -141,6 +145,32 @@ class Note extends FlxSprite
 					noMissAnimation = true;
 				case 'GF Sing':
 					gfNote = true;
+				case 'Item Note':
+					angle = 0;
+					lowPriority = true;
+					ignoreNote = true;
+					itemNote = true;
+
+					colorSwap.hue = 0;
+					colorSwap.brightness = 0;
+					colorSwap.saturation = 0;
+
+					var noteNum:Int = CoolUtil.randomVisuals.int(0, 10);
+					animation.reset();
+					loadGraphic(Paths.image('destitution/itemShit/$noteNum'));
+					setGraphicSize(105, 105);
+					switch (noteData)
+					{
+						case 0:
+							angle = -90;
+						case 1:
+							angle = 180;
+						case 2:
+							angle = 0;
+						case 3:
+							angle = 90;
+					}
+					updateHitbox();
 			}
 
 			noteType = value;
@@ -185,7 +215,7 @@ class Note extends FlxSprite
 
 			x += swagWidth * (noteData);
 
-			if (!isSustainNote && noteData > -1 && noteData < 4)
+			if (!isSustainNote && noteData > -1 && noteData < 4 && !itemNote)
 			{
 				var animToPlay:String = '';
 				animToPlay = colArray[noteData % 4];
@@ -282,7 +312,7 @@ class Note extends FlxSprite
 		}
 
 		var arraySkin:Array<String> = skin.split('/');
-		arraySkin[arraySkin.length-1] = prefix + arraySkin[arraySkin.length-1] + suffix;
+		arraySkin[arraySkin.length - 1] = prefix + arraySkin[arraySkin.length - 1] + suffix;
 
 		var lastScaleY:Float = scale.y;
 		var blahblah:String = arraySkin.join('/');
@@ -311,6 +341,12 @@ class Note extends FlxSprite
 
 	public function loadNoteAnims()
 	{
+		if (itemNote)
+		{
+			updateHitbox();
+			return;
+		}
+
 		animation.addByPrefix(colArray[noteData] + 'Scroll', colArray[noteData] + '0', 24);
 
 		if (isSustainNote)
@@ -321,19 +357,6 @@ class Note extends FlxSprite
 		}
 
 		updateHitbox();
-	}
-
-	public function loadPixelNoteAnims()
-	{
-		if (isSustainNote)
-		{
-			animation.add(colArray[noteData] + 'holdend', [pixelInt[noteData] + 4], 24);
-			animation.add(colArray[noteData] + 'hold', [pixelInt[noteData]], 24);
-		}
-		else
-		{
-			animation.add(colArray[noteData] + 'Scroll', [pixelInt[noteData] + 4], 24);
-		}
 	}
 
 	override function update(elapsed:Float)

@@ -1,6 +1,7 @@
 #if DEVELOPERBUILD
 package editors;
 
+import visuals.PixelPerfectSprite;
 import flixel.addons.ui.FlxUIDropDownMenu;
 import util.CoolUtil;
 import states.TitleState;
@@ -46,7 +47,7 @@ class CharacterEditorState extends MusicBeatState
 	var char:Character;
 	var ghostChar:Character;
 	var textAnim:FlxText;
-	var bgLayer:FlxTypedGroup<FlxSprite>;
+	var bgLayer:FlxTypedGroup<PixelPerfectSprite>;
 	var charLayer:FlxTypedGroup<Character>;
 	var dumbTexts:FlxTypedGroup<FlxText>;
 	var curAnim:Int = 0;
@@ -76,8 +77,8 @@ class CharacterEditorState extends MusicBeatState
 	var leHealthIcon:HealthIcon;
 	var characterList:Array<String> = [];
 
-	var cameraFollowPointer:FlxSprite;
-	var healthBarBG:FlxSprite;
+	var cameraFollowPointer:PixelPerfectSprite;
+	var healthBarBG:PixelPerfectSprite;
 
 	override function create()
 	{
@@ -101,12 +102,12 @@ class CharacterEditorState extends MusicBeatState
 		FlxG.cameras.add(camMenu, false);
 		FlxG.cameras.setDefaultDrawTarget(camEditor, true);
 
-		bgLayer = new FlxTypedGroup<FlxSprite>();
+		bgLayer = new FlxTypedGroup<PixelPerfectSprite>();
 		add(bgLayer);
 		charLayer = new FlxTypedGroup<Character>();
 		add(charLayer);
 
-		cameraFollowPointer = new FlxSprite().loadGraphic(Paths.image('debug/reticle'));
+		cameraFollowPointer = new PixelPerfectSprite().loadGraphic(Paths.image('debug/reticle'));
 		cameraFollowPointer.updateHitbox();
 		cameraFollowPointer.color = FlxColor.WHITE;
 
@@ -114,7 +115,7 @@ class CharacterEditorState extends MusicBeatState
 
 		add(cameraFollowPointer);
 
-		healthBarBG = new FlxSprite(30, FlxG.height - 75).loadGraphic(Paths.image('ui/healthBar'));
+		healthBarBG = new PixelPerfectSprite(30, FlxG.height - 75).loadGraphic(Paths.image('ui/healthBar'));
 		healthBarBG.scrollFactor.set();
 		add(healthBarBG);
 		healthBarBG.cameras = [camHUD];
@@ -221,7 +222,7 @@ class CharacterEditorState extends MusicBeatState
 
 		while (i >= 0)
 		{
-			var memb:FlxSprite = bgLayer.members[i];
+			var memb:PixelPerfectSprite = bgLayer.members[i];
 
 			if (memb != null)
 			{
@@ -242,7 +243,7 @@ class CharacterEditorState extends MusicBeatState
 			playerXDifference = 670;
 		}
 
-		var bg = new FlxSprite().makeGraphic(1, 1, FlxColor.GRAY);
+		var bg = new PixelPerfectSprite().makeGraphic(1, 1, FlxColor.GRAY);
 		bg.scale.set(2560, 2560);
 		bg.updateHitbox();
 		bg.screenCenter();

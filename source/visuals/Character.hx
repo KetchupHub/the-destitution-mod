@@ -52,7 +52,7 @@ typedef AnimArray = {
 	var offsets:Array<Int>;
 }
 
-class Character extends FlxSprite
+class Character extends PixelPerfectSprite
 {
 	/**
 	 * In case a character is missing, it will use this on its place
@@ -127,6 +127,8 @@ class Character extends FlxSprite
 		animOffsets = new Map<String, Array<Dynamic>>();
 		curCharacter = character;
 		this.isPlayer = isPlayer;
+
+		pixelPerfect = false;
 
 		var characterPath:String = 'characters/$curCharacter.json';
 
@@ -228,6 +230,7 @@ class Character extends FlxSprite
 
 		noAntialiasing = (json.no_antialiasing == true);
 		antialiasing = ClientPrefs.globalAntialiasing ? !noAntialiasing : false;
+		pixelPerfect = noAntialiasing;
 
 		animationsArray = json.animations;
 

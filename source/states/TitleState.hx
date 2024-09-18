@@ -1,5 +1,6 @@
 package states;
 
+import visuals.PixelPerfectSprite;
 import ui.MarkHeadTransition;
 import flixel.graphics.FlxGraphic;
 import shaders.ColorSwap;
@@ -44,20 +45,20 @@ class TitleState extends MusicBeatState
 
 	public var sickBeats:Int = 0;
 
-	public var blackScreen:FlxSprite;
+	public var blackScreen:PixelPerfectSprite;
 
 	public var credGroup:FlxGroup;
 	public var credTextShit:Alphabet;
 	public var textGroup:FlxTypedGroup<Alphabet>;
 
-	public var exitButton:FlxSprite;
-	public var playButton:FlxSprite;
+	public var exitButton:PixelPerfectSprite;
+	public var playButton:PixelPerfectSprite;
 
 	public var charec:String = 'mark';
 
 	public var curWacky:Array<String> = [];
 
-	public var tppLogo:FlxSprite;
+	public var tppLogo:PixelPerfectSprite;
 
 	public var mustUpdate:Bool = false;
 
@@ -65,9 +66,9 @@ class TitleState extends MusicBeatState
 	
 	public var increaseVolume:Bool = false;
 
-	public var logo:FlxSprite;
+	public var logo:PixelPerfectSprite;
 
-	public var titleCharacter:FlxSprite;
+	public var titleCharacter:PixelPerfectSprite;
 
 	public var swagShader:ColorSwap = null;
 
@@ -205,7 +206,7 @@ class TitleState extends MusicBeatState
 		//force set to mark for showcase video, cuz i want it to be as non random as possible.
 		charec = 'mark';
 		#end
-		titleCharacter = new FlxSprite(0, 0).loadGraphic(Paths.image('title/char/$charec'), true, 320, 360);
+		titleCharacter = new PixelPerfectSprite(0, 0).loadGraphic(Paths.image('title/char/$charec'), true, 320, 360);
 		titleCharacter.animation.add(charec, [0, 1], 0, false);
 		titleCharacter.animation.play(charec, true);
 		titleCharacter.antialiasing = false;
@@ -214,31 +215,31 @@ class TitleState extends MusicBeatState
 		titleCharacter.shader = swagShader.shader;
 		add(titleCharacter);
 
-		var objects:FlxSprite = new FlxSprite(640, 0).loadGraphic(Paths.image('title/obj'));
+		var objects:PixelPerfectSprite = new PixelPerfectSprite(640, 0).loadGraphic(Paths.image('title/obj'));
 		objects.antialiasing = false;
 		objects.scale.set(2, 2);
 		objects.updateHitbox();
 		objects.shader = swagShader.shader;
 		add(objects);
 
-		logo = new FlxSprite(490, 0);
+		logo = new PixelPerfectSprite(490, 0);
 		logo.frames = Paths.getSparrowAtlas('title/logo');
 		logo.antialiasing = false;
 		logo.animation.addByPrefix('bump', 'idle', 24, false);
 		logo.animation.play('bump');
 		add(logo);
 
-		var tppWatermarkTittle:FlxSprite = new FlxSprite(8, 590).loadGraphic(Paths.image("title/tpp"));
+		var tppWatermarkTittle:PixelPerfectSprite = new PixelPerfectSprite(8, 590).loadGraphic(Paths.image("title/tpp"));
 		tppWatermarkTittle.setGraphicSize(256);
 		tppWatermarkTittle.updateHitbox();
 		add(tppWatermarkTittle);
 
-		exitButton = new FlxSprite(8, 8).loadGraphic(Paths.image('title/close'));
+		exitButton = new PixelPerfectSprite(8, 8).loadGraphic(Paths.image('title/close'));
 		exitButton.scale.set(2, 2);
 		exitButton.updateHitbox();
 		add(exitButton);
 
-		playButton = new FlxSprite(FlxG.width - 210, FlxG.height - 210).loadGraphic(Paths.image('title/play'));
+		playButton = new PixelPerfectSprite(FlxG.width - 210, FlxG.height - 210).loadGraphic(Paths.image('title/play'));
 		playButton.scale.set(2, 2);
 		playButton.updateHitbox();
 		add(playButton);
@@ -248,14 +249,14 @@ class TitleState extends MusicBeatState
 
 		textGroup = new FlxTypedGroup<Alphabet>();
 
-		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+		blackScreen = new PixelPerfectSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
 		credGroup.add(blackScreen);
 
 		credTextShit = new Alphabet(0, 20, "", true);
 		credTextShit.screenCenter();
 		credTextShit.visible = false;
 
-		tppLogo = new FlxSprite().loadGraphic(Paths.image("title/tpp"));
+		tppLogo = new PixelPerfectSprite().loadGraphic(Paths.image("title/tpp"));
 		tppLogo.screenCenter();
 		tppLogo.y = 70;
 		tppLogo.antialiasing = false;

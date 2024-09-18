@@ -1,5 +1,6 @@
 package states;
 
+import visuals.PixelPerfectSprite;
 import waveform.WaveformSprite;
 import shaders.RippleShader;
 import shaders.NtscShaders.Abberation;
@@ -246,49 +247,49 @@ class PlayState extends MusicBeatState
 	public var boyfriend:Boyfriend = null;
 	
 	#if !SHOWCASEVIDEO
-	public var botplayTxt:FlxSprite;
+	public var botplayTxt:PixelPerfectSprite;
 	#end
-	public var songIntro:FlxSprite;
+	public var songIntro:PixelPerfectSprite;
 	public var strumLine:FlxSprite;
-	public static var lastRating:FlxSprite;
-	public var ploinkyTransition:FlxSprite;
-	public var lurkingTransition:FlxSprite;
-	public var rulezGuySlideScaleWorldFunnyClips:FlxSprite;
-	public var YOUSTUPIDSONOFABITCH:FlxSprite;
-	public var zamMarkCamFlipShit:FlxSprite;
-	public var ref:FlxSprite;
-	public var chefBanner:FlxSprite;
-	public var chefTable:FlxSprite;
-	public var train:FlxSprite;
-	public var karmScaredy:FlxSprite;
-	public var cabinBg:FlxSprite;
-	public var supersededIntro:FlxSprite;
-	public var backing:FlxSprite;
-	public var sky:FlxSprite;
-	public var lightningStrikes:FlxSprite;
-	public var skyboxThingy:FlxSprite;
-	public var angry:FlxSprite;
-	public var angryDadCover:FlxSprite;
-	public var zamboni:FlxSprite;
-	public var cryptehB:FlxSprite;
-	public var office:FlxSprite;
-	public var annoyed:FlxSprite;
-	public var liek:FlxSprite;
-	public var space:FlxSprite;
-	public var blackVoid:FlxSprite;
-	public var iliDevilJumpscare:FlxSprite;
-	public var ploinky:FlxSprite;
-	public var starting:FlxSprite;
-	public var cuttingSceneThing:FlxSprite;
-	public var supersededOverlay:FlxSprite;
-	public var theSmog:FlxSprite;
-	public var funnyBgColors:FlxSprite;
-	public var healthBarBG:FlxSprite;
+	public static var lastRating:PixelPerfectSprite;
+	public var ploinkyTransition:PixelPerfectSprite;
+	public var lurkingTransition:PixelPerfectSprite;
+	public var rulezGuySlideScaleWorldFunnyClips:PixelPerfectSprite;
+	public var YOUSTUPIDSONOFABITCH:PixelPerfectSprite;
+	public var zamMarkCamFlipShit:PixelPerfectSprite;
+	public var ref:PixelPerfectSprite;
+	public var chefBanner:PixelPerfectSprite;
+	public var chefTable:PixelPerfectSprite;
+	public var train:PixelPerfectSprite;
+	public var karmScaredy:PixelPerfectSprite;
+	public var cabinBg:PixelPerfectSprite;
+	public var supersededIntro:PixelPerfectSprite;
+	public var backing:PixelPerfectSprite;
+	public var sky:PixelPerfectSprite;
+	public var lightningStrikes:PixelPerfectSprite;
+	public var skyboxThingy:PixelPerfectSprite;
+	public var angry:PixelPerfectSprite;
+	public var angryDadCover:PixelPerfectSprite;
+	public var zamboni:PixelPerfectSprite;
+	public var cryptehB:PixelPerfectSprite;
+	public var office:PixelPerfectSprite;
+	public var annoyed:PixelPerfectSprite;
+	public var liek:PixelPerfectSprite;
+	public var space:PixelPerfectSprite;
+	public var blackVoid:PixelPerfectSprite;
+	public var iliDevilJumpscare:PixelPerfectSprite;
+	public var ploinky:PixelPerfectSprite;
+	public var starting:PixelPerfectSprite;
+	public var cuttingSceneThing:PixelPerfectSprite;
+	public var supersededOverlay:PixelPerfectSprite;
+	public var theSmog:PixelPerfectSprite;
+	public var funnyBgColors:PixelPerfectSprite;
+	public var healthBarBG:PixelPerfectSprite;
 	public var boyfriendGroup:FlxSpriteGroup;
 	public var dadGroup:FlxSpriteGroup;
 	public var gfGroup:FlxSpriteGroup;
-	public static var lastScore:Array<FlxSprite> = [];
-	public var spaceItems:FlxTypedGroup<FlxSprite>;
+	public static var lastScore:Array<PixelPerfectSprite> = [];
+	public var spaceItems:FlxTypedGroup<PixelPerfectSprite>;
 
 	public var chefCurtains:FlxClothSprite;
 	
@@ -684,7 +685,7 @@ class PlayState extends MusicBeatState
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
 
-		healthBarBG = new FlxSprite(308, 532).loadGraphic(Paths.image('ui/healthBar'));
+		healthBarBG = new PixelPerfectSprite(308, 532).loadGraphic(Paths.image('ui/healthBar'));
 		healthBarBG.antialiasing = false;
 		healthBarBG.scale.set(2, 2);
 		healthBarBG.updateHitbox();
@@ -736,7 +737,7 @@ class PlayState extends MusicBeatState
 
 		#if !SHOWCASEVIDEO
 		var botplaySuffix:String = "";
-		botplayTxt = new FlxSprite(0, FlxG.height - 256).loadGraphic(Paths.image("ui/botplay" + botplaySuffix));
+		botplayTxt = new PixelPerfectSprite(0, FlxG.height - 256).loadGraphic(Paths.image("ui/botplay" + botplaySuffix));
 		botplayTxt.scrollFactor.set();
 		botplayTxt.visible = cpuControlled;
 		add(botplayTxt);
@@ -871,7 +872,7 @@ class PlayState extends MusicBeatState
 				chromAbb = new Abberation(0);
 				ripple = new RippleShader();
 
-				skyboxThingy = new FlxSprite().loadGraphic(Paths.image('destitution/skyboxThing'));
+				skyboxThingy = new PixelPerfectSprite().loadGraphic(Paths.image('destitution/skyboxThing'));
 				skyboxThingy.scale.set(2, 2);
 				skyboxThingy.updateHitbox();
 				skyboxThingy.antialiasing = false;
@@ -879,31 +880,31 @@ class PlayState extends MusicBeatState
 				skyboxThingy.scrollFactor.set();
 				add(skyboxThingy);
 
-				angry = new FlxSprite(-680, -320).loadGraphic(Paths.image('destitution/angry'));
+				angry = new PixelPerfectSprite(-680, -320).loadGraphic(Paths.image('destitution/angry'));
 				angry.scale.set(2, 2);
 				angry.updateHitbox();
 				angry.antialiasing = false;
 				add(angry);
 				
-				angryDadCover = new FlxSprite(600, -320).loadGraphic(Paths.image('destitution/angry_dadcover'));
+				angryDadCover = new PixelPerfectSprite(600, -320).loadGraphic(Paths.image('destitution/angry_dadcover'));
 				angryDadCover.scale.set(2, 2);
 				angryDadCover.updateHitbox();
 				angryDadCover.antialiasing = false;
 				angryDadCover.visible = false;
 
-				zamboni = new FlxSprite(-680, -320).loadGraphic(Paths.image('destitution/zamboni'));
+				zamboni = new PixelPerfectSprite(-680, -320).loadGraphic(Paths.image('destitution/zamboni'));
 				zamboni.scale.set(2, 2);
 				zamboni.updateHitbox();
 				zamboni.antialiasing = false;
 				add(zamboni);
 
-				cryptehB = new FlxSprite(-680, -320).loadGraphic(Paths.image('destitution/cryptehB'));
+				cryptehB = new PixelPerfectSprite(-680, -320).loadGraphic(Paths.image('destitution/cryptehB'));
 				cryptehB.scale.set(2, 2);
 				cryptehB.updateHitbox();
 				cryptehB.antialiasing = false;
 				add(cryptehB);
 
-				office = new FlxSprite(-680, -320);
+				office = new PixelPerfectSprite(-680, -320);
 				office.frames = Paths.getSparrowAtlas('destitution/bg_rulez_crypteh');
 				office.animation.addByPrefix("idle", "ROOLZ ARE FOUR TOOLZ", 24, false);
 				office.animation.play("idle", true);
@@ -913,7 +914,7 @@ class PlayState extends MusicBeatState
 				office.antialiasing = false;
 				add(office);
 
-				annoyed = new FlxSprite(-680, -320);
+				annoyed = new PixelPerfectSprite(-680, -320);
 				annoyed.frames = Paths.getSparrowAtlas('destitution/bg_annoyed');
 				annoyed.animation.addByPrefix("idle", "whale world to somewhat peterbed man", 24, false);
 				annoyed.animation.play("idle", true);
@@ -923,7 +924,7 @@ class PlayState extends MusicBeatState
 				annoyed.antialiasing = false;
 				add(annoyed);
 
-				liek = new FlxSprite(-680, -320);
+				liek = new PixelPerfectSprite(-680, -320);
 				liek.frames = Paths.getSparrowAtlas('destitution/bg_item_whale');
 				liek.animation.addByPrefix("idle", "ITEM MAN TO THE WHALES OF THE WORLD", 24, false);
 				liek.animation.play("idle", true);
@@ -933,7 +934,7 @@ class PlayState extends MusicBeatState
 				liek.antialiasing = false;
 				add(liek);
 
-				space = new FlxSprite(-680, -320);
+				space = new PixelPerfectSprite(-680, -320);
 				space.loadGraphic(Paths.image("destitution/space"));
 				space.antialiasing = false;
 				space.scale.set(8, 8);
@@ -950,10 +951,10 @@ class PlayState extends MusicBeatState
 				spaceWiggle.waveSpeed = 1;
 				space.shader = spaceWiggle.shader;
 
-				spaceItems = new FlxTypedGroup<FlxSprite>();
+				spaceItems = new FlxTypedGroup<PixelPerfectSprite>();
 				for (i in 0...7)
 				{
-					var fucksprit:FlxSprite = new FlxSprite(CoolUtil.randomLogic.float(-32, 1248), CoolUtil.randomLogic.float(-32, 688));
+					var fucksprit:PixelPerfectSprite = new PixelPerfectSprite(CoolUtil.randomLogic.float(-32, 1248), CoolUtil.randomLogic.float(-32, 688));
 					fucksprit.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(CoolUtil.randomVisuals.int(0, 10))));
 					fucksprit.antialiasing = false;
 					fucksprit.shader = ripple;
@@ -966,7 +967,7 @@ class PlayState extends MusicBeatState
 				add(spaceItems);
 				spaceItems.visible = false;
 
-				blackVoid = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
+				blackVoid = new PixelPerfectSprite().makeGraphic(1, 1, FlxColor.BLACK);
 				blackVoid.scale.set(2560, 2560);
 				blackVoid.updateHitbox();
 				blackVoid.screenCenter();
@@ -974,7 +975,7 @@ class PlayState extends MusicBeatState
 				add(blackVoid);
 				blackVoid.visible = false;
 
-				lurkingTransition = new FlxSprite(-680, -320);
+				lurkingTransition = new PixelPerfectSprite(-680, -320);
 				lurkingTransition.frames = Paths.getSparrowAtlas('destitution/ploinky_to_lurking');
 				lurkingTransition.animation.addByPrefix('idle', 'bg', 24, false);
 				lurkingTransition.animation.play('idle', true);
@@ -984,19 +985,19 @@ class PlayState extends MusicBeatState
 				lurkingTransition.updateHitbox();
 				add(lurkingTransition);
 
-				ploinky = new FlxSprite(-680, -320).loadGraphic(Paths.image('destitution/ploinky'));
+				ploinky = new PixelPerfectSprite(-680, -320).loadGraphic(Paths.image('destitution/ploinky'));
 				ploinky.antialiasing = false;
 				ploinky.scale.set(2, 2);
 				ploinky.updateHitbox();
 				add(ploinky);
 
-				starting = new FlxSprite(-680, -320).loadGraphic(Paths.image('destitution/start'));
+				starting = new PixelPerfectSprite(-680, -320).loadGraphic(Paths.image('destitution/start'));
 				starting.antialiasing = false;
 				starting.scale.set(2, 2);
 				starting.updateHitbox();
 				add(starting);
 
-				ploinkyTransition = new FlxSprite();
+				ploinkyTransition = new PixelPerfectSprite();
 				ploinkyTransition.frames = Paths.getSparrowAtlas('destitution/mark_ploinky_transition');
 				ploinkyTransition.animation.addByPrefix('1', '1', 24, false);
 				ploinkyTransition.animation.addByPrefix('2', '2', 24, false);
@@ -1007,7 +1008,7 @@ class PlayState extends MusicBeatState
 				add(ploinkyTransition);
 				ploinkyTransition.visible = false;
 
-				rulezGuySlideScaleWorldFunnyClips = new FlxSprite(0, 0);
+				rulezGuySlideScaleWorldFunnyClips = new PixelPerfectSprite(0, 0);
 				rulezGuySlideScaleWorldFunnyClips.frames = Paths.getSparrowAtlas('destitution/rulez_guy_screen_transition');
 				rulezGuySlideScaleWorldFunnyClips.animation.addByPrefix("intro", "anim part 1", 24, false);
 				rulezGuySlideScaleWorldFunnyClips.animation.addByPrefix("zoom", "anim part 2", 24, false);
@@ -1020,7 +1021,7 @@ class PlayState extends MusicBeatState
 				rulezGuySlideScaleWorldFunnyClips.cameras = [camHUD];
 				add(rulezGuySlideScaleWorldFunnyClips);
 
-				zamMarkCamFlipShit = new FlxSprite(0, 0);
+				zamMarkCamFlipShit = new PixelPerfectSprite(0, 0);
 				zamMarkCamFlipShit.frames = Paths.getSparrowAtlas('destitution/cam_flip_lol');
 				zamMarkCamFlipShit.animation.addByPrefix("idle", "idle", 24, false);
 				zamMarkCamFlipShit.animation.play("idle", true);
@@ -1037,7 +1038,7 @@ class PlayState extends MusicBeatState
 				bgPlayer.playAnim("walk", true);
 				add(bgPlayer);
 
-				cuttingSceneThing = new FlxSprite();
+				cuttingSceneThing = new PixelPerfectSprite();
 				cuttingSceneThing.frames = Paths.getSparrowAtlas("ui/cutting_scene");
 				cuttingSceneThing.animation.addByPrefix("idle", "idle", 24, true);
 				cuttingSceneThing.animation.play("idle", true);
@@ -1076,7 +1077,7 @@ class PlayState extends MusicBeatState
 				tweeningCam = true;
 				camHUD.zoom = 15;
 
-				var computerMonitors:FlxSprite = new FlxSprite().loadGraphic(Paths.image('superseded/monitors'));
+				var computerMonitors:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('superseded/monitors'));
 				computerMonitors.antialiasing = false;
 				computerMonitors.scale.set(2, 2);
 				computerMonitors.updateHitbox();
@@ -1084,18 +1085,18 @@ class PlayState extends MusicBeatState
 				computerMonitors.scrollFactor.set();
 				add(computerMonitors);
 
-				starting = new FlxSprite(-574, 96).loadGraphic(Paths.image('superseded/bg'));
+				starting = new PixelPerfectSprite(-574, 96).loadGraphic(Paths.image('superseded/bg'));
 				starting.antialiasing = false;
 				add(starting);
 
-				theSmog = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
+				theSmog = new PixelPerfectSprite().makeGraphic(1, 1, FlxColor.BLACK);
 				theSmog.scale.set(2560, 2560);
 				theSmog.updateHitbox();
 				theSmog.screenCenter();
 				theSmog.scrollFactor.set();
 				theSmog.alpha = 0;
 
-				supersededIntro = new FlxSprite(0, 0);
+				supersededIntro = new PixelPerfectSprite(0, 0);
 				supersededIntro.frames = Paths.getSparrowAtlas("superseded/superseded_time");
 				supersededIntro.animation.addByPrefix("idle", "idle", 24, true);
 				supersededIntro.animation.addByPrefix("open", "open", 24, false);
@@ -1124,7 +1125,7 @@ class PlayState extends MusicBeatState
 				pureWhiteAbyss.scrollFactor.set();
 				add(pureWhiteAbyss);
 
-				sky = new FlxSprite().loadGraphic(Paths.image('dsides/sky'));
+				sky = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/sky'));
 				sky.scale.set(2, 2);
 				sky.updateHitbox();
 				sky.antialiasing = false;
@@ -1132,7 +1133,7 @@ class PlayState extends MusicBeatState
 				sky.screenCenter();
 				sky.scrollFactor.set();
 
-				backing = new FlxSprite().loadGraphic(Paths.image('dsides/backing'));
+				backing = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/backing'));
 				backing.scale.set(2, 2);
 				backing.updateHitbox();
 				backing.antialiasing = false;
@@ -1140,14 +1141,14 @@ class PlayState extends MusicBeatState
 				backing.screenCenter();
 				backing.scrollFactor.set(0.5, 0.5);
 
-				starting = new FlxSprite().loadGraphic(Paths.image('dsides/front'));
+				starting = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/front'));
 				starting.scale.set(2, 2);
 				starting.updateHitbox();
 				starting.antialiasing = false;
 				add(starting);
 				starting.screenCenter();
 
-				karmScaredy = new FlxSprite(starting.x + 42, starting.y + 612);
+				karmScaredy = new PixelPerfectSprite(starting.x + 42, starting.y + 612);
 				karmScaredy.frames = Paths.getSparrowAtlas("dsides/karm_scaredy");
 				karmScaredy.animation.addByPrefix("idle", "idle", 24, false);
 				karmScaredy.animation.play("idle", true);
@@ -1155,7 +1156,7 @@ class PlayState extends MusicBeatState
 				add(karmScaredy);
 				karmScaredy.visible = false;
 
-				chefTable = new FlxSprite().loadGraphic(Paths.image('dsides/chefTable'));
+				chefTable = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/chefTable'));
 				chefTable.scale.set(4, 4);
 				chefTable.updateHitbox();
 				chefTable.antialiasing = false;
@@ -1163,7 +1164,7 @@ class PlayState extends MusicBeatState
 				chefTable.scrollFactor.set(1.6, 0.55);
 				chefTable.y -= 4000;
 
-				chefBanner = new FlxSprite().loadGraphic(Paths.image('dsides/chefBanner'));
+				chefBanner = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/chefBanner'));
 				chefBanner.scale.set(4, 4);
 				chefBanner.updateHitbox();
 				chefBanner.antialiasing = false;
@@ -1189,7 +1190,7 @@ class PlayState extends MusicBeatState
 				chefCurtains.scrollFactor.set(0.1, 0.1);
 				chefCurtains.y -= 4000;
 
-				lightningStrikes = new FlxSprite().makeGraphic(1, 1, FlxColor.fromRGB(255, 241, 185));
+				lightningStrikes = new PixelPerfectSprite().makeGraphic(1, 1, FlxColor.fromRGB(255, 241, 185));
 				lightningStrikes.scale.set(5000, 5000);
 				lightningStrikes.updateHitbox();
 
@@ -1202,7 +1203,7 @@ class PlayState extends MusicBeatState
 				lightningStrikes.scrollFactor.set();
 				lightningStrikes.alpha = 0;
 
-				funnyBgColors = new FlxSprite().makeGraphic(1, 1, FlxColor.WHITE);
+				funnyBgColors = new PixelPerfectSprite().makeGraphic(1, 1, FlxColor.WHITE);
 				funnyBgColors.scale.set(FlxG.width * 3, FlxG.width * 3);
 				funnyBgColors.updateHitbox();
 				funnyBgColors.screenCenter();
@@ -1216,7 +1217,7 @@ class PlayState extends MusicBeatState
 					funnyBgColors.blend = BlendMode.MULTIPLY;
 				}
 
-				train = new FlxSprite().loadGraphic(Paths.image("dsides/train funny"));
+				train = new PixelPerfectSprite().loadGraphic(Paths.image("dsides/train funny"));
 				train.scale.set(10, 10);
 				train.updateHitbox();
 				train.antialiasing = false;
@@ -1247,7 +1248,7 @@ class PlayState extends MusicBeatState
 				precacheList.set('dsides/storm2', 'sound');
 				precacheList.set('dsides/storm3', 'sound');
 			case 'eggshells':
-				cabinBg = new FlxSprite();
+				cabinBg = new PixelPerfectSprite();
 				cabinBg.frames = Paths.getSparrowAtlas('eggshells/cabin');
 				cabinBg.animation.addByPrefix('idle', 'idle', 24, true);
 				cabinBg.animation.play('idle', true);
@@ -1258,7 +1259,7 @@ class PlayState extends MusicBeatState
 			case 'eggshells-bad':
 				//angel = new AngelShader();
 
-				cabinBg = new FlxSprite().loadGraphic(Paths.image('eggshells/bad_cabin'));
+				cabinBg = new PixelPerfectSprite().loadGraphic(Paths.image('eggshells/bad_cabin'));
 				cabinBg.scale.set(2, 2);
 				cabinBg.updateHitbox();
 				cabinBg.screenCenter();
@@ -1268,7 +1269,7 @@ class PlayState extends MusicBeatState
 				}*/
 				add(cabinBg);
 			case 'eggshells-good':
-				cabinBg = new FlxSprite();
+				cabinBg = new PixelPerfectSprite();
 				cabinBg.frames = Paths.getSparrowAtlas('eggshells/cabin');
 				cabinBg.animation.addByPrefix('idle', 'idle', 24, true);
 				cabinBg.animation.play('idle', true);
@@ -1534,7 +1535,7 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		songIntro = new FlxSprite();
+		songIntro = new PixelPerfectSprite();
 		songIntro.frames = Paths.getSparrowAtlas('ui/songIntro');
 		songIntro.animation.addByPrefix('3', '3', 24, false);
 		songIntro.animation.addByPrefix('2', '2', 24, false);
@@ -2427,7 +2428,7 @@ class PlayState extends MusicBeatState
 
 		if (chromAbb != null)
 		{
-			chromAbb.setChrom(FlxMath.lerp(chromAbb.aberrationAmount.value[0], 0, CoolUtil.boundTo(elapsed * (6), 0, 1)));
+			chromAbb.setChrom(FlxMath.lerp(chromAbb.aberrationAmount.value[0], 0, CoolUtil.boundTo(elapsed * (7), 0, 1)));
 		}
 
 		if (angel != null)
@@ -3712,7 +3713,7 @@ class PlayState extends MusicBeatState
 			ratingY = 5;
 		}
 
-		var rating:FlxSprite = new FlxSprite(998, ratingY);
+		var rating:PixelPerfectSprite = new PixelPerfectSprite(998, ratingY);
 		var score:Int = Scoring.scoreNote(noteDiff / playbackRate);
 		var daRating:String = Scoring.judgeNote(noteDiff / playbackRate);
 
@@ -3768,6 +3769,7 @@ class PlayState extends MusicBeatState
 		rating.screenCenter();
 		rating.x = 998;
 		rating.y = ratingY;
+		rating.pixelPerfectDiv = 4;
 		rating.acceleration.y = CoolUtil.randomLogic.int(500, 600) * playbackRate * playbackRate;
 		rating.velocity.y -= CoolUtil.randomLogic.int(140, 175) * playbackRate;
 		rating.velocity.x -= CoolUtil.randomLogic.int(0, 10) * playbackRate;
@@ -3828,11 +3830,12 @@ class PlayState extends MusicBeatState
 
 		for (i in seperatedScore)
 		{
-			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/ratings' + ratingsSuffix + '/num' + Std.int(i)));
+			var numScore:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('ui/ratings' + ratingsSuffix + '/num' + Std.int(i)));
 			numScore.cameras = [camHUD];
 			numScore.screenCenter();
 			numScore.x = 998 + (43 * daLoop);
 			numScore.y = ratingY + 88;
+			numScore.pixelPerfectDiv = 4;
 
 			numScore.x += ClientPrefs.comboOffset[2];
 			numScore.y -= ClientPrefs.comboOffset[3];
@@ -4258,6 +4261,11 @@ class PlayState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('hitsound'), ClientPrefs.hitsoundVolume);
 			}
 
+			if (note.itemNote)
+			{
+				doItemNoteShit();
+			}
+
 			if (note.hitCausesMiss)
 			{
 				noteMiss(note);
@@ -4530,7 +4538,7 @@ class PlayState extends MusicBeatState
 		{
 			if (chromAbb != null)
 			{
-				chromAbb.setChrom(0.1 / (chromAbbBeat / 2));
+				chromAbb.setChrom(0.075 / (chromAbbBeat / 2));
 			}
 		}
 
@@ -4811,6 +4819,11 @@ class PlayState extends MusicBeatState
 		#if SHOWCASEVIDEO
 		cpuControlled = true;
 		#end
+	}
+
+	public function doItemNoteShit()
+	{
+
 	}
 
 	/**

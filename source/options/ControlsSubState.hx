@@ -1,5 +1,6 @@
 package options;
 
+import visuals.PixelPerfectSprite;
 import backend.InputFormatter;
 import backend.ClientPrefs;
 import ui.AttachedText;
@@ -62,7 +63,7 @@ class ControlsSubState extends MusicBeatSubstate
 	{
 		super();
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bg/menuDesat'));
+		var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;

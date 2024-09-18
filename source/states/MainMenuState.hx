@@ -1,5 +1,6 @@
 package states;
 
+import visuals.PixelPerfectSprite;
 import lime.app.Application;
 import ui.MainMenuButton;
 import backend.Conductor;
@@ -41,13 +42,13 @@ class MainMenuState extends MusicBeatState
 		'options'
 	];
 
-	public var magenta:FlxSprite;
+	public var magenta:PixelPerfectSprite;
 	
 	public var debugKeys:Array<FlxKey>;
 
-	public var sideThing:FlxSprite;
+	public var sideThing:PixelPerfectSprite;
 
-	public var funkay:FlxSprite;
+	public var funkay:PixelPerfectSprite;
 
 	override function create()
 	{
@@ -90,13 +91,13 @@ class MainMenuState extends MusicBeatState
 		
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('bg/menuBG'));
+		var bg:PixelPerfectSprite = new PixelPerfectSprite(-80).loadGraphic(Paths.image('bg/menuBG'));
 		bg.scrollFactor.set(0, yScroll);
 		bg.updateHitbox();
 		bg.screenCenter();
 		add(bg);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('bg/menuDesat'));
+		magenta = new PixelPerfectSprite(-80).loadGraphic(Paths.image('bg/menuDesat'));
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.updateHitbox();
 		magenta.screenCenter();
@@ -117,14 +118,14 @@ class MainMenuState extends MusicBeatState
 			}});
 		}
 
-        funkay = new FlxSprite(0, 800).loadGraphic(Paths.image("mainmenu/mark_story_mode"));
+        funkay = new PixelPerfectSprite(0, 800).loadGraphic(Paths.image("mainmenu/mark_story_mode"));
 		funkay.x = 1280 - funkay.width;
 		funkay.antialiasing = ClientPrefs.globalAntialiasing;
         add(funkay);
 
 		FlxTween.tween(funkay, {y: 0}, 1, {startDelay: 0.75, ease: FlxEase.expoOut});
 
-		sideThing = new FlxSprite().loadGraphic(Paths.image("mainmenu/mm_side"));
+		sideThing = new PixelPerfectSprite().loadGraphic(Paths.image("mainmenu/mm_side"));
 		sideThing.scale.set(2, 2);
 		sideThing.updateHitbox();
 		sideThing.x -= 512;
