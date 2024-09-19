@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://lime.openfl.org/project/1.0.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/xsd/project-1.0.4.xsd">
+<project>
 	<!-- _________________________ Application Settings _________________________ -->
 
 	<app title="The Destitution Mod" file="The Destitution Mod" packageName="com.teamproductionspresents.thedestitutionmod" package="com.teamproductionspresents.thedestitutionmod" main="Main" version="3.0.0" company="Team Productions Presents" />
@@ -73,7 +72,7 @@ xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/
 	<haxelib name="flixel-ui" />
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
 	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/>
-	<haxelib name="discord_rpc" if="desktop"/>
+	<haxelib name="hxdiscord_rpc" if="desktop"/>
 
 	<haxelib name="flxanimate" /> <!-- Texture atlas rendering -->
 

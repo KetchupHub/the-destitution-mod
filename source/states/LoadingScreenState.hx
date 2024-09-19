@@ -1,5 +1,6 @@
 package states;
 
+import sys.thread.Thread;
 import visuals.PixelPerfectSprite;
 import ui.MarkHeadTransition;
 import songs.SongInit;
@@ -206,7 +207,11 @@ class LoadingScreenState extends MusicBeatState
                 {
                     if (charactersToLoad[0] != "stop-loading")
                     {
-                        preloadCharacter(charactersToLoad[0]);
+                        Thread.create(function doItDude()
+                        {
+                            preloadCharacter(charactersToLoad[0]);
+                        });
+                        //preloadCharacter(charactersToLoad[0]);
                     }
                     else if (finishedSportVid)
                     {
@@ -245,11 +250,24 @@ class LoadingScreenState extends MusicBeatState
     public function preloadCharacter(charName:String) 
     {
         //perf leads me to believe that 0.6 is the maximum reasonable character load time
-        loadCooldown = 0.6;
-        if (FlxG.keys.pressed.SHIFT)
+        //excluding MULTITHREADING BABY!!!!!!!!!!!!
+        if (ClientPrefs.multithreading)
         {
-            //speedup for impatient people (me)
-            loadCooldown = 0.25;
+            loadCooldown = 0.35;
+            if (FlxG.keys.pressed.SHIFT)
+            {
+                //speedup for impatient people (me)
+                loadCooldown = 0.1;
+            }
+        }
+        else
+        {
+            loadCooldown = 0.6;
+            if (FlxG.keys.pressed.SHIFT)
+            {
+                //speedup for impatient people (me)
+                loadCooldown = 0.25;
+            }
         }
 
         #if DEVELOPERBUILD

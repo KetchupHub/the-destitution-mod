@@ -1,5 +1,6 @@
 package states;
 
+import flixel.math.FlxMath;
 import visuals.PixelPerfectSprite;
 import flixel.util.FlxSave;
 import backend.Conductor;
@@ -117,6 +118,7 @@ class SaveFileState extends MusicBeatState
         indi = new PixelPerfectSprite().loadGraphic(Paths.image('saves/indi'));
         indi.scale.set(2, 2);
         indi.updateHitbox();
+        indi.pixelPerfectDiv = 4;
         add(indi);
 
         var title:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('saves/title'));
@@ -162,6 +164,8 @@ class SaveFileState extends MusicBeatState
 			
 			Conductor.songPosition = FlxG.sound.music.time;
 		}
+
+        indi.y = FlxMath.lerp(indi.y, slots[curSelected].y, CoolUtil.boundTo(elapsed * 6, 0, 1));
 
 		if (!selectedSomethin)
 		{
@@ -281,8 +285,6 @@ class SaveFileState extends MusicBeatState
 		{
 			curSelected = 2;
 		}
-
-        indi.y = slots[curSelected].y;
 	}
 
     function prepFreshSave(num:Int)

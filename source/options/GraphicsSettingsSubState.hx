@@ -60,6 +60,13 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 		option.onChange = onChangeFramerate;
 		#end
 
+		var option:Option = new Option('Multithreading', //Name
+			'If unchecked, disables multithreading.\nDisabling multithreading will cause certain things to lag spike more, but will most likely fix issues on lower end PCs.', //Description
+			'multithreading', //Save data variable name
+			'bool', //Variable type
+			true); //Default value
+		addOption(option);
+
 		super();
 	}
 

@@ -36,6 +36,7 @@ class ClientPrefs
 	public static var comboStacking = false;
 	public static var smootherBars = true;
 	public static var pixelPerfection = true;
+	public static var multithreading = true;
 
 	public static var rpgSave1Used = false;
 	public static var rpgSave2Used = false;
@@ -130,6 +131,7 @@ class ClientPrefs
 		FlxG.save.data.comboStacking = comboStacking;
 		FlxG.save.data.smootherBars = smootherBars;
 		FlxG.save.data.pixelPerfection = pixelPerfection;
+		FlxG.save.data.multithreading = multithreading;
 		FlxG.save.data.lastEggshellsEnding = lastEggshellsEnding;
 		FlxG.save.data.rpgSave1Used = rpgSave1Used;
 		FlxG.save.data.rpgSave2Used = rpgSave2Used;
@@ -334,6 +336,11 @@ class ClientPrefs
 		if (FlxG.save.data.pixelPerfection != null)
 		{
 			pixelPerfection = FlxG.save.data.pixelPerfection;
+		}
+
+		if (FlxG.save.data.multithreading != null)
+		{
+			multithreading = FlxG.save.data.multithreading;
 		}
 
 		if (FlxG.save.data.rpgSave1Used != null)

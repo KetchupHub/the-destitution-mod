@@ -1,10 +1,13 @@
 package backend;
 
+import sys.thread.Thread;
+import cpp.RawConstPointer;
+import cpp.ConstCharStar;
+import cpp.Callable;
 import lime.app.Application;
-import states.MainMenuState;
 import util.CoolUtil;
-import Sys.sleep;
-import discord_rpc.DiscordRpc;
+import hxdiscord_rpc.Discord;
+import hxdiscord_rpc.Types;
 
 /**
  * Handles all Discord API and Rich Presence related functions.
@@ -13,53 +16,66 @@ class DiscordClient
 {
 	public static var isInitialized:Bool = false;
 
+	public static var discordHandlers:DiscordEventHandlers;
+
 	public function new()
 	{
-		DiscordRpc.start({
-			clientID: "1104955579979542548",
-			onReady: onReady,
-			onError: onError,
-			onDisconnected: onDisconnected
-		});
+		#if DEVELOPERBUILD
+		trace("Initializing Discord RPC...");
+		#end
+		
+		discordHandlers = DiscordEventHandlers.create();
+		discordHandlers.ready = Callable.fromStaticFunction(onReady);
+		discordHandlers.errored = Callable.fromStaticFunction(onError);
+		discordHandlers.disconnected = Callable.fromStaticFunction(onDisconnected);
 
-		while (true)
+		Discord.initialize("1104955579979542548", discordHandlers);
+
+		//not effected by multi threading option because otherwise the game would hang, lol!
+		Thread.create(function():Void
 		{
-			DiscordRpc.process();
-			sleep(2);
-		}
+			while (true)
+			{
+				#if DISCORD_DISABLE_IO_THREAD
+				Discord.UpdateConnection();
+				#end
 
-		DiscordRpc.shutdown();
+				Discord.runCallbacks();
+
+				Sys.sleep(2);
+			}
+		});
 	}
 	
 	public static function shutdown()
 	{
-		DiscordRpc.shutdown();
+		Discord.shutdown();
 	}
 	
-	static function onReady()
+	static function onReady(that:RawConstPointer<DiscordUser>)
 	{
-		DiscordRpc.presence(
-		{
-			details: "In the Menus",
-			state: null,
-			largeImageKey: 'icon',
-			largeImageText: "The Destitution Mod"
-		});
+		var pres:DiscordRichPresence;
+		pres = DiscordRichPresence.create();
+		pres.details = ConstCharStar.fromString("In the Menus");
+		pres.state = null;
+		pres.largeImageKey = ConstCharStar.fromString("icon");
+		pres.largeImageText = ConstCharStar.fromString("The Destitution Mod v" + Application.current.meta.get('version'));
+		Discord.updatePresence(pres);
 	}
 
-	static function onError(_code:Int, _message:String)
+	static function onError(_code:Int, _message:ConstCharStar)
 	{
 		
 	}
 
-	static function onDisconnected(_code:Int, _message:String)
+	static function onDisconnected(_code:Int, _message:ConstCharStar)
 	{
-		
+		//Discord.clearPresence();
 	}
 
 	public static function initialize()
 	{
-		var DiscordDaemon = sys.thread.Thread.create(() ->
+		var DiscordDaemon = Thread.create(() ->
 		{
 			new DiscordClient();
 		});
@@ -97,7 +113,7 @@ class DiscordClient
 			#end
 		}
 
-		DiscordRpc.presence(
+		/*Discord.presence(
 		{
 			details: detailso,
 			state: stateo,
@@ -106,6 +122,17 @@ class DiscordClient
 			smallImageKey : smalley,
 			startTimestamp : Std.int(startTimestamp / 1000),
             endTimestamp : Std.int(endTimestamp / 1000)
-		});
+		});*/
+
+		var pres:DiscordRichPresence;
+		pres = DiscordRichPresence.create();
+		pres.details = ConstCharStar.fromString(detailso);
+		pres.state = ConstCharStar.fromString(stateo);
+		pres.largeImageKey = ConstCharStar.fromString(alrgey);
+		pres.largeImageText = ConstCharStar.fromString(largoText);
+		pres.smallImageKey = ConstCharStar.fromString(smalley);
+		pres.startTimestamp = Std.int(startTimestamp / 1000);
+		pres.endTimestamp = Std.int(endTimestamp / 1000);
+		Discord.updatePresence(pres);
 	}
 }

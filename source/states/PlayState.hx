@@ -515,17 +515,6 @@ class PlayState extends MusicBeatState
 			add(angryDadCover);
 		}
 
-		/*if (curStage == 'eggshells-bad')
-		{
-			if (ClientPrefs.shaders)
-			{
-				if (angel != null)
-				{
-					dad.shader = angel;
-				}
-			}
-		}*/
-
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
 
 		startCharacterPos(boyfriend);
