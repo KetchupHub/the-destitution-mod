@@ -1,5 +1,6 @@
 package visuals;
 
+import backend.ClientPrefs;
 import flixel.util.FlxColor;
 import flixel.graphics.frames.FlxTileFrames;
 import flixel.graphics.FlxGraphic;
@@ -23,6 +24,10 @@ class PixelPerfectSprite extends FlxSprite
    public function new(?x:Float = 0, ?y:Float = 0)
     {
       super(x, y);
+      if (!ClientPrefs.pixelPerfection)
+      {
+        pixelPerfect = false;
+      }
     }
 
     @:access(flixel.FlxCamera)

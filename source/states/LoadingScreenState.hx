@@ -117,6 +117,7 @@ class LoadingScreenState extends MusicBeatState
         funkay = new PixelPerfectSprite(0, 0).loadGraphic(Paths.image("loading/loadMark" + marksSuffix));
         funkay.scale.set(2, 2);
         funkay.updateHitbox();
+        funkay.pixelPerfectDiv = 4;
         add(funkay);
 
         var transThing:FlxSprite = new FlxSprite();
