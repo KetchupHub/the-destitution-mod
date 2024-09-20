@@ -35,25 +35,24 @@ class MarkHeadTransition extends MusicBeatSubstate
 		if (isTransIn)
 		{
 			transition.animation.play('in', true);
-			transition.animation.finishCallback = function inCallback(s:String)
+			transition.animation.onFinish.addOnce(function dude(duh:String)
 			{
-				transition.animation.finishCallback = null;
+				transition.animation.onFinish.removeAll();
 				transition.visible = false;
 				close();
-			}
+			});
 		}
 		else
 		{
 			transition.animation.play('out', true);
-			transition.animation.finishCallback = function outCallback(s:String)
+			transition.animation.onFinish.addOnce(function dude(duh:String)
 			{
-				transition.animation.finishCallback = null;
-
+				transition.animation.onFinish.removeAll();
 				if (finishCallback != null)
 				{
 					finishCallback();
 				}
-			}
+			});
 		}
 
 		if (nextCamera != null)

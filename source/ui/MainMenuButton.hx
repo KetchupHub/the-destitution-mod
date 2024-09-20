@@ -39,7 +39,7 @@ class MainMenuButton extends FlxSprite
 		customFinishCallback = customAnimFinishCallback;
 
 		animation.play(animName);
-		animation.finishCallback = onAnimComplete;
+		animation.onFinish.addOnce(onAnimComplete);
 		centerOffsets();
 	}
 
@@ -81,7 +81,7 @@ class MainMenuButton extends FlxSprite
 			customFinishCallback();
 		}
 		customAnimMode = false;
-		animation.finishCallback = null;
+		animation.onFinish.removeAll();
 	}
 
 	public function buttonFlicker(duration:Float, ?finishCallback:Void->Void)

@@ -457,12 +457,6 @@ class ChartingState extends MusicBeatState
 			openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, function() { loadJson(_song.song.toLowerCase()); }, null, ignoreWarnings));
 		});
 
-		var loadAutosaveBtn:FlxButton = new FlxButton(reloadSongJson.x, reloadSongJson.y + 30, 'Load Autosave', function()
-		{
-			PlayState.SONG = Song.parseJSONshit(FlxG.save.data.autosave);
-			MusicBeatState.switchState(new ChartingState());
-		});
-
 		var clear_events:FlxButton = new FlxButton(320, 310, 'Clear events', function()
 		{
 			openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, clearEvents, null,ignoreWarnings));
@@ -624,7 +618,6 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(saveButton);
 		tab_group_song.add(reloadSong);
 		tab_group_song.add(reloadSongJson);
-		tab_group_song.add(loadAutosaveBtn);
 		tab_group_song.add(stepperBPM);
 		tab_group_song.add(stepperSpeed);
 		tab_group_song.add(reloadNotesButton);
@@ -1363,7 +1356,6 @@ class ChartingState extends MusicBeatState
 		if (FlxG.sound.music != null)
 		{
 			FlxG.sound.music.stop();
-			// vocals.stop();
 		}
 
 		var file:Dynamic = Paths.voices(currentSongName, "Player");
@@ -1577,7 +1569,8 @@ class ChartingState extends MusicBeatState
 
 		FlxG.mouse.visible = true;//cause reasons. trust me
 		camPos.y = strumLine.y;
-		if(!disableAutoScrolling.checked) {
+		if(!disableAutoScrolling.checked)
+		{
 			if (Math.ceil(strumLine.y) >= gridBG.height)
 			{
 				if (_song.notes[curSec + 1] == null)
@@ -1700,7 +1693,6 @@ class ChartingState extends MusicBeatState
 		{
 			if (FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.ESCAPE)
 			{
-				autosaveSong();
 				FlxG.mouse.visible = false;
 				PlayState.SONG = _song;
 				FlxG.sound.music.stop();
@@ -1726,12 +1718,10 @@ class ChartingState extends MusicBeatState
 			}
 
 
-			if (FlxG.keys.justPressed.BACKSPACE) {
-				// Protect against lost data when quickly leaving the chart editor.
-				autosaveSong();
-				
+			if (FlxG.keys.justPressed.BACKSPACE)
+			{
 				PlayState.chartingMode = false;
-				MusicBeatState.switchState(new editors.MasterEditorMenu());
+				MusicBeatState.switchState(new MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('mus_pauperized'));
 				FlxG.mouse.visible = false;
 				return;
@@ -3034,14 +3024,6 @@ class ChartingState extends MusicBeatState
 	{
 		PlayState.SONG = Song.loadFromJson(song.toLowerCase());
 		MusicBeatState.switchState(new ChartingState());
-	}
-
-	public function autosaveSong():Void
-	{
-		FlxG.save.data.autosave = Json.stringify({
-			"song": _song
-		});
-		FlxG.save.flush();
 	}
 
 	public function clearEvents()

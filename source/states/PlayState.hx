@@ -290,9 +290,8 @@ class PlayState extends MusicBeatState
 	public var gfGroup:FlxSpriteGroup;
 	public static var lastScore:Array<PixelPerfectSprite> = [];
 	public var spaceItems:FlxTypedGroup<PixelPerfectSprite>;
+	public var itemNoteHudOverlays:FlxTypedGroup<PixelPerfectSprite>;
 
-	public var chefCurtains:FlxClothSprite;
-	
 	public var healthBar:FlxBar;
 
 	public var iconP1:HealthIcon;
@@ -538,13 +537,6 @@ class PlayState extends MusicBeatState
 			chefBanner.visible = false;
 		}
 
-		if (chefCurtains != null)
-		{
-			add(chefCurtains);
-			chefCurtains.active = false;
-			chefCurtains.visible = false;
-		}
-
 		if (theSmog != null)
 		{
 			add(theSmog);
@@ -724,6 +716,10 @@ class PlayState extends MusicBeatState
 		add(grpNoteSplashes);
 		add(notes);
 
+		//add itemgroup here because yea
+		itemNoteHudOverlays = new FlxTypedGroup<PixelPerfectSprite>();
+		add(itemNoteHudOverlays);
+
 		#if !SHOWCASEVIDEO
 		var botplaySuffix:String = "";
 		botplayTxt = new PixelPerfectSprite(0, FlxG.height - 256).loadGraphic(Paths.image("ui/botplay" + botplaySuffix));
@@ -741,9 +737,6 @@ class PlayState extends MusicBeatState
 		add(versionShit);
 		#end
 
-		strumLineNotes.cameras = [camHUD];
-		grpNoteSplashes.cameras = [camHUD];
-		notes.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
@@ -754,6 +747,10 @@ class PlayState extends MusicBeatState
 		{
 			fullLength.cameras = [camHUD];
 		}
+		strumLineNotes.cameras = [camHUD];
+		grpNoteSplashes.cameras = [camHUD];
+		notes.cameras = [camHUD];
+		itemNoteHudOverlays.cameras = [camHUD];
 		#if !SHOWCASEVIDEO
 		botplayTxt.cameras = [camHUD];
 		#end
@@ -1161,24 +1158,6 @@ class PlayState extends MusicBeatState
 				chefBanner.scrollFactor.set(1.25, 0.75);
 				chefBanner.y -= 4000;
 
-				chefCurtains = new FlxClothSprite();
-				chefCurtains.loadGraphic(Paths.image('dsides/chefCurtains'));
-				chefCurtains.scale.set(4, 4);
-				chefCurtains.meshScale.set(4, 4);
-				chefCurtains.setMesh(16, 16, 0, 0, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
-				chefCurtains.iterations = 8;
-				chefCurtains.maxVelocity.set(50, 50);
-				chefCurtains.meshVelocity.x = 50;
-				chefCurtains.meshVelocity.y = 50;
-				chefCurtains.updateHitbox();
-				chefCurtains.antialiasing = false;
-				chefCurtains.screenCenter();
-				chefCurtains.x -= 512;
-				chefCurtains.y -= 648;
-				chefCurtains.y -= 256;
-				chefCurtains.scrollFactor.set(0.1, 0.1);
-				chefCurtains.y -= 4000;
-
 				lightningStrikes = new PixelPerfectSprite().makeGraphic(1, 1, FlxColor.fromRGB(255, 241, 185));
 				lightningStrikes.scale.set(5000, 5000);
 				lightningStrikes.updateHitbox();
@@ -1223,7 +1202,6 @@ class PlayState extends MusicBeatState
 				precacheList.set('dsides/iliRoom', 'image');
 				precacheList.set('dsides/iliSky', 'image');
 				precacheList.set('dsides/chefBanner', 'image');
-				precacheList.set('dsides/chefCurtains', 'image');
 				precacheList.set('dsides/chefTable', 'image');
 				precacheList.set('dsides/dougBacking', 'image');
 				precacheList.set('dsides/dougRoom', 'image');
@@ -1246,16 +1224,10 @@ class PlayState extends MusicBeatState
 				cabinBg.screenCenter();
 				add(cabinBg);
 			case 'eggshells-bad':
-				//angel = new AngelShader();
-
 				cabinBg = new PixelPerfectSprite().loadGraphic(Paths.image('eggshells/bad_cabin'));
 				cabinBg.scale.set(2, 2);
 				cabinBg.updateHitbox();
 				cabinBg.screenCenter();
-				/*if (ClientPrefs.shaders)
-				{
-					cabinBg.shader = angel;
-				}*/
 				add(cabinBg);
 			case 'eggshells-good':
 				cabinBg = new PixelPerfectSprite();
@@ -1272,15 +1244,6 @@ class PlayState extends MusicBeatState
 				skyish.antialiasing = ClientPrefs.globalAntialiasing;
 				skyish.scrollFactor.set();
 				add(skyish);
-
-				/*//tempstuff
-				skyish.visible = false;
-				var fucksly:FlxSprite = new FlxSprite().makeGraphic(2560, 2560, 0xFFC8FF00);
-				fucksly.screenCenter();
-				fucksly.scrollFactor.set();
-				add(fucksly);
-				CppAPI.setTransparency(Lib.application.window.title, 0x00C8FF00);
-				Lib.application.window.borderless = true;*/
 
 				var tvs = new FlxSprite(-610, -750);
 				tvs.frames = Paths.getSparrowAtlas('bucks/tvs');
@@ -1639,13 +1602,13 @@ class PlayState extends MusicBeatState
 						dad.visible = true;
 						dad.canDance = false;
 						dad.playAnim("kar", true);
-						dad.animation.finishCallback = function fff(st:String)
+						dad.animation.onFinish.addOnce(function that(ffff:String)
 						{
-							dad.animation.finishCallback = null;
+							dad.animation.onFinish.removeAll();
 							dad.canDance = true;
 							dad.dance();
 							dad.finishAnimation();
-						}
+						});
 					}
 			}
 
@@ -2425,15 +2388,6 @@ class PlayState extends MusicBeatState
 			angel.strength = FlxMath.lerp(angel.strength, 0, CoolUtil.boundTo(elapsed * 8, 0, 1));
 			angel.pixelSize = FlxMath.lerp(angel.pixelSize, 1, CoolUtil.boundTo(elapsed * 4, 0, 1));
 			angel.data.iTime.value = [Conductor.songPosition / 1000];
-		}
-
-		if (chefCurtains != null)
-		{
-			if (chefCurtains.active)
-			{
-				chefCurtains.meshVelocity.x = FlxMath.lerp(0, chefCurtains.meshVelocity.x, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
-				chefCurtains.meshVelocity.y = FlxMath.lerp(0, chefCurtains.meshVelocity.y, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
-			}
 		}
 
 		if (camFloatyShit)
@@ -3410,52 +3364,10 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public var curTheCube:FlxSprite;
-
 	public function moveCamera(isDad:Bool, forceMiddleCam:Bool = false)
 	{
 		if (SONG.notes[curSection].middleCamSection || forceMiddleCam)
 		{
-			//rip the large square
-			/*if (curTheCube == null)
-			{
-				var theCube:FlxSprite;
-				var targetXforCube:Float = 0;
-				var targetYforCube:Float = 0;
-				var targetWidthForCube:Float = 1;
-				var targetHeightForCube:Float = 1;
-	
-				// x
-				if ((boyfriend.x + boyfriendGroup.x) > (dad.x + dadGroup.x))
-				{
-					targetXforCube = boyfriend.x + boyfriendGroup.x;
-					targetWidthForCube = boyfriend.width + (targetXforCube - (dad.x + dadGroup.x)) + dad.width;
-				}
-				else
-				{
-					targetXforCube = dad.x + dadGroup.x;
-					targetWidthForCube = dad.width + (targetXforCube - (boyfriend.x + boyfriendGroup.x)) + boyfriend.width;
-				}
-	
-				// y
-				if ((boyfriend.y + boyfriendGroup.y) > (dad.y + dadGroup.y))
-				{
-					targetYforCube = boyfriend.y + boyfriendGroup.y;
-					targetHeightForCube = boyfriend.height + (targetYforCube - (dad.y + dadGroup.y)) + dad.height;
-				}
-				else
-				{
-					targetYforCube = dad.y + dadGroup.y;
-					targetHeightForCube = dad.height + (targetYforCube - (boyfriend.y + boyfriendGroup.y)) + boyfriend.height;
-				}
-	
-				theCube = new FlxSprite(targetXforCube, targetYforCube).makeGraphic(Std.int(targetWidthForCube), Std.int(targetHeightForCube));
-
-				curTheCube = theCube;
-			}
-
-			camFollow.set(curTheCube.getMidpoint().x, curTheCube.getMidpoint().y);*/
-
 			camFollow.set(((dad.getMidpoint().x - dad.x) / 2) + ((boyfriend.getMidpoint().x - boyfriend.x) / 2) + 148, dad.getMidpoint().y - 148);
 			camFollow.y += dad.cameraPosition[1];
 			camFollow.y += 64;
@@ -4573,15 +4485,6 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(funnyBgColors, {alpha: 0.5}, Conductor.crochet / 750, {ease: FlxEase.smootherStepOut});
 		}
 
-		if (chefCurtains != null)
-		{
-			if (chefCurtains.active)
-			{
-				chefCurtains.meshVelocity.x += CoolUtil.randomVisuals.float(-12.5, 12.5);
-				chefCurtains.meshVelocity.y += CoolUtil.randomVisuals.float(0, 12.5);
-			}
-		}
-
 		if (curBeat % 2 == 0)
 		{
 			iconP1.scale.set(0.6, 1.4);
@@ -4672,15 +4575,6 @@ class PlayState extends MusicBeatState
 			if (SONG.notes[curSection].changeBPM)
 			{
 				Conductor.changeBPM(SONG.notes[curSection].bpm);
-			}
-		}
-
-		if (chefCurtains != null)
-		{
-			if (chefCurtains.active)
-			{
-				chefCurtains.meshVelocity.x += CoolUtil.randomVisuals.float(-40, 40);
-				chefCurtains.meshVelocity.y += CoolUtil.randomVisuals.float(0, 40);
 			}
 		}
 	}
@@ -4812,7 +4706,29 @@ class PlayState extends MusicBeatState
 
 	public function doItemNoteShit()
 	{
+		//adds a random item to the hud overlay.
+		var thingToAdd:PixelPerfectSprite = new PixelPerfectSprite(CoolUtil.randomLogic.int(-32, 1312), CoolUtil.randomLogic.int(-32, 688));
+		thingToAdd.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(CoolUtil.randomVisuals.int(0, 10))));
+		var theeeeeeeeeeeeeee:Int = CoolUtil.randomLogic.int(4, 8);
+		thingToAdd.scale.set(theeeeeeeeeeeeeee, theeeeeeeeeeeeeee);
+		thingToAdd.updateHitbox();
+		thingToAdd.angle = CoolUtil.randomLogic.float(-180, 180);
+		thingToAdd.antialiasing = false;
+		thingToAdd.shader = ripple;
+		thingToAdd.alpha = 0;
+		itemNoteHudOverlays.add(thingToAdd);
+		FlxTween.tween(thingToAdd, {alpha: 1}, Conductor.crochet / 1000, {ease: FlxEase.backInOut});
+	}
 
+	public function clearItemNoteShit()
+	{
+		for (these in itemNoteHudOverlays)
+		{
+			these.visible = false;
+			itemNoteHudOverlays.remove(these, true);
+			remove(these);
+			these.destroy();		
+		}
 	}
 
 	/**

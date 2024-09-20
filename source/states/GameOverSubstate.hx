@@ -129,12 +129,12 @@ class GameOverSubstate extends MusicBeatSubstate
 			{
 				gf.playAnim('sad', true);
 				
-				gf.animation.finishCallback = function gunInMouth(str:String)
+				gf.animation.onFinish.addOnce(function gunInMouth(str:String)
 				{
-					gf.animation.finishCallback = null;
+					gf.animation.onFinish.removeAll();
 					gf.dance();
 					gf.finishAnimation();
-				}
+				});
 			}
 
 			if (dad.animOffsets.exists('gameover'))

@@ -108,13 +108,15 @@ class NewHampshireErect extends SongClass
                 PlayState.instance.dad.canSing = false;
                 PlayState.instance.dad.playAnim('lookBack', true);
                 PlayState.instance.stockboy.playAnim('walk', true);
-                PlayState.instance.stockboy.animation.finishCallback = function dirt(namb:String)
+                PlayState.instance.stockboy.animation.onFinish.addOnce(function dirt(namb:String)
                 {
-                    PlayState.instance.stockboy.animation.finishCallback = null;
+                    PlayState.instance.stockboy.animation.onFinish.removeAll();
+
                     PlayState.instance.brokerBop = true;
+                    
                     PlayState.instance.stockboy.playAnim('idle', true);
                     PlayState.instance.stockboy.finishAnimation();
-                }
+                });
             case 175:
                 PlayState.instance.dad.canDance = true;
                 PlayState.instance.dad.canSing = true;

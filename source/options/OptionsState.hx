@@ -160,8 +160,9 @@ class OptionsState extends MusicBeatState
 	function introSequence()
 	{
 		optionsThingy.animation.play('intro', true);
-		optionsThingy.animation.finishCallback = function gah(name:String)
+		optionsThingy.animation.onFinish.addOnce(function gah(name:String)
 		{
+			optionsThingy.animation.onFinish.removeAll();
 			for (i in grpOptions.members)
 			{
 				var toal:Float = 0.6;
@@ -184,7 +185,7 @@ class OptionsState extends MusicBeatState
 					FlxG.sound.playMusic(Paths.music('mus_machinations'), 0.8);
 				}});
 			});
-		}
+		});
 	}
 
 	function outroSequence()
@@ -201,12 +202,13 @@ class OptionsState extends MusicBeatState
 		FlxTween.tween(selectorRight, {alpha: 0}, 0.25, {ease: FlxEase.expoIn, onComplete: function direksts(fuuuck:FlxTween)
 		{
 			optionsThingy.animation.play('outro', true);
-			optionsThingy.animation.finishCallback = function gah(name:String)
+			optionsThingy.animation.onFinish.addOnce(function gah(name:String)
 			{
+				optionsThingy.animation.onFinish.removeAll();
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
 				MusicBeatState.switchState(new MainMenuState());
-			}
+			});
 		}});
 	}
 

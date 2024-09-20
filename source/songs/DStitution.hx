@@ -190,12 +190,6 @@ class DStitution extends SongClass
                 PlayState.instance.sectionIntroThing("I LIEK ITEM");
 
                 Paths.clearUnusedMemory();
-            case 1120:
-                PlayState.instance.chefCurtains.visible = true;
-                PlayState.instance.chefCurtains.active = true;
-                FlxTween.tween(PlayState.instance.chefCurtains, {y: PlayState.instance.chefCurtains.y + 4000}, Conductor.crochet / 500, {ease: FlxEase.quadOut});
-                PlayState.instance.chefCurtains.meshVelocity.x = PlayState.instance.chefCurtains.maxVelocity.x;
-                PlayState.instance.chefCurtains.meshVelocity.y = PlayState.instance.chefCurtains.maxVelocity.y;
             case 1124:
                 PlayState.instance.chefBanner.visible = true;
                 FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.sky.y}, Conductor.crochet / 1000, {ease: FlxEase.smootherStepOut});
@@ -213,13 +207,10 @@ class DStitution extends SongClass
                 PlayState.instance.dad.canDance = true;
                 PlayState.instance.dad.canSing = true;
                 PlayState.instance.dad.dance();
-                PlayState.instance.chefCurtains.active = false;
                 PlayState.instance.chefTable.visible = false;
                 PlayState.instance.chefBanner.visible = false;
-                PlayState.instance.chefCurtains.visible = false;
                 PlayState.instance.chefTable.destroy();
                 PlayState.instance.chefBanner.destroy();
-                PlayState.instance.chefCurtains.destroy();
                 FlxG.camera.flash();
             case 1260:
                 PlayState.instance.defaultCamZoom -= 0.05;
@@ -229,6 +220,8 @@ class DStitution extends SongClass
                 Paths.clearUnusedMemory();
             case 1336:
                 FlxG.camera.flash();
+
+                PlayState.instance.clearItemNoteShit();
 
                 PlayState.instance.defaultCamZoom += 0.15;
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, 1 / PlayState.instance.playbackRate, {ease: FlxEase.smootherStepOut});

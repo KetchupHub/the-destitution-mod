@@ -847,6 +847,8 @@ class Destitution extends SongClass
             case 1348:
                 PlayState.instance.cuttingSceneThing.visible = false;
                 PlayState.instance.centerCamOnBg = false;
+                PlayState.instance.clearItemNoteShit();
+                
                 FlxG.camera.flash();
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
