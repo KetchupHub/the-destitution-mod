@@ -77,14 +77,13 @@ Ore, not. You see. there is More you must read First. Like:
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-The Destitution Mod is produced wholly by Team Productions Presents. Team Productions Presents consists of 4 people, listed below:
+The Destitution Mod is produced wholly by Team Productions Presents. Team Productions Presents consists of 3 people, listed below:
 Cynda (@CyndaReal) - Director, Programmer, Musician, Animator, Artist
 PhoneyX (@PhoneyThePhone) - Artist, Animator
 louiefan24 (@louiefan24) - Artist, Animator
-Lit (@LitLitster) - Playtester
 
 Additionally, the following outside contributors worked on The Destitution Mod V3:
-Lexicord (@Lexicord2) - Musician
+Lit (@LitLitster) - Playtester
 
 The Destitution Mod V3 is based, in part, on the works of the following people:
 Funkin' Crew LLC - Friday Night Funkin', its engine, its concept, and its characters
