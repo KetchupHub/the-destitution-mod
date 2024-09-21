@@ -1,11 +1,11 @@
 package ui;
 
+import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import states.PlayState;
 import flixel.FlxSprite;
 import backend.ClientPrefs;
 import flixel.util.FlxColor;
-import flixel.tweens.FlxEase;
 import backend.Conductor;
 import flixel.tweens.FlxTween;
 import flixel.text.FlxText;
@@ -81,27 +81,27 @@ class SongIntroCard extends FlxSpriteGroup
     {
         _ending = true;
 
-        FlxTween.tween(_credObj, {alpha: 0, y: _credObj.y + 128}, Conductor.crochet / 500, {ease: FlxEase.backOut, onComplete: function the(tw:FlxTween)
+        FlxTween.tween(_credObj, {alpha: 0, y: _credObj.y + 128}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4), onComplete: function the(tw:FlxTween)
         {
             _credObj.destroy();
         }});
 
-        FlxTween.tween(_textObj, {alpha: 0, y: _textObj.y + 128}, Conductor.crochet / 1000, {ease: FlxEase.backOut, onComplete: function the(tw:FlxTween)
+        FlxTween.tween(_textObj, {alpha: 0, y: _textObj.y + 128}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(4), onComplete: function the(tw:FlxTween)
         {
             _textObj.destroy();
         }});
 
-        FlxTween.tween(_charObj, {alpha: 0, y: _charObj.y + 128}, Conductor.crochet / 1000, {ease: FlxEase.backOut, onComplete: function the(tw:FlxTween)
+        FlxTween.tween(_charObj, {alpha: 0, y: _charObj.y + 128}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(4), onComplete: function the(tw:FlxTween)
         {
             _charObj.destroy();
         }});
 
-        FlxTween.tween(_cardObjBelly, {alpha: 0, y: _cardObjBelly.y + 128}, Conductor.crochet / 1000, {ease: FlxEase.backOut, onComplete: function the(tw:FlxTween)
+        FlxTween.tween(_cardObjBelly, {alpha: 0, y: _cardObjBelly.y + 128}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(4), onComplete: function the(tw:FlxTween)
         {
             _cardObjBelly.destroy();
         }});
 
-        FlxTween.tween(_cardObj, {alpha: 0, y: _cardObj.y + 128}, Conductor.crochet / 1000, {ease: FlxEase.backOut, onComplete: function the(tw:FlxTween)
+        FlxTween.tween(_cardObj, {alpha: 0, y: _cardObj.y + 128}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(4), onComplete: function the(tw:FlxTween)
         {
             _cardObj.destroy();
             this.destroy();

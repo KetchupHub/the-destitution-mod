@@ -1,5 +1,6 @@
 package states;
 
+import util.EaseUtil;
 import flixel.math.FlxMath;
 import visuals.PixelPerfectSprite;
 import flixel.util.FlxSave;
@@ -9,7 +10,6 @@ import backend.WeekData;
 import util.CoolUtil;
 import util.MemoryUtil;
 import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.FlxCamera;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.text.FlxText;
@@ -230,7 +230,7 @@ class SaveFileState extends MusicBeatState
                 {
                     if (slotto.ID != curSelected)
                     {
-                        FlxTween.tween(slotto, {alpha: 0}, 0.35, {ease: FlxEase.circOut});
+                        FlxTween.tween(slotto, {alpha: 0}, 0.35, {ease: EaseUtil.stepped(4)});
                     }
                 }
                 FlxTween.tween(indi, {alpha: 0, y: 720}, 0.5, {ease: FlxEase.circOut});

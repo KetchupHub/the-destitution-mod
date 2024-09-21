@@ -1,5 +1,6 @@
 package songs;
 
+import util.EaseUtil;
 import ui.SubtitleObject.SubtitleTypes;
 import backend.ClientPrefs;
 import flixel.tweens.FlxEase;
@@ -77,7 +78,7 @@ class Superseded extends SongClass
             case 256:
                 PlayState.instance.defaultCamZoom += 0.05;
             case 304:
-                FlxTween.tween(PlayState.instance.theSmog, {alpha: 1}, (Conductor.crochet / 250) * 4, {ease: FlxEase.expoIn});
+                FlxTween.tween(PlayState.instance.theSmog, {alpha: 1}, (Conductor.crochet / 250) * 4, {ease: EaseUtil.stepped(64)});
             case 312:
                 PlayState.instance.boyfriend.canSing = false;
                 PlayState.instance.boyfriend.canDance = false;
@@ -93,7 +94,7 @@ class Superseded extends SongClass
 
                 for (fuck in PlayState.instance.opponentStrums.members)
                 {
-                    FlxTween.tween(fuck, {alpha: 0}, 2 / PlayState.instance.playbackRate, {startDelay: 0.05 * fuckel, ease: FlxEase.expoOut});
+                    FlxTween.tween(fuck, {alpha: 0}, 2 / PlayState.instance.playbackRate, {startDelay: 0.05 * fuckel, ease: EaseUtil.stepped(4)});
                     fuckel++;
                 }
 
@@ -259,7 +260,7 @@ class Superseded extends SongClass
                 PlayState.instance.dad.y += creatureHidingAdditive;
                 PlayState.instance.dad.x += 56;
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
-                FlxTween.tween(PlayState.instance.dad, {y: creatureBaseY}, (Conductor.crochet / 250), {ease: FlxEase.backInOut});
+                FlxTween.tween(PlayState.instance.dad, {y: creatureBaseY}, (Conductor.crochet / 250), {ease: EaseUtil.stepped(8)});
             case 1216:
                 FlxG.camera.flash();
                 switchPuppetBg('zam');
@@ -300,8 +301,8 @@ class Superseded extends SongClass
                 PlayState.instance.camGame.rotation = 0;
                 PlayState.instance.theSmog.alpha = 0;
                 PlayState.instance.theSmog.visible = true;
-                FlxTween.tween(PlayState.instance.theSmog, {alpha: 1}, (Conductor.crochet / 250) * 2, {ease: FlxEase.quadOut});
-                FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, (Conductor.crochet / 250) * 2, {ease: FlxEase.quadOut});
+                FlxTween.tween(PlayState.instance.theSmog, {alpha: 1}, (Conductor.crochet / 250) * 2, {ease: EaseUtil.stepped(8)});
+                FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, (Conductor.crochet / 250) * 2, {ease: EaseUtil.stepped(8)});
             case 1696:
                 PlayState.instance.defaultCamZoom = 1.01;
                 PlayState.instance.boyfriend.visible = false;

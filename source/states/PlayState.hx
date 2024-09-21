@@ -1,5 +1,6 @@
 package states;
 
+import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import waveform.WaveformSprite;
 import shaders.RippleShader;
@@ -9,7 +10,6 @@ import ui.SongIntroCard;
 import ui.SubtitleObject;
 import ui.SubtitleObject.SubtitleTypes;
 import backend.Scoring;
-import flixel.addons.effects.FlxClothSprite;
 import backend.WeekData;
 import ui.MarkHeadTransition;
 import backend.Highscore;
@@ -1538,7 +1538,7 @@ class PlayState extends MusicBeatState
 
 					FlxTween.tween(songIntro, {alpha: 0}, Conductor.crochet / 1000,
 					{
-						ease: FlxEase.cubeInOut,
+						ease: EaseUtil.stepped(4),
 						startDelay: 0.1,
 						onComplete: function(twn:FlxTween)
 						{
@@ -1707,6 +1707,7 @@ class PlayState extends MusicBeatState
 
 			scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2 / playbackRate,
 			{
+				ease: EaseUtil.stepped(4),
 				onComplete: function(twn:FlxTween)
 				{
 					scoreTxtTween = null;
@@ -1781,11 +1782,11 @@ class PlayState extends MusicBeatState
 
 		songLength = FlxG.sound.music.length;
 
-		FlxTween.tween(timeTxt, {alpha: 1}, 0.5 / playbackRate, {ease: FlxEase.circOut});
+		FlxTween.tween(timeTxt, {alpha: 1}, 0.5 / playbackRate, {ease: EaseUtil.stepped(4)});
 
 		if (fullLength != null)
 		{
-			FlxTween.tween(fullLength, {alpha: 1}, 0.5 / playbackRate, {ease: FlxEase.circOut});
+			FlxTween.tween(fullLength, {alpha: 1}, 0.5 / playbackRate, {ease: EaseUtil.stepped(4)});
 
 			if (fullLength != null)
 			{
@@ -2039,13 +2040,13 @@ class PlayState extends MusicBeatState
 		sectNameText.color = FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]);
 		sectNameText.y -= 150;
 
-		FlxTween.tween(sectText, {alpha: 1, y: sectText.y + 200}, 0.75 / playbackRate, {ease: FlxEase.backOut});
-		FlxTween.tween(sectNameText, {alpha: 1, y: sectNameText.y + 200}, 0.75 / playbackRate, {ease: FlxEase.backOut});
+		FlxTween.tween(sectText, {alpha: 1, y: sectText.y + 200}, 0.35 / playbackRate, {ease: EaseUtil.stepped(8)});
+		FlxTween.tween(sectNameText, {alpha: 1, y: sectNameText.y + 200}, 0.35 / playbackRate, {ease: EaseUtil.stepped(8)});
 
 		var gghg:FlxTimer = new FlxTimer().start(2.5, function fggjg(ss:FlxTimer)
 		{
-			FlxTween.tween(sectText, {alpha: 0, y: sectText.y + 200}, 0.75 / playbackRate, {ease: FlxEase.backIn});
-			FlxTween.tween(sectNameText, {alpha: 0, y: sectNameText.y + 200}, 0.75 / playbackRate, {ease: FlxEase.backIn});
+			FlxTween.tween(sectText, {alpha: 0, y: sectText.y + 200}, 0.35 / playbackRate, {ease: EaseUtil.stepped(8)});
+			FlxTween.tween(sectNameText, {alpha: 0, y: sectNameText.y + 200}, 0.35 / playbackRate, {ease: EaseUtil.stepped(8)});
 		});
 	}
 	
@@ -2125,7 +2126,7 @@ class PlayState extends MusicBeatState
 			if (!skipArrowStartTween)
 			{
 				babyArrow.alpha = 0;
-				FlxTween.tween(babyArrow, {alpha: targetAlpha}, 1 / playbackRate, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
+				FlxTween.tween(babyArrow, {alpha: targetAlpha}, 1 / playbackRate, {ease: EaseUtil.stepped(4), startDelay: 0.5 + (0.2 * i)});
 			}
 			else
 			{
@@ -3395,7 +3396,7 @@ class PlayState extends MusicBeatState
 			{
 				if (bfAlphaTwnBack == null)
 				{
-					bfAlphaTwnBack = FlxTween.tween(boyfriend, {alpha: 0.5}, Conductor.crochet / 1000, {ease: FlxEase.quadOut, onComplete: function onCompleete(twn:FlxTween)
+					bfAlphaTwnBack = FlxTween.tween(boyfriend, {alpha: 0.5}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(4), onComplete: function onCompleete(twn:FlxTween)
 					{
 						bfAlphaTwnBack = null;
 					}});
@@ -3414,7 +3415,7 @@ class PlayState extends MusicBeatState
 			{
 				if (bfAlphaTwnBack == null)
 				{
-					bfAlphaTwnBack = FlxTween.tween(boyfriend, {alpha: 1}, Conductor.crochet / 1000, {ease: FlxEase.quadIn, onComplete: function onCompleete(twn:FlxTween)
+					bfAlphaTwnBack = FlxTween.tween(boyfriend, {alpha: 1}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(4), onComplete: function onCompleete(twn:FlxTween)
 					{
 						bfAlphaTwnBack = null;
 					}});
@@ -3462,9 +3463,9 @@ class PlayState extends MusicBeatState
 		disallowCamMove = true;
 		camZooming = false;
 
-		FlxTween.tween(camSubtitlesAndSuch, {alpha: 0}, 2 / playbackRate, {ease: FlxEase.smootherStepOut});
+		FlxTween.tween(camSubtitlesAndSuch, {alpha: 0}, 2 / playbackRate, {ease: EaseUtil.stepped(8)});
 
-		FlxTween.tween(camHUD, {alpha: 0}, 2 / playbackRate, {ease: FlxEase.smootherStepOut, onComplete: function the(flucks:FlxTween)
+		FlxTween.tween(camHUD, {alpha: 0}, 2 / playbackRate, {ease: EaseUtil.stepped(8), onComplete: function the(flucks:FlxTween)
 		{
 			var dieIril:FlxTimer = new FlxTimer().start(0.5 / playbackRate, function imKingMyS(fuckYouTimer:FlxTimer)
 			{
@@ -3671,7 +3672,7 @@ class PlayState extends MusicBeatState
 		rating.x = 998;
 		rating.y = ratingY;
 		rating.pixelPerfectDiv = 4;
-		rating.acceleration.y = CoolUtil.randomLogic.int(500, 600) * playbackRate * playbackRate;
+		rating.acceleration.y = 550 * playbackRate;
 		rating.velocity.y -= CoolUtil.randomLogic.int(140, 175) * playbackRate;
 		rating.velocity.x -= CoolUtil.randomLogic.int(0, 10) * playbackRate;
 		rating.visible = (!ClientPrefs.hideHud && showRating);
@@ -3748,8 +3749,8 @@ class PlayState extends MusicBeatState
 
 			numScore.setGraphicSize(Std.int(numScore.width * 0.5));
 			numScore.updateHitbox();
-			numScore.acceleration.y = CoolUtil.randomLogic.int(200, 300) * playbackRate * playbackRate;
-			numScore.velocity.y -= CoolUtil.randomLogic.int(140, 160) * playbackRate;
+			numScore.acceleration.y = CoolUtil.randomLogic.int(250, 300) * playbackRate * playbackRate;
+			numScore.velocity.y -= CoolUtil.randomLogic.int(130, 150) * playbackRate;
 			numScore.velocity.x = CoolUtil.randomLogic.float(-5, 5) * playbackRate;
 			numScore.visible = !ClientPrefs.hideHud;
 
@@ -3764,7 +3765,8 @@ class PlayState extends MusicBeatState
 				{
 					numScore.destroy();
 				},
-				startDelay: Conductor.crochet * 0.002 / playbackRate
+				startDelay: Conductor.crochet * 0.002 / playbackRate,
+				ease: EaseUtil.stepped(2)
 			});
 
 			daLoop++;
@@ -3784,7 +3786,8 @@ class PlayState extends MusicBeatState
 				coolText.destroy();
 				rating.destroy();
 			},
-			startDelay: Conductor.crochet * 0.002 / playbackRate
+			startDelay: Conductor.crochet * 0.002 / playbackRate,
+			ease: EaseUtil.stepped(2)
 		});
 	}
 
@@ -4482,7 +4485,7 @@ class PlayState extends MusicBeatState
 				funnyBgColors.color = funnyColorsArray[CoolUtil.randomVisuals.int(0, funnyColorsArray.length - 1)];
 			}
 
-			FlxTween.tween(funnyBgColors, {alpha: 0.5}, Conductor.crochet / 750, {ease: FlxEase.smootherStepOut});
+			FlxTween.tween(funnyBgColors, {alpha: 0.5}, Conductor.crochet / 750, {ease: EaseUtil.stepped(8)});
 		}
 
 		if (curBeat % 2 == 0)
@@ -4546,7 +4549,7 @@ class PlayState extends MusicBeatState
 			if (strikeyStrikes)
 			{
 				lightningStrikes.alpha = 1;
-				FlxTween.tween(lightningStrikes, {alpha: 0}, Conductor.crochet / 150,  {ease: FlxEase.cubeOut});
+				FlxTween.tween(lightningStrikes, {alpha: 0}, Conductor.crochet / 150,  {ease: EaseUtil.stepped(8)});
 				FlxG.sound.play(Paths.soundRandom('dsides/storm', 0, 3), 0.9, false);
 			}
 		}
@@ -4704,9 +4707,11 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
+	/**
+		add random item to hud overlay
+	**/
 	public function doItemNoteShit()
 	{
-		//adds a random item to the hud overlay.
 		var thingToAdd:PixelPerfectSprite = new PixelPerfectSprite(CoolUtil.randomLogic.int(-32, 1312), CoolUtil.randomLogic.int(-32, 688));
 		thingToAdd.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(CoolUtil.randomVisuals.int(0, 10))));
 		var theeeeeeeeeeeeeee:Int = CoolUtil.randomLogic.int(4, 8);
@@ -4717,9 +4722,12 @@ class PlayState extends MusicBeatState
 		thingToAdd.shader = ripple;
 		thingToAdd.alpha = 0;
 		itemNoteHudOverlays.add(thingToAdd);
-		FlxTween.tween(thingToAdd, {alpha: 1}, Conductor.crochet / 1000, {ease: FlxEase.backInOut});
+		FlxTween.tween(thingToAdd, {alpha: 1}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(8)});
 	}
 
+	/**
+		remove items from hud overlay
+	**/
 	public function clearItemNoteShit()
 	{
 		for (these in itemNoteHudOverlays)
@@ -4786,20 +4794,20 @@ class PlayState extends MusicBeatState
 
 		if (isFrom)
 		{
-			FlxTween.tween(timeTxt, {y: timeTxt.y + 12, 'scale.x': 1, 'scale.y': 1}, 1 / playbackRate, {ease: FlxEase.smootherStepInOut});
+			FlxTween.tween(timeTxt, {y: timeTxt.y + 12, 'scale.x': 1, 'scale.y': 1}, 1 / playbackRate, {ease: EaseUtil.stepped(4)});
 
 			if (fullLength != null)
 			{
-				FlxTween.tween(fullLength, {y: (death + 12) + 36, 'scale.x': 1, 'scale.y': 1}, 1 / playbackRate, {ease: FlxEase.smootherStepInOut});
+				FlxTween.tween(fullLength, {y: (death + 12) + 36, 'scale.x': 1, 'scale.y': 1}, 1 / playbackRate, {ease: EaseUtil.stepped(4)});
 			}
 		}
 		else
 		{
-			FlxTween.tween(timeTxt, {y: timeTxt.y - 12, 'scale.x': 0.8, 'scale.y': 0.8}, 1 / playbackRate, {ease: FlxEase.smootherStepInOut});
+			FlxTween.tween(timeTxt, {y: timeTxt.y - 12, 'scale.x': 0.8, 'scale.y': 0.8}, 1 / playbackRate, {ease: EaseUtil.stepped(4)});
 
 			if (fullLength != null)
 			{
-				FlxTween.tween(fullLength, {y: (death - 12) + (36 * 0.8), 'scale.x': 0.8, 'scale.y': 0.8}, 1 / playbackRate, {ease: FlxEase.smootherStepInOut});
+				FlxTween.tween(fullLength, {y: (death - 12) + (36 * 0.8), 'scale.x': 0.8, 'scale.y': 0.8}, 1 / playbackRate, {ease: EaseUtil.stepped(4)});
 			}
 		}
 	}
@@ -4823,10 +4831,10 @@ class PlayState extends MusicBeatState
 		var songCard:SongIntroCard = new SongIntroCard(0, -128, SONG.song.toLowerCase().replace('-erect', ''), songObj.songNameForDisplay, SONG.composer, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
 		songCard.screenCenter();
 		var centeredY:Float = songCard.y;
-		songCard.y = -128;
+		songCard.y -= 128;
 		songCard.alpha = 0;
 		songCard.cameras = [camSubtitlesAndSuch];
 		add(songCard);
-		FlxTween.tween(songCard, {alpha: 1, y: centeredY}, 0.1 / playbackRate, {ease: FlxEase.backIn});
+		FlxTween.tween(songCard, {alpha: 1, y: centeredY}, 0.1 / playbackRate, {ease: EaseUtil.stepped(4)});
 	}
 }

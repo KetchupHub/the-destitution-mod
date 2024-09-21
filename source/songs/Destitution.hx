@@ -1,5 +1,6 @@
 package songs;
 
+import util.EaseUtil;
 import openfl.filters.ShaderFilter;
 import ui.SubtitleObject.SubtitleTypes;
 import flixel.util.FlxColor;
@@ -44,14 +45,14 @@ class Destitution extends SongClass
         {
             //lipsync shit literally just copied from d-stitution LMAO
             case 128:
-                FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250);
+                FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250, {ease: EaseUtil.stepped(4)});
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.1}, Conductor.crochet / 500, {ease: FlxEase.cubeOut});
                 PlayState.instance.defaultCamZoom += 0.1;
                 PlayState.instance.dad.canDance = false;
                 PlayState.instance.dad.canSing = false;
                 PlayState.instance.dad.playAnim("lipsync", true);
             case 248:
-                FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 500);
+                FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.2}, Conductor.crochet / 500, {ease: FlxEase.cubeInOut});
                 PlayState.instance.defaultCamZoom += 0.2;
             case 256:
@@ -466,14 +467,14 @@ class Destitution extends SongClass
                 PlayState.instance.defaultCamZoom += 0.05;
                 PlayState.instance.camZoomingMult = 1;
             case 14000:
-                FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250);
+                FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250, {ease: EaseUtil.stepped(4)});
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.1}, Conductor.crochet / 500, {ease: FlxEase.cubeOut});
                 PlayState.instance.defaultCamZoom += 0.1;
                 PlayState.instance.dad.canDance = false;
                 PlayState.instance.dad.canSing = false;
                 PlayState.instance.dad.playAnim("lipsync", true);
             case 14120:
-                FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 500);
+                FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.2}, Conductor.crochet / 500, {ease: FlxEase.cubeInOut});
                 PlayState.instance.defaultCamZoom += 0.2;
             case 14128:
@@ -522,7 +523,7 @@ class Destitution extends SongClass
                     PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'mark-alt', false, false);
                     PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
-                    FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250);
+                    FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250, {ease: EaseUtil.stepped(4)});
                     FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.1}, Conductor.crochet / 500, {ease: FlxEase.cubeOut});
                     PlayState.instance.defaultCamZoom += 0.1;
                     PlayState.instance.dad.canDance = false;
@@ -547,7 +548,7 @@ class Destitution extends SongClass
                     PlayState.instance.bgPlayer.playAnim("notice", true);
                 }});
             case 318:
-                FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 500);
+                FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.2}, Conductor.crochet / 500, {ease: FlxEase.cubeInOut});
                 PlayState.instance.defaultCamZoom += 0.2;
             case 320:
@@ -571,8 +572,8 @@ class Destitution extends SongClass
                 PlayState.instance.ploinkyTransition.visible = true;
                 PlayState.instance.ploinkyTransition.animation.play('1', true);
                 PlayState.instance.ploinkyTransition.alpha = 0;
-                FlxTween.tween(PlayState.instance.ploinkyTransition, {alpha: 1}, Conductor.crochet / 250);
-                FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250);
+                FlxTween.tween(PlayState.instance.ploinkyTransition, {alpha: 1}, Conductor.crochet / 250, {ease: EaseUtil.stepped(4)});
+                FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250, {ease: EaseUtil.stepped(4)});
             case 584:
                 PlayState.instance.ploinkyTransition.animation.play('2', true);
             case 592:
@@ -583,7 +584,7 @@ class Destitution extends SongClass
                 PlayState.instance.bgPlayer.visible = false;
                 PlayState.instance.bgPlayer.destroy();
                 PlayState.instance.defaultCamZoom = 0.875;
-                FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 250);
+                FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 250, {ease: EaseUtil.stepped(4)});
                 PlayState.instance.ploinkyTransition.visible = false;
                 PlayState.instance.ploinkyTransition.destroy();
 
@@ -629,7 +630,7 @@ class Destitution extends SongClass
                 PlayState.instance.dad.canSing = true;
                 FlxG.camera.flash();
             case 940:
-                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, (Conductor.crochet / 250) - 0.05, {ease: FlxEase.quadOut});
+                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, (Conductor.crochet / 250) - 0.05, {ease: EaseUtil.stepped(4)});
             case 944:
                 PlayState.instance.shoulderCam = false;
 
@@ -756,7 +757,7 @@ class Destitution extends SongClass
 
                     for (spitem in PlayState.instance.spaceItems.members)
                     {
-                        FlxTween.tween(spitem, {'scale.x': 0, 'scale.y': 0}, 1.5 / PlayState.instance.playbackRate, {ease: FlxEase.circOut});
+                        FlxTween.tween(spitem, {'scale.x': 0, 'scale.y': 0}, 1.5 / PlayState.instance.playbackRate, {ease: EaseUtil.stepped(4)});
                     }
 
                     PlayState.instance.space.destroy();
@@ -772,8 +773,8 @@ class Destitution extends SongClass
                         PlayState.instance.spaceItems.destroy();
                     });
 
-                    FlxTween.tween(PlayState.instance.dad, {x: PlayState.instance.spaceTimeDadArray[0], y: PlayState.instance.spaceTimeDadArray[1], angle: 0}, 1, {ease: FlxEase.smootherStepOut});
-                    FlxTween.tween(PlayState.instance.boyfriend, {x: PlayState.instance.spaceTimeBfArray[0], y: PlayState.instance.spaceTimeBfArray[1], angle: 0}, 1, {ease: FlxEase.smootherStepOut});
+                    FlxTween.tween(PlayState.instance.dad, {x: PlayState.instance.spaceTimeDadArray[0], y: PlayState.instance.spaceTimeDadArray[1], angle: 0}, 1, {ease: EaseUtil.stepped(8)});
+                    FlxTween.tween(PlayState.instance.boyfriend, {x: PlayState.instance.spaceTimeBfArray[0], y: PlayState.instance.spaceTimeBfArray[1], angle: 0}, 1, {ease: EaseUtil.stepped(8)});
                 }
                 else
                 {
@@ -825,8 +826,8 @@ class Destitution extends SongClass
                 PlayState.instance.camGame.filters = [];
                 FlxTween.completeTweensOf(PlayState.instance.dad);
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
-                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
+                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
             case 1344:
                 PlayState.instance.centerCamOnBg = true;
                 PlayState.instance.liek.animation.play("idle", true);
@@ -869,8 +870,8 @@ class Destitution extends SongClass
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 PlayState.instance.dad.alpha = 0;
                 PlayState.instance.boyfriend.alpha = 0;
-                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
+                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
 
                 if (!ClientPrefs.middleScroll)
                 {
@@ -898,21 +899,14 @@ class Destitution extends SongClass
             case 1540:
                 //JUMPY FUN PART
                 PlayState.instance.whaleFuckShit = true;
-            case 1572:
-                //DONT MISS, PAL
-                //scrapped because i suck
-                //PlayState.instance.instakillOnMiss = true;
             case 1604:
-                //ok yoyu can miss again
-                //scrapped because i suck
-                //PlayState.instance.instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
                 PlayState.instance.whaleFuckShit = false;
                 FlxG.camera.flash();
             case 1768:
                 FlxTween.completeTweensOf(PlayState.instance.dad);
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
-                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
+                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
             case 1776:
                 PlayState.instance.cuttingSceneThing.visible = true;
                 PlayState.instance.liek.visible = false;
@@ -936,8 +930,8 @@ class Destitution extends SongClass
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 PlayState.instance.dad.alpha = 0;
                 PlayState.instance.boyfriend.alpha = 0;
-                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
+                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
@@ -994,8 +988,8 @@ class Destitution extends SongClass
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 PlayState.instance.dad.alpha = 0;
                 PlayState.instance.boyfriend.alpha = 0;
-                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
+                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();
@@ -1006,8 +1000,8 @@ class Destitution extends SongClass
             case 2557:
                 FlxTween.completeTweensOf(PlayState.instance.dad);
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
-                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500, {ease: FlxEase.expoOut});
+                FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 0}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
             case 2560:
                 PlayState.instance.cuttingSceneThing.visible = true;
                 PlayState.instance.centerCamOnBg = true;
@@ -1033,8 +1027,8 @@ class Destitution extends SongClass
                 FlxTween.completeTweensOf(PlayState.instance.boyfriend);
                 PlayState.instance.dad.alpha = 0;
                 PlayState.instance.boyfriend.alpha = 0;
-                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500, {ease: FlxEase.backInOut});
-                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1, x: PlayState.instance.boyfriend.x + 1280}, Conductor.crochet / 500, {ease: FlxEase.backInOut});
+                FlxTween.tween(PlayState.instance.dad, {alpha: 1}, Conductor.crochet / 500, {ease: EaseUtil.stepped(8)});
+                FlxTween.tween(PlayState.instance.boyfriend, {alpha: 1, x: PlayState.instance.boyfriend.x + 1280}, Conductor.crochet / 500, {ease: EaseUtil.stepped(8)});
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
                 PlayState.instance.reloadHealthBarColors();

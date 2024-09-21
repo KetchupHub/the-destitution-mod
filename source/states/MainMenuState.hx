@@ -1,5 +1,6 @@
 package states;
 
+import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import lime.app.Application;
 import ui.MainMenuButton;
@@ -111,7 +112,7 @@ class MainMenuState extends MusicBeatState
 		{
 			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
 			add(transThing);
-			FlxTween.tween(transThing, {alpha: 0}, 0.35, {startDelay: 0.05, ease: FlxEase.sineOut, onComplete: function transThingDiesIrl(stupidScr:FlxTween)
+			FlxTween.tween(transThing, {alpha: 0}, 0.25, {startDelay: 0.05, ease: EaseUtil.stepped(4), onComplete: function transThingDiesIrl(stupidScr:FlxTween)
 			{
 				transThing.visible = false;
 				transThing.destroy();
@@ -148,7 +149,7 @@ class MainMenuState extends MusicBeatState
 		{
 			for(member in menuItems.members)
 			{
-				FlxTween.tween(member, {alpha: 1}, 0.35, {ease: FlxEase.sineOut, startDelay: (0.15 * member.ID)});
+				FlxTween.tween(member, {alpha: 1}, 0.25, {ease: EaseUtil.stepped(4), startDelay: (0.15 * member.ID)});
 			}
 		}});
 
@@ -249,11 +250,12 @@ class MainMenuState extends MusicBeatState
 				{
 					if (curSelected != spr.ID)
 					{
-						FlxTween.cancelTweensOf(spr);
+						FlxTween.completeTweensOf(spr);
 						spr.alpha = 1;
-						FlxTween.tween(spr, {x: -600, alpha: 0}, 0.4,
+						FlxTween.tween(spr, {x: -600, alpha: 0}, 0.3,
 						{
-							ease: FlxEase.quadOut,
+							startDelay: 0.1 * spr.ID,
+							ease: EaseUtil.stepped(8),
 							onComplete: function(twn:FlxTween)
 							{
 								spr.kill();
@@ -262,7 +264,7 @@ class MainMenuState extends MusicBeatState
 					}
 					else
 					{
-						FlxTween.cancelTweensOf(spr);
+						FlxTween.completeTweensOf(spr);
 						spr.alpha = 1;
 						spr.buttonFlicker(1, function flck()
 						{

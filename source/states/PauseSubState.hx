@@ -1,5 +1,6 @@
 package states;
 
+import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import util.CoolUtil;
 import backend.WeekData;
@@ -13,7 +14,6 @@ import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.sound.FlxSound;
 import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 
@@ -172,17 +172,17 @@ class PauseSubState extends MusicBeatSubstate
 		songCover.y -= 5;
 		descText.y -= 5;
 
-		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(credit, {alpha: 1, y: 8}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(sectionTxt, {alpha: 1, y: sectionTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(practiceText, {alpha: 1, y: practiceText.y + 5}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: EaseUtil.stepped(4)});
+		FlxTween.tween(credit, {alpha: 1, y: 8}, 0.4, {ease: EaseUtil.stepped(4)});
+		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: EaseUtil.stepped(4)});
+		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: EaseUtil.stepped(4)});
+		FlxTween.tween(sectionTxt, {alpha: 1, y: sectionTxt.y + 5}, 0.4, {ease: EaseUtil.stepped(4)});
+		FlxTween.tween(practiceText, {alpha: 1, y: practiceText.y + 5}, 0.4, {ease: EaseUtil.stepped(4)});
 		#if DEVELOPERBUILD
-		FlxTween.tween(chartingText, {alpha: 1, y: chartingText.y + 5}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(chartingText, {alpha: 1, y: chartingText.y + 5}, 0.4, {ease: EaseUtil.stepped(4)});
 		#end
-		FlxTween.tween(songCover, {alpha: 1, y: songCover.y + 5}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(descText, {alpha: 1, y: descText.y + 5}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(songCover, {alpha: 1, y: songCover.y + 5}, 0.4, {ease: EaseUtil.stepped(4)});
+		FlxTween.tween(descText, {alpha: 1, y: descText.y + 5}, 0.4, {ease: EaseUtil.stepped(4)});
 
 		if (focusLost)
 		{

@@ -1,5 +1,6 @@
 package states;
 
+import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import ui.MarkHeadTransition;
 import flixel.graphics.FlxGraphic;
@@ -11,18 +12,14 @@ import backend.ClientPrefs;
 import ui.Alphabet;
 import backend.Conductor;
 import util.CoolUtil;
-import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.text.FlxText;
 import lime.app.Application;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.input.keyboard.FlxKey;
 import flixel.addons.transition.FlxTransitionableState;
-import haxe.Json;
-import flixel.graphics.frames.FlxFrame;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
-import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
@@ -269,7 +266,7 @@ class TitleState extends MusicBeatState
 		{
 			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
 			add(transThing);
-			FlxTween.tween(transThing, {alpha: 0}, 0.35, {startDelay: 0.05, ease: FlxEase.sineOut, onComplete: function transThingDiesIrl(stupidScr:FlxTween)
+			FlxTween.tween(transThing, {alpha: 0}, 0.25, {startDelay: 0.05, ease: EaseUtil.stepped(4), onComplete: function transThingDiesIrl(stupidScr:FlxTween)
 			{
 				transThing.visible = false;
 				transThing.destroy();
@@ -384,14 +381,14 @@ class TitleState extends MusicBeatState
 		
 					transitioning = true;
 
-					FlxTween.tween(playButton, {'scale.x': 0.01, 'scale.y': 0.01}, 0.35, {ease: FlxEase.backOut, onComplete: function fuckstween(t:FlxTween)
+					FlxTween.tween(playButton, {'scale.x': 0.01, 'scale.y': 0.01}, 0.25, {ease: EaseUtil.stepped(4), onComplete: function fuckstween(t:FlxTween)
 					{
 						playButton.alpha = 0;
 						playButton.visible = false;
 						playButton.destroy();
 					}});
 				
-					FlxTween.tween(exitButton, {'scale.x': 0.01, 'scale.y': 0.01}, 0.35, {ease: FlxEase.backOut, onComplete: function fuckstween(t:FlxTween)
+					FlxTween.tween(exitButton, {'scale.x': 0.01, 'scale.y': 0.01}, 0.25, {ease: EaseUtil.stepped(4), onComplete: function fuckstween(t:FlxTween)
 					{
 						exitButton.alpha = 0;
 						exitButton.visible = false;
@@ -439,14 +436,14 @@ class TitleState extends MusicBeatState
 		FlxG.sound.music.stop();
 		FlxG.sound.play(Paths.sound('titleExit/$charec'), 1, false);
 
-		FlxTween.tween(playButton, {'scale.x': 0.01, 'scale.y': 0.01}, 0.35, {ease: FlxEase.backOut, onComplete: function fuckstween(t:FlxTween)
+		FlxTween.tween(playButton, {'scale.x': 0.01, 'scale.y': 0.01}, 0.25, {ease: EaseUtil.stepped(4), onComplete: function fuckstween(t:FlxTween)
 		{
 			playButton.alpha = 0;
 			playButton.visible = false;
 			playButton.destroy();
 		}});
 
-		FlxTween.tween(exitButton, {'scale.x': 0.01, 'scale.y': 0.01}, 0.35, {ease: FlxEase.backOut, onComplete: function fuckstween(t:FlxTween)
+		FlxTween.tween(exitButton, {'scale.x': 0.01, 'scale.y': 0.01}, 0.25, {ease: EaseUtil.stepped(4), onComplete: function fuckstween(t:FlxTween)
 		{
 			exitButton.alpha = 0;
 			exitButton.visible = false;
@@ -474,7 +471,7 @@ class TitleState extends MusicBeatState
 			money.alpha = 0;
 
 			//FlxTween.tween(money, {scaleX: 1, scaleY: 1}, 0.5, {ease: FlxEase.backInOut});
-			FlxTween.tween(money, {alpha: 1}, 0.25, {ease: FlxEase.smootherStepOut});
+			FlxTween.tween(money, {alpha: 1}, 0.25, {ease: EaseUtil.stepped(4)});
 
 			if (credGroup != null && textGroup != null)
 			{
@@ -499,7 +496,7 @@ class TitleState extends MusicBeatState
 			coolText.alpha = 0;
 
 			//FlxTween.tween(coolText, {scaleX: 1, scaleY: 1}, 0.5, {ease: FlxEase.backInOut});
-			FlxTween.tween(coolText, {alpha: 1}, 0.25, {ease: FlxEase.smootherStepOut});
+			FlxTween.tween(coolText, {alpha: 1}, 0.25, {ease: EaseUtil.stepped(4)});
 
 			credGroup.add(coolText);
 			textGroup.add(coolText);
@@ -593,10 +590,10 @@ class TitleState extends MusicBeatState
 			{
 				for (cool in textGroup)
 				{
-					FlxTween.tween(cool, {alpha: 0, y: cool.y + 720}, 0.25, {startDelay: 0.2 * cool.ID, ease: FlxEase.backInOut});
+					FlxTween.tween(cool, {alpha: 0}, 0.25, {startDelay: 0.2 * cool.ID, ease: EaseUtil.stepped(4)});
 				}
 
-				FlxTween.tween(blackScreen, {alpha: 0}, 2, {ease: FlxEase.smootherStepOut, onComplete: function die(fuuuck:FlxTween)
+				FlxTween.tween(blackScreen, {alpha: 0}, 2, {ease: EaseUtil.stepped(4), onComplete: function die(fuuuck:FlxTween)
 				{
 					remove(credGroup);
 				}});

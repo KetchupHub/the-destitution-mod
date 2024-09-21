@@ -1,5 +1,6 @@
 package states;
 
+import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import backend.ClientPrefs;
 import flixel.util.FlxStringUtil;
@@ -125,7 +126,7 @@ class ResultsState extends MusicBeatState
         yellow.blend = SCREEN;
         yellow.alpha = 0;
         add(yellow);
-        FlxTween.tween(yellow, {alpha: 0.65}, 1, {ease: FlxEase.expoIn, startDelay: 0.1});
+        FlxTween.tween(yellow, {alpha: 0.65}, 1, {ease: EaseUtil.stepped(8), startDelay: 0.1});
 
         nopeboyRes = new FlxSprite(275, -514);
         nopeboyRes.frames = Paths.getSparrowAtlas('results/nopeboy');
@@ -163,8 +164,8 @@ class ResultsState extends MusicBeatState
         scoreText.antialiasing = ClientPrefs.globalAntialiasing;
         add(scoreText);
 
-        FlxTween.tween(statsText, {alpha: 1}, 0.4, {ease: FlxEase.circOut, startDelay: 1.8});
-        FlxTween.tween(scoreText, {alpha: 1}, 0.4, {ease: FlxEase.circOut, startDelay: 1.85});
+        FlxTween.tween(statsText, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 1.8});
+        FlxTween.tween(scoreText, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 1.85});
 
         botplayThing = new PixelPerfectSprite(FlxG.width - 130, 2).loadGraphic(Paths.image('ui/botplay'));
         botplayThing.scale.set(0.5, 0.5);
@@ -208,7 +209,7 @@ class ResultsState extends MusicBeatState
 
             bgMovementMultiTarget = 0;
 
-            FlxTween.tween(nopeboyRes, {alpha: 0}, 0.25, {ease: FlxEase.circIn});
+            FlxTween.tween(nopeboyRes, {alpha: 0}, 0.15, {ease: EaseUtil.stepped(4)});
             FlxTween.tween(sideGuy, {x: sideGuy.x - 800}, 0.25, {ease: FlxEase.circIn});
             FlxTween.tween(resultsText, {x: resultsText.x - 800}, 0.25, {ease: FlxEase.circIn});
             FlxTween.tween(statsText, {x: statsText.x - 800}, 0.25, {ease: FlxEase.circIn});

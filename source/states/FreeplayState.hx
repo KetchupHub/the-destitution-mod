@@ -1,5 +1,6 @@
 package states;
 
+import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import ui.MarkHeadTransition;
 import flixel.util.FlxStringUtil;
@@ -113,7 +114,7 @@ class FreeplayState extends MusicBeatState
 		enteringMenu = true;
 
 		bg = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
-		bg.alpha = 0.35;
+		bg.alpha = 0.5;
 		add(bg);
 		bg.screenCenter();
 
@@ -123,7 +124,7 @@ class FreeplayState extends MusicBeatState
 		{
 			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
 			add(transThing);
-			FlxTween.tween(transThing, {alpha: 0}, 0.35, {startDelay: 0.05, ease: FlxEase.sineOut, onComplete: function transThingDiesIrl(stupidScr:FlxTween)
+			FlxTween.tween(transThing, {alpha: 0}, 0.25, {startDelay: 0.05, ease: EaseUtil.stepped(4), onComplete: function transThingDiesIrl(stupidScr:FlxTween)
 			{
 				transThing.visible = false;
 				transThing.destroy();
@@ -155,7 +156,7 @@ class FreeplayState extends MusicBeatState
 		songCover.alpha = 0;
 		add(songCover);
 
-		FlxTween.tween(songCover, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		FlxTween.tween(songCover, {alpha: 1}, 0.35, {ease: EaseUtil.stepped(4)});
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
@@ -186,7 +187,7 @@ class FreeplayState extends MusicBeatState
 		scoreText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(scoreText);
 
-		FlxTween.tween(scoreText, {alpha: 1}, 0.5, {ease: FlxEase.cubeOut});
+		FlxTween.tween(scoreText, {alpha: 1}, 0.35, {ease: EaseUtil.stepped(4)});
 
 		descText = new FlxText(872, songCover.y + songCover.height + 21, 403, "Placeholder", 30);
 		descText.setFormat(Paths.font("BAUHS93.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
@@ -197,22 +198,22 @@ class FreeplayState extends MusicBeatState
 
 		changeSelection(0, false);
 
-		FlxTween.tween(descText, {alpha: 1}, 0.5, {ease: FlxEase.cubeOut, onComplete: function guhlt(frueck:FlxTween)
+		FlxTween.tween(descText, {alpha: 1}, 0.35, {ease: EaseUtil.stepped(4), onComplete: function guhlt(frueck:FlxTween)
 		{
 			enteringMenu = false;
 			changeSelection(0, true);
 		}});
 
-		if(curSelected >= songs.length) curSelected = 0;
+		if (curSelected >= songs.length) curSelected = 0;
 		bg.color = songs[curSelected].color;
 		var realboy = FlxColor.fromInt(bg.color);
-		realboy.alphaFloat = 0.35;
+		realboy.alphaFloat = 0.5;
 		intendedColor = realboy;
 		
-		for(i in grpSongs.members)
+		for (i in grpSongs.members)
 		{
 			i.alpha = 0;
-			FlxTween.tween(i, {alpha: 0.6}, 0.35, {ease: FlxEase.circOut});
+			FlxTween.tween(i, {alpha: 0.6}, 0.25, {ease: EaseUtil.stepped(4)});
 		}
 
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
@@ -379,16 +380,16 @@ class FreeplayState extends MusicBeatState
 	
 				for (i in grpSongs.members)
 				{
-					FlxTween.tween(i, {alpha: 0}, 0.35, {ease: FlxEase.circIn});
+					FlxTween.tween(i, {alpha: 0}, 0.35, {ease: EaseUtil.stepped(4)});
 				}
 	
 				FlxTween.tween(freePaper, {x: -1280}, 0.25, {ease: FlxEase.circIn});
 				FlxTween.tween(freeMetal, {x: 804 + 1280}, 0.25, {ease: FlxEase.circIn});
 
-				FlxTween.tween(songCover, {alpha: 0}, 0.5, {ease: FlxEase.circIn});
+				FlxTween.tween(songCover, {alpha: 0}, 0.5, {ease: EaseUtil.stepped(4)});
 	
-				FlxTween.tween(scoreText, {alpha: 0}, 0.5, {ease: FlxEase.circIn});
-				FlxTween.tween(descText, {alpha: 0}, 0.5, {ease: FlxEase.circIn, onComplete: function dulter(flucks:FlxTween)
+				FlxTween.tween(scoreText, {alpha: 0}, 0.5, {ease: EaseUtil.stepped(4)});
+				FlxTween.tween(descText, {alpha: 0}, 0.5, {ease: EaseUtil.stepped(4), onComplete: function dulter(flucks:FlxTween)
 				{
 					var fuckyou:FlxTimer = new FlxTimer().start(0.1, function dieIrl(fuckingShitAssDickPiss:FlxTimer)
 					{
@@ -510,11 +511,12 @@ class FreeplayState extends MusicBeatState
 			}
 
 			var realboy = FlxColor.fromInt(newColor);
-			realboy.alphaFloat = 0.35;
+			realboy.alphaFloat = 0.5;
 			intendedColor = realboy;
 
 			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor,
 			{
+				ease: EaseUtil.stepped(8),
 				onComplete: function(twn:FlxTween)
 				{
 					colorTween = null;

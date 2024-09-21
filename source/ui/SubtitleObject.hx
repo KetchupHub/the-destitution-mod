@@ -1,8 +1,8 @@
 package ui;
 
+import util.EaseUtil;
 import backend.ClientPrefs;
 import flixel.util.FlxColor;
-import flixel.tweens.FlxEase;
 import backend.Conductor;
 import flixel.tweens.FlxTween;
 import flixel.text.FlxText;
@@ -72,7 +72,7 @@ class SubtitleObject extends FlxSpriteGroup
             scaleTarget = 1;
         }
 
-        FlxTween.tween(_textObj, {alpha: 0, 'scale.x': scaleTarget, 'scale.y': scaleTarget}, Conductor.crochet / 1000, {ease: FlxEase.circOut, onComplete: function the(tw:FlxTween)
+        FlxTween.tween(_textObj, {alpha: 0, 'scale.x': scaleTarget, 'scale.y': scaleTarget}, Conductor.crochet / 1100, {ease: EaseUtil.stepped(4), onComplete: function the(tw:FlxTween)
         {
             _textObj.destroy();
             this.destroy();

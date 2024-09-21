@@ -1,10 +1,10 @@
 package states;
 
+import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import ui.MarkHeadTransition;
 import backend.ClientPrefs;
 import util.CoolUtil;
-import flixel.tweens.FlxEase;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
@@ -95,12 +95,13 @@ class FlashingState extends MusicBeatState
 				else
 				{
 					FlxG.sound.play(Paths.sound('cancelMenu'));
-					FlxTween.tween(warnMark, {y: 800}, 0.75,
+					FlxTween.tween(warnMark, {alpha: 0}, 0.95,
 					{
-						ease: FlxEase.circOut
+						ease: EaseUtil.stepped(8)
 					});
 					FlxTween.tween(warnText, {alpha: 0}, 1,
 					{
+						ease: EaseUtil.stepped(8),
 						onComplete: function (twn:FlxTween)
 						{
 							FlxTransitionableState.skipNextTransIn = false;

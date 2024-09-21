@@ -1,5 +1,7 @@
 package songs;
 
+import util.EaseUtil;
+import util.CoolUtil;
 import waveform.WaveformDataParser;
 import waveform.WaveformSprite;
 import backend.ClientPrefs;
@@ -42,14 +44,14 @@ class DStitution extends SongClass
         switch (curStep)
         {
             case 96:
-                FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250);
+                FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250, {ease: EaseUtil.stepped(4)});
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.1}, Conductor.crochet / 500, {ease: FlxEase.cubeOut});
                 PlayState.instance.defaultCamZoom += 0.1;
                 PlayState.instance.dad.canDance = false;
                 PlayState.instance.dad.canSing = false;
                 PlayState.instance.dad.playAnim("lipsync", true);
             case 248:
-                FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 500);
+                FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.2}, Conductor.crochet / 500, {ease: FlxEase.cubeInOut});
                 PlayState.instance.defaultCamZoom += 0.2;
             case 256:
@@ -138,7 +140,7 @@ class DStitution extends SongClass
 
                 PlayState.instance.karmScaredy.visible = true;
 
-                FlxG.sound.play(Paths.sound('dsides/karmFlees'), 0.95, false);
+                FlxG.sound.play(Paths.sound('dsides/karmFlees'), 0.95, false).pan = CoolUtil.randomAudio.float(-0.55, -0.45);
 
                 FlxG.camera.flash();
 
@@ -181,7 +183,7 @@ class DStitution extends SongClass
                 PlayState.instance.defaultCamZoom -= 0.15;
                 FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, Conductor.crochet / 250, {ease: FlxEase.smootherStepOut});
 
-                FlxTween.tween(PlayState.instance.boyfriend, {y: PlayState.instance.boyfriend.y + 136}, Conductor.crochet / 250, {ease: FlxEase.backOut});
+                FlxTween.tween(PlayState.instance.boyfriend, {y: PlayState.instance.boyfriend.y + 136}, Conductor.crochet / 250, {ease: EaseUtil.stepped(8)});
 
                 PlayState.instance.sky.loadGraphic(Paths.image('dsides/iliSky'));
                 PlayState.instance.backing.loadGraphic(Paths.image('dsides/iliBacking'));
@@ -192,10 +194,10 @@ class DStitution extends SongClass
                 Paths.clearUnusedMemory();
             case 1124:
                 PlayState.instance.chefBanner.visible = true;
-                FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.sky.y}, Conductor.crochet / 1000, {ease: FlxEase.smootherStepOut});
+                FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.sky.y}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(8)});
             case 1128:
                 PlayState.instance.chefTable.visible = true;
-                FlxTween.tween(PlayState.instance.chefTable, {y: PlayState.instance.sky.y + 64}, Conductor.crochet / 500, {ease: FlxEase.backInOut});
+                FlxTween.tween(PlayState.instance.chefTable, {y: PlayState.instance.sky.y + 64}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
                 PlayState.instance.dad.canDance = false;
                 PlayState.instance.dad.canSing = false;
                 PlayState.instance.dad.playAnim('chef', true);

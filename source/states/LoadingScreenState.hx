@@ -1,5 +1,6 @@
 package states;
 
+import util.EaseUtil;
 import sys.thread.Thread;
 import visuals.PixelPerfectSprite;
 import ui.MarkHeadTransition;
@@ -127,7 +128,7 @@ class LoadingScreenState extends MusicBeatState
 		{
 			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
             add(transThing);
-			FlxTween.tween(transThing, {alpha: 0}, 0.5, {ease: FlxEase.sineOut, onComplete: function transThingDiesIrl(stupidScr:FlxTween)
+			FlxTween.tween(transThing, {alpha: 0}, 0.5, {startDelay: 0.1, ease: EaseUtil.stepped(4), onComplete: function transThingDiesIrl(stupidScr:FlxTween)
             {
                 transThing.visible = false;
                 transThing.destroy();
