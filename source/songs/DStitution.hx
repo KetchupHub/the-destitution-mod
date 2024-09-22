@@ -344,15 +344,6 @@ class DStitution extends SongClass
 
                 PlayState.instance.defaultCamZoom = 1;
 
-                PlayState.instance.wave = new WaveformSprite(WaveformDataParser.interpretFlxSound(FlxG.sound.music), WaveformOrientation.HORIZONTAL, FlxColor.fromRGB(195, 207, 209), Conductor.crochet / 500);
-				PlayState.instance.wave.width = FlxG.width * 1.1;
-				PlayState.instance.wave.height = FlxG.height / 2;
-				PlayState.instance.wave.amplitude = 4;
-				PlayState.instance.wave.screenCenter();
-				PlayState.instance.add(PlayState.instance.wave);
-                PlayState.instance.insert(PlayState.instance.members.indexOf(PlayState.instance.dadGroup) - 1, PlayState.instance.wave);
-                PlayState.instance.wave.scrollFactor.set();
-
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(0, 0, 'zamboney', false, false);

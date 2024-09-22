@@ -1,5 +1,6 @@
 package states;
 
+import waveform.WaveformDataParser;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import waveform.WaveformSprite;
@@ -1110,6 +1111,14 @@ class PlayState extends MusicBeatState
 				pureWhiteAbyss.screenCenter();
 				pureWhiteAbyss.scrollFactor.set();
 				add(pureWhiteAbyss);
+
+				wave = new WaveformSprite(WaveformDataParser.interpretFlxSound(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song))), WaveformOrientation.HORIZONTAL, FlxColor.fromRGB(195, 207, 209), Conductor.crochet / 500);
+				wave.width = FlxG.width * 1.1;
+				wave.height = FlxG.height / 2;
+				wave.amplitude = 4;
+				wave.screenCenter();
+				add(wave);
+                wave.scrollFactor.set();
 
 				sky = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/sky'));
 				sky.scale.set(2, 2);
