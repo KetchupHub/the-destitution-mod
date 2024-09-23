@@ -120,6 +120,7 @@ class DStitution extends SongClass
         {
             case 512:
                 //pinkerton
+                PlayState.instance.gf.visible = false;
                 PlayState.instance.fuckMyLife = true;
                 PlayState.instance.lightningBg();
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);

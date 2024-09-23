@@ -337,7 +337,7 @@ class Superseded extends SongClass
         PlayState.instance.starting.scale.set(2, 2);
         PlayState.instance.starting.updateHitbox();
         PlayState.instance.starting.screenCenter();
-        PlayState.instance.starting.shader = PlayState.instance.spaceWiggle.shader;
+        PlayState.instance.starting.shader = PlayState.instance.spaceWiggle;
         PlayState.instance.starting.scrollFactor.set();
     }
 }

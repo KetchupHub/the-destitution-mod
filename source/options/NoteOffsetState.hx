@@ -1,5 +1,6 @@
 package options;
 
+import util.EaseUtil;
 #if desktop
 import backend.Discord.DiscordClient;
 #end
@@ -205,7 +206,7 @@ class NoteOffsetState extends MusicBeatState
 		{
 			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
 			add(transThing);
-			FlxTween.tween(transThing, {alpha: 0}, 0.35, {ease: FlxEase.sineOut, onComplete: function transThingDiesIrl(stupidScr:FlxTween)
+			FlxTween.tween(transThing, {alpha: 0}, 0.25, {ease: EaseUtil.stepped(4), onComplete: function transThingDiesIrl(stupidScr:FlxTween)
 			{
 				transThing.visible = false;
 				transThing.destroy();
@@ -441,7 +442,7 @@ class NoteOffsetState extends MusicBeatState
 			beatText.y = 320;
 			beatText.velocity.y = -150;
 			if(beatTween != null) beatTween.cancel();
-			beatTween = FlxTween.tween(beatText, {alpha: 0}, 1, {ease: FlxEase.sineIn, onComplete: function(twn:FlxTween)
+			beatTween = FlxTween.tween(beatText, {alpha: 0}, 1, {ease: EaseUtil.stepped(4), onComplete: function(twn:FlxTween)
 				{
 					beatTween = null;
 				}

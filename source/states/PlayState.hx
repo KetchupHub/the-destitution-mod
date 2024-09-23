@@ -931,12 +931,8 @@ class PlayState extends MusicBeatState
 				space.visible = false;
 				add(space);
 
-				spaceWiggle = new WiggleEffect();
-				spaceWiggle.effectType = WiggleEffectType.DREAMY;
-				spaceWiggle.waveAmplitude = 0.2;
-				spaceWiggle.waveFrequency = 7;
-				spaceWiggle.waveSpeed = 1;
-				space.shader = spaceWiggle.shader;
+				spaceWiggle = new WiggleEffect(1, 7, 0.2, WiggleEffectType.DREAMY, true);
+				space.shader = spaceWiggle;
 
 				spaceItems = new FlxTypedGroup<PixelPerfectSprite>();
 				for (i in 0...7)
@@ -1091,11 +1087,7 @@ class PlayState extends MusicBeatState
 				supersededIntro.animation.play("idle", true);
 				supersededIntro.scrollFactor.set();
 
-				spaceWiggle = new WiggleEffect();
-				spaceWiggle.effectType = WiggleEffectType.DREAMY;
-				spaceWiggle.waveAmplitude = 0.15;
-				spaceWiggle.waveFrequency = 4;
-				spaceWiggle.waveSpeed = 0.15;
+				spaceWiggle = new WiggleEffect(0.15, 4, 0.15, WiggleEffectType.DREAMY, true);
 
 				precacheList.set('superseded/bg_puppet_mark', 'image');
 				precacheList.set('superseded/bg_puppet_ploinky', 'image');

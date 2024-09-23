@@ -1,5 +1,6 @@
 package options;
 
+import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import flixel.util.FlxTimer;
 import flixel.addons.transition.FlxTransitionableState;
@@ -93,7 +94,7 @@ class OptionsState extends MusicBeatState
 		{
 			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
 			add(transThing);
-			FlxTween.tween(transThing, {alpha: 0}, 0.35, {ease: FlxEase.sineOut, onComplete: function transThingDiesIrl(stupidScr:FlxTween)
+			FlxTween.tween(transThing, {alpha: 0}, 0.25, {ease: EaseUtil.stepped(4), onComplete: function transThingDiesIrl(stupidScr:FlxTween)
 			{
 				transThing.visible = false;
 				transThing.destroy();
@@ -172,13 +173,13 @@ class OptionsState extends MusicBeatState
 					toal = 1;
 				}
 
-				FlxTween.tween(i, {alpha: toal}, 0.25, {ease: FlxEase.expoOut, startDelay: 0.05 * i.ID});
+				FlxTween.tween(i, {alpha: toal}, 0.25, {ease: EaseUtil.stepped(4), startDelay: 0.05 * i.ID});
 			}
 
 			var fucky:FlxTimer = new FlxTimer().start(0.25, function imKillingMyself(buddypal:FlxTimer)
 			{
-				FlxTween.tween(selectorLeft, {alpha: 1}, 0.25, {ease: FlxEase.expoOut});
-				FlxTween.tween(selectorRight, {alpha: 1}, 0.25, {ease: FlxEase.expoOut, onComplete: function dirt(fluck:FlxTween)
+				FlxTween.tween(selectorLeft, {alpha: 1}, 0.25, {ease: EaseUtil.stepped(4)});
+				FlxTween.tween(selectorRight, {alpha: 1}, 0.25, {ease: EaseUtil.stepped(4), onComplete: function dirt(fluck:FlxTween)
 				{
 					finishedIntro = true;
 					changeSelection(0);
@@ -196,10 +197,10 @@ class OptionsState extends MusicBeatState
 		FlxG.sound.play(Paths.sound('cancelMenu'));
 		for (i in grpOptions.members)
 		{
-			FlxTween.tween(i, {alpha: 0}, 0.15, {ease: FlxEase.expoIn, startDelay: 0.05 * i.ID});
+			FlxTween.tween(i, {alpha: 0}, 0.15, {ease: EaseUtil.stepped(4), startDelay: 0.05 * i.ID});
 		}
-		FlxTween.tween(selectorLeft, {alpha: 0}, 0.25, {ease: FlxEase.expoIn});
-		FlxTween.tween(selectorRight, {alpha: 0}, 0.25, {ease: FlxEase.expoIn, onComplete: function direksts(fuuuck:FlxTween)
+		FlxTween.tween(selectorLeft, {alpha: 0}, 0.25, {ease: EaseUtil.stepped(4)});
+		FlxTween.tween(selectorRight, {alpha: 0}, 0.25, {ease: EaseUtil.stepped(4), onComplete: function direksts(fuuuck:FlxTween)
 		{
 			optionsThingy.animation.play('outro', true);
 			optionsThingy.animation.onFinish.addOnce(function gah(name:String)
