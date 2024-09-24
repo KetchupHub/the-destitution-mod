@@ -1,8 +1,15 @@
 {
 	"songs": [
+		["Fundamentals", "gf", [165, 0, 77]],
 		["Destitution", "mark", [151, 38, 19]],
+		["Hellspawn", "parents", [175, 102, 206]],
+		["Exhaust", "cars", [180, 180, 180]],
 		["Superseded", "mark-old", [151, 38, 19]],
+		["Crumbs", "monster", [243, 255, 110]],
+		["Quickshot", "pear", [183, 216, 85]],
 		["D-Stitution", "karm", [229, 163, 43]],
+		["Diskrot", "senpai", [255, 170, 111]],
+		["Automachina", "mil", [225, 225, 225]],
 		["Countdown", "mark-sports", [158, 41, 16]],
 		["Eggshells", "gary", [37, 77, 52]],
 		["Collapse", "mark", [151, 38, 19]],

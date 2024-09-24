@@ -769,7 +769,7 @@ class CharacterEditorState extends MusicBeatState
 		}
 		else
 		{
-			char.frames = Paths.getSparrowAtlas(char.imageFile);
+			char.frames = Paths.getMultiAtlas(char.imageFile.split(','));
 		}
 
 		if (char.animationsArray != null && char.animationsArray.length > 0)

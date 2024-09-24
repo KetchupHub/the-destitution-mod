@@ -188,7 +188,7 @@ class Character extends PixelPerfectSprite
 
 		if (!isAnimateAtlas)
 		{
-			frames = Paths.getAtlas(json.image);
+			frames = Paths.getMultiAtlas(json.image.split(','));
 		}
 		else
 		{
