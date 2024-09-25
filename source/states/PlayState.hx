@@ -1,5 +1,8 @@
 package states;
 
+import shaders.AdjustColorShader;
+import openfl.filters.ShaderFilter;
+import shaders.FNAFShader;
 import waveform.WaveformDataParser;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
@@ -346,6 +349,10 @@ class PlayState extends MusicBeatState
 
 	public var wave:WaveformSprite;
 
+	public var fnafAtFreddys:FNAFShader;
+
+	public var aaColorChange:AdjustColorShader = new AdjustColorShader();
+
 	override public function create()
 	{
 		instance = this;
@@ -561,7 +568,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (SONG.song.toLowerCase() == "d-stitution" || SONG.song.toLowerCase() == "d-stitution-erect")
+		if (removeVariationSuffixes(SONG.song.toLowerCase()) == "d-stitution")
 		{
 			dad.visible = false;
 		}
@@ -756,6 +763,32 @@ class PlayState extends MusicBeatState
 		botplayTxt.cameras = [camHUD];
 		#end
 
+		if (['superseded', 'd-stitution', 'abstraction'].contains(removeVariationSuffixes(SONG.song.toLowerCase())))
+		{
+			var depty:Float = 5;
+
+			switch (removeVariationSuffixes(SONG.song.toLowerCase()))
+			{
+				case 'superseded':
+					depty = 1.25;
+				case 'd-stitution':
+					depty = 4;
+			}
+
+			fnafAtFreddys = new FNAFShader(depty);
+
+			if (removeVariationSuffixes(SONG.song.toLowerCase()) != 'superseded')
+			{
+				var fnafFilter:ShaderFilter = new ShaderFilter(fnafAtFreddys);
+				camGame.filters = [fnafFilter];
+				if (removeVariationSuffixes(SONG.song.toLowerCase()) == 'abstraction')
+				{
+					camHUD.filters = [fnafFilter];
+				}
+				camSubtitlesAndSuch.filters = [fnafFilter];
+			}
+		}
+
 		if (ClientPrefs.middleScroll)
 		{
 			timerGoMiddlescroll(false);
@@ -806,7 +839,7 @@ class PlayState extends MusicBeatState
 		{
 			erectness = '-erect';
 		}
-		DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), erectness);
+		DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), erectness);
 		#end
 
 		if (!ClientPrefs.controllerMode)
@@ -1097,6 +1130,11 @@ class PlayState extends MusicBeatState
 				precacheList.set('superseded/bg_puppet_crypteh', 'image');
 				precacheList.set('superseded/bg_puppet_zam', 'image');
 			case 'dsides':
+				aaColorChange.brightness = -100;
+				aaColorChange.contrast = 35;
+				aaColorChange.hue = 0;
+				aaColorChange.saturation = -90;
+
 				var pureWhiteAbyss:FlxSprite = new FlxSprite().makeGraphic(1, 1, FlxColor.WHITE);
 				pureWhiteAbyss.scale.set(2560, 2560);
 				pureWhiteAbyss.updateHitbox();
@@ -1140,6 +1178,7 @@ class PlayState extends MusicBeatState
 				karmScaredy.animation.addByPrefix("idle", "idle", 24, false);
 				karmScaredy.animation.play("idle", true);
 				karmScaredy.scrollFactor.set(0.9, 0.9);
+				karmScaredy.shader = aaColorChange;
 				add(karmScaredy);
 				karmScaredy.visible = false;
 
@@ -1195,9 +1234,6 @@ class PlayState extends MusicBeatState
 				train.visible = false;
 
 				precacheList.set('dsides/karm_scaredy', 'image');
-				precacheList.set('dsides/dark backing', 'image');
-				precacheList.set('dsides/dark front', 'image');
-				precacheList.set('dsides/dark sky', 'image');
 				precacheList.set('dsides/train funny', 'image');
 				precacheList.set('dsides/iliBacking', 'image');
 				precacheList.set('dsides/iliRoom', 'image');
@@ -1598,7 +1634,7 @@ class PlayState extends MusicBeatState
 						}
 					}
 
-					if (SONG.song.toLowerCase().startsWith("d-stitution"))
+					if (removeVariationSuffixes(SONG.song.toLowerCase()) == ("d-stitution"))
 					{
 						dad.visible = true;
 						dad.canDance = false;
@@ -1802,7 +1838,7 @@ class PlayState extends MusicBeatState
 			erectness = '-erect';
 		}
 
-		DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), erectness, true, songLength);
+		DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), erectness, true, songLength);
 		#end
 	}
 
@@ -2053,16 +2089,22 @@ class PlayState extends MusicBeatState
 	
 	public function lightningBg()
 	{
-		sky.loadGraphic(Paths.image("dsides/dark sky"));
-		backing.loadGraphic(Paths.image("dsides/dark backing"));
-		starting.loadGraphic(Paths.image("dsides/dark front"));
+		sky.shader = aaColorChange;
+		backing.shader = aaColorChange;
+		starting.shader = aaColorChange;
+		dad.shader = aaColorChange;
+		boyfriend.shader = aaColorChange;
+		gf.shader = aaColorChange;
 	}
 
 	public function unLightningBg()
 	{
-		sky.loadGraphic(Paths.image("dsides/sky"));
-		backing.loadGraphic(Paths.image("dsides/backing"));
-		starting.loadGraphic(Paths.image("dsides/front"));
+		sky.shader = null;
+		backing.shader = null;
+		starting.shader = null;
+		dad.shader = null;
+		boyfriend.shader = null;
+		gf.shader = null;
 		strikeyStrikes = false;
 	}
 
@@ -2267,11 +2309,11 @@ class PlayState extends MusicBeatState
 
 			if (startTimer != null && startTimer.finished)
 			{
-				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), erectness, true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), erectness, true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), erectness);
+				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), erectness);
 			}
 			#end
 		}
@@ -2292,11 +2334,11 @@ class PlayState extends MusicBeatState
 		{
 			if (Conductor.songPosition > 0.0)
 			{
-				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), erectness, true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), erectness, true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), erectness);
+				DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), erectness);
 			}
 		}
 		#end
@@ -2309,7 +2351,7 @@ class PlayState extends MusicBeatState
 		if (health > 0 && !paused)
 		{
 			#if desktop
-			DiscordClient.changePresence(detailsPausedText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), '-menus');
+			DiscordClient.changePresence(detailsPausedText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), '-menus');
 			#end
 			openPauseMenu(true);
 		}
@@ -2378,6 +2420,17 @@ class PlayState extends MusicBeatState
 		{
 			wave.time = Conductor.songPosition / 1000;
 			wave.update(elapsed);
+		}
+
+		if (curStage == 'dsides')
+		{
+			if (strikeyStrikes)
+			{
+				aaColorChange.brightness = FlxMath.lerp(aaColorChange.brightness, -100, CoolUtil.boundTo(elapsed * (6), 0, 1));
+				aaColorChange.contrast = FlxMath.lerp(aaColorChange.contrast, 35, CoolUtil.boundTo(elapsed * (6), 0, 1));
+				aaColorChange.hue = 0;
+				aaColorChange.saturation = FlxMath.lerp(aaColorChange.saturation, -90, CoolUtil.boundTo(elapsed * (6), 0, 1));
+			}
 		}
 
 		if (chromAbb != null)
@@ -2862,7 +2915,7 @@ class PlayState extends MusicBeatState
 		openSubState(new PauseSubState(focusLost));
 
 		#if desktop
-		DiscordClient.changePresence(detailsPausedText, songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), '-menus');
+		DiscordClient.changePresence(detailsPausedText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), '-menus');
 		Application.current.window.title = CoolUtil.appTitleString + " - PAUSED on " + songObj.songNameForDisplay;
 		#end
 	}
@@ -2953,7 +3006,7 @@ class PlayState extends MusicBeatState
 			openSubState(new GameOverSubstate(bfTarX, bfTarY, cFollowPosTarX, cFollowPosTarY, bfCamOffsetTar, dadTar, dadTarX, dadTarY, letBfBeVisible, followNotMidpoint, gfTar, gfVisible, gfTarX, gfTarY));
 
 			#if desktop
-			DiscordClient.changePresence("Game Over", songObj.songNameForDisplay, SONG.song.toLowerCase().replace('-erect', ''), '-menus');
+			DiscordClient.changePresence("Game Over", songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), '-menus');
 			Application.current.window.title = CoolUtil.appTitleString + " - GAME OVER on " + songObj.songNameForDisplay;
 			#end
 			isDead = true;
@@ -4549,8 +4602,15 @@ class PlayState extends MusicBeatState
 		{
 			if (strikeyStrikes)
 			{
-				lightningStrikes.alpha = 1;
-				FlxTween.tween(lightningStrikes, {alpha: 0}, Conductor.crochet / 150,  {ease: EaseUtil.stepped(8)});
+				aaColorChange.brightness = -20;
+				aaColorChange.contrast = 10;
+				aaColorChange.hue = 0;
+				aaColorChange.saturation = -67;
+
+				lightningStrikes.alpha = 0.9;
+
+				FlxTween.tween(lightningStrikes, {alpha: 0}, Conductor.crochet / 250,  {ease: EaseUtil.stepped(16)});
+
 				FlxG.sound.play(Paths.soundRandom('dsides/storm', 0, 3), 0.9, false);
 			}
 		}
@@ -4756,7 +4816,8 @@ class PlayState extends MusicBeatState
 
 		if (SONG.stage == null || SONG.stage.length < 1)
 		{
-			switch (songName.replace('-erect', ''))
+			//deal with this later
+			switch (removeVariationSuffixes(songName.toLowerCase()))
 			{
 				case 'destitution':
 					curStage = 'mark';
@@ -4829,7 +4890,7 @@ class PlayState extends MusicBeatState
 	 */
 	public function songIntroCard()
 	{
-		var songCard:SongIntroCard = new SongIntroCard(0, -128, SONG.song.toLowerCase().replace('-erect', ''), songObj.songNameForDisplay, SONG.composer, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
+		var songCard:SongIntroCard = new SongIntroCard(0, -128, removeVariationSuffixes(SONG.song.toLowerCase()), songObj.songNameForDisplay, SONG.composer, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
 		songCard.screenCenter();
 		var centeredY:Float = songCard.y;
 		songCard.y -= 128;
@@ -4837,5 +4898,22 @@ class PlayState extends MusicBeatState
 		songCard.cameras = [camSubtitlesAndSuch];
 		add(songCard);
 		FlxTween.tween(songCard, {alpha: 1, y: centeredY}, 0.1 / playbackRate, {ease: EaseUtil.stepped(4)});
+	}
+
+	/**
+	 * remove song variant suffixes. not prefixes im stupid
+	 * @param song the song name, raw
+	 * @return the song name, processed
+	 */
+	public static function removeVariationSuffixes(song:String):String
+	{
+		var songReal:String = song.toLowerCase();
+
+		for (vari in SongInit.genSongObj(song.toLowerCase()).songVariants)
+		{
+			songReal = songReal.replace('-' + vari.toLowerCase(), '');
+		}
+
+		return songReal.toLowerCase();
 	}
 }

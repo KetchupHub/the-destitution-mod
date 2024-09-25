@@ -1,5 +1,6 @@
 package songs;
 
+import openfl.filters.ShaderFilter;
 import util.EaseUtil;
 import ui.SubtitleObject.SubtitleTypes;
 import backend.ClientPrefs;
@@ -84,6 +85,10 @@ class Superseded extends SongClass
                 PlayState.instance.boyfriend.canDance = false;
                 PlayState.instance.boyfriend.playAnim('notice', true);
             case 320:
+                var fnafFilter:ShaderFilter = new ShaderFilter(PlayState.instance.fnafAtFreddys);
+				PlayState.instance.camGame.filters = [fnafFilter];
+				PlayState.instance.camSubtitlesAndSuch.filters = [fnafFilter];
+
                 PlayState.instance.shoulderCam = true;
 
                 PlayState.instance.camFloatyShit = true;
@@ -121,6 +126,7 @@ class Superseded extends SongClass
                 PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'bf-hunter', false);
                 PlayState.instance.boyfriend.screenCenter();
                 PlayState.instance.boyfriend.y += 208;
+                PlayState.instance.boyfriend.y -= 416;
                 PlayState.instance.boyfriend.y += bfHidingAdditive;
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
                 FlxTween.tween(PlayState.instance.boyfriend, {y: PlayState.instance.boyfriend.y - 832}, 2 / PlayState.instance.playbackRate, {ease: FlxEase.cubeOut});

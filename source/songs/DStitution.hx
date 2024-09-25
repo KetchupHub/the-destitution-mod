@@ -32,7 +32,7 @@ class DStitution extends SongClass
         this.songDescription = "Mark enlists Nopeboy to test the new dimension shifter on his time machine, and shenanigans ensue!";
         this.ratingsType = "Dsides";
         this.skipCountdown = false;
-        this.preloadCharacters = ['karm', 'd-bf', 'd-gf', 'pinkerton', 'd-bf-dark', 'd-ili', 'd-bf-doug', 'douglass', 'karm-scold', 'douglass-player', 'd-rules', 'd-bf-rules', 'maestro', 'd-bf-rules-flipped', 'zamboney', 'karm-finale', 'stop-loading'];
+        this.preloadCharacters = ['karm', 'd-bf', 'd-gf', 'pinkerton', 'd-ili', 'd-bf-doug', 'douglass', 'karm-scold', 'douglass-player', 'd-rules', 'd-bf-rules', 'maestro', 'd-bf-rules-flipped', 'zamboney', 'karm-finale', 'stop-loading'];
         this.introCardBeat = 64;
     }
 
@@ -120,18 +120,17 @@ class DStitution extends SongClass
         {
             case 512:
                 //pinkerton
-                PlayState.instance.gf.visible = false;
-                PlayState.instance.fuckMyLife = true;
-                PlayState.instance.lightningBg();
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(0, 0, 'pinkerton', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
-                PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
-                PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf-dark', false);
-                PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
+                //PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                //PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf-dark', false);
+                //PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
                 
+                PlayState.instance.fuckMyLife = true;
+                PlayState.instance.lightningBg();
                 PlayState.instance.add(PlayState.instance.lightningStrikes);
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
@@ -149,6 +148,7 @@ class DStitution extends SongClass
             case 520:
                 PlayState.instance.strikeyStrikes = true;
             case 920:
+                PlayState.instance.gf.visible = false;
                 PlayState.instance.fuckMyLife = false;
                 PlayState.instance.karmScaredy.visible = false;
                 PlayState.instance.karmScaredy.destroy();
@@ -161,10 +161,10 @@ class DStitution extends SongClass
                 PlayState.instance.dad = new Character(64, 196, 'd-ili', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
-                PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
-                PlayState.instance.boyfriend.destroy();
-                PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf', false);
-                PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
+                //PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+                //PlayState.instance.boyfriend.destroy();
+                //PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf', false);
+                //PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
                 FlxG.camera.flash();
 
@@ -195,10 +195,10 @@ class DStitution extends SongClass
                 Paths.clearUnusedMemory();
             case 1124:
                 PlayState.instance.chefBanner.visible = true;
-                FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.sky.y}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(8)});
+                FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.sky.y}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(32)});
             case 1128:
                 PlayState.instance.chefTable.visible = true;
-                FlxTween.tween(PlayState.instance.chefTable, {y: PlayState.instance.sky.y + 64}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
+                FlxTween.tween(PlayState.instance.chefTable, {y: PlayState.instance.sky.y + 64}, Conductor.crochet / 500, {ease: EaseUtil.stepped(48)});
                 PlayState.instance.dad.canDance = false;
                 PlayState.instance.dad.canSing = false;
                 PlayState.instance.dad.playAnim('chef', true);
@@ -210,10 +210,19 @@ class DStitution extends SongClass
                 PlayState.instance.dad.canDance = true;
                 PlayState.instance.dad.canSing = true;
                 PlayState.instance.dad.dance();
-                PlayState.instance.chefTable.visible = false;
-                PlayState.instance.chefBanner.visible = false;
-                PlayState.instance.chefTable.destroy();
-                PlayState.instance.chefBanner.destroy();
+
+                FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.chefBanner.y - 1280}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(32), onComplete: function fuck(AHHHHHHHHH:FlxTween)
+                {
+                    PlayState.instance.chefBanner.visible = false;
+                    PlayState.instance.chefBanner.destroy();
+                }});
+
+                FlxTween.tween(PlayState.instance.chefTable, {alpha: 0}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(8), onComplete: function fuck(AHHHHHHHHH:FlxTween)
+                {
+                    PlayState.instance.chefTable.visible = false;
+                    PlayState.instance.chefTable.destroy();
+                }});
+
                 FlxG.camera.flash();
             case 1260:
                 PlayState.instance.defaultCamZoom -= 0.05;
@@ -277,12 +286,12 @@ class DStitution extends SongClass
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
-                PlayState.instance.dad = new Character(0, 0, 'd-rules', false, false);
+                PlayState.instance.dad = new Character(412, 32, 'd-rules', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
                 PlayState.instance.boyfriend.destroy();
-                PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf-rules', false);
+                PlayState.instance.boyfriend = new Boyfriend(-164, 16, 'd-bf-rules', false);
                 PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
                 PlayState.instance.sky.loadGraphic(Paths.image('dsides/skyworldSky'));
@@ -314,7 +323,7 @@ class DStitution extends SongClass
 
                 PlayState.instance.dadGroup.remove(PlayState.instance.dad);
                 PlayState.instance.dad.destroy();
-                PlayState.instance.dad = new Character(0, 0, 'maestro', false, false);
+                PlayState.instance.dad = new Character(PlayState.instance.boyfriend.x - 412, -48, 'maestro', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
                 PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);

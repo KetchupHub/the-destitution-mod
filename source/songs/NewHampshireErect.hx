@@ -22,7 +22,7 @@ class NewHampshireErect extends SongClass
         this.gameoverChar = 'bf-dead';
         this.gameoverMusicSuffix = '';
         this.songVariants = ["Normal", "Erect"];
-        //songVariants literally does not matter for any of the variant classes lol
+        //songVariants literally DOES matter in variant classes for removeVariationSuffixes(), actually!
         this.songDescription = "More alternate universe shenanigans?! This time, it's just Mark's bucksian-self and Nopeboy angling to impress!";
         this.ratingsType = "";
         this.skipCountdown = false;

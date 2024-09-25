@@ -134,7 +134,7 @@ class PauseSubState extends MusicBeatSubstate
 		add(chartingText);
 		#end
 
-		var theCover:String = 'song_covers/' + PlayState.SONG.song.toLowerCase().replace('-erect', '');
+		var theCover:String = 'song_covers/' + PlayState.removeVariationSuffixes(PlayState.SONG.song.toLowerCase());
 		if (Paths.image(theCover, null, true) == null)
 		{
 			theCover = 'song_covers/placeholder';
