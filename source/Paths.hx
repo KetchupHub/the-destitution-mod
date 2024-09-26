@@ -99,6 +99,12 @@ class Paths
 		}
     	return parts[1];
   	}
+	public static function getLibrary(path:String):String
+  	{
+    	var parts:Array<String> = path.split(':');
+    	if (parts.length < 2) return 'preload';
+    	return parts[0];
+	}
 
 	static public var currentModDirectory:String = '';
 	static public var currentLevel:String;
@@ -411,6 +417,10 @@ class Paths
 		return parentFrames;
 	}
 
+	public static function animateAtlas(path:String, ?library:String):String
+  	{
+    	return getLibraryPath('images/$path', library);
+  	}
 
 	inline static public function getPackerAtlas(key:String, ?library:String)
 	{

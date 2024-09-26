@@ -215,6 +215,7 @@ class Main extends Sprite
 		Application.current.window.alert("\nUnfortunately, The Destitution Mod has stopped.\n\nMore Details:\n" + errMsg, "The Destitution Mod Crash Handler");
 		DiscordClient.shutdown();
 		Sys.exit(1);
+		Application.current.window.close();
 	}
 	#end
 }

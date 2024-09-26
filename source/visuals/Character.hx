@@ -1,5 +1,6 @@
 package visuals;
 
+import openfl.utils.AssetType;
 import backend.Conductor;
 import states.PlayState;
 import backend.ClientPrefs;
@@ -22,6 +23,8 @@ import flixel.util.FlxColor;
 using StringTools;
 
 typedef CharacterFile = {
+	var aaAtlas:Bool;
+
 	var animations:Array<AnimArray>;
 	var image:String;
 	var scale:Float;
@@ -176,11 +179,23 @@ class Character extends PixelPerfectSprite
 	{
 		isAnimateAtlas = false;
 
-		var animToFind:String = Paths.getPath('images/' + json.image + '/Animation.json', TEXT, null);
-
-		if (#if MODS_ALLOWED FileSystem.exists(animToFind) || #end Assets.exists(animToFind))
+		if (json.aaAtlas)
 		{
 			isAnimateAtlas = true;
+
+			var animLibrary:String = Paths.getLibrary('rhythm:' + json.image);
+			var animPath:String = Paths.stripLibrary('rhythm:' + json.image);
+			var assetPath:String = Paths.animateAtlas(animPath, animLibrary);
+
+			try
+			{
+				atlas = new FlxAtlasSprite(0, 0, assetPath);
+				atlas.showPivot = false;
+			}
+			catch (e:Dynamic)
+			{
+				throw 'Could not load atlas ${assetPath}: $e';
+			}
 		}
 
 		scale.set(1, 1);
@@ -189,20 +204,6 @@ class Character extends PixelPerfectSprite
 		if (!isAnimateAtlas)
 		{
 			frames = Paths.getMultiAtlas(json.image.split(','));
-		}
-		else
-		{
-			try
-			{
-				atlas = new FlxAtlasSprite(0, 0, json.image);
-				atlas.showPivot = false;
-			}
-			catch (e:Dynamic)
-			{
-				#if DEVELOPERBUILD
-				FlxG.log.warn('Could not load atlas ${json.image}: $e');
-				#end
-			}
 		}
 
 		imageFile = json.image;
@@ -245,39 +246,6 @@ class Character extends PixelPerfectSprite
 				var hasTransition = anim.hasTransition;
 				var animIndices:Array<Int> = anim.indices;
 
-				/* this literally doesnt work and refuses to work, just gonna do it MANUALLY #fun
-				//this might just be the most batshit solution to a stupid problem ever devised
-				//"On static platforms, null can't be used as basic type Bool" well how about you just stop existing
-				var whatTheFuck:String = 'fuck';
-
-				//istg
-				if (json.animations[json.animations.indexOf(anim)].hasTransition == null)
-				{
-					whatTheFuck = 'fuck';
-				}
-
-				if (hasTransition == true || hasTransition == false)
-				{
-					whatTheFuck = 'shit';
-				}
-
-				#if DEVELOPERBUILD
-				trace(curCharacter + ' whatTheFuck status for $animAnim: ' + whatTheFuck);
-				#end
-
-				//so i dont have to manually fix this for every single character file
-				if (singDuration >= 10 && whatTheFuck == 'fuck')
-				{
-					if (animAnim.toLowerCase().startsWith('sing') && !animAnim.endsWith('miss'))
-					{
-						#if DEVELOPERBUILD
-						trace('SET $animAnim on character $curCharacter TO HAVE TRANSITION! MONDO COOL! YOU ARE SUPER PLAYER');
-						#end
-						anim.hasTransition = true;
-						hasTransition = true;
-					}
-				}*/
-
 				hasTransitionsMap.set(animAnim, hasTransition);
 
 				if (!isAnimateAtlas)
@@ -291,7 +259,6 @@ class Character extends PixelPerfectSprite
 						animation.addByPrefix(animAnim, animName, animFps, animLoop);
 					}
 				}
-				#if flxanimate
 				else
 				{
 					if (animIndices != null && animIndices.length > 0)
@@ -303,7 +270,6 @@ class Character extends PixelPerfectSprite
 						atlas.anim.addBySymbol(animAnim, animName, animFps, animLoop);
 					}
 				}
-				#end
 
 				if (anim.offsets != null && anim.offsets.length > 1)
 				{
@@ -316,17 +282,20 @@ class Character extends PixelPerfectSprite
 			}
 		}
 
-		#if flxanimate
 		if (isAnimateAtlas)
 		{
 			copyAtlasValues();
 		}
-		#end
 	}
 
 	override function update(elapsed:Float)
 	{
-		if (isAnimateAtlas)
+		if (isAnimateAtlas && atlas == null)
+		{
+			return;
+		}
+
+		if (isAnimateAtlas && atlas != null)
 		{
 			atlas.update(elapsed);
 		}
@@ -394,6 +363,11 @@ class Character extends PixelPerfectSprite
 
 	inline public function isAnimationNull():Bool
 	{
+		if (isAnimateAtlas && atlas == null)
+		{
+			return true;
+		}
+
 		return !isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null);
 	}
 
@@ -582,7 +556,7 @@ class Character extends PixelPerfectSprite
 		{
 			animation.play(AnimName, Force, Reversed, Frame);
 		}
-		else
+		else if (atlas != null)
 		{
 			atlas.playAnimation(AnimName, Force, false, false);
 		}
@@ -657,7 +631,7 @@ class Character extends PixelPerfectSprite
 
 	public override function draw()
 	{
-		if (isAnimateAtlas)
+		if (isAnimateAtlas && atlas != null)
 		{
 			copyAtlasValues();
 			atlas.draw();
@@ -671,22 +645,28 @@ class Character extends PixelPerfectSprite
 	{
 		@:privateAccess
 		{
-			atlas.cameras = cameras;
-			atlas.scrollFactor = scrollFactor;
-			atlas.scale = scale;
-			atlas.offset = offset;
-			atlas.origin = origin;
-			atlas.x = x;
-			atlas.y = y;
-			atlas.angle = angle;
-			atlas.alpha = alpha;
-			atlas.visible = visible;
-			atlas.flipX = flipX;
-			atlas.flipY = flipY;
-			atlas.shader = shader;
-			atlas.antialiasing = antialiasing;
-			atlas.colorTransform = colorTransform;
-			atlas.color = color;
+			if (atlas != null)
+			{
+				if (cameras != null)
+				{
+					atlas.cameras = cameras;
+				}
+				atlas.scrollFactor = scrollFactor;
+				atlas.scale = scale;
+				atlas.offset = offset;
+				atlas.origin = origin;
+				atlas.x = x;
+				atlas.y = y;
+				atlas.angle = angle;
+				atlas.alpha = alpha;
+				atlas.visible = visible;
+				atlas.flipX = flipX;
+				atlas.flipY = flipY;
+				atlas.shader = shader;
+				atlas.antialiasing = antialiasing;
+				atlas.colorTransform = colorTransform;
+				atlas.color = color;
+			}
 		}
 	}
 
