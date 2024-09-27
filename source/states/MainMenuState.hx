@@ -184,7 +184,7 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			/*#if DEVELOPERBUILD
+			#if DEVELOPERBUILD
 			if (FlxG.keys.justPressed.TAB)
 			{
 				selectedSomethin = true;
@@ -199,7 +199,7 @@ class MainMenuState extends MusicBeatState
 				
 				MusicBeatState.switchState(new ResultsState(999999, 999999, 9999, 999, 99, 9, FlxG.keys.pressed.SHIFT, 99.9, 99));
 			}
-			#end*/
+			#end
 
 			if (controls.UI_UP_P)
 			{

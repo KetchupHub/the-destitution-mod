@@ -1,0 +1,15 @@
+{
+	"animation": "results",
+	"song": "results/mus_good",
+	"tempo": 112,
+	"path": "results/normal",
+	"position": [
+		275,
+		-514
+	],
+	"bgColor": [
+		255,
+		204,
+		102
+	]
+}

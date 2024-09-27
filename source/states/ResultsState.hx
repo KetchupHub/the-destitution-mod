@@ -1,5 +1,9 @@
 package states;
 
+import flxanimate.FlxAnimate;
+import adobeanimate.FlxAtlasSprite;
+import openfl.Assets;
+import haxe.Json;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import backend.ClientPrefs;
@@ -30,7 +34,7 @@ class ResultsState extends MusicBeatState
 
     public var resultsText:FlxSprite;
 
-    public var nopeboyRes:FlxSprite;
+    public var nopeboyRes:FlxAtlasSprite;
 
     public var score:Int = 0;
     public var hiscore:Int = 0;
@@ -72,7 +76,10 @@ class ResultsState extends MusicBeatState
 
     public var selectedSomethin:Bool = false;
 
-    public override function new(score:Int = 0, hiscore:Int = 0, synergys:Int = 0, goods:Int = 0, eghs:Int = 0, bleghs:Int = 0, botplay:Bool = false, percent:Float = 0, missed:Int = 0)
+    public var realRank:ResultRanks;
+    public var overridedRank:ResultRanks;
+
+    public override function new(score:Int = 0, hiscore:Int = 0, synergys:Int = 0, goods:Int = 0, eghs:Int = 0, bleghs:Int = 0, botplay:Bool = false, percent:Float = 0, missed:Int = 0, ?overrideRank:ResultRanks)
     {
         super();
 
@@ -86,6 +93,7 @@ class ResultsState extends MusicBeatState
         this.botplay = botplay;
         this.percent = percent;
         this.missed = missed;
+        this.overridedRank = overrideRank;
     }
 
 	override function create()
@@ -106,12 +114,21 @@ class ResultsState extends MusicBeatState
 		DiscordClient.changePresence("Results Screen", null, null, '-menus');
 		#end
 
+        realRank = calculateRank(missed, bleghs, eghs, goods, synergys, percent);
+
+        if (overridedRank != null)
+        {
+            realRank = overridedRank;
+        }
+
+        var json:Dynamic = Json.parse(Assets.getText('assets/results/' + realRank.getName().toLowerCase() + '.json'));
+
         FlxG.sound.music.stop();
         FlxG.sound.music = null;
 
-        FlxG.sound.playMusic(Paths.music('mus_quarterly_report'));
+        FlxG.sound.playMusic(Paths.music(json.song));
         Conductor.songPosition = 0;
-        Conductor.changeBPM(112);
+        Conductor.changeBPM(json.tempo);
 
         screenshotBackdrop = new FlxBackdrop(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
         screenshotBackdrop.repeatAxes = XY;
@@ -119,7 +136,7 @@ class ResultsState extends MusicBeatState
         screenshotBackdrop.antialiasing = ClientPrefs.globalAntialiasing;
         add(screenshotBackdrop);
 
-        yellow = new FlxSprite().makeGraphic(1, 1, FlxColor.fromRGB(255, 204, 102));
+        yellow = new FlxSprite().makeGraphic(1, 1, FlxColor.fromRGB(json.bgColor[0], json.bgColor[1], json.bgColor[2]));
         yellow.scale.set(2560, 2560);
         yellow.updateHitbox();
         yellow.screenCenter();
@@ -128,10 +145,22 @@ class ResultsState extends MusicBeatState
         add(yellow);
         FlxTween.tween(yellow, {alpha: 0.65}, 1, {ease: EaseUtil.stepped(8), startDelay: 0.1});
 
-        nopeboyRes = new FlxSprite(275, -514);
-        nopeboyRes.frames = Paths.getSparrowAtlas('results/nopeboy');
-        nopeboyRes.animation.addByPrefix('results', 'results', 24, false);
-        nopeboyRes.animation.play('results', true);
+        var animLibrary:String = Paths.getLibrary(json.path);
+        var animPath:String = Paths.stripLibrary(json.path);
+        var assetPath:String = Paths.animateAtlas(animPath, animLibrary);
+
+        nopeboyRes = new FlxAtlasSprite(json.position[0], json.position[1], assetPath, {
+            // ?ButtonSettings:Map<String, flxanimate.animate.FlxAnim.ButtonSettings>,
+            FrameRate: 24.0,
+            Reversed: false,
+            // ?OnComplete:Void -> Void,
+            ShowPivot: false,
+            Antialiasing: ClientPrefs.globalAntialiasing,
+            ScrollFactor: null,
+            // Offset: new FlxPoint(0, 0), // This is just FlxSprite.offset
+        });
+        nopeboyRes.anim.addBySymbol('results', json.animation, 24, false);
+        nopeboyRes.playAnimation('results', true);
         nopeboyRes.antialiasing = ClientPrefs.globalAntialiasing;
         add(nopeboyRes);
 
@@ -316,4 +345,29 @@ class ResultsState extends MusicBeatState
             }
         }
     }
+
+    public static function calculateRank(misses:Int, bleghs:Int, eghs:Int, goods:Int, synergys:Int, percent:Float):ResultRanks
+    {
+        //temp
+        return GOOD;
+    }
+}
+
+enum ResultRanks
+{
+    BLEGH;
+    EGH;
+    GOOD;
+    GREAT;
+    SYNERGY;
+}
+
+typedef RankAnimation =
+{
+    var song:String;
+    var tempo:Float;
+    var path:String;
+    var animation:String;
+    var position:Array<Float>;
+    var bgColor:Array<Float>;
 }
