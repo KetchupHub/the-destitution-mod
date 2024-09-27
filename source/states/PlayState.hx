@@ -53,7 +53,6 @@ import openfl.events.KeyboardEvent;
 import backend.StageData;
 import visuals.Character;
 import visuals.Boyfriend;
-import visuals.BucksGraphBar;
 import shaders.WiggleEffect;
 import ui.Note;
 import ui.Note.EventNote;
@@ -159,7 +158,6 @@ class PlayState extends MusicBeatState
 	public var defaultCamZoom:Float = 1.05;
 	public var songLength:Float = 0;
 	public var bgPlayerWalkTarget:Float;
-	public var bucksBarUpdateCountdown:Float = 10;
 	public static var startOnTime:Float = 0;
 	public var spaceTimeDadArray:Array<Float> = [0, 0];
 	public var spaceTimeBfArray:Array<Float> = [0, 0];
@@ -192,7 +190,6 @@ class PlayState extends MusicBeatState
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
 	public static var deathCounter:Int = 0;
-	public var bucksBarHistoryFuck:Array<Int> = [9, 9, 9, 9, 9, 9, 9, 9];
 
 	public static var songHasSections:Bool = false;
 	#if DEVELOPERBUILD
@@ -201,7 +198,6 @@ class PlayState extends MusicBeatState
 	public static var seenCutscene:Bool = false;
 	public var fuckMyLife:Bool = false;
 	public var isCameraOnForcedPos:Bool = false;
-	public var brokerBop:Bool = false;
 	public var camZooming:Bool = true;
 	public var generatedMusic:Bool = false;
 	public var endingSong:Bool = false;
@@ -246,7 +242,6 @@ class PlayState extends MusicBeatState
 	public var dad:Character = null;
 	public var gf:Character = null;
 	public var bgPlayer:Character;
-	public var stockboy:Character;
 
 	public var boyfriend:Boyfriend = null;
 	
@@ -311,8 +306,6 @@ class PlayState extends MusicBeatState
 	public var playerStrums:FlxTypedGroup<StrumNote>;
 	
 	public var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
-
-	public var bucksBars:Array<BucksGraphBar> = [];
 
 	public var songSpeedTween:FlxTween;
 	public var scoreTxtTween:FlxTween;
@@ -1275,55 +1268,6 @@ class PlayState extends MusicBeatState
 				cabinBg.updateHitbox();
 				cabinBg.screenCenter();
 				add(cabinBg);
-			case 'bucks':
-				var skyish = new FlxSprite(-458, -413);
-				skyish.loadGraphic(Paths.image('bucks/skybox'));
-				skyish.antialiasing = ClientPrefs.globalAntialiasing;
-				skyish.scrollFactor.set();
-				add(skyish);
-
-				var tvs = new FlxSprite(-610, -750);
-				tvs.frames = Paths.getSparrowAtlas('bucks/tvs');
-				tvs.animation.addByPrefix('idle', 'many tvs flashloop', 24, true);
-				tvs.animation.play('idle');
-				tvs.scale.set(2, 2);
-				tvs.updateHitbox();
-				tvs.antialiasing = ClientPrefs.globalAntialiasing;
-				tvs.scrollFactor.set(0.2, 0.1);
-				add(tvs);
-
-				var lump = new FlxSprite(-350, 270).loadGraphic(Paths.image('bucks/lump'));
-				lump.antialiasing = ClientPrefs.globalAntialiasing;
-				lump.scrollFactor.set(0.45, 0.7);
-				add(lump);
-
-				stockboy = new Character(-245, 275, 'brokerboy', false, false);
-				stockboy.antialiasing = ClientPrefs.globalAntialiasing;
-				stockboy.playAnim('walk', true);
-				stockboy.animation.pause();
-				stockboy.scrollFactor.set(0.45, 0.7);
-				add(stockboy);
-				
-				var floor = new FlxSprite(-445, 200).loadGraphic(Paths.image('bucks/floor'));
-				floor.antialiasing = ClientPrefs.globalAntialiasing;
-				add(floor);
-
-				var screen = new FlxSprite(30, -250).loadGraphic(Paths.image('bucks/screen'));
-				screen.antialiasing = ClientPrefs.globalAntialiasing;
-				add(screen);
-
-				for (i in 0...7)
-				{
-					bucksBars[i] = new BucksGraphBar(screen.x + 200 + (i * 120), 5);
-					add(bucksBars[i]);
-				}
-
-				var yais = new FlxSprite(80, -235);
-				yais.frames = Paths.getSparrowAtlas('bucks/youre_accuracy_inc_stock');
-				yais.animation.addByPrefix('idle', 'yais', 24, true);
-				yais.animation.play('idle');
-				yais.antialiasing = ClientPrefs.globalAntialiasing;
-				add(yais);
 		}
 
 		#if DEVELOPERBUILD
@@ -2451,31 +2395,6 @@ class PlayState extends MusicBeatState
 			camHUD.rotation = Math.sin((Conductor.songPosition / 1200) * (Conductor.bpm / 60) * -1.0) * 1.2;
 			camSubtitlesAndSuch.rotation = Math.sin((Conductor.songPosition / 1200) * (Conductor.bpm / 60) * -1.0) * 1;
 			camGame.rotation = Math.sin((Conductor.songPosition / 1200) * (Conductor.bpm / 60) * -1.0) * 1;
-		}
-		
-		if (startedCountdown && generatedMusic && bucksBars[5] != null)
-		{
-			bucksBarUpdateCountdown -= 1 * elapsed;
-
-			if (bucksBarUpdateCountdown <= 0)
-			{
-				bucksBarUpdateCountdown = CoolUtil.randomVisuals.float(2.75, 6.5);
-				bucksBarHistoryFuck = bucksBarHistoryFuck.slice(1, 7);
-
-				if (cpuControlled || (combo == 0 && songMisses == 0))
-				{
-					bucksBarHistoryFuck.push(9);
-				}
-				else
-				{
-					bucksBarHistoryFuck.push(Std.int((ratingPercent * 10) - 1));
-				}
-
-				for (i in 0...7)
-				{
-					bucksBars[i].changeGraphPos(bucksBarHistoryFuck[i]);
-				}
-			}
 		}
 
 		if (SONG.notes[curSection] != null)
@@ -4502,17 +4421,6 @@ class PlayState extends MusicBeatState
 
 		songObj.beatHitEvent(curBeat);
 
-		if (brokerBop)
-		{
-			if (curBeat % 2 == 0)
-			{
-				if (stockboy != null)
-				{
-					stockboy.dance();
-				}
-			}
-		}
-
 		if (rulezBeatSlam && ClientPrefs.camZooms)
 		{
 			FlxG.camera.zoom += 0.075;
@@ -4831,8 +4739,6 @@ class PlayState extends MusicBeatState
 					curStage = 'eggshells-bad';
 				case 'eggshells-good':
 					curStage = 'eggshells-good';
-				case 'new-hampshire':
-					curStage = 'bucks';
 				default:
 					curStage = 'mark';
 			}

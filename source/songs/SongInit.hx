@@ -45,8 +45,6 @@ class SongInit
                 returnSong = new Collapse();
             case 'megamix':
                 returnSong = new Megamix();
-            case 'new-hampshire':
-                returnSong = new NewHampshire();
             case 'topkicks':
                 returnSong = new Topkicks();
             case 'abstraction':
@@ -76,8 +74,6 @@ class SongInit
                 returnSong = new Eggshells();
             case 'collapse-erect':
                 returnSong = new Collapse();
-            case 'new-hampshire-erect':
-                returnSong = new NewHampshireErect();
             case 'topkicks-erect':
                 returnSong = new Topkicks();
             case 'abstraction-erect':
