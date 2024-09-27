@@ -46,7 +46,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		songName = PlayState.instance.songObj.songNameForDisplay;
 
-		CoolUtil.rerollRandomness();
+        CoolUtil.newStateMemStuff(false);
 
 		#if DEVELOPERBUILD
 		if (PlayState.chartingMode)

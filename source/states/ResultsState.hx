@@ -1,5 +1,6 @@
 package states;
 
+import sys.thread.Thread;
 import flxanimate.FlxAnimate;
 import adobeanimate.FlxAtlasSprite;
 import openfl.Assets;
@@ -79,7 +80,11 @@ class ResultsState extends MusicBeatState
     public var realRank:ResultRanks;
     public var overridedRank:ResultRanks;
 
-    public override function new(score:Int = 0, hiscore:Int = 0, synergys:Int = 0, goods:Int = 0, eghs:Int = 0, bleghs:Int = 0, botplay:Bool = false, percent:Float = 0, missed:Int = 0, ?overrideRank:ResultRanks)
+    public var resultsVariant:String = '';
+
+    public var animname:String = 'results';
+
+    public override function new(score:Int = 0, hiscore:Int = 0, synergys:Int = 0, goods:Int = 0, eghs:Int = 0, bleghs:Int = 0, botplay:Bool = false, percent:Float = 0, missed:Int = 0, ?variation:String = '', ?overrideRank:ResultRanks)
     {
         super();
 
@@ -94,6 +99,7 @@ class ResultsState extends MusicBeatState
         this.percent = percent;
         this.missed = missed;
         this.overridedRank = overrideRank;
+        this.resultsVariant = variation;
     }
 
 	override function create()
@@ -105,10 +111,7 @@ class ResultsState extends MusicBeatState
         persistentUpdate = true;
 		persistentDraw = true;
 
-        CoolUtil.rerollRandomness();
-
-        MemoryUtil.collect(true);
-        MemoryUtil.compact();
+        CoolUtil.newStateMemStuff();
 
         #if desktop
 		DiscordClient.changePresence("Results Screen", null, null, '-menus');
@@ -121,7 +124,22 @@ class ResultsState extends MusicBeatState
             realRank = overridedRank;
         }
 
-        var json:Dynamic = Json.parse(Assets.getText('assets/results/' + realRank.getName().toLowerCase() + '.json'));
+        if (botplay)
+        {
+            realRank = BOTPLAY;
+        }
+
+        var rankName = realRank.getName().toLowerCase();
+
+        rankName += resultsVariant.toLowerCase();
+
+        if (realRank == BOTPLAY)
+        {
+            //wont have diff variations cuz why would it
+            rankName = 'botplay';
+        }
+
+        var json:Dynamic = Json.parse(Assets.getText('assets/results/$rankName.json'));
 
         FlxG.sound.music.stop();
         FlxG.sound.music = null;
@@ -149,26 +167,37 @@ class ResultsState extends MusicBeatState
         var animPath:String = Paths.stripLibrary(json.path);
         var assetPath:String = Paths.animateAtlas(animPath, animLibrary);
 
+        animname = json.animation;
+
         nopeboyRes = new FlxAtlasSprite(json.position[0], json.position[1], assetPath, {
-            // ?ButtonSettings:Map<String, flxanimate.animate.FlxAnim.ButtonSettings>,
             FrameRate: 24.0,
             Reversed: false,
-            // ?OnComplete:Void -> Void,
             ShowPivot: false,
             Antialiasing: ClientPrefs.globalAntialiasing,
             ScrollFactor: null,
-            // Offset: new FlxPoint(0, 0), // This is just FlxSprite.offset
         });
-        nopeboyRes.anim.addBySymbol('results', json.animation, 24, false);
-        nopeboyRes.playAnimation('results', true);
+        nopeboyRes.anim.addBySymbol(animname, animname, 24, false);
+        nopeboyRes.playAnimation(animname, true, false, false);
+        if (json.loop)
+        {
+            nopeboyRes.onAnimationComplete.add(function goo(str:String)
+            {
+                nopeboyRes.playAnimation(animname, true, false, false);
+            });
+        }
         nopeboyRes.antialiasing = ClientPrefs.globalAntialiasing;
         add(nopeboyRes);
+        if (json.slidesIn)
+        {
+            nopeboyRes.x += 1280;
+            FlxTween.tween(nopeboyRes, {x: nopeboyRes.x - 1280}, 0.35, {ease: EaseUtil.stepped(16), startDelay: 0.8});
+        }
 
         sideGuy = new FlxSprite().loadGraphic(Paths.image('results/side'));
         sideGuy.antialiasing = ClientPrefs.globalAntialiasing;
         sideGuy.x -= 750;
         add(sideGuy);
-        FlxTween.tween(sideGuy, {x: 0}, 0.5, {ease: FlxEase.circOut, startDelay: 1});
+        FlxTween.tween(sideGuy, {x: 0}, 0.5, {ease: FlxEase.circOut, startDelay: 1.1});
 
         resultsText = new FlxSprite(12, 22);
         resultsText.frames = Paths.getSparrowAtlas('results/textbop');
@@ -177,7 +206,7 @@ class ResultsState extends MusicBeatState
         resultsText.y -= 300;
         resultsText.antialiasing = ClientPrefs.globalAntialiasing;
         add(resultsText);
-        FlxTween.tween(resultsText, {y: 22}, 0.4, {ease: FlxEase.backOut, startDelay: 1.75});
+        FlxTween.tween(resultsText, {y: 22}, 0.4, {ease: FlxEase.backOut, startDelay: 1.85});
 
         statsText = new FlxText(26, 246, 683, 'Missed: 0\nBlegh: 0\nEgh: 0\nGood: 0\nSynergy: 0\nTotal: 0\nPercent: 0%', 38);
         statsText.setFormat(Paths.font('BAUHS93.ttf'), 38, FlxColor.WHITE, LEFT, OUTLINE_FAST, FlxColor.BLACK);
@@ -193,8 +222,8 @@ class ResultsState extends MusicBeatState
         scoreText.antialiasing = ClientPrefs.globalAntialiasing;
         add(scoreText);
 
-        FlxTween.tween(statsText, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 1.8});
-        FlxTween.tween(scoreText, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 1.85});
+        FlxTween.tween(statsText, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 1.9});
+        FlxTween.tween(scoreText, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 1.95});
 
         botplayThing = new PixelPerfectSprite(FlxG.width - 130, 2).loadGraphic(Paths.image('ui/botplay'));
         botplayThing.scale.set(0.5, 0.5);
@@ -346,13 +375,45 @@ class ResultsState extends MusicBeatState
         }
     }
 
+    /**
+     * Get the intended ranking. this does NOT include variations, those are tacked on later.
+     * @param misses Number of misses.
+     * @param bleghs Number of Blegh ratings.
+     * @param eghs Number of Egh ratings.
+     * @param goods Number of Good ratings.
+     * @param synergys Number of Synergy ratings.
+     * @param percent Accuracy percent
+     * @return Ranking.
+     */
     public static function calculateRank(misses:Int, bleghs:Int, eghs:Int, goods:Int, synergys:Int, percent:Float):ResultRanks
     {
-        //temp
-        return GOOD;
+        if (misses <= 0 && bleghs == 0 && eghs == 0 && percent >= 90)
+        {
+            return SYNERGY;
+        }
+
+        if (percent >= 80)
+        {
+            return GREAT;
+        }
+
+        if (percent >= 65)
+        {
+            return GOOD;
+        }
+
+        if (percent >= 45)
+        {
+            return EGH;
+        }
+
+        return BLEGH;
     }
 }
 
+/**
+ * All unique ranks. Variations not included, those are tacked on later.
+ */
 enum ResultRanks
 {
     BLEGH;
@@ -360,14 +421,20 @@ enum ResultRanks
     GOOD;
     GREAT;
     SYNERGY;
+    BOTPLAY;
 }
 
+/**
+ * Ranking JSON typedef. This IS used for variants.
+ */
 typedef RankAnimation =
 {
     var song:String;
     var tempo:Float;
     var path:String;
     var animation:String;
+    var loop:Bool;
+    var slidesIn:Bool;
     var position:Array<Float>;
     var bgColor:Array<Float>;
 }

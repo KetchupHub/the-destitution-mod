@@ -71,10 +71,7 @@ class FreeplayState extends MusicBeatState
 		persistentUpdate = true;
 		persistentDraw = true;
 
-		CoolUtil.rerollRandomness();
-
-        MemoryUtil.collect(true);
-        MemoryUtil.compact();
+        CoolUtil.newStateMemStuff();
 
 		WeekData.reloadWeekFiles(false);
 

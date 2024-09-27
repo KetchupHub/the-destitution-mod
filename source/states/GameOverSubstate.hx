@@ -70,7 +70,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		bg.alpha = 0;
 		add(bg);
 
-		CoolUtil.rerollRandomness();
+        CoolUtil.newStateMemStuff(false);
 
 		Conductor.songPosition = 0;
 

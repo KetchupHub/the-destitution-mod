@@ -46,7 +46,7 @@ class MusicBeatSubstate extends FlxSubState
 	public function updateBeat():Void
 	{
 		curBeat = Math.floor(curStep / 4);
-		curDecBeat = curDecStep/4;
+		curDecBeat = curDecStep / 4;
 	}
 
 	public function updateCurStep():Void

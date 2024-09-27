@@ -1,0 +1,17 @@
+{
+	"animation": "botplay",
+	"loop": false,
+	"song": "results/mus_good",
+	"tempo": 56,
+	"path": "results/botplay",
+	"position": [
+		722,
+		156
+	],
+	"bgColor": [
+		81,
+		72,
+		112
+	],
+	"slidesIn": true
+}

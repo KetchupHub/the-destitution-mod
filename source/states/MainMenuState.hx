@@ -1,5 +1,6 @@
 package states;
 
+import states.ResultsState.ResultRanks;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import lime.app.Application;
@@ -33,6 +34,10 @@ import editors.MasterEditorMenu;
 
 class MainMenuState extends MusicBeatState
 {
+	#if DEVELOPERBUILD
+	var debugRank:ResultRanks = GOOD;
+	#end
+
 	public static var curSelected:Int = 0;
 	public var menuItems:FlxTypedGroup<MainMenuButton>;
 	public var camGame:FlxCamera;
@@ -60,10 +65,7 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = true;
 		persistentDraw = true;
 
-		CoolUtil.rerollRandomness();
-
-        MemoryUtil.collect(true);
-        MemoryUtil.compact();
+        CoolUtil.newStateMemStuff();
 
 		FlxG.mouse.visible = false;
 
@@ -185,6 +187,28 @@ class MainMenuState extends MusicBeatState
 		if (!selectedSomethin)
 		{
 			#if DEVELOPERBUILD
+			//sorry man
+			if (FlxG.keys.justPressed.ONE || FlxG.keys.justPressed.NUMPADONE)
+			{
+				debugRank = BLEGH;
+			}
+			else if (FlxG.keys.justPressed.TWO || FlxG.keys.justPressed.NUMPADTWO)
+			{
+				debugRank = EGH;
+			}
+			else if (FlxG.keys.justPressed.THREE || FlxG.keys.justPressed.NUMPADTHREE)
+			{
+				debugRank = GOOD;
+			}
+			else if (FlxG.keys.justPressed.FOUR || FlxG.keys.justPressed.NUMPADFOUR)
+			{
+				debugRank = GREAT;
+			}
+			else if (FlxG.keys.justPressed.FIVE || FlxG.keys.justPressed.NUMPADFIVE)
+			{
+				debugRank = SYNERGY;
+			}
+
 			if (FlxG.keys.justPressed.TAB)
 			{
 				selectedSomethin = true;
@@ -197,7 +221,7 @@ class MainMenuState extends MusicBeatState
 					FlxG.sound.music.stop();
 				}
 				
-				MusicBeatState.switchState(new ResultsState(999999, 999999, 9999, 999, 99, 9, FlxG.keys.pressed.SHIFT, 99.9, 99));
+				MusicBeatState.switchState(new ResultsState(999999, 999999, 9999, 999, 99, 9, FlxG.keys.pressed.SHIFT, 99.9, 99, '', debugRank));
 			}
 			#end
 

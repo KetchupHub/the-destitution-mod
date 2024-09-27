@@ -359,7 +359,7 @@ class PlayState extends MusicBeatState
 
 		FlxG.mouse.visible = false;
 
-		CoolUtil.rerollRandomness();
+        CoolUtil.newStateMemStuff(false);
 
 		gameplaySettingsSetup();
 

@@ -1,5 +1,6 @@
 package util;
 
+import sys.thread.Thread;
 import openfl.display.Bitmap;
 import flixel.math.FlxRandom;
 import util.macro.GitCommit;
@@ -52,6 +53,20 @@ class CoolUtil
 		randomVisuals.resetInitialSeed();
 		randomAudio.resetInitialSeed();
 		randomLogic.resetInitialSeed();
+	}
+
+	public static function newStateMemStuff(?doMem:Bool = true)
+	{
+		Thread.create(CoolUtil.rerollRandomness);
+
+		if (doMem)
+		{
+			Thread.create(function memmyStuff()
+			{
+				MemoryUtil.collect(true);
+				MemoryUtil.compact();
+			});
+		}
 	}
 
 	inline public static function quantize(f:Float, snap:Float)

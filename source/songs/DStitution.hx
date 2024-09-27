@@ -124,10 +124,6 @@ class DStitution extends SongClass
                 PlayState.instance.dad.destroy();
                 PlayState.instance.dad = new Character(0, 0, 'pinkerton', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
-
-                //PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
-                //PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf-dark', false);
-                //PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
                 
                 PlayState.instance.fuckMyLife = true;
                 PlayState.instance.lightningBg();
@@ -161,11 +157,6 @@ class DStitution extends SongClass
                 PlayState.instance.dad = new Character(64, 196, 'd-ili', false, false);
                 PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
-                //PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
-                //PlayState.instance.boyfriend.destroy();
-                //PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf', false);
-                //PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
-
                 FlxG.camera.flash();
 
                 PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
@@ -195,10 +186,10 @@ class DStitution extends SongClass
                 Paths.clearUnusedMemory();
             case 1124:
                 PlayState.instance.chefBanner.visible = true;
-                FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.sky.y}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(32)});
+                FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.sky.y}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(64)});
             case 1128:
                 PlayState.instance.chefTable.visible = true;
-                FlxTween.tween(PlayState.instance.chefTable, {y: PlayState.instance.sky.y + 64}, Conductor.crochet / 500, {ease: EaseUtil.stepped(48)});
+                FlxTween.tween(PlayState.instance.chefTable, {y: PlayState.instance.sky.y + 64}, Conductor.crochet / 500, {ease: EaseUtil.stepped(64)});
                 PlayState.instance.dad.canDance = false;
                 PlayState.instance.dad.canSing = false;
                 PlayState.instance.dad.playAnim('chef', true);

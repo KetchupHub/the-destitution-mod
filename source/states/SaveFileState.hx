@@ -46,10 +46,7 @@ class SaveFileState extends MusicBeatState
 		persistentUpdate = true;
 		persistentDraw = true;
 
-		CoolUtil.rerollRandomness();
-
-        MemoryUtil.collect(true);
-        MemoryUtil.compact();
+        CoolUtil.newStateMemStuff();
 
 		FlxG.mouse.visible = false;
 
