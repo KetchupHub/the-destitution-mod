@@ -208,16 +208,16 @@ class ResultsState extends MusicBeatState
         add(resultsText);
         FlxTween.tween(resultsText, {y: 22}, 0.4, {ease: FlxEase.backOut, startDelay: 1.85});
 
-        statsText = new FlxText(26, 246, 683, 'Missed: 0\nBlegh: 0\nEgh: 0\nGood: 0\nSynergy: 0\nTotal: 0\nPercent: 0%', 38);
-        statsText.setFormat(Paths.font('BAUHS93.ttf'), 38, FlxColor.WHITE, LEFT, OUTLINE_FAST, FlxColor.BLACK);
-        statsText.borderSize = 2;
+        statsText = new FlxText(26, 246, 683, 'Missed: 0\nBlegh: 0\nEgh: 0\nGood: 0\nSynergy: 0\nTotal: 0\nPercent: 0%', 56);
+        statsText.setFormat(Paths.font('DS-DIGIB.TTF'), 38, FlxColor.fromRGB(json.bgColor[0], json.bgColor[1], json.bgColor[2]), LEFT, OUTLINE, FlxColor.BLACK);
+        statsText.borderSize = 3;
         statsText.alpha = 0;
         statsText.antialiasing = ClientPrefs.globalAntialiasing;
         add(statsText);
 
-        scoreText = new FlxText(26, 599, 683, 'Score: 0\nHi-Score: 0', 52);
-        scoreText.setFormat(Paths.font('BAUHS93.ttf'), 52, FlxColor.WHITE, LEFT, OUTLINE_FAST, FlxColor.BLACK);
-        scoreText.borderSize = 2;
+        scoreText = new FlxText(26, 599, 683, 'Score: 0\nHi-Score: 0', 64);
+        scoreText.setFormat(Paths.font('5by7.ttf'), 52, FlxColor.fromRGB(json.bgColor[0], json.bgColor[1], json.bgColor[2]), LEFT, OUTLINE, FlxColor.BLACK);
+        scoreText.borderSize = 3;
         scoreText.alpha = 0;
         scoreText.antialiasing = ClientPrefs.globalAntialiasing;
         add(scoreText);

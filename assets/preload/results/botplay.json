@@ -1,12 +1,12 @@
 {
 	"animation": "botplay",
-	"loop": false,
+	"loop": true,
 	"song": "results/mus_good",
 	"tempo": 56,
 	"path": "results/botplay",
 	"position": [
-		722,
-		156
+		745,
+		155
 	],
 	"bgColor": [
 		81,
