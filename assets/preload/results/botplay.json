@@ -2,7 +2,7 @@
 	"animation": "botplay",
 	"loop": true,
 	"song": "results/mus_good",
-	"tempo": 56,
+	"tempo": 95,
 	"path": "results/botplay",
 	"position": [
 		745,
