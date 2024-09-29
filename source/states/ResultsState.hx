@@ -1,5 +1,6 @@
 package states;
 
+import flixel.ui.FlxBar;
 import sys.thread.Thread;
 import flxanimate.FlxAnimate;
 import adobeanimate.FlxAtlasSprite;
@@ -33,7 +34,7 @@ class ResultsState extends MusicBeatState
 {
     public var screenshotBackdrop:FlxBackdrop;
 
-    public var resultsText:FlxSprite;
+    public var resultsUi:FlxAtlasSprite;
 
     public var nopeboyRes:FlxAtlasSprite;
 
@@ -61,13 +62,14 @@ class ResultsState extends MusicBeatState
     public var percent:Float = 0;
     public var percentLerp:Float = 0;
 
-    public var statsText:FlxText;
+    public var statBars:Array<FlxBar>;
+    public var statTexts:Array<FlxText>;
+    public var accText:FlxText;
     public var scoreText:FlxText;
 
     public var botplay:Bool;
     
     public var yellow:FlxSprite;
-    public var sideGuy:FlxSprite;
     public var botplayThing:PixelPerfectSprite;
 
     public var elapsedTotal:Float;
@@ -193,36 +195,67 @@ class ResultsState extends MusicBeatState
             FlxTween.tween(nopeboyRes, {x: nopeboyRes.x - 1280}, 0.35, {ease: EaseUtil.stepped(16), startDelay: 0.8});
         }
 
-        sideGuy = new FlxSprite().loadGraphic(Paths.image('results/side'));
-        sideGuy.antialiasing = ClientPrefs.globalAntialiasing;
-        sideGuy.x -= 750;
-        add(sideGuy);
-        FlxTween.tween(sideGuy, {x: 0}, 0.5, {ease: FlxEase.circOut, startDelay: 1.1});
+        var animLibraryUi:String = Paths.getLibrary('results/ui');
+        var animPathUi:String = Paths.stripLibrary('results/ui');
+        var assetPathUi:String = Paths.animateAtlas(animPathUi, animLibraryUi);
 
-        resultsText = new FlxSprite(12, 22);
-        resultsText.frames = Paths.getSparrowAtlas('results/textbop');
-        resultsText.animation.addByPrefix('textbop', 'textbop', 24, false);
-        resultsText.animation.play('textbop', true);
-        resultsText.y -= 300;
-        resultsText.antialiasing = ClientPrefs.globalAntialiasing;
-        add(resultsText);
-        FlxTween.tween(resultsText, {y: 22}, 0.4, {ease: FlxEase.backOut, startDelay: 1.85});
+        resultsUi = new FlxAtlasSprite(-82, -273, assetPathUi, {
+            FrameRate: 24.0,
+            Reversed: false,
+            ShowPivot: false,
+            Antialiasing: ClientPrefs.globalAntialiasing,
+            ScrollFactor: null,
+        });
+        resultsUi.anim.addBySymbol('ui', 'ui', 24, false);
+        resultsUi.playAnimation('ui', true, false, false);
+        resultsUi.antialiasing = ClientPrefs.globalAntialiasing;
+        add(resultsUi);
 
-        statsText = new FlxText(26, 246, 683, 'Missed: 0\nBlegh: 0\nEgh: 0\nGood: 0\nSynergy: 0\nTotal: 0\nPercent: 0%', 56);
-        statsText.setFormat(Paths.font('DS-DIGIB.TTF'), 38, FlxColor.fromRGB(json.bgColor[0], json.bgColor[1], json.bgColor[2]), LEFT, OUTLINE, FlxColor.BLACK);
-        statsText.borderSize = 3;
-        statsText.alpha = 0;
-        statsText.antialiasing = ClientPrefs.globalAntialiasing;
-        add(statsText);
+        statBars = [];
+        statTexts = [];
 
-        scoreText = new FlxText(26, 599, 683, 'Score: 0\nHi-Score: 0', 64);
-        scoreText.setFormat(Paths.font('5by7.ttf'), 52, FlxColor.fromRGB(json.bgColor[0], json.bgColor[1], json.bgColor[2]), LEFT, OUTLINE, FlxColor.BLACK);
-        scoreText.borderSize = 3;
+        var barExes:Array<Float> = [106, 183, 251, 315, 400];
+        var uhuh:Int = 0;
+        for (i in barExes)
+        {
+            var theBarIsHere:FlxBar = new FlxBar(i, 218, FlxBarFillDirection.BOTTOM_TO_TOP, 45, 225);
+            theBarIsHere.ID = uhuh;
+            theBarIsHere.setRange(-1, total + missed);
+            if (ClientPrefs.smootherBars)
+            {
+                theBarIsHere.numDivisions = total + missed;
+            }
+            else
+            {
+                theBarIsHere.numDivisions = 1000;
+            }
+            add(theBarIsHere);
+            theBarIsHere.alpha = 0;
+            FlxTween.tween(theBarIsHere, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 1.9});
+            statBars.push(theBarIsHere);
+
+            var stattySon:FlxText = new FlxText(i, 173, 60, '0', 16);
+            stattySon.setFormat(Paths.font('Calculator.ttf'), 16, FlxColor.fromRGB(0, 255, 0), CENTER, NONE);
+            stattySon.ID = uhuh;
+            add(stattySon);
+            stattySon.alpha = 0;
+            FlxTween.tween(stattySon, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 1.9});
+            statTexts.push(stattySon);
+
+            uhuh++;
+        }
+
+        accText = new FlxText(109, 570, 134, '0%', 54);
+        accText.setFormat(Paths.font('Calculator.ttf'), 54, FlxColor.fromRGB(0, 255, 0), CENTER, NONE, FlxColor.BLACK);
+        accText.alpha = 0;
+        add(accText);
+
+        scoreText = new FlxText(315, 565, 170, '0\nHi: 0', 36);
+        scoreText.setFormat(Paths.font('Calculator.ttf'), 36, FlxColor.fromRGB(0, 255, 0), CENTER, NONE, FlxColor.BLACK);
         scoreText.alpha = 0;
-        scoreText.antialiasing = ClientPrefs.globalAntialiasing;
         add(scoreText);
 
-        FlxTween.tween(statsText, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 1.9});
+        FlxTween.tween(accText, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 1.9});
         FlxTween.tween(scoreText, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 1.95});
 
         botplayThing = new PixelPerfectSprite(FlxG.width - 130, 2).loadGraphic(Paths.image('ui/botplay'));
@@ -268,9 +301,16 @@ class ResultsState extends MusicBeatState
             bgMovementMultiTarget = 0;
 
             FlxTween.tween(nopeboyRes, {alpha: 0}, 0.15, {ease: EaseUtil.stepped(4)});
-            FlxTween.tween(sideGuy, {x: sideGuy.x - 800}, 0.25, {ease: FlxEase.circIn});
-            FlxTween.tween(resultsText, {x: resultsText.x - 800}, 0.25, {ease: FlxEase.circIn});
-            FlxTween.tween(statsText, {x: statsText.x - 800}, 0.25, {ease: FlxEase.circIn});
+            FlxTween.tween(resultsUi, {x: resultsUi.x - 800}, 0.25, {ease: FlxEase.circIn});
+            for (i in statTexts)
+            {
+                FlxTween.tween(i, {x: i.x - 800}, 0.25, {ease: FlxEase.circIn});
+            }
+            for (i in statBars)
+            {
+                FlxTween.tween(i, {x: i.x - 800}, 0.25, {ease: FlxEase.circIn});
+            }
+            FlxTween.tween(accText, {x: accText.x - 800}, 0.25, {ease: FlxEase.circIn});
             FlxTween.tween(scoreText, {x: scoreText.x - 800}, 0.25, {ease: FlxEase.circIn});
 
             var fuck:FlxTimer = new FlxTimer().start(0.75, function dire(fuckse:FlxTimer)
@@ -286,13 +326,12 @@ class ResultsState extends MusicBeatState
             botplayThing.angle += Math.cos(elapsedTotal) * 0.25;
         }
 
-        if (statsText.alpha != 0)
+        if (accText.alpha != 0)
         {
             synergysLerp = Math.floor(FlxMath.lerp(synergysLerp, synergys, CoolUtil.boundTo(elapsed * 16, 0, 1)));
             goodsLerp = Math.floor(FlxMath.lerp(goodsLerp, goods, CoolUtil.boundTo(elapsed * 16, 0, 1)));
             eghsLerp = Math.floor(FlxMath.lerp(eghsLerp, eghs, CoolUtil.boundTo(elapsed * 16, 0, 1)));
             bleghsLerp = Math.floor(FlxMath.lerp(bleghsLerp, bleghs, CoolUtil.boundTo(elapsed * 16, 0, 1)));
-            totalLerp = Math.floor(FlxMath.lerp(totalLerp, total, CoolUtil.boundTo(elapsed * 16, 0, 1)));
             missedLerp = Math.floor(FlxMath.lerp(missedLerp, missed, CoolUtil.boundTo(elapsed * 16, 0, 1)));
             percentLerp = Math.ffloor((FlxMath.lerp(percentLerp, percent, CoolUtil.boundTo(elapsed * 16, 0, 1))) * 10) / 10;
 
@@ -314,11 +353,6 @@ class ResultsState extends MusicBeatState
             if (Math.abs(bleghsLerp - bleghs) <= 30)
             {
                 bleghsLerp = bleghs;
-            }
-
-            if (Math.abs(totalLerp - total) <= 30)
-            {
-                totalLerp = total;
             }
 
             if (Math.abs(missedLerp - missed) <= 30)
@@ -355,8 +389,31 @@ class ResultsState extends MusicBeatState
 
 		super.update(elapsed);
 
-        statsText.text = 'Missed: $missedLerp\nBlegh: $bleghsLerp\nEgh: $eghsLerp\nGood: $goodsLerp\nSynergy: $synergysLerp\nTotal: $totalLerp\nPercent: $percentLerp%';
-        scoreText.text = 'Score: $scort\nHi-Score: $hiscort';
+        var ee:Int = 0;
+        var used:Int = 0;
+
+        for (i in statTexts)
+        {
+            switch (ee)
+            {
+                case 1:
+                    used = bleghsLerp;
+                case 2:
+                    used = eghsLerp;
+                case 3:
+                    used = goodsLerp;
+                case 4:
+                    used = synergysLerp;
+                default:
+                    used = missedLerp;
+            }
+            i.text = Std.string(used);
+            statBars[ee].value = used;
+            ee++;
+        }
+
+        accText.text = '$percentLerp%';
+        scoreText.text = '$scort\nHi: $hiscort';
 
         screenshotBackdrop.x += (225 * bgMovementMulti) * elapsed;
         screenshotBackdrop.y += (225 * bgMovementMulti) * elapsed;
@@ -365,14 +422,6 @@ class ResultsState extends MusicBeatState
     override function beatHit()
     {
         super.beatHit();
-
-        if (curBeat % 2 == 0)
-        {
-            if (resultsText != null)
-            {
-                resultsText.animation.play('textbop', true);
-            }
-        }
     }
 
     /**

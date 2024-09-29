@@ -3451,7 +3451,7 @@ class PlayState extends MusicBeatState
 
 	public function endSong():Void
 	{
-		if (!startingSong)
+		if (!startingSong #if DEVELOPERBUILD && !chartingMode #end)
 		{
 			notes.forEach(function(daNote:Note)
 			{
@@ -3498,14 +3498,6 @@ class PlayState extends MusicBeatState
 			Highscore.saveScore(SONG.song, songScore, percent);
 
 			playbackRate = 1;
-
-			#if DEVELOPERBUILD
-			if (chartingMode)
-			{
-				openChartEditor();
-				return;
-			}
-			#end
 
 			WeekData.loadTheFirstEnabledMod();
 			cancelMusicFadeTween();
