@@ -1,6 +1,9 @@
 #if DEVELOPERBUILD
 package editors;
 
+import flixel.FlxObject;
+import flixel.math.FlxPoint;
+import openfl.filters.ShaderFilter;
 import states.MainMenuState;
 import flixel.FlxSprite;
 import shaders.*;
@@ -57,6 +60,7 @@ class ShadersTestState extends MusicBeatState
 
 		var lol:FlxSprite = new FlxSprite().makeGraphic(1280, 720, FlxColor.WHITE);
 		lol.screenCenter();
+		lol.scrollFactor.set(0, 0);
 		add(lol);
 
 		charPx = new Character(150, 256, 'bf-mark', true, false);
@@ -65,6 +69,10 @@ class ShadersTestState extends MusicBeatState
 		add(charAa);
 
 		prepShaders();
+
+		camFollow = new FlxObject(0, 0, 1, 1).screenCenter();
+
+		FlxG.camera.follow(camFollow, FlxCameraFollowStyle.LOCKON, 1);
 
 		FlxG.mouse.visible = true;
 
@@ -82,8 +90,24 @@ class ShadersTestState extends MusicBeatState
 		#end
 	}
 
+	public var screenMode:Bool = false;
+
+	public var camFollow:FlxObject;
+
 	override function update(elapsed:Float)
 	{
+		if (FlxG.mouse.pressed)
+		{
+			camFollow.setPosition(FlxG.mouse.gameX, FlxG.mouse.gameY);
+		}
+
+		if (FlxG.keys.justPressed.TAB)
+		{
+			//switch display mode
+			screenMode = !screenMode;
+			switchShader(0);
+		}
+
 		if (controls.UI_LEFT_P)
 		{
 			switchShader(-1);
@@ -120,11 +144,22 @@ class ShadersTestState extends MusicBeatState
 
 		if (curSelc != 0)
 		{
-			charPx.shader = shaderz[curSelc];
-			charAa.shader = shaderz[curSelc];
+			if (screenMode)
+			{
+				FlxG.camera.filters = [new ShaderFilter(shaderz[curSelc])];
+				charPx.shader = null;
+				charAa.shader = null;
+			}
+			else
+			{
+				FlxG.camera.filters = [];
+				charPx.shader = shaderz[curSelc];
+				charAa.shader = shaderz[curSelc];
+			}
 		}
 		else
 		{
+			FlxG.camera.filters = [];
 			charPx.shader = null;
 			charAa.shader = null;
 		}
