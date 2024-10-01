@@ -1,5 +1,6 @@
 package states;
 
+import backend.RpgPrefs;
 import util.EaseUtil;
 import flixel.math.FlxMath;
 import visuals.PixelPerfectSprite;
@@ -191,7 +192,7 @@ class SaveFileState extends MusicBeatState
 
             if (FlxG.keys.pressed.X)
             {
-                delTimer += (ClientPrefs.framerate / 24) * elapsed;
+                delTimer += 1 * elapsed;
 
                 if (delTimer == 3 && slotUsedArray[curSelected] == true)
                 {
@@ -238,8 +239,7 @@ class SaveFileState extends MusicBeatState
                 }
                 else
                 {
-                    CoolUtil.rpgSave = new FlxSave();
-                    CoolUtil.rpgSave.bind('destimodRpgSave' + (curSelected + 1), CoolUtil.getSavePath());
+                    RpgPrefs.initSave(curSelected + 1);
                 }
 
                 slotUsedArray[curSelected] = true;
@@ -286,36 +286,16 @@ class SaveFileState extends MusicBeatState
 
     function prepFreshSave(num:Int)
     {
-        CoolUtil.rpgSave = new FlxSave();
-        CoolUtil.rpgSave.bind('destimodRpgSave' + num, CoolUtil.getSavePath());
-        CoolUtil.rpgSave.data.progression = 0;
-        CoolUtil.rpgSave.data.items = ['none', 'none', 'none', 'none', 'none', 'none'];
-        CoolUtil.rpgSave.data.curLocation = 'start';
-        CoolUtil.rpgSave.data.level = 1;
-        CoolUtil.rpgSave.data.hp = 20;
-        CoolUtil.rpgSave.data.atk = 4;
-        CoolUtil.rpgSave.data.def = 3;
-        CoolUtil.rpgSave.data.armor = 'none';
-        CoolUtil.rpgSave.data.weapon = 'none';
-        CoolUtil.rpgSave.data.whichSaveIsThis = num;
-        CoolUtil.rpgSave.flush();
+        RpgPrefs.initSave(num);
+        RpgPrefs.prepFreshSave(num);
+        RpgPrefs.flushCurSave();
     }
 
     function resetSave(num:Int)
     {
-        CoolUtil.rpgSave = new FlxSave();
-        CoolUtil.rpgSave.bind('destimodRpgSave' + num, CoolUtil.getSavePath());
-        CoolUtil.rpgSave.erase();
-        CoolUtil.rpgSave.data.progression = 0;
-        CoolUtil.rpgSave.data.items = ['none', 'none', 'none', 'none', 'none', 'none'];
-        CoolUtil.rpgSave.data.curLocation = 'start';
-        CoolUtil.rpgSave.data.level = 1;
-        CoolUtil.rpgSave.data.hp = 20;
-        CoolUtil.rpgSave.data.atk = 4;
-        CoolUtil.rpgSave.data.def = 3;
-        CoolUtil.rpgSave.data.armor = 'none';
-        CoolUtil.rpgSave.data.weapon = 'none';
-        CoolUtil.rpgSave.data.whichSaveIsThis = num;
-        CoolUtil.rpgSave.flush();
+        RpgPrefs.initSave(num);
+        RpgPrefs.eraseCurSave();
+        RpgPrefs.prepFreshSave(num);
+        RpgPrefs.flushCurSave();
     }
 }

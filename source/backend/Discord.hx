@@ -55,11 +55,25 @@ class DiscordClient
 	static function onReady(that:RawConstPointer<DiscordUser>)
 	{
 		var pres:DiscordRichPresence;
+
 		pres = DiscordRichPresence.create();
+
 		pres.details = ConstCharStar.fromString("In the Menus");
 		pres.state = null;
+
 		pres.largeImageKey = ConstCharStar.fromString("icon");
 		pres.largeImageText = ConstCharStar.fromString("The Destitution Mod v" + Application.current.meta.get('version'));
+
+		final button1:DiscordButton = DiscordButton.create();
+		button1.label = "Download";
+		button1.url = ConstCharStar.fromString('https://gamejolt.com/games/destitution/844229');
+		pres.buttons[0] = button1;
+		
+		final button2:DiscordButton = DiscordButton.create();
+		button2.label = "Team";
+		button2.url = ConstCharStar.fromString('https://twitter.com/TeamProdPresent/');
+		pres.buttons[1] = button2;
+
 		Discord.updatePresence(pres);
 	}
 
@@ -70,7 +84,7 @@ class DiscordClient
 
 	static function onDisconnected(_code:Int, _message:ConstCharStar)
 	{
-		//Discord.clearPresence();
+
 	}
 
 	public static function initialize()
@@ -113,26 +127,29 @@ class DiscordClient
 			#end
 		}
 
-		/*Discord.presence(
-		{
-			details: detailso,
-			state: stateo,
-			largeImageKey: alrgey,
-			largeImageText: largoText,
-			smallImageKey : smalley,
-			startTimestamp : Std.int(startTimestamp / 1000),
-            endTimestamp : Std.int(endTimestamp / 1000)
-		});*/
-
 		var pres:DiscordRichPresence;
+
 		pres = DiscordRichPresence.create();
+
+		pres.type = DiscordActivityType_Playing;
+
 		pres.details = ConstCharStar.fromString(detailso);
 		pres.state = ConstCharStar.fromString(stateo);
+
 		pres.largeImageKey = ConstCharStar.fromString(alrgey);
 		pres.largeImageText = ConstCharStar.fromString(largoText);
 		pres.smallImageKey = ConstCharStar.fromString(smalley);
-		pres.startTimestamp = Std.int(startTimestamp / 1000);
-		pres.endTimestamp = Std.int(endTimestamp / 1000);
+
+		final button1:DiscordButton = DiscordButton.create();
+		button1.label = "Download";
+		button1.url = ConstCharStar.fromString('https://gamejolt.com/games/destitution/844229');
+		pres.buttons[0] = button1;
+		
+		final button2:DiscordButton = DiscordButton.create();
+		button2.label = "Team";
+		button2.url = ConstCharStar.fromString('https://twitter.com/TeamProdPresent/');
+		pres.buttons[1] = button2;
+
 		Discord.updatePresence(pres);
 	}
 }

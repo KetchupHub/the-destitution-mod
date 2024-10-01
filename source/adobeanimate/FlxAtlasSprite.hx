@@ -1,5 +1,6 @@
 package adobeanimate;
 
+import haxe.extern.EitherType;
 import flixel.FlxG;
 import flixel.util.FlxSignal.FlxTypedSignal;
 import flxanimate.FlxAnimate;
@@ -82,11 +83,12 @@ class FlxAtlasSprite extends FlxAnimate
   public function listAnimations():Array<String>
   {
     var mainSymbol = this.anim.symbolDictionary[this.anim.stageInstance.symbol.name];
+
     if (mainSymbol == null)
     {
-      FlxG.log.error('FlxAtlasSprite does not have its main symbol!');
       return [];
     }
+
     return mainSymbol.getFrameLabels().map(keyFrame -> keyFrame.name).filterNull();
   }
 
@@ -129,10 +131,14 @@ class FlxAtlasSprite extends FlxAnimate
     // Skip if not allowed to play animations.
     if ((!canPlayOtherAnims))
     {
-      if (this.currentAnimation == id && restart) {}
+      if (this.currentAnimation == id && restart)
+      {
+        //Nothing.
+      }
       else if (ignoreExclusionPref != null && ignoreExclusionPref.length > 0)
       {
         var detected:Bool = false;
+
         for (entry in ignoreExclusionPref)
         {
           if (StringTools.startsWith(id, entry))
@@ -141,23 +147,40 @@ class FlxAtlasSprite extends FlxAnimate
             break;
           }
         }
-        if (!detected) return;
+
+        if (!detected)
+        {
+          return;
+        }
       }
       else
+      {
         return;
+      }
     }
 
-    if (anim == null) return;
+    if (anim == null)
+    {
+      return;
+    }
 
-    if (id == null || id == '') id = this.currentAnimation;
+    if (id == null || id == '')
+    {
+      id = this.currentAnimation;
+    }
 
     if (this.currentAnimation == id && !restart)
     {
       if (!anim.isPlaying)
       {
-        if (fr != null) anim.curFrame = fr.index + startFrame;
+        if (fr != null)
+        {
+          anim.curFrame = fr.index + startFrame;
+        }
         else
+        {
           anim.curFrame = startFrame;
+        }
 
         // Resume animation if it's paused.
         anim.resume();
@@ -168,24 +191,25 @@ class FlxAtlasSprite extends FlxAnimate
     else if (!hasAnimation(id))
     {
       // Skip if the animation doesn't exist
-      trace('Animation ' + id + ' not found');
       return;
     }
 
     this.currentAnimation = id;
     anim.onComplete.removeAll();
-    anim.onComplete.add(function() {
+    anim.onComplete.add(function()
+    {
       _onAnimationComplete();
     });
 
     looping = loop;
 
     // Prevent other animations from playing if `ignoreOther` is true.
-    if (ignoreOther) canPlayOtherAnims = false;
+    if (ignoreOther)
+    {
+      canPlayOtherAnims = false;
+    }
 
     // Move to the first frame of the animation.
-    // goToFrameLabel(id);
-    trace('Playing animation $id');
     if ((id == null || id == "") || this.anim.symbolDictionary.exists(id) || (this.anim.getByName(id) != null))
     {
       this.anim.play(id, restart, false, startFrame);
@@ -194,6 +218,7 @@ class FlxAtlasSprite extends FlxAnimate
 
       fr = null;
     }
+
     // Only call goToFrameLabel if there is a frame label with that name. This prevents annoying warnings!
     if (getFrameLabelNames().indexOf(id) != -1)
     {
@@ -223,10 +248,20 @@ class FlxAtlasSprite extends FlxAnimate
    */
   public function isLoopComplete():Bool
   {
-    if (this.anim == null) return false;
-    if (!this.anim.isPlaying) return false;
+    if (this.anim == null)
+    {
+      return false;
+    }
 
-    if (fr != null) return (anim.reversed && anim.curFrame < fr.index || !anim.reversed && anim.curFrame >= (fr.index + fr.duration));
+    if (!this.anim.isPlaying)
+    {
+      return false;
+    }
+
+    if (fr != null)
+    {
+      return (anim.reversed && anim.curFrame < fr.index || !anim.reversed && anim.curFrame >= (fr.index + fr.duration));
+    }
 
     return (anim.reversed && anim.curFrame == 0 || !(anim.reversed) && (anim.curFrame) >= (anim.length - 1));
   }
@@ -236,7 +271,10 @@ class FlxAtlasSprite extends FlxAnimate
    */
   public function stopAnimation():Void
   {
-    if (this.currentAnimation == null) return;
+    if (this.currentAnimation == null)
+    {
+      return;
+    }
 
     this.anim.removeAllCallbacksFrom(getNextFrameLabel(this.currentAnimation));
 
@@ -254,7 +292,7 @@ class FlxAtlasSprite extends FlxAnimate
     this.anim.goToFrameLabel(label);
   }
 
-  function getFrameLabelNames(?layer:haxe.extern.EitherType<Int, String> = null)
+  function getFrameLabelNames(?layer:EitherType<Int, String> = null)
   {
     var labels = this.anim.getFrameLabels(layer);
     var array = [];
@@ -284,7 +322,6 @@ class FlxAtlasSprite extends FlxAnimate
   public function cleanupAnimation(_:String):Void
   {
     canPlayOtherAnims = true;
-    // this.currentAnimation = null;
     this.anim.pause();
   }
 
@@ -331,7 +368,11 @@ class FlxAtlasSprite extends FlxAnimate
     if (graphic == null || !Assets.exists(graphic))
     {
       var prevFrame:Null<FlxFrame> = prevFrames.get(index);
-      if (prevFrame == null) return;
+      
+      if (prevFrame == null)
+      {
+        return;
+      }
 
       prevFrame.copyTo(frames.getByIndex(index));
       return;
@@ -355,10 +396,14 @@ class FlxAtlasSprite extends FlxAnimate
 
   public function getBasePosition():Null<FlxPoint>
   {
-    // var stagePos = new FlxPoint(anim.stageInstance.matrix.tx, anim.stageInstance.matrix.ty);
     var instancePos = new FlxPoint(anim.curInstance.matrix.tx, anim.curInstance.matrix.ty);
     var firstElement = anim.curSymbol.timeline?.get(0)?.get(0)?.get(0);
-    if (firstElement == null) return instancePos;
+
+    if (firstElement == null)
+    {
+      return instancePos;
+    }
+
     var firstElementPos = new FlxPoint(firstElement.matrix.tx, firstElement.matrix.ty);
 
     return instancePos + firstElementPos;
