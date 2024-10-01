@@ -1,50 +1,31 @@
 package shaders;
 
-import flixel.system.FlxAssets.FlxShader;
+import openfl.utils.Assets;
+import flixel.addons.display.FlxRuntimeShader;
 import flixel.tweens.FlxTween;
 
-class BlueFade extends FlxShader
+class BlueFade extends FlxRuntimeShader
 {
-  public var fadeVal(default, set):Float;
+  public var fadeAmt(default, set):Float;
 
-  function set_fadeVal(val:Float):Float
+  function set_fadeAmt(val:Float):Float
   {
-    fadeAmt.value = [val];
-    fadeVal = val;
-    // trace(fadeVal);
+		this.setFloat('fadeAmt', val);
+    fadeAmt = val;
 
-    return val;
+    return fadeAmt;
   }
 
   public function fade(startAmt:Float = 0, targetAmt:Float = 1, duration:Float, _options:TweenOptions):Void
   {
-    fadeVal = startAmt;
+    fadeAmt = startAmt;
     FlxTween.tween(this, {fadeVal: targetAmt}, duration, _options);
   }
 
-  @:glFragmentSource('
-       #pragma header
-
-        // Value from (0, 1)
-        uniform float fadeAmt;
-
-        // fade the image to blue as it fades to black
-
-        void main()
-        {
-          vec4 tex = flixel_texture2D(bitmap, openfl_TextureCoordv);
-
-          vec4 finalColor = mix(vec4(vec4(0.0, 0.0, tex.b, tex.a) * fadeAmt), vec4(tex * fadeAmt), fadeAmt);
-
-          // Output to screen
-          gl_FragColor = finalColor;
-        }
-
-    ')
   public function new()
   {
-    super();
+		super(Assets.getText(Paths.frag('blueFade')));
 
-    this.fadeVal = 1;
+    this.fadeAmt = 1;
   }
 }

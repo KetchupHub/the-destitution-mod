@@ -21,5 +21,5 @@ void main()
     
     vec2 coords = vec2(openfl_TextureCoordv.x, openfl_TextureCoordv.y + dx * (offset * uDepth * dir));
     
-    gl_FragColor = texture2D(bitmap, coords);
+    gl_FragColor = flixel_texture2D(bitmap, coords);
 }

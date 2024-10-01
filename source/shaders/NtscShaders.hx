@@ -85,7 +85,7 @@ class NTSCSFilter extends FlxShader
 		float ifx2 = INTERFERENCE2 * (r * peak(uv.y, 0.2, 0.2));
 		uv.x += ifx1 + -ifx2;
 
-		vec4 out_color = texture2D(bitmap, uv);
+		vec4 out_color = flixel_texture2D(bitmap, uv);
 
 		float scanl = 0.5 + 0.5 * abs(sin(PI * uv.y * YRES));
 

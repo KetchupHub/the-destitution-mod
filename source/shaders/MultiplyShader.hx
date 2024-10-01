@@ -21,7 +21,7 @@ class MultiplyShader extends FlxShader
 
 		void main()
 		{
-			vec4 base = texture2D(bitmap, openfl_TextureCoordv);
+			vec4 base = flixel_texture2D(bitmap, openfl_TextureCoordv);
 			gl_FragColor = blendMultiply(base, uBlendColor, uBlendColor.a);
 		}')
   public function new()

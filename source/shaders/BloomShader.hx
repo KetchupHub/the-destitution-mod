@@ -1,54 +1,59 @@
 package shaders;
 
-import flixel.system.FlxAssets.FlxShader;
+import openfl.utils.Assets;
+import flixel.addons.display.FlxRuntimeShader;
 
-class BloomShader extends FlxShader // BLOOM SHADER BY BBPANZU
+class BloomShader extends FlxRuntimeShader // BLOOM SHADER BY BBPANZU
 {
-	@:glFragmentSource('
-	#pragma header
+	public var dim(default, set):Float;
+	public var Directions(default, set):Float;
+	public var Quality(default, set):Float;
+	public var Size(default, set):Float;
 
-    // GAUSSIAN BLUR SETTINGS
-  	uniform float dim;
-    uniform float Directions;
-    uniform float Quality; 
-    uniform float Size; 
-
-	void main(void)
-	{ 
-		vec2 uv = openfl_TextureCoordv.xy ;
-
-		float Pi = 6.28318530718; // Pi*2
-
-		vec4 Color = texture2D( bitmap, uv);
-		
-		for(float d=0.0; d<Pi; d+=Pi/Directions){
-			for(float i=1.0/Quality; i<=1.0; i+=1.0/Quality){
-
-				float ex = (cos(d)*Size*i)/openfl_TextureSize.x;
-				float why = (sin(d)*Size*i)/openfl_TextureSize.y;
-				Color += flixel_texture2D( bitmap, uv+vec2(ex,why));	
-			}
-		}
-		
-		Color /= (dim * Quality) * Directions - 15.0;
-		vec4 bloom =  (flixel_texture2D( bitmap, uv)/ dim)+Color;
-
-		gl_FragColor = bloom;
-
-	}
-	')
 	public function new()
 	{
-		super();
+		super(Assets.getText(Paths.frag('bloom')));
 
-		Size.value = [18.0];
-		Quality.value = [8.0];
-		dim.value = [2.0];
-		Directions.value = [16.0];
+		Size = 18.0;
+		Quality = 8.0;
+		dim = 2.0;
+		Directions = 16.0;
 	}
 
 	public function update(flot:Float)
 	{
 
+	}
+
+	function set_dim(value:Float):Float
+	{
+		this.setFloat('dim', value);
+		this.dim = value;
+	  
+		return this.dim;
+	}
+	  
+	function set_Directions(value:Float):Float
+	{
+		this.setFloat('Directions', value);
+		this.Directions = value;
+	  
+		return this.Directions;
+	}
+	  
+	function set_Quality(value:Float):Float
+	{
+		this.setFloat('Quality', value);
+		this.Quality = value;
+	  
+		return this.Quality;
+	}
+	  
+	function set_Size(value:Float):Float
+	{
+		this.setFloat('Size', value);
+		this.Size = value;
+	  
+		return this.Size;
 	}
 }

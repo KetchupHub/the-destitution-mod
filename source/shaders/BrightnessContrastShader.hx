@@ -17,11 +17,12 @@ class BrightnessContrastShader extends FlxShader
             gl_FragColor.rgb *= max(brightness, 0.);
         }
     ')
-	public function new()
+    
+	public function new(bright:Float, cont:Float)
 	{
 		super();
-		brightness.value = [1.0];
-		contrast.value = [1.0];
+		brightness.value = [bright];
+		contrast.value = [cont];
 	}
 
     public function update(flot:Float)

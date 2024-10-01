@@ -34,7 +34,7 @@ class ShadersTestState extends MusicBeatState
 
 	public var curSelc:Int = 0;
 
-	public var shaderz:Array<Dynamic> = [new AngelShader(), new AngelShader(), new BloomShader(), new BrightnessContrastShader(), new CamDupeShader(), new CRTShader(), new NTSCSFilter(), new NTSCGlitch(), new TVStatic(), new Abberation(0.5), new RippleShader(), new SilhouetteShader(255, 0, 0), new VCRBorder(), new FNAFShader(5)];
+	public var shaderz:Array<Dynamic> = [new AngelShader(), new AngelShader(), new BloomShader(), new BrightnessContrastShader(0.9, 2), new CamDupeShader(), new CRTShader(), new NTSCSFilter(), new NTSCGlitch(), new TVStatic(), new Abberation(0.5), new RippleShader(), new SilhouetteShader(255, 0, 0), new VCRBorder(), new FNAFShader(5)];
 
 	override function create()
 	{
