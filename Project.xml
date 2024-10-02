@@ -128,6 +128,12 @@
 	<haxedef name="DEVELOPERBUILD" unless="SHOWCASEVIDEO"/>
 	<!--haxedef name="FORCESPORTSEVENT" -->
 
+	<haxedef name="HXCPP_TELEMETRY" if="DEVELOPERBUILD"/>
+	<haxedef name="HXCPP_TRACY" if="DEVELOPERBUILD"/>
+	<haxedef name="HXCPP_TRACY_MEMORY" if="DEVELOPERBUILD"/>
+
+	<haxedef name="absolute-paths"/>
+
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->

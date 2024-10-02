@@ -5,49 +5,49 @@ import flixel.FlxSprite;
 
 class BGSprite extends PixelPerfectSprite
 {
-	public var idleAnim:String;
-	
-	public function new(image:String, x:Float = 0, y:Float = 0, ?scrollX:Float = 1, ?scrollY:Float = 1, ?animArray:Array<String> = null, ?loop:Bool = false)
-	{
-		super(x, y);
+  public var idleAnim:String;
 
-		if (animArray != null)
-		{
-			frames = Paths.getSparrowAtlas(image);
+  public function new(image:String, x:Float = 0, y:Float = 0, ?scrollX:Float = 1, ?scrollY:Float = 1, ?animArray:Array<String> = null, ?loop:Bool = false)
+  {
+    super(x, y);
 
-			for (i in 0...animArray.length)
-			{
-				var anim:String = animArray[i];
+    if (animArray != null)
+    {
+      frames = Paths.getSparrowAtlas(image);
 
-				animation.addByPrefix(anim, anim, 24, loop);
+      for (i in 0...animArray.length)
+      {
+        var anim:String = animArray[i];
 
-				if (idleAnim == null)
-				{
-					idleAnim = anim;
-					animation.play(anim);
-				}
-			}
-		}
-		else
-		{
-			if (image != null)
-			{
-				loadGraphic(Paths.image(image));
-			}
-			
-			active = false;
-		}
+        animation.addByPrefix(anim, anim, 24, loop);
 
-		scrollFactor.set(scrollX, scrollY);
+        if (idleAnim == null)
+        {
+          idleAnim = anim;
+          animation.play(anim);
+        }
+      }
+    }
+    else
+    {
+      if (image != null)
+      {
+        loadGraphic(Paths.image(image));
+      }
 
-		antialiasing = ClientPrefs.globalAntialiasing;
-	}
+      active = false;
+    }
 
-	public function dance(?forceplay:Bool = false)
-	{
-		if (idleAnim != null)
-		{
-			animation.play(idleAnim, forceplay);
-		}
-	}
+    scrollFactor.set(scrollX, scrollY);
+
+    antialiasing = ClientPrefs.globalAntialiasing;
+  }
+
+  public function dance(?forceplay:Bool = false)
+  {
+    if (idleAnim != null)
+    {
+      animation.play(idleAnim, forceplay);
+    }
+  }
 }

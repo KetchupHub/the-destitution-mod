@@ -23,340 +23,350 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.input.keyboard.FlxKey;
-
 #if desktop
 import backend.Discord.DiscordClient;
 #end
-
 #if DEVELOPERBUILD
 import editors.MasterEditorMenu;
 #end
 
 class MainMenuState extends MusicBeatState
 {
-	#if DEVELOPERBUILD
-	var debugRank:ResultRanks = GOOD;
-	#end
+  #if DEVELOPERBUILD
+  var debugRank:ResultRanks = GOOD;
+  #end
 
-	public static var curSelected:Int = 0;
-	public var menuItems:FlxTypedGroup<MainMenuButton>;
-	public var camGame:FlxCamera;
-	
-	public var optionShit:Array<String> = [
-		'story_mode',
-		'freeplay',
-		'options'
-	];
+  public static var curSelected:Int = 0;
 
-	public var magenta:PixelPerfectSprite;
-	
-	public var debugKeys:Array<FlxKey>;
+  public var menuItems:FlxTypedGroup<MainMenuButton>;
+  public var camGame:FlxCamera;
 
-	public var sideThing:PixelPerfectSprite;
+  public var optionShit:Array<String> = ['story_mode', 'freeplay', 'options'];
 
-	public var funkay:PixelPerfectSprite;
+  public var magenta:PixelPerfectSprite;
 
-	override function create()
-	{
-		#if DEVELOPERBUILD
-        var perf = new Perf("MainMenuState create()");
-		#end
+  public var debugKeys:Array<FlxKey>;
 
-		persistentUpdate = true;
-		persistentDraw = true;
+  public var sideThing:PixelPerfectSprite;
 
-        CoolUtil.newStateMemStuff();
+  public var funkay:PixelPerfectSprite;
 
-		FlxG.mouse.visible = false;
+  override function create()
+  {
+    #if DEVELOPERBUILD
+    var perf = new Perf("MainMenuState create()");
+    #end
 
-		WeekData.loadTheFirstEnabledMod();
+    persistentUpdate = true;
+    persistentDraw = true;
 
-		#if desktop
-		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Main Menu", null, null, '-menus');
-		#end
+    CoolUtil.newStateMemStuff();
 
-		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
+    FlxG.mouse.visible = false;
 
-		if (FlxG.sound.music == null)
-		{
-			FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0);
-			Conductor.changeBPM(150);
-		}
+    WeekData.loadTheFirstEnabledMod();
 
-		camGame = new FlxCamera();
+    #if desktop
+    // Updating Discord Rich Presence
+    DiscordClient.changePresence("In the Main Menu", null, null, '-menus');
+    #end
 
-		FlxG.cameras.reset(camGame);
-		FlxG.cameras.setDefaultDrawTarget(camGame, true);
+    debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
-		transIn = FlxTransitionableState.defaultTransIn;
-		transOut = FlxTransitionableState.defaultTransOut;
-		
-		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
+    if (FlxG.sound.music == null)
+    {
+      FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0);
+      Conductor.changeBPM(150);
+    }
 
-		var bg:PixelPerfectSprite = new PixelPerfectSprite(-80).loadGraphic(Paths.image('bg/menuBG'));
-		bg.scrollFactor.set(0, yScroll);
-		bg.updateHitbox();
-		bg.screenCenter();
-		add(bg);
+    camGame = new FlxCamera();
 
-		magenta = new PixelPerfectSprite(-80).loadGraphic(Paths.image('bg/menuDesat'));
-		magenta.scrollFactor.set(0, yScroll);
-		magenta.updateHitbox();
-		magenta.screenCenter();
-		magenta.visible = false;
-		magenta.color = 0xFFfd719b;
-		add(magenta);
+    FlxG.cameras.reset(camGame);
+    FlxG.cameras.setDefaultDrawTarget(camGame, true);
 
-		var transThing:FlxSprite = new FlxSprite();
+    transIn = FlxTransitionableState.defaultTransIn;
+    transOut = FlxTransitionableState.defaultTransOut;
 
-		if (CoolUtil.lastStateScreenShot != null)
-		{
-			transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
-			add(transThing);
-			FlxTween.tween(transThing, {alpha: 0}, 0.25, {startDelay: 0.05, ease: EaseUtil.stepped(4), onComplete: function transThingDiesIrl(stupidScr:FlxTween)
-			{
-				transThing.visible = false;
-				transThing.destroy();
-			}});
-		}
+    var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 
-        funkay = new PixelPerfectSprite(0, 800).loadGraphic(Paths.image("mainmenu/mark_story_mode"));
-		funkay.x = 1280 - funkay.width;
-		funkay.antialiasing = ClientPrefs.globalAntialiasing;
-        add(funkay);
+    var bg:PixelPerfectSprite = new PixelPerfectSprite(-80).loadGraphic(Paths.image('bg/menuBG'));
+    bg.scrollFactor.set(0, yScroll);
+    bg.updateHitbox();
+    bg.screenCenter();
+    add(bg);
 
-		FlxTween.tween(funkay, {y: 0}, 1, {startDelay: 0.75, ease: FlxEase.expoOut});
+    magenta = new PixelPerfectSprite(-80).loadGraphic(Paths.image('bg/menuDesat'));
+    magenta.scrollFactor.set(0, yScroll);
+    magenta.updateHitbox();
+    magenta.screenCenter();
+    magenta.visible = false;
+    magenta.color = 0xFFfd719b;
+    add(magenta);
 
-		sideThing = new PixelPerfectSprite().loadGraphic(Paths.image("mainmenu/mm_side"));
-		sideThing.scale.set(2, 2);
-		sideThing.updateHitbox();
-		sideThing.x -= 512;
-		add(sideThing);
-		
-		menuItems = new FlxTypedGroup<MainMenuButton>();
-		add(menuItems);
+    var transThing:FlxSprite = new FlxSprite();
 
-		var scale:Float = 1;
+    if (CoolUtil.lastStateScreenShot != null)
+    {
+      transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
+      add(transThing);
+      FlxTween.tween(transThing, {alpha: 0}, 0.25,
+        {
+          startDelay: 0.05,
+          ease: EaseUtil.stepped(4),
+          onComplete: function transThingDiesIrl(stupidScr:FlxTween)
+          {
+            transThing.visible = false;
+            transThing.destroy();
+          }
+        });
+    }
 
-		for (i in 0...optionShit.length)
-		{
-			var menuItem:MainMenuButton = new MainMenuButton(35, 32.5 + (280 * i), optionShit[i], scale);
-			menuItem.ID = i;
-			menuItem.alpha = 0;
-			menuItems.add(menuItem);
-		}
+    funkay = new PixelPerfectSprite(0, 800).loadGraphic(Paths.image("mainmenu/mark_story_mode"));
+    funkay.x = 1280 - funkay.width;
+    funkay.antialiasing = ClientPrefs.globalAntialiasing;
+    add(funkay);
 
-		FlxTween.tween(sideThing, {x: 0}, 0.5, {ease: FlxEase.cubeOut, onComplete: function fuock(fuer:FlxTween)
-		{
-			for(member in menuItems.members)
-			{
-				FlxTween.tween(member, {alpha: 1}, 0.25, {ease: EaseUtil.stepped(4), startDelay: (0.15 * member.ID)});
-			}
-		}});
+    FlxTween.tween(funkay, {y: 0}, 1, {startDelay: 0.75, ease: FlxEase.expoOut});
 
-		var versionShit:FlxText = new FlxText(-4, #if DEVELOPERBUILD FlxG.height - 44 #else FlxG.height - 24 #end, FlxG.width, "The Destitution Mod v" + Application.current.meta.get('version') #if DEVELOPERBUILD + "\n(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")" #end, 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
-		versionShit.antialiasing = ClientPrefs.globalAntialiasing;
-		add(versionShit);
+    sideThing = new PixelPerfectSprite().loadGraphic(Paths.image("mainmenu/mm_side"));
+    sideThing.scale.set(2, 2);
+    sideThing.updateHitbox();
+    sideThing.x -= 512;
+    add(sideThing);
 
-		changeItem();
+    menuItems = new FlxTypedGroup<MainMenuButton>();
+    add(menuItems);
 
-		super.create();
+    var scale:Float = 1;
 
-		#if DEVELOPERBUILD
-		perf.print();
-		#end
-	}
+    for (i in 0...optionShit.length)
+    {
+      var menuItem:MainMenuButton = new MainMenuButton(35, 32.5 + (280 * i), optionShit[i], scale);
+      menuItem.ID = i;
+      menuItem.alpha = 0;
+      menuItems.add(menuItem);
+    }
 
-	var selectedSomethin:Bool = false;
+    FlxTween.tween(sideThing, {x: 0}, 0.5,
+      {
+        ease: FlxEase.cubeOut,
+        onComplete: function fuock(fuer:FlxTween)
+        {
+          for (member in menuItems.members)
+          {
+            FlxTween.tween(member, {alpha: 1}, 0.25, {ease: EaseUtil.stepped(4), startDelay: (0.15 * member.ID)});
+          }
+        }
+      });
 
-	override function update(elapsed:Float)
-	{
-		if (FlxG.sound.music != null)
-		{
-			if (FlxG.sound.music.volume < 0.8)
-			{
-				FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-			}
-			
-			Conductor.songPosition = FlxG.sound.music.time;
-		}
+    var versionShit:FlxText = new FlxText(-4, #if DEVELOPERBUILD FlxG.height
+      - 44 #else FlxG.height
+      - 24 #end, FlxG.width,
+      "The Destitution Mod v"
+      + Application.current.meta.get('version') #if DEVELOPERBUILD
+      + "\n(DEV BUILD!!! - "
+      + CoolUtil.gitCommitBranch
+      + " - "
+      + CoolUtil.gitCommitHash
+      + ")" #end, 12);
+    versionShit.scrollFactor.set();
+    versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+    versionShit.antialiasing = ClientPrefs.globalAntialiasing;
+    add(versionShit);
 
-		if (!selectedSomethin)
-		{
-			#if DEVELOPERBUILD
-			//sorry man
-			if (FlxG.keys.justPressed.ONE || FlxG.keys.justPressed.NUMPADONE)
-			{
-				debugRank = BLEGH;
-			}
-			else if (FlxG.keys.justPressed.TWO || FlxG.keys.justPressed.NUMPADTWO)
-			{
-				debugRank = EGH;
-			}
-			else if (FlxG.keys.justPressed.THREE || FlxG.keys.justPressed.NUMPADTHREE)
-			{
-				debugRank = GOOD;
-			}
-			else if (FlxG.keys.justPressed.FOUR || FlxG.keys.justPressed.NUMPADFOUR)
-			{
-				debugRank = GREAT;
-			}
-			else if (FlxG.keys.justPressed.FIVE || FlxG.keys.justPressed.NUMPADFIVE)
-			{
-				debugRank = SYNERGY;
-			}
+    changeItem();
 
-			if (FlxG.keys.justPressed.TAB)
-			{
-				selectedSomethin = true;
+    super.create();
 
-				FlxTransitionableState.skipNextTransIn = true;
-				FlxTransitionableState.skipNextTransOut = true;
-	
-				if (FlxG.sound.music != null)
-				{
-					FlxG.sound.music.stop();
-				}
-				
-				MusicBeatState.switchState(new ResultsState(999999, 999999, 9999, 999, 99, 9, FlxG.keys.pressed.SHIFT, 99.9, 99, '', debugRank));
-			}
-			#end
+    #if DEVELOPERBUILD
+    perf.print();
+    #end
+  }
 
-			if (controls.UI_UP_P)
-			{
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				changeItem(-1);
-			}
+  var selectedSomethin:Bool = false;
 
-			if (controls.UI_DOWN_P)
-			{
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				changeItem(1);
-			}
+  override function update(elapsed:Float)
+  {
+    if (FlxG.sound.music != null)
+    {
+      if (FlxG.sound.music.volume < 0.8)
+      {
+        FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+      }
 
-			if (controls.BACK)
-			{
-				selectedSomethin = true;
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-				FlxTransitionableState.skipNextTransIn = true;
-				FlxTransitionableState.skipNextTransOut = true;
-				MusicBeatState.switchState(new TitleState());
-			}
+      Conductor.songPosition = FlxG.sound.music.time;
+    }
 
-			if (controls.ACCEPT)
-			{
-				selectedSomethin = true;
-				
-				FlxG.sound.play(Paths.sound('confirmMenu'));
+    if (!selectedSomethin)
+    {
+      #if DEVELOPERBUILD
+      // sorry man
+      if (FlxG.keys.justPressed.ONE || FlxG.keys.justPressed.NUMPADONE)
+      {
+        debugRank = BLEGH;
+      }
+      else if (FlxG.keys.justPressed.TWO || FlxG.keys.justPressed.NUMPADTWO)
+      {
+        debugRank = EGH;
+      }
+      else if (FlxG.keys.justPressed.THREE || FlxG.keys.justPressed.NUMPADTHREE)
+      {
+        debugRank = GOOD;
+      }
+      else if (FlxG.keys.justPressed.FOUR || FlxG.keys.justPressed.NUMPADFOUR)
+      {
+        debugRank = GREAT;
+      }
+      else if (FlxG.keys.justPressed.FIVE || FlxG.keys.justPressed.NUMPADFIVE)
+      {
+        debugRank = SYNERGY;
+      }
 
-				if (ClientPrefs.flashing)
-				{
-					FlxFlicker.flicker(magenta, 1.1, 0.15, false);
-				}
+      if (FlxG.keys.justPressed.TAB)
+      {
+        selectedSomethin = true;
 
-				FlxTween.cancelTweensOf(sideThing);
-				FlxTween.cancelTweensOf(funkay);
+        FlxTransitionableState.skipNextTransIn = true;
+        FlxTransitionableState.skipNextTransOut = true;
 
-				FlxTween.tween(sideThing, {x: -512}, 0.4,
-				{
-					ease: FlxEase.quadOut
-				});
+        if (FlxG.sound.music != null)
+        {
+          FlxG.sound.music.stop();
+        }
 
-				FlxTween.tween(funkay, {y: 800}, 0.4,
-				{
-					ease: FlxEase.quadOut
-				});
+        MusicBeatState.switchState(new ResultsState(999999, 999999, 9999, 999, 99, 9, FlxG.keys.pressed.SHIFT, 99.9, 99, '', debugRank));
+      }
+      #end
 
-				menuItems.forEach(function(spr:MainMenuButton)
-				{
-					if (curSelected != spr.ID)
-					{
-						FlxTween.completeTweensOf(spr);
-						spr.alpha = 1;
-						FlxTween.tween(spr, {x: -600, alpha: 0}, 0.3,
-						{
-							startDelay: 0.1 * spr.ID,
-							ease: EaseUtil.stepped(8),
-							onComplete: function(twn:FlxTween)
-							{
-								spr.kill();
-							}
-						});
-					}
-					else
-					{
-						FlxTween.completeTweensOf(spr);
-						spr.alpha = 1;
-						spr.buttonFlicker(1, function flck()
-						{
-							var daChoice:String = optionShit[curSelected];
+      if (controls.UI_UP_P)
+      {
+        FlxG.sound.play(Paths.sound('scrollMenu'));
+        changeItem(-1);
+      }
 
-							switch (daChoice)
-							{
-								case 'story_mode':
-									FlxTransitionableState.skipNextTransIn = false;
-									FlxTransitionableState.skipNextTransOut = false;
-									FlxG.sound.music.stop();
-									FlxG.sound.music = null;
-									MusicBeatState.switchState(new SaveFileState());
-								case 'freeplay':
-									FlxTransitionableState.skipNextTransIn = true;
-									FlxTransitionableState.skipNextTransOut = true;
-									MusicBeatState.switchState(new FreeplayState());
-								case 'options':
-									FlxTransitionableState.skipNextTransIn = true;
-									FlxTransitionableState.skipNextTransOut = true;
-									MusicBeatState.switchState(new OptionsState());
-							}
-						});
-					}
-				});
-			}
-			#if DEVELOPERBUILD
-			else if (FlxG.keys.anyJustPressed(debugKeys))
-			{
-				selectedSomethin = true;
-				MusicBeatState.switchState(new MasterEditorMenu());
-			}
-			#end
-		}
+      if (controls.UI_DOWN_P)
+      {
+        FlxG.sound.play(Paths.sound('scrollMenu'));
+        changeItem(1);
+      }
 
-		super.update(elapsed);
-	}
+      if (controls.BACK)
+      {
+        selectedSomethin = true;
+        FlxG.sound.play(Paths.sound('cancelMenu'));
+        FlxTransitionableState.skipNextTransIn = true;
+        FlxTransitionableState.skipNextTransOut = true;
+        MusicBeatState.switchState(new TitleState());
+      }
 
-	function changeItem(huh:Int = 0)
-	{
-		curSelected += huh;
+      if (controls.ACCEPT)
+      {
+        selectedSomethin = true;
 
-		if (curSelected >= menuItems.length)
-		{
-			curSelected = 0;
-		}
+        FlxG.sound.play(Paths.sound('confirmMenu'));
 
-		if (curSelected < 0)
-		{
-			curSelected = menuItems.length - 1;
-		}
+        if (ClientPrefs.flashing)
+        {
+          FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+        }
 
-		funkay.loadGraphic(Paths.image('mainmenu/mark_' + optionShit[curSelected]));
+        FlxTween.cancelTweensOf(sideThing);
+        FlxTween.cancelTweensOf(funkay);
 
-		funkay.x = 1280 - funkay.width;
+        FlxTween.tween(sideThing, {x: -512}, 0.4,
+          {
+            ease: FlxEase.quadOut
+          });
 
-		menuItems.forEach(function(spr:MainMenuButton)
-		{
-			spr.playAnim('idle');
-			spr.updateHitbox();
-			spr.x = 35;
+        FlxTween.tween(funkay, {y: 800}, 0.4,
+          {
+            ease: FlxEase.quadOut
+          });
 
-			if (spr.ID == curSelected)
-			{
-				spr.playAnim('selected');
-				spr.centerOffsets();
-				spr.x = 35;
-			}
-		});
-	}
+        menuItems.forEach(function(spr:MainMenuButton) {
+          if (curSelected != spr.ID)
+          {
+            FlxTween.completeTweensOf(spr);
+            spr.alpha = 1;
+            FlxTween.tween(spr, {x: -600, alpha: 0}, 0.3,
+              {
+                startDelay: 0.1 * spr.ID,
+                ease: EaseUtil.stepped(8),
+                onComplete: function(twn:FlxTween) {
+                  spr.kill();
+                }
+              });
+          }
+          else
+          {
+            FlxTween.completeTweensOf(spr);
+            spr.alpha = 1;
+            spr.buttonFlicker(1, function flck()
+            {
+              var daChoice:String = optionShit[curSelected];
+
+              switch (daChoice)
+              {
+                case 'story_mode':
+                  FlxTransitionableState.skipNextTransIn = false;
+                  FlxTransitionableState.skipNextTransOut = false;
+                  FlxG.sound.music.stop();
+                  FlxG.sound.music = null;
+                  MusicBeatState.switchState(new SaveFileState());
+                case 'freeplay':
+                  FlxTransitionableState.skipNextTransIn = true;
+                  FlxTransitionableState.skipNextTransOut = true;
+                  MusicBeatState.switchState(new FreeplayState());
+                case 'options':
+                  FlxTransitionableState.skipNextTransIn = true;
+                  FlxTransitionableState.skipNextTransOut = true;
+                  MusicBeatState.switchState(new OptionsState());
+              }
+            });
+          }
+        });
+      }
+      #if DEVELOPERBUILD
+      else if (FlxG.keys.anyJustPressed(debugKeys))
+      {
+        selectedSomethin = true;
+        MusicBeatState.switchState(new MasterEditorMenu());
+      }
+      #end
+    }
+
+    super.update(elapsed);
+  }
+
+  function changeItem(huh:Int = 0)
+  {
+    curSelected += huh;
+
+    if (curSelected >= menuItems.length)
+    {
+      curSelected = 0;
+    }
+
+    if (curSelected < 0)
+    {
+      curSelected = menuItems.length - 1;
+    }
+
+    funkay.loadGraphic(Paths.image('mainmenu/mark_' + optionShit[curSelected]));
+
+    funkay.x = 1280 - funkay.width;
+
+    menuItems.forEach(function(spr:MainMenuButton) {
+      spr.playAnim('idle');
+      spr.updateHitbox();
+      spr.x = 35;
+
+      if (spr.ID == curSelected)
+      {
+        spr.playAnim('selected');
+        spr.centerOffsets();
+        spr.x = 35;
+      }
+    });
+  }
 }

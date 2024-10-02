@@ -8,29 +8,29 @@ package;
 ')
 class Wallpaper
 {
-	@:noCompletion
-	public static var oldWallpaper(default, null):String;
+  @:noCompletion
+  public static var oldWallpaper(default, null):String;
 
-	@:noCompletion
-	public static function setOld():Void
-	{
-		oldWallpaper = _setOld();
-	}
+  @:noCompletion
+  public static function setOld():Void
+  {
+    oldWallpaper = _setOld();
+  }
 
-	@:functionCode('
+  @:functionCode('
         wchar_t* wallpath = const_cast<wchar_t*>(path.wchar_str());
         SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, reinterpret_cast<void*>(wallpath), SPIF_UPDATEINIFILE | SPIF_SENDCHANGE);
     ')
-	@:noCompletion
-	public static function setWallpaper(path:String):Void
-		return;
+  @:noCompletion
+  public static function setWallpaper(path:String):Void
+    return;
 
-	@:functionCode('
+  @:functionCode('
         WCHAR buffer[1024] = {0};
         SystemParametersInfoW(SPI_GETDESKWALLPAPER, 256, &buffer, NULL);
         return String(buffer);
     ')
-	@:noCompletion
-	private static function _setOld():String
-		return "";
+  @:noCompletion
+  private static function _setOld():String
+    return "";
 }

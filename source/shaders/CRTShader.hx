@@ -4,7 +4,7 @@ import flixel.system.FlxAssets.FlxShader;
 
 class CRTShader extends FlxShader // Shout out to battery box for helping me port this -lunar
 {
-	@:glFragmentSource('
+  @:glFragmentSource('
     #pragma header
 
     // https://www.shadertoy.com/view/4scSR8
@@ -205,20 +205,17 @@ class CRTShader extends FlxShader // Shout out to battery box for helping me por
 		gl_FragColor = vec4(toSrgb(gl_FragColor.rgb), 1.0);
 	}
     ')
-	public function new()
-	{
-		super();
+  public function new()
+  {
+    super();
 
-		res.value = [256.0 / 0.5, 224.0 / 0.5];
-		sHardScan.value = [-8.0];
-		kHardPix.value = [-2.0];
-		kWarp.value = [0.0 / 32.0, 100 / 24.0]; // THE WARP ON THE EDGES OF SCREEN
-		kMaskDark.value = [0.5];
-		kMaskLight.value = [1.5];
-	}
+    res.value = [256.0 / 0.5, 224.0 / 0.5];
+    sHardScan.value = [-8.0];
+    kHardPix.value = [-2.0];
+    kWarp.value = [0.0 / 32.0, 100 / 24.0]; // THE WARP ON THE EDGES OF SCREEN
+    kMaskDark.value = [0.5];
+    kMaskLight.value = [1.5];
+  }
 
-	public function update(flot:Float)
-    {
-
-    }
+  public function update(flot:Float) {}
 }

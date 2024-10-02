@@ -24,6 +24,6 @@ class FNAFShader extends FlxRuntimeShader
 
   public function update(elapsed:Float)
   {
-    //iughghghheuiefbuodb
+    // iughghghheuiefbuodb
   }
 }

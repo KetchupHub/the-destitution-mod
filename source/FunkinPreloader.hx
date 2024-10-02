@@ -104,8 +104,8 @@ class FunkinPreloader extends FlxBasePreloader
   var enhancedText:TextField;
   var stereoText:TextField;
 
-  //var vfdShader:VFDOverlay;
-  //var vfdBitmap:Bitmap;
+  // var vfdShader:VFDOverlay;
+  // var vfdBitmap:Bitmap;
   var box:Sprite;
   var progressLines:Sprite;
 
@@ -138,8 +138,7 @@ class FunkinPreloader extends FlxBasePreloader
     ratio = this._width / BASE_WIDTH / 2.0;
 
     // Create the logo.
-    logo = createBitmap(LogoImage, function(bmp:Bitmap)
-    {
+    logo = createBitmap(LogoImage, function(bmp:Bitmap) {
       // Scale and center the logo.
       // We have to do this inside the async call, after the image size is known.
       bmp.scaleX = bmp.scaleY = ratio;
@@ -258,10 +257,10 @@ class FunkinPreloader extends FlxBasePreloader
     box.addChild(stereoText);
 
     /*vfdBitmap = new Bitmap(new BitmapData(this._width, this._height, true, 0xFFFFFFFF));
-    addChild(vfdBitmap);
+      addChild(vfdBitmap);
 
-    vfdShader = new VFDOverlay();
-    vfdBitmap.shader = vfdShader;*/
+      vfdShader = new VFDOverlay();
+      vfdBitmap.shader = vfdShader; */
   }
 
   var lastElapsed:Float = 0.0;
@@ -270,7 +269,7 @@ class FunkinPreloader extends FlxBasePreloader
   {
     var elapsed:Float = (Date.now().getTime() - this._startTime) / 1000.0;
 
-    //vfdShader.update(elapsed * 100);
+    // vfdShader.update(elapsed * 100);
     // trace('Time since last frame: ' + (lastElapsed - elapsed));
 
     downloadingAssetsPercent = percent;
@@ -292,8 +291,7 @@ class FunkinPreloader extends FlxBasePreloader
       case FunkinPreloaderState.DownloadingAssets:
         // Sometimes percent doesn't go to 100%, it's a floating point error.
         if (downloadingAssetsPercent >= 1.0
-          || (elapsed > 0.1
-            && downloadingAssetsComplete)) currentState = FunkinPreloaderState.PreloadingPlayAssets;
+          || (elapsed > 0.1 && downloadingAssetsComplete)) currentState = FunkinPreloaderState.PreloadingPlayAssets;
 
         return percent;
 

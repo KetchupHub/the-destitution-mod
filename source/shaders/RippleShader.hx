@@ -1,12 +1,11 @@
-//shader from https://www.shadertoy.com/view/XtsSzN
-
+// shader from https://www.shadertoy.com/view/XtsSzN
 package shaders;
 
 import flixel.system.FlxAssets.FlxShader;
 
 class RippleShader extends FlxShader
 {
-    @:glFragmentSource('
+  @:glFragmentSource('
         #pragma header
 
         /*uniform float colIntensity;
@@ -188,15 +187,15 @@ class RippleShader extends FlxShader
             gl_FragColor = calc;
         }
     ')
-    public function new()
-    {
-        super();
-        this.max_po.value = [10.0];
-        this.iTime.value = [0.0];
-    }
+  public function new()
+  {
+    super();
+    this.max_po.value = [10.0];
+    this.iTime.value = [0.0];
+  }
 
-    public function update(elapsed:Float)
-    {
-        this.iTime.value = [this.iTime.value[0] + elapsed];
-    }
+  public function update(elapsed:Float)
+  {
+    this.iTime.value = [this.iTime.value[0] + elapsed];
+  }
 }

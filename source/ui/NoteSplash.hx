@@ -10,88 +10,88 @@ import shaders.ColorSwap;
 
 class NoteSplash extends PixelPerfectSprite
 {
-	public var colorSwap:ColorSwap = null;
-	public var idleAnim:String;
-	public var textureLoaded:String = null;
+  public var colorSwap:ColorSwap = null;
+  public var idleAnim:String;
+  public var textureLoaded:String = null;
 
-	public function new(x:Float = 0, y:Float = 0, ?note:Int = 0)
-	{
-		super(x, y);
+  public function new(x:Float = 0, y:Float = 0, ?note:Int = 0)
+  {
+    super(x, y);
 
-		var skin:String = 'ui/splashes/';
+    var skin:String = 'ui/splashes/';
 
-		if (PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0)
-		{
-			skin = PlayState.SONG.splashSkin;
-		}
+    if (PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0)
+    {
+      skin = PlayState.SONG.splashSkin;
+    }
 
-		loadAnims(skin, Std.string(note));
+    loadAnims(skin, Std.string(note));
 
-		scale.set(2, 2);
-		updateHitbox();
-		
-		colorSwap = new ColorSwap();
-		shader = colorSwap.shader;
+    scale.set(2, 2);
+    updateHitbox();
 
-		setupNoteSplash(x, y, note);
-	}
+    colorSwap = new ColorSwap();
+    shader = colorSwap.shader;
 
-	public function setupNoteSplash(x:Float, y:Float, note:Int = 0, texture:String = null, hueColor:Float = 0, satColor:Float = 0, brtColor:Float = 0)
-	{
-		setPosition((x - Note.swagWidth * 0.95) + 106, (y - Note.swagWidth) + 128);
-		
-		alpha = 0.6;
+    setupNoteSplash(x, y, note);
+  }
 
-		if (texture == null)
-		{
-			texture = 'ui/splashes/';
+  public function setupNoteSplash(x:Float, y:Float, note:Int = 0, texture:String = null, hueColor:Float = 0, satColor:Float = 0, brtColor:Float = 0)
+  {
+    setPosition((x - Note.swagWidth * 0.95) + 106, (y - Note.swagWidth) + 128);
 
-			if (PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0)
-			{
-				texture = PlayState.SONG.splashSkin;
-			}
-		}
+    alpha = 0.6;
 
-		if (textureLoaded != texture)
-		{
-			loadAnims(texture, Std.string(note));
-		}
+    if (texture == null)
+    {
+      texture = 'ui/splashes/';
 
-		scale.set(2, 2);
-		updateHitbox();
+      if (PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0)
+      {
+        texture = PlayState.SONG.splashSkin;
+      }
+    }
 
-		colorSwap.hue = hueColor;
-		colorSwap.saturation = satColor;
-		colorSwap.brightness = brtColor;
-		offset.set(8, 8);
+    if (textureLoaded != texture)
+    {
+      loadAnims(texture, Std.string(note));
+    }
 
-		var animNum:Int = CoolUtil.randomVisuals.int(0, 1);
-		animation.play(Std.string(animNum), true);
+    scale.set(2, 2);
+    updateHitbox();
 
-		if (animation.curAnim != null)
-		{
-			animation.curAnim.frameRate = 24 + CoolUtil.randomVisuals.int(-2, 2);
-		}
-	}
+    colorSwap.hue = hueColor;
+    colorSwap.saturation = satColor;
+    colorSwap.brightness = brtColor;
+    offset.set(8, 8);
 
-	public function loadAnims(skin:String, arrow:String)
-	{
-		frames = Paths.getSparrowAtlas(skin + arrow);
+    var animNum:Int = CoolUtil.randomVisuals.int(0, 1);
+    animation.play(Std.string(animNum), true);
 
-		animation.addByPrefix("0", "splash1", 24, false);
-		animation.addByPrefix("1", "splash2", 24, false);
-	}
+    if (animation.curAnim != null)
+    {
+      animation.curAnim.frameRate = 24 + CoolUtil.randomVisuals.int(-2, 2);
+    }
+  }
 
-	override function update(elapsed:Float)
-	{
-		if (animation.curAnim != null)
-		{
-			if (animation.curAnim.finished)
-			{
-				kill();
-			}
-		}
+  public function loadAnims(skin:String, arrow:String)
+  {
+    frames = Paths.getSparrowAtlas(skin + arrow);
 
-		super.update(elapsed);
-	}
+    animation.addByPrefix("0", "splash1", 24, false);
+    animation.addByPrefix("1", "splash2", 24, false);
+  }
+
+  override function update(elapsed:Float)
+  {
+    if (animation.curAnim != null)
+    {
+      if (animation.curAnim.finished)
+      {
+        kill();
+      }
+    }
+
+    super.update(elapsed);
+  }
 }

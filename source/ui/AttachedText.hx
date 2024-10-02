@@ -4,40 +4,40 @@ import flixel.FlxSprite;
 
 class AttachedText extends Alphabet
 {
-	public var offsetX:Float = 0;
-	public var offsetY:Float = 0;
-	public var sprTracker:FlxSprite;
-	public var copyVisible:Bool = true;
-	public var copyAlpha:Bool = false;
-	
-	public function new(text:String = "", ?offsetX:Float = 0, ?offsetY:Float = 0, ?bold = false, ?scale:Float = 1)
-	{
-		super(0, 0, text, bold);
+  public var offsetX:Float = 0;
+  public var offsetY:Float = 0;
+  public var sprTracker:FlxSprite;
+  public var copyVisible:Bool = true;
+  public var copyAlpha:Bool = false;
 
-		this.scaleX = scale;
-		this.scaleY = scale;
-		this.isMenuItem = false;
-		this.offsetX = offsetX;
-		this.offsetY = offsetY;
-	}
+  public function new(text:String = "", ?offsetX:Float = 0, ?offsetY:Float = 0, ?bold = false, ?scale:Float = 1)
+  {
+    super(0, 0, text, bold);
 
-	override function update(elapsed:Float)
-	{
-		if (sprTracker != null)
-		{
-			setPosition(sprTracker.x + offsetX, sprTracker.y + offsetY);
+    this.scaleX = scale;
+    this.scaleY = scale;
+    this.isMenuItem = false;
+    this.offsetX = offsetX;
+    this.offsetY = offsetY;
+  }
 
-			if(copyVisible)
-			{
-				visible = sprTracker.visible;
-			}
+  override function update(elapsed:Float)
+  {
+    if (sprTracker != null)
+    {
+      setPosition(sprTracker.x + offsetX, sprTracker.y + offsetY);
 
-			if(copyAlpha)
-			{
-				alpha = sprTracker.alpha;
-			}
-		}
+      if (copyVisible)
+      {
+        visible = sprTracker.visible;
+      }
 
-		super.update(elapsed);
-	}
+      if (copyAlpha)
+      {
+        alpha = sprTracker.alpha;
+      }
+    }
+
+    super.update(elapsed);
+  }
 }

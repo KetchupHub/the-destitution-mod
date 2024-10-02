@@ -54,7 +54,7 @@ class VideoCutscene extends FlxSpriteGroup
     vidwidth = width;
     vidheight = height;
 
-    //var rawFilePath = Paths.stripLibrary(filePath);
+    // var rawFilePath = Paths.stripLibrary(filePath);
     var rawFilePath = filePath;
 
     #if hxCodec

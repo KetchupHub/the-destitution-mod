@@ -17,253 +17,246 @@ import backend.Conductor;
 
 class MusicBeatState extends FlxUIState
 {
-	public var curSection:Int = 0;
-	public var stepsToDo:Int = 0;
+  public var curSection:Int = 0;
+  public var stepsToDo:Int = 0;
 
-	public var curStep:Int = 0;
-	public var curBeat:Int = 0;
+  public var curStep:Int = 0;
+  public var curBeat:Int = 0;
 
-	public var curDecStep:Float = 0;
-	public var curDecBeat:Float = 0;
-	public var controls(get, never):Controls;
+  public var curDecStep:Float = 0;
+  public var curDecBeat:Float = 0;
+  public var controls(get, never):Controls;
 
-	public static var camBeat:FlxCamera;
+  public static var camBeat:FlxCamera;
 
-	inline function get_controls():Controls
-	{
-		return PlayerSettings.player1.controls;
-	}
+  inline function get_controls():Controls
+  {
+    return PlayerSettings.player1.controls;
+  }
 
-	override function create()
-	{
-		camBeat = FlxG.camera;
+  override function create()
+  {
+    camBeat = FlxG.camera;
 
-		var skip:Bool = FlxTransitionableState.skipNextTransOut;
+    var skip:Bool = FlxTransitionableState.skipNextTransOut;
 
-		super.create();
+    super.create();
 
-		if (!skip)
-		{
-			openSubState(new MarkHeadTransition(0.7, true));
-		}
+    if (!skip)
+    {
+      openSubState(new MarkHeadTransition(0.7, true));
+    }
 
-		FlxTransitionableState.skipNextTransOut = false;
-	}
+    FlxTransitionableState.skipNextTransOut = false;
+  }
 
-	override function update(elapsed:Float)
-	{
-		var oldStep:Int = curStep;
+  override function update(elapsed:Float)
+  {
+    var oldStep:Int = curStep;
 
-		updateCurStep();
-		updateBeat();
+    updateCurStep();
+    updateBeat();
 
-		if (oldStep != curStep)
-		{
-			if (curStep > 0)
-			{
-				stepHit();
-			}
+    if (oldStep != curStep)
+    {
+      if (curStep > 0)
+      {
+        stepHit();
+      }
 
-			if (PlayState.SONG != null)
-			{
-				if (oldStep < curStep)
-				{
-					updateSection();
-				}
-				else
-				{
-					rollbackSection();
-				}
-			}
-		}
+      if (PlayState.SONG != null)
+      {
+        if (oldStep < curStep)
+        {
+          updateSection();
+        }
+        else
+        {
+          rollbackSection();
+        }
+      }
+    }
 
-		if (FlxG.save.data != null)
-		{
-			FlxG.save.data.fullscreen = FlxG.fullscreen;
-		}
+    if (FlxG.save.data != null)
+    {
+      FlxG.save.data.fullscreen = FlxG.fullscreen;
+    }
 
-		super.update(elapsed);
-	}
+    super.update(elapsed);
+  }
 
-	public function updateSection():Void
-	{
-		if (stepsToDo < 1)
-		{
-			stepsToDo = Math.round(getBeatsOnSection() * 4);
-		}
+  public function updateSection():Void
+  {
+    if (stepsToDo < 1)
+    {
+      stepsToDo = Math.round(getBeatsOnSection() * 4);
+    }
 
-		while (curStep >= stepsToDo)
-		{
-			curSection++;
+    while (curStep >= stepsToDo)
+    {
+      curSection++;
 
-			var beats:Float = getBeatsOnSection();
+      var beats:Float = getBeatsOnSection();
 
-			stepsToDo += Math.round(beats * 4);
+      stepsToDo += Math.round(beats * 4);
 
-			sectionHit();
-		}
-	}
+      sectionHit();
+    }
+  }
 
-	public function rollbackSection():Void
-	{
-		if (curStep < 0)
-		{
-			return;
-		}
+  public function rollbackSection():Void
+  {
+    if (curStep < 0)
+    {
+      return;
+    }
 
-		var lastSection:Int = curSection;
+    var lastSection:Int = curSection;
 
-		curSection = 0;
-		stepsToDo = 0;
+    curSection = 0;
+    stepsToDo = 0;
 
-		for (i in 0...PlayState.SONG.notes.length)
-		{
-			if (PlayState.SONG.notes[i] != null)
-			{
-				stepsToDo += Math.round(getBeatsOnSection() * 4);
+    for (i in 0...PlayState.SONG.notes.length)
+    {
+      if (PlayState.SONG.notes[i] != null)
+      {
+        stepsToDo += Math.round(getBeatsOnSection() * 4);
 
-				if (stepsToDo > curStep)
-				{
-					break;
-				}
-				
-				curSection++;
-			}
-		}
+        if (stepsToDo > curStep)
+        {
+          break;
+        }
 
-		if (curSection > lastSection)
-		{
-			sectionHit();
-		}
-	}
+        curSection++;
+      }
+    }
 
-	public function updateBeat():Void
-	{
-		curBeat = Math.floor(curStep / 4);
-		curDecBeat = curDecStep / 4;
-	}
+    if (curSection > lastSection)
+    {
+      sectionHit();
+    }
+  }
 
-	public function updateCurStep():Void
-	{
-		var lastChange = Conductor.getBPMFromSeconds(Conductor.songPosition);
+  public function updateBeat():Void
+  {
+    curBeat = Math.floor(curStep / 4);
+    curDecBeat = curDecStep / 4;
+  }
 
-		var shit = ((Conductor.songPosition - ClientPrefs.noteOffset) - lastChange.songTime) / lastChange.stepCrochet;
-		curDecStep = lastChange.stepTime + shit;
-		curStep = lastChange.stepTime + Math.floor(shit);
-	}
+  public function updateCurStep():Void
+  {
+    var lastChange = Conductor.getBPMFromSeconds(Conductor.songPosition);
 
-	public static function switchState(nextState:FlxState, libraryToLoad:String = 'rhythm')
-	{
-		//this is absolute fucking insanity.
-		//why the fuck do i have to do this to stop the game from crashing
-		if (CoolUtil.hasInitializedWindow)
-		{
-			gameStateScreenshot();
-		}
+    var shit = ((Conductor.songPosition - ClientPrefs.noteOffset) - lastChange.songTime) / lastChange.stepCrochet;
+    curDecStep = lastChange.stepTime + shit;
+    curStep = lastChange.stepTime + Math.floor(shit);
+  }
 
-		//loading state used to do this with load and switch state. but, we don't need the rest of the functionality from loadingstate, and having a whole state for just this one function call is fucking stupid, so
-		Paths.setCurrentLevel(libraryToLoad);
+  public static function switchState(nextState:FlxState, libraryToLoad:String = 'rhythm')
+  {
+    // this is absolute fucking insanity.
+    // why the fuck do i have to do this to stop the game from crashing
+    if (CoolUtil.hasInitializedWindow)
+    {
+      gameStateScreenshot();
+    }
 
-		var curState:Dynamic = FlxG.state;
-		var leState:MusicBeatState = curState;
+    // loading state used to do this with load and switch state. but, we don't need the rest of the functionality from loadingstate, and having a whole state for just this one function call is fucking stupid, so
+    Paths.setCurrentLevel(libraryToLoad);
 
-		if (!FlxTransitionableState.skipNextTransIn)
-		{
-			leState.openSubState(new MarkHeadTransition(0.6, false));
+    var curState:Dynamic = FlxG.state;
+    var leState:MusicBeatState = curState;
 
-			if (nextState == FlxG.state)
-			{
-				MarkHeadTransition.finishCallback = function()
-				{
-					FlxG.resetState();
-				};
-			}
-			else
-			{
-				MarkHeadTransition.finishCallback = function()
-				{
-					FlxG.switchState(()->nextState);
-				};
-			}
+    if (!FlxTransitionableState.skipNextTransIn)
+    {
+      leState.openSubState(new MarkHeadTransition(0.6, false));
 
-			return;
-		}
+      if (nextState == FlxG.state)
+      {
+        MarkHeadTransition.finishCallback = function() {
+          FlxG.resetState();
+        };
+      }
+      else
+      {
+        MarkHeadTransition.finishCallback = function() {
+          FlxG.switchState(() -> nextState);
+        };
+      }
 
-		FlxTransitionableState.skipNextTransIn = false;
+      return;
+    }
 
-		FlxG.switchState(()->nextState);
-	}
+    FlxTransitionableState.skipNextTransIn = false;
 
-	public static function resetState()
-	{
-		if (CoolUtil.hasInitializedWindow)
-		{
-			gameStateScreenshot();
-		}
-		FlxG.resetState();
-	}
+    FlxG.switchState(() -> nextState);
+  }
 
-	public static function gameStateScreenshot()
-	{
-		#if DEVELOPERBUILD
-        var perf = new Perf("MusicBeatState gameStateScreenshot()");
-		#end
+  public static function resetState()
+  {
+    if (CoolUtil.hasInitializedWindow)
+    {
+      gameStateScreenshot();
+    }
+    FlxG.resetState();
+  }
 
-		var mouseVisi = FlxG.mouse.visible;
-		
-		#if !SHOWCASEVIDEO
-		Main.fpsVar.visible = false;
-		#end
+  public static function gameStateScreenshot()
+  {
+    #if DEVELOPERBUILD
+    var perf = new Perf("MusicBeatState gameStateScreenshot()");
+    #end
 
-		FlxG.mouse.visible = false;
-		
-		CoolUtil.lastStateScreenShot = new Bitmap(BitmapData.fromImage(FlxG.stage.window.readPixels(new Rectangle(0, 0, FlxG.stage.stageWidth, FlxG.stage.stageHeight))));
+    var mouseVisi = FlxG.mouse.visible;
 
-		#if !SHOWCASEVIDEO
-		Main.fpsVar.visible = ClientPrefs.showFPS;
-		#end
-		FlxG.mouse.visible = mouseVisi;
+    #if !SHOWCASEVIDEO
+    Main.fpsVar.visible = false;
+    #end
 
-		#if DEVELOPERBUILD
-		perf.print();
-		#end
-	}
+    FlxG.mouse.visible = false;
 
-	public static function getState():MusicBeatState
-	{
-		var curState:Dynamic = FlxG.state;
-		var leState:MusicBeatState = curState;
+    CoolUtil.lastStateScreenShot = new Bitmap(BitmapData.fromImage(FlxG.stage.window.readPixels(new Rectangle(0, 0, FlxG.stage.stageWidth,
+      FlxG.stage.stageHeight))));
 
-		return leState;
-	}
+    #if !SHOWCASEVIDEO
+    Main.fpsVar.visible = ClientPrefs.showFPS;
+    #end
+    FlxG.mouse.visible = mouseVisi;
 
-	public function stepHit():Void
-	{
-		if (curStep % 4 == 0)
-		{
-			beatHit();
-		}
-	}
+    #if DEVELOPERBUILD
+    perf.print();
+    #end
+  }
 
-	public function beatHit():Void
-	{
+  public static function getState():MusicBeatState
+  {
+    var curState:Dynamic = FlxG.state;
+    var leState:MusicBeatState = curState;
 
-	}
+    return leState;
+  }
 
-	public function sectionHit():Void
-	{
+  public function stepHit():Void
+  {
+    if (curStep % 4 == 0)
+    {
+      beatHit();
+    }
+  }
 
-	}
+  public function beatHit():Void {}
 
-	public function getBeatsOnSection()
-	{
-		var val:Null<Float> = 4;
+  public function sectionHit():Void {}
 
-		if (PlayState.SONG != null && PlayState.SONG.notes[curSection] != null)
-		{
-			val = PlayState.SONG.notes[curSection].sectionBeats;
-		}
+  public function getBeatsOnSection()
+  {
+    var val:Null<Float> = 4;
 
-		return val == null ? 4 : val;
-	}
+    if (PlayState.SONG != null && PlayState.SONG.notes[curSection] != null)
+    {
+      val = PlayState.SONG.notes[curSection].sectionBeats;
+    }
+
+    return val == null ? 4 : val;
+  }
 }

@@ -9,156 +9,156 @@ import states.PlayState;
 
 class StrumNote extends PixelPerfectSprite
 {
-	public var colorSwap:ColorSwap;
-	public var resetAnim:Float = 0;
-	public var noteData:Int = 0;
-	public var direction:Float = 90;
-	public var downScroll:Bool = false;
-	public var sustainReduce:Bool = true;
-	
-	public var player:Int;
-	
-	public var texture(default, set):String = null;
+  public var colorSwap:ColorSwap;
+  public var resetAnim:Float = 0;
+  public var noteData:Int = 0;
+  public var direction:Float = 90;
+  public var downScroll:Bool = false;
+  public var sustainReduce:Bool = true;
 
-	public function set_texture(value:String):String
-	{
-		if (texture != value)
-		{
-			texture = value;
-			reloadNote();
-		}
+  public var player:Int;
 
-		return value;
-	}
+  public var texture(default, set):String = null;
 
-	public function new(x:Float, y:Float, leData:Int, player:Int)
-	{
-		colorSwap = new ColorSwap();
-		shader = colorSwap.shader;
+  public function set_texture(value:String):String
+  {
+    if (texture != value)
+    {
+      texture = value;
+      reloadNote();
+    }
 
-		noteData = leData;
+    return value;
+  }
 
-		this.player = player;
-		this.noteData = leData;
+  public function new(x:Float, y:Float, leData:Int, player:Int)
+  {
+    colorSwap = new ColorSwap();
+    shader = colorSwap.shader;
 
-		super(x, y);
+    noteData = leData;
 
-		var skin:String = 'ui/notes';
+    this.player = player;
+    this.noteData = leData;
 
-		if (PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1)
-		{
-			skin = PlayState.SONG.arrowSkin;
-		}
+    super(x, y);
 
-		texture = skin;
+    var skin:String = 'ui/notes';
 
-		scrollFactor.set();
-	}
+    if (PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1)
+    {
+      skin = PlayState.SONG.arrowSkin;
+    }
 
-	public function reloadNote()
-	{
-		var lastAnim:String = null;
+    texture = skin;
 
-		if (animation.curAnim != null)
-		{
-			lastAnim = animation.curAnim.name;
-		}
+    scrollFactor.set();
+  }
 
-		frames = Paths.getSparrowAtlas(texture);
+  public function reloadNote()
+  {
+    var lastAnim:String = null;
 
-		animation.addByPrefix('green', 'arrowUP', 24);
-		animation.addByPrefix('blue', 'arrowDOWN', 24);
-		animation.addByPrefix('purple', 'arrowLEFT', 24);
-		animation.addByPrefix('red', 'arrowRIGHT', 24);
+    if (animation.curAnim != null)
+    {
+      lastAnim = animation.curAnim.name;
+    }
 
-		antialiasing = false;
+    frames = Paths.getSparrowAtlas(texture);
 
-		switch (Math.abs(noteData) % 4)
-		{
-			case 0:
-				animation.addByPrefix('static', 'arrowLEFT', 24);
-				animation.addByPrefix('pressed', 'left press', 24, false);
-				animation.addByPrefix('confirm', 'left confirm', 24, false);
-			case 1:
-				animation.addByPrefix('static', 'arrowDOWN', 24);
-				animation.addByPrefix('pressed', 'down press', 24, false);
-				animation.addByPrefix('confirm', 'down confirm', 24, false);
-			case 2:
-				animation.addByPrefix('static', 'arrowUP', 24);
-				animation.addByPrefix('pressed', 'up press', 24, false);
-				animation.addByPrefix('confirm', 'up confirm', 24, false);
-			case 3:
-				animation.addByPrefix('static', 'arrowRIGHT', 24);
-				animation.addByPrefix('pressed', 'right press', 24, false);
-				animation.addByPrefix('confirm', 'right confirm', 24, false);
-		}
-		
-		updateHitbox();
+    animation.addByPrefix('green', 'arrowUP', 24);
+    animation.addByPrefix('blue', 'arrowDOWN', 24);
+    animation.addByPrefix('purple', 'arrowLEFT', 24);
+    animation.addByPrefix('red', 'arrowRIGHT', 24);
 
-		if (lastAnim != null)
-		{
-			playAnim(lastAnim, true);
-		}
-	}
+    antialiasing = false;
 
-	public function postAddedToGroup()
-	{
-		playAnim('static', true);
+    switch (Math.abs(noteData) % 4)
+    {
+      case 0:
+        animation.addByPrefix('static', 'arrowLEFT', 24);
+        animation.addByPrefix('pressed', 'left press', 24, false);
+        animation.addByPrefix('confirm', 'left confirm', 24, false);
+      case 1:
+        animation.addByPrefix('static', 'arrowDOWN', 24);
+        animation.addByPrefix('pressed', 'down press', 24, false);
+        animation.addByPrefix('confirm', 'down confirm', 24, false);
+      case 2:
+        animation.addByPrefix('static', 'arrowUP', 24);
+        animation.addByPrefix('pressed', 'up press', 24, false);
+        animation.addByPrefix('confirm', 'up confirm', 24, false);
+      case 3:
+        animation.addByPrefix('static', 'arrowRIGHT', 24);
+        animation.addByPrefix('pressed', 'right press', 24, false);
+        animation.addByPrefix('confirm', 'right confirm', 24, false);
+    }
 
-		x += Note.swagWidth * noteData;
-		x += 50;
-		x += ((FlxG.width / 2) * player);
-		
-		ID = noteData;
-	}
+    updateHitbox();
 
-	override function update(elapsed:Float)
-	{
-		if (resetAnim > 0)
-		{
-			resetAnim -= elapsed;
+    if (lastAnim != null)
+    {
+      playAnim(lastAnim, true);
+    }
+  }
 
-			if (resetAnim <= 0)
-			{
-				playAnim('static', true);
-				resetAnim = 0;
-			}
-		}
+  public function postAddedToGroup()
+  {
+    playAnim('static', true);
 
-		if (animation.curAnim.name == 'confirm')
-		{
-			centerOrigin();
-		}
+    x += Note.swagWidth * noteData;
+    x += 50;
+    x += ((FlxG.width / 2) * player);
 
-		super.update(elapsed);
-	}
+    ID = noteData;
+  }
 
-	public function playAnim(anim:String, ?force:Bool = false)
-	{
-		animation.play(anim, force);
+  override function update(elapsed:Float)
+  {
+    if (resetAnim > 0)
+    {
+      resetAnim -= elapsed;
 
-		centerOffsets();
-		centerOrigin();
+      if (resetAnim <= 0)
+      {
+        playAnim('static', true);
+        resetAnim = 0;
+      }
+    }
 
-		if (animation.curAnim == null || animation.curAnim.name == 'static')
-		{
-			colorSwap.hue = 0;
-			colorSwap.saturation = 0;
-			colorSwap.brightness = 0;
-		}
-		else
-		{
-			if (noteData > -1 && noteData < ClientPrefs.arrowHSV.length)
-			{
-				colorSwap.hue = ClientPrefs.arrowHSV[noteData][0] / 360;
-				colorSwap.saturation = ClientPrefs.arrowHSV[noteData][1] / 100;
-				colorSwap.brightness = ClientPrefs.arrowHSV[noteData][2] / 100;
-			}
+    if (animation.curAnim.name == 'confirm')
+    {
+      centerOrigin();
+    }
 
-			if (animation.curAnim.name == 'confirm')
-			{
-				centerOrigin();
-			}
-		}
-	}
+    super.update(elapsed);
+  }
+
+  public function playAnim(anim:String, ?force:Bool = false)
+  {
+    animation.play(anim, force);
+
+    centerOffsets();
+    centerOrigin();
+
+    if (animation.curAnim == null || animation.curAnim.name == 'static')
+    {
+      colorSwap.hue = 0;
+      colorSwap.saturation = 0;
+      colorSwap.brightness = 0;
+    }
+    else
+    {
+      if (noteData > -1 && noteData < ClientPrefs.arrowHSV.length)
+      {
+        colorSwap.hue = ClientPrefs.arrowHSV[noteData][0] / 360;
+        colorSwap.saturation = ClientPrefs.arrowHSV[noteData][1] / 100;
+        colorSwap.brightness = ClientPrefs.arrowHSV[noteData][2] / 100;
+      }
+
+      if (animation.curAnim.name == 'confirm')
+      {
+        centerOrigin();
+      }
+    }
+  }
 }

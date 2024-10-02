@@ -133,7 +133,7 @@ class FlxAtlasSprite extends FlxAnimate
     {
       if (this.currentAnimation == id && restart)
       {
-        //Nothing.
+        // Nothing.
       }
       else if (ignoreExclusionPref != null && ignoreExclusionPref.length > 0)
       {
@@ -196,8 +196,7 @@ class FlxAtlasSprite extends FlxAnimate
 
     this.currentAnimation = id;
     anim.onComplete.removeAll();
-    anim.onComplete.add(function()
-    {
+    anim.onComplete.add(function() {
       _onAnimationComplete();
     });
 
@@ -368,7 +367,7 @@ class FlxAtlasSprite extends FlxAnimate
     if (graphic == null || !Assets.exists(graphic))
     {
       var prevFrame:Null<FlxFrame> = prevFrames.get(index);
-      
+
       if (prevFrame == null)
       {
         return;

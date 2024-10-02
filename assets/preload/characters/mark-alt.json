@@ -1,108 +1,77 @@
 {
-	"animations": [
-		{
-			"loop": false,
-			"offsets": [
-				-58,
-				-66
-			],
-			"fps": 24,
-			"anim": "singLEFT",
-			"indices": [],
-			"name": "left",
-			"hasTransition": true
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-44,
-				-140
-			],
-			"fps": 24,
-			"anim": "singDOWN",
-			"indices": [],
-			"name": "down",
-			"hasTransition": true
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-64,
-				-64
-			],
-			"fps": 24,
-			"anim": "singUP",
-			"indices": [],
-			"name": "up",
-			"hasTransition": true
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-64,
-				-64
-			],
-			"fps": 24,
-			"anim": "singRIGHT",
-			"indices": [],
-			"hasTransition": true,
-			"name": "right"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-64,
-				-68
-			],
-			"fps": 24,
-			"anim": "idle",
-			"indices": [],
-			"name": "idle"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-64,
-				-68
-			],
-			"fps": 24,
-			"anim": "lipsync",
-			"indices": [],
-			"name": "lipsync"
-		},
-		{
-			"offsets": [
-				-60,
-				-78
-			],
-			"loop": false,
-			"anim": "gameover",
-			"fps": 24,
-			"name": "gameover",
-			"indices": []
-		}
-	],
-	"animator": null,
-	"no_antialiasing": true,
-	"artist": null,
-	"image": "characters/destitution/markmcmarketing_alt",
-	"position": [
-		0,
-		0
-	],
-	"whoDoneWhat": null,
-	"healthicon": "mark",
-	"flip_x": false,
-	"healthbar_colors": [
-		151,
-		38,
-		19
-	],
-	"camera_position": [
-		-164,
-		-128
-	],
-	"sing_duration": 15,
-	"scale": 2,
-	"_editor_isPlayer": null
+  "animations": [
+    {
+      "loop": false,
+      "offsets": [-58, -66],
+      "fps": 24,
+      "anim": "singLEFT",
+      "indices": [],
+      "name": "left",
+      "hasTransition": true
+    },
+    {
+      "loop": false,
+      "offsets": [-44, -140],
+      "fps": 24,
+      "anim": "singDOWN",
+      "indices": [],
+      "name": "down",
+      "hasTransition": true
+    },
+    {
+      "loop": false,
+      "offsets": [-64, -64],
+      "fps": 24,
+      "anim": "singUP",
+      "indices": [],
+      "name": "up",
+      "hasTransition": true
+    },
+    {
+      "loop": false,
+      "offsets": [-64, -64],
+      "fps": 24,
+      "anim": "singRIGHT",
+      "indices": [],
+      "hasTransition": true,
+      "name": "right"
+    },
+    {
+      "loop": false,
+      "offsets": [-64, -68],
+      "fps": 24,
+      "anim": "idle",
+      "indices": [],
+      "name": "idle"
+    },
+    {
+      "loop": false,
+      "offsets": [-64, -68],
+      "fps": 24,
+      "anim": "lipsync",
+      "indices": [],
+      "name": "lipsync"
+    },
+    {
+      "offsets": [-60, -78],
+      "loop": false,
+      "anim": "gameover",
+      "fps": 24,
+      "name": "gameover",
+      "indices": []
+    }
+  ],
+  "animator": null,
+  "no_antialiasing": true,
+  "artist": null,
+  "image": "characters/destitution/markmcmarketing_alt",
+  "position": [0, 0],
+  "whoDoneWhat": null,
+  "healthicon": "mark",
+  "flip_x": false,
+  "healthbar_colors": [151, 38, 19],
+  "camera_position": [-164, -128],
+  "sing_duration": 15,
+  "scale": 2,
+  "_editor_isPlayer": null
 }

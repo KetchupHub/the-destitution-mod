@@ -1,15 +1,15 @@
 {
-	"defaultZoom": 1,
+  "defaultZoom": 1,
 
-	"boyfriend": [504, 194],
-	"girlfriend": [400, 194],
-	"opponent": [-254, 194],
-	"hide_girlfriend": true,
+  "boyfriend": [504, 194],
+  "girlfriend": [400, 194],
+  "opponent": [-254, 194],
+  "hide_girlfriend": true,
 
-	"camera_boyfriend": [0, 0],
-	"camera_opponent": [0, 0],
-	"camera_girlfriend": [0, 0],
-	"camera_speed": 1,
+  "camera_boyfriend": [0, 0],
+  "camera_opponent": [0, 0],
+  "camera_girlfriend": [0, 0],
+  "camera_speed": 1,
 
-	"artist": "Cynda"
+  "artist": "Cynda"
 }

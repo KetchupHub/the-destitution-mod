@@ -8,48 +8,45 @@ import states.PlayState;
  */
 class SongClass
 {
-    public var songNameForDisplay:String = "";
+  public var songNameForDisplay:String = "";
 
-    public var introType:String = "Default";
+  public var introType:String = "Default";
 
-    public var gameoverChar:String = "bf-dead";
+  public var gameoverChar:String = "bf-dead";
 
-    public var gameoverMusicSuffix:String = "";
+  public var gameoverMusicSuffix:String = "";
 
-    public var songDescription:String = 'Placeholder';
+  public var songDescription:String = 'Placeholder';
 
-    public var songVariants:Array<String> = ["Normal"];
+  public var songVariants:Array<String> = ["Normal"];
 
-    public var songHasSections:Bool = false;
+  public var songHasSections:Bool = false;
 
-    public var ratingsType:String = "";
+  public var ratingsType:String = "";
 
-    public var skipCountdown:Bool = false;
+  public var skipCountdown:Bool = false;
 
-    public var preloadCharacters:Array<String> = ["bf-mark", "gf", "stop-loading"];
+  public var preloadCharacters:Array<String> = ["bf-mark", "gf", "stop-loading"];
 
-    public var introCardBeat:Int = 0;
+  public var introCardBeat:Int = 0;
 
-	public function new()
+  public function new() {}
+
+  public function stepHitEvent(curStep:Float)
+  {
+    // this is where step hit events will be overrided by the song class
+  }
+
+  public function beatHitEvent(curBeat:Float)
+  {
+    // this is where beat hit events will be overrided by the song class
+
+    if (curBeat == introCardBeat)
     {
-        
+      if (introCardBeat != 0)
+      {
+        PlayState.instance.songIntroCard();
+      }
     }
-
-    public function stepHitEvent(curStep:Float)
-    {
-        //this is where step hit events will be overrided by the song class
-    }
-    
-    public function beatHitEvent(curBeat:Float)
-    {
-        //this is where beat hit events will be overrided by the song class
-
-        if (curBeat == introCardBeat)
-        {
-            if (introCardBeat != 0)
-            {
-                PlayState.instance.songIntroCard();
-            }
-        }
-    }
+  }
 }

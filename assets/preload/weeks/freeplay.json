@@ -1,18 +1,14 @@
 {
-	"songs": [
-		["TopKicks", "darnell", [115, 94, 176]],
-		["Abstraction", "mark-tv", [158, 41, 16]]
-	],
-	"weekCharacters": [
-		"",
-		"",
-		""
-	],
-	"weekBackground": "none",
-	"storyName": "The Destitution Mod (Freeplay)",
-	"weekBefore": "main",
-	"weekName": "The Destitution Mod (Freeplay)",
-	"startUnlocked": true,
-	"hideStoryMode": true,
-	"hideFreeplay": false
+  "songs": [
+    ["TopKicks", "darnell", [115, 94, 176]],
+    ["Abstraction", "mark-tv", [158, 41, 16]]
+  ],
+  "weekCharacters": ["", "", ""],
+  "weekBackground": "none",
+  "storyName": "The Destitution Mod (Freeplay)",
+  "weekBefore": "main",
+  "weekName": "The Destitution Mod (Freeplay)",
+  "startUnlocked": true,
+  "hideStoryMode": true,
+  "hideFreeplay": false
 }

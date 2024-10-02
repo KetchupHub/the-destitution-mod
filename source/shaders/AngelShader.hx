@@ -4,35 +4,35 @@ import flixel.system.FlxAssets.FlxShader;
 
 class AngelShader extends FlxShader
 {
+  @:isVar
+  public var strength(get, set):Float = 0;
 
-	@:isVar
-	public var strength(get, set):Float = 0;
+  function get_strength()
+  {
+    return (stronk.value[0]);
+  }
 
-	function get_strength()
-	{
-		return (stronk.value[0]);
-	}
-	function set_strength(v:Float)
-	{
-		stronk.value = [v, v];
-		return v;
-	}
+  function set_strength(v:Float)
+  {
+    stronk.value = [v, v];
+    return v;
+  }
 
-	@:isVar
-	public var pixelSize(get, set):Float = 1;
+  @:isVar
+  public var pixelSize(get, set):Float = 1;
 
-	function get_pixelSize()
-	{
-		return (pixel.value[0] + pixel.value[1])/2;
-	}
-	function set_pixelSize(v:Float)
-	{
-		pixel.value = [v, v];
-		return v;
-	}
+  function get_pixelSize()
+  {
+    return (pixel.value[0] + pixel.value[1]) / 2;
+  }
 
+  function set_pixelSize(v:Float)
+  {
+    pixel.value = [v, v];
+    return v;
+  }
 
-	@:glFragmentSource('
+  @:glFragmentSource('
     #pragma header
 
 	uniform float stronk;
@@ -99,18 +99,16 @@ class AngelShader extends FlxShader
 	
 	
 	')
+  public function new()
+  {
+    super();
+    this.iTime.value = [0.0];
+    strength = 0;
+    pixelSize = 1;
+  }
 
-
-	public function new()
-	{
-		super();
-        this.iTime.value = [0.0];
-		strength = 0;
-		pixelSize = 1;
-
-	}
-
-    public function update(elapsed:Float) {
-        this.iTime.value[0] += elapsed;
-    }
+  public function update(elapsed:Float)
+  {
+    this.iTime.value[0] += elapsed;
+  }
 }

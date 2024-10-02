@@ -4,32 +4,35 @@ import flixel.system.FlxAssets.FlxShader;
 
 class CamDupeShader extends FlxShader
 {
-    // ty nebula for the little bit of help with the mirroring
-    @:isVar
-    public var mult(get, set):Float = 0;
-    @:isVar 
-    public var mirror(get, set):Bool = false;
+  // ty nebula for the little bit of help with the mirroring
+  @:isVar
+  public var mult(get, set):Float = 0;
+  @:isVar
+  public var mirror(get, set):Bool = false;
 
-    function get_mult()
-    {
-        return multi.value[0];
-    }
-    function set_mult(value:Float)
-    {
-        multi.value = [value, value];
-        return value;
-    }
-    function get_mirror()
-    {
-        return mirrorS.value[0];
-    }
-    function set_mirror(value:Bool)
-    {
-        mirrorS.value = [value];
-        return value;
-    }
+  function get_mult()
+  {
+    return multi.value[0];
+  }
 
-    @:glFragmentSource('
+  function set_mult(value:Float)
+  {
+    multi.value = [value, value];
+    return value;
+  }
+
+  function get_mirror()
+  {
+    return mirrorS.value[0];
+  }
+
+  function set_mirror(value:Bool)
+  {
+    mirrorS.value = [value];
+    return value;
+  }
+
+  @:glFragmentSource('
     #pragma header
 
 uniform float multi;
@@ -51,15 +54,11 @@ void main()
         gl_FragColor = vec4(color,flixel_texture2D(bitmap, uv).a);
 }
     ')
+  public function new()
+  {
+    super();
+    mult = 1;
+  }
 
-    public function new()
-        {
-            super();
-            mult = 1;
-        }
-
-        public function update(flot:Float)
-        {
-    
-        }
+  public function update(flot:Float) {}
 }

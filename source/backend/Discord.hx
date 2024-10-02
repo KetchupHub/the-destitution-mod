@@ -14,142 +14,135 @@ import hxdiscord_rpc.Types;
  */
 class DiscordClient
 {
-	public static var isInitialized:Bool = false;
+  public static var isInitialized:Bool = false;
 
-	public static var discordHandlers:DiscordEventHandlers;
+  public static var discordHandlers:DiscordEventHandlers;
 
-	public function new()
-	{
-		#if DEVELOPERBUILD
-		trace("Initializing Discord RPC...");
-		#end
-		
-		discordHandlers = DiscordEventHandlers.create();
-		discordHandlers.ready = Callable.fromStaticFunction(onReady);
-		discordHandlers.errored = Callable.fromStaticFunction(onError);
-		discordHandlers.disconnected = Callable.fromStaticFunction(onDisconnected);
+  public function new()
+  {
+    #if DEVELOPERBUILD
+    trace("Initializing Discord RPC...");
+    #end
 
-		Discord.initialize("1104955579979542548", discordHandlers);
+    discordHandlers = DiscordEventHandlers.create();
+    discordHandlers.ready = Callable.fromStaticFunction(onReady);
+    discordHandlers.errored = Callable.fromStaticFunction(onError);
+    discordHandlers.disconnected = Callable.fromStaticFunction(onDisconnected);
 
-		//not effected by multi threading option because otherwise the game would hang, lol!
-		Thread.create(function():Void
-		{
-			while (true)
-			{
-				#if DISCORD_DISABLE_IO_THREAD
-				Discord.UpdateConnection();
-				#end
+    Discord.initialize("1104955579979542548", discordHandlers);
 
-				Discord.runCallbacks();
+    // not effected by multi threading option because otherwise the game would hang, lol!
+    Thread.create(function():Void {
+      while (true)
+      {
+        #if DISCORD_DISABLE_IO_THREAD
+        Discord.UpdateConnection();
+        #end
 
-				Sys.sleep(2);
-			}
-		});
-	}
-	
-	public static function shutdown()
-	{
-		Discord.shutdown();
-	}
-	
-	static function onReady(that:RawConstPointer<DiscordUser>)
-	{
-		var pres:DiscordRichPresence;
+        Discord.runCallbacks();
 
-		pres = DiscordRichPresence.create();
+        Sys.sleep(2);
+      }
+    });
+  }
 
-		pres.details = ConstCharStar.fromString("In the Menus");
-		pres.state = null;
+  public static function shutdown()
+  {
+    Discord.shutdown();
+  }
 
-		pres.largeImageKey = ConstCharStar.fromString("icon");
-		pres.largeImageText = ConstCharStar.fromString("The Destitution Mod v" + Application.current.meta.get('version'));
+  static function onReady(that:RawConstPointer<DiscordUser>)
+  {
+    var pres:DiscordRichPresence;
 
-		final button1:DiscordButton = DiscordButton.create();
-		button1.label = "Download";
-		button1.url = ConstCharStar.fromString('https://gamejolt.com/games/destitution/844229');
-		pres.buttons[0] = button1;
-		
-		final button2:DiscordButton = DiscordButton.create();
-		button2.label = "Team";
-		button2.url = ConstCharStar.fromString('https://twitter.com/TeamProdPresent/');
-		pres.buttons[1] = button2;
+    pres = DiscordRichPresence.create();
 
-		Discord.updatePresence(pres);
-	}
+    pres.details = ConstCharStar.fromString("In the Menus");
+    pres.state = null;
 
-	static function onError(_code:Int, _message:ConstCharStar)
-	{
-		
-	}
+    pres.largeImageKey = ConstCharStar.fromString("icon");
+    pres.largeImageText = ConstCharStar.fromString("The Destitution Mod v" + Application.current.meta.get('version'));
 
-	static function onDisconnected(_code:Int, _message:ConstCharStar)
-	{
+    final button1:DiscordButton = DiscordButton.create();
+    button1.label = "Download";
+    button1.url = ConstCharStar.fromString('https://gamejolt.com/games/destitution/844229');
+    pres.buttons[0] = button1;
 
-	}
+    final button2:DiscordButton = DiscordButton.create();
+    button2.label = "Team";
+    button2.url = ConstCharStar.fromString('https://twitter.com/TeamProdPresent/');
+    pres.buttons[1] = button2;
 
-	public static function initialize()
-	{
-		var DiscordDaemon = Thread.create(() ->
-		{
-			new DiscordClient();
-		});
+    Discord.updatePresence(pres);
+  }
 
-		isInitialized = true;
-	}
+  static function onError(_code:Int, _message:ConstCharStar) {}
 
-	public static function changePresence(details:String, state:Null<String>, ?smallImageKey:String, iconSuffix:String = '', ?hasStartTimestamp:Bool, ?endTimestamp:Float)
-	{
-		var startTimestamp:Float = if (hasStartTimestamp) Date.now().getTime() else 0;
+  static function onDisconnected(_code:Int, _message:ConstCharStar) {}
 
-		if (endTimestamp > 0)
-		{
-			endTimestamp = startTimestamp + endTimestamp;
-		}
+  public static function initialize()
+  {
+    var DiscordDaemon = Thread.create(() -> {
+      new DiscordClient();
+    });
 
-		var alrgey:String = "icon" + iconSuffix;
-		var smalley:String = "";
-		var stateo:String = state;
-		var detailso:String = details;
-		var largoText:String = 'The Destitution Mod v' + Application.current.meta.get('version');
+    isInitialized = true;
+  }
 
-		#if DEVELOPERBUILD
-		stateo = 'State Redacted';
-		detailso = 'Details Redacted';
-		largoText = 'The Destitution Mod (DevBuild ' + CoolUtil.gitCommitBranch + ' : ' + CoolUtil.gitCommitHash + ')';
-		#end
+  public static function changePresence(details:String, state:Null<String>, ?smallImageKey:String, iconSuffix:String = '', ?hasStartTimestamp:Bool,
+      ?endTimestamp:Float)
+  {
+    var startTimestamp:Float = if (hasStartTimestamp) Date.now().getTime() else 0;
 
-		if (smallImageKey != null)
-		{
-			#if DEVELOPERBUILD
-			smalley = 'icon';
-			#else
-			smalley = smallImageKey;
-			#end
-		}
+    if (endTimestamp > 0)
+    {
+      endTimestamp = startTimestamp + endTimestamp;
+    }
 
-		var pres:DiscordRichPresence;
+    var alrgey:String = "icon" + iconSuffix;
+    var smalley:String = "";
+    var stateo:String = state;
+    var detailso:String = details;
+    var largoText:String = 'The Destitution Mod v' + Application.current.meta.get('version');
 
-		pres = DiscordRichPresence.create();
+    #if DEVELOPERBUILD
+    stateo = 'State Redacted';
+    detailso = 'Details Redacted';
+    largoText = 'The Destitution Mod (DevBuild ' + CoolUtil.gitCommitBranch + ' : ' + CoolUtil.gitCommitHash + ')';
+    #end
 
-		pres.type = DiscordActivityType_Playing;
+    if (smallImageKey != null)
+    {
+      #if DEVELOPERBUILD
+      smalley = 'icon';
+      #else
+      smalley = smallImageKey;
+      #end
+    }
 
-		pres.details = ConstCharStar.fromString(detailso);
-		pres.state = ConstCharStar.fromString(stateo);
+    var pres:DiscordRichPresence;
 
-		pres.largeImageKey = ConstCharStar.fromString(alrgey);
-		pres.largeImageText = ConstCharStar.fromString(largoText);
-		pres.smallImageKey = ConstCharStar.fromString(smalley);
+    pres = DiscordRichPresence.create();
 
-		final button1:DiscordButton = DiscordButton.create();
-		button1.label = "Download";
-		button1.url = ConstCharStar.fromString('https://gamejolt.com/games/destitution/844229');
-		pres.buttons[0] = button1;
-		
-		final button2:DiscordButton = DiscordButton.create();
-		button2.label = "Team";
-		button2.url = ConstCharStar.fromString('https://twitter.com/TeamProdPresent/');
-		pres.buttons[1] = button2;
+    pres.type = DiscordActivityType_Playing;
 
-		Discord.updatePresence(pres);
-	}
+    pres.details = ConstCharStar.fromString(detailso);
+    pres.state = ConstCharStar.fromString(stateo);
+
+    pres.largeImageKey = ConstCharStar.fromString(alrgey);
+    pres.largeImageText = ConstCharStar.fromString(largoText);
+    pres.smallImageKey = ConstCharStar.fromString(smalley);
+
+    final button1:DiscordButton = DiscordButton.create();
+    button1.label = "Download";
+    button1.url = ConstCharStar.fromString('https://gamejolt.com/games/destitution/844229');
+    pres.buttons[0] = button1;
+
+    final button2:DiscordButton = DiscordButton.create();
+    button2.label = "Team";
+    button2.url = ConstCharStar.fromString('https://twitter.com/TeamProdPresent/');
+    pres.buttons[1] = button2;
+
+    Discord.updatePresence(pres);
+  }
 }

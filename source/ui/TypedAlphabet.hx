@@ -4,122 +4,122 @@ import flixel.FlxG;
 
 class TypedAlphabet extends Alphabet
 {
-	public var onFinish:Void->Void = null;
-	public var finishedText:Bool = false;
-	public var delay:Float = 0.05;
-	public var sound:String = 'dialogue';
-	public var volume:Float = 1;
-	public var _curLetter:Int = -1;
-	public var _timeToUpdate:Float = 0;
+  public var onFinish:Void->Void = null;
+  public var finishedText:Bool = false;
+  public var delay:Float = 0.05;
+  public var sound:String = 'dialogue';
+  public var volume:Float = 1;
+  public var _curLetter:Int = -1;
+  public var _timeToUpdate:Float = 0;
 
-	public function new(x:Float, y:Float, text:String = "", ?delay:Float = 0.05, ?bold:Bool = false)
-	{
-		super(x, y, text, bold);
-		this.delay = delay;
-	}
+  public function new(x:Float, y:Float, text:String = "", ?delay:Float = 0.05, ?bold:Bool = false)
+  {
+    super(x, y, text, bold);
+    this.delay = delay;
+  }
 
-	override public function set_text(newText:String)
-	{
-		super.set_text(newText);
+  override public function set_text(newText:String)
+  {
+    super.set_text(newText);
 
-		resetDialogue();
+    resetDialogue();
 
-		return newText;
-	}
+    return newText;
+  }
 
-	override function update(elapsed:Float)
-	{
-		if (!finishedText)
-		{
-			var playedSound:Bool = false;
+  override function update(elapsed:Float)
+  {
+    if (!finishedText)
+    {
+      var playedSound:Bool = false;
 
-			_timeToUpdate += elapsed;
+      _timeToUpdate += elapsed;
 
-			while (_timeToUpdate >= delay)
-			{
-				showCharacterUpTo(_curLetter + 1);
+      while (_timeToUpdate >= delay)
+      {
+        showCharacterUpTo(_curLetter + 1);
 
-				if (!playedSound && sound != '' && (delay > 0.025 || _curLetter % 2 == 0))
-				{
-					FlxG.sound.play(Paths.sound(sound), volume);
-				}
+        if (!playedSound && sound != '' && (delay > 0.025 || _curLetter % 2 == 0))
+        {
+          FlxG.sound.play(Paths.sound(sound), volume);
+        }
 
-				playedSound = true;
+        playedSound = true;
 
-				_curLetter++;
+        _curLetter++;
 
-				if (_curLetter >= letters.length - 1)
-				{
-					finishedText = true;
+        if (_curLetter >= letters.length - 1)
+        {
+          finishedText = true;
 
-					if (onFinish != null)
-					{
-						onFinish();
-					}
+          if (onFinish != null)
+          {
+            onFinish();
+          }
 
-					_timeToUpdate = 0;
+          _timeToUpdate = 0;
 
-					break;
-				}
+          break;
+        }
 
-				_timeToUpdate = 0;
-			}
-		}
+        _timeToUpdate = 0;
+      }
+    }
 
-		super.update(elapsed);
-	}
+    super.update(elapsed);
+  }
 
-	public function showCharacterUpTo(upTo:Int)
-	{
-		var start:Int = _curLetter;
+  public function showCharacterUpTo(upTo:Int)
+  {
+    var start:Int = _curLetter;
 
-		if(start < 0)
-		{
-			start = 0;
-		}
+    if (start < 0)
+    {
+      start = 0;
+    }
 
-		for (i in start...(upTo + 1))
-		{
-			if(letters[i] != null)
-			{
-				letters[i].visible = true;
-			}
-		}
-	}
+    for (i in start...(upTo + 1))
+    {
+      if (letters[i] != null)
+      {
+        letters[i].visible = true;
+      }
+    }
+  }
 
-	public function resetDialogue()
-	{
-		_curLetter = -1;
-		finishedText = false;
-		_timeToUpdate = 0;
+  public function resetDialogue()
+  {
+    _curLetter = -1;
+    finishedText = false;
+    _timeToUpdate = 0;
 
-		for (letter in letters)
-		{
-			letter.visible = false;
-		}
-	}
+    for (letter in letters)
+    {
+      letter.visible = false;
+    }
+  }
 
-	public function finishText()
-	{
-		if (finishedText)
-		{
-			return;
-		}
+  public function finishText()
+  {
+    if (finishedText)
+    {
+      return;
+    }
 
-		showCharacterUpTo(letters.length - 1);
+    showCharacterUpTo(letters.length - 1);
 
-		if (sound != '')
-		{
-			FlxG.sound.play(Paths.sound(sound), volume);
-		}
+    if (sound != '')
+    {
+      FlxG.sound.play(Paths.sound(sound), volume);
+    }
 
-		finishedText = true;
-		
-		if (onFinish != null)
-		{
-			onFinish();
-		}
+    finishedText = true;
 
-		_timeToUpdate = 0;
-	}
+    if (onFinish != null)
+    {
+      onFinish();
+    }
+
+    _timeToUpdate = 0;
+  }
 }

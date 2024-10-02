@@ -4,7 +4,7 @@ import flixel.system.FlxAssets.FlxShader;
 
 class VCRBorder extends FlxShader
 { // https://www.shadertoy.com/view/Ms23DR and https://www.shadertoy.com/view/MsXGD4
-	@glFragmentSource('
+  @glFragmentSource('
         #pragma header
 
         vec2 curve(vec2 uv) {
@@ -33,13 +33,10 @@ class VCRBorder extends FlxShader
             gl_FragColor = vec4(color * vignette(uv), alpha);
         }
     ')
-	public function new()
-	{
-		super();
-	}
+  public function new()
+  {
+    super();
+  }
 
-    public function update(flot:Float)
-    {
-
-    }
+  public function update(flot:Float) {}
 }

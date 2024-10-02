@@ -5,21 +5,19 @@ import backend.ClientPrefs;
 import util.MemoryUtil;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
-
 #if gl_stats
 import openfl.display._internal.stats.Context3DStats;
 import openfl.display._internal.stats.DrawCallContext;
 #end
-
 #if flash
 import openfl.Lib;
 #end
 
 /**
-	The FPS class provides an easy-to-use monitor to display
-	the current frame rate of an OpenFL project
+  The FPS class provides an easy-to-use monitor to display
+  the current frame rate of an OpenFL project
 
-	Class shadowed for The Destitution Mod.
+  Class shadowed for The Destitution Mod.
 **/
 #if !openfl_debug
 @:fileXml('tags="haxe,release"')
@@ -27,102 +25,101 @@ import openfl.Lib;
 #end
 class FPS extends TextField
 {
-	/**
-		The current frame rate, expressed using frames-per-second
-	**/
-	public var currentFPS(default, null):Int;
+  /**
+    The current frame rate, expressed using frames-per-second
+  **/
+  public var currentFPS(default, null):Int;
 
-	/**
-		The current memory usage.
-	**/
-	public var memoryMegas:Float = 0;
+  /**
+    The current memory usage.
+  **/
+  public var memoryMegas:Float = 0;
 
-	@:noCompletion private var cacheCount:Int;
-	@:noCompletion private var currentTime:Float;
-	@:noCompletion private var times:Array<Float>;
+  @:noCompletion private var cacheCount:Int;
+  @:noCompletion private var currentTime:Float;
+  @:noCompletion private var times:Array<Float>;
 
-	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
-	{
-		super();
+  public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
+  {
+    super();
 
-		this.x = x;
-		this.y = y;
+    this.x = x;
+    this.y = y;
 
-		currentFPS = 0;
-		selectable = false;
-		mouseEnabled = false;
-		defaultTextFormat = new TextFormat(Paths.font("BAUHS93.ttf"), 20, color);
-		autoSize = LEFT;
-		multiline = true;
-		text = "FPS: ";
+    currentFPS = 0;
+    selectable = false;
+    mouseEnabled = false;
+    defaultTextFormat = new TextFormat(Paths.font("BAUHS93.ttf"), 20, color);
+    autoSize = LEFT;
+    multiline = true;
+    text = "FPS: ";
 
-		cacheCount = 0;
-		currentTime = 0;
-		times = [];
+    cacheCount = 0;
+    currentTime = 0;
+    times = [];
 
-		#if flash
-		addEventListener(Event.ENTER_FRAME, function(e)
-		{
-			var time = Lib.getTimer();
-			__enterFrame(time - currentTime);
-		});
-		#end
-	}
+    #if flash
+    addEventListener(Event.ENTER_FRAME, function(e) {
+      var time = Lib.getTimer();
+      __enterFrame(time - currentTime);
+    });
+    #end
+  }
 
-	var deltaTimeout:Float = 0.0;
+  var deltaTimeout:Float = 0.0;
 
-	// Event Handlers
-	@:noCompletion
-	private #if !flash override #end function __enterFrame(deltaTime:Float):Void
-	{
-		if (deltaTimeout > 1000)
-		{
-			// there's no need to update this every frame and it only causes performance losses.
-			deltaTimeout = 0.0;
-			return;
-		}
+  // Event Handlers
+  @:noCompletion
+  private #if !flash override #end function __enterFrame(deltaTime:Float):Void
+  {
+    if (deltaTimeout > 1000)
+    {
+      // there's no need to update this every frame and it only causes performance losses.
+      deltaTimeout = 0.0;
+      return;
+    }
 
-		currentTime += deltaTime;
+    currentTime += deltaTime;
 
-		times.push(currentTime);
+    times.push(currentTime);
 
-		while (times[0] < currentTime - 1000)
-		{
-			times.shift();
-		}
+    while (times[0] < currentTime - 1000)
+    {
+      times.shift();
+    }
 
-		var currentCount = times.length;
+    var currentCount = times.length;
 
-		currentFPS = Math.round((currentCount + cacheCount) / 2);
+    currentFPS = Math.round((currentCount + cacheCount) / 2);
 
-		if (currentFPS > ClientPrefs.framerate)
-		{
-			currentFPS = ClientPrefs.framerate;
-		}
+    if (currentFPS > ClientPrefs.framerate)
+    {
+      currentFPS = ClientPrefs.framerate;
+    }
 
-		if (currentCount != cacheCount)
-		{
-			text = 'FPS: ${currentFPS}';
-			
-			text += '\nMemory: ${FlxStringUtil.formatBytes(MemoryUtil.getMemoryUsed())}';
+    if (currentCount != cacheCount)
+    {
+      text = 'FPS: ${currentFPS}';
 
-			textColor = 0xFFFFFFFF;
+      text += '\nMemory: ${FlxStringUtil.formatBytes(MemoryUtil.getMemoryUsed())}';
 
-			if (currentFPS <= 30)
-			{
-				textColor = 0xFFFF0000;
-			}
+      textColor = 0xFFFFFFFF;
 
-			#if (gl_stats && !disable_cffi && (!html5 || !canvas))
-			text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
-			text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
-			text += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
-			#end
+      if (currentFPS <= 30)
+      {
+        textColor = 0xFFFF0000;
+      }
 
-			text += "\n";
-		}
+      #if (gl_stats && !disable_cffi && (!html5 || !canvas))
+      text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
+      text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
+      text += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
+      #end
 
-		cacheCount = currentCount;
-		deltaTimeout += deltaTime;
-	}
+      text += "\n";
+    }
+
+    cacheCount = currentCount;
+    deltaTimeout += deltaTime;
+  }
 }

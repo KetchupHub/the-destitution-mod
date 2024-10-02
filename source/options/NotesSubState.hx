@@ -12,335 +12,340 @@ import states.MusicBeatSubstate;
 
 class NotesSubState extends MusicBeatSubstate
 {
-	private static var curSelected:Int = 0;
-	private static var typeSelected:Int = 0;
-	private var grpNumbers:FlxTypedGroup<Alphabet>;
-	private var grpNotes:FlxTypedGroup<PixelPerfectSprite>;
-	private var shaderArray:Array<ColorSwap> = [];
-	var curValue:Float = 0;
-	var holdTime:Float = 0;
-	var nextAccept:Int = 5;
+  private static var curSelected:Int = 0;
+  private static var typeSelected:Int = 0;
 
-	var blackBG:FlxSprite;
-	var hsbText:Alphabet;
+  private var grpNumbers:FlxTypedGroup<Alphabet>;
+  private var grpNotes:FlxTypedGroup<PixelPerfectSprite>;
+  private var shaderArray:Array<ColorSwap> = [];
+  var curValue:Float = 0;
+  var holdTime:Float = 0;
+  var nextAccept:Int = 5;
 
-	var posX = 230;
-	
-	public function new()
-	{
-		super();
-		
-		var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
-		bg.color = 0xFFea71fd;
-		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bg);
-		
-		blackBG = new FlxSprite(posX - 25).makeGraphic(870, 200, FlxColor.BLACK);
-		blackBG.alpha = 0.4;
-		add(blackBG);
+  var blackBG:FlxSprite;
+  var hsbText:Alphabet;
 
-		grpNotes = new FlxTypedGroup<PixelPerfectSprite>();
-		add(grpNotes);
-		grpNumbers = new FlxTypedGroup<Alphabet>();
-		add(grpNumbers);
+  var posX = 230;
 
-		for (i in 0...ClientPrefs.arrowHSV.length)
-		{
-			var yPos:Float = (165 * i) + 35;
+  public function new()
+  {
+    super();
 
-			for (j in 0...3)
-			{
-				var optionText:Alphabet = new Alphabet(posX + (225 * j) + 250, yPos + 60, Std.string(ClientPrefs.arrowHSV[i][j]), true);
-				grpNumbers.add(optionText);
-			}
+    var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
+    bg.color = 0xFFea71fd;
+    bg.screenCenter();
+    bg.antialiasing = ClientPrefs.globalAntialiasing;
+    add(bg);
 
-			var note:PixelPerfectSprite = new PixelPerfectSprite(posX, yPos);
-			note.frames = Paths.getSparrowAtlas('ui/notes');
-			var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
-			note.animation.addByPrefix('idle', animations[i], 24);
-			note.animation.play('idle');
-			grpNotes.add(note);
+    blackBG = new FlxSprite(posX - 25).makeGraphic(870, 200, FlxColor.BLACK);
+    blackBG.alpha = 0.4;
+    add(blackBG);
 
-			var newShader:ColorSwap = new ColorSwap();
-			note.shader = newShader.shader;
-			newShader.hue = ClientPrefs.arrowHSV[i][0] / 360;
-			newShader.saturation = ClientPrefs.arrowHSV[i][1] / 100;
-			newShader.brightness = ClientPrefs.arrowHSV[i][2] / 100;
-			shaderArray.push(newShader);
-		}
+    grpNotes = new FlxTypedGroup<PixelPerfectSprite>();
+    add(grpNotes);
+    grpNumbers = new FlxTypedGroup<Alphabet>();
+    add(grpNumbers);
 
-		hsbText = new Alphabet(posX + 560, 0, "Hue    Saturation  Brightness", false);
-		hsbText.scaleX = 0.6;
-		hsbText.scaleY = 0.6;
-		add(hsbText);
+    for (i in 0...ClientPrefs.arrowHSV.length)
+    {
+      var yPos:Float = (165 * i) + 35;
 
-		changeSelection();
-	}
+      for (j in 0...3)
+      {
+        var optionText:Alphabet = new Alphabet(posX + (225 * j) + 250, yPos + 60, Std.string(ClientPrefs.arrowHSV[i][j]), true);
+        grpNumbers.add(optionText);
+      }
 
-	var changingNote:Bool = false;
+      var note:PixelPerfectSprite = new PixelPerfectSprite(posX, yPos);
+      note.frames = Paths.getSparrowAtlas('ui/notes');
+      var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
+      note.animation.addByPrefix('idle', animations[i], 24);
+      note.animation.play('idle');
+      grpNotes.add(note);
 
-	override function update(elapsed:Float)
-	{
-		if(changingNote)
-		{
-			if(holdTime < 0.5)
-			{
-				if(controls.UI_LEFT_P)
-				{
-					updateValue(-1);
-					FlxG.sound.play(Paths.sound('scrollMenu'));
-				}
-				else if(controls.UI_RIGHT_P)
-				{
-					updateValue(1);
-					FlxG.sound.play(Paths.sound('scrollMenu'));
-				}
-				else if(controls.RESET)
-				{
-					resetValue(curSelected, typeSelected);
-					FlxG.sound.play(Paths.sound('scrollMenu'));
-				}
-				if(controls.UI_LEFT_R || controls.UI_RIGHT_R)
-				{
-					holdTime = 0;
-				}
-				else if(controls.UI_LEFT || controls.UI_RIGHT)
-				{
-					holdTime += elapsed;
-				}
-			}
-			else
-			{
-				var add:Float = 90;
-				switch(typeSelected)
-				{
-					case 1 | 2: add = 50;
-				}
+      var newShader:ColorSwap = new ColorSwap();
+      note.shader = newShader.shader;
+      newShader.hue = ClientPrefs.arrowHSV[i][0] / 360;
+      newShader.saturation = ClientPrefs.arrowHSV[i][1] / 100;
+      newShader.brightness = ClientPrefs.arrowHSV[i][2] / 100;
+      shaderArray.push(newShader);
+    }
 
-				if(controls.UI_LEFT)
-				{
-					updateValue(elapsed * -add);
-				}
-				else if(controls.UI_RIGHT)
-				{
-					updateValue(elapsed * add);
-				}
+    hsbText = new Alphabet(posX + 560, 0, "Hue    Saturation  Brightness", false);
+    hsbText.scaleX = 0.6;
+    hsbText.scaleY = 0.6;
+    add(hsbText);
 
-				if(controls.UI_LEFT_R || controls.UI_RIGHT_R)
-				{
-					FlxG.sound.play(Paths.sound('scrollMenu'));
-					holdTime = 0;
-				}
-			}
-		}
-		else
-		{
-			if (controls.UI_UP_P)
-			{
-				changeSelection(-1);
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-			}
-			if (controls.UI_DOWN_P)
-			{
-				changeSelection(1);
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-			}
-			if (controls.UI_LEFT_P)
-			{
-				changeType(-1);
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-			}
-			if (controls.UI_RIGHT_P)
-			{
-				changeType(1);
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-			}
-			if(controls.RESET)
-			{
-				for (i in 0...3)
-				{
-					resetValue(curSelected, i);
-				}
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-			}
-			if (controls.ACCEPT && nextAccept <= 0)
-			{
-				FlxG.sound.play(Paths.sound('scrollMenu'));
-				changingNote = true;
-				holdTime = 0;
-				for (i in 0...grpNumbers.length)
-				{
-					var item = grpNumbers.members[i];
-					item.alpha = 0;
-					if ((curSelected * 3) + typeSelected == i)
-					{
-						item.alpha = 1;
-					}
-				}
-				for (i in 0...grpNotes.length)
-				{
-					var item = grpNotes.members[i];
-					item.alpha = 0;
+    changeSelection();
+  }
 
-					if (curSelected == i)
-					{
-						item.alpha = 1;
-					}
-				}
-				super.update(elapsed);
-				return;
-			}
-		}
+  var changingNote:Bool = false;
 
-		if (controls.BACK || (changingNote && controls.ACCEPT))
-		{
-			if(!changingNote)
-			{
-				close();
-			}
-			else
-			{
-				changeSelection();
-			}
-			changingNote = false;
-			FlxG.sound.play(Paths.sound('cancelMenu'));
-		}
+  override function update(elapsed:Float)
+  {
+    if (changingNote)
+    {
+      if (holdTime < 0.5)
+      {
+        if (controls.UI_LEFT_P)
+        {
+          updateValue(-1);
+          FlxG.sound.play(Paths.sound('scrollMenu'));
+        }
+        else if (controls.UI_RIGHT_P)
+        {
+          updateValue(1);
+          FlxG.sound.play(Paths.sound('scrollMenu'));
+        }
+        else if (controls.RESET)
+        {
+          resetValue(curSelected, typeSelected);
+          FlxG.sound.play(Paths.sound('scrollMenu'));
+        }
+        if (controls.UI_LEFT_R || controls.UI_RIGHT_R)
+        {
+          holdTime = 0;
+        }
+        else if (controls.UI_LEFT || controls.UI_RIGHT)
+        {
+          holdTime += elapsed;
+        }
+      }
+      else
+      {
+        var add:Float = 90;
+        switch (typeSelected)
+        {
+          case 1 | 2:
+            add = 50;
+        }
 
-		if(nextAccept > 0)
-		{
-			nextAccept -= 1;
-		}
+        if (controls.UI_LEFT)
+        {
+          updateValue(elapsed * -add);
+        }
+        else if (controls.UI_RIGHT)
+        {
+          updateValue(elapsed * add);
+        }
 
-		super.update(elapsed);
-	}
+        if (controls.UI_LEFT_R || controls.UI_RIGHT_R)
+        {
+          FlxG.sound.play(Paths.sound('scrollMenu'));
+          holdTime = 0;
+        }
+      }
+    }
+    else
+    {
+      if (controls.UI_UP_P)
+      {
+        changeSelection(-1);
+        FlxG.sound.play(Paths.sound('scrollMenu'));
+      }
+      if (controls.UI_DOWN_P)
+      {
+        changeSelection(1);
+        FlxG.sound.play(Paths.sound('scrollMenu'));
+      }
+      if (controls.UI_LEFT_P)
+      {
+        changeType(-1);
+        FlxG.sound.play(Paths.sound('scrollMenu'));
+      }
+      if (controls.UI_RIGHT_P)
+      {
+        changeType(1);
+        FlxG.sound.play(Paths.sound('scrollMenu'));
+      }
+      if (controls.RESET)
+      {
+        for (i in 0...3)
+        {
+          resetValue(curSelected, i);
+        }
+        FlxG.sound.play(Paths.sound('scrollMenu'));
+      }
+      if (controls.ACCEPT && nextAccept <= 0)
+      {
+        FlxG.sound.play(Paths.sound('scrollMenu'));
+        changingNote = true;
+        holdTime = 0;
+        for (i in 0...grpNumbers.length)
+        {
+          var item = grpNumbers.members[i];
+          item.alpha = 0;
+          if ((curSelected * 3) + typeSelected == i)
+          {
+            item.alpha = 1;
+          }
+        }
+        for (i in 0...grpNotes.length)
+        {
+          var item = grpNotes.members[i];
+          item.alpha = 0;
 
-	function changeSelection(change:Int = 0)
-	{
-		curSelected += change;
+          if (curSelected == i)
+          {
+            item.alpha = 1;
+          }
+        }
+        super.update(elapsed);
+        return;
+      }
+    }
 
-		if (curSelected < 0)
-			curSelected = ClientPrefs.arrowHSV.length-1;
-		if (curSelected >= ClientPrefs.arrowHSV.length)
-			curSelected = 0;
+    if (controls.BACK || (changingNote && controls.ACCEPT))
+    {
+      if (!changingNote)
+      {
+        close();
+      }
+      else
+      {
+        changeSelection();
+      }
+      changingNote = false;
+      FlxG.sound.play(Paths.sound('cancelMenu'));
+    }
 
-		curValue = ClientPrefs.arrowHSV[curSelected][typeSelected];
-		updateValue();
+    if (nextAccept > 0)
+    {
+      nextAccept -= 1;
+    }
 
-		for (i in 0...grpNumbers.length)
-		{
-			var item = grpNumbers.members[i];
-			item.alpha = 0.6;
+    super.update(elapsed);
+  }
 
-			if ((curSelected * 3) + typeSelected == i)
-			{
-				item.alpha = 1;
-			}
-		}
+  function changeSelection(change:Int = 0)
+  {
+    curSelected += change;
 
-		for (i in 0...grpNotes.length)
-		{
-			var item = grpNotes.members[i];
-			item.alpha = 0.6;
-			item.scale.set(0.75, 0.75);
+    if (curSelected < 0) curSelected = ClientPrefs.arrowHSV.length - 1;
+    if (curSelected >= ClientPrefs.arrowHSV.length) curSelected = 0;
 
-			if (curSelected == i)
-			{
-				item.alpha = 1;
-				item.scale.set(1, 1);
-				hsbText.y = item.y - 70;
-				blackBG.y = item.y - 20;
-			}
-		}
+    curValue = ClientPrefs.arrowHSV[curSelected][typeSelected];
+    updateValue();
 
-		FlxG.sound.play(Paths.sound('scrollMenu'));
-	}
+    for (i in 0...grpNumbers.length)
+    {
+      var item = grpNumbers.members[i];
+      item.alpha = 0.6;
 
-	function changeType(change:Int = 0)
-	{
-		typeSelected += change;
+      if ((curSelected * 3) + typeSelected == i)
+      {
+        item.alpha = 1;
+      }
+    }
 
-		if (typeSelected < 0)
-			typeSelected = 2;
-		if (typeSelected > 2)
-			typeSelected = 0;
+    for (i in 0...grpNotes.length)
+    {
+      var item = grpNotes.members[i];
+      item.alpha = 0.6;
+      item.scale.set(0.75, 0.75);
 
-		curValue = ClientPrefs.arrowHSV[curSelected][typeSelected];
-		updateValue();
+      if (curSelected == i)
+      {
+        item.alpha = 1;
+        item.scale.set(1, 1);
+        hsbText.y = item.y - 70;
+        blackBG.y = item.y - 20;
+      }
+    }
 
-		for (i in 0...grpNumbers.length)
-		{
-			var item = grpNumbers.members[i];
-			item.alpha = 0.6;
+    FlxG.sound.play(Paths.sound('scrollMenu'));
+  }
 
-			if ((curSelected * 3) + typeSelected == i)
-			{
-				item.alpha = 1;
-			}
-		}
-	}
+  function changeType(change:Int = 0)
+  {
+    typeSelected += change;
 
-	function resetValue(selected:Int, type:Int)
-	{
-		curValue = 0;
+    if (typeSelected < 0) typeSelected = 2;
+    if (typeSelected > 2) typeSelected = 0;
 
-		ClientPrefs.arrowHSV[selected][type] = 0;
+    curValue = ClientPrefs.arrowHSV[curSelected][typeSelected];
+    updateValue();
 
-		switch(type)
-		{
-			case 0: shaderArray[selected].hue = 0;
-			case 1: shaderArray[selected].saturation = 0;
-			case 2: shaderArray[selected].brightness = 0;
-		}
+    for (i in 0...grpNumbers.length)
+    {
+      var item = grpNumbers.members[i];
+      item.alpha = 0.6;
 
-		var item = grpNumbers.members[(selected * 3) + type];
-		item.text = '0';
+      if ((curSelected * 3) + typeSelected == i)
+      {
+        item.alpha = 1;
+      }
+    }
+  }
 
-		var add = (40 * (item.letters.length - 1)) / 2;
-		for (letter in item.letters)
-		{
-			letter.offset.x += add;
-		}
-	}
+  function resetValue(selected:Int, type:Int)
+  {
+    curValue = 0;
 
-	function updateValue(change:Float = 0)
-	{
-		curValue += change;
-		var roundedValue:Int = Math.round(curValue);
-		var max:Float = 180;
+    ClientPrefs.arrowHSV[selected][type] = 0;
 
-		switch(typeSelected)
-		{
-			case 1 | 2: max = 100;
-		}
+    switch (type)
+    {
+      case 0:
+        shaderArray[selected].hue = 0;
+      case 1:
+        shaderArray[selected].saturation = 0;
+      case 2:
+        shaderArray[selected].brightness = 0;
+    }
 
-		if(roundedValue < -max)
-		{
-			curValue = -max;
-		}
-		else if(roundedValue > max)
-		{
-			curValue = max;
-		}
+    var item = grpNumbers.members[(selected * 3) + type];
+    item.text = '0';
 
-		roundedValue = Math.round(curValue);
-		ClientPrefs.arrowHSV[curSelected][typeSelected] = roundedValue;
+    var add = (40 * (item.letters.length - 1)) / 2;
+    for (letter in item.letters)
+    {
+      letter.offset.x += add;
+    }
+  }
 
-		switch(typeSelected)
-		{
-			case 0: shaderArray[curSelected].hue = roundedValue / 360;
-			case 1: shaderArray[curSelected].saturation = roundedValue / 100;
-			case 2: shaderArray[curSelected].brightness = roundedValue / 100;
-		}
+  function updateValue(change:Float = 0)
+  {
+    curValue += change;
+    var roundedValue:Int = Math.round(curValue);
+    var max:Float = 180;
 
-		var item = grpNumbers.members[(curSelected * 3) + typeSelected];
-		item.text = Std.string(roundedValue);
+    switch (typeSelected)
+    {
+      case 1 | 2:
+        max = 100;
+    }
 
-		var add = (40 * (item.letters.length - 1)) / 2;
-		for (letter in item.letters)
-		{
-			letter.offset.x += add;
-			if(roundedValue < 0) letter.offset.x += 10;
-		}
-	}
+    if (roundedValue < -max)
+    {
+      curValue = -max;
+    }
+    else if (roundedValue > max)
+    {
+      curValue = max;
+    }
+
+    roundedValue = Math.round(curValue);
+    ClientPrefs.arrowHSV[curSelected][typeSelected] = roundedValue;
+
+    switch (typeSelected)
+    {
+      case 0:
+        shaderArray[curSelected].hue = roundedValue / 360;
+      case 1:
+        shaderArray[curSelected].saturation = roundedValue / 100;
+      case 2:
+        shaderArray[curSelected].brightness = roundedValue / 100;
+    }
+
+    var item = grpNumbers.members[(curSelected * 3) + typeSelected];
+    item.text = Std.string(roundedValue);
+
+    var add = (40 * (item.letters.length - 1)) / 2;
+    for (letter in item.letters)
+    {
+      letter.offset.x += add;
+      if (roundedValue < 0) letter.offset.x += 10;
+    }
+  }
 }

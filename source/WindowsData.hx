@@ -39,18 +39,18 @@ package;
 #end
 class WindowsData
 {
-	private static var taskbarWasVisible:Int;
-	private static var wereHidden:Array<String> = [];
+  private static var taskbarWasVisible:Int;
+  private static var wereHidden:Array<String> = [];
 
-	#if windows
-	@:functionCode("
+  #if windows
+  @:functionCode("
 		unsigned long long allocatedRAM = 0;
 		GetPhysicallyInstalledSystemMemory(&allocatedRAM);
 
 		return (allocatedRAM / 1024);
 	")
-	#elseif linux
-	@:functionCode('
+  #elseif linux
+  @:functionCode('
 		FILE *meminfo = fopen("/proc/meminfo", "r");
 
     	if(meminfo == NULL)
@@ -70,14 +70,14 @@ class WindowsData
     	fclose(meminfo);
     	return -1;
 	')
-	#end
-	public static function obtainRAM()
-	{
-		return 0;
-	}
+  #end
+  public static function obtainRAM()
+  {
+    return 0;
+  }
 
-	#if windows
-	@:functionCode('
+  #if windows
+  @:functionCode('
 		HWND taskbar = FindWindowW(L"Shell_TrayWnd", NULL);
 		if (!taskbar) {
 			std::cout << "Finding taskbar failed with error: " << GetLastError() << std::endl;
@@ -87,19 +87,19 @@ class WindowsData
 		ShowWindow(taskbar, SW_HIDE);
 		return static_cast<int>(taskbarVisible);
 	')
-	private static function _hideTaskbar():Int
-	{
-		return 0;
-	}
+  private static function _hideTaskbar():Int
+  {
+    return 0;
+  }
 
-	// ! MUST CALL THIS BEFORE restoreTaskbar
+  // ! MUST CALL THIS BEFORE restoreTaskbar
 
-	public static function hideTaskbar()
-	{
-		taskbarWasVisible = _hideTaskbar();
-	}
+  public static function hideTaskbar()
+  {
+    taskbarWasVisible = _hideTaskbar();
+  }
 
-	@:functionCode('
+  @:functionCode('
 		if (!static_cast<bool>(wasVisible)) {
 			return;
 		}
@@ -110,17 +110,17 @@ class WindowsData
 		}
 		ShowWindow(taskbar, SW_SHOWNOACTIVATE);
 	')
-	private static function _restoreTaskbar(wasVisible:Int) {}
+  private static function _restoreTaskbar(wasVisible:Int) {}
 
-	public static function restoreTaskbar()
-	{
-		_restoreTaskbar(taskbarWasVisible);
-	}
+  public static function restoreTaskbar()
+  {
+    _restoreTaskbar(taskbarWasVisible);
+  }
 
-	// from atpx8: ughhhhhhhhhhhhhhhhhhhhhhhhh this is gonna suck to code isnt it
-	// from future atpx8: it did in fact kinda suck to code
+  // from atpx8: ughhhhhhhhhhhhhhhhhhhhhhhhh this is gonna suck to code isnt it
+  // from future atpx8: it did in fact kinda suck to code
 
-	@:functionCode('
+  @:functionCode('
 		std::vector<std::string> winNames = {};
 		winNames.emplace_back(std::string(windowTitle.c_str()));
 		EnumWindows(enumWinProc, reinterpret_cast<LPARAM>(&winNames));
@@ -132,19 +132,19 @@ class WindowsData
 		hxNames->Item(winNames.size() - 1) = String(winNames[0].c_str());
 		return hxNames;
 	')
-	private static function _hideWindows(windowTitle:String):Array<String>
-	{
-		return [];
-	}
+  private static function _hideWindows(windowTitle:String):Array<String>
+  {
+    return [];
+  }
 
-	// ! MUST CALL THIS BEFORE restoreWindows()
+  // ! MUST CALL THIS BEFORE restoreWindows()
 
-	public static function hideWindows()
-	{
-		wereHidden = _hideWindows(openfl.Lib.application.window.title);
-	}
+  public static function hideWindows()
+  {
+    wereHidden = _hideWindows(openfl.Lib.application.window.title);
+  }
 
-	@:functionCode('
+  @:functionCode('
 		for (int i = 0; i < sizeHidden; i++) {
 			HWND hwnd = FindWindowA(NULL, prevHidden->Item(i).c_str());
 			if (hwnd != NULL) {
@@ -152,14 +152,14 @@ class WindowsData
 			}
 		}
 	')
-	private static function _restoreWindows(prevHidden:Array<String>, sizeHidden:Int) {}
+  private static function _restoreWindows(prevHidden:Array<String>, sizeHidden:Int) {}
 
-	public static function restoreWindows()
-	{
-		_restoreWindows(wereHidden, wereHidden.length);
-	}
+  public static function restoreWindows()
+  {
+    _restoreWindows(wereHidden, wereHidden.length);
+  }
 
-	@:functionCode('
+  @:functionCode('
         int darkMode = mode;
         HWND window = GetActiveWindow();
         if (S_OK != DwmSetWindowAttribute(window, 19, &darkMode, sizeof(darkMode))) {
@@ -167,24 +167,24 @@ class WindowsData
         }
         UpdateWindow(window);
     ')
-	@:noCompletion
-	public static function _setWindowColorMode(mode:Int) {}
+  @:noCompletion
+  public static function _setWindowColorMode(mode:Int) {}
 
-	public static function setWindowColorMode(mode:WindowColorMode)
-	{
-		var darkMode:Int = cast(mode, Int);
+  public static function setWindowColorMode(mode:WindowColorMode)
+  {
+    var darkMode:Int = cast(mode, Int);
 
-		if (darkMode > 1 || darkMode < 0)
-		{
-			trace("WindowColorMode Not Found...");
+    if (darkMode > 1 || darkMode < 0)
+    {
+      trace("WindowColorMode Not Found...");
 
-			return;
-		}
+      return;
+    }
 
-		_setWindowColorMode(darkMode);
-	}
+    _setWindowColorMode(darkMode);
+  }
 
-	@:functionCode('
+  @:functionCode('
 	HWND window = GetActiveWindow();
 	// Remove the WS_SYSMENU style
     SetWindowLongPtr(window, GWL_STYLE, GetWindowLongPtr(window, GWL_STYLE) & ~WS_SYSMENU);
@@ -192,16 +192,16 @@ class WindowsData
     // Force the window to redraw
     SetWindowPos(window, NULL, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER);
 	')
-	public static function removeWindowIcon() {}
+  public static function removeWindowIcon() {}
 
-	@:functionCode('
+  @:functionCode('
 	HWND window = GetActiveWindow();
 	SetWindowLong(window, GWL_EXSTYLE, GetWindowLong(window, GWL_EXSTYLE) ^ WS_EX_LAYERED);
 	')
-	@:noCompletion
-	public static function _setWindowLayered() {}
+  @:noCompletion
+  public static function _setWindowLayered() {}
 
-	@:functionCode('
+  @:functionCode('
         HWND window = GetActiveWindow();
 
 		float a = alpha;
@@ -216,23 +216,23 @@ class WindowsData
        	SetLayeredWindowAttributes(window, 0, (255 * (a * 100)) / 100, LWA_ALPHA);
 
     ')
-	/**
-	 * Set Whole Window's Opacity
-	 * ! MAKE SURE TO CALL CppAPI._setWindowLayered(); BEFORE RUNNING THIS
-	 * @param alpha 
-	 */
-	public static function setWindowAlpha(alpha:Float)
-	{
-		return alpha;
-	}
+  /**
+   * Set Whole Window's Opacity
+   * ! MAKE SURE TO CALL CppAPI._setWindowLayered(); BEFORE RUNNING THIS
+   * @param alpha 
+   */
+  public static function setWindowAlpha(alpha:Float)
+  {
+    return alpha;
+  }
 
-	@:functionCode('SetProcessDPIAware();')
-	public static function registerHighDpi() {}
-	#end
+  @:functionCode('SetProcessDPIAware();')
+  public static function registerHighDpi() {}
+  #end
 }
 
 enum abstract WindowColorMode(Int)
 {
-	var DARK:WindowColorMode = 1;
-	var LIGHT:WindowColorMode = 0;
+  var DARK:WindowColorMode = 1;
+  var LIGHT:WindowColorMode = 0;
 }

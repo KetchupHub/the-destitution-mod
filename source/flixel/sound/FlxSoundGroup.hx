@@ -5,92 +5,91 @@ package flixel.sound;
  */
 class FlxSoundGroup
 {
-	/**
-	 * The sounds in this group
-	 */
-	public var sounds:Array<FlxSound> = [];
+  /**
+   * The sounds in this group
+   */
+  public var sounds:Array<FlxSound> = [];
 
-	/**
-	 * The volume of this group
-	 */
-	public var volume(default, set):Float;
+  /**
+   * The volume of this group
+   */
+  public var volume(default, set):Float;
 
-	/**
-	 * Create a new sound group
-	 * @param	volume  The initial volume of this group
-	 */
-	public function new(volume:Float = 1)
-	{
-		this.volume = volume;
-	}
+  /**
+   * Create a new sound group
+   * @param	volume  The initial volume of this group
+   */
+  public function new(volume:Float = 1)
+  {
+    this.volume = volume;
+  }
 
-	/**
-	 * Add a sound to this group, will remove the sound from any group it is currently in
-	 * @param	sound The sound to add to this group
-	 * @return True if sound was successfully added, false otherwise
-	 */
-	public function add(sound:FlxSound):Bool
-	{
-		if (!sounds.contains(sound))
-		{
-			// remove from prev group
-			if (sound.group != null)
-				sound.group.sounds.remove(sound);
-			
-			sounds.push(sound);
-			@:bypassAccessor
-			sound.group = this;
-			sound.updateTransform();
-			return true;
-		}
-		return false;
-	}
+  /**
+   * Add a sound to this group, will remove the sound from any group it is currently in
+   * @param	sound The sound to add to this group
+   * @return True if sound was successfully added, false otherwise
+   */
+  public function add(sound:FlxSound):Bool
+  {
+    if (!sounds.contains(sound))
+    {
+      // remove from prev group
+      if (sound.group != null) sound.group.sounds.remove(sound);
 
-	/**
-	 * Remove a sound from this group
-	 * @param	sound The sound to remove
-	 * @return True if sound was successfully removed, false otherwise
-	 */
-	public function remove(sound:FlxSound):Bool
-	{
-		if (sounds.contains(sound))
-		{
-			@:bypassAccessor
-			sound.group = null;
-			sounds.remove(sound);
-			sound.updateTransform();
-			return true;
-		}
-		return false;
-	}
+      sounds.push(sound);
+      @:bypassAccessor
+      sound.group = this;
+      sound.updateTransform();
+      return true;
+    }
+    return false;
+  }
 
-	/**
-	 * Call this function to pause all sounds in this group.
-	 * @since 4.3.0
-	 */
-	public function pause():Void
-	{
-		for (sound in sounds)
-			sound.pause();
-	}
+  /**
+   * Remove a sound from this group
+   * @param	sound The sound to remove
+   * @return True if sound was successfully removed, false otherwise
+   */
+  public function remove(sound:FlxSound):Bool
+  {
+    if (sounds.contains(sound))
+    {
+      @:bypassAccessor
+      sound.group = null;
+      sounds.remove(sound);
+      sound.updateTransform();
+      return true;
+    }
+    return false;
+  }
 
-	/**
-	 * Unpauses all sounds in this group. Only works on sounds that have been paused.
-	 * @since 4.3.0
-	 */
-	public function resume():Void
-	{
-		for (sound in sounds)
-			sound.resume();
-	}
+  /**
+   * Call this function to pause all sounds in this group.
+   * @since 4.3.0
+   */
+  public function pause():Void
+  {
+    for (sound in sounds)
+      sound.pause();
+  }
 
-	function set_volume(volume:Float):Float
-	{
-		this.volume = volume;
-		for (sound in sounds)
-		{
-			sound.updateTransform();
-		}
-		return volume;
-	}
+  /**
+   * Unpauses all sounds in this group. Only works on sounds that have been paused.
+   * @since 4.3.0
+   */
+  public function resume():Void
+  {
+    for (sound in sounds)
+      sound.resume();
+  }
+
+  function set_volume(volume:Float):Float
+  {
+    this.volume = volume;
+    for (sound in sounds)
+    {
+      sound.updateTransform();
+    }
+    return volume;
+  }
 }

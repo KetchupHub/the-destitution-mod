@@ -8,68 +8,69 @@ import states.MusicBeatSubstate;
 
 class MarkHeadTransition extends MusicBeatSubstate
 {
-	public static var finishCallback:Void->Void;
-	public static var nextCamera:FlxCamera;
-	public var isTransIn:Bool = false;
-	public var transition:FlxSprite;
+  public static var finishCallback:Void->Void;
+  public static var nextCamera:FlxCamera;
 
-	public function new(duration:Float, isTransIn:Bool)
-	{
-		super();
+  public var isTransIn:Bool = false;
+  public var transition:FlxSprite;
 
-		this.isTransIn = isTransIn;
-		var zoom:Float = CoolUtil.boundTo(FlxG.camera.zoom, 0.05, 1);
-		var width:Int = Std.int(FlxG.width / zoom);
-		var height:Int = Std.int(FlxG.height / zoom);
+  public function new(duration:Float, isTransIn:Bool)
+  {
+    super();
 
-		transition = new FlxSprite();
-		transition.frames = Paths.getSparrowAtlas('screen_transition');
-		transition.animation.addByPrefix('in', 'in', 24, false);
-		transition.animation.addByPrefix('out', 'out', 24, false);
-		transition.animation.play('out', true);
-		transition.setGraphicSize(width, height);
-		transition.updateHitbox();
-		transition.screenCenter();
-		add(transition);
+    this.isTransIn = isTransIn;
+    var zoom:Float = CoolUtil.boundTo(FlxG.camera.zoom, 0.05, 1);
+    var width:Int = Std.int(FlxG.width / zoom);
+    var height:Int = Std.int(FlxG.height / zoom);
 
-		if (isTransIn)
-		{
-			transition.animation.play('in', true);
-			transition.animation.onFinish.addOnce(function dude(duh:String)
-			{
-				transition.animation.onFinish.removeAll();
-				transition.visible = false;
-				close();
-			});
-		}
-		else
-		{
-			transition.animation.play('out', true);
-			transition.animation.onFinish.addOnce(function dude(duh:String)
-			{
-				transition.animation.onFinish.removeAll();
-				if (finishCallback != null)
-				{
-					finishCallback();
-				}
-			});
-		}
+    transition = new FlxSprite();
+    transition.frames = Paths.getSparrowAtlas('screen_transition');
+    transition.animation.addByPrefix('in', 'in', 24, false);
+    transition.animation.addByPrefix('out', 'out', 24, false);
+    transition.animation.play('out', true);
+    transition.setGraphicSize(width, height);
+    transition.updateHitbox();
+    transition.screenCenter();
+    add(transition);
 
-		if (nextCamera != null)
-		{
-			transition.cameras = [nextCamera];
-		}
+    if (isTransIn)
+    {
+      transition.animation.play('in', true);
+      transition.animation.onFinish.addOnce(function dude(duh:String)
+      {
+        transition.animation.onFinish.removeAll();
+        transition.visible = false;
+        close();
+      });
+    }
+    else
+    {
+      transition.animation.play('out', true);
+      transition.animation.onFinish.addOnce(function dude(duh:String)
+      {
+        transition.animation.onFinish.removeAll();
+        if (finishCallback != null)
+        {
+          finishCallback();
+        }
+      });
+    }
 
-		nextCamera = null;
-	}
+    if (nextCamera != null)
+    {
+      transition.cameras = [nextCamera];
+    }
 
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-	}
+    nextCamera = null;
+  }
 
-	override function destroy()
-	{
-		super.destroy();
-	}
+  override function update(elapsed:Float)
+  {
+    super.update(elapsed);
+  }
+
+  override function destroy()
+  {
+    super.destroy();
+  }
 }

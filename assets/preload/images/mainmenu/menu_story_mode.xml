@@ -2,12 +2,16 @@
 <TextureAtlas imagePath="menu_story_mode.png">
 	<!-- Created with Adobe Animate version 22.0.0.93 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="story_mode basic0000" x="281" y="126" width="267" height="116"/>
-	<SubTexture name="story_mode basic0001" x="281" y="126" width="267" height="116"/>
-	<SubTexture name="story_mode basic0002" x="281" y="126" width="267" height="116"/>
-	<SubTexture name="story_mode basic0003" x="282" y="2" width="266" height="116" frameX="-1" frameY="0" frameWidth="267" frameHeight="116"/>
-	<SubTexture name="story_mode basic0004" x="282" y="2" width="266" height="116" frameX="-1" frameY="0" frameWidth="267" frameHeight="116"/>
-	<SubTexture name="story_mode basic0005" x="282" y="2" width="266" height="116" frameX="-1" frameY="0" frameWidth="267" frameHeight="116"/>
-	<SubTexture name="story_mode white0000" x="2" y="126" width="277" height="120" frameX="0" frameY="-1" frameWidth="278" frameHeight="122"/>
-	<SubTexture name="story_mode white0001" x="2" y="2" width="278" height="122"/>
+	<SubTexture name="story_mode basic0000" x="281" y="126" width="267" height="116" />
+	<SubTexture name="story_mode basic0001" x="281" y="126" width="267" height="116" />
+	<SubTexture name="story_mode basic0002" x="281" y="126" width="267" height="116" />
+	<SubTexture name="story_mode basic0003" x="282" y="2" width="266" height="116" frameX="-1"
+		frameY="0" frameWidth="267" frameHeight="116" />
+	<SubTexture name="story_mode basic0004" x="282" y="2" width="266" height="116" frameX="-1"
+		frameY="0" frameWidth="267" frameHeight="116" />
+	<SubTexture name="story_mode basic0005" x="282" y="2" width="266" height="116" frameX="-1"
+		frameY="0" frameWidth="267" frameHeight="116" />
+	<SubTexture name="story_mode white0000" x="2" y="126" width="277" height="120" frameX="0"
+		frameY="-1" frameWidth="278" frameHeight="122" />
+	<SubTexture name="story_mode white0001" x="2" y="2" width="278" height="122" />
 </TextureAtlas>

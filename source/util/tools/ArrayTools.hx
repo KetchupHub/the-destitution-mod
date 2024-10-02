@@ -190,7 +190,7 @@ class ArrayTools
         return false;
       }
     }
-    
+
     return true;
   }
 

@@ -1,17 +1,10 @@
 {
-	"animation": "botplay",
-	"loop": true,
-	"song": "results/mus_good",
-	"tempo": 95,
-	"path": "results/botplay",
-	"position": [
-		745,
-		155
-	],
-	"bgColor": [
-		81,
-		72,
-		112
-	],
-	"slidesIn": true
+  "animation": "botplay",
+  "loop": true,
+  "song": "results/mus_good",
+  "tempo": 95,
+  "path": "results/botplay",
+  "position": [745, 155],
+  "bgColor": [81, 72, 112],
+  "slidesIn": true
 }

@@ -1,17 +1,10 @@
 {
-	"animation": "results",
-	"loop": false,
-	"song": "results/mus_good",
-	"tempo": 95,
-	"path": "results/normal",
-	"position": [
-		275,
-		-514
-	],
-	"bgColor": [
-		255,
-		158,
-		102
-	],
-	"slidesIn": false
+  "animation": "results",
+  "loop": false,
+  "song": "results/mus_good",
+  "tempo": 95,
+  "path": "results/normal",
+  "position": [275, -514],
+  "bgColor": [255, 158, 102],
+  "slidesIn": false
 }

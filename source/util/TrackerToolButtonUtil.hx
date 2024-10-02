@@ -1,5 +1,6 @@
 package funkin.util;
 
+import flixel.FlxG;
 import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
 import flixel.system.debug.interaction.Interaction;
 import flixel.system.debug.interaction.tools.Tool;

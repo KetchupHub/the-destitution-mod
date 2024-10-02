@@ -10,7 +10,7 @@ class BlueFade extends FlxRuntimeShader
 
   function set_fadeAmt(val:Float):Float
   {
-		this.setFloat('fadeAmt', val);
+    this.setFloat('fadeAmt', val);
     fadeAmt = val;
 
     return fadeAmt;
@@ -24,7 +24,7 @@ class BlueFade extends FlxRuntimeShader
 
   public function new()
   {
-		super(Assets.getText(Paths.frag('blueFade')));
+    super(Assets.getText(Paths.frag('blueFade')));
 
     this.fadeAmt = 1;
   }
