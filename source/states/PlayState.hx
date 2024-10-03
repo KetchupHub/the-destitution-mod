@@ -1068,7 +1068,7 @@ class PlayState extends MusicBeatState
         bgPlayer.playAnim("walk", true);
         add(bgPlayer);
 
-        fgGf = new Character(96, 360, 'desti-fg-gf', false, false);
+        fgGf = new Character(16, 480, 'desti-fg-gf', false, false);
         fgGf.scrollFactor.set();
         fgGf.visible = false;
 
@@ -3733,10 +3733,10 @@ class PlayState extends MusicBeatState
       if (gf != null)
       {
         gf.playAnim('cheer', true);
-        //if (gf.visible)
-        //{
+        // if (gf.visible)
+        // {
         //  snapCamFollowToPos(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
-        //}
+        // }
       }
     }
 
@@ -4043,10 +4043,10 @@ class PlayState extends MusicBeatState
     if (combo > 5 && gf != null)
     {
       gf.playAnim('sad', true);
-      //if (gf.visible)
-      //{
+      // if (gf.visible)
+      // {
       //  snapCamFollowToPos(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
-      //}
+      // }
     }
 
     combo = 0;
@@ -4881,10 +4881,13 @@ class PlayState extends MusicBeatState
    */
   public function addSubtitleObj(text:String, duration:Float, style:SubtitleTypes)
   {
-    var subOb:SubtitleObject = new SubtitleObject(310, style == SubtitleTypes.SCIENCEY ? 310 : 496, text, duration, style);
+    var subOb:SubtitleObject = new SubtitleObject(310, style == SubtitleTypes.SCIENCEY ? 310 : 496, text, duration - (Conductor.stepCrochet / 1000), style);
     subOb.scrollFactor.set();
     subOb.cameras = [camSubtitlesAndSuch];
     add(subOb);
+    // so it 100% goes over the last ones fadeout
+    // this doesnt fuicking work i hate my life
+    // insert(10, subOb);
   }
 
   /**

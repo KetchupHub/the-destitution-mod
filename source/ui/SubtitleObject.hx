@@ -72,7 +72,7 @@ class SubtitleObject extends FlxSpriteGroup
       scaleTarget = 1;
     }
 
-    FlxTween.tween(_textObj, {alpha: 0, 'scale.x': scaleTarget, 'scale.y': scaleTarget}, Conductor.crochet / 1100,
+    FlxTween.tween(_textObj, {alpha: 0, 'scale.x': scaleTarget, 'scale.y': scaleTarget}, Conductor.crochet / 1500,
       {
         ease: EaseUtil.stepped(4),
         onComplete: function the(tw:FlxTween)
