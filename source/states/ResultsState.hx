@@ -73,6 +73,8 @@ class ResultsState extends MusicBeatState
 
   public var elapsedTotal:Float;
 
+  public var hasFadedOut:Bool = false;
+
   public var bgMovementMulti:Float = 0;
   public var bgMovementMultiTarget:Float = 1;
 
@@ -290,6 +292,21 @@ class ResultsState extends MusicBeatState
     if (FlxG.sound.music != null)
     {
       Conductor.songPosition = FlxG.sound.music.time;
+    }
+
+    if (FlxG.keys.justPressed.F)
+    {
+      if (!hasFadedOut)
+      {
+        FlxG.camera.fade(FlxColor.BLACK, (Conductor.crochet / 1000) * 32, false);
+
+        hasFadedOut = true;
+      }
+    }
+
+    if (hasFadedOut)
+    {
+      FlxG.sound.music.volume -= 0.075 * elapsed;
     }
 
     if ((controls.ACCEPT || controls.BACK) && !selectedSomethin)

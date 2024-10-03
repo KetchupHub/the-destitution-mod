@@ -34,7 +34,7 @@ class Destitution extends SongClass
     this.skipCountdown = false;
     this.preloadCharacters = [
       'mark', 'mark-alt', 'mark-annoyed', 'mark-angry', 'ploinky', 'ili-devil', 'item', 'whale', 'rulez', 'crypteh', 'zam', 'bf-mark', 'bf-mark-ploink',
-      'bf-mark-lurking', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh', 'bf-mark-annoyed', 'bg-player', 'stop-loading'
+      'bf-mark-lurking', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh', 'bf-mark-annoyed', 'bg-player', 'desti-fg-gf', 'stop-loading'
     ];
     this.introCardBeat = 64;
   }
@@ -534,7 +534,27 @@ class Destitution extends SongClass
           PlayState.instance.dad.canSing = false;
           PlayState.instance.dad.playAnim("lipsync", true);
 
+          FlxTween.tween(PlayState.instance.gf, {alpha: 0}, Conductor.crochet / 250,
+            {
+              ease: EaseUtil.stepped(8),
+              onComplete: function puss(fff:FlxTween)
+              {
+                PlayState.instance.gf.visible = false;
+              }
+            });
+
           Paths.clearUnusedMemory();
+        }
+        else
+        {
+          FlxTween.tween(PlayState.instance.fgGf, {alpha: 0}, Conductor.crochet / 250,
+            {
+              ease: EaseUtil.stepped(8),
+              onComplete: function puss(fff:FlxTween)
+              {
+                PlayState.instance.fgGf.visible = false;
+              }
+            });
         }
 
         PlayState.instance.bgPlayer.canDance = false;
@@ -568,6 +588,8 @@ class Destitution extends SongClass
         PlayState.instance.bgPlayer.dance();
         FlxG.camera.flash();
         PlayState.instance.bgPlayerWalkTarget += 2800;
+      case 448:
+        PlayState.instance.fgGf.visible = true;
       case 576:
         // 1.01 instead of just 1 to prevent weird edge clipping? damn
         PlayState.instance.defaultCamZoom = 1.01;
@@ -764,10 +786,10 @@ class Destitution extends SongClass
 
           for (spitem in PlayState.instance.spaceItems.members)
           {
-            FlxTween.tween(spitem, {'scale.x': 0, 'scale.y': 0}, 1.5 / PlayState.instance.playbackRate, {ease: EaseUtil.stepped(4)});
+            FlxTween.tween(spitem, {'scale.x': 0, 'scale.y': 0}, 1.5 / PlayState.instance.playbackRate, {ease: EaseUtil.stepped(8)});
           }
 
-          PlayState.instance.space.destroy();
+          FlxTween.tween(PlayState.instance.space, {alpha: 0}, 1.5 / PlayState.instance.playbackRate, {ease: EaseUtil.stepped(8)});
 
           var fuckyouman:FlxTimer = new FlxTimer().start(1.55 / PlayState.instance.playbackRate, function dierels(fuck:FlxTimer)
           {

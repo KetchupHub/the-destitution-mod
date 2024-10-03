@@ -252,6 +252,7 @@ class PlayState extends MusicBeatState
   public var dad:Character = null;
   public var gf:Character = null;
   public var bgPlayer:Character;
+  public var fgGf:Character;
 
   public var boyfriend:Boyfriend = null;
 
@@ -549,6 +550,11 @@ class PlayState extends MusicBeatState
     {
       add(chefBanner);
       chefBanner.visible = false;
+    }
+
+    if (fgGf != null)
+    {
+      add(fgGf);
     }
 
     if (theSmog != null)
@@ -1058,6 +1064,10 @@ class PlayState extends MusicBeatState
         bgPlayer.x -= 1400;
         bgPlayer.playAnim("walk", true);
         add(bgPlayer);
+
+        fgGf = new Character(96, 360, 'desti-fg-gf', false, false);
+        fgGf.scrollFactor.set();
+        fgGf.visible = false;
 
         cuttingSceneThing = new PixelPerfectSprite();
         cuttingSceneThing.frames = Paths.getSparrowAtlas("ui/cutting_scene");
@@ -1696,7 +1706,7 @@ class PlayState extends MusicBeatState
       + ratingName
       + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
 
-    if (ClientPrefs.scoreZoom && !miss && !cpuControlled)
+    if (ClientPrefs.scoreZoom && !miss)
     {
       if (scoreTxtTween != null)
       {
@@ -3526,7 +3536,10 @@ class PlayState extends MusicBeatState
         percent = 0;
       }
 
-      Highscore.saveScore(SONG.song, songScore, percent);
+      if (!practiceMode && !cpuControlled)
+      {
+        Highscore.saveScore(SONG.song, songScore, percent);
+      }
 
       playbackRate = 1;
 
@@ -3649,16 +3662,13 @@ class PlayState extends MusicBeatState
       spawnNoteSplashOnNote(note);
     }
 
-    if (!practiceMode && !cpuControlled)
-    {
-      songScore += score;
+    songScore += score;
 
-      if (!note.ratingDisabled)
-      {
-        songHits++;
-        totalPlayed++;
-        recalculateRating(false);
-      }
+    if (!note.ratingDisabled)
+    {
+      songHits++;
+      totalPlayed++;
+      recalculateRating(false);
     }
 
     var ratingsSuffix:String = songObj.ratingsType;
@@ -3714,6 +3724,18 @@ class PlayState extends MusicBeatState
     }
 
     seperatedScore.push(combo % 10);
+
+    if (Std.string(combo).endsWith('00') && combo >= 100)
+    {
+      if (gf != null)
+      {
+        gf.playAnim('cheer', true);
+        if (gf.visible)
+        {
+          snapCamFollowToPos(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
+        }
+      }
+    }
 
     var daLoop:Int = 0;
     var xThing:Float = 0;
@@ -4015,6 +4037,15 @@ class PlayState extends MusicBeatState
       }
     });
 
+    if (combo > 5 && gf != null)
+    {
+      gf.playAnim('sad', true);
+      if (gf.visible)
+      {
+        snapCamFollowToPos(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
+      }
+    }
+
     combo = 0;
 
     health -= daNote.missHealth * healthLoss;
@@ -4074,9 +4105,10 @@ class PlayState extends MusicBeatState
       doDeathCheck(true);
     }
 
-    if (combo > 5 && gf != null && gf.animOffsets.exists('sad'))
+    if (combo > 5 && gf != null)
     {
       gf.playAnim('sad', true);
+      snapCamFollowToPos(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
     }
 
     combo = 0;
@@ -4085,11 +4117,6 @@ class PlayState extends MusicBeatState
     {
       songScore -= 10;
     }
-
-    /*if (!endingSong)
-      {
-        songMisses++;
-    }*/
 
     totalPlayed++;
 
@@ -4476,6 +4503,11 @@ class PlayState extends MusicBeatState
       {
         karmScaredy.animation.play("idle", true);
       }
+    }
+
+    if (fgGf != null && curBeat % 2 == 0)
+    {
+      fgGf.dance();
     }
 
     if (curBeat % bgColorsCrazyBeats == 0 && funnyBgColorsPumpin)
