@@ -256,6 +256,9 @@ class PlayState extends MusicBeatState
 
   public var boyfriend:Boyfriend = null;
 
+  public var dadRunBod:Character = null;
+  public var boyfriendRunBod:Boyfriend = null;
+
   #if !SHOWCASEVIDEO
   public var botplayTxt:PixelPerfectSprite;
   #end
@@ -3730,10 +3733,10 @@ class PlayState extends MusicBeatState
       if (gf != null)
       {
         gf.playAnim('cheer', true);
-        if (gf.visible)
-        {
-          snapCamFollowToPos(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
-        }
+        //if (gf.visible)
+        //{
+        //  snapCamFollowToPos(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
+        //}
       }
     }
 
@@ -4040,10 +4043,10 @@ class PlayState extends MusicBeatState
     if (combo > 5 && gf != null)
     {
       gf.playAnim('sad', true);
-      if (gf.visible)
-      {
-        snapCamFollowToPos(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
-      }
+      //if (gf.visible)
+      //{
+      //  snapCamFollowToPos(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
+      //}
     }
 
     combo = 0;
@@ -4108,7 +4111,6 @@ class PlayState extends MusicBeatState
     if (combo > 5 && gf != null)
     {
       gf.playAnim('sad', true);
-      snapCamFollowToPos(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
     }
 
     combo = 0;

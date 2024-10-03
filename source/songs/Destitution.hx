@@ -1,5 +1,6 @@
 package songs;
 
+import flixel.animation.FlxAnimationController;
 import util.EaseUtil;
 import openfl.filters.ShaderFilter;
 import ui.SubtitleObject.SubtitleTypes;
@@ -33,8 +34,9 @@ class Destitution extends SongClass
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = [
-      'mark', 'mark-alt', 'mark-annoyed', 'mark-angry', 'ploinky', 'ili-devil', 'item', 'whale', 'rulez', 'crypteh', 'zam', 'bf-mark', 'bf-mark-ploink',
-      'bf-mark-lurking', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh', 'bf-mark-annoyed', 'bg-player', 'desti-fg-gf', 'stop-loading'
+      'mark', 'mark-alt', 'mark-annoyed', 'mark-annoyed-run', 'mark-annoyed-run-body', 'mark-annoyed-p3', 'mark-angry', 'ploinky', 'ili-devil', 'item',
+      'whale', 'rulez', 'crypteh', 'zam', 'bf-mark', 'bf-mark-ploink', 'bf-mark-lurking', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh',
+      'bf-mark-annoyed', 'bf-mark-annoyed-run', 'bf-mark-annoyed-run-body', 'bf-mark-annoyed-p3', 'bf-mark-angry', 'bg-player', 'desti-fg-gf', 'stop-loading'
     ];
     this.introCardBeat = 64;
   }
@@ -945,6 +947,7 @@ class Destitution extends SongClass
         PlayState.instance.annoyed.animation.play("idle", true);
         PlayState.instance.centerCamOnBg = true;
       case 1780:
+        // phase 1
         PlayState.instance.cuttingSceneThing.visible = false;
         PlayState.instance.centerCamOnBg = false;
         PlayState.instance.shoulderCam = true;
@@ -985,6 +988,44 @@ class Destitution extends SongClass
         }
 
         Paths.clearUnusedMemory();
+      case 1908:
+        // switch to phase 2 (running)
+        FlxG.camera.flash();
+
+        PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+        PlayState.instance.dad.destroy();
+        PlayState.instance.dadRunBod = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'mark-annoyed-run-body', false, false);
+        PlayState.instance.dadGroup.add(PlayState.instance.dadRunBod);
+        PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'mark-annoyed-run', false, false);
+        PlayState.instance.dadGroup.add(PlayState.instance.dad);
+
+        PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+        PlayState.instance.boyfriend.destroy();
+        PlayState.instance.boyfriendRunBod = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'bf-mark-annoyed-run-body', false);
+        PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriendRunBod);
+        PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'bf-mark-annoyed-run', false);
+        PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
+      case 1970:
+        // slow down animations
+        FlxTween.tween(FlxAnimationController, {globalSpeed: 0}, Conductor.crochet / 1000);
+      case 1972:
+        // switch to phase 3, and change back global speed
+        FlxG.camera.flash();
+
+        FlxAnimationController.globalSpeed = PlayState.instance.playbackRate;
+
+        PlayState.instance.dadRunBod.visible = false;
+        PlayState.instance.boyfriendRunBod.visible = false;
+
+        PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+        PlayState.instance.dad.destroy();
+        PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'mark-annoyed-p3', false, false);
+        PlayState.instance.dadGroup.add(PlayState.instance.dad);
+
+        PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+        PlayState.instance.boyfriend.destroy();
+        PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'bf-mark-annoyed-p3', false);
+        PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
       case 2036:
         PlayState.instance.rulezGuySlideScaleWorldFunnyClips.animation.play("intro", true);
       case 2044:
