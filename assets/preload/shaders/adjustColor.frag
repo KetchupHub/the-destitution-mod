@@ -29,22 +29,29 @@ vec3 applyHSBCEffect(vec3 color)
 
 vec4 applyColorTransform(vec4 color)
 {
-    if (color.a == 0.) {
+    if (color.a == 0.)
+    {
         return vec4(0.);
     }
-    if (!hasTransform) {
+
+    if (!hasTransform)
+    {
         return color;
     }
-    if (!hasColorTransform) {
+
+    if (!hasColorTransform)
+    {
         return color * openfl_Alphav;
     }
     
     color = vec4(color.rgb / color.a, color.a);
     color = clamp(openfl_ColorOffsetv + color * openfl_ColorMultiplierv, 0., 1.);
 
-    if (color.a > 0.) {
+    if (color.a > 0.)
+    {
         return vec4(color.rgb * color.a * openfl_Alphav, color.a * openfl_Alphav);
     }
+
     return vec4(0.);
 }
 

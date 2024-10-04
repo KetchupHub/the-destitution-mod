@@ -371,6 +371,11 @@ class Character extends PixelPerfectSprite
 
   inline public function getAnimationName():String
   {
+    if (isAnimateAtlas && atlas == null)
+    {
+      return '';
+    }
+
     var name:String = '';
     @:privateAccess
     if (!isAnimationNull())
@@ -383,6 +388,11 @@ class Character extends PixelPerfectSprite
 
   public function isAnimationFinished():Bool
   {
+    if (isAnimateAtlas && atlas == null)
+    {
+      return false;
+    }
+
     if (isAnimationNull())
     {
       return false;
@@ -393,6 +403,11 @@ class Character extends PixelPerfectSprite
 
   public function finishAnimation():Void
   {
+    if (isAnimateAtlas && atlas == null)
+    {
+      return;
+    }
+
     if (isAnimationNull())
     {
       return;
@@ -410,6 +425,11 @@ class Character extends PixelPerfectSprite
 
   public function get_animPaused():Bool
   {
+    if (isAnimateAtlas && atlas == null)
+    {
+      return false;
+    }
+
     if (isAnimationNull())
     {
       return false;
@@ -420,6 +440,11 @@ class Character extends PixelPerfectSprite
 
   public function set_animPaused(value:Bool):Bool
   {
+    if (isAnimateAtlas && atlas == null)
+    {
+      return false;
+    }
+
     if (isAnimationNull())
     {
       return value;
@@ -624,6 +649,11 @@ class Character extends PixelPerfectSprite
 
   public function quickAnimAdd(name:String, anim:String)
   {
+    if (isAnimateAtlas)
+    {
+      return;
+    }
+
     animation.addByPrefix(name, anim, 24, false);
   }
 

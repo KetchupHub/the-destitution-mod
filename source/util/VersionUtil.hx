@@ -1,4 +1,4 @@
-package funkin.util;
+package util;
 
 import thx.semver.Version;
 import thx.semver.VersionRule;

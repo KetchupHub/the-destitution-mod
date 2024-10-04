@@ -34,9 +34,6 @@ import lime.system.Clipboard;
 import flixel.animation.FlxAnimation;
 import ui.HealthIcon;
 import backend.ClientPrefs;
-#if MODS_ALLOWED
-import sys.FileSystem;
-#end
 
 /**
  * The character editor screen.

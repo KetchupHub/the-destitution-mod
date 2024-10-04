@@ -1,4 +1,4 @@
-package funkin.util;
+package util;
 
 import flixel.FlxG;
 import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;

@@ -5,10 +5,6 @@ import backend.ClientPrefs;
 import util.MemoryUtil;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
-#if gl_stats
-import openfl.display._internal.stats.Context3DStats;
-import openfl.display._internal.stats.DrawCallContext;
-#end
 #if flash
 import openfl.Lib;
 #end
@@ -109,12 +105,6 @@ class FPS extends TextField
       {
         textColor = 0xFFFF0000;
       }
-
-      #if (gl_stats && !disable_cffi && (!html5 || !canvas))
-      text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
-      text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
-      text += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
-      #end
 
       text += "\n";
     }

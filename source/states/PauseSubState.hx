@@ -297,8 +297,6 @@ class PauseSubState extends MusicBeatSubstate
 
           PlayState.seenCutscene = false;
 
-          WeekData.loadTheFirstEnabledMod();
-
           FlxTransitionableState.skipNextTransIn = true;
           FlxTransitionableState.skipNextTransOut = true;
 

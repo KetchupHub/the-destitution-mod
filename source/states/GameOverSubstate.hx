@@ -204,8 +204,6 @@ class GameOverSubstate extends MusicBeatSubstate
       MemoryUtil.collect(true);
       MemoryUtil.compact();
 
-      WeekData.loadTheFirstEnabledMod();
-
       FlxTransitionableState.skipNextTransIn = true;
       FlxTransitionableState.skipNextTransOut = true;
 

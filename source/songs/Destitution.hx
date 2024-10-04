@@ -691,17 +691,22 @@ class Destitution extends SongClass
 
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
-        PlayState.instance.dad = new Character(564 - PlayState.instance.dadGroup.x, 64 - PlayState.instance.dadGroup.y, 'ili-devil', false, false);
+        PlayState.instance.dad = new Character(640 - PlayState.instance.dadGroup.x, -64 - PlayState.instance.dadGroup.y, 'ili-devil', false, false);
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
-        PlayState.instance.dad.scrollFactor.set(0, 0);
-        PlayState.instance.dadGroup.scrollFactor.set(0, 0);
+
+        PlayState.instance.dad.screenCenter();
+        PlayState.instance.dad.x += 156;
+        PlayState.instance.dad.y -= 64;
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
-        PlayState.instance.boyfriend = new Boyfriend(128, 84, 'bf-mark-lurking', false);
+        PlayState.instance.boyfriend = new Boyfriend(128 - PlayState.instance.boyfriendGroup.x, 84 - PlayState.instance.boyfriendGroup.y, 'bf-mark-lurking',
+          false);
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
-        PlayState.instance.boyfriend.scrollFactor.set(0, 0);
-        PlayState.instance.boyfriendGroup.scrollFactor.set(0, 0);
+
+        PlayState.instance.boyfriend.screenCenter();
+        PlayState.instance.boyfriend.x -= 256;
+        PlayState.instance.boyfriend.y += 64;
 
         FlxG.camera.flash(FlxColor.RED, 3);
 
@@ -726,8 +731,6 @@ class Destitution extends SongClass
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
         PlayState.instance.dad.x += 160;
         PlayState.instance.dad.y -= 520;
-        PlayState.instance.dad.scrollFactor.set(1, 1);
-        PlayState.instance.dadGroup.scrollFactor.set(1, 1);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
@@ -735,8 +738,6 @@ class Destitution extends SongClass
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.x -= 700;
         PlayState.instance.boyfriend.y -= 574;
-        PlayState.instance.boyfriend.scrollFactor.set(1, 1);
-        PlayState.instance.boyfriendGroup.scrollFactor.set(1, 1);
 
         PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
         PlayState.instance.reloadHealthBarColors();

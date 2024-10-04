@@ -130,8 +130,6 @@ class PlayState extends MusicBeatState
   public var precacheList:Map<String, String> = new Map<String, String>();
   public var controlArray:Array<String>;
 
-  public static var storyPlaylist:Array<String> = [];
-
   public var songTime:Float = 0;
   public var elapsedTotal:Float;
   public var totalNotesHit:Float = 0.0;
@@ -185,9 +183,7 @@ class PlayState extends MusicBeatState
   public var lastBeatHit:Int = -1;
   public var gfSpeed:Int = 1;
   public var combo:Int = 0;
-
-  public static var storyWeek:Int = 0;
-
+  
   public var synergys:Int = 0;
   public var goods:Int = 0;
   public var eghs:Int = 0;
@@ -1869,13 +1865,8 @@ class PlayState extends MusicBeatState
     var songName:String = Paths.formatToSongPath(SONG.song);
     var file:String = Paths.json(songName + '/events');
 
-    #if MODS_ALLOWED
-    if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(file))
-    {
-    #else
     if (OpenFlAssets.exists(file))
     {
-    #end
       var eventsData:Array<Dynamic> = Song.loadFromJson(songName).events;
 
       for (event in eventsData)
@@ -3546,7 +3537,6 @@ class PlayState extends MusicBeatState
 
       playbackRate = 1;
 
-      WeekData.loadTheFirstEnabledMod();
       cancelMusicFadeTween();
 
       FlxTransitionableState.skipNextTransIn = true;

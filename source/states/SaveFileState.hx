@@ -50,8 +50,6 @@ class SaveFileState extends MusicBeatState
 
     FlxG.mouse.visible = false;
 
-    WeekData.loadTheFirstEnabledMod();
-
     #if desktop
     // Updating Discord Rich Presence
     DiscordClient.changePresence("Picking a Save File", null, null, '-rpg');

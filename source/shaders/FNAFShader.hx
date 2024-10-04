@@ -22,8 +22,5 @@ class FNAFShader extends FlxRuntimeShader
     return this.depth;
   }
 
-  public function update(elapsed:Float)
-  {
-    // iughghghheuiefbuodb
-  }
+  public function update(elapsed:Float) {}
 }

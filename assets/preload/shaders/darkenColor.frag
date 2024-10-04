@@ -10,7 +10,8 @@ uniform float colorBlue;
 // If the source pixel is darker, the destination pixel is replaced with the source pixel.
 // If the source pixel is lighter, the provided color is used instead..
 
-void main() {
+void main()
+{
 	// Get the texture to apply to.
 	vec4 color = flixel_texture2D(bitmap, openfl_TextureCoordv);
 

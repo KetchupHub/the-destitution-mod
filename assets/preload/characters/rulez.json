@@ -43,6 +43,14 @@
       "anim": "idle",
       "indices": [],
       "name": "idle"
+    },
+    {
+      "loop": false,
+      "offsets": [1450, 48],
+      "fps": 24,
+      "anim": "gameover",
+      "indices": [],
+      "name": "gameover"
     }
   ],
   "animator": null,

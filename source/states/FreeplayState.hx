@@ -106,8 +106,6 @@ class FreeplayState extends MusicBeatState
       }
     }
 
-    WeekData.loadTheFirstEnabledMod();
-
     enteringMenu = true;
 
     bg = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
@@ -579,7 +577,6 @@ class FreeplayState extends MusicBeatState
     descText.text = SongInit.genSongObj(songs[curSelected].songName.toLowerCase()).songDescription;
 
     Paths.currentModDirectory = songs[curSelected].folder;
-    PlayState.storyWeek = songs[curSelected].week;
   }
 
   public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)

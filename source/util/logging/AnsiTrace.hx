@@ -1,7 +1,6 @@
 package util.logging;
 
 import haxe.PosInfos;
-import haxe.exceptions.NotImplementedException;
 
 class AnsiTrace
 {
@@ -10,14 +9,8 @@ class AnsiTrace
   public static function trace(v:Dynamic, ?info:PosInfos)
   {
     var str = formatOutput(v, info);
-    #if js
-    if (js.Syntax.typeof(untyped console) != "undefined" && (untyped console).log != null) (untyped console).log(str);
-    #elseif lua
-    untyped __define_feature__("use._hx_print", _hx_print(str));
-    #elseif sys
+    #if sys
     Sys.println(str);
-    #else
-    throw new NotImplementedException()
     #end
   }
 

@@ -1,7 +1,6 @@
 package backend;
 
 import util.CoolUtil;
-import states.PlayState;
 import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
 import haxe.Json;
@@ -137,14 +136,14 @@ class WeekData
     return null;
   }
 
-  public static function getWeekFileName():String
+  public static function getWeekFileName(weekNum:Int = 0):String
   {
-    return weeksList[PlayState.storyWeek];
+    return weeksList[weekNum];
   }
 
-  public static function getCurrentWeek():WeekData
+  public static function getCurrentWeek(weekNum:Int = 0):WeekData
   {
-    return weeksLoaded.get(weeksList[PlayState.storyWeek]);
+    return weeksLoaded.get(weeksList[weekNum]);
   }
 
   public static function setDirectoryFromWeek(?data:WeekData = null)
@@ -155,10 +154,5 @@ class WeekData
     {
       Paths.currentModDirectory = data.folder;
     }
-  }
-
-  public static function loadTheFirstEnabledMod()
-  {
-    Paths.currentModDirectory = '';
   }
 }

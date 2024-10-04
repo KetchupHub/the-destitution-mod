@@ -64,8 +64,6 @@ class MainMenuState extends MusicBeatState
 
     FlxG.mouse.visible = false;
 
-    WeekData.loadTheFirstEnabledMod();
-
     #if desktop
     // Updating Discord Rich Presence
     DiscordClient.changePresence("In the Main Menu", null, null, '-menus');

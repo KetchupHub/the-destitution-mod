@@ -14,10 +14,14 @@ void main()
     
     float dir = 0.0;
 	
-    if (openfl_TextureCoordv.y <= 0.5) 
+    if (openfl_TextureCoordv.y <= 0.5)
+    {
         dir = 1.0;
+    }
     else
+    {
         dir = -1.0;
+    }
     
     vec2 coords = vec2(openfl_TextureCoordv.x, openfl_TextureCoordv.y + dx * (offset * uDepth * dir));
     

@@ -84,8 +84,6 @@ class TitleState extends MusicBeatState
     persistentUpdate = true;
     persistentDraw = true;
 
-    WeekData.loadTheFirstEnabledMod();
-
     FlxG.sound.muteKeys = muteKeys;
     FlxG.sound.volumeDownKeys = volumeDownKeys;
     FlxG.sound.volumeUpKeys = volumeUpKeys;

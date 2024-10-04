@@ -1,7 +1,7 @@
 package flixel.system.ui;
 
-import openfl.utils.Assets;
 #if FLX_SOUND_SYSTEM
+import openfl.utils.Assets;
 import flixel.FlxG;
 import openfl.display.Bitmap;
 import openfl.display.Sprite;

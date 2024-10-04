@@ -15,9 +15,6 @@ import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-#if MODS_ALLOWED
-import sys.FileSystem;
-#end
 import states.MusicBeatState;
 
 class MasterEditorMenu extends MusicBeatState

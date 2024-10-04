@@ -14,7 +14,6 @@ class AdjustColorShader extends FlxRuntimeShader
   public function new()
   {
     super(Assets.getText(Paths.frag('adjustColor')));
-    // FlxG.debugger.addTrackerProfile(new TrackerProfile(HSVShader, ['hue', 'saturation', 'brightness', 'contrast']));
     hue = 0;
     saturation = 0;
     brightness = 0;

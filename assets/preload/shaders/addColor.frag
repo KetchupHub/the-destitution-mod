@@ -7,7 +7,8 @@ uniform float colorBlue;
 
 // The add blend mode adds the source and destination colors.
 
-void main() {
+void main()
+{
 	// Get the texture to apply to.
 	vec4 color = flixel_texture2D(bitmap, openfl_TextureCoordv);
 

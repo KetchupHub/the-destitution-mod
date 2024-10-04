@@ -1,5 +1,6 @@
-package funkin.util;
+package util;
 
+import openfl.ui.Keyboard;
 import flixel.util.FlxSignal.FlxTypedSignal;
 
 using StringTools;
@@ -92,12 +93,9 @@ class WindowUtil
     });
 
     openfl.Lib.current.stage.addEventListener(openfl.events.KeyboardEvent.KEY_DOWN, (e:openfl.events.KeyboardEvent) -> {
-      for (key in PlayerSettings.player1.controls.getKeysForAction(WINDOW_FULLSCREEN))
+      if (e.keyCode == Keyboard.F12)
       {
-        if (e.keyCode == key)
-        {
-          openfl.Lib.application.window.fullscreen = !openfl.Lib.application.window.fullscreen;
-        }
+        openfl.Lib.application.window.fullscreen = !openfl.Lib.application.window.fullscreen;
       }
     });
   }

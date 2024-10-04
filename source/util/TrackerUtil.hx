@@ -1,4 +1,4 @@
-package funkin.util;
+package util;
 
 // This may or may not already be imported via imports.hx...
 import flixel.system.debug.watch.Tracker;

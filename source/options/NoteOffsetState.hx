@@ -237,16 +237,6 @@ class NoteOffsetState extends MusicBeatState
 
   override public function update(elapsed:Float)
   {
-    #if !SHOWCASEVIDEO
-    if (CoolUtil.randomAudio.bool(0.0001 / (ClientPrefs.framerate / 8)))
-    {
-      #if DEVELOPERBUILD
-      trace('yous won: rare sound');
-      #end
-      FlxG.sound.play(Paths.sound('rare'));
-    }
-    #end
-
     var addNum:Int = 1;
     if (FlxG.keys.pressed.SHIFT)
     {
