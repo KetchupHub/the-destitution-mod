@@ -17,22 +17,12 @@ class SongInit
         returnSong = new Fundamentals();
       case 'destitution':
         returnSong = new Destitution();
-      case 'hellspawn':
-        returnSong = new Hellspawn();
-      case 'exhaust':
-        returnSong = new Exhaust();
       case 'superseded':
         returnSong = new Superseded();
-      case 'crumbs':
-        returnSong = new Crumbs();
       case 'quickshot':
         returnSong = new Quickshot();
       case 'd-stitution':
         returnSong = new DStitution();
-      case 'diskrot':
-        returnSong = new Diskrot();
-      case 'automachina':
-        returnSong = new Automachina();
       case 'countdown':
         returnSong = new Countdown();
       case 'eggshells':
@@ -47,6 +37,8 @@ class SongInit
         returnSong = new Megamix();
       case 'topkicks':
         returnSong = new Topkicks();
+      case 'quanta':
+        returnSong = new Quanta();
       case 'abstraction':
         returnSong = new Abstraction();
       // erects
@@ -54,28 +46,20 @@ class SongInit
         returnSong = new Fundamentals();
       case 'destitution-erect':
         returnSong = new Destitution();
-      case 'hellspawn-erect':
-        returnSong = new Hellspawn();
-      case 'exhaust-erect':
-        returnSong = new Exhaust();
       case 'superseded-erect':
         returnSong = new Superseded();
-      case 'crumbs-erect':
-        returnSong = new Crumbs();
       case 'quickshot-erect':
         returnSong = new Quickshot();
       case 'd-stitution-erect':
         returnSong = new DStitution();
-      case 'diskrot-erect':
-        returnSong = new Diskrot();
-      case 'automachina-erect':
-        returnSong = new Automachina();
       case 'eggshells-erect':
         returnSong = new Eggshells();
       case 'collapse-erect':
         returnSong = new Collapse();
       case 'topkicks-erect':
         returnSong = new Topkicks();
+      case 'quanta-erect':
+        returnSong = new Quanta();
       case 'abstraction-erect':
         returnSong = new Abstraction();
     }

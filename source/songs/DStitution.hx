@@ -260,7 +260,7 @@ class DStitution extends SongClass
         PlayState.instance.sectionIntroThing("Douglass Dolphin");
 
         Paths.clearUnusedMemory();
-      case 1758:
+      case 1832:
         FlxG.camera.flash();
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
@@ -283,7 +283,7 @@ class DStitution extends SongClass
         PlayState.instance.sectionIntroThing("Being Rude is Not Nice!");
 
         Paths.clearUnusedMemory();
-      case 2072:
+      case 2240:
         FlxG.camera.flash();
 
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
@@ -320,7 +320,7 @@ class DStitution extends SongClass
         }
 
         Paths.clearUnusedMemory();
-      case 2504:
+      case 2672:
         FlxG.camera.flash();
 
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
@@ -351,7 +351,7 @@ class DStitution extends SongClass
         }
 
         Paths.clearUnusedMemory();
-      case 3056:
+      case 3224:
         FlxG.camera.flash();
 
         PlayState.instance.defaultCamZoom = 1;
@@ -363,6 +363,10 @@ class DStitution extends SongClass
 
         PlayState.instance.dad.screenCenter();
 
+        PlayState.instance.dad.canDance = false;
+        PlayState.instance.dad.canSing = false;
+        PlayState.instance.dad.playAnim('bark', true);
+
         PlayState.instance.boyfriend.visible = false;
 
         PlayState.instance.sky.destroy();
@@ -370,8 +374,6 @@ class DStitution extends SongClass
 
         PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
         PlayState.instance.reloadHealthBarColors();
-
-        PlayState.instance.sectionIntroThing("Zam-boney!");
 
         if (!ClientPrefs.middleScroll)
         {
@@ -391,7 +393,12 @@ class DStitution extends SongClass
         }
 
         Paths.clearUnusedMemory();
-      case 3568:
+      case 3240:
+        FlxG.camera.flash();
+        PlayState.instance.dad.canDance = true;
+        PlayState.instance.dad.canSing = true;
+        PlayState.instance.sectionIntroThing("Zam-boney!");
+      case 3736:
         FlxG.camera.flash();
 
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
@@ -399,14 +406,32 @@ class DStitution extends SongClass
         PlayState.instance.dad = new Character(0, 0, 'karm-finale', false, false);
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
+        PlayState.instance.dad.canDance = false;
+        PlayState.instance.dad.canSing = false;
+        PlayState.instance.dad.playAnim('intro', true);
+
         PlayState.instance.dad.screenCenter();
 
         PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
         PlayState.instance.reloadHealthBarColors();
 
-        PlayState.instance.sectionIntroThing("Karm Kurt Karmason Jr. (C)");
-
         Paths.clearUnusedMemory();
+      case 3740:
+        FlxG.camera.flash();
+        FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250, {ease: EaseUtil.stepped(4)});
+        FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.1}, Conductor.crochet / 500, {ease: FlxEase.cubeOut});
+        PlayState.instance.defaultCamZoom += 0.1;
+        PlayState.instance.dad.canDance = false;
+        PlayState.instance.dad.canSing = false;
+        PlayState.instance.dad.playAnim("lipsync", true);
+      case 3804:
+        FlxG.camera.flash();
+        FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
+        FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom - 0.1}, Conductor.crochet / 500, {ease: FlxEase.cubeInOut});
+        PlayState.instance.defaultCamZoom -= 0.1;
+        PlayState.instance.dad.canDance = true;
+        PlayState.instance.dad.canSing = true;
+        PlayState.instance.sectionIntroThing("Karm Kurt Karmason Jr. (C)");
     }
   }
 }

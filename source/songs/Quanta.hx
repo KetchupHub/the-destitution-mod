@@ -8,16 +8,16 @@ import states.PlayState;
 /**
  * Song class template.
  */
-class Crumbs extends SongClass
+class Quanta extends SongClass
 {
   public override function new()
   {
     super();
-    this.songNameForDisplay = 'CRUMBS...';
+    this.songNameForDisplay = 'Quanta';
     this.songHasSections = false;
     this.introType = 'Default';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "Darnit! Look what just crawled out of Mark's Time Machine!";
+    this.songDescription = "A flashback of quantum proportions!";
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];

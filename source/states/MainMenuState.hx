@@ -306,11 +306,9 @@ class MainMenuState extends MusicBeatState
               switch (daChoice)
               {
                 case 'story_mode':
-                  FlxTransitionableState.skipNextTransIn = false;
-                  FlxTransitionableState.skipNextTransOut = false;
-                  FlxG.sound.music.stop();
-                  FlxG.sound.music = null;
-                  MusicBeatState.switchState(new SaveFileState());
+                  FlxTransitionableState.skipNextTransIn = true;
+                  FlxTransitionableState.skipNextTransOut = true;
+                  MusicBeatState.switchState(new FreeplayState());
                 case 'freeplay':
                   FlxTransitionableState.skipNextTransIn = true;
                   FlxTransitionableState.skipNextTransOut = true;

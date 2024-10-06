@@ -17,7 +17,7 @@ class Quickshot extends SongClass
     this.songHasSections = false;
     this.introType = 'Default';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "SAVE Pearson from an evil spell!";
+    this.songDescription = "Pearson faces the Rulez Battalion in combat!";
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];

@@ -47,8 +47,7 @@
 	<assets path="assets/videos"        library="videos"        if="VIDEOS_ALLOWED"/>
 	<assets path="assets/songs"         library="songs"/>
 	<assets path="assets/rhythm"        library="rhythm"/>
-	<assets path="assets/rpg"        library="rpg"/>
-	
+		
 	<assets path="assets/fonts" />
 
 	<assets path='art/readme.txt' rename='Mark says Read This, Bubby!.txt' />

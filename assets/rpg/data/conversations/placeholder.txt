@@ -1,4 +1,0 @@
-0:0:This is a narrator dialogue, with no talkhead.
-1:0:Beep Bop! I'm Nopeboy! Haha!
-2:0:Placeholder Mark's Talk
-1:1:Yeah Yeah Beebis!
