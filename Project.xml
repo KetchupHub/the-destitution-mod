@@ -4,12 +4,10 @@
 
 	<app title="The Destitution Mod" file="The Destitution Mod" packageName="com.teamproductionspresents.thedestitutionmod" package="com.teamproductionspresents.thedestitutionmod" main="Main" version="3.0.0" company="Team Productions Presents" />
 
-	<!-- NOTE TO SELF: DISABLE THIS IF ISSUES ARE FOUND -->
-	<haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB"/> <!-- stable luas PUT AFTER FIRST LINE WITH APP NAME AND ETC -->
+	<haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB"/>
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
-	<!-- <app preloader="Preloader" resizable="true" /> -->
 	<app preloader="FunkinPreloader" />
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->

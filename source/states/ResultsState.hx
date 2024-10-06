@@ -87,6 +87,8 @@ class ResultsState extends MusicBeatState
 
   public var animname:String = 'results';
 
+  public var rankGfx:PixelPerfectSprite;
+
   public override function new(score:Int = 0, hiscore:Int = 0, synergys:Int = 0, goods:Int = 0, eghs:Int = 0, bleghs:Int = 0, botplay:Bool = false,
       percent:Float = 0, missed:Int = 0, ?variation:String = '', ?overrideRank:ResultRanks)
   {
@@ -262,6 +264,16 @@ class ResultsState extends MusicBeatState
     FlxTween.tween(accText, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 1.9});
     FlxTween.tween(scoreText, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 1.95});
 
+    rankGfx = new PixelPerfectSprite().loadGraphic(Paths.image('results/texts/' + realRank.getName().toLowerCase(), null, true));
+    if (Paths.image('results/texts/' + realRank.getName().toLowerCase(), null, true) == null)
+    {
+      rankGfx.loadGraphic(Paths.image('results/texts/placeholder'));
+    }
+    rankGfx.setPosition((FlxG.width - rankGfx.width) - 10, (FlxG.height - rankGfx.height) - 10);
+    rankGfx.alpha = 0;
+    add(rankGfx);
+    FlxTween.tween(rankGfx, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 2});
+
     botplayThing = new PixelPerfectSprite(FlxG.width - 130, 2).loadGraphic(Paths.image('ui/botplay'));
     botplayThing.scale.set(0.5, 0.5);
     botplayThing.updateHitbox();
@@ -332,6 +344,7 @@ class ResultsState extends MusicBeatState
       }
       FlxTween.tween(accText, {x: accText.x - 800}, 0.25, {ease: FlxEase.circIn});
       FlxTween.tween(scoreText, {x: scoreText.x - 800}, 0.25, {ease: FlxEase.circIn});
+      FlxTween.tween(rankGfx, {x: rankGfx.x + rankGfx.width + 25}, 0.25, {ease: FlxEase.circIn});
 
       var fuck:FlxTimer = new FlxTimer().start(0.75, function dire(fuckse:FlxTimer)
       {
