@@ -111,6 +111,94 @@ class DStitution extends SongClass
         PlayState.instance.dad.canDance = true;
         PlayState.instance.dad.canSing = true;
         PlayState.instance.disallowCamMove = false;
+      case 2236:
+        PlayState.instance.defaultCamZoom -= 0.2;
+      case 2384 | 2392 | 2448 | 2456:
+        PlayState.instance.defaultCamZoom += 0.15;
+      case 2400:
+        PlayState.instance.defaultCamZoom -= 0.3;
+      case 2464:
+        PlayState.instance.defaultCamZoom -= 0.1;
+      case 2516:
+        PlayState.instance.defaultCamZoom -= 0.1;
+        FlxG.camera.zoom -= 0.1;
+        PlayState.instance.moveCamera(false);
+        PlayState.instance.disallowCamMove = true;
+        PlayState.instance.snapCamFollowToPos(PlayState.instance.camFollow.x, PlayState.instance.camFollow.y);
+      case 2528:
+        PlayState.instance.defaultCamZoom += 0.1;
+        PlayState.instance.disallowCamMove = false;
+      case 2588:
+        PlayState.instance.defaultCamZoom += 0.4;
+        FlxG.camera.zoom += 0.4;
+      case 2596:
+        PlayState.instance.defaultCamZoom -= 0.65;
+      case 2720:
+        PlayState.instance.defaultCamZoom += 0.05;
+      case 3088:
+        PlayState.instance.defaultCamZoom += 0.4;
+      case 3104:
+        PlayState.instance.defaultCamZoom -= 0.2;
+      case 3232:
+        PlayState.instance.defaultCamZoom -= 0.1;
+      case 3264 | 3272 | 3280 | 3288 | 3328 | 3336 | 3344 | 3352:
+        FlxG.camera.zoom += 0.1;
+      case 3360:
+        PlayState.instance.defaultCamZoom -= 0.1;
+      case 3424:
+        PlayState.instance.defaultCamZoom += 0.1;
+      case 3636:
+        FlxG.camera.flash();
+        PlayState.instance.defaultCamZoom += 0.1;
+      case 3964:
+        PlayState.instance.defaultCamZoom += 0.15;
+      case 5464 | 5468:
+        FlxG.camera.zoom += 0.1;
+      case 5472:
+        FlxG.camera.flash();
+        PlayState.instance.defaultCamZoom += 0.2;
+      case 5536:
+        PlayState.instance.defaultCamZoom -= 0.1;
+      case 5724:
+        FlxG.camera.zoom -= 0.2;
+        PlayState.instance.defaultCamZoom -= 0.2;
+      case 5728:
+        FlxG.camera.flash();
+        PlayState.instance.defaultCamZoom += 0.1;
+      case 5856:
+        FlxG.camera.flash();
+        PlayState.instance.camZoomingMult = 1.5;
+        PlayState.instance.camZoomingDecay = 0.8;
+      case 5984:
+        FlxG.camera.zoom += 0.5;
+        PlayState.instance.camZoomingMult = 0;
+        PlayState.instance.camZoomingDecay = 1;
+      case 6016:
+        FlxG.camera.flash();
+        PlayState.instance.camZoomingMult = 1;
+      case 6040:
+        PlayState.instance.defaultCamZoom -= 0.1;
+      case 6080:
+        PlayState.instance.defaultCamZoom += 0.1;
+      case 6272:
+        FlxG.camera.flash();
+        PlayState.instance.defaultCamZoom += 0.1;
+      case 6400:
+        PlayState.instance.defaultCamZoom -= 0.1;
+      case 6608 | 6624 | 6636:
+        PlayState.instance.boyfriend.canSing = false;
+        PlayState.instance.boyfriend.canDance = false;
+        PlayState.instance.boyfriend.playAnim('warble', true);
+        FlxG.camera.zoom += 0.1;
+      case 6612 | 6628 | 6640:
+        PlayState.instance.boyfriend.canSing = true;
+        PlayState.instance.boyfriend.canDance = true;
+      case 6784 | 6912 | 7040 | 7168 | 7232 | 7296:
+        FlxG.camera.flash();
+        PlayState.instance.defaultCamZoom += 0.05;
+      case 7328:
+        FlxG.camera.flash();
+        PlayState.instance.defaultCamZoom -= 0.3;
     }
   }
 
@@ -175,7 +263,7 @@ class DStitution extends SongClass
         PlayState.instance.dad.visible = true;
         FlxG.camera.flash();
 
-        PlayState.instance.defaultCamZoom -= 0.15;
+        PlayState.instance.defaultCamZoom -= 0.3;
         FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, Conductor.crochet / 250, {ease: FlxEase.smootherStepOut});
 
         FlxTween.tween(PlayState.instance.boyfriend, {y: PlayState.instance.boyfriend.y + 136}, Conductor.crochet / 250, {ease: EaseUtil.stepped(8)});
