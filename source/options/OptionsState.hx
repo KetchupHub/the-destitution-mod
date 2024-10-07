@@ -1,13 +1,11 @@
 package options;
 
+import ui.TransitionScreenshotObject;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import flixel.util.FlxTimer;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.tweens.FlxEase;
-import flixel.graphics.FlxGraphic;
 import states.MainMenuState;
-import states.FreeplayState;
 import backend.ClientPrefs;
 import ui.Alphabet;
 import util.CoolUtil;
@@ -15,13 +13,8 @@ import util.MemoryUtil;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.FlxSubState;
 import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.util.FlxSave;
 import flixel.tweens.FlxTween;
-import flixel.input.keyboard.FlxKey;
-import backend.Controls;
 import states.MusicBeatState;
 #if desktop
 import backend.Discord.DiscordClient;
@@ -95,22 +88,9 @@ class OptionsState extends MusicBeatState
     bg.screenCenter();
     add(bg);
 
-    var transThing:FlxSprite = new FlxSprite();
-
-    if (CoolUtil.lastStateScreenShot != null)
-    {
-      transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
-      add(transThing);
-      FlxTween.tween(transThing, {alpha: 0}, 0.25,
-        {
-          ease: EaseUtil.stepped(4),
-          onComplete: function transThingDiesIrl(stupidScr:FlxTween)
-          {
-            transThing.visible = false;
-            transThing.destroy();
-          }
-        });
-    }
+    var transThing = new TransitionScreenshotObject();
+    add(transThing);
+    transThing.fadeout();
 
     optionsThingy = new PixelPerfectSprite();
     optionsThingy.frames = Paths.getSparrowAtlas('options/markbot');

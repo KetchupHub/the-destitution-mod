@@ -11,7 +11,6 @@ import visuals.Character;
 import backend.Conductor;
 import states.PlayState;
 import flixel.util.FlxTimer;
-import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
 import flixel.FlxG;
 import flixel.tweens.FlxEase;

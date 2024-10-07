@@ -1,7 +1,6 @@
 package options;
 
 import visuals.PixelPerfectSprite;
-import util.CoolUtil;
 import backend.ClientPrefs;
 import visuals.Character;
 import ui.AttachedText;

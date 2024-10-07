@@ -17,7 +17,6 @@ import openfl.utils.ByteArray;
 import lime.media.openal.ALBuffer;
 import lime.media.openal.ALSource;
 import lime.utils.ArrayBufferView;
-import lime.utils.Int16Array;
 #end
 
 /**

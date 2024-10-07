@@ -6,15 +6,8 @@ import backend.ClientPrefs;
 import ui.AttachedText;
 import ui.Alphabet;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import flixel.FlxSubState;
 import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.util.FlxSave;
-import flixel.tweens.FlxTween;
 import flixel.input.keyboard.FlxKey;
-import backend.Controls;
 import states.MusicBeatSubstate;
 
 class ControlsSubState extends MusicBeatSubstate

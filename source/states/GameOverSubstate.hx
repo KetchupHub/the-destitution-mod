@@ -6,7 +6,6 @@ import backend.ClientPrefs;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.sound.FlxSound;
 import util.MemoryUtil;
-import backend.WeekData;
 import backend.Conductor;
 import visuals.Boyfriend;
 import util.CoolUtil;

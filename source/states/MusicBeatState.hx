@@ -77,6 +77,12 @@ class MusicBeatState extends FlxUIState
       }
     }
 
+    // why wasnt this implemented what the fuck
+    if (FlxG.keys.anyJustPressed(TitleState.fullscreenKeys))
+    {
+      FlxG.fullscreen = !FlxG.fullscreen;
+    }
+
     if (FlxG.save.data != null)
     {
       FlxG.save.data.fullscreen = FlxG.fullscreen;

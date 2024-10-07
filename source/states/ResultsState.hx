@@ -1,8 +1,6 @@
 package states;
 
 import flixel.ui.FlxBar;
-import sys.thread.Thread;
-import flxanimate.FlxAnimate;
 import adobeanimate.FlxAtlasSprite;
 import openfl.Assets;
 import haxe.Json;
@@ -18,7 +16,6 @@ import flixel.tweens.FlxTween;
 import flixel.graphics.FlxGraphic;
 import flixel.addons.transition.FlxTransitionableState;
 import util.CoolUtil;
-import util.MemoryUtil;
 import flixel.text.FlxText;
 import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.util.FlxColor;

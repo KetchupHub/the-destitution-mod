@@ -1,7 +1,6 @@
 package shaders;
 
 import flixel.addons.display.FlxRuntimeShader;
-import Paths;
 import openfl.utils.Assets;
 
 class AdjustColorShader extends FlxRuntimeShader

@@ -1,11 +1,11 @@
 package options;
 
+import ui.TransitionScreenshotObject;
 import util.EaseUtil;
 #if desktop
 import backend.Discord.DiscordClient;
 #end
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.graphics.FlxGraphic;
 import util.CoolUtil;
 import util.MemoryUtil;
 import backend.Conductor;
@@ -201,22 +201,9 @@ class NoteOffsetState extends MusicBeatState
     add(changeModeText);
     updateMode();
 
-    var transThing:FlxSprite = new FlxSprite();
-
-    if (CoolUtil.lastStateScreenShot != null)
-    {
-      transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
-      add(transThing);
-      FlxTween.tween(transThing, {alpha: 0}, 0.25,
-        {
-          ease: EaseUtil.stepped(4),
-          onComplete: function transThingDiesIrl(stupidScr:FlxTween)
-          {
-            transThing.visible = false;
-            transThing.destroy();
-          }
-        });
-    }
+    var transThing = new TransitionScreenshotObject();
+    add(transThing);
+    transThing.fadeout();
 
     Conductor.changeBPM(128.0);
     FlxG.sound.playMusic(Paths.music('mus_neutral_drive'), 1, true);

@@ -1,13 +1,12 @@
 package states;
 
+import ui.TransitionScreenshotObject;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import ui.MarkHeadTransition;
-import flixel.graphics.FlxGraphic;
 import shaders.ColorSwap;
 import backend.Highscore;
 import backend.PlayerSettings;
-import backend.WeekData;
 import backend.ClientPrefs;
 import ui.Alphabet;
 import backend.Conductor;
@@ -28,7 +27,8 @@ import openfl.Assets;
 
 class TitleState extends MusicBeatState
 {
-  public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO];
+  public static var fullscreenKeys:Array<FlxKey> = [FlxKey.F11, FlxKey.F12];
+  public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO, FlxKey.NUMPADZERO];
   public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
   public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
 
@@ -184,16 +184,11 @@ class TitleState extends MusicBeatState
     var holidayChar = CoolUtil.getHolidayCharacter();
     if (holidayChar != null)
     {
-      // should i be nice and make the holidays the only ones you can get on that day?
-      // nah
-      // except as im typing this i realize that seems like a dick move so i wont
-      // still ends up trolling the people who wouldve rolled the 1/10 chance ones though so lol
       arrey = [holidayChar];
     }
     charec = arrey[CoolUtil.randomVisuals.int(0, arrey.length - 1)];
     if (Paths.image('title/char/$charec', null, true) == null)
     {
-      // precaution
       charec = 'mark';
     }
     #if SHOWCASEVIDEO
@@ -257,23 +252,9 @@ class TitleState extends MusicBeatState
     tppLogo.visible = false;
     add(tppLogo);
 
-    var transThing:FlxSprite = new FlxSprite();
-
-    if (CoolUtil.lastStateScreenShot != null)
-    {
-      transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
-      add(transThing);
-      FlxTween.tween(transThing, {alpha: 0}, 0.25,
-        {
-          startDelay: 0.05,
-          ease: EaseUtil.stepped(4),
-          onComplete: function transThingDiesIrl(stupidScr:FlxTween)
-          {
-            transThing.visible = false;
-            transThing.destroy();
-          }
-        });
-    }
+    var transThing = new TransitionScreenshotObject();
+    add(transThing);
+    transThing.fadeout();
 
     #if DEVELOPERBUILD
     var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width,

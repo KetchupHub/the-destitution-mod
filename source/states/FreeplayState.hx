@@ -1,5 +1,6 @@
 package states;
 
+import ui.TransitionScreenshotObject;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import ui.MarkHeadTransition;
@@ -7,7 +8,6 @@ import flixel.util.FlxStringUtil;
 import backend.Conductor;
 import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
-import flixel.graphics.FlxGraphic;
 import flixel.addons.transition.FlxTransitionableState;
 import backend.Song;
 import songs.SongInit;
@@ -15,7 +15,6 @@ import backend.Highscore;
 import backend.ClientPrefs;
 import ui.Alphabet;
 import util.CoolUtil;
-import util.MemoryUtil;
 #if DEVELOPERBUILD
 import editors.ChartingState;
 #end
@@ -113,23 +112,9 @@ class FreeplayState extends MusicBeatState
     add(bg);
     bg.screenCenter();
 
-    var transThing:FlxSprite = new FlxSprite();
-
-    if (CoolUtil.lastStateScreenShot != null)
-    {
-      transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
-      add(transThing);
-      FlxTween.tween(transThing, {alpha: 0}, 0.25,
-        {
-          startDelay: 0.05,
-          ease: EaseUtil.stepped(4),
-          onComplete: function transThingDiesIrl(stupidScr:FlxTween)
-          {
-            transThing.visible = false;
-            transThing.destroy();
-          }
-        });
-    }
+    var transThing = new TransitionScreenshotObject();
+    add(transThing);
+    transThing.fadeout();
 
     freePaper = new PixelPerfectSprite().loadGraphic(Paths.image('freeplay/paper'));
     freePaper.scale.set(2, 2);

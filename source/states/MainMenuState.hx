@@ -1,19 +1,16 @@
 package states;
 
+import ui.TransitionScreenshotObject;
 import states.ResultsState.ResultRanks;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import lime.app.Application;
 import ui.MainMenuButton;
 import backend.Conductor;
-import flixel.graphics.FlxGraphic;
 import options.OptionsState;
 import backend.ClientPrefs;
-import backend.WeekData;
 import util.CoolUtil;
-import util.MemoryUtil;
 import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.FlxCamera;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.effects.FlxFlicker;
@@ -101,23 +98,9 @@ class MainMenuState extends MusicBeatState
     magenta.color = 0xFFfd719b;
     add(magenta);
 
-    var transThing:FlxSprite = new FlxSprite();
-
-    if (CoolUtil.lastStateScreenShot != null)
-    {
-      transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
-      add(transThing);
-      FlxTween.tween(transThing, {alpha: 0}, 0.25,
-        {
-          startDelay: 0.05,
-          ease: EaseUtil.stepped(4),
-          onComplete: function transThingDiesIrl(stupidScr:FlxTween)
-          {
-            transThing.visible = false;
-            transThing.destroy();
-          }
-        });
-    }
+    var transThing = new TransitionScreenshotObject();
+    add(transThing);
+    transThing.fadeout();
 
     funkay = new PixelPerfectSprite(0, 800).loadGraphic(Paths.image("mainmenu/mark_story_mode"));
     funkay.x = 1280 - funkay.width;

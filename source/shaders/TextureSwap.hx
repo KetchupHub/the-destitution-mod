@@ -1,7 +1,6 @@
 package shaders;
 
 import flixel.system.FlxAssets.FlxShader;
-import flixel.util.FlxColor;
 import openfl.display.BitmapData;
 
 class TextureSwap extends FlxShader

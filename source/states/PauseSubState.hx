@@ -3,7 +3,6 @@ package states;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import util.CoolUtil;
-import backend.WeekData;
 import backend.ClientPrefs;
 import backend.Conductor;
 import ui.Alphabet;

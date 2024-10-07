@@ -1,25 +1,20 @@
 package states;
 
-import util.EaseUtil;
+import ui.TransitionScreenshotObject;
 import sys.thread.Thread;
 import visuals.PixelPerfectSprite;
 import ui.MarkHeadTransition;
 import songs.SongInit;
 import backend.Conductor;
 import backend.ClientPrefs;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.graphics.FlxGraphic;
 import flixel.addons.transition.FlxTransitionableState;
 import visuals.Character;
 import util.CoolUtil;
-import util.MemoryUtil;
 import flixel.text.FlxText;
 import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.util.FlxColor;
 import flixel.ui.FlxBar;
 import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.math.FlxMath;
 #if desktop
 import backend.Discord.DiscordClient;
@@ -121,23 +116,9 @@ class LoadingScreenState extends MusicBeatState
     funkay.pixelPerfectDiv = 4;
     add(funkay);
 
-    var transThing:FlxSprite = new FlxSprite();
-
-    if (CoolUtil.lastStateScreenShot != null)
-    {
-      transThing.loadGraphic(FlxGraphic.fromBitmapData(CoolUtil.lastStateScreenShot.bitmapData));
-      add(transThing);
-      FlxTween.tween(transThing, {alpha: 0}, 0.5,
-        {
-          startDelay: 0.1,
-          ease: EaseUtil.stepped(4),
-          onComplete: function transThingDiesIrl(stupidScr:FlxTween)
-          {
-            transThing.visible = false;
-            transThing.destroy();
-          }
-        });
-    }
+    var transThing = new TransitionScreenshotObject();
+    add(transThing);
+    transThing.fadeout();
 
     charactersToLoad = SongInit.genSongObj(PlayState.SONG.song.toLowerCase()).preloadCharacters;
 
