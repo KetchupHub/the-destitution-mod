@@ -69,14 +69,14 @@ class WeekData
     this.fileName = fileName;
   }
 
-  public static function reloadWeekFiles(isStoryMode:Null<Bool> = false)
+  public static function reloadWeekFiles(isStoryMode:Null<Bool> = false, ?playerCharacterSuffix:String = '')
   {
     weeksList = [];
     weeksLoaded.clear();
 
     var directories:Array<String> = [Paths.getPreloadPath()];
 
-    var sexList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('weeks/weekList.txt'));
+    var sexList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('weeks/weekList$playerCharacterSuffix.txt'));
 
     for (i in 0...sexList.length)
     {

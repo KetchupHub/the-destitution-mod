@@ -1,12 +1,7 @@
 package songs;
 
-import visuals.Boyfriend;
-import visuals.Character;
-import backend.Conductor;
-import states.PlayState;
-
 /**
- * Song class template.
+ * TopKicks' song class.
  */
 class Topkicks extends SongClass
 {
@@ -17,7 +12,7 @@ class Topkicks extends SongClass
     this.songHasSections = false;
     this.introType = 'Default';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "Pearson SAVES some allies that it seems Nopeboy and Co. forgot...";
+    this.songDescription = "It seems like a couple of Pearson's friends haven't taken too kindly to not being invited...";
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];

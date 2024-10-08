@@ -1,12 +1,7 @@
 package songs;
 
-import visuals.Boyfriend;
-import visuals.Character;
-import backend.Conductor;
-import states.PlayState;
-
 /**
- * Song class template.
+ * Fundamentals' song class.
  */
 class Fundamentals extends SongClass
 {

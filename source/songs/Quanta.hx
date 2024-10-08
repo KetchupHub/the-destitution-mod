@@ -1,12 +1,7 @@
 package songs;
 
-import visuals.Boyfriend;
-import visuals.Character;
-import backend.Conductor;
-import states.PlayState;
-
 /**
- * Song class template.
+ * Quanta's song class.
  */
 class Quanta extends SongClass
 {

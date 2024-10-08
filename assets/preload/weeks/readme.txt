@@ -1,0 +1,1 @@
+the weekList- txt files are used for plaayables freeplay, weekList.txt is just for story

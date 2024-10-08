@@ -1,0 +1,16 @@
+{
+  "songs": [
+    ["Collapse", "mark", [151, 38, 19]]
+  ],
+
+  "weekCharacters": ["", "", ""],
+  "weekBackground": "none",
+
+  "storyName": "The Destitution Mod",
+  "weekBefore": "mark",
+  "weekName": "The Destitution Mod",
+  "startUnlocked": true,
+
+  "hideStoryMode": false,
+  "hideFreeplay": false
+}

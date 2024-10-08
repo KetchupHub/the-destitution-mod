@@ -31,6 +31,9 @@ class MainMenuState extends MusicBeatState
 {
   #if DEVELOPERBUILD
   var debugRank:ResultRanks = GOOD;
+
+  // before i get a character select in, thisll do for testing
+  var debugChar:String = '';
   #end
 
   public static var curSelected:Int = 0;
@@ -184,22 +187,36 @@ class MainMenuState extends MusicBeatState
       // sorry man
       if (FlxG.keys.justPressed.ONE || FlxG.keys.justPressed.NUMPADONE)
       {
+        FlxG.sound.play(Paths.sound('scrollMenu'));
+
         debugRank = BLEGH;
+        debugChar = '';
       }
       else if (FlxG.keys.justPressed.TWO || FlxG.keys.justPressed.NUMPADTWO)
       {
+        FlxG.sound.play(Paths.sound('scrollMenu'));
+
         debugRank = EGH;
+        debugChar = '-bf';
       }
       else if (FlxG.keys.justPressed.THREE || FlxG.keys.justPressed.NUMPADTHREE)
       {
+        FlxG.sound.play(Paths.sound('scrollMenu'));
+
         debugRank = GOOD;
+        debugChar = '-mark';
       }
       else if (FlxG.keys.justPressed.FOUR || FlxG.keys.justPressed.NUMPADFOUR)
       {
+        FlxG.sound.play(Paths.sound('scrollMenu'));
+
         debugRank = GREAT;
+        debugChar = '-pear';
       }
       else if (FlxG.keys.justPressed.FIVE || FlxG.keys.justPressed.NUMPADFIVE)
       {
+        FlxG.sound.play(Paths.sound('scrollMenu'));
+
         debugRank = SYNERGY;
       }
 
@@ -295,7 +312,7 @@ class MainMenuState extends MusicBeatState
                 case 'freeplay':
                   FlxTransitionableState.skipNextTransIn = true;
                   FlxTransitionableState.skipNextTransOut = true;
-                  MusicBeatState.switchState(new FreeplayState());
+                  MusicBeatState.switchState(new FreeplayState(#if DEVELOPERBUILD debugChar #end));
                 case 'options':
                   FlxTransitionableState.skipNextTransIn = true;
                   FlxTransitionableState.skipNextTransOut = true;

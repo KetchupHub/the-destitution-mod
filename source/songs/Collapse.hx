@@ -1,10 +1,5 @@
 package songs;
 
-import visuals.Boyfriend;
-import visuals.Character;
-import backend.Conductor;
-import states.PlayState;
-
 /**
  * Collapse's song class.
  */

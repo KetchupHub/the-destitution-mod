@@ -14,7 +14,6 @@ import ui.SongIntroCard;
 import ui.SubtitleObject;
 import ui.SubtitleObject.SubtitleTypes;
 import backend.Scoring;
-import backend.WeekData;
 import ui.MarkHeadTransition;
 import backend.Highscore;
 import backend.Song;

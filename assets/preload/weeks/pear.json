@@ -1,0 +1,17 @@
+{
+  "songs": [
+    ["Quickshot", "pear", [183, 216, 85]],
+    ["TopKicks", "darnell", [115, 94, 176]]
+  ],
+
+  "weekCharacters": ["", "", ""],
+  "weekBackground": "none",
+
+  "storyName": "The Destitution Mod",
+  "weekBefore": "pear",
+  "weekName": "The Destitution Mod",
+  "startUnlocked": true,
+
+  "hideStoryMode": false,
+  "hideFreeplay": false
+}

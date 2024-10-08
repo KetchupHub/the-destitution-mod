@@ -1,5 +1,7 @@
 package states;
 
+import openfl.utils.Assets;
+import haxe.Json;
 import ui.TransitionScreenshotObject;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
@@ -61,6 +63,14 @@ class FreeplayState extends MusicBeatState
   public var freePaper:PixelPerfectSprite;
   public var freeMetal:PixelPerfectSprite;
 
+  public var playerChar:String = '';
+
+  public override function new(?player:String = '')
+  {
+    super();
+    playerChar = player;
+  }
+
   override function create()
   {
     #if DEVELOPERBUILD
@@ -72,7 +82,20 @@ class FreeplayState extends MusicBeatState
 
     CoolUtil.newStateMemStuff();
 
-    WeekData.reloadWeekFiles(false);
+    WeekData.reloadWeekFiles(false, playerChar);
+
+    var playerCharNoDash:String = playerChar.replace('-', '').toLowerCase();
+
+    var toJsn:String = 'default';
+
+    if (playerCharNoDash != '')
+    {
+      toJsn = playerCharNoDash;
+    }
+
+    var json:Dynamic = Json.parse(Assets.getText('assets/freeplay/$toJsn.json'));
+
+    var useSkin:String = json.skin;
 
     #if desktop
     DiscordClient.changePresence("In the Freeplay Menu", null, null, '-inst');
@@ -107,7 +130,7 @@ class FreeplayState extends MusicBeatState
 
     enteringMenu = true;
 
-    bg = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
+    bg = new PixelPerfectSprite().loadGraphic(Paths.image('freeplay/$useSkin/bg'));
     bg.alpha = 0.5;
     add(bg);
     bg.screenCenter();
@@ -116,7 +139,7 @@ class FreeplayState extends MusicBeatState
     add(transThing);
     transThing.fadeout();
 
-    freePaper = new PixelPerfectSprite().loadGraphic(Paths.image('freeplay/paper'));
+    freePaper = new PixelPerfectSprite().loadGraphic(Paths.image('freeplay/$useSkin/paper'));
     freePaper.scale.set(2, 2);
     freePaper.updateHitbox();
     freePaper.antialiasing = false;
@@ -125,7 +148,7 @@ class FreeplayState extends MusicBeatState
 
     FlxTween.tween(freePaper, {x: 0}, 0.5, {ease: FlxEase.circOut});
 
-    freeMetal = new PixelPerfectSprite(804, 0).loadGraphic(Paths.image('freeplay/metal'));
+    freeMetal = new PixelPerfectSprite(804, 0).loadGraphic(Paths.image('freeplay/$useSkin/metal'));
     freeMetal.scale.set(2, 2);
     freeMetal.updateHitbox();
     freeMetal.antialiasing = false;
@@ -603,4 +626,9 @@ class SongMetadata
       this.folder = '';
     }
   }
+}
+
+typedef FreeplayGfxData =
+{
+  var skin:String;
 }

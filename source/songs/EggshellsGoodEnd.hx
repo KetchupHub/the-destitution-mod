@@ -1,12 +1,7 @@
 package songs;
 
-import visuals.Boyfriend;
-import visuals.Character;
-import backend.Conductor;
-import states.PlayState;
-
 /**
- * Eggshells' song class.
+ * Eggshells' song class. (Good Ending)
  */
 class EggshellsGoodEnd extends SongClass
 {
