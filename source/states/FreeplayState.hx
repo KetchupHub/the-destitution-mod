@@ -54,6 +54,12 @@ class FreeplayState extends MusicBeatState
   public var grpSongs:FlxTypedGroup<Alphabet>;
   public var curPlaying:Bool = false;
 
+  var instPlaying:String = '';
+
+  var holdTime:Float = 0;
+
+  var exitingMenu:Bool = false;
+
   public var bg:PixelPerfectSprite;
   public var intendedColor:Int;
   public var colorTween:FlxTween;
@@ -112,8 +118,6 @@ class FreeplayState extends MusicBeatState
         leSongs.push(leWeek.songs[j][0]);
         leChars.push(leWeek.songs[j][1]);
       }
-
-      WeekData.setDirectoryFromWeek(leWeek);
 
       for (song in leWeek.songs)
       {
@@ -183,10 +187,7 @@ class FreeplayState extends MusicBeatState
         songText.scaleX = maxWidth / (songText.width + 38);
       }
       songText.snapToPosition();
-
-      Paths.currentModDirectory = songs[i].folder;
     }
-    WeekData.setDirectoryFromWeek();
 
     scoreText = new FlxText(872, 5, 403, 'Best Score: 0 (0%)', 38);
     scoreText.setFormat(Paths.font("BAUHS93.ttf"), 38, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
@@ -234,13 +235,8 @@ class FreeplayState extends MusicBeatState
     textBG.alpha = 0.6;
     add(textBG);
 
-    #if PRELOAD_ALL
-    var leText:String = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
+    var leText:String = "Press Space to listen to the Song / Press Control to open the Gameplay Changers Menu / Press the RESET button to reset your Score and Accuracy.";
     var size:Int = 16;
-    #else
-    var leText:String = "Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
-    var size:Int = 18;
-    #end
     var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
     text.setFormat(Paths.font("BAUHS93.ttf"), size, FlxColor.WHITE, RIGHT);
     text.scrollFactor.set();
@@ -262,11 +258,6 @@ class FreeplayState extends MusicBeatState
     perf.print();
     #end
   }
-
-  var instPlaying:Int = -1;
-  var holdTime:Float = 0;
-
-  var exitingMenu:Bool = false;
 
   override function update(elapsed:Float)
   {
@@ -422,40 +413,33 @@ class FreeplayState extends MusicBeatState
       }
       else if (space)
       {
-        if (instPlaying != curSelected)
-        {
-          #if PRELOAD_ALL
-          var suffy:String = '';
-
-          switch (songVariantCur)
-          {
-            case 'Erect':
-              {
-                suffy = '-erect';
-              }
-          }
-
-          FlxG.sound.music.volume = 0;
-          Paths.currentModDirectory = songs[curSelected].folder;
-          var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase() + suffy);
-          PlayState.SONG = Song.loadFromJson(poop);
-          FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
-          Conductor.changeBPM(PlayState.SONG.bpm);
-          instPlaying = curSelected;
-          #end
-        }
-      }
-      else if (accepted)
-      {
-        persistentUpdate = false;
+        #if PRELOAD_ALL
         var suffy:String = '';
 
         switch (songVariantCur)
         {
           case 'Erect':
-            {
-              suffy = '-erect';
-            }
+            suffy = '-erect';
+        }
+
+        FlxG.sound.music.volume = 0;
+        var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase() + suffy);
+        PlayState.SONG = Song.loadFromJson(poop);
+        FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
+        Conductor.changeBPM(PlayState.SONG.bpm);
+        instPlaying = songs[curSelected].songName.toLowerCase() + suffy;
+        #end
+      }
+      else if (accepted)
+      {
+        persistentUpdate = false;
+
+        var suffy:String = '';
+
+        switch (songVariantCur)
+        {
+          case 'Erect':
+            suffy = '-erect';
         }
 
         var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName + suffy);
@@ -490,8 +474,16 @@ class FreeplayState extends MusicBeatState
       }
       else if (controls.RESET)
       {
+        var suffy:String = '';
+
+        switch (songVariantCur)
+        {
+          case 'Erect':
+            suffy = '-erect';
+        }
+
         persistentUpdate = false;
-        openSubState(new ResetScoreSubState(songs[curSelected].songName, songs[curSelected].songCharacter));
+        openSubState(new ResetScoreSubState(songs[curSelected].songName.toLowerCase() + suffy));
         FlxG.sound.play(Paths.sound('scrollMenu'));
       }
     }
@@ -583,8 +575,6 @@ class FreeplayState extends MusicBeatState
     songCover.y = 204;
 
     descText.text = SongInit.genSongObj(songs[curSelected].songName.toLowerCase()).songDescription;
-
-    Paths.currentModDirectory = songs[curSelected].folder;
   }
 
   public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
@@ -611,7 +601,6 @@ class SongMetadata
   public var week:Int = 0;
   public var songCharacter:String = "";
   public var color:Int = -7179779;
-  public var folder:String = "";
 
   public function new(song:String, week:Int, songCharacter:String, color:Int)
   {
@@ -619,12 +608,6 @@ class SongMetadata
     this.week = week;
     this.songCharacter = songCharacter;
     this.color = color;
-    this.folder = Paths.currentModDirectory;
-
-    if (this.folder == null)
-    {
-      this.folder = '';
-    }
   }
 }
 

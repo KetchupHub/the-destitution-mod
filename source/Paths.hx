@@ -102,7 +102,6 @@ class Paths
     return parts[0];
   }
 
-  static public var currentModDirectory:String = '';
   static public var currentLevel:String;
 
   static public function setCurrentLevel(name:String)

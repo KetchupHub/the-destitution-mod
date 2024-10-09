@@ -1,5 +1,9 @@
 package states;
 
+import flixel.util.FlxTimer;
+import util.EaseUtil;
+import flixel.tweens.FlxTween;
+import songs.SongInit;
 import backend.Highscore;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -11,9 +15,9 @@ class ResetScoreSubState extends MusicBeatSubstate
 {
   public var bg:FlxSprite;
 
-  public var alphabetArray:Array<Alphabet> = [];
+  public var trashcan:FlxSprite;
 
-  public var icon:HealthIcon;
+  public var alphabetArray:Array<Alphabet> = [];
 
   public var onYes:Bool = false;
 
@@ -22,7 +26,11 @@ class ResetScoreSubState extends MusicBeatSubstate
 
   public var song:String;
 
-  public function new(song:String, character:String)
+  var pressed:Bool = true;
+
+  var songCover:FlxSprite;
+
+  public function new(song:String)
   {
     #if DEVELOPERBUILD
     var perf = new Perf("ResetScoreSubState new()");
@@ -32,7 +40,9 @@ class ResetScoreSubState extends MusicBeatSubstate
 
     super();
 
-    var name:String = song;
+    var gettin = SongInit.genSongObj(song);
+
+    var name:String = gettin.songNameForDisplay;
 
     name += '?';
 
@@ -41,40 +51,85 @@ class ResetScoreSubState extends MusicBeatSubstate
     bg.scrollFactor.set();
     add(bg);
 
-    var tooLong:Float = (name.length > 18) ? 0.8 : 1; // Fucking Winter Horrorland
+    FlxTween.tween(bg, {alpha: 0.75}, 0.25, {ease: EaseUtil.stepped(4)});
 
-    var text:Alphabet = new Alphabet(0, 180, "Reset the score of", true);
+    trashcan = new FlxSprite();
+    trashcan.frames = Paths.getSparrowAtlas('reset/trash');
+    trashcan.animation.addByPrefix('intro', 'intro', 24, false);
+    trashcan.animation.addByPrefix('close', 'close', 24, false);
+    trashcan.animation.play('intro', true);
+    trashcan.animation.pause();
+    trashcan.scale.set(2, 2);
+    trashcan.updateHitbox();
+    trashcan.screenCenter();
+    add(trashcan);
+    trashcan.alpha = 0;
+
+    FlxTween.tween(trashcan, {alpha: 1}, 0.25,
+      {
+        ease: EaseUtil.stepped(4),
+        onComplete: function shitt(fuckstween:FlxTween)
+        {
+          trashcan.animation.play('intro', true);
+        }
+      });
+
+    var tooLong:Float = (name.length > 18) ? 0.8 : 1;
+
+    var text:Alphabet = new Alphabet(0, 110, "Reset the score of", true);
     text.screenCenter(X);
     alphabetArray.push(text);
     text.alpha = 0;
     add(text);
 
-    var text:Alphabet = new Alphabet(0, text.y + 90, name, true);
+    FlxTween.tween(text, {alpha: 1}, 0.25, {startDelay: 0.75, ease: EaseUtil.stepped(4)});
+
+    var text:Alphabet = new Alphabet(0, text.y + 85, name, true);
     text.scaleX = tooLong;
     text.screenCenter(X);
-    text.x += 60 * tooLong;
     alphabetArray.push(text);
     text.alpha = 0;
     add(text);
 
-    icon = new HealthIcon(character);
-    icon.setGraphicSize(Std.int(icon.width * tooLong));
-    icon.updateHitbox();
-    icon.setPosition(text.x - icon.width + (10 * tooLong), text.y - 30);
-    icon.alpha = 0;
-    add(icon);
+    songCover = new FlxSprite();
+    if (Paths.image('song_covers/' + PlayState.removeVariationSuffixes(song).toLowerCase(), null, true) != null)
+    {
+      songCover.loadGraphic(Paths.image('song_covers/' + PlayState.removeVariationSuffixes(song).toLowerCase()));
+    }
+    else
+    {
+      songCover.loadGraphic(Paths.image('song_covers/placeholder'));
+    }
+    songCover.setGraphicSize(175);
+    songCover.updateHitbox();
+    songCover.screenCenter();
+    songCover.alpha = 0;
+    add(songCover);
 
-    yesText = new Alphabet(0, text.y + 150, 'Yes', true);
+    FlxTween.tween(songCover, {alpha: 1}, 0.25, {startDelay: 0.75, ease: EaseUtil.stepped(4)});
+
+    yesText = new Alphabet(0, text.y + 250, 'Yes', true);
     yesText.screenCenter(X);
     yesText.x -= 200;
+    yesText.alpha = 0;
     add(yesText);
 
-    noText = new Alphabet(0, text.y + 150, 'No', true);
+    noText = new Alphabet(0, text.y + 250, 'No', true);
     noText.screenCenter(X);
     noText.x += 200;
+    noText.alpha = 0;
     add(noText);
 
-    updateOptions();
+    FlxTween.tween(text, {alpha: 1}, 0.25,
+      {
+        startDelay: 0.75,
+        ease: EaseUtil.stepped(4),
+        onComplete: function doit(f:FlxTween)
+        {
+          pressed = false;
+          updateOptions();
+        }
+      });
 
     #if DEVELOPERBUILD
     perf.print();
@@ -83,22 +138,12 @@ class ResetScoreSubState extends MusicBeatSubstate
 
   override function update(elapsed:Float)
   {
-    if (bg.alpha > 0.6)
-    {
-      bg.alpha = 0.6;
-    }
-    else
-    {
-      bg.alpha += elapsed * 1.5;
-    }
+    super.update(elapsed);
 
-    for (i in 0...alphabetArray.length)
+    if (pressed)
     {
-      var spr = alphabetArray[i];
-      spr.alpha += elapsed * 2.5;
+      return;
     }
-
-    icon.alpha += elapsed * 2.5;
 
     if (controls.UI_LEFT_P || controls.UI_RIGHT_P)
     {
@@ -111,23 +156,52 @@ class ResetScoreSubState extends MusicBeatSubstate
 
     if (controls.BACK)
     {
+      pressed = true;
+
       FlxG.sound.play(Paths.sound('cancelMenu'), 1);
 
       close();
     }
     else if (controls.ACCEPT)
     {
+      pressed = true;
+
       if (onYes)
       {
+        trashcan.animation.play('close', true);
+
+        for (text in alphabetArray)
+        {
+          text.alpha = 0;
+        }
+
+        yesText.alpha = 0;
+        noText.alpha = 0;
+
+        songCover.alpha = 0;
+
         Highscore.resetSong(song);
+
+        FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+
+        var fadeTimer = new FlxTimer().start(1, function die(fu:FlxTimer)
+        {
+          FlxTween.tween(bg, {alpha: 0}, 0.25, {ease: EaseUtil.stepped(4)});
+          FlxTween.tween(trashcan, {alpha: 0}, 0.25, {ease: EaseUtil.stepped(4)});
+
+          var closeTimer = new FlxTimer().start(0.5, function die(fu:FlxTimer)
+          {
+            close();
+          });
+        });
       }
+      else
+      {
+        FlxG.sound.play(Paths.sound('cancelMenu'), 1);
 
-      FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-
-      close();
+        close();
+      }
     }
-
-    super.update(elapsed);
   }
 
   function updateOptions()
@@ -140,7 +214,5 @@ class ResetScoreSubState extends MusicBeatSubstate
     yesText.scale.set(scales[confirmInt], scales[confirmInt]);
     noText.alpha = alphas[1 - confirmInt];
     noText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
-
-    icon.animation.curAnim.curFrame = confirmInt;
   }
 }

@@ -30,8 +30,6 @@ class WeekData
   public static var weeksLoaded:Map<String, WeekData> = new Map<String, WeekData>();
   public static var weeksList:Array<String> = [];
 
-  public var folder:String = '';
-
   public var songs:Array<Dynamic>;
   public var weekBefore:String;
   public var storyName:String;
@@ -39,24 +37,6 @@ class WeekData
   public var freeplayColor:Array<Int>;
 
   public var fileName:String;
-
-  /**
-   * Generates a template week file.
-   * @return WeekFile
-   */
-  public static function createWeekFile():WeekFile
-  {
-    var weekFile:WeekFile =
-      {
-        songs: [["Destitution", "mark", [146, 113, 253]]],
-        weekBefore: 'tutorial',
-        storyName: 'Your New Week',
-        weekName: 'Custom Week',
-        freeplayColor: [146, 113, 253]
-      };
-
-    return weekFile;
-  }
 
   public function new(weekFile:WeekFile, fileName:String)
   {
@@ -144,15 +124,5 @@ class WeekData
   public static function getCurrentWeek(weekNum:Int = 0):WeekData
   {
     return weeksLoaded.get(weeksList[weekNum]);
-  }
-
-  public static function setDirectoryFromWeek(?data:WeekData = null)
-  {
-    Paths.currentModDirectory = '';
-
-    if (data != null && data.folder != null && data.folder.length > 0)
-    {
-      Paths.currentModDirectory = data.folder;
-    }
   }
 }

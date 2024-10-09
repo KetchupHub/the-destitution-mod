@@ -182,7 +182,7 @@ class PlayState extends MusicBeatState
   public var lastBeatHit:Int = -1;
   public var gfSpeed:Int = 1;
   public var combo:Int = 0;
-  
+
   public var synergys:Int = 0;
   public var goods:Int = 0;
   public var eghs:Int = 0;
@@ -4904,7 +4904,7 @@ class PlayState extends MusicBeatState
   {
     var songReal:String = song.toLowerCase();
 
-    for (vari in SongInit.genSongObj(song.toLowerCase()).songVariants)
+    for (vari in SongInit.genSongObj(song.toLowerCase()).songVariants.concat(['bf', 'pear', 'mark', 'gf']))
     {
       songReal = songReal.replace('-' + vari.toLowerCase(), '');
     }
