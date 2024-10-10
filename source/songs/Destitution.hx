@@ -1140,8 +1140,8 @@ class Destitution extends SongClass
         PlayState.instance.dad = new Character(0, 0, 'zam', false, false);
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
         PlayState.instance.dad.screenCenter();
-        PlayState.instance.dad.x -= 10;
-        PlayState.instance.dad.y += 150;
+        PlayState.instance.dad.x += 100;
+        PlayState.instance.dad.y += 356;
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend = new Boyfriend(120, 70, 'bf-mark-back', false);

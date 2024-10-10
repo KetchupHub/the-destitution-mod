@@ -1,61 +1,61 @@
 {
   "animations": [
     {
-      "loop": false,
       "offsets": [0, 0],
-      "fps": 24,
+      "loop": false,
       "anim": "singLEFT",
-      "indices": [],
-      "name": "left"
+      "fps": 24,
+      "name": "left",
+      "hasTransition": true,
+      "indices": []
     },
     {
-      "loop": false,
       "offsets": [0, 0],
-      "fps": 24,
+      "loop": false,
       "anim": "singDOWN",
-      "indices": [],
-      "name": "down"
+      "fps": 24,
+      "name": "down",
+      "hasTransition": true,
+      "indices": []
     },
     {
-      "loop": false,
       "offsets": [0, 0],
-      "fps": 24,
+      "loop": false,
       "anim": "singUP",
-      "indices": [],
-      "name": "up"
+      "fps": 24,
+      "name": "up",
+      "hasTransition": true,
+      "indices": []
     },
     {
-      "loop": false,
       "offsets": [0, 0],
-      "fps": 24,
+      "loop": false,
       "anim": "singRIGHT",
-      "indices": [],
-      "name": "right"
+      "fps": 24,
+      "name": "right",
+      "hasTransition": true,
+      "indices": []
     },
     {
-      "loop": false,
       "offsets": [0, 0],
-      "fps": 24,
-      "anim": "danceRight",
-      "indices": [],
-      "name": "danceRight"
-    },
-    {
       "loop": false,
-      "offsets": [0, 0],
+      "anim": "idle",
       "fps": 24,
-      "anim": "danceLeft",
-      "indices": [],
-      "name": "danceLeft"
+      "name": "idle",
+      "indices": []
     }
   ],
+  "animator": null,
   "no_antialiasing": true,
+  "artist": null,
   "image": "characters/destitution/zamboni_guy",
   "position": [48, 64],
+  "whoDoneWhat": null,
   "healthicon": "zam",
   "flip_x": false,
   "healthbar_colors": [255, 255, 255],
-  "camera_position": [-148, -64],
-  "sing_duration": 4,
-  "scale": 1
+  "camera_position": [-448, -264],
+  "sing_duration": 15,
+  "scale": 12,
+  "_editor_isPlayer": null
 }
