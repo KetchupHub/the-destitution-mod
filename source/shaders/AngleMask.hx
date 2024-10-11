@@ -5,6 +5,11 @@ import flixel.util.FlxColor;
 
 class AngleMask extends FlxShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'AngleMask';
+
   public var extraColor(default, set):FlxColor = 0xFFFFFFFF;
 
   function set_extraColor(value:FlxColor):FlxColor

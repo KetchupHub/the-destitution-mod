@@ -27,10 +27,7 @@ class VideoTestState extends MusicBeatState
     var perf = new Perf("Total VideoTestState create()");
     #end
 
-    CoolUtil.rerollRandomness();
-
-    MemoryUtil.collect(true);
-    MemoryUtil.compact();
+    CoolUtil.newStateMemStuff();
 
     #if desktop
     DiscordClient.changePresence("Video Test Screen", null, null, '-menus');

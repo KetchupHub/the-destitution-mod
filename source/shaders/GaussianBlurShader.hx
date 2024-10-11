@@ -8,6 +8,11 @@ import openfl.utils.Assets;
  */
 class GaussianBlurShader extends FlxRuntimeShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'GaussianBlurShader';
+
   public var amount:Float;
 
   public function new(amount:Float = 1.0)

@@ -39,10 +39,7 @@ class MasterEditorMenu extends MusicBeatState
     DiscordClient.changePresence("Editors Main Menu", null, null, '-menus');
     #end
 
-    CoolUtil.rerollRandomness();
-
-    MemoryUtil.collect(true);
-    MemoryUtil.compact();
+    CoolUtil.newStateMemStuff();
 
     var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
     bg.scrollFactor.set();
@@ -60,7 +57,7 @@ class MasterEditorMenu extends MusicBeatState
       grpTexts.add(leText);
       leText.snapToPosition();
     }
-	
+
     changeSelection();
 
     FlxG.mouse.visible = false;

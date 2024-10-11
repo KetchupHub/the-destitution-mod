@@ -6,6 +6,11 @@ import flixel.math.FlxPoint;
 
 class MosaicEffect extends FlxRuntimeShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'MosaicEffect';
+
   public var blockSize:FlxPoint = FlxPoint.get(1.0, 1.0);
 
   public function new()

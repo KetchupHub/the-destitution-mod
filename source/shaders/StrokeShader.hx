@@ -5,6 +5,11 @@ import flixel.util.FlxColor;
 
 class StrokeShader extends FlxShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'StrokeShader';
+
   // MOSTLY STOLEN FROM AUSTIN EAST LOL!
   // https://gist.github.com/AustinEast/d3892fdf6a6079366fffde071f0c2bae
   public var width(default, set):Float = 0;

@@ -57,10 +57,7 @@ class NoteOffsetState extends MusicBeatState
     var perf = new Perf("Total NoteOffsetState create()");
     #end
 
-    CoolUtil.rerollRandomness();
-
-    MemoryUtil.collect(true);
-    MemoryUtil.compact();
+    CoolUtil.newStateMemStuff();
 
     #if desktop
     DiscordClient.changePresence("Note Offset Menu", null, null, '-menus');

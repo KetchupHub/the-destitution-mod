@@ -6,6 +6,11 @@ import flixel.tweens.FlxTween;
 
 class BlueFade extends FlxRuntimeShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'BlueFade';
+
   public var fadeAmt(default, set):Float;
 
   function set_fadeAmt(val:Float):Float

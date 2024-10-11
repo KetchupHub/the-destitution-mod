@@ -4,6 +4,11 @@ import flixel.system.FlxAssets.FlxShader;
 
 class MultiplyShader extends FlxShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'MultiplyShader';
+
   @:glFragmentSource('
 		#pragma header
         uniform sampler2D funnyImage;

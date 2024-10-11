@@ -4,6 +4,11 @@ import flixel.system.FlxAssets.FlxShader;
 
 class AngelShader extends FlxShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'AngelShader';
+
   @:isVar
   public var strength(get, set):Float = 0;
 

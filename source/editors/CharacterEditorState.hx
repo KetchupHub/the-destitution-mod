@@ -82,10 +82,7 @@ class CharacterEditorState extends MusicBeatState
     var perf = new Perf("Total CharacterEditorState create()");
     #end
 
-    CoolUtil.rerollRandomness();
-
-    MemoryUtil.collect(true);
-    MemoryUtil.compact();
+    CoolUtil.newStateMemStuff();
 
     camEditor = new FlxCamera();
     camHUD = new FlxCamera();

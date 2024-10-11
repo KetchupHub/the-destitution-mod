@@ -15,6 +15,11 @@ typedef Light =
 
 class RuntimeRainShader extends RuntimePostEffectShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'RuntimeRainShader';
+
   static final MAX_LIGHTS:Int = 8;
 
   public var lights:Array<

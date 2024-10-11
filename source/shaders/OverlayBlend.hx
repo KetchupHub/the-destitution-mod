@@ -5,6 +5,11 @@ import flixel.system.FlxAssets.FlxShader;
 @:keep
 class OverlayBlend extends FlxShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'OverlayBlend';
+
   // these r copypaste
   public var funnyX(default, set):Float = 0;
   public var funnyY(default, set):Float = 0;

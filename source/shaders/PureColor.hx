@@ -5,6 +5,11 @@ import flixel.util.FlxColor;
 
 class PureColor extends FlxShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'PureColor';
+
   public var col(default, set):FlxColor;
   public var colorSet(default, set):Bool;
 

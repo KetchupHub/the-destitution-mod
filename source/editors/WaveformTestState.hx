@@ -33,10 +33,7 @@ class WaveformTestState extends MusicBeatState
     var perf = new Perf("Total WaveformTestState create()");
     #end
 
-    CoolUtil.rerollRandomness();
-
-    MemoryUtil.collect(true);
-    MemoryUtil.compact();
+    CoolUtil.newStateMemStuff();
 
     #if desktop
     DiscordClient.changePresence("Waveform Test Screen", null, null, '-menus');
@@ -54,7 +51,6 @@ class WaveformTestState extends MusicBeatState
     wave.width = FlxG.width * 1.1;
     wave.height = FlxG.height / 2;
     wave.amplitude = 4;
-    // wave.updateHitbox();
     wave.screenCenter();
     add(wave);
 

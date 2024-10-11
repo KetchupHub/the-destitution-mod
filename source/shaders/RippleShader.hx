@@ -5,6 +5,11 @@ import flixel.system.FlxAssets.FlxShader;
 
 class RippleShader extends FlxShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'RippleShader';
+
   @:glFragmentSource('
         #pragma header
 

@@ -20,6 +20,11 @@ enum WiggleEffectType
  */
 class WiggleEffect extends FlxRuntimeShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'WiggleEffect';
+
   public static function getEffectTypeId(v:WiggleEffectType):Int
   {
     return WiggleEffectType.getConstructors().indexOf(Std.string(v));

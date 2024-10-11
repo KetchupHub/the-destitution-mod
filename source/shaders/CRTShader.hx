@@ -4,6 +4,11 @@ import flixel.system.FlxAssets.FlxShader;
 
 class CRTShader extends FlxShader // Shout out to battery box for helping me port this -lunar
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'CRTShader';
+
   @:glFragmentSource('
     #pragma header
 

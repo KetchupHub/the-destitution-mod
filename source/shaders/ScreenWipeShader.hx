@@ -4,6 +4,11 @@ import flixel.system.FlxAssets.FlxShader;
 
 class ScreenWipeShader extends FlxShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'ScreenWipeShader';
+
   public var daAlphaShit(default, set):Float = 0;
 
   function set_daAlphaShit(alpha:Float):Float

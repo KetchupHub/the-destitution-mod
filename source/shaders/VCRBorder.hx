@@ -3,7 +3,14 @@ package shaders;
 import flixel.system.FlxAssets.FlxShader;
 
 class VCRBorder extends FlxShader
-{ // https://www.shadertoy.com/view/Ms23DR and https://www.shadertoy.com/view/MsXGD4
+{
+  // https://www.shadertoy.com/view/Ms23DR and https://www.shadertoy.com/view/MsXGD4
+
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'VCRBorder';
+
   @glFragmentSource('
         #pragma header
 

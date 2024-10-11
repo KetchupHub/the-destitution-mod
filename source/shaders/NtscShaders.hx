@@ -8,6 +8,11 @@ import flixel.system.FlxAssets.FlxShader;
  */
 class NTSCSFilter extends FlxShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'NTSCSFilter';
+
   @:glFragmentSource('
 	#pragma header
 
@@ -108,6 +113,11 @@ class NTSCSFilter extends FlxShader
 
 class NTSCGlitch extends FlxShader // stolen from that one popular vhs shader used in ourple guy criminal
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'NTSCGlitch';
+
   @:glFragmentSource('
      #pragma header
 
@@ -185,6 +195,11 @@ class NTSCGlitch extends FlxShader // stolen from that one popular vhs shader us
 
 class TVStatic extends FlxShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'TVStatic';
+
   @:glFragmentSource('
     #pragma header
 
@@ -232,6 +247,11 @@ class TVStatic extends FlxShader
 
 class Abberation extends FlxShader // https://www.shadertoy.com/view/ltByR3
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'Abberation';
+
   @:glFragmentSource('
     #pragma header
     

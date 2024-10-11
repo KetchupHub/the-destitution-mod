@@ -5,6 +5,11 @@ import flixel.system.FlxAssets.FlxShader;
 
 class LeftMaskShader extends FlxShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'LeftMaskShader';
+
   public var swagMaskX(default, set):Float = 0;
   public var swagSprX(default, set):Float = 0;
   public var frameUV(default, set):FlxRect;

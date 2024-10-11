@@ -219,6 +219,7 @@ class ChartingState extends MusicBeatState
 
     cameraTransition = new FlxCamera();
     cameraTransition.bgColor.alpha = 0;
+
     FlxG.cameras.add(cameraTransition, false);
 
     MarkHeadTransition.nextCamera = cameraTransition;
@@ -251,10 +252,7 @@ class ChartingState extends MusicBeatState
       PlayState.SONG = _song;
     }
 
-    CoolUtil.rerollRandomness();
-
-    MemoryUtil.collect(true);
-    MemoryUtil.compact();
+    CoolUtil.newStateMemStuff();
 
     #if desktop
     // Updating Discord Rich Presence

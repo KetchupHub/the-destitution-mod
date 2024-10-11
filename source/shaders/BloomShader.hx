@@ -5,6 +5,11 @@ import flixel.addons.display.FlxRuntimeShader;
 
 class BloomShader extends FlxRuntimeShader // BLOOM SHADER BY BBPANZU
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'BloomShader';
+
   public var dim(default, set):Float;
   public var Directions(default, set):Float;
   public var Quality(default, set):Float;

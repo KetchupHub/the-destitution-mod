@@ -4,6 +4,11 @@ import flixel.system.FlxAssets.FlxShader;
 
 class CamDupeShader extends FlxShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'CamDupeShader';
+
   // ty nebula for the little bit of help with the mirroring
   @:isVar
   public var mult(get, set):Float = 0;

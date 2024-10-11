@@ -5,6 +5,11 @@ import openfl.utils.Assets;
 
 class Grayscale extends FlxRuntimeShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'Grayscale';
+
   public var amount:Float = 1;
 
   public function new(amount:Float = 1)

@@ -5,6 +5,11 @@ import openfl.utils.Assets;
 
 class FNAFShader extends FlxRuntimeShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'FNAFShader';
+
   public var depth(default, set):Float;
 
   public function new(theDepth:Float = 5)

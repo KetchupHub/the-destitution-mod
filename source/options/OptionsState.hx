@@ -25,7 +25,7 @@ class OptionsState extends MusicBeatState
   var options:Array<String> = [
     'Note Colors',
     'Controls',
-    'Adjust Delay and Combo',
+    'Delay and Combo',
     'Graphics',
     'Visuals and UI',
     'Gameplay'
@@ -53,7 +53,7 @@ class OptionsState extends MusicBeatState
         openSubState(new VisualsUISubState());
       case 'Gameplay':
         openSubState(new GameplaySettingsSubState());
-      case 'Adjust Delay and Combo':
+      case 'Delay and Combo':
         FlxTransitionableState.skipNextTransIn = true;
         FlxTransitionableState.skipNextTransOut = true;
         MusicBeatState.switchState(new NoteOffsetState());
@@ -75,10 +75,7 @@ class OptionsState extends MusicBeatState
 
     FlxG.sound.music.stop();
 
-    CoolUtil.rerollRandomness();
-
-    MemoryUtil.collect(true);
-    MemoryUtil.compact();
+    CoolUtil.newStateMemStuff();
 
     finishedIntro = false;
 

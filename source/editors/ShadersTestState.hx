@@ -37,6 +37,10 @@ class ShadersTestState extends MusicBeatState
 
   public var curSelc:Int = 0;
 
+  public var screenMode:Bool = false;
+
+  public var camFollow:FlxObject;
+
   public var shaderz:Array<Dynamic> = [
     new AngelShader(),
     new AngelShader(),
@@ -51,7 +55,8 @@ class ShadersTestState extends MusicBeatState
     new RippleShader(),
     new SilhouetteShader(255, 0, 0),
     new VCRBorder(),
-    new FNAFShader(5)
+    new FNAFShader(5),
+    new InverseDotsShader(2)
   ];
 
   override function create()
@@ -60,10 +65,7 @@ class ShadersTestState extends MusicBeatState
     var perf = new Perf("Total ShadersTestState create()");
     #end
 
-    CoolUtil.rerollRandomness();
-
-    MemoryUtil.collect(true);
-    MemoryUtil.compact();
+    CoolUtil.newStateMemStuff();
 
     #if desktop
     DiscordClient.changePresence("Shader Test Screen", null, null, '-menus');
@@ -106,15 +108,20 @@ class ShadersTestState extends MusicBeatState
     #end
   }
 
-  public var screenMode:Bool = false;
-
-  public var camFollow:FlxObject;
-
   override function update(elapsed:Float)
   {
     if (FlxG.mouse.pressed)
     {
       camFollow.setPosition(FlxG.mouse.gameX, FlxG.mouse.gameY);
+    }
+
+    if (FlxG.keys.pressed.E)
+    {
+      FlxG.camera.zoom += 1 * elapsed;
+    }
+    else if (FlxG.keys.pressed.Q)
+    {
+      FlxG.camera.zoom -= 1 * elapsed;
     }
 
     if (FlxG.keys.justPressed.TAB)
@@ -156,7 +163,7 @@ class ShadersTestState extends MusicBeatState
       curSelc = shaderz.length - 1;
     }
 
-    trace(curSelc);
+    trace('current shader: ' + curSelc + ' (' + shaderz[curSelc].name + ')');
 
     if (curSelc != 0)
     {
@@ -199,6 +206,7 @@ class ShadersTestState extends MusicBeatState
      * sillouetteshader
      * vcrborder
      * fnafshader
+     * inversedotsshader
      */
     shaderz[1].set_strength(1);
     shaderz[1].set_pixelSize(2);
@@ -206,4 +214,9 @@ class ShadersTestState extends MusicBeatState
     shaderz[9].setChrom(0.25);
   }
 }
+
+/*public function changeShaderProperties(change:Int)
+  {
+  shaderz[1].set_strength(shaderz[1].strength + (change * 0.1));
+}*/
 #end

@@ -5,6 +5,11 @@ import openfl.display.BitmapData;
 
 class TextureSwap extends FlxShader
 {
+  /**
+   * for shader test state, since im too dumb to know how to convert a type name to string
+   */
+  public var name:String = 'TextureSwap';
+
   public var swappedImage(default, set):BitmapData;
   public var amount(default, set):Float;
 
