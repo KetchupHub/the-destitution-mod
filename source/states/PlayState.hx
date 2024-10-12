@@ -262,6 +262,8 @@ class PlayState extends MusicBeatState
 
   public static var lastRating:PixelPerfectSprite;
 
+  public var noteTypeInfocard:PixelPerfectSprite;
+
   public var ploinkyTransition:PixelPerfectSprite;
   public var lurkingTransition:PixelPerfectSprite;
   public var rulezGuySlideScaleWorldFunnyClips:PixelPerfectSprite;
@@ -1094,6 +1096,7 @@ class PlayState extends MusicBeatState
         precacheList.set('destitution/itemShit/9', 'image');
         precacheList.set('destitution/itemShit/10', 'image');
         precacheList.set('ui/cutting_scene', 'image');
+        precacheList.set('ui/info/item', 'image');
         precacheList.set('destitution/bg_annoyed', 'image');
         precacheList.set('destitution/rulez_guy_screen_transition', 'image');
         precacheList.set('destitution/bg_rulez_crypteh', 'image');
@@ -4607,6 +4610,11 @@ class PlayState extends MusicBeatState
   {
     super.sectionHit();
 
+    if (curSection % 4 == 0)
+    {
+      clearItemNoteShit();
+    }
+
     if (SONG.notes[curSection] != null)
     {
       if (generatedMusic && !endingSong && !isCameraOnForcedPos)
@@ -4784,6 +4792,11 @@ class PlayState extends MusicBeatState
   **/
   public function clearItemNoteShit()
   {
+    if (itemNoteHudOverlays == null)
+    {
+      return;
+    }
+
     for (these in itemNoteHudOverlays)
     {
       these.visible = false;
@@ -4893,6 +4906,42 @@ class PlayState extends MusicBeatState
     songCard.cameras = [camSubtitlesAndSuch];
     add(songCard);
     FlxTween.tween(songCard, {alpha: 1, y: centeredY}, 0.1 / playbackRate, {ease: EaseUtil.stepped(4)});
+  }
+
+  public function doNotetypeInfoCard(type:String)
+  {
+    if (noteTypeInfocard != null)
+    {
+      remove(noteTypeInfocard);
+      noteTypeInfocard.destroy();
+    }
+
+    noteTypeInfocard = new PixelPerfectSprite(1280).loadGraphic(Paths.image('ui/info/$type'));
+    noteTypeInfocard.scale.set(2, 2);
+    noteTypeInfocard.updateHitbox();
+    noteTypeInfocard.antialiasing = false;
+    noteTypeInfocard.cameras = [camHUD];
+    add(noteTypeInfocard);
+
+    FlxTween.tween(noteTypeInfocard, {x: noteTypeInfocard.x - noteTypeInfocard.width}, 0.25 / playbackRate,
+      {
+        ease: EaseUtil.stepped(8),
+        onComplete: function shit(fu:FlxTween)
+        {
+          var newboy:FlxTimer = new FlxTimer().start(4 / playbackRate, function fuck(f:FlxTimer)
+          {
+            FlxTween.tween(noteTypeInfocard, {x: 1280}, 0.25 / playbackRate,
+              {
+                ease: EaseUtil.stepped(8),
+                onComplete: function ass(as:FlxTween)
+                {
+                  noteTypeInfocard.visible = false;
+                  remove(noteTypeInfocard);
+                }
+              });
+          });
+        }
+      });
   }
 
   /**
