@@ -84,6 +84,8 @@ louiefan24 (@louiefan24) - Artist, Animator
 
 Additionally, the following outside contributors worked on The Destitution Mod V3:
 Lit (@LitLitster) - Playtester
+NICK! (@stardustyves) - Playtester
+Ray (@leppray) - The design for the true form of the "Time Creature"
 
 The Destitution Mod V3 is based, in part, on the works of the following people:
 Funkin' Crew LLC - Friday Night Funkin', its engine, its concept, and its characters
