@@ -30,7 +30,7 @@ class Superseded extends SongClass
     this.ratingsType = "";
     this.skipCountdown = true;
     this.preloadCharacters = [
-      'mark-old', 'mark-old-turn', 'mark-old-glitch', 'bf-old', 'the-creature', 'the-creature-gorilla', 'puppet-ploinky', 'puppet-ili', 'puppet-whale',
+      'mark-old', 'mark-old-turn', 'mark-old-glitch', 'bf-old', 'the-creature', 'the-creature-finale', 'puppet-ploinky', 'puppet-ili', 'puppet-whale',
       'puppet-rulez', 'puppet-crypteh', 'puppet-zam', 'bf-hunter', 'stop-loading'
     ];
     this.introCardBeat = 32;
@@ -279,7 +279,7 @@ class Superseded extends SongClass
         FlxTween.completeTweensOf(PlayState.instance.dad);
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
-        PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'the-creature-gorilla', false, false);
+        PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'the-creature-finale', false, false);
         PlayState.instance.dad.screenCenter();
         PlayState.instance.dad.y = creatureBaseY;
         PlayState.instance.dad.y += creatureHidingAdditive;

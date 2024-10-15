@@ -12,11 +12,11 @@ class Fundamentals extends SongClass
     this.songHasSections = false;
     this.introType = 'Default';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "Learn the fundamentals of SAVING your friends with this fun little ditty!";
+    this.songDescription = "Learn to sing in this new world with Girlspeaks' help!";
     this.ratingsType = "";
     this.skipCountdown = false;
-    this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
-    this.introCardBeat = 0;
+    this.preloadCharacters = ["bf-mark", "gf-fundamentals", "yuu-fundamentals", "stop-loading"];
+    this.introCardBeat = 16;
   }
 
   public override function stepHitEvent(curStep:Float)

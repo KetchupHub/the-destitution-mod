@@ -570,15 +570,16 @@ class PlayState extends MusicBeatState
       camPos.y += gf.getGraphicMidpoint().y + gf.cameraPosition[1];
     }
 
-    if (dad.curCharacter.startsWith('gf'))
-    {
-      dad.setPosition(GF_X, GF_Y);
-
-      if (gf != null)
+    // whoever wrote this code will die at my hand
+    /*if (dad.curCharacter.startsWith('gf'))
       {
-        gf.visible = false;
-      }
-    }
+        dad.setPosition(GF_X, GF_Y);
+
+        if (gf != null)
+        {
+          gf.visible = false;
+        }
+    }*/
 
     if (removeVariationSuffixes(SONG.song.toLowerCase()) == "d-stitution")
     {
@@ -899,6 +900,20 @@ class PlayState extends MusicBeatState
 
     switch (curStage)
     {
+      case 'fundamentals':
+        skyboxThingy = new PixelPerfectSprite().loadGraphic(Paths.image('destitution/skyboxThing'));
+        skyboxThingy.scale.set(2, 2);
+        skyboxThingy.updateHitbox();
+        skyboxThingy.antialiasing = false;
+        skyboxThingy.screenCenter();
+        skyboxThingy.scrollFactor.set();
+        add(skyboxThingy);
+
+        starting = new PixelPerfectSprite(0, 0).loadGraphic(Paths.image('fundamentals/bg'));
+        starting.antialiasing = false;
+        starting.scale.set(2, 2);
+        starting.updateHitbox();
+        add(starting);
       case 'mark':
         chromAbb = new Abberation(0);
         ripple = new RippleShader();
@@ -3720,15 +3735,11 @@ class PlayState extends MusicBeatState
 
     seperatedScore.push(combo % 10);
 
-    if (Std.string(combo).endsWith('00') && combo >= 100)
+    if ((Std.string(combo).endsWith('00') || Std.string(combo).endsWith('50')) && combo >= 49)
     {
       if (gf != null)
       {
         gf.playAnim('cheer', true);
-        // if (gf.visible)
-        // {
-        //  snapCamFollowToPos(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
-        // }
       }
     }
 
@@ -4032,13 +4043,9 @@ class PlayState extends MusicBeatState
       }
     });
 
-    if (combo > 5 && gf != null)
+    if (combo > 15 && gf != null)
     {
       gf.playAnim('sad', true);
-      // if (gf.visible)
-      // {
-      //  snapCamFollowToPos(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
-      // }
     }
 
     combo = 0;
@@ -4825,18 +4832,34 @@ class PlayState extends MusicBeatState
       // deal with this later
       switch (removeVariationSuffixes(songName.toLowerCase()))
       {
+        case 'fundamentals':
+          curStage = 'fundamentals';
         case 'destitution':
           curStage = 'mark';
         case 'superseded':
           curStage = 'superseded';
+        case 'quickshot':
+          curStage = 'quickshot';
         case 'd-stitution':
           curStage = 'dsides';
+        case 'countdown':
+          curStage = 'sports';
         case 'eggshells':
           curStage = 'eggshells';
         case 'eggshells-bad':
           curStage = 'eggshells-bad';
         case 'eggshells-good':
           curStage = 'eggshells-good';
+        case 'collapse':
+          curStage = 'collapse';
+        case 'megamix':
+          curStage = 'megamix';
+        case 'topkicks':
+          curStage = 'burning';
+        case 'quanta':
+          curStage = 'factory';
+        case 'abstraction':
+          curStage = 'tv';
         default:
           curStage = 'mark';
       }
