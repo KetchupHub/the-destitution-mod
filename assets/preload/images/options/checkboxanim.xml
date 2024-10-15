@@ -1,28 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas imagePath="checkboxanim.png">
-	<!-- Created with Adobe Animate version 21.0.1.37179 -->
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="checkbox0000" x="4" y="4" width="111" height="108" pivotX="0" pivotY="0" />
-	<SubTexture name="checkbox anim0000" x="119" y="4" width="183" height="142" pivotX="38.45"
-		pivotY="25.3" />
-	<SubTexture name="checkbox anim0001" x="119" y="4" width="183" height="142" />
-	<SubTexture name="checkbox anim0002" x="306" y="4" width="183" height="142" />
-	<SubTexture name="checkbox anim0003" x="306" y="4" width="183" height="142" />
-	<SubTexture name="checkbox anim0004" x="493" y="4" width="183" height="142" />
-	<SubTexture name="checkbox anim0005" x="493" y="4" width="183" height="142" />
-	<SubTexture name="checkbox anim0006" x="680" y="4" width="183" height="142" />
-	<SubTexture name="checkbox anim0007" x="680" y="4" width="183" height="142" />
-	<SubTexture name="checkbox anim0008" x="4" y="150" width="183" height="142" />
-	<SubTexture name="checkbox anim0009" x="4" y="150" width="183" height="142" />
-	<SubTexture name="checkbox anim reverse0000" x="191" y="150" width="178" height="167"
-		pivotX="28.55" pivotY="29.6" />
-	<SubTexture name="checkbox anim reverse0001" x="191" y="150" width="178" height="167" />
-	<SubTexture name="checkbox anim reverse0002" x="373" y="150" width="178" height="167" />
-	<SubTexture name="checkbox anim reverse0003" x="373" y="150" width="178" height="167" />
-	<SubTexture name="checkbox anim reverse0004" x="555" y="150" width="178" height="167" />
-	<SubTexture name="checkbox anim reverse0005" x="555" y="150" width="178" height="167" />
-	<SubTexture name="checkbox anim reverse0006" x="737" y="150" width="178" height="167" />
-	<SubTexture name="checkbox anim reverse0007" x="737" y="150" width="178" height="167" />
-	<SubTexture name="checkbox finish0000" x="4" y="321" width="137" height="125" pivotX="3.4"
-		pivotY="11.65" />
+	<SubTexture name="deselect0000" x="216" y="4" width="102" height="103" />
+	<SubTexture name="deselect0001" x="216" y="4" width="102" height="103" />
+	<SubTexture name="deselect0002" x="216" y="4" width="102" height="103" />
+	<SubTexture name="deselect0003" x="110" y="111" width="102" height="103" />
+	<SubTexture name="deselect0004" x="110" y="111" width="102" height="103" />
+	<SubTexture name="deselect0005" x="110" y="4" width="102" height="103" />
+	<SubTexture name="deselect0006" x="110" y="4" width="102" height="103" />
+	<SubTexture name="deselect0007" x="4" y="111" width="102" height="103" />
+	<SubTexture name="deselect0008" x="4" y="111" width="102" height="103" />
+	<SubTexture name="deselect0009" x="4" y="4" width="102" height="103" />
+	<SubTexture name="deselect0010" x="4" y="4" width="102" height="103" />
+	<SubTexture name="deselect0011" x="4" y="4" width="102" height="103" />
+	<SubTexture name="deselect0012" x="4" y="4" width="102" height="103" />
+	<SubTexture name="deselect0013" x="4" y="4" width="102" height="103" />
+	<SubTexture name="select0000" x="4" y="111" width="102" height="103" />
+	<SubTexture name="select0001" x="4" y="111" width="102" height="103" />
+	<SubTexture name="select0002" x="110" y="4" width="102" height="103" />
+	<SubTexture name="select0003" x="110" y="4" width="102" height="103" />
+	<SubTexture name="select0004" x="110" y="111" width="102" height="103" />
+	<SubTexture name="select0005" x="110" y="111" width="102" height="103" />
+	<SubTexture name="select0006" x="216" y="4" width="102" height="103" />
+	<SubTexture name="select0007" x="216" y="4" width="102" height="103" />
+	<SubTexture name="select0008" x="216" y="111" width="102" height="103" />
+	<SubTexture name="select0009" x="216" y="111" width="102" height="103" />
+	<SubTexture name="select0010" x="216" y="4" width="102" height="103" />
+	<SubTexture name="select0011" x="216" y="4" width="102" height="103" />
+	<SubTexture name="select0012" x="216" y="111" width="102" height="103" />
+	<SubTexture name="select0013" x="216" y="111" width="102" height="103" />
+	<SubTexture name="static checked0000" x="216" y="111" width="102" height="103" />
+	<SubTexture name="static checked0001" x="216" y="111" width="102" height="103" />
+	<SubTexture name="unselected0000" x="4" y="4" width="102" height="103" />
 </TextureAtlas>

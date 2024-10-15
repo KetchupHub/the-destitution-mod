@@ -602,7 +602,7 @@ class PlayState extends MusicBeatState
 
     var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
     timeTxt = new FlxText(0, 4, 400, "", 32);
-    timeTxt.setFormat(Paths.font(songFont), 32 + 10, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+    timeTxt.setFormat(Paths.font(songFont), 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
     timeTxt.borderSize = 1.5;
     timeTxt.screenCenter(X);
     timeTxt.scrollFactor.set();
@@ -615,40 +615,21 @@ class PlayState extends MusicBeatState
       timeTxt.y = FlxG.height - 40;
     }
 
-    if (ClientPrefs.timeBarType == 'Time Left' || ClientPrefs.timeBarType == 'Time Elapsed')
-    {
-      timeTxt.size = 36;
-      timeTxt.underline = true;
-      fullLength = new FlxText(timeTxt.x, timeTxt.y + 36, 400, "", 24);
-      fullLength.setFormat(Paths.font(songFont), 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
-      fullLength.borderSize = 1.5;
-      fullLength.scrollFactor.set();
-      fullLength.alpha = 0;
-      fullLength.visible = showTime;
-      fullLength.antialiasing = ClientPrefs.globalAntialiasing;
-    }
-
-    if (ClientPrefs.timeBarType == 'Song Name')
-    {
-      timeTxt.text = songObj.songNameForDisplay;
-    }
+    timeTxt.underline = true;
+    fullLength = new FlxText(timeTxt.x, timeTxt.y + 36, 400, "", 24);
+    fullLength.setFormat(Paths.font(songFont), 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+    fullLength.borderSize = 1.5;
+    fullLength.scrollFactor.set();
+    fullLength.alpha = 0;
+    fullLength.visible = showTime;
+    fullLength.antialiasing = ClientPrefs.globalAntialiasing;
 
     updateTime = showTime;
 
-    if (fullLength != null)
-    {
-      add(fullLength);
-    }
-
+    add(fullLength);
     add(timeTxt);
 
     strumLineNotes = new FlxTypedGroup<StrumNote>();
-
-    if (ClientPrefs.timeBarType == 'Song Name')
-    {
-      timeTxt.size = 24;
-      timeTxt.y += 14;
-    }
 
     var splash:NoteSplash = new NoteSplash(100, 100, 0);
     grpNoteSplashes.add(splash);
@@ -764,10 +745,7 @@ class PlayState extends MusicBeatState
     iconP1.cameras = [camHUD];
     scoreTxt.cameras = [camHUD];
     timeTxt.cameras = [camHUD];
-    if (fullLength != null)
-    {
-      fullLength.cameras = [camHUD];
-    }
+    fullLength.cameras = [camHUD];
     strumLineNotes.cameras = [camHUD];
     grpNoteSplashes.cameras = [camHUD];
     notes.cameras = [camHUD];
@@ -2645,10 +2623,7 @@ class PlayState extends MusicBeatState
             secondsTotal = 0;
           }
 
-          if (ClientPrefs.timeBarType != 'Song Name')
-          {
-            timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
-          }
+          timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
         }
       }
     }

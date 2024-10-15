@@ -1,5 +1,6 @@
 package options;
 
+import ui.OptionsFont;
 import ui.TransitionScreenshotObject;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
@@ -7,9 +8,7 @@ import flixel.util.FlxTimer;
 import flixel.addons.transition.FlxTransitionableState;
 import states.MainMenuState;
 import backend.ClientPrefs;
-import ui.Alphabet;
 import util.CoolUtil;
-import util.MemoryUtil;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -30,7 +29,8 @@ class OptionsState extends MusicBeatState
     'Visuals and UI',
     'Gameplay'
   ];
-  private var grpOptions:FlxTypedGroup<Alphabet>;
+
+  private var grpOptions:FlxTypedGroup<OptionsFont>;
 
   private static var curSelected:Int = 0;
   public static var menuBG:PixelPerfectSprite;
@@ -60,8 +60,8 @@ class OptionsState extends MusicBeatState
     }
   }
 
-  var selectorLeft:Alphabet;
-  var selectorRight:Alphabet;
+  var selectorLeft:OptionsFont;
+  var selectorRight:OptionsFont;
 
   override function create()
   {
@@ -100,12 +100,12 @@ class OptionsState extends MusicBeatState
     optionsThingy.screenCenter();
     add(optionsThingy);
 
-    grpOptions = new FlxTypedGroup<Alphabet>();
+    grpOptions = new FlxTypedGroup<OptionsFont>();
     add(grpOptions);
 
     for (i in 0...options.length)
     {
-      var optionText:Alphabet = new Alphabet(0, 0, options[i], true);
+      var optionText:OptionsFont = new OptionsFont(0, 0, options[i], true);
       var maxWidth = 640;
       if (optionText.width > maxWidth)
       {
@@ -119,10 +119,10 @@ class OptionsState extends MusicBeatState
       grpOptions.add(optionText);
     }
 
-    selectorLeft = new Alphabet(0, 0, '>', true);
+    selectorLeft = new OptionsFont(0, 0, '>', true);
     selectorLeft.alpha = 0;
     add(selectorLeft);
-    selectorRight = new Alphabet(0, 0, '<', true);
+    selectorRight = new OptionsFont(0, 0, '<', true);
     selectorRight.alpha = 0;
     add(selectorRight);
 

@@ -1,9 +1,9 @@
 package options;
 
+import ui.OptionsFont;
 import visuals.PixelPerfectSprite;
 import backend.ClientPrefs;
 import shaders.ColorSwap;
-import ui.Alphabet;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxColor;
 import flixel.FlxG;
@@ -15,7 +15,7 @@ class NotesSubState extends MusicBeatSubstate
   private static var curSelected:Int = 0;
   private static var typeSelected:Int = 0;
 
-  private var grpNumbers:FlxTypedGroup<Alphabet>;
+  private var grpNumbers:FlxTypedGroup<OptionsFont>;
   private var grpNotes:FlxTypedGroup<PixelPerfectSprite>;
   private var shaderArray:Array<ColorSwap> = [];
   var curValue:Float = 0;
@@ -23,7 +23,7 @@ class NotesSubState extends MusicBeatSubstate
   var nextAccept:Int = 5;
 
   var blackBG:FlxSprite;
-  var hsbText:Alphabet;
+  var hsbText:OptionsFont;
 
   var posX = 230;
 
@@ -32,10 +32,16 @@ class NotesSubState extends MusicBeatSubstate
     super();
 
     var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
-    bg.color = 0xFFea71fd;
+    bg.color = 0xffe3e7ae;
     bg.screenCenter();
     bg.antialiasing = ClientPrefs.globalAntialiasing;
     add(bg);
+    
+    var clipboard:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('options/clipboard'));
+    clipboard.scale.set(2, 2);
+    clipboard.updateHitbox();
+    clipboard.screenCenter();
+    add(clipboard);
 
     blackBG = new FlxSprite(posX - 25).makeGraphic(870, 200, FlxColor.BLACK);
     blackBG.alpha = 0.4;
@@ -43,7 +49,7 @@ class NotesSubState extends MusicBeatSubstate
 
     grpNotes = new FlxTypedGroup<PixelPerfectSprite>();
     add(grpNotes);
-    grpNumbers = new FlxTypedGroup<Alphabet>();
+    grpNumbers = new FlxTypedGroup<OptionsFont>();
     add(grpNumbers);
 
     for (i in 0...ClientPrefs.arrowHSV.length)
@@ -52,7 +58,7 @@ class NotesSubState extends MusicBeatSubstate
 
       for (j in 0...3)
       {
-        var optionText:Alphabet = new Alphabet(posX + (225 * j) + 250, yPos + 60, Std.string(ClientPrefs.arrowHSV[i][j]), true);
+        var optionText:OptionsFont = new OptionsFont(posX + (225 * j) + 250, yPos + 60, Std.string(ClientPrefs.arrowHSV[i][j]), true);
         grpNumbers.add(optionText);
       }
 
@@ -71,7 +77,7 @@ class NotesSubState extends MusicBeatSubstate
       shaderArray.push(newShader);
     }
 
-    hsbText = new Alphabet(posX + 560, 0, "Hue    Saturation  Brightness", false);
+    hsbText = new OptionsFont(posX + 560, 0, "Hue    Saturation  Brightness", false);
     hsbText.scaleX = 0.6;
     hsbText.scaleY = 0.6;
     add(hsbText);

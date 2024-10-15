@@ -1,10 +1,10 @@
 package options;
 
+import ui.AttachedTextOptions;
+import ui.OptionsFont;
 import visuals.PixelPerfectSprite;
 import backend.ClientPrefs;
 import visuals.Character;
-import ui.AttachedText;
-import ui.Alphabet;
 import ui.CheckboxThingie;
 #if desktop
 import backend.Discord.DiscordClient;
@@ -23,9 +23,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
   private var curSelected:Int = 0;
   private var optionsArray:Array<Option>;
 
-  private var grpOptions:FlxTypedGroup<Alphabet>;
+  private var grpOptions:FlxTypedGroup<OptionsFont>;
   private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
-  private var grpTexts:FlxTypedGroup<AttachedText>;
+  private var grpTexts:FlxTypedGroup<AttachedTextOptions>;
 
   private var boyfriend:Character = null;
   private var descBox:FlxSprite;
@@ -33,6 +33,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
   public var title:String;
   public var rpcTitle:String;
+  public var backGroundColor:FlxColor;
 
   public function new()
   {
@@ -53,15 +54,21 @@ class BaseOptionsMenu extends MusicBeatSubstate
     #end
 
     var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
-    bg.color = 0xFFea71fd;
+    bg.color = backGroundColor;
     bg.screenCenter();
     add(bg);
 
+    var clipboard:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('options/clipboard'));
+    clipboard.scale.set(2, 2);
+    clipboard.updateHitbox();
+    clipboard.screenCenter();
+    add(clipboard);
+
     // avoids lagspikes while scrolling through menus!
-    grpOptions = new FlxTypedGroup<Alphabet>();
+    grpOptions = new FlxTypedGroup<OptionsFont>();
     add(grpOptions);
 
-    grpTexts = new FlxTypedGroup<AttachedText>();
+    grpTexts = new FlxTypedGroup<AttachedTextOptions>();
     add(grpTexts);
 
     checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
@@ -71,7 +78,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
     descBox.alpha = 0.6;
     add(descBox);
 
-    var titleText:Alphabet = new Alphabet(75, 40, title, true);
+    var titleText:OptionsFont = new OptionsFont(75, 40, title, true);
     titleText.scaleX = 0.6;
     titleText.scaleY = 0.6;
     titleText.alpha = 0.4;
@@ -86,13 +93,17 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
     for (i in 0...optionsArray.length)
     {
-      var optionText:Alphabet = new Alphabet(290, 260, optionsArray[i].name, false);
+      var optionText:OptionsFont = new OptionsFont(0, 260, optionsArray[i].name, false);
       optionText.isMenuItem = true;
+      optionText.changeX = false;
       optionText.targetY = i;
+      optionText.screenCenter(X);
+      optionText.x -= 55;
       grpOptions.add(optionText);
 
       if (optionsArray[i].type == 'bool')
       {
+        optionText.x += 105;
         var checkbox:CheckboxThingie = new CheckboxThingie(optionText.x - 105, optionText.y, optionsArray[i].getValue() == true);
         checkbox.sprTracker = optionText;
         checkbox.ID = i;
@@ -100,13 +111,13 @@ class BaseOptionsMenu extends MusicBeatSubstate
       }
       else
       {
-        optionText.x -= 80;
-        optionText.startPosition.x -= 80;
-        var valueText:AttachedText = new AttachedText('' + optionsArray[i].getValue(), optionText.width + 80);
+        var valueText:AttachedTextOptions = new AttachedTextOptions('' + optionsArray[i].getValue(), optionText.width + 80);
         valueText.antialiasing = ClientPrefs.globalAntialiasing;
         valueText.sprTracker = optionText;
         valueText.copyAlpha = true;
         valueText.ID = i;
+        optionText.x -= valueText.width;
+        valueText.x -= valueText.width;
         grpTexts.add(valueText);
         optionsArray[i].setChild(valueText);
       }

@@ -1,5 +1,6 @@
 package options;
 
+import ui.OptionsFont;
 import ui.TransitionScreenshotObject;
 import util.EaseUtil;
 #if desktop
@@ -9,7 +10,6 @@ import flixel.addons.transition.FlxTransitionableState;
 import util.CoolUtil;
 import util.MemoryUtil;
 import backend.Conductor;
-import ui.Alphabet;
 import backend.ClientPrefs;
 import ui.MarkHeadTransition;
 import visuals.Character;
@@ -46,7 +46,7 @@ class NoteOffsetState extends MusicBeatState
   var timeBarBG:FlxSprite;
   var timeBar:FlxBar;
   var timeTxt:FlxText;
-  var beatText:Alphabet;
+  var beatText:OptionsFont;
   var beatTween:FlxTween;
 
   var changeModeText:FlxText;
@@ -144,7 +144,7 @@ class NoteOffsetState extends MusicBeatState
 
     // Note delay stuff
 
-    beatText = new Alphabet(0, 0, 'Beat Hit!', true);
+    beatText = new OptionsFont(0, 0, 'Beat Hit!', true);
     beatText.scaleX = 0.6;
     beatText.scaleY = 0.6;
     beatText.x += 260;

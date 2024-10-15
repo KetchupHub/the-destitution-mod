@@ -9,15 +9,12 @@ class VisualsUISubState extends BaseOptionsMenu
   {
     title = 'Visuals and UI';
     rpcTitle = 'Visuals & UI Settings Menu'; // for Discord Rich Presence
+    backGroundColor = 0xff547e7a;
 
     var option:Option = new Option('Note Splashes', "If unchecked, hitting \"Synergy!\" notes won't show particles.", 'noteSplashes', 'bool', true);
     addOption(option);
 
     var option:Option = new Option('Hide HUD', 'If checked, hides most HUD elements.', 'hideHud', 'bool', false);
-    addOption(option);
-
-    var option:Option = new Option('Time Bar:', "What should the Time Bar display?", 'timeBarType', 'string', 'Time Left',
-      ['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
     addOption(option);
 
     var option:Option = new Option('Flashing Lights', "Uncheck this if you're sensitive to flashing lights!", 'flashing', 'bool', true);
@@ -42,6 +39,10 @@ class VisualsUISubState extends BaseOptionsMenu
     var option:Option = new Option('Smoother Bars',
       "If checked, bars such as the health bar will be subdivided more, resulting in smoother movement. This also leads to more CPU usage!", 'smootherBars',
       'bool', false);
+    addOption(option);
+
+    var option:Option = new Option('Time Block:', "What should the Time Block display over the song duration?", 'timeBarType', 'string', 'Time Left',
+      ['Time Left', 'Time Elapsed', 'Disabled']);
     addOption(option);
 
     super();
