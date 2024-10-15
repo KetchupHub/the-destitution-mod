@@ -1,5 +1,7 @@
 package songs;
 
+import backend.TextAndLanguage;
+
 /**
  * Quanta's song class.
  */
@@ -12,7 +14,7 @@ class Quanta extends SongClass
     this.songHasSections = false;
     this.introType = 'Default';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "A flashback of quantum proportions!";
+    this.songDescription = TextAndLanguage.getPhrase('desc_quanta', "A flashback of quantum proportions!");
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];

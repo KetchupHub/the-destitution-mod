@@ -1,5 +1,7 @@
 package songs;
 
+import backend.TextAndLanguage;
+
 /**
  * Fundamentals' song class.
  */
@@ -12,7 +14,7 @@ class Fundamentals extends SongClass
     this.songHasSections = false;
     this.introType = 'Default';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "Learn to sing in this new world with Girlspeaks' help!";
+    this.songDescription = TextAndLanguage.getPhrase('desc_fundamentals', "Learn to sing in this new world with Girlspeaks' help!");
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf-fundamentals", "yuu-fundamentals", "stop-loading"];

@@ -1,5 +1,6 @@
 package songs;
 
+import backend.TextAndLanguage;
 import openfl.filters.ShaderFilter;
 import util.EaseUtil;
 import ui.SubtitleObject.SubtitleTypes;
@@ -26,7 +27,8 @@ class Superseded extends SongClass
     this.gameoverChar = 'bf-dead';
     this.gameoverMusicSuffix = '_old';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "Mark's experimental time machine brings Nopeboy back to 2022 - 20, when everything was terrible!";
+    this.songDescription = TextAndLanguage.getPhrase('desc_superseded',
+      "Mark's experimental time machine brings Nopeboy back to 2022 - 20, when everything was terrible!");
     this.ratingsType = "";
     this.skipCountdown = true;
     this.preloadCharacters = [

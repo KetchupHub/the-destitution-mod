@@ -1,5 +1,7 @@
 package songs;
 
+import backend.TextAndLanguage;
+
 /**
  * Abstraction's song class.
  */
@@ -14,7 +16,7 @@ class Abstraction extends SongClass
     this.gameoverChar = 'bf-dead';
     this.gameoverMusicSuffix = '';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "Experience the magic of Mark's very own self written television program firsthand!";
+    this.songDescription = TextAndLanguage.getPhrase('desc_abstraction', "Experience the magic of Mark's very own self written television program firsthand!");
     this.ratingsType = "";
     this.skipCountdown = true;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];

@@ -1,5 +1,6 @@
 package states;
 
+import backend.TextAndLanguage;
 import openfl.utils.Assets;
 import haxe.Json;
 import ui.TransitionScreenshotObject;
@@ -135,7 +136,6 @@ class FreeplayState extends MusicBeatState
     enteringMenu = true;
 
     bg = new PixelPerfectSprite().loadGraphic(Paths.image('freeplay/$useSkin/bg'));
-    bg.alpha = 0.5;
     add(bg);
     bg.screenCenter();
 
@@ -220,7 +220,7 @@ class FreeplayState extends MusicBeatState
     if (curSelected >= songs.length) curSelected = 0;
     bg.color = songs[curSelected].color;
     var realboy = FlxColor.fromInt(bg.color);
-    realboy.alphaFloat = 0.5;
+    // realboy.alphaFloat = 0.5;
     intendedColor = realboy;
 
     for (i in grpSongs.members)
@@ -235,7 +235,8 @@ class FreeplayState extends MusicBeatState
     textBG.alpha = 0.6;
     add(textBG);
 
-    var leText:String = "Press Space to listen to the Song / Press Control to open the Gameplay Changers Menu / Press the RESET button to reset your Score and Accuracy.";
+    var leText:String = TextAndLanguage.getPhrase('freeplay_info',
+      'Press Space to listen to the Song / Press Control to open the Gameplay Changers Menu / Press the RESET button to reset your Score and Accuracy.');
     var size:Int = 16;
     var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
     text.setFormat(Paths.font("BAUHS93.ttf"), size, FlxColor.WHITE, RIGHT);
@@ -356,14 +357,16 @@ class FreeplayState extends MusicBeatState
         }
       }
 
-      var myFuck:String = '\nSong Variant: ' + songVariantCur + '\nTab to Switch!';
+      var myFuck:String = TextAndLanguage.getPhrase('freeplay_variant', '\nSong Variant: {1}\nTab to Switch!', [songVariantCur]);
 
       if (SongInit.genSongObj(songs[curSelected].songName.toLowerCase()).songVariants.length <= 1)
       {
         myFuck = '';
       }
 
-      scoreText.text = 'Best Score: ' + FlxStringUtil.formatMoney(lerpScore, false, true) + ' (' + ratingSplit.join('.') + '%)' + myFuck;
+      scoreText.text = TextAndLanguage.getPhrase('freeplay_best', 'Best Score: {1}', [
+        (FlxStringUtil.formatMoney(lerpScore, false, true) + ' (' + ratingSplit.join('.') + '%)')
+      ]) + myFuck;
       positionHighscore();
 
       if (controls.BACK)
@@ -521,7 +524,7 @@ class FreeplayState extends MusicBeatState
       }
 
       var realboy = FlxColor.fromInt(newColor);
-      realboy.alphaFloat = 0.5;
+      // realboy.alphaFloat = 0.5;
       intendedColor = realboy;
 
       colorTween = FlxTween.color(bg, 1, bg.color, intendedColor,

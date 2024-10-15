@@ -1,5 +1,6 @@
 package states;
 
+import backend.TextAndLanguage;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import util.CoolUtil;
@@ -76,7 +77,7 @@ class PauseSubState extends MusicBeatSubstate
     add(bg);
 
     var credit:FlxText = new FlxText(8, 0, 0, "", 32);
-    credit.text = "Composer: " + PlayState.SONG.composer + "\nCharter: " + PlayState.SONG.charter;
+    credit.text = TextAndLanguage.getPhrase('pause_credits', 'Composer: {1}\nCharter: {2}', [PlayState.SONG.composer, PlayState.SONG.charter]);
     credit.scrollFactor.set();
     credit.setFormat(Paths.font("BAUHS93.ttf"), 32);
     credit.updateHitbox();
@@ -93,7 +94,7 @@ class PauseSubState extends MusicBeatSubstate
     add(levelInfo);
 
     var blueballedTxt:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
-    blueballedTxt.text = "Died: " + PlayState.deathCounter;
+    blueballedTxt.text = TextAndLanguage.getPhrase('pause_died', 'Died: {1}', [PlayState.deathCounter]);
     blueballedTxt.scrollFactor.set();
     blueballedTxt.setFormat(Paths.font("BAUHS93.ttf"), 32);
     blueballedTxt.updateHitbox();
@@ -112,7 +113,7 @@ class PauseSubState extends MusicBeatSubstate
       add(sectionTxt);
     }
 
-    practiceText = new FlxText(20, 15 + 101, 0, "PRACTICE MODE", 32);
+    practiceText = new FlxText(20, 15 + 101, 0, TextAndLanguage.getPhrase('pause_practice', 'PRACTICE MODE'), 32);
     practiceText.scrollFactor.set();
     practiceText.setFormat(Paths.font("BAUHS93.ttf"), 32);
     practiceText.x = FlxG.width - (practiceText.width + 20);
@@ -122,7 +123,7 @@ class PauseSubState extends MusicBeatSubstate
     add(practiceText);
 
     #if DEVELOPERBUILD
-    var chartingText:FlxText = new FlxText(20, 15 + 165, 0, "CHARTING MODE", 32);
+    var chartingText:FlxText = new FlxText(20, 15 + 165, 0, TextAndLanguage.getPhrase('pause_charting', 'CHARTING MODE'), 32);
     chartingText.scrollFactor.set();
     chartingText.setFormat(Paths.font("BAUHS93.ttf"), 32);
     chartingText.x = FlxG.width - (chartingText.width + 20);

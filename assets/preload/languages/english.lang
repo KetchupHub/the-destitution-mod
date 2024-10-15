@@ -1,0 +1,49 @@
+English (US)
+
+score_text: "Score: {1} | Misses: {2} | Rating: {3}"
+
+section_intro: "SECTION {1}"
+
+rating_blegh: "Blegh!"
+rating_bleck: "Bleck!"
+rating_bad: "Bad!"
+rating_egh: "Egh."
+rating_meh: "Meh."
+rating_good: "Good!"
+rating_great: "Great!"
+rating_incredible: "Incredible!"
+rating_synergy: "Synergy!"
+
+yes: "Yes"
+no: "No"
+
+reset_score_of: "Reset the score of"
+
+pause_died: "Died: {1}"
+pause_section: "Section {1}"
+pause_credits: "Composer: {1}\nCharter: {2}"
+pause_practice: "PRACTICE MODE"
+pause_charting: "CHARTING MODE"
+
+loading_back: "Going Back..."
+
+freeplay_info: "Press Space to listen to the Song / Press Control to open the Gameplay Changers Menu / Press the RESET button to reset your Score and Accuracy."
+freeplay_best: "Best Score: {1}"
+freeplay_variant: "\nSong Variant: {1}\nTab to Switch!"
+
+flash_warning: "Hey, watch out!\nThis Mod contains some flashing lights!\nPress ENTER to disable them now.\nPress ESCAPE to ignore this message.\n(You can turn them off later in the options menu either way.)\nYou've been warned!"
+
+desc_fundamentals: "Learn to sing in this new world with Girlspeaks' help!"
+desc_destitution: "Mark and the gang show Nopeboy how to be a master investor!"
+desc_superseded: "Mark's experimental time machine brings Nopeboy back to 2022 - 20, when everything was terrible!"
+desc_quickshot: "Pearson faces the Rulez Battalion in combat!"
+desc_dstitution: "Mark enlists Nopeboy to test the new dimension shifter on his time machine, and shenanigans ensue!"
+desc_countdown: "It's a slice of life episode! Mark and the gang play sports with Nopeboy and his friends!"
+desc_eggshells: "Mark's lonely cousin seems like he's not much for conversation, but that won't stop Nopeboy from trying!"
+desc_eggshells_bad: "Well, that could've gone better."
+desc_eggshells_good: "Good job! You done it! You Are Super Player! Mondo!"
+desc_collapse: "It's the end of the Marketing family business when footage of Mark killing Nopeboy leaks. Now it's time to fight off bankruptcy!"
+desc_megamix: "Thanks for playing!"
+desc_topkicks: "It seems like a couple of Pearson's friends haven't taken too kindly to not being invited..."
+desc_quanta: "A flashback of quantum proportions!"
+desc_abstraction: "Experience the magic of Mark's very own self written television program firsthand!"

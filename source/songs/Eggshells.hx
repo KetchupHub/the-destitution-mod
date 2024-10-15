@@ -1,5 +1,7 @@
 package songs;
 
+import backend.TextAndLanguage;
+
 /**
  * Eggshells' song class.
  */
@@ -14,7 +16,8 @@ class Eggshells extends SongClass
     this.gameoverChar = 'bf-dead';
     this.gameoverMusicSuffix = '';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "Mark's lonely cousin seems like he's not much for conversation, but that won't stop Nopeboy from trying!";
+    this.songDescription = TextAndLanguage.getPhrase('desc_eggshells',
+      "Mark's lonely cousin seems like he's not much for conversation, but that won't stop Nopeboy from trying!");
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["gary", "bf-eggshells", "gf-eggshells", "stop-loading"];

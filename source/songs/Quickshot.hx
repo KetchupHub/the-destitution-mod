@@ -1,5 +1,7 @@
 package songs;
 
+import backend.TextAndLanguage;
+
 /**
  * Quickshot's song class.
  */
@@ -12,7 +14,7 @@ class Quickshot extends SongClass
     this.songHasSections = false;
     this.introType = 'Default';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "Pearson faces the Rulez Battalion in combat!";
+    this.songDescription = TextAndLanguage.getPhrase('desc_quickshot', "Pearson faces the Rulez Battalion in combat!");
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];

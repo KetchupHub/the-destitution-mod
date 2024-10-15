@@ -1,5 +1,7 @@
 package songs;
 
+import backend.TextAndLanguage;
+
 /**
  * Collapse's song class.
  */
@@ -14,7 +16,8 @@ class Collapse extends SongClass
     this.gameoverChar = 'bf-dead';
     this.gameoverMusicSuffix = '';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "It's the end of the Marketing family business when footage of Mark killing Nopeboy leaks. Now it's time to fight off bankruptcy!";
+    this.songDescription = TextAndLanguage.getPhrase('desc_collapse',
+      "It's the end of the Marketing family business when footage of Mark killing Nopeboy leaks. Now it's time to fight off bankruptcy!");
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];

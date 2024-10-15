@@ -1,5 +1,7 @@
 package songs;
 
+import backend.TextAndLanguage;
+
 /**
  * Megamix's song class.
  */
@@ -14,7 +16,7 @@ class Megamix extends SongClass
     this.gameoverChar = 'bf-dead';
     this.gameoverMusicSuffix = '';
     this.songVariants = ["Normal"];
-    this.songDescription = "Thanks for playing!";
+    this.songDescription = TextAndLanguage.getPhrase('desc_megamix', "Thanks for playing!");
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];

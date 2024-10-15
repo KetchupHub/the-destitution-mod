@@ -1,5 +1,6 @@
 package backend;
 
+import backend.TextAndLanguage.Languages;
 import util.CoolUtil;
 import states.TitleState;
 import flixel.FlxG;
@@ -37,10 +38,6 @@ class ClientPrefs
   public static var smootherBars = true;
   public static var pixelPerfection = true;
   public static var multithreading = true;
-
-  public static var rpgSave1Used = false;
-  public static var rpgSave2Used = false;
-  public static var rpgSave3Used = false;
 
   public static var gameplaySettings:Map<String, Dynamic> = [
     'scrollspeed' => 1.0,
@@ -83,6 +80,8 @@ class ClientPrefs
   ];
 
   public static var defaultKeys:Map<String, Array<FlxKey>> = null;
+
+  public static var language:Languages = ENGLISH;
 
   public static var lastEggshellsEnding:String = '';
 
@@ -129,9 +128,7 @@ class ClientPrefs
     FlxG.save.data.pixelPerfection = pixelPerfection;
     FlxG.save.data.multithreading = multithreading;
     FlxG.save.data.lastEggshellsEnding = lastEggshellsEnding;
-    FlxG.save.data.rpgSave1Used = rpgSave1Used;
-    FlxG.save.data.rpgSave2Used = rpgSave2Used;
-    FlxG.save.data.rpgSave3Used = rpgSave3Used;
+    FlxG.save.data.language = language;
 
     FlxG.save.flush();
 
@@ -146,6 +143,11 @@ class ClientPrefs
    */
   public static function loadPrefs()
   {
+    if (FlxG.save.data.language != null)
+    {
+      language = FlxG.save.data.language;
+    }
+
     if (FlxG.save.data.downScroll != null)
     {
       downScroll = FlxG.save.data.downScroll;
@@ -337,21 +339,6 @@ class ClientPrefs
     if (FlxG.save.data.multithreading != null)
     {
       multithreading = FlxG.save.data.multithreading;
-    }
-
-    if (FlxG.save.data.rpgSave1Used != null)
-    {
-      rpgSave1Used = FlxG.save.data.rpgSave1Used;
-    }
-
-    if (FlxG.save.data.rpgSave2Used != null)
-    {
-      rpgSave2Used = FlxG.save.data.rpgSave2Used;
-    }
-
-    if (FlxG.save.data.rpgSave3Used != null)
-    {
-      rpgSave3Used = FlxG.save.data.rpgSave3Used;
     }
 
     if (FlxG.save.data.lastEggshellsEnding != null)

@@ -1,5 +1,6 @@
 package states;
 
+import backend.TextAndLanguage;
 import flixel.util.FlxTimer;
 import util.EaseUtil;
 import flixel.tweens.FlxTween;
@@ -76,7 +77,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 
     var tooLong:Float = (name.length > 18) ? 0.8 : 1;
 
-    var text:Alphabet = new Alphabet(0, 110, "Reset the score of", true);
+    var text:Alphabet = new Alphabet(0, 110, TextAndLanguage.getPhrase('reset_score_of', 'Reset the score of'), true);
     text.screenCenter(X);
     alphabetArray.push(text);
     text.alpha = 0;
@@ -108,13 +109,13 @@ class ResetScoreSubState extends MusicBeatSubstate
 
     FlxTween.tween(songCover, {alpha: 1}, 0.25, {startDelay: 0.75, ease: EaseUtil.stepped(4)});
 
-    yesText = new Alphabet(0, text.y + 250, 'Yes', true);
+    yesText = new Alphabet(0, text.y + 250, TextAndLanguage.getPhrase('yes', 'Yes'), true);
     yesText.screenCenter(X);
     yesText.x -= 200;
     yesText.alpha = 0;
     add(yesText);
 
-    noText = new Alphabet(0, text.y + 250, 'No', true);
+    noText = new Alphabet(0, text.y + 250, TextAndLanguage.getPhrase('no', 'No'), true);
     noText.screenCenter(X);
     noText.x += 200;
     noText.alpha = 0;

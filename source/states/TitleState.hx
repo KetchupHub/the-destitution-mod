@@ -1,5 +1,6 @@
 package states;
 
+import backend.TextAndLanguage;
 import ui.TransitionScreenshotObject;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
@@ -107,6 +108,8 @@ class TitleState extends MusicBeatState
     ClientPrefs.loadPrefs();
 
     Highscore.load();
+
+    TextAndLanguage.setLang(ClientPrefs.language);
 
     if (!initialized)
     {

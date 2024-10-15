@@ -1,5 +1,6 @@
 package states;
 
+import backend.TextAndLanguage;
 import shaders.AdjustColorShader;
 import openfl.filters.ShaderFilter;
 import shaders.FNAFShader;
@@ -380,6 +381,19 @@ class PlayState extends MusicBeatState
     CoolUtil.newStateMemStuff(false);
 
     gameplaySettingsSetup();
+
+    // lang stuff
+    ratingStuff = [
+      [TextAndLanguage.getPhrase('rating_blegh', 'Blegh!'), 0.2], // From 0% to 19%
+      [TextAndLanguage.getPhrase('rating_bleck', 'Bleck!'), 0.4], // From 20% to 39%
+      [TextAndLanguage.getPhrase('rating_bad', 'Bad!'), 0.5], // From 40% to 49%
+      [TextAndLanguage.getPhrase('rating_egh', 'Egh.'), 0.6], // From 50% to 59%
+      [TextAndLanguage.getPhrase('rating_meh', 'Meh.'), 0.7], // From 60% to 69%
+      [TextAndLanguage.getPhrase('rating_good', 'Good!'), 0.8], // From 70% to 79%
+      [TextAndLanguage.getPhrase('rating_great', 'Great!'), 0.9], // From 80% to 89%
+      [TextAndLanguage.getPhrase('rating_incredible', 'Incredible!'), 0.99], // From 90% to 98%
+      [TextAndLanguage.getPhrase('rating_synergy', 'Synergy!'), 1]
+    ];
 
     controlArray = ['NOTE_LEFT', 'NOTE_DOWN', 'NOTE_UP', 'NOTE_RIGHT'];
 
@@ -1692,13 +1706,15 @@ class PlayState extends MusicBeatState
 
   public function updateScore(miss:Bool = false)
   {
-    scoreTxt.text = 'Score: '
-      + FlxStringUtil.formatMoney(songScore, false, true)
-      + ' | Misses: '
-      + songMisses
-      + ' | Rating: '
-      + ratingName
-      + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
+    var str:String = ratingName;
+    if (totalPlayed != 0)
+    {
+      var percent:Float = Highscore.floorDecimal(ratingPercent * 100, 2);
+      str += ' (${percent}%) - ' + ratingFC;
+    }
+
+    scoreTxt.text = TextAndLanguage.getPhrase('score_text', 'Score: {1} | Misses: {2} | Rating: {3}',
+      [FlxStringUtil.formatMoney(songScore, false, true), songMisses, str]);
 
     if (ClientPrefs.scoreZoom && !miss)
     {
@@ -2019,7 +2035,7 @@ class PlayState extends MusicBeatState
       add(sectNameText);
     }
 
-    sectText.text = "SECTION " + sectionNum;
+    sectText.text = TextAndLanguage.getPhrase('section_intro', 'SECTION {1}', [sectionNum]);
     sectNameText.text = displayName.toUpperCase();
 
     sectText.screenCenter();

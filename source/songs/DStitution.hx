@@ -1,15 +1,13 @@
 package songs;
 
+import backend.TextAndLanguage;
 import util.EaseUtil;
 import util.CoolUtil;
-import waveform.WaveformDataParser;
-import waveform.WaveformSprite;
 import backend.ClientPrefs;
 import visuals.Boyfriend;
 import visuals.Character;
 import backend.Conductor;
 import states.PlayState;
-import flixel.sound.FlxSound;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import flixel.FlxG;
@@ -29,7 +27,8 @@ class DStitution extends SongClass
     this.gameoverChar = 'd-bf-dead';
     this.gameoverMusicSuffix = '_dsides';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "Mark enlists Nopeboy to test the new dimension shifter on his time machine, and shenanigans ensue!";
+    this.songDescription = TextAndLanguage.getPhrase('desc_dstitution',
+      "Mark enlists Nopeboy to test the new dimension shifter on his time machine, and shenanigans ensue!");
     this.ratingsType = "Dsides";
     this.skipCountdown = false;
     this.preloadCharacters = [

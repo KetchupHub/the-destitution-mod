@@ -1,5 +1,6 @@
 package states;
 
+import backend.TextAndLanguage;
 import ui.TransitionScreenshotObject;
 import sys.thread.Thread;
 import visuals.PixelPerfectSprite;
@@ -124,7 +125,7 @@ class LoadingScreenState extends MusicBeatState
 
     toLoad = charactersToLoad.length - 1;
 
-    holdingEscText = new FlxText(6, FlxG.height - 28, FlxG.width - 4, 'Going Back...', 16);
+    holdingEscText = new FlxText(6, FlxG.height - 28, FlxG.width - 4, TextAndLanguage.getPhrase('loading_back', 'Going Back...'), 16);
     holdingEscText.setBorderStyle(FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK, 2);
     holdingEscText.scrollFactor.set();
     holdingEscText.alpha = 0;

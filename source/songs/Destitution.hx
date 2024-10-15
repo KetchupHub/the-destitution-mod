@@ -1,5 +1,6 @@
 package songs;
 
+import backend.TextAndLanguage;
 import flixel.animation.FlxAnimationController;
 import util.EaseUtil;
 import openfl.filters.ShaderFilter;
@@ -29,7 +30,7 @@ class Destitution extends SongClass
     this.gameoverChar = 'bf-dead';
     this.gameoverMusicSuffix = '';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "Mark and the gang show Nopeboy how to be a master investor!";
+    this.songDescription = TextAndLanguage.getPhrase('desc_destitution', "Mark and the gang show Nopeboy how to be a master investor!");
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = [

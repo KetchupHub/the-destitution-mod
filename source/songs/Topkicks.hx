@@ -1,5 +1,7 @@
 package songs;
 
+import backend.TextAndLanguage;
+
 /**
  * TopKicks' song class.
  */
@@ -12,7 +14,8 @@ class Topkicks extends SongClass
     this.songHasSections = false;
     this.introType = 'Default';
     this.songVariants = ["Normal", "Erect"];
-    this.songDescription = "It seems like a couple of Pearson's friends haven't taken too kindly to not being invited...";
+    this.songDescription = TextAndLanguage.getPhrase('desc_topkicks',
+      "It seems like a couple of Pearson's friends haven't taken too kindly to not being invited...");
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
