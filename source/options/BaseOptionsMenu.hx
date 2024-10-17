@@ -430,9 +430,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
     spriteGrafx = new FlxSprite(840, 170).loadGraphic(Paths.image('options/' + str));
     spriteGrafx.antialiasing = ClientPrefs.globalAntialiasing;
+    spriteGrafx.scale.set(1.1, 1.1);
+    spriteGrafx.updateHitbox();
     spriteGrafx.x = (FlxG.width - spriteGrafx.width) - 32;
     spriteGrafx.y = (FlxG.height - spriteGrafx.height) - 32;
-    insert(999, spriteGrafx);
+    insert(members.indexOf(descText) - 2, spriteGrafx);
     spriteGrafx.visible = wasVisible;
   }
 
