@@ -471,19 +471,19 @@ class ResultsState extends MusicBeatState
       return SYNERGY;
     }
 
-    if (percent >= 80)
+    if (percent >= 85)
+    {
+      return EXCELLENT;
+    }
+
+    if (percent >= 75)
     {
       return GREAT;
     }
 
-    if (percent >= 65)
+    if (percent >= 55)
     {
       return GOOD;
-    }
-
-    if (percent >= 45)
-    {
-      return EGH;
     }
 
     return BLEGH;
@@ -496,9 +496,9 @@ class ResultsState extends MusicBeatState
 enum ResultRanks
 {
   BLEGH;
-  EGH;
   GOOD;
   GREAT;
+  EXCELLENT;
   SYNERGY;
   BOTPLAY;
 }

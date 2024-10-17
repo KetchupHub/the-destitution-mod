@@ -196,21 +196,21 @@ class MainMenuState extends MusicBeatState
       {
         FlxG.sound.play(Paths.sound('scrollMenu'));
 
-        debugRank = EGH;
+        debugRank = GOOD;
         debugChar = '-bf';
       }
       else if (FlxG.keys.justPressed.THREE || FlxG.keys.justPressed.NUMPADTHREE)
       {
         FlxG.sound.play(Paths.sound('scrollMenu'));
 
-        debugRank = GOOD;
+        debugRank = GREAT;
         debugChar = '-mark';
       }
       else if (FlxG.keys.justPressed.FOUR || FlxG.keys.justPressed.NUMPADFOUR)
       {
         FlxG.sound.play(Paths.sound('scrollMenu'));
 
-        debugRank = GREAT;
+        debugRank = EXCELLENT;
         debugChar = '-pear';
       }
       else if (FlxG.keys.justPressed.FIVE || FlxG.keys.justPressed.NUMPADFIVE)
