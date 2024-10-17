@@ -32,7 +32,7 @@
 
 "Welcome to The Destitution Mod! It's pretty great, if I do say so myself!" - REAL Mark Testimonial!
 
-The Destitution Mod V3 is a 3D*, fully interactive experience, condensed into one little dinky package, just for you!
+The Destitution Mod is a 3D*, fully interactive experience, condensed into one little dinky package, just for you!
 (*not 3D)
 
 That's right! This was made JUST FOR YOU!
@@ -53,7 +53,7 @@ YOU
 YOU
 YOUUUUUUUUUUUUUUUUUUUuuuuuuuuuuuuuuuuuuuuuu.................
 
-From "Happy Game with Marks", to "Counting Down with Sports Boys", experience New Hight's in VIDEOGAME with The Destitution Mod V3!
+From "Happy Game with Marks", to "Counting Down with Sports Boys", experience New Hight's in VIDEOGAME with The Destitution Mod!
 So Whatr'e You WAITING For! Open that's Execuatble and Play PalY  PLAY!!!
 Ore, not. You see. there is More you must read First. Like:
 

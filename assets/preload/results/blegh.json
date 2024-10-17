@@ -1,10 +1,10 @@
 {
-  "animation": "results",
+  "animation": "blegh",
   "loop": false,
   "song": "results/mus_good",
   "tempo": 95,
-  "path": "results/normal",
-  "position": [275, -514],
+  "path": "results/blegh",
+  "position": [324, -420],
   "bgColor": [95, 98, 158],
-  "slidesIn": false
+  "slidesIn": true
 }
