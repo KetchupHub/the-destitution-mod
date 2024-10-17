@@ -1,6 +1,6 @@
 package options;
 
-import ui.OptionsFont;
+import ui.Alphabet;
 import ui.TransitionScreenshotObject;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
@@ -22,15 +22,15 @@ import backend.Discord.DiscordClient;
 class OptionsState extends MusicBeatState
 {
   var options:Array<String> = [
-    'Note Colors',
     'Controls',
-    'Delay and Combo',
+    'Gameplay',
     'Graphics',
     'Visuals and UI',
-    'Gameplay'
+    'Note Colors',
+    'Offset Timing'
   ];
 
-  private var grpOptions:FlxTypedGroup<OptionsFont>;
+  private var grpOptions:FlxTypedGroup<Alphabet>;
 
   private static var curSelected:Int = 0;
   public static var menuBG:PixelPerfectSprite;
@@ -53,15 +53,15 @@ class OptionsState extends MusicBeatState
         openSubState(new VisualsUISubState());
       case 'Gameplay':
         openSubState(new GameplaySettingsSubState());
-      case 'Delay and Combo':
+      case 'Offset Timing':
         FlxTransitionableState.skipNextTransIn = true;
         FlxTransitionableState.skipNextTransOut = true;
         MusicBeatState.switchState(new NoteOffsetState());
     }
   }
 
-  var selectorLeft:OptionsFont;
-  var selectorRight:OptionsFont;
+  var selectorLeft:Alphabet;
+  var selectorRight:Alphabet;
 
   override function create()
   {
@@ -79,7 +79,7 @@ class OptionsState extends MusicBeatState
 
     finishedIntro = false;
 
-    var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
+    var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('options/optionsBg'));
     bg.color = 0xFFea71fd;
     bg.updateHitbox();
     bg.screenCenter();
@@ -100,12 +100,12 @@ class OptionsState extends MusicBeatState
     optionsThingy.screenCenter();
     add(optionsThingy);
 
-    grpOptions = new FlxTypedGroup<OptionsFont>();
+    grpOptions = new FlxTypedGroup<Alphabet>();
     add(grpOptions);
 
     for (i in 0...options.length)
     {
-      var optionText:OptionsFont = new OptionsFont(0, 0, options[i], true);
+      var optionText:Alphabet = new Alphabet(0, 0, options[i], true, true);
       var maxWidth = 640;
       if (optionText.width > maxWidth)
       {
@@ -119,10 +119,10 @@ class OptionsState extends MusicBeatState
       grpOptions.add(optionText);
     }
 
-    selectorLeft = new OptionsFont(0, 0, '>', true);
+    selectorLeft = new Alphabet(0, 0, '>', true, true);
     selectorLeft.alpha = 0;
     add(selectorLeft);
-    selectorRight = new OptionsFont(0, 0, '<', true);
+    selectorRight = new Alphabet(0, 0, '<', true, true);
     selectorRight.alpha = 0;
     add(selectorRight);
 
@@ -130,8 +130,7 @@ class OptionsState extends MusicBeatState
     var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width,
       "(DEV BUILD!!! - " + CoolUtil.gitCommitBranch + " - " + CoolUtil.gitCommitHash + ")", 12);
     versionShit.scrollFactor.set();
-    versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
-    versionShit.antialiasing = true;
+    versionShit.setFormat(Paths.font("serife-converted.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
     add(versionShit);
     #end
 

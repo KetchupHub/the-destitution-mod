@@ -1,11 +1,11 @@
 package options;
 
-import ui.OptionsFont;
+import ui.Alphabet;
 import backend.ClientPrefs;
 
 class Option
 {
-  private var child:OptionsFont;
+  private var child:Alphabet;
 
   public var text(get, set):String;
   public var onChange:Void->Void = null; // Pressed enter (on Bool type options) or pressed/held left/right (on other types)
@@ -14,7 +14,8 @@ class Option
 
   // Bool will use checkboxes
   // Everything else will use a text
-  public var showBoyfriend:Bool = false;
+  public var showSprites:String = 'none';
+  
   public var scrollSpeed:Float = 50; // Only works on int/float, defines how fast it scrolls per second while holding left/right
 
   private var variable:String = null; // Variable from ClientPrefs.hx
@@ -104,7 +105,7 @@ class Option
     Reflect.setProperty(ClientPrefs, variable, value);
   }
 
-  public function setChild(child:OptionsFont)
+  public function setChild(child:Alphabet)
   {
     this.child = child;
   }

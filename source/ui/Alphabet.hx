@@ -1,5 +1,6 @@
 package ui;
 
+import flixel.util.FlxColor;
 import util.CoolUtil;
 import backend.ClientPrefs;
 import flixel.FlxG;
@@ -7,6 +8,7 @@ import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
+import shaders.BrightnessContrastShader;
 
 enum Alignment
 {
@@ -18,6 +20,10 @@ enum Alignment
 class Alphabet extends FlxSpriteGroup
 {
   public var text(default, set):String;
+
+  public var pureWhite(default, set):Bool;
+
+  public var whiteShader:BrightnessContrastShader;
 
   public var bold:Bool = false;
   public var letters:Array<AlphaCharacter> = [];
@@ -35,14 +41,20 @@ class Alphabet extends FlxSpriteGroup
   public var distancePerItem:FlxPoint = new FlxPoint(20, 120);
   public var startPosition:FlxPoint = new FlxPoint(0, 0);
 
-  public function new(x:Float, y:Float, text:String = "", ?bold:Bool = true)
+  public var options:Bool = false;
+
+  public function new(x:Float, y:Float, text:String = "", ?bold:Bool = true, ?isOptions:Bool = false)
   {
     super(x, y);
+
+    this.options = isOptions;
 
     this.startPosition.x = x;
     this.startPosition.y = y;
     this.bold = bold;
     this.text = text;
+
+    whiteShader = new BrightnessContrastShader(100, 100);
   }
 
   public function setAlignmentFromString(align:String)
@@ -161,6 +173,20 @@ class Alphabet extends FlxSpriteGroup
     }
 
     scaleY = value;
+
+    return value;
+  }
+
+  public function set_pureWhite(value:Bool)
+  {
+    if (value)
+    {
+      shader = whiteShader;
+    }
+    else
+    {
+      shader = null;
+    }
 
     return value;
   }
@@ -377,9 +403,18 @@ class AlphaCharacter extends FlxSprite
   public function new(x:Float, y:Float, character:String, bold:Bool, parent:Alphabet)
   {
     super(x, y);
+
     this.parent = parent;
-    image = 'alphabet';
-    antialiasing = ClientPrefs.globalAntialiasing;
+
+    if (parent.options)
+    {
+      image = 'options/optionsFont';
+    }
+    else
+    {
+      image = 'alphabet';
+      antialiasing = ClientPrefs.globalAntialiasing;
+    }
 
     var curLetter:Letter = allLetters.get('?');
     var lowercase = character.toLowerCase();

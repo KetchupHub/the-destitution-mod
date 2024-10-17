@@ -26,7 +26,7 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 
     var option:Option = new Option('Anti-Aliasing', 'If unchecked, disables anti-aliasing, increases performance\nat the cost of sharper visuals.',
       'globalAntialiasing', 'bool', true);
-    option.showBoyfriend = true;
+    option.showSprites = 'antialiasing';
     option.onChange = onChangeAntiAliasing; // Changing onChange is only needed if you want to make a special interaction after it changes the value
     addOption(option);
 
@@ -52,7 +52,7 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
     addOption(option);
 
     #if !html5 // Apparently other framerates isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
-    var option:Option = new Option('Framerate:', "Pretty self explanatory, isn't it?", 'framerate', 'int', 60);
+    var option:Option = new Option('Framerate:', "Pretty self explanatory, isn't it?", 'framerate', 'int', 240);
     addOption(option);
 
     option.minValue = 30;
@@ -82,7 +82,17 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
             sprChar.antialiasing = ClientPrefs.globalAntialiasing;
           }
         }
-        else if ((sprite is Alphabet) || (sprite is CheckboxThingie) || (sprite is FlxText))
+        else if ((sprite is Alphabet))
+        {
+          var sprAlph:Dynamic = sprite;
+          var sprAlph:Alphabet = sprAlph;
+
+          if (!sprAlph.options)
+          {
+            sprAlph.antialiasing = ClientPrefs.globalAntialiasing;
+          }
+        }
+        else if (!(sprite is FlxText))
         {
           sprite.antialiasing = ClientPrefs.globalAntialiasing;
         }

@@ -10,9 +10,9 @@ class AttachedText extends Alphabet
   public var copyVisible:Bool = true;
   public var copyAlpha:Bool = false;
 
-  public function new(text:String = "", ?offsetX:Float = 0, ?offsetY:Float = 0, ?bold = false, ?scale:Float = 1)
+  public function new(text:String = "", ?offsetX:Float = 0, ?offsetY:Float = 0, ?bold = false, ?scale:Float = 1, ?isOptions:Bool = false)
   {
-    super(0, 0, text, bold);
+    super(0, 0, text, bold, isOptions);
 
     this.scaleX = scale;
     this.scaleY = scale;

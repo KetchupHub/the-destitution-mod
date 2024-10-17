@@ -1,6 +1,6 @@
 package options;
 
-import ui.OptionsFont;
+import ui.Alphabet;
 import visuals.PixelPerfectSprite;
 import backend.ClientPrefs;
 import shaders.ColorSwap;
@@ -15,7 +15,7 @@ class NotesSubState extends MusicBeatSubstate
   private static var curSelected:Int = 0;
   private static var typeSelected:Int = 0;
 
-  private var grpNumbers:FlxTypedGroup<OptionsFont>;
+  private var grpNumbers:FlxTypedGroup<Alphabet>;
   private var grpNotes:FlxTypedGroup<PixelPerfectSprite>;
   private var shaderArray:Array<ColorSwap> = [];
   var curValue:Float = 0;
@@ -23,7 +23,7 @@ class NotesSubState extends MusicBeatSubstate
   var nextAccept:Int = 5;
 
   var blackBG:FlxSprite;
-  var hsbText:OptionsFont;
+  var hsbText:Alphabet;
 
   var posX = 230;
 
@@ -31,10 +31,9 @@ class NotesSubState extends MusicBeatSubstate
   {
     super();
 
-    var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
+    var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('options/optionsBg'));
     bg.color = 0xffe3e7ae;
     bg.screenCenter();
-    bg.antialiasing = ClientPrefs.globalAntialiasing;
     add(bg);
     
     var clipboard:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('options/clipboard'));
@@ -49,7 +48,7 @@ class NotesSubState extends MusicBeatSubstate
 
     grpNotes = new FlxTypedGroup<PixelPerfectSprite>();
     add(grpNotes);
-    grpNumbers = new FlxTypedGroup<OptionsFont>();
+    grpNumbers = new FlxTypedGroup<Alphabet>();
     add(grpNumbers);
 
     for (i in 0...ClientPrefs.arrowHSV.length)
@@ -58,15 +57,14 @@ class NotesSubState extends MusicBeatSubstate
 
       for (j in 0...3)
       {
-        var optionText:OptionsFont = new OptionsFont(posX + (225 * j) + 250, yPos + 60, Std.string(ClientPrefs.arrowHSV[i][j]), true);
+        var optionText:Alphabet = new Alphabet(posX + (225 * j) + 250, yPos + 60, Std.string(ClientPrefs.arrowHSV[i][j]), true, true);
         grpNumbers.add(optionText);
       }
 
-      var note:PixelPerfectSprite = new PixelPerfectSprite(posX, yPos);
-      note.frames = Paths.getSparrowAtlas('ui/notes');
-      var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
-      note.animation.addByPrefix('idle', animations[i], 24);
-      note.animation.play('idle');
+      var animations:Array<String> = ['purple', 'blue', 'green', 'red'];
+      var note:PixelPerfectSprite = new PixelPerfectSprite(posX, yPos).loadGraphic(Paths.image('options/nc/' + animations[i]));
+      note.antialiasing = ClientPrefs.globalAntialiasing;
+      note.scale.set(1.5, 1.5);
       grpNotes.add(note);
 
       var newShader:ColorSwap = new ColorSwap();
@@ -77,7 +75,8 @@ class NotesSubState extends MusicBeatSubstate
       shaderArray.push(newShader);
     }
 
-    hsbText = new OptionsFont(posX + 560, 0, "Hue    Saturation  Brightness", false);
+    hsbText = new Alphabet(posX + 560, 0, "Hue    Saturation  Brightness", false, true);
+    hsbText.pureWhite = true;
     hsbText.scaleX = 0.6;
     hsbText.scaleY = 0.6;
     add(hsbText);
@@ -248,12 +247,12 @@ class NotesSubState extends MusicBeatSubstate
     {
       var item = grpNotes.members[i];
       item.alpha = 0.6;
-      item.scale.set(0.75, 0.75);
+      item.scale.set(1, 1);
 
       if (curSelected == i)
       {
         item.alpha = 1;
-        item.scale.set(1, 1);
+        item.scale.set(1.5, 1.5);
         hsbText.y = item.y - 70;
         blackBG.y = item.y - 20;
       }

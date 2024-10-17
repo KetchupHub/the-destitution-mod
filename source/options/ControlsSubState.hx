@@ -1,10 +1,10 @@
 package options;
 
-import ui.OptionsFont;
+import ui.Alphabet;
+import ui.AttachedText;
 import visuals.PixelPerfectSprite;
 import backend.InputFormatter;
 import backend.ClientPrefs;
-import ui.AttachedTextOptions;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
@@ -24,9 +24,9 @@ class ControlsSubState extends MusicBeatSubstate
     ['Down', 'ui_down'], ['Up', 'ui_up'], ['Right', 'ui_right'], [''], ['Reset', 'reset'], ['Accept', 'accept'], ['Back', 'back'], ['Pause', 'pause'], [''],
     ['VOLUME'], ['Mute', 'volume_mute'], ['Up', 'volume_up'], ['Down', 'volume_down'], [''], ['DEBUG'], ['Key 1', 'debug_1'], ['Key 2', 'debug_2']];
 
-  private var grpOptions:FlxTypedGroup<OptionsFont>;
-  private var grpInputs:Array<AttachedTextOptions> = [];
-  private var grpInputsAlt:Array<AttachedTextOptions> = [];
+  private var grpOptions:FlxTypedGroup<Alphabet>;
+  private var grpInputs:Array<AttachedText> = [];
+  private var grpInputsAlt:Array<AttachedText> = [];
   var rebindingKey:Bool = false;
   var nextAccept:Int = 5;
 
@@ -34,10 +34,9 @@ class ControlsSubState extends MusicBeatSubstate
   {
     super();
 
-    var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
+    var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('options/optionsBg'));
     bg.color = 0xff1f185f;
     bg.screenCenter();
-    bg.antialiasing = ClientPrefs.globalAntialiasing;
     add(bg);
 
     var clipboard:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('options/clipboard'));
@@ -46,7 +45,7 @@ class ControlsSubState extends MusicBeatSubstate
     clipboard.screenCenter();
     add(clipboard);
 
-    grpOptions = new FlxTypedGroup<OptionsFont>();
+    grpOptions = new FlxTypedGroup<Alphabet>();
     add(grpOptions);
 
     optionShit.push(['']);
@@ -61,7 +60,7 @@ class ControlsSubState extends MusicBeatSubstate
         isCentered = true;
       }
 
-      var optionText:OptionsFont = new OptionsFont(200, 300, optionShit[i][0], (!isCentered || isDefaultKey));
+      var optionText:Alphabet = new Alphabet(200, 300, optionShit[i][0], (!isCentered || isDefaultKey), true);
       optionText.isMenuItem = true;
       if (isCentered)
       {
@@ -293,16 +292,16 @@ class ControlsSubState extends MusicBeatSubstate
     return optionShit[num].length < 2 && optionShit[num][0] != defaultKey;
   }
 
-  private function addBindTexts(optionText:OptionsFont, num:Int)
+  private function addBindTexts(optionText:Alphabet, num:Int)
   {
     var keys:Array<Dynamic> = ClientPrefs.keyBinds.get(optionShit[num][1]);
-    var text1 = new AttachedTextOptions(InputFormatter.getKeyName(keys[0]), 400, -55);
+    var text1 = new AttachedText(InputFormatter.getKeyName(keys[0]), 400, -55, false, 1, true);
     text1.setPosition(optionText.x + 400, optionText.y - 55);
     text1.sprTracker = optionText;
     grpInputs.push(text1);
     add(text1);
 
-    var text2 = new AttachedTextOptions(InputFormatter.getKeyName(keys[1]), 650, -55);
+    var text2 = new AttachedText(InputFormatter.getKeyName(keys[1]), 650, -55, false, 1, true);
     text2.setPosition(optionText.x + 650, optionText.y - 55);
     text2.sprTracker = optionText;
     grpInputsAlt.push(text2);
@@ -313,14 +312,14 @@ class ControlsSubState extends MusicBeatSubstate
   {
     while (grpInputs.length > 0)
     {
-      var item:AttachedTextOptions = grpInputs[0];
+      var item:AttachedText = grpInputs[0];
       item.kill();
       grpInputs.remove(item);
       item.destroy();
     }
     while (grpInputsAlt.length > 0)
     {
-      var item:AttachedTextOptions = grpInputsAlt[0];
+      var item:AttachedText = grpInputsAlt[0];
       item.kill();
       grpInputsAlt.remove(item);
       item.destroy();

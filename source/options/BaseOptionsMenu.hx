@@ -1,10 +1,9 @@
 package options;
 
-import ui.AttachedTextOptions;
-import ui.OptionsFont;
+import ui.AttachedText;
+import ui.Alphabet;
 import visuals.PixelPerfectSprite;
 import backend.ClientPrefs;
-import visuals.Character;
 import ui.CheckboxThingie;
 #if desktop
 import backend.Discord.DiscordClient;
@@ -23,17 +22,20 @@ class BaseOptionsMenu extends MusicBeatSubstate
   private var curSelected:Int = 0;
   private var optionsArray:Array<Option>;
 
-  private var grpOptions:FlxTypedGroup<OptionsFont>;
+  private var grpOptions:FlxTypedGroup<Alphabet>;
   private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
-  private var grpTexts:FlxTypedGroup<AttachedTextOptions>;
+  private var grpTexts:FlxTypedGroup<AttachedText>;
 
-  private var boyfriend:Character = null;
+  private var spriteGrafx:FlxSprite = null;
   private var descBox:FlxSprite;
   private var descText:FlxText;
 
   public var title:String;
   public var rpcTitle:String;
   public var backGroundColor:FlxColor;
+  
+	var bg:PixelPerfectSprite;
+	var clipboard:PixelPerfectSprite;
 
   public function new()
   {
@@ -53,22 +55,22 @@ class BaseOptionsMenu extends MusicBeatSubstate
     DiscordClient.changePresence(rpcTitle, null, null, '-menus');
     #end
 
-    var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('bg/menuDesat'));
+    bg = new PixelPerfectSprite().loadGraphic(Paths.image('options/optionsBg'));
     bg.color = backGroundColor;
     bg.screenCenter();
     add(bg);
 
-    var clipboard:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('options/clipboard'));
+    clipboard = new PixelPerfectSprite().loadGraphic(Paths.image('options/clipboard'));
     clipboard.scale.set(2, 2);
     clipboard.updateHitbox();
     clipboard.screenCenter();
     add(clipboard);
 
     // avoids lagspikes while scrolling through menus!
-    grpOptions = new FlxTypedGroup<OptionsFont>();
+    grpOptions = new FlxTypedGroup<Alphabet>();
     add(grpOptions);
 
-    grpTexts = new FlxTypedGroup<AttachedTextOptions>();
+    grpTexts = new FlxTypedGroup<AttachedText>();
     add(grpTexts);
 
     checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
@@ -78,22 +80,22 @@ class BaseOptionsMenu extends MusicBeatSubstate
     descBox.alpha = 0.6;
     add(descBox);
 
-    var titleText:OptionsFont = new OptionsFont(75, 40, title, true);
+    var titleText:Alphabet = new Alphabet(75, 40, title, true, true);
     titleText.scaleX = 0.6;
     titleText.scaleY = 0.6;
     titleText.alpha = 0.4;
     add(titleText);
 
     descText = new FlxText(50, 600, 1180, "", 32);
-    descText.setFormat(Paths.font("BAUHS93.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
+    descText.setFormat(Paths.font("serife-converted.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
     descText.scrollFactor.set();
-    descText.borderSize = 2.4;
-    descText.antialiasing = ClientPrefs.globalAntialiasing;
+    descText.borderSize = 2;
+    descText.antialiasing = false;
     add(descText);
 
     for (i in 0...optionsArray.length)
     {
-      var optionText:OptionsFont = new OptionsFont(0, 260, optionsArray[i].name, false);
+      var optionText:Alphabet = new Alphabet(0, 260, optionsArray[i].name, false, true);
       optionText.isMenuItem = true;
       optionText.changeX = false;
       optionText.targetY = i;
@@ -111,7 +113,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
       }
       else
       {
-        var valueText:AttachedTextOptions = new AttachedTextOptions('' + optionsArray[i].getValue(), optionText.width + 80);
+        var valueText:AttachedText = new AttachedText('' + optionsArray[i].getValue(), optionText.width + 80, 0, false, 1, true);
         valueText.antialiasing = ClientPrefs.globalAntialiasing;
         valueText.sprTracker = optionText;
         valueText.copyAlpha = true;
@@ -122,12 +124,17 @@ class BaseOptionsMenu extends MusicBeatSubstate
         optionsArray[i].setChild(valueText);
       }
 
-      if (optionsArray[i].showBoyfriend && boyfriend == null)
+      if (optionsArray[i].showSprites != 'none')
       {
-        reloadBoyfriend();
+        reloadGfx(optionsArray[i].showSprites);
       }
 
       updateTextFrom(optionsArray[i]);
+    }
+
+    if (spriteGrafx != null)
+    {
+      spriteGrafx.visible = false;
     }
 
     changeSelection();
@@ -316,14 +323,17 @@ class BaseOptionsMenu extends MusicBeatSubstate
       }
     }
 
-    if (boyfriend != null && boyfriend.animation.curAnim.finished)
-    {
-      boyfriend.dance();
-    }
-
     if (nextAccept > 0)
     {
       nextAccept -= 1;
+    }
+
+    bg.antialiasing = false;
+    clipboard.antialiasing = false;
+
+    if (spriteGrafx != null)
+    {
+      spriteGrafx.antialiasing = ClientPrefs.globalAntialiasing;
     }
 
     super.update(elapsed);
@@ -389,33 +399,41 @@ class BaseOptionsMenu extends MusicBeatSubstate
     descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
     descBox.updateHitbox();
 
-    if (boyfriend != null)
+    if (optionsArray[curSelected].showSprites != 'none')
     {
-      boyfriend.visible = optionsArray[curSelected].showBoyfriend;
+      reloadGfx(optionsArray[curSelected].showSprites);
+      spriteGrafx.visible = true;
+    }
+    else
+    {
+      if (spriteGrafx != null)
+      {
+        spriteGrafx.visible = false;
+      }
     }
 
     curOption = optionsArray[curSelected]; // shorter lol
     FlxG.sound.play(Paths.sound('scrollMenu'));
   }
 
-  public function reloadBoyfriend()
+  public function reloadGfx(str:String)
   {
     var wasVisible:Bool = false;
 
-    if (boyfriend != null)
+    if (spriteGrafx != null)
     {
-      wasVisible = boyfriend.visible;
-      boyfriend.kill();
-      remove(boyfriend);
-      boyfriend.destroy();
+      wasVisible = spriteGrafx.visible;
+      spriteGrafx.kill();
+      remove(spriteGrafx);
+      spriteGrafx.destroy();
     }
 
-    boyfriend = new Character(840, 170, 'bf', true);
-    boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.75));
-    boyfriend.updateHitbox();
-    boyfriend.dance();
-    insert(1, boyfriend);
-    boyfriend.visible = wasVisible;
+    spriteGrafx = new FlxSprite(840, 170).loadGraphic(Paths.image('options/' + str));
+    spriteGrafx.antialiasing = ClientPrefs.globalAntialiasing;
+    spriteGrafx.x = (FlxG.width - spriteGrafx.width) - 32;
+    spriteGrafx.y = (FlxG.height - spriteGrafx.height) - 32;
+    insert(999, spriteGrafx);
+    spriteGrafx.visible = wasVisible;
   }
 
   function reloadCheckboxes()
