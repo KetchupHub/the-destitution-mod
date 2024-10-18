@@ -90,9 +90,12 @@ class Superseded extends SongClass
         PlayState.instance.boyfriend.canDance = false;
         PlayState.instance.boyfriend.playAnim('notice', true);
       case 320:
-        var fnafFilter:ShaderFilter = new ShaderFilter(PlayState.instance.fnafAtFreddys);
-        PlayState.instance.camGame.filters = [fnafFilter];
-        PlayState.instance.camSubtitlesAndSuch.filters = [fnafFilter];
+        if (ClientPrefs.shaders)
+        {
+          var fnafFilter:ShaderFilter = new ShaderFilter(PlayState.instance.fnafAtFreddys);
+          PlayState.instance.camGame.filters = [fnafFilter];
+          PlayState.instance.camSubtitlesAndSuch.filters = [fnafFilter];
+        }
 
         PlayState.instance.shoulderCam = true;
 
@@ -348,7 +351,10 @@ class Superseded extends SongClass
     PlayState.instance.starting.scale.set(2, 2);
     PlayState.instance.starting.updateHitbox();
     PlayState.instance.starting.screenCenter();
-    PlayState.instance.starting.shader = PlayState.instance.spaceWiggle;
+    if (ClientPrefs.shaders)
+    {
+      PlayState.instance.starting.shader = PlayState.instance.spaceWiggle;
+    }
     PlayState.instance.starting.scrollFactor.set();
   }
 }

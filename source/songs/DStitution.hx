@@ -224,9 +224,12 @@ class DStitution extends SongClass
 
         PlayState.instance.sectionIntroThing("Sir Pinkerton III");
 
-        PlayState.instance.karmScaredy.visible = true;
+        if (!ClientPrefs.lowQuality)
+        {
+          PlayState.instance.karmScaredy.visible = true;
 
-        FlxG.sound.play(Paths.sound('dsides/karmFlees'), 0.95, false).pan = CoolUtil.randomAudio.float(-0.55, -0.45);
+          FlxG.sound.play(Paths.sound('dsides/karmFlees'), 0.95, false).pan = CoolUtil.randomAudio.float(-0.55, -0.45);
+        }
 
         FlxG.camera.flash();
 
@@ -236,8 +239,11 @@ class DStitution extends SongClass
       case 920:
         PlayState.instance.gf.visible = false;
         PlayState.instance.fuckMyLife = false;
-        PlayState.instance.karmScaredy.visible = false;
-        PlayState.instance.karmScaredy.destroy();
+        if (!ClientPrefs.lowQuality)
+        {
+          PlayState.instance.karmScaredy.visible = false;
+          PlayState.instance.karmScaredy.destroy();
+        }
         PlayState.instance.train.visible = true;
         PlayState.instance.unLightningBg();
         PlayState.instance.strikeyStrikes = false;
@@ -275,11 +281,17 @@ class DStitution extends SongClass
 
         Paths.clearUnusedMemory();
       case 1124:
-        PlayState.instance.chefBanner.visible = true;
-        FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.sky.y}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(64)});
+        if (!ClientPrefs.lowQuality)
+        {
+          PlayState.instance.chefBanner.visible = true;
+          FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.sky.y}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(64)});
+        }
       case 1128:
-        PlayState.instance.chefTable.visible = true;
-        FlxTween.tween(PlayState.instance.chefTable, {y: PlayState.instance.sky.y + 64}, Conductor.crochet / 500, {ease: EaseUtil.stepped(64)});
+        if (!ClientPrefs.lowQuality)
+        {
+          PlayState.instance.chefTable.visible = true;
+          FlxTween.tween(PlayState.instance.chefTable, {y: PlayState.instance.sky.y + 64}, Conductor.crochet / 500, {ease: EaseUtil.stepped(64)});
+        }
         PlayState.instance.dad.canDance = false;
         PlayState.instance.dad.canSing = false;
         PlayState.instance.dad.playAnim('chef', true);
@@ -292,25 +304,28 @@ class DStitution extends SongClass
         PlayState.instance.dad.canSing = true;
         PlayState.instance.dad.dance();
 
-        FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.chefBanner.y - 1280}, Conductor.crochet / 1000,
-          {
-            ease: EaseUtil.stepped(32),
-            onComplete: function fuck(AHHHHHHHHH:FlxTween)
+        if (!ClientPrefs.lowQuality)
+        {
+          FlxTween.tween(PlayState.instance.chefBanner, {y: PlayState.instance.chefBanner.y - 1280}, Conductor.crochet / 1000,
             {
-              PlayState.instance.chefBanner.visible = false;
-              PlayState.instance.chefBanner.destroy();
-            }
-          });
+              ease: EaseUtil.stepped(32),
+              onComplete: function fuck(AHHHHHHHHH:FlxTween)
+              {
+                PlayState.instance.chefBanner.visible = false;
+                PlayState.instance.chefBanner.destroy();
+              }
+            });
 
-        FlxTween.tween(PlayState.instance.chefTable, {alpha: 0}, Conductor.crochet / 1000,
-          {
-            ease: EaseUtil.stepped(8),
-            onComplete: function fuck(AHHHHHHHHH:FlxTween)
+          FlxTween.tween(PlayState.instance.chefTable, {alpha: 0}, Conductor.crochet / 1000,
             {
-              PlayState.instance.chefTable.visible = false;
-              PlayState.instance.chefTable.destroy();
-            }
-          });
+              ease: EaseUtil.stepped(8),
+              onComplete: function fuck(AHHHHHHHHH:FlxTween)
+              {
+                PlayState.instance.chefTable.visible = false;
+                PlayState.instance.chefTable.destroy();
+              }
+            });
+        }
 
         FlxG.camera.flash();
       case 1260:

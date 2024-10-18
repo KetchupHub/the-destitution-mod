@@ -549,18 +549,24 @@ class Destitution extends SongClass
         }
         else
         {
-          FlxTween.tween(PlayState.instance.fgGf, {alpha: 0}, Conductor.crochet / 250,
-            {
-              ease: EaseUtil.stepped(8),
-              onComplete: function puss(fff:FlxTween)
+          if (!ClientPrefs.lowQuality)
+          {
+            FlxTween.tween(PlayState.instance.fgGf, {alpha: 0}, Conductor.crochet / 250,
               {
-                PlayState.instance.fgGf.visible = false;
-              }
-            });
+                ease: EaseUtil.stepped(8),
+                onComplete: function puss(fff:FlxTween)
+                {
+                  PlayState.instance.fgGf.visible = false;
+                }
+              });
+          }
         }
 
-        PlayState.instance.bgPlayer.canDance = false;
-        PlayState.instance.bgPlayer.playAnim("walk", true);
+        if (!ClientPrefs.lowQuality)
+        {
+          PlayState.instance.bgPlayer.canDance = false;
+          PlayState.instance.bgPlayer.playAnim("walk", true);
+        }
 
         var fuckeryWad:Int = 1;
 
@@ -569,13 +575,16 @@ class Destitution extends SongClass
           fuckeryWad = 2;
         }
 
-        FlxTween.tween(PlayState.instance.bgPlayer, {x: PlayState.instance.bgPlayerWalkTarget}, (4 * fuckeryWad) / PlayState.instance.playbackRate,
-          {
-            onComplete: function fucksake(ferkck:FlxTween)
+        if (!ClientPrefs.lowQuality)
+        {
+          FlxTween.tween(PlayState.instance.bgPlayer, {x: PlayState.instance.bgPlayerWalkTarget}, (4 * fuckeryWad) / PlayState.instance.playbackRate,
             {
-              PlayState.instance.bgPlayer.playAnim("notice", true);
-            }
-          });
+              onComplete: function fucksake(ferkck:FlxTween)
+              {
+                PlayState.instance.bgPlayer.playAnim("notice", true);
+              }
+            });
+        }
       case 318:
         FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});
         FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom + 0.2}, Conductor.crochet / 500, {ease: FlxEase.cubeInOut});
@@ -584,14 +593,20 @@ class Destitution extends SongClass
         PlayState.instance.defaultCamZoom -= 0.3;
         PlayState.instance.dad.canDance = true;
         PlayState.instance.dad.canSing = true;
-        FlxTween.completeTweensOf(PlayState.instance.bgPlayer);
-        PlayState.instance.bgPlayer.x = PlayState.instance.bgPlayerWalkTarget;
-        PlayState.instance.bgPlayer.canDance = true;
-        PlayState.instance.bgPlayer.dance();
+        if (!ClientPrefs.lowQuality)
+        {
+          FlxTween.completeTweensOf(PlayState.instance.bgPlayer);
+          PlayState.instance.bgPlayer.x = PlayState.instance.bgPlayerWalkTarget;
+          PlayState.instance.bgPlayer.canDance = true;
+          PlayState.instance.bgPlayer.dance();
+          PlayState.instance.bgPlayerWalkTarget += 2800;
+        }
         FlxG.camera.flash();
-        PlayState.instance.bgPlayerWalkTarget += 2800;
       case 448:
-        PlayState.instance.fgGf.visible = true;
+        if (!ClientPrefs.lowQuality)
+        {
+          PlayState.instance.fgGf.visible = true;
+        }
       case 576:
         // 1.01 instead of just 1 to prevent weird edge clipping? damn
         PlayState.instance.defaultCamZoom = 1.01;
@@ -765,7 +780,10 @@ class Destitution extends SongClass
           }
         }
 
-        PlayState.instance.camGame.filters = [new ShaderFilter(PlayState.instance.chromAbb)];
+        if (ClientPrefs.shaders)
+        {
+          PlayState.instance.camGame.filters = [new ShaderFilter(PlayState.instance.chromAbb)];
+        }
 
         PlayState.instance.sectionIntroThing("I LIEK ITEM");
 
@@ -783,28 +801,38 @@ class Destitution extends SongClass
         PlayState.instance.camZoomingDecay = 1;
         PlayState.instance.space.visible = false;
         PlayState.instance.spaceTime = false;
-        PlayState.instance.spaceItems.visible = false;
+
+        if (!ClientPrefs.lowQuality)
+        {
+          PlayState.instance.spaceItems.visible = false;
+        }
 
         if (curBeat >= 1228)
         {
           FlxG.camera.flash();
 
-          for (spitem in PlayState.instance.spaceItems.members)
+          if (!ClientPrefs.lowQuality)
           {
-            FlxTween.tween(spitem, {'scale.x': 0, 'scale.y': 0}, 1.5 / PlayState.instance.playbackRate, {ease: EaseUtil.stepped(8)});
+            for (spitem in PlayState.instance.spaceItems.members)
+            {
+              FlxTween.tween(spitem, {'scale.x': 0, 'scale.y': 0}, 1.5 / PlayState.instance.playbackRate, {ease: EaseUtil.stepped(8)});
+            }
           }
 
           FlxTween.tween(PlayState.instance.space, {alpha: 0}, 1.5 / PlayState.instance.playbackRate, {ease: EaseUtil.stepped(8)});
 
           var fuckyouman:FlxTimer = new FlxTimer().start(1.55 / PlayState.instance.playbackRate, function dierels(fuck:FlxTimer)
           {
-            for (spitem in PlayState.instance.spaceItems.members)
+            if (!ClientPrefs.lowQuality)
             {
-              FlxTween.completeTweensOf(spitem);
-              spitem.destroy();
-            }
+              for (spitem in PlayState.instance.spaceItems.members)
+              {
+                FlxTween.completeTweensOf(spitem);
+                spitem.destroy();
+              }
 
-            PlayState.instance.spaceItems.destroy();
+              PlayState.instance.spaceItems.destroy();
+            }
           });
 
           FlxTween.tween(PlayState.instance.dad, {x: PlayState.instance.spaceTimeDadArray[0], y: PlayState.instance.spaceTimeDadArray[1], angle: 0}, 1,
@@ -859,7 +887,10 @@ class Destitution extends SongClass
         PlayState.instance.chromAbbBeat = 4;
         FlxG.camera.flash();
       case 1340:
-        PlayState.instance.camGame.filters = [];
+        if (ClientPrefs.shaders)
+        {
+          PlayState.instance.camGame.filters = [];
+        }
         FlxTween.completeTweensOf(PlayState.instance.dad);
         FlxTween.completeTweensOf(PlayState.instance.boyfriend);
         FlxTween.tween(PlayState.instance.dad, {alpha: 0}, Conductor.crochet / 500, {ease: EaseUtil.stepped(4)});

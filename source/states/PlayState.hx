@@ -768,7 +768,7 @@ class PlayState extends MusicBeatState
     botplayTxt.cameras = [camHUD];
     #end
 
-    if (['superseded', 'd-stitution', 'abstraction'].contains(removeVariationSuffixes(SONG.song.toLowerCase())))
+    if (['superseded', 'd-stitution', 'abstraction'].contains(removeVariationSuffixes(SONG.song.toLowerCase())) && ClientPrefs.shaders)
     {
       var depty:Float = 5;
 
@@ -893,13 +893,16 @@ class PlayState extends MusicBeatState
     switch (curStage)
     {
       case 'fundamentals':
-        skyboxThingy = new PixelPerfectSprite().loadGraphic(Paths.image('destitution/skyboxThing'));
-        skyboxThingy.scale.set(2, 2);
-        skyboxThingy.updateHitbox();
-        skyboxThingy.antialiasing = false;
-        skyboxThingy.screenCenter();
-        skyboxThingy.scrollFactor.set();
-        add(skyboxThingy);
+        if (!ClientPrefs.lowQuality)
+        {
+          skyboxThingy = new PixelPerfectSprite().loadGraphic(Paths.image('destitution/skyboxThing'));
+          skyboxThingy.scale.set(2, 2);
+          skyboxThingy.updateHitbox();
+          skyboxThingy.antialiasing = false;
+          skyboxThingy.screenCenter();
+          skyboxThingy.scrollFactor.set();
+          add(skyboxThingy);
+        }
 
         starting = new PixelPerfectSprite(0, 0).loadGraphic(Paths.image('fundamentals/bg'));
         starting.antialiasing = false;
@@ -907,16 +910,22 @@ class PlayState extends MusicBeatState
         starting.updateHitbox();
         add(starting);
       case 'mark':
-        chromAbb = new Abberation(0);
-        ripple = new RippleShader();
+        if (ClientPrefs.shaders)
+        {
+          chromAbb = new Abberation(0);
+          ripple = new RippleShader();
+        }
 
-        skyboxThingy = new PixelPerfectSprite().loadGraphic(Paths.image('destitution/skyboxThing'));
-        skyboxThingy.scale.set(2, 2);
-        skyboxThingy.updateHitbox();
-        skyboxThingy.antialiasing = false;
-        skyboxThingy.screenCenter();
-        skyboxThingy.scrollFactor.set();
-        add(skyboxThingy);
+        if (!ClientPrefs.lowQuality)
+        {
+          skyboxThingy = new PixelPerfectSprite().loadGraphic(Paths.image('destitution/skyboxThing'));
+          skyboxThingy.scale.set(2, 2);
+          skyboxThingy.updateHitbox();
+          skyboxThingy.antialiasing = false;
+          skyboxThingy.screenCenter();
+          skyboxThingy.scrollFactor.set();
+          add(skyboxThingy);
+        }
 
         angry = new PixelPerfectSprite(-680, -320).loadGraphic(Paths.image('destitution/angry'));
         angry.scale.set(2, 2);
@@ -982,24 +991,33 @@ class PlayState extends MusicBeatState
         space.visible = false;
         add(space);
 
-        spaceWiggle = new WiggleEffect(1, 7, 0.2, WiggleEffectType.DREAMY, true);
-        space.shader = spaceWiggle;
-
-        spaceItems = new FlxTypedGroup<PixelPerfectSprite>();
-        for (i in 0...7)
+        if (ClientPrefs.shaders)
         {
-          var fucksprit:PixelPerfectSprite = new PixelPerfectSprite(CoolUtil.randomLogic.float(-32, 1248), CoolUtil.randomLogic.float(-32, 688));
-          fucksprit.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(CoolUtil.randomVisuals.int(0, 10))));
-          fucksprit.antialiasing = false;
-          fucksprit.shader = ripple;
-          fucksprit.ID = i;
-          fucksprit.scale.set(2, 2);
-          fucksprit.updateHitbox();
-          fucksprit.scrollFactor.set(CoolUtil.randomLogic.float(0.05, 0.2), CoolUtil.randomLogic.float(0.05, 0.2));
-          spaceItems.add(fucksprit);
+          spaceWiggle = new WiggleEffect(1, 7, 0.2, WiggleEffectType.DREAMY, true);
+          space.shader = spaceWiggle;
         }
-        add(spaceItems);
-        spaceItems.visible = false;
+
+        if (!ClientPrefs.lowQuality)
+        {
+          spaceItems = new FlxTypedGroup<PixelPerfectSprite>();
+          for (i in 0...7)
+          {
+            var fucksprit:PixelPerfectSprite = new PixelPerfectSprite(CoolUtil.randomLogic.float(-32, 1248), CoolUtil.randomLogic.float(-32, 688));
+            fucksprit.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(CoolUtil.randomVisuals.int(0, 10))));
+            fucksprit.antialiasing = false;
+            if (ClientPrefs.shaders)
+            {
+              fucksprit.shader = ripple;
+            }
+            fucksprit.ID = i;
+            fucksprit.scale.set(2, 2);
+            fucksprit.updateHitbox();
+            fucksprit.scrollFactor.set(CoolUtil.randomLogic.float(0.05, 0.2), CoolUtil.randomLogic.float(0.05, 0.2));
+            spaceItems.add(fucksprit);
+          }
+          add(spaceItems);
+          spaceItems.visible = false;
+        }
 
         blackVoid = new PixelPerfectSprite().makeGraphic(1, 1, FlxColor.BLACK);
         blackVoid.scale.set(2560, 2560);
@@ -1065,16 +1083,19 @@ class PlayState extends MusicBeatState
         add(zamMarkCamFlipShit);
         zamMarkCamFlipShit.visible = false;
 
-        bgPlayer = new Character(starting.x + 1048, starting.y + 576, "bg-player", false, false);
-        bgPlayer.canDance = false;
-        bgPlayerWalkTarget = bgPlayer.x;
-        bgPlayer.x -= 1400;
-        bgPlayer.playAnim("walk", true);
-        add(bgPlayer);
+        if (!ClientPrefs.lowQuality)
+        {
+          bgPlayer = new Character(starting.x + 1048, starting.y + 576, "bg-player", false, false);
+          bgPlayer.canDance = false;
+          bgPlayerWalkTarget = bgPlayer.x;
+          bgPlayer.x -= 1400;
+          bgPlayer.playAnim("walk", true);
+          add(bgPlayer);
 
-        fgGf = new Character(16, 480, 'desti-fg-gf', false, false);
-        fgGf.scrollFactor.set();
-        fgGf.visible = false;
+          fgGf = new Character(16, 480, 'desti-fg-gf', false, false);
+          fgGf.scrollFactor.set();
+          fgGf.visible = false;
+        }
 
         cuttingSceneThing = new PixelPerfectSprite();
         cuttingSceneThing.frames = Paths.getSparrowAtlas("ui/cutting_scene");
@@ -1143,7 +1164,10 @@ class PlayState extends MusicBeatState
         supersededIntro.animation.play("idle", true);
         supersededIntro.scrollFactor.set();
 
-        spaceWiggle = new WiggleEffect(0.15, 4, 0.15, WiggleEffectType.DREAMY, true);
+        if (ClientPrefs.shaders)
+        {
+          spaceWiggle = new WiggleEffect(0.15, 4, 0.15, WiggleEffectType.DREAMY, true);
+        }
 
         precacheList.set('superseded/bg_puppet_mark', 'image');
         precacheList.set('superseded/bg_puppet_ploinky', 'image');
@@ -1165,14 +1189,17 @@ class PlayState extends MusicBeatState
         pureWhiteAbyss.scrollFactor.set();
         add(pureWhiteAbyss);
 
-        wave = new WaveformSprite(WaveformDataParser.interpretFlxSound(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song))),
-          WaveformOrientation.HORIZONTAL, FlxColor.fromRGB(195, 207, 209), Conductor.crochet / 500);
-        wave.width = FlxG.width * 1.1;
-        wave.height = FlxG.height / 2;
-        wave.amplitude = 4;
-        wave.screenCenter();
-        add(wave);
-        wave.scrollFactor.set();
+        if (!ClientPrefs.lowQuality)
+        {
+          wave = new WaveformSprite(WaveformDataParser.interpretFlxSound(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song))),
+            WaveformOrientation.HORIZONTAL, FlxColor.fromRGB(195, 207, 209), Conductor.crochet / 500);
+          wave.width = FlxG.width * 1.1;
+          wave.height = FlxG.height / 2;
+          wave.amplitude = 4;
+          wave.screenCenter();
+          add(wave);
+          wave.scrollFactor.set();
+        }
 
         sky = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/sky'));
         sky.scale.set(2, 2);
@@ -1197,30 +1224,36 @@ class PlayState extends MusicBeatState
         add(starting);
         starting.screenCenter();
 
-        karmScaredy = new PixelPerfectSprite(starting.x + 42, starting.y + 612);
-        karmScaredy.frames = Paths.getSparrowAtlas("dsides/karm_scaredy");
-        karmScaredy.animation.addByPrefix("idle", "idle", 24, false);
-        karmScaredy.animation.play("idle", true);
-        karmScaredy.scrollFactor.set(0.9, 0.9);
-        karmScaredy.shader = aaColorChange;
-        add(karmScaredy);
-        karmScaredy.visible = false;
+        if (!ClientPrefs.lowQuality)
+        {
+          karmScaredy = new PixelPerfectSprite(starting.x + 42, starting.y + 612);
+          karmScaredy.frames = Paths.getSparrowAtlas("dsides/karm_scaredy");
+          karmScaredy.animation.addByPrefix("idle", "idle", 24, false);
+          karmScaredy.animation.play("idle", true);
+          karmScaredy.scrollFactor.set(0.9, 0.9);
+          karmScaredy.shader = aaColorChange;
+          add(karmScaredy);
+          karmScaredy.visible = false;
+        }
 
-        chefTable = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/chefTable'));
-        chefTable.scale.set(4, 4);
-        chefTable.updateHitbox();
-        chefTable.antialiasing = false;
-        chefTable.screenCenter();
-        chefTable.scrollFactor.set(1.6, 0.55);
-        chefTable.y -= 4000;
+        if (!ClientPrefs.lowQuality)
+        {
+          chefTable = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/chefTable'));
+          chefTable.scale.set(4, 4);
+          chefTable.updateHitbox();
+          chefTable.antialiasing = false;
+          chefTable.screenCenter();
+          chefTable.scrollFactor.set(1.6, 0.55);
+          chefTable.y -= 4000;
 
-        chefBanner = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/chefBanner'));
-        chefBanner.scale.set(4, 4);
-        chefBanner.updateHitbox();
-        chefBanner.antialiasing = false;
-        chefBanner.screenCenter();
-        chefBanner.scrollFactor.set(1.25, 0.75);
-        chefBanner.y -= 4000;
+          chefBanner = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/chefBanner'));
+          chefBanner.scale.set(4, 4);
+          chefBanner.updateHitbox();
+          chefBanner.antialiasing = false;
+          chefBanner.screenCenter();
+          chefBanner.scrollFactor.set(1.25, 0.75);
+          chefBanner.y -= 4000;
+        }
 
         lightningStrikes = new PixelPerfectSprite().makeGraphic(1, 1, FlxColor.fromRGB(255, 241, 185));
         lightningStrikes.scale.set(5000, 5000);
@@ -4779,7 +4812,10 @@ class PlayState extends MusicBeatState
     thingToAdd.updateHitbox();
     thingToAdd.angle = CoolUtil.randomLogic.float(-180, 180);
     thingToAdd.antialiasing = false;
-    thingToAdd.shader = ripple;
+    if (ClientPrefs.shaders)
+    {
+      thingToAdd.shader = ripple;
+    }
     thingToAdd.alpha = 0;
     itemNoteHudOverlays.add(thingToAdd);
     FlxTween.tween(thingToAdd, {alpha: 1}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(8)});
