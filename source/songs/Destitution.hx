@@ -36,7 +36,7 @@ class Destitution extends SongClass
     this.skipCountdown = false;
     this.preloadCharacters = [
       'mark', 'mark-alt', 'mark-annoyed', 'mark-annoyed-run', 'mark-annoyed-run-body', 'mark-annoyed-p3', 'mark-angry', 'ploinky', 'ili-devil', 'item',
-      'whale', 'rulez', 'crypteh', 'zam', 'bf-mark', 'bf-mark-ploink', 'bf-mark-lurking', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh',
+      'whale', 'rulez', 'crypteh', 'zam', 'zam-ridin', 'bf-mark', 'bf-mark-ploink', 'bf-mark-lurking', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh',
       'bf-mark-annoyed', 'bf-mark-annoyed-run', 'bf-mark-annoyed-run-body', 'bf-mark-annoyed-p3', 'bf-mark-angry', 'bg-player', 'desti-fg-gf', 'stop-loading'
     ];
     this.introCardBeat = 64;
