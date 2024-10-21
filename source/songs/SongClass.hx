@@ -1,5 +1,6 @@
 package songs;
 
+import backend.PlayablesData.Playables;
 import states.PlayState;
 
 /**
@@ -9,6 +10,8 @@ import states.PlayState;
 class SongClass
 {
   public var songNameForDisplay:String = "";
+
+  public var playable:Playables = BF;
 
   public var introType:String = "Default";
 

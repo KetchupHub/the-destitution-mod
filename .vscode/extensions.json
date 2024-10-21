@@ -1,12 +1,22 @@
 {
   "recommendations": [
-    "nadako.vshaxe", // Basic Haxe integration
-    "wiggin77.codedox", // Haxe documentation
-    "vshaxe.haxe-checkstyle", // Haxe code style and conventions
-    "vshaxe.hxcpp-debugger", // CPP debugging
-    "openfl.lime-vscode-extension", // Lime integration
-    "esbenp.prettier-vscode", // JSON formatting
-    "redhat.vscode-xml", // XML formatting
-    "ryanluker.vscode-coverage-gutters" // Highlight code coverage
+    "nadako.vshaxe",
+    "wiggin77.codedox",
+    "vshaxe.hxcpp-debugger",
+    "openfl.lime-vscode-extension",
+    "esbenp.prettier-vscode",
+    "redhat.vscode-xml",
+    "ryanluker.vscode-coverage-gutters",
+    "vshaxe.haxe-debug",
+    "waderyan.gitblame",
+    "github.vscode-pull-request-github",
+    "haxefoundation.haxe-hl",
+    "vshaxe.haxe-extension-pack",
+    "stxr.iconfont-preview",
+    "ms-vscode.live-server",
+    "slevesque.shader",
+    "stevensona.shader-toy",
+    "ms-vscode-remote.remote-wsl",
+    "dotjoshjohnson.xml"
   ]
 }

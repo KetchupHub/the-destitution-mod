@@ -22,6 +22,7 @@ class DStitution extends SongClass
   {
     super();
     this.songNameForDisplay = 'D-Stitution';
+    this.playable = DSIDES_BF;
     this.songHasSections = true;
     this.introType = 'Karm';
     this.gameoverChar = 'd-bf-dead';

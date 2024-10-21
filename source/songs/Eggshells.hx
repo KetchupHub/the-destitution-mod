@@ -11,6 +11,7 @@ class Eggshells extends SongClass
   {
     super();
     this.songNameForDisplay = 'Eggshells';
+    this.playable = BF;
     this.songHasSections = false;
     this.introType = 'Eggshells';
     this.gameoverChar = 'bf-dead';

@@ -11,6 +11,7 @@ class Quickshot extends SongClass
   {
     super();
     this.songNameForDisplay = 'Quickshot';
+    this.playable = PEAR;
     this.songHasSections = false;
     this.introType = 'Default';
     this.songVariants = ["Normal", "Erect"];

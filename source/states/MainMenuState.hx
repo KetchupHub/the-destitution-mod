@@ -1,5 +1,6 @@
 package states;
 
+import backend.PlayablesData.Playables;
 import ui.TransitionScreenshotObject;
 import states.ResultsState.ResultRanks;
 import util.EaseUtil;
@@ -33,7 +34,7 @@ class MainMenuState extends MusicBeatState
   var debugRank:ResultRanks = GOOD;
 
   // before i get a character select in, thisll do for testing
-  var debugChar:String = '';
+  var debugChar:Playables = DEFAULT;
   #end
 
   public static var curSelected:Int = 0;
@@ -190,28 +191,28 @@ class MainMenuState extends MusicBeatState
         FlxG.sound.play(Paths.sound('scrollMenu'));
 
         debugRank = BLEGH;
-        debugChar = '';
+        debugChar = DEFAULT;
       }
       else if (FlxG.keys.justPressed.TWO || FlxG.keys.justPressed.NUMPADTWO)
       {
         FlxG.sound.play(Paths.sound('scrollMenu'));
 
         debugRank = GOOD;
-        debugChar = '-bf';
+        debugChar = BF;
       }
       else if (FlxG.keys.justPressed.THREE || FlxG.keys.justPressed.NUMPADTHREE)
       {
         FlxG.sound.play(Paths.sound('scrollMenu'));
 
         debugRank = GREAT;
-        debugChar = '-mark';
+        debugChar = MARK;
       }
       else if (FlxG.keys.justPressed.FOUR || FlxG.keys.justPressed.NUMPADFOUR)
       {
         FlxG.sound.play(Paths.sound('scrollMenu'));
 
         debugRank = EXCELLENT;
-        debugChar = '-pear';
+        debugChar = PEAR;
       }
       else if (FlxG.keys.justPressed.FIVE || FlxG.keys.justPressed.NUMPADFIVE)
       {

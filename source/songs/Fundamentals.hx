@@ -11,6 +11,7 @@ class Fundamentals extends SongClass
   {
     super();
     this.songNameForDisplay = 'Fundamentals';
+    this.playable = BF;
     this.songHasSections = false;
     this.introType = 'Default';
     this.songVariants = ["Normal", "Erect"];

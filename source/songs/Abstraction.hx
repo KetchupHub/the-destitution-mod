@@ -11,6 +11,7 @@ class Abstraction extends SongClass
   {
     super();
     this.songNameForDisplay = 'ABSTRACTION';
+    this.playable = ARGULOW;
     this.songHasSections = false;
     this.introType = 'Mark';
     this.gameoverChar = 'bf-dead';

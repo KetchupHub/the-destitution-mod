@@ -9,6 +9,7 @@ class SongTemplate extends SongClass
   {
     super();
     this.songNameForDisplay = 'Template Song';
+    this.playable = BF;
     this.songHasSections = false;
     this.introType = 'Default';
     this.songVariants = ["Normal"];

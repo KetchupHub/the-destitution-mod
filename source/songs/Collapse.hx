@@ -11,6 +11,7 @@ class Collapse extends SongClass
   {
     super();
     this.songNameForDisplay = 'Collapse';
+    this.playable = MARK;
     this.songHasSections = true;
     this.introType = 'Mark';
     this.gameoverChar = 'bf-dead';

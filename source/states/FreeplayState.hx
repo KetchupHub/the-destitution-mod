@@ -1,5 +1,6 @@
 package states;
 
+import backend.PlayablesData.Playables;
 import backend.TextAndLanguage;
 import openfl.utils.Assets;
 import haxe.Json;
@@ -70,9 +71,9 @@ class FreeplayState extends MusicBeatState
   public var freePaper:PixelPerfectSprite;
   public var freeMetal:PixelPerfectSprite;
 
-  public var playerChar:String = '';
+  public var playerChar:Playables = DEFAULT;
 
-  public override function new(?player:String = '')
+  public override function new(?player:Playables = DEFAULT)
   {
     super();
     playerChar = player;
@@ -89,16 +90,13 @@ class FreeplayState extends MusicBeatState
 
     CoolUtil.newStateMemStuff();
 
-    WeekData.reloadWeekFiles(false, playerChar);
+    var ply:String = playerChar.getName().toLowerCase();
 
-    var playerCharNoDash:String = playerChar.replace('-', '').toLowerCase();
+    var plyjson:Dynamic = Json.parse(Assets.getText('assets/playables/$ply.json'));
 
-    var toJsn:String = 'default';
+    WeekData.reloadWeekFiles(false, plyjson.suffix);
 
-    if (playerCharNoDash != '')
-    {
-      toJsn = playerCharNoDash;
-    }
+    var toJsn:String = plyjson.freeplay;
 
     var json:Dynamic = Json.parse(Assets.getText('assets/freeplay/$toJsn.json'));
 

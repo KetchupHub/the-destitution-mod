@@ -22,6 +22,7 @@ class Superseded extends SongClass
   {
     super();
     this.songNameForDisplay = 'Superseded';
+    this.playable = BF;
     this.songHasSections = false;
     this.introType = 'Mark'; // wont be used anyways because superseded skips the countdown
     this.gameoverChar = 'bf-dead';

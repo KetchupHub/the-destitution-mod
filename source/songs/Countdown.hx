@@ -11,6 +11,7 @@ class Countdown extends SongClass
   {
     super();
     this.songNameForDisplay = 'Countdown';
+    this.playable = SPORTS;
     this.songHasSections = true;
     this.introType = 'Mark';
     // update these when the Sport Gameover later

@@ -11,6 +11,7 @@ class Megamix extends SongClass
   {
     super();
     this.songNameForDisplay = 'MEGAMIX (Credits)';
+    this.playable = BF;
     this.songHasSections = true;
     this.introType = 'Mark';
     this.gameoverChar = 'bf-dead';

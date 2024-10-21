@@ -11,6 +11,7 @@ class Topkicks extends SongClass
   {
     super();
     this.songNameForDisplay = 'TopKicks';
+    this.playable = PEAR;
     this.songHasSections = false;
     this.introType = 'Default';
     this.songVariants = ["Normal", "Erect"];

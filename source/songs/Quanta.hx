@@ -11,6 +11,7 @@ class Quanta extends SongClass
   {
     super();
     this.songNameForDisplay = 'Quanta';
+    this.playable = ILI;
     this.songHasSections = false;
     this.introType = 'Default';
     this.songVariants = ["Normal", "Erect"];

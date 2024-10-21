@@ -25,6 +25,7 @@ class Destitution extends SongClass
   {
     super();
     this.songNameForDisplay = 'Destitution';
+    this.playable = BF;
     this.songHasSections = true;
     this.introType = 'Mark';
     this.gameoverChar = 'bf-dead';

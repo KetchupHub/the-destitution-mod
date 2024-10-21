@@ -11,6 +11,7 @@ class EggshellsGoodEnd extends SongClass
   {
     super();
     this.songNameForDisplay = 'Eggshells (Good Ending)';
+    this.playable = BF;
     this.songHasSections = false;
     this.introType = 'Eggshells';
     this.gameoverChar = 'bf-dead';
