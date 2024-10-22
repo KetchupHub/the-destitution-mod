@@ -36,9 +36,18 @@ class Destitution extends SongClass
     this.skipCountdown = false;
     this.preloadCharacters = [
       'mark', 'mark-alt', 'mark-annoyed', 'mark-annoyed-run', 'mark-annoyed-run-body', 'mark-annoyed-p3', 'mark-angry', 'ploinky', 'ili-devil', 'item',
-      'whale', 'rulez', 'crypteh', 'zam', 'zam-ridin', 'bf-mark', 'bf-mark-ploink', 'bf-mark-lurking', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back', 'bf-mark-crypteh',
-      'bf-mark-annoyed', 'bf-mark-annoyed-run', 'bf-mark-annoyed-run-body', 'bf-mark-annoyed-p3', 'bf-mark-angry', 'bg-player', 'desti-fg-gf', 'stop-loading'
+      'whale', 'rulez', 'crypteh', 'zam', 'zam-ridin', 'bf-mark', 'bf-mark-ploink', 'bf-mark-lurking', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back',
+      'bf-mark-crypteh', 'bf-mark-annoyed', 'bf-mark-annoyed-run', 'bf-mark-annoyed-run-body', 'bf-mark-annoyed-p3', 'bf-mark-angry', 'bf-mark-ridin'
     ];
+
+    if (!ClientPrefs.lowQuality)
+    {
+      preloadCharacters.push('bg-player');
+      preloadCharacters.push('desti-fg-gf');
+    }
+
+    preloadCharacters.push('stop-loading');
+
     this.introCardBeat = 64;
   }
 
@@ -1207,6 +1216,62 @@ class Destitution extends SongClass
         PlayState.instance.sectionIntroThing("Guy with a Zamboni");
 
         Paths.clearUnusedMemory();
+
+        zamboniPositionsArchive = [PlayState.instance.dad.x, PlayState.instance.dad.y];
+        bfPositionsArchive = [PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y];
+        camzoomArchive = PlayState.instance.defaultCamZoom;
+      case 3136 | 3336:
+        // pixels mode activate
+
+        // PlayState.instance.defaultCamZoom = 1;
+
+        FlxG.camera.flash();
+
+        PlayState.instance.zamboniChaseBg.visible = true;
+
+        PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+        PlayState.instance.dad.destroy();
+        PlayState.instance.dad = new Character(128, 294, 'zam-ridin', false, false);
+        PlayState.instance.dadGroup.add(PlayState.instance.dad);
+
+        PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+        PlayState.instance.boyfriend = new Boyfriend(428, 316, 'bf-mark-ridin', false);
+        PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
+        PlayState.instance.boyfriend.alpha = 1;
+
+        PlayState.instance.dadGroup.scrollFactor.set(0, 0);
+        PlayState.instance.boyfriendGroup.scrollFactor.set(0, 0);
+
+        PlayState.instance.funBackCamFadeShit = false;
+      case 3264 | 3468:
+        // swap back to normal zamboniness
+
+        // PlayState.instance.defaultCamZoom = camzoomArchive;
+
+        PlayState.instance.zamboniChaseBg.visible = false;
+
+        FlxG.camera.flash();
+
+        PlayState.instance.dadGroup.remove(PlayState.instance.dad);
+        PlayState.instance.dad.destroy();
+        PlayState.instance.dad = new Character(0, 0, 'zam', false, false);
+        PlayState.instance.dadGroup.add(PlayState.instance.dad);
+        PlayState.instance.dad.screenCenter();
+        PlayState.instance.dad.x += 100;
+        PlayState.instance.dad.y += 356;
+
+        PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
+        PlayState.instance.boyfriend = new Boyfriend(120, 70, 'bf-mark-back', false);
+        PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
+        PlayState.instance.boyfriend.screenCenter();
+        PlayState.instance.boyfriend.x += 150;
+        PlayState.instance.boyfriend.y += 240;
+        PlayState.instance.boyfriend.alpha = 0.5;
+
+        PlayState.instance.dadGroup.scrollFactor.set(1, 1);
+        PlayState.instance.boyfriendGroup.scrollFactor.set(1, 1);
+
+        PlayState.instance.funBackCamFadeShit = true;
       case 3499:
         PlayState.instance.zamMarkCamFlipShit.visible = true;
         PlayState.instance.zamMarkCamFlipShit.animation.play("idle", true);
@@ -1287,4 +1352,9 @@ class Destitution extends SongClass
         PlayState.instance.addSubtitleObj("Say goodbye!", (Conductor.crochet / 1000) * 4, SubtitleTypes.NORMAL);
     }
   }
+
+  // stupid
+  public var zamboniPositionsArchive:Array<Float>;
+  public var bfPositionsArchive:Array<Float>;
+  public var camzoomArchive:Float;
 }

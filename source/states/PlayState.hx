@@ -1,5 +1,6 @@
 package states;
 
+import visuals.PixelPerfectBackdrop;
 import backend.TextAndLanguage;
 import shaders.AdjustColorShader;
 import openfl.filters.ShaderFilter;
@@ -284,6 +285,7 @@ class PlayState extends MusicBeatState
   public var angry:PixelPerfectSprite;
   public var angryDadCover:PixelPerfectSprite;
   public var zamboni:PixelPerfectSprite;
+  public var zamboniChaseBg:PixelPerfectBackdrop;
   public var cryptehB:PixelPerfectSprite;
   public var office:PixelPerfectSprite;
   public var annoyed:PixelPerfectSprite;
@@ -945,6 +947,17 @@ class PlayState extends MusicBeatState
         zamboni.antialiasing = false;
         add(zamboni);
 
+        zamboniChaseBg = new PixelPerfectBackdrop(Paths.image('destitution/zamChaseBg'), X);
+        zamboniChaseBg.scale.set(4, 4);
+        zamboniChaseBg.updateHitbox();
+        zamboniChaseBg.screenCenter();
+        zamboniChaseBg.scrollFactor.set();
+        zamboniChaseBg.antialiasing = false;
+        zamboniChaseBg.pixelPerfectDiv = 4;
+        zamboniChaseBg.pixelPerfect = true;
+        add(zamboniChaseBg);
+        zamboniChaseBg.visible = false;
+
         cryptehB = new PixelPerfectSprite(-680, -320).loadGraphic(Paths.image('destitution/cryptehB'));
         cryptehB.scale.set(2, 2);
         cryptehB.updateHitbox();
@@ -1130,6 +1143,7 @@ class PlayState extends MusicBeatState
         precacheList.set('destitution/bg_rulez_crypteh', 'image');
         precacheList.set('destitution/cryptehB', 'image');
         precacheList.set('destitution/zamboni', 'image');
+        precacheList.set('destitution/zamChaseBg', 'image');
         precacheList.set('destitution/cam_flip_lol', 'image');
         precacheList.set('destitution/angry', 'image');
         precacheList.set('destitution/angry_dadcover', 'image');
@@ -2409,6 +2423,11 @@ class PlayState extends MusicBeatState
       {
         ref.visible = !ref.visible;
       }
+    }
+
+    if (zamboniChaseBg != null)
+    {
+      zamboniChaseBg.x += 4 * elapsed;
     }
 
     if (spaceWiggle != null)
