@@ -88,7 +88,7 @@
   "position": [0, 0],
   "whoDoneWhat": null,
   "healthicon": "bf",
-  "flip_x": false,
+  "flip_x": true,
   "healthbar_colors": [14, 133, 163],
   "camera_position": [0, 0],
   "sing_duration": 15,

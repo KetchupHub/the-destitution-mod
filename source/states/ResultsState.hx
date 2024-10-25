@@ -29,53 +29,19 @@ import backend.Discord.DiscordClient;
 class ResultsState extends MusicBeatState
 {
   public var screenshotBackdrop:FlxBackdrop;
+  public var bgColorOverlay:FlxSprite;
 
   public var resultsUi:FlxAtlasSprite;
+  public var resultsAnim:FlxAtlasSprite;
 
-  public var nopeboyRes:FlxAtlasSprite;
+  public var rankGfx:PixelPerfectSprite;
 
-  public var score:Int = 0;
-  public var hiscore:Int = 0;
-
-  public var scoreLerp:Int = 0;
-  public var hiscoreLerp:Int = 0;
-
-  public var synergys:Int = 0;
-  public var goods:Int = 0;
-  public var eghs:Int = 0;
-  public var bleghs:Int = 0;
-  public var total:Int = 0;
-
-  public var synergysLerp:Int = 0;
-  public var goodsLerp:Int = 0;
-  public var eghsLerp:Int = 0;
-  public var bleghsLerp:Int = 0;
-  public var totalLerp:Int = 0;
-
-  public var missed:Int = 0;
-  public var missedLerp:Int = 0;
-
-  public var percent:Float = 0;
-  public var percentLerp:Float = 0;
+  public var botplayWatermark:PixelPerfectSprite;
 
   public var statBars:Array<FlxBar>;
   public var statTexts:Array<FlxText>;
   public var accText:FlxText;
   public var scoreText:FlxText;
-
-  public var botplay:Bool;
-
-  public var yellow:FlxSprite;
-  public var botplayThing:PixelPerfectSprite;
-
-  public var elapsedTotal:Float;
-
-  public var hasFadedOut:Bool = false;
-
-  public var bgMovementMulti:Float = 0;
-  public var bgMovementMultiTarget:Float = 1;
-
-  public var selectedSomethin:Bool = false;
 
   public var realRank:ResultRanks;
   public var overridedRank:ResultRanks;
@@ -84,7 +50,36 @@ class ResultsState extends MusicBeatState
 
   public var animname:String = 'results';
 
-  public var rankGfx:PixelPerfectSprite;
+  public var botplay:Bool;
+
+  public var score:Int = 0;
+  public var hiscore:Int = 0;
+  public var synergys:Int = 0;
+  public var goods:Int = 0;
+  public var eghs:Int = 0;
+  public var bleghs:Int = 0;
+  public var total:Int = 0;
+  public var missed:Int = 0;
+  public var percent:Float = 0;
+
+  public var scoreLerp:Int = 0;
+  public var hiscoreLerp:Int = 0;
+  public var synergysLerp:Int = 0;
+  public var goodsLerp:Int = 0;
+  public var eghsLerp:Int = 0;
+  public var bleghsLerp:Int = 0;
+  public var totalLerp:Int = 0;
+  public var missedLerp:Int = 0;
+  public var percentLerp:Float = 0;
+
+  public var selectedSomethin:Bool = false;
+
+  public var hasFadedOut:Bool = false;
+
+  public var bgMovementMulti:Float = 0;
+  public var bgMovementMultiTarget:Float = 1;
+
+  public var elapsedTotal:Float;
 
   public override function new(score:Int = 0, hiscore:Int = 0, synergys:Int = 0, goods:Int = 0, eghs:Int = 0, bleghs:Int = 0, botplay:Bool = false,
       percent:Float = 0, missed:Int = 0, ?variation:String = '', ?overrideRank:ResultRanks)
@@ -157,14 +152,14 @@ class ResultsState extends MusicBeatState
     screenshotBackdrop.antialiasing = ClientPrefs.globalAntialiasing;
     add(screenshotBackdrop);
 
-    yellow = new FlxSprite().makeGraphic(1, 1, FlxColor.fromRGB(json.bgColor[0], json.bgColor[1], json.bgColor[2]));
-    yellow.scale.set(2560, 2560);
-    yellow.updateHitbox();
-    yellow.screenCenter();
-    yellow.blend = SCREEN;
-    yellow.alpha = 0;
-    add(yellow);
-    FlxTween.tween(yellow, {alpha: 0.65}, 1, {ease: EaseUtil.stepped(8), startDelay: 0.1});
+    bgColorOverlay = new FlxSprite().makeGraphic(1, 1, FlxColor.fromRGB(json.bgColor[0], json.bgColor[1], json.bgColor[2]));
+    bgColorOverlay.scale.set(2560, 2560);
+    bgColorOverlay.updateHitbox();
+    bgColorOverlay.screenCenter();
+    bgColorOverlay.blend = SCREEN;
+    bgColorOverlay.alpha = 0;
+    add(bgColorOverlay);
+    FlxTween.tween(bgColorOverlay, {alpha: 0.65}, 1, {ease: EaseUtil.stepped(8), startDelay: 0.1});
 
     var animLibrary:String = Paths.getLibrary(json.path);
     var animPath:String = Paths.stripLibrary(json.path);
@@ -172,7 +167,7 @@ class ResultsState extends MusicBeatState
 
     animname = json.animation;
 
-    nopeboyRes = new FlxAtlasSprite(json.position[0], json.position[1], assetPath,
+    resultsAnim = new FlxAtlasSprite(json.position[0], json.position[1], assetPath,
       {
         FrameRate: 24.0,
         Reversed: false,
@@ -180,21 +175,21 @@ class ResultsState extends MusicBeatState
         Antialiasing: ClientPrefs.globalAntialiasing,
         ScrollFactor: null,
       });
-    nopeboyRes.anim.addBySymbol(animname, animname, 24, false);
-    nopeboyRes.playAnimation(animname, true, false, false);
+    resultsAnim.anim.addBySymbol(animname, animname, 24, false);
+    resultsAnim.playAnimation(animname, true, false, false);
     if (json.loop)
     {
-      nopeboyRes.onAnimationComplete.add(function goo(str:String)
+      resultsAnim.onAnimationComplete.add(function goo(str:String)
       {
-        nopeboyRes.playAnimation(animname, true, false, false);
+        resultsAnim.playAnimation(animname, true, false, false);
       });
     }
-    nopeboyRes.antialiasing = ClientPrefs.globalAntialiasing;
-    add(nopeboyRes);
+    resultsAnim.antialiasing = ClientPrefs.globalAntialiasing;
+    add(resultsAnim);
     if (json.slidesIn)
     {
-      nopeboyRes.x += 1280;
-      FlxTween.tween(nopeboyRes, {x: nopeboyRes.x - 1280}, 0.35, {ease: EaseUtil.stepped(16), startDelay: 0.8});
+      resultsAnim.x += 1280;
+      FlxTween.tween(resultsAnim, {x: resultsAnim.x - 1280}, 0.35, {ease: EaseUtil.stepped(16), startDelay: 0.8});
     }
 
     var animLibraryUi:String = Paths.getLibrary('results/ui');
@@ -271,12 +266,12 @@ class ResultsState extends MusicBeatState
     add(rankGfx);
     FlxTween.tween(rankGfx, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 2});
 
-    botplayThing = new PixelPerfectSprite(FlxG.width - 130, 2).loadGraphic(Paths.image('ui/botplay'));
-    botplayThing.scale.set(0.5, 0.5);
-    botplayThing.updateHitbox();
-    botplayThing.alpha = 0.75;
-    add(botplayThing);
-    botplayThing.visible = botplay;
+    botplayWatermark = new PixelPerfectSprite(FlxG.width - 130, 2).loadGraphic(Paths.image('ui/botplay'));
+    botplayWatermark.scale.set(0.5, 0.5);
+    botplayWatermark.updateHitbox();
+    botplayWatermark.alpha = 0.75;
+    add(botplayWatermark);
+    botplayWatermark.visible = botplay;
 
     #if DEVELOPERBUILD
     var versionShit:FlxText = new FlxText(-4, FlxG.height - 24, FlxG.width,
@@ -329,7 +324,7 @@ class ResultsState extends MusicBeatState
 
       bgMovementMultiTarget = 0;
 
-      FlxTween.tween(nopeboyRes, {alpha: 0}, 0.15, {ease: EaseUtil.stepped(4)});
+      FlxTween.tween(resultsAnim, {alpha: 0}, 0.15, {ease: EaseUtil.stepped(4)});
       FlxTween.tween(resultsUi, {x: resultsUi.x - 800}, 0.25, {ease: FlxEase.circIn});
       for (i in statTexts)
       {
@@ -351,9 +346,9 @@ class ResultsState extends MusicBeatState
       });
     }
 
-    if (botplayThing != null)
+    if (botplayWatermark != null)
     {
-      botplayThing.angle += Math.cos(elapsedTotal) * 0.25;
+      botplayWatermark.angle += Math.cos(elapsedTotal) * 0.25;
     }
 
     if (accText.alpha != 0)

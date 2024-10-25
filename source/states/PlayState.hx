@@ -1,6 +1,5 @@
 package states;
 
-// import shaders.DitherShader;
 import visuals.PixelPerfectBackdrop;
 import backend.TextAndLanguage;
 import shaders.AdjustColorShader;
@@ -47,7 +46,6 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
-import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import openfl.display.BlendMode;
 import openfl.utils.Assets as OpenFlAssets;
@@ -84,22 +82,76 @@ class PlayState extends MusicBeatState
 
   public var songObj:SongClass;
 
+  public var curSong:String = "";
+
+  public var songTime:Float = 0;
+  public var songSpeed(default, set):Float = 1;
+  public var playbackRate(default, set):Float = 1;
+
+  public static var songHasSections:Bool = false;
+
   public var vocals:FlxSound;
   public var opponentVocals:FlxSound;
 
-  public static var ratingStuff:Array<Dynamic> = [
-    ['Blegh!', 0.2], // From 0% to 19%
-    ['Bleck!', 0.4], // From 20% to 39%
-    ['Bad!', 0.5], // From 40% to 49%
-    ['Egh.', 0.6], // From 50% to 59%
-    ['Meh.', 0.7], // From 60% to 69%
-    ['Good!', 0.8], // From 70% to 79%
-    ['Great!', 0.9], // From 80% to 89%
-    ['Incredible!', 0.99], // From 90% to 98%
-    ['Synergy!', 1] // The value on this one isn't used actually, since Perfect is always "1"
-  ];
+  public var songSpeedType:String = "multiplicative";
+  public var songSpeedTween:FlxTween;
+
+  public var songFont:String = "BAUHS93.ttf";
+
+  public static var curStage:String = '';
+
+  public var bgPlayer:Character;
+
+  public var bgPlayerWalkTarget:Float;
+
+  public var gf:Character = null;
+  public var fgGf:Character;
+
+  public var GF_X:Float = 400;
+  public var GF_Y:Float = 130;
+
+  public var gfGroup:FlxSpriteGroup;
+
+  public var girlfriendCameraOffset:Array<Float> = null;
+
+  public var gfMap:Map<String, Character> = new Map();
+
+  public var dad:Character = null;
+  public var dadRunBod:Character = null;
+
+  public var DAD_X:Float = 100;
+  public var DAD_Y:Float = 100;
+
+  public var dadGroup:FlxSpriteGroup;
+
+  public var opponentCameraOffset:Array<Float> = null;
+
+  public var spaceTimeDadArray:Array<Float> = [0, 0];
+
+  public var dadMap:Map<String, Character> = new Map();
+
+  public var boyfriend:Boyfriend = null;
+  public var boyfriendRunBod:Boyfriend = null;
+
+  public var BF_X:Float = 770;
+  public var BF_Y:Float = 100;
+
+  public var boyfriendGroup:FlxSpriteGroup;
+
+  public var boyfriendCameraOffset:Array<Float> = null;
+
+  public var spaceTimeBfArray:Array<Float> = [0, 0];
+
+  public var boyfriendMap:Map<String, Boyfriend> = new Map();
+
+  public var bfAlphaTwnBack:FlxTween;
 
   public var keysArray:Array<Dynamic>;
+
+  public var camOther:FlxCamera;
+  public var camHUD:FlxCamera;
+  public var camSubtitlesAndSuch:FlxCamera;
+  public var camGame:FlxCamera;
 
   public var camFollow:FlxPoint;
 
@@ -109,104 +161,83 @@ class PlayState extends MusicBeatState
 
   public static var prevCamFollowPos:FlxObject;
 
-  public var camSubtitlesAndSuch:FlxCamera;
-  public var camHUD:FlxCamera;
-  public var camGame:FlxCamera;
-  public var camOther:FlxCamera;
+  public var isCameraOnForcedPos:Bool = false;
 
-  public var debugKeysChart:Array<FlxKey>;
-  public var debugKeysCharacter:Array<FlxKey>;
+  public var defaultCamZoom:Float = 1.05;
 
-  public var ratingName:String = '?';
-  public var ratingFC:String;
-  public var songFont:String = "BAUHS93.ttf";
-  public var songSpeedType:String = "multiplicative";
+  public var camZooming:Bool = true;
 
-  public static var curStage:String = '';
-
-  public var curSong:String = "";
-  public var detailsText:String = "Playing the Game";
-  public var detailsPausedText:String = "Paused";
-  public var introSoundsSuffix:String = '';
-  public var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
-  public var precacheList:Map<String, String> = new Map<String, String>();
-  public var controlArray:Array<String>;
-
-  public var songTime:Float = 0;
-  public var elapsedTotal:Float;
-  public var totalNotesHit:Float = 0.0;
-  public var camZoomAdditive:Float = 0;
-  public var ratingPercent:Float;
-  public var BF_X:Float = 770;
-  public var BF_Y:Float = 100;
-  public var DAD_X:Float = 100;
-  public var DAD_Y:Float = 100;
-  public var GF_X:Float = 400;
-  public var GF_Y:Float = 130;
-  public var songSpeed(default, set):Float = 1;
-  public var noteKillOffset:Float = 350;
-  public var playbackRate(default, set):Float = 1;
-  public var spawnTime:Float = 2000;
   public var camZoomingMult:Float = 1;
   public var camZoomingDecay:Float = 1;
-  public var songPercent:Float = 0;
-  public var healthGain:Float = 1;
-  public var healthLoss:Float = 1;
-  public var health:Float = 1;
-  public var smoothenedHealth:Float = 1;
+
+  public var camZoomAdditive:Float = 0;
+
   public var cameraSpeed:Float = 1;
+
+  public var cameraTwn:FlxTween;
+
+  public var camFloatyShit:Bool = false;
+
+  public var healthBarBG:PixelPerfectSprite;
+
+  public var scoreTxt:FlxText;
+
+  public var timeTxt:FlxText;
+  public var fullLength:FlxText;
+
+  public var sectText:FlxText;
+  public var sectNameText:FlxText;
+
+  public var introSoundsSuffix:String = '';
+  public var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
+  public var controlArray:Array<String>;
+
+  public var totalNotesHit:Float = 0.0;
+  public var ratingPercent:Float;
+  public var noteKillOffset:Float = 350;
+  public var spawnTime:Float = 2000;
+  public var songPercent:Float = 0;
   public var heyTimer:Float;
-  public var defaultCamZoom:Float = 1.05;
   public var songLength:Float = 0;
-  public var bgPlayerWalkTarget:Float;
 
   public static var startOnTime:Float = 0;
-
-  public var spaceTimeDadArray:Array<Float> = [0, 0];
-  public var spaceTimeBfArray:Array<Float> = [0, 0];
-  public var boyfriendCameraOffset:Array<Float> = null;
-  public var opponentCameraOffset:Array<Float> = null;
-  public var girlfriendCameraOffset:Array<Float> = null;
 
   public static var STRUM_X = 42;
   public static var STRUM_X_MIDDLESCROLL = -278;
 
-  public var totalPlayed:Int = 0;
-
   public static var sectionNum:Int = 1;
 
-  public var debugNum:Int = 0;
-  public var previousFrameTime:Int = 0;
-  public var lastReportedPlayheadPosition:Int = 0;
-  public var lastStepHit:Int = -1;
   public var bgColorsCrazyBeats:Int = 4;
-  public var lightningStrikeBeat:Int = 0;
-  public var lightningOffset:Int = 8;
-  public var lastBeatHit:Int = -1;
+
   public var gfSpeed:Int = 1;
-  public var combo:Int = 0;
 
   public var synergys:Int = 0;
   public var goods:Int = 0;
   public var eghs:Int = 0;
   public var bleghs:Int = 0;
+  public var totalPlayed:Int = 0;
+
+  public var combo:Int = 0;
+
   public var songScore:Int = 0;
   public var songHits:Int = 0;
   public var songMisses:Int = 0;
 
-  public static var campaignScore:Int = 0;
-  public static var campaignMisses:Int = 0;
+  public var healthGain:Float = 1;
+  public var healthLoss:Float = 1;
+
+  public var health:Float = 1;
+  public var smoothenedHealth:Float = 1;
+
+  public var missSuffix:String = '';
+
   public static var deathCounter:Int = 0;
 
-  public static var songHasSections:Bool = false;
   #if DEVELOPERBUILD
   public static var chartingMode:Bool = false;
   #end
-  public static var seenCutscene:Bool = false;
 
   public var fuckMyLife:Bool = false;
-  public var isCameraOnForcedPos:Bool = false;
-  public var camZooming:Bool = true;
   public var generatedMusic:Bool = false;
   public var endingSong:Bool = false;
   public var startingSong:Bool = false;
@@ -240,22 +271,6 @@ class PlayState extends MusicBeatState
   public var strumsBlocked:Array<Bool> = [];
   public var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
   public var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
-
-  public var scoreTxt:FlxText;
-  public var timeTxt:FlxText;
-  public var fullLength:FlxText;
-  public var sectText:FlxText;
-  public var sectNameText:FlxText;
-
-  public var dad:Character = null;
-  public var gf:Character = null;
-  public var bgPlayer:Character;
-  public var fgGf:Character;
-
-  public var boyfriend:Boyfriend = null;
-
-  public var dadRunBod:Character = null;
-  public var boyfriendRunBod:Boyfriend = null;
 
   #if !SHOWCASEVIDEO
   public var botplayTxt:PixelPerfectSprite;
@@ -300,10 +315,6 @@ class PlayState extends MusicBeatState
   public var supersededOverlay:PixelPerfectSprite;
   public var theSmog:PixelPerfectSprite;
   public var funnyBgColors:PixelPerfectSprite;
-  public var healthBarBG:PixelPerfectSprite;
-  public var boyfriendGroup:FlxSpriteGroup;
-  public var dadGroup:FlxSpriteGroup;
-  public var gfGroup:FlxSpriteGroup;
 
   public static var lastScore:Array<PixelPerfectSprite> = [];
 
@@ -326,49 +337,74 @@ class PlayState extends MusicBeatState
 
   public var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
-  public var songSpeedTween:FlxTween;
   public var scoreTxtTween:FlxTween;
-  public var cameraTwn:FlxTween;
-  public var bfAlphaTwnBack:FlxTween;
-
-  public var funnyColorsArray:Array<FlxColor> = [
-    FlxColor.BLUE, FlxColor.CYAN, FlxColor.GREEN, FlxColor.LIME, FlxColor.MAGENTA, FlxColor.ORANGE, FlxColor.PINK, FlxColor.PURPLE, FlxColor.RED,
-    FlxColor.YELLOW, FlxColor.BROWN
-  ];
 
   public var startTimer:FlxTimer;
   public var finishTimer:FlxTimer = null;
 
-  public var spaceWiggle:WiggleEffect;
+  public var wave:WaveformSprite;
 
-  public var angel:AngelShader;
-  public var angelPulseBeat:Int = 4;
-  public var angelPulsing:Bool = false;
+  public var spaceWiggle:WiggleEffect;
 
   public var chromAbb:Abberation;
   public var chromAbbBeat:Int = 4;
   public var chromAbbPulse:Bool = false;
 
+  public var angel:AngelShader;
+  public var angelPulseBeat:Int = 4;
+  public var angelPulsing:Bool = false;
+
   public var ripple:RippleShader;
-
-  public var boyfriendMap:Map<String, Boyfriend> = new Map();
-  public var dadMap:Map<String, Character> = new Map();
-  public var gfMap:Map<String, Character> = new Map();
-  public var variables:Map<String, Dynamic> = new Map();
-  public var modchartTweens:Map<String, FlxTween> = new Map<String, FlxTween>();
-  public var modchartTimers:Map<String, FlxTimer> = new Map<String, FlxTimer>();
-  public var modchartSounds:Map<String, FlxSound> = new Map<String, FlxSound>();
-  public var modchartSaves:Map<String, FlxSave> = new Map<String, FlxSave>();
-
-  public var camFloatyShit:Bool = false;
-
-  public var wave:WaveformSprite;
 
   public var fnafAtFreddys:FNAFShader;
 
   public var aaColorChange:AdjustColorShader = new AdjustColorShader();
 
-  // public var ditherShader:DitherShader = new DitherShader(2);
+  public var funnyColorsArray:Array<FlxColor> = [
+    FlxColor.BLUE,
+    FlxColor.CYAN,
+    FlxColor.GREEN,
+    FlxColor.LIME,
+    FlxColor.MAGENTA,
+    FlxColor.ORANGE,
+    FlxColor.PINK,
+    FlxColor.PURPLE,
+    FlxColor.RED,
+    FlxColor.YELLOW,
+    FlxColor.BROWN
+  ];
+
+  public static var ratingStuff:Array<Dynamic> = [
+    ['Blegh!', 0.2], // From 0% to 19%
+    ['Bleck!', 0.4], // From 20% to 39%
+    ['Bad!', 0.5], // From 40% to 49%
+    ['Egh.', 0.6], // From 50% to 59%
+    ['Meh.', 0.7], // From 60% to 69%
+    ['Good!', 0.8], // From 70% to 79%
+    ['Great!', 0.9], // From 80% to 89%
+    ['Incredible!', 0.99], // From 90% to 98%
+    ['Synergy!', 1] // The value on this one isn't used actually, since Perfect is always "1"
+  ];
+
+  public var ratingName:String = '?';
+  public var ratingFC:String;
+
+  public var precacheList:Map<String, String> = new Map<String, String>();
+
+  public var transitioning = false;
+
+  public var debugKeysChart:Array<FlxKey>;
+  public var debugKeysCharacter:Array<FlxKey>;
+  public var debugNum:Int = 0;
+  public var previousFrameTime:Int = 0;
+  public var lastReportedPlayheadPosition:Int = 0;
+  public var lastStepHit:Int = -1;
+  public var lastBeatHit:Int = -1;
+
+  public var detailsText:String = "Playing the Game";
+  public var detailsPausedText:String = "Paused";
+
+  public var elapsedTotal:Float;
 
   override public function create()
   {
@@ -825,9 +861,9 @@ class PlayState extends MusicBeatState
       precacheList.set('hitsound', 'sound');
     }
 
-    precacheList.set('missnote1', 'sound');
-    precacheList.set('missnote2', 'sound');
-    precacheList.set('missnote3', 'sound');
+    precacheList.set('miss' + missSuffix + '/' + '0', 'sound');
+    precacheList.set('miss' + missSuffix + '/' + '1', 'sound');
+    precacheList.set('miss' + missSuffix + '/' + '2', 'sound');
 
     precacheList.set("mus_lunch_break", 'music');
 
@@ -946,13 +982,11 @@ class PlayState extends MusicBeatState
         add(zamboni);
 
         zamboniChaseBg = new PixelPerfectBackdrop(Paths.image('destitution/zamChaseBg'), X);
-        zamboniChaseBg.scale.set(4, 4);
+        zamboniChaseBg.scale.set(3, 3);
         zamboniChaseBg.updateHitbox();
         zamboniChaseBg.screenCenter();
         zamboniChaseBg.scrollFactor.set();
         zamboniChaseBg.antialiasing = false;
-        zamboniChaseBg.pixelPerfectDiv = 4;
-        zamboniChaseBg.pixelPerfect = true;
         add(zamboniChaseBg);
         zamboniChaseBg.visible = false;
 
@@ -2254,15 +2288,6 @@ class PlayState extends MusicBeatState
           char.colorTween.active = false;
         }
       }
-
-      for (tween in modchartTweens)
-      {
-        tween.active = false;
-      }
-      for (timer in modchartTimers)
-      {
-        timer.active = false;
-      }
     }
 
     super.openSubState(SubState);
@@ -2300,16 +2325,6 @@ class PlayState extends MusicBeatState
         {
           char.colorTween.active = true;
         }
-      }
-
-      for (tween in modchartTweens)
-      {
-        tween.active = true;
-      }
-
-      for (timer in modchartTimers)
-      {
-        timer.active = true;
       }
 
       paused = false;
@@ -2427,7 +2442,7 @@ class PlayState extends MusicBeatState
 
     if (zamboniChaseBg != null)
     {
-      zamboniChaseBg.x += 4 * elapsed;
+      zamboniChaseBg.x += 640 * elapsed;
     }
 
     if (spaceWiggle != null)
@@ -2952,19 +2967,9 @@ class PlayState extends MusicBeatState
       persistentUpdate = false;
       persistentDraw = true;
 
-      for (tween in modchartTweens)
-      {
-        tween.active = true;
-      }
-
-      for (timer in modchartTimers)
-      {
-        timer.active = true;
-      }
-
       GameOverSubstate.characterName = songObj.gameoverChar;
-      GameOverSubstate.loopSoundName = 'mus_overtime' + songObj.gameoverMusicSuffix;
-      GameOverSubstate.endSoundName = 'mus_overtime_end' + songObj.gameoverMusicSuffix;
+      GameOverSubstate.loopSoundName = 'gameover/loop' + songObj.gameoverMusicSuffix;
+      GameOverSubstate.endSoundName = 'gameover/end' + songObj.gameoverMusicSuffix;
 
       var bfTarX:Float = boyfriend.x;
       var bfTarY:Float = boyfriend.y;
@@ -3527,8 +3532,6 @@ class PlayState extends MusicBeatState
       });
   }
 
-  public var transitioning = false;
-
   public function endSong():Void
   {
     if (!startingSong #if DEVELOPERBUILD && !chartingMode #end)
@@ -3563,7 +3566,6 @@ class PlayState extends MusicBeatState
     inCutscene = false;
     updateTime = false;
     deathCounter = 0;
-    seenCutscene = false;
 
     if (!transitioning)
     {
@@ -4099,7 +4101,7 @@ class PlayState extends MusicBeatState
 
     if (!daNote.isSustainNote)
     {
-      FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), CoolUtil.randomAudio.float(0.45, 0.65));
+      FlxG.sound.play(Paths.soundRandom('misses' + missSuffix + '/', 0, 2), CoolUtil.randomAudio.float(0.45, 0.65));
     }
 
     totalPlayed++;
@@ -4150,7 +4152,7 @@ class PlayState extends MusicBeatState
 
     recalculateRating(true);
 
-    FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), CoolUtil.randomAudio.float(0.45, 0.65));
+    FlxG.sound.play(Paths.soundRandom('misses' + missSuffix + '/', 0, 2), CoolUtil.randomAudio.float(0.45, 0.65));
 
     if (boyfriend.hasMissAnimations)
     {

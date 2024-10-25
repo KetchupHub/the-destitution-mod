@@ -20,7 +20,6 @@ import flixel.input.keyboard.FlxKey;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
-import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
@@ -36,10 +35,6 @@ class TitleState extends MusicBeatState
   public static var initialized:Bool = false;
 
   public var transitioning:Bool = false;
-
-  public var newTitle:Bool = false;
-
-  public var titleTimer:Float = 0;
 
   public var sickBeats:Int = 0;
 
@@ -58,11 +53,7 @@ class TitleState extends MusicBeatState
 
   public var tppLogo:PixelPerfectSprite;
 
-  public var mustUpdate:Bool = false;
-
   public var skippedIntro:Bool = false;
-
-  public var increaseVolume:Bool = false;
 
   public var logo:PixelPerfectSprite;
 
@@ -337,33 +328,10 @@ class TitleState extends MusicBeatState
         }
       }
 
-      if (newTitle)
-      {
-        titleTimer += CoolUtil.boundTo(elapsed, 0, 1);
-
-        if (titleTimer > 2)
-        {
-          titleTimer -= 2;
-        }
-      }
-
       if (initialized && !transitioning && skippedIntro)
       {
-        if (newTitle && !pressedEnter)
-        {
-          var timer:Float = titleTimer;
-
-          if (timer >= 1)
-          {
-            timer = (-timer) + 2;
-          }
-
-          timer = FlxEase.quadInOut(timer);
-        }
-
         if (pressedEnter)
         {
-          // FlxG.camera.flash(ClientPrefs.flashing ? FlxColor.WHITE : 0x4CFFFFFF);
           FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
           transitioning = true;

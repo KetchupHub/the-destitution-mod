@@ -32,8 +32,7 @@ class PauseSubState extends MusicBeatSubstate
 
   public var songCover:PixelPerfectSprite;
   public var descText:FlxText;
-
-  public var holdTime:Float = 0;
+  
   public var cantUnpause:Float = 0.1;
 
   public function new(focusLost:Bool)
@@ -294,8 +293,6 @@ class PauseSubState extends MusicBeatSubstate
           Application.current.window.title = CoolUtil.appTitleString;
 
           PlayState.deathCounter = 0;
-
-          PlayState.seenCutscene = false;
 
           FlxTransitionableState.skipNextTransIn = true;
           FlxTransitionableState.skipNextTransOut = true;

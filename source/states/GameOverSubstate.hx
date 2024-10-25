@@ -32,18 +32,18 @@ class GameOverSubstate extends MusicBeatSubstate
   public var playingDeathSound:Bool = false;
 
   public static var characterName:String = 'bf-dead';
-  public static var deathSoundName:String = 'deathsting_default';
-  public static var loopSoundName:String = 'mus_overtime';
-  public static var endSoundName:String = 'mus_overtime_end';
+  public static var deathSoundName:String = 'gameover/deathsting';
+  public static var loopSoundName:String = 'gameover/loop';
+  public static var endSoundName:String = 'gameover/end';
 
   public static var instance:GameOverSubstate;
 
   public static function resetVariables()
   {
     characterName = 'bf-dead';
-    deathSoundName = 'deathsting_default';
-    loopSoundName = 'mus_overtime';
-    endSoundName = 'mus_overtime_end';
+    deathSoundName = 'gameover/deathsting';
+    loopSoundName = 'gameover/loop';
+    endSoundName = 'gameover/end';
   }
 
   override function create()
@@ -172,7 +172,6 @@ class GameOverSubstate extends MusicBeatSubstate
         fuc.stop();
       });
       PlayState.deathCounter = 0;
-      PlayState.seenCutscene = false;
       #if DEVELOPERBUILD
       PlayState.chartingMode = false;
       #end

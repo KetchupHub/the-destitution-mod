@@ -33,8 +33,20 @@ class Superseded extends SongClass
     this.ratingsType = "";
     this.skipCountdown = true;
     this.preloadCharacters = [
-      'mark-old', 'mark-old-turn', 'mark-old-glitch', 'bf-old', 'the-creature', 'the-creature-finale', 'puppet-ploinky', 'puppet-ili', 'puppet-whale',
-      'puppet-rulez', 'puppet-crypteh', 'puppet-zam', 'bf-hunter', 'stop-loading'
+      'mark-old',
+      'mark-old-turn',
+      'mark-old-glitch',
+      'bf-old',
+      'the-creature',
+      'the-creature-finale',
+      'puppet-ploinky',
+      'puppet-ili',
+      'puppet-whale',
+      'puppet-rulez',
+      'puppet-crypteh',
+      'puppet-zam',
+      'bf-hunter',
+      'stop-loading'
     ];
     this.introCardBeat = 32;
   }

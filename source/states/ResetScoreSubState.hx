@@ -26,9 +26,9 @@ class ResetScoreSubState extends MusicBeatSubstate
 
   public var song:String;
 
-  var pressed:Bool = true;
+  public var pressed:Bool = true;
 
-  var songCover:FlxSprite;
+  public var songCover:FlxSprite;
 
   public function new(song:String)
   {

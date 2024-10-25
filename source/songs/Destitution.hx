@@ -35,9 +35,34 @@ class Destitution extends SongClass
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = [
-      'mark', 'mark-alt', 'mark-annoyed', 'mark-annoyed-run', 'mark-annoyed-run-body', 'mark-annoyed-p3', 'mark-angry', 'ploinky', 'ili-devil', 'item',
-      'whale', 'rulez', 'crypteh', 'zam', 'zam-ridin', 'bf-mark', 'bf-mark-ploink', 'bf-mark-lurking', 'bf-mark-item', 'bf-mark-rulez', 'bf-mark-back',
-      'bf-mark-crypteh', 'bf-mark-annoyed', 'bf-mark-annoyed-run', 'bf-mark-annoyed-run-body', 'bf-mark-annoyed-p3', 'bf-mark-angry', 'bf-mark-ridin'
+      'mark',
+      'mark-alt',
+      'mark-annoyed',
+      'mark-annoyed-run',
+      'mark-annoyed-run-body',
+      'mark-annoyed-p3',
+      'mark-angry',
+      'ploinky',
+      'ili-devil',
+      'item',
+      'whale',
+      'rulez',
+      'crypteh',
+      'zam',
+      'zam-ridin',
+      'bf-mark',
+      'bf-mark-ploink',
+      'bf-mark-lurking',
+      'bf-mark-item',
+      'bf-mark-rulez',
+      'bf-mark-back',
+      'bf-mark-crypteh',
+      'bf-mark-annoyed',
+      'bf-mark-annoyed-run',
+      'bf-mark-annoyed-run-body',
+      'bf-mark-annoyed-p3',
+      'bf-mark-angry',
+      'bf-mark-ridin'
     ];
 
     if (!ClientPrefs.lowQuality)
@@ -1252,12 +1277,16 @@ class Destitution extends SongClass
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(128 - PlayState.instance.dadGroup.x, 294 - PlayState.instance.dadGroup.y, 'zam-ridin', false, false);
         // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
+        PlayState.instance.dad.y = ((PlayState.instance.zamboniChaseBg.y + PlayState.instance.zamboniChaseBg.height) - PlayState.instance.dad.height) - 32;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend = new Boyfriend(428 - PlayState.instance.boyfriendGroup.x, 316 - PlayState.instance.boyfriendGroup.y, 'bf-mark-ridin',
           false);
         // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
+        PlayState.instance.boyfriend.y = ((PlayState.instance.zamboniChaseBg.y + PlayState.instance.zamboniChaseBg.height)
+          - PlayState.instance.boyfriend.height)
+          - 32;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.alpha = 1;
 
