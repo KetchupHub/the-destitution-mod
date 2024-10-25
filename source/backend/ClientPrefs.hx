@@ -10,7 +10,6 @@ import backend.Controls;
 
 /**
  * Handles all global save data, such as options.
- * Does NOT handle RPG save data!!! Don't put RPG variables here!!!
  */
 class ClientPrefs
 {

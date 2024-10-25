@@ -1,7 +1,6 @@
 package visuals;
 
 import backend.ClientPrefs;
-import flixel.FlxSprite;
 
 class BGSprite extends PixelPerfectSprite
 {

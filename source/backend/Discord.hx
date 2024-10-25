@@ -18,6 +18,9 @@ class DiscordClient
 
   public static var discordHandlers:DiscordEventHandlers;
 
+  public static var buttonLeft:DiscordButton;
+  public static var buttonRight:DiscordButton;
+
   public function new()
   {
     #if DEVELOPERBUILD
@@ -30,6 +33,14 @@ class DiscordClient
     discordHandlers.disconnected = Callable.fromStaticFunction(onDisconnected);
 
     Discord.initialize("1104955579979542548", discordHandlers);
+
+    buttonLeft = DiscordButton.create();
+    buttonLeft.label = "Download";
+    buttonLeft.url = ConstCharStar.fromString('https://gamejolt.com/games/destitution/844229');
+
+    buttonRight = DiscordButton.create();
+    buttonRight.label = "Team";
+    buttonRight.url = ConstCharStar.fromString('https://twitter.com/TeamProdPresent/');
 
     // not effected by multi threading option because otherwise the game would hang, lol!
     Thread.create(function():Void {
@@ -63,15 +74,8 @@ class DiscordClient
     pres.largeImageKey = ConstCharStar.fromString("icon");
     pres.largeImageText = ConstCharStar.fromString("The Destitution Mod v" + Application.current.meta.get('version'));
 
-    final button1:DiscordButton = DiscordButton.create();
-    button1.label = "Download";
-    button1.url = ConstCharStar.fromString('https://gamejolt.com/games/destitution/844229');
-    pres.buttons[0] = button1;
-
-    final button2:DiscordButton = DiscordButton.create();
-    button2.label = "Team";
-    button2.url = ConstCharStar.fromString('https://twitter.com/TeamProdPresent/');
-    pres.buttons[1] = button2;
+    pres.buttons[0] = buttonLeft;
+    pres.buttons[1] = buttonRight;
 
     Discord.updatePresence(pres);
   }
@@ -133,15 +137,8 @@ class DiscordClient
     pres.largeImageText = ConstCharStar.fromString(largoText);
     pres.smallImageKey = ConstCharStar.fromString(smalley);
 
-    final button1:DiscordButton = DiscordButton.create();
-    button1.label = "Download";
-    button1.url = ConstCharStar.fromString('https://gamejolt.com/games/destitution/844229');
-    pres.buttons[0] = button1;
-
-    final button2:DiscordButton = DiscordButton.create();
-    button2.label = "Team";
-    button2.url = ConstCharStar.fromString('https://twitter.com/TeamProdPresent/');
-    pres.buttons[1] = button2;
+    pres.buttons[0] = buttonLeft;
+    pres.buttons[1] = buttonRight;
 
     Discord.updatePresence(pres);
   }

@@ -35,7 +35,7 @@ class NotesSubState extends MusicBeatSubstate
     bg.color = 0xffe3e7ae;
     bg.screenCenter();
     add(bg);
-    
+
     var clipboard:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('options/clipboard'));
     clipboard.scale.set(2, 2);
     clipboard.updateHitbox();

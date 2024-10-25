@@ -2,7 +2,6 @@
 package editors;
 
 import flixel.FlxObject;
-import flixel.math.FlxPoint;
 import openfl.filters.ShaderFilter;
 import states.MainMenuState;
 import flixel.FlxSprite;
@@ -13,7 +12,6 @@ import shaders.NtscShaders.TVStatic;
 import shaders.NtscShaders.Abberation;
 import util.CoolUtil;
 import states.MusicBeatState;
-import util.MemoryUtil;
 #if desktop
 import backend.Discord.DiscordClient;
 #end
@@ -27,6 +25,7 @@ class ShadersTestState extends MusicBeatState
 {
   var charPx:Character;
   var charAa:Character;
+  var charAlpha:Character;
 
   public function new()
   {
@@ -42,7 +41,7 @@ class ShadersTestState extends MusicBeatState
   public var camFollow:FlxObject;
 
   public var shaderz:Array<Dynamic> = [
-    new AngelShader(),
+    new RippleShader(),
     new AngelShader(),
     new BloomShader(),
     new BrightnessContrastShader(0.9, 2),
@@ -84,6 +83,9 @@ class ShadersTestState extends MusicBeatState
     add(charPx);
     charAa = new Character(650, 256, 'bf', true, false);
     add(charAa);
+    charAlpha = new Character(1150, 256, 'bf-mark', true, false);
+    charAlpha.alpha = 0.5;
+    add(charAlpha);
 
     prepShaders();
 
@@ -172,12 +174,14 @@ class ShadersTestState extends MusicBeatState
         FlxG.camera.filters = [new ShaderFilter(shaderz[curSelc])];
         charPx.shader = null;
         charAa.shader = null;
+        charAlpha.shader = null;
       }
       else
       {
         FlxG.camera.filters = [];
         charPx.shader = shaderz[curSelc];
         charAa.shader = shaderz[curSelc];
+        charAlpha.shader = shaderz[curSelc];
       }
     }
     else
@@ -185,6 +189,7 @@ class ShadersTestState extends MusicBeatState
       FlxG.camera.filters = [];
       charPx.shader = null;
       charAa.shader = null;
+      charAlpha.shader = null;
     }
   }
 
@@ -214,9 +219,4 @@ class ShadersTestState extends MusicBeatState
     shaderz[9].setChrom(0.25);
   }
 }
-
-/*public function changeShaderProperties(change:Int)
-  {
-  shaderz[1].set_strength(shaderz[1].strength + (change * 0.1));
-}*/
 #end

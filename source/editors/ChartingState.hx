@@ -17,7 +17,6 @@ import ui.HealthIcon;
 import ui.Note;
 import ui.StrumNote;
 import visuals.AttachedSprite;
-import util.MemoryUtil;
 import backend.Song;
 import backend.Section;
 import backend.Discord.DiscordClient;
@@ -38,7 +37,6 @@ import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUISlider;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.group.FlxGroup;
-import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.sound.FlxSound;
@@ -59,7 +57,6 @@ import flixel.addons.ui.FlxUIDropDownMenu;
 import flash.media.Sound;
 #end
 import sys.FileSystem;
-import sys.io.File;
 #end
 
 /**

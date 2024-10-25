@@ -1,5 +1,7 @@
 package states;
 
+import util.EaseUtil;
+import flixel.tweens.FlxTween;
 import visuals.Character;
 import flixel.FlxSprite;
 import backend.ClientPrefs;
@@ -19,7 +21,6 @@ import flixel.util.FlxTimer;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
-  public var gf:Character;
   public var dad:Character;
   public var boyfriend:Boyfriend;
 
@@ -29,8 +30,6 @@ class GameOverSubstate extends MusicBeatSubstate
   public var updateCamera:Bool = false;
 
   public var playingDeathSound:Bool = false;
-
-  public var stageSuffix:String = "";
 
   public static var characterName:String = 'bf-dead';
   public static var deathSoundName:String = 'deathsting_default';
@@ -54,7 +53,7 @@ class GameOverSubstate extends MusicBeatSubstate
   }
 
   public function new(x:Float, y:Float, camX:Float, camY:Float, bfCamOffset:Array<Float>, dadName:String, dadX:Float, dadY:Float, bfVisible:Bool,
-      followNonMidpoint:Bool, gfTarg:String, gfArrival:Bool, gfTargX:Float, gfTargY:Float)
+      followNonMidpoint:Bool)
   {
     super();
 
@@ -67,18 +66,14 @@ class GameOverSubstate extends MusicBeatSubstate
     bg.updateHitbox();
     bg.screenCenter();
     bg.scrollFactor.set();
-    bg.alpha = 0;
+    bg.alpha = 0.75;
     add(bg);
+
+    FlxTween.tween(bg, {alpha: 1}, 0.25, {ease: EaseUtil.stepped(8)});
 
     CoolUtil.newStateMemStuff(false);
 
     Conductor.songPosition = 0;
-
-    if (gfArrival)
-    {
-      gf = new Character(gfTargX, gfTargY, gfTarg, false, false);
-      add(gf);
-    }
 
     dad = new Character(dadX, dadY, dadName, false, false);
     add(dad);
@@ -115,27 +110,9 @@ class GameOverSubstate extends MusicBeatSubstate
     dad.dance();
     dad.finishAnimation();
 
-    if (gf != null)
-    {
-      gf.dance();
-      gf.finishAnimation();
-    }
-
     var fuckingHell:FlxTimer = new FlxTimer().start(0.05, function the(f:FlxTimer)
     {
       boyfriend.playAnim('firstDeath', true);
-
-      if (gf != null)
-      {
-        gf.playAnim('sad', true);
-
-        gf.animation.onFinish.addOnce(function gunInMouth(str:String)
-        {
-          gf.animation.onFinish.removeAll();
-          gf.dance();
-          gf.finishAnimation();
-        });
-      }
 
       if (dad.animOffsets.exists('gameover'))
       {

@@ -7,14 +7,12 @@ import util.CoolUtil;
 import states.TitleState;
 import states.PlayState;
 import states.MusicBeatState;
-import util.MemoryUtil;
 import sys.FileSystem;
 #if desktop
 import backend.Discord.DiscordClient;
 #end
 import flixel.FlxG;
 import flixel.FlxObject;
-import flixel.FlxSprite;
 import flixel.FlxCamera;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
@@ -277,55 +275,11 @@ class CharacterEditorState extends MusicBeatState
       reloadCharacterDropDown();
     });
 
-    var templateCharacter:FlxButton = new FlxButton(140, 50, "Load Template", function() {
-      var parsedJson:CharacterFile = cast Json.parse(TemplateCharacter);
-      var characters:Array<Character> = [char, ghostChar];
-
-      for (character in characters)
-      {
-        character.animOffsets.clear();
-        character.animationsArray = parsedJson.animations;
-
-        for (anim in character.animationsArray)
-        {
-          character.addOffset(anim.anim, anim.offsets[0], anim.offsets[1]);
-        }
-
-        if (character.animationsArray[0] != null)
-        {
-          character.playAnim(character.animationsArray[0].anim, true);
-        }
-
-        character.singDuration = parsedJson.sing_duration;
-        character.positionArray = parsedJson.position;
-        character.cameraPosition = parsedJson.camera_position;
-
-        character.imageFile = parsedJson.image;
-        character.jsonScale = parsedJson.scale;
-        character.noAntialiasing = parsedJson.no_antialiasing;
-        character.originalFlipX = parsedJson.flip_x;
-        character.healthIcon = parsedJson.healthicon;
-        character.healthColorArray = parsedJson.healthbar_colors;
-        character.setPosition(character.positionArray[0] + OFFSET_X + 100, character.positionArray[1]);
-      }
-
-      reloadCharacterImage();
-      reloadCharacterDropDown();
-      reloadCharacterOptions();
-      resetHealthBarColor();
-      updatePointerPos();
-      genBoyOffsets();
-    });
-
-    templateCharacter.color = FlxColor.RED;
-    templateCharacter.label.color = FlxColor.WHITE;
-
     tab_group.add(new FlxText(charDropDown.x, charDropDown.y - 18, 0, 'Character:'));
     tab_group.add(check_player);
     tab_group.add(reloadCharacter);
     tab_group.add(charDropDown);
     tab_group.add(reloadCharacter);
-    tab_group.add(templateCharacter);
     UI_box.addGroup(tab_group);
   }
 
@@ -1297,6 +1251,8 @@ class CharacterEditorState extends MusicBeatState
   {
     var json =
       {
+        "aaAtlas": char.isAnimateAtlas,
+
         "animations": char.animationsArray,
         "image": char.imageFile,
         "scale": char.jsonScale,
@@ -1340,135 +1296,5 @@ class CharacterEditorState extends MusicBeatState
 
     return text;
   }
-
-  /**
-   * Template character JSON, stored as a string.
-   */
-  var TemplateCharacter:String = '{
-		"animations": [
-			{
-				"loop": false,
-				"offsets": [
-					0,
-					0
-				],
-				"anim": "idle",
-				"fps": 24,
-				"name": "idle",
-				"indices": []
-			},
-			{
-				"loop": false,
-				"offsets": [
-					140,
-					2
-				],
-				"anim": "singLEFT",
-				"fps": 24,
-				"name": "left",
-				"indices": []
-			},
-			{
-				"loop": false,
-				"offsets": [
-					87,
-					3
-				],
-				"anim": "singDOWN",
-				"fps": 24,
-				"name": "down",
-				"indices": []
-			},
-			{
-				"loop": false,
-				"offsets": [
-					20,
-					155
-				],
-				"anim": "singUP",
-				"fps": 24,
-				"name": "up",
-				"indices": []
-			},
-			{
-				"loop": false,
-				"offsets": [
-					-13,
-					3
-				],
-				"anim": "singRIGHT",
-				"fps": 24,
-				"name": "right",
-				"indices": []
-			},
-			{
-				"offsets": [
-					16,
-					0
-				],
-				"loop": true,
-				"fps": 24,
-				"anim": "singLEFTmiss",
-				"indices": [],
-				"name": "miss"
-			},
-			{
-				"offsets": [
-					16,
-					0
-				],
-				"loop": true,
-				"fps": 24,
-				"anim": "singDOWNmiss",
-				"indices": [],
-				"name": "miss"
-			},
-			{
-				"offsets": [
-					16,
-					0
-				],
-				"loop": true,
-				"fps": 24,
-				"anim": "singUPmiss",
-				"indices": [],
-				"name": "miss"
-			},
-			{
-				"offsets": [
-					16,
-					0
-				],
-				"loop": true,
-				"fps": 24,
-				"anim": "singRIGHTmiss",
-				"indices": [],
-				"name": "miss"
-			}
-		],
-		"no_antialiasing": false,
-		"image": "characters/nopeboy_2d",
-		"position": [
-			50,
-			270
-		],
-		"healthicon": "bf",
-		"flip_x": true,
-		"healthbar_colors": [
-			14,
-			133,
-			163
-		],
-		"camera_position": [
-			170,
-			20
-		],
-		"sing_duration": 15,
-		"scale": 1,
-		"artist": "Unknown",
-		"animator": "Unknown",
-		"whoDoneWhat": "Unknown",
-		"_editor_isPlayer": true
-	}';
 }
 #end

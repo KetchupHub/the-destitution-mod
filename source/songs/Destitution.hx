@@ -537,6 +537,7 @@ class Destitution extends SongClass
           PlayState.instance.dadGroup.remove(PlayState.instance.dad);
           PlayState.instance.dad.destroy();
           PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'mark-alt', false, false);
+          // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
           PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
           FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, Conductor.crochet / 250, {ease: EaseUtil.stepped(4)});
@@ -651,6 +652,7 @@ class Destitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(0, 0, 'ploinky', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
         PlayState.instance.dad.screenCenter();
         PlayState.instance.dad.x += 76;
@@ -659,6 +661,7 @@ class Destitution extends SongClass
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
         PlayState.instance.boyfriend = new Boyfriend(-74, -84, 'bf-mark-ploink', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
         PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
@@ -717,6 +720,7 @@ class Destitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(640 - PlayState.instance.dadGroup.x, -64 - PlayState.instance.dadGroup.y, 'ili-devil', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.dad.screenCenter();
@@ -727,6 +731,7 @@ class Destitution extends SongClass
         PlayState.instance.boyfriend.destroy();
         PlayState.instance.boyfriend = new Boyfriend(128 - PlayState.instance.boyfriendGroup.x, 84 - PlayState.instance.boyfriendGroup.y, 'bf-mark-lurking',
           false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
         PlayState.instance.boyfriend.screenCenter();
@@ -753,6 +758,7 @@ class Destitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(800, 344, 'item', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
         PlayState.instance.dad.x += 160;
         PlayState.instance.dad.y -= 520;
@@ -760,6 +766,7 @@ class Destitution extends SongClass
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
         PlayState.instance.boyfriend = new Boyfriend(-370, 220, 'bf-mark-item', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.x -= 700;
         PlayState.instance.boyfriend.y -= 574;
@@ -932,12 +939,14 @@ class Destitution extends SongClass
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
         PlayState.instance.boyfriend = new Boyfriend(-200, 64, 'bf-mark-annoyed', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.visible = false;
 
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(0, 0, 'whale', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
         PlayState.instance.dad.screenCenter();
         PlayState.instance.dad.x += 90;
@@ -1002,6 +1011,7 @@ class Destitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(-214, -60, 'mark-annoyed', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         FlxTween.completeTweensOf(PlayState.instance.dad);
@@ -1039,15 +1049,19 @@ class Destitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dadRunBod = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'mark-annoyed-run-body', false, false);
+        // PlayState.instance.dadRunBod.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dadRunBod);
         PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'mark-annoyed-run', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
         PlayState.instance.boyfriendRunBod = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'bf-mark-annoyed-run-body', false);
+        // PlayState.instance.boyfriendRunBod.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriendRunBod);
         PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'bf-mark-annoyed-run', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
       case 1970:
         // slow down animations
@@ -1064,11 +1078,13 @@ class Destitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'mark-annoyed-p3', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
         PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'bf-mark-annoyed-p3', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
       case 2036:
         PlayState.instance.rulezGuySlideScaleWorldFunnyClips.animation.play("intro", true);
@@ -1097,11 +1113,13 @@ class Destitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(74, 114, 'rulez', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
         PlayState.instance.boyfriend = new Boyfriend(0, 0, 'bf-mark-rulez', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
         FlxTween.completeTweensOf(PlayState.instance.dad);
@@ -1134,11 +1152,13 @@ class Destitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(-234, -460, 'crypteh', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
         PlayState.instance.boyfriend = new Boyfriend(-128, -164, 'bf-mark-crypteh', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
         PlayState.instance.boyfriend.x -= 1280;
@@ -1182,6 +1202,7 @@ class Destitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(0, 0, 'zam', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
         PlayState.instance.dad.screenCenter();
         PlayState.instance.dad.x += 100;
@@ -1189,6 +1210,7 @@ class Destitution extends SongClass
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend = new Boyfriend(120, 70, 'bf-mark-back', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.screenCenter();
         PlayState.instance.boyfriend.x += 150;
@@ -1219,11 +1241,8 @@ class Destitution extends SongClass
 
         zamboniPositionsArchive = [PlayState.instance.dad.x, PlayState.instance.dad.y];
         bfPositionsArchive = [PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y];
-        camzoomArchive = PlayState.instance.defaultCamZoom;
       case 3136 | 3336:
         // pixels mode activate
-
-        // PlayState.instance.defaultCamZoom = 1;
 
         FlxG.camera.flash();
 
@@ -1231,11 +1250,14 @@ class Destitution extends SongClass
 
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
-        PlayState.instance.dad = new Character(128, 294, 'zam-ridin', false, false);
+        PlayState.instance.dad = new Character(128 - PlayState.instance.dadGroup.x, 294 - PlayState.instance.dadGroup.y, 'zam-ridin', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
-        PlayState.instance.boyfriend = new Boyfriend(428, 316, 'bf-mark-ridin', false);
+        PlayState.instance.boyfriend = new Boyfriend(428 - PlayState.instance.boyfriendGroup.x, 316 - PlayState.instance.boyfriendGroup.y, 'bf-mark-ridin',
+          false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.alpha = 1;
 
@@ -1246,8 +1268,6 @@ class Destitution extends SongClass
       case 3264 | 3468:
         // swap back to normal zamboniness
 
-        // PlayState.instance.defaultCamZoom = camzoomArchive;
-
         PlayState.instance.zamboniChaseBg.visible = false;
 
         FlxG.camera.flash();
@@ -1255,6 +1275,7 @@ class Destitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(0, 0, 'zam', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
         PlayState.instance.dad.screenCenter();
         PlayState.instance.dad.x += 100;
@@ -1262,6 +1283,7 @@ class Destitution extends SongClass
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend = new Boyfriend(120, 70, 'bf-mark-back', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.screenCenter();
         PlayState.instance.boyfriend.x += 150;
@@ -1291,6 +1313,7 @@ class Destitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(126, 80, 'mark-angry', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
         PlayState.instance.dad.screenCenter();
         PlayState.instance.dad.x += 326;
@@ -1298,6 +1321,7 @@ class Destitution extends SongClass
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend = new Boyfriend(120, 70, 'bf-mark-angry', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.screenCenter();
         PlayState.instance.boyfriend.x -= 412;
@@ -1356,5 +1380,4 @@ class Destitution extends SongClass
   // stupid
   public var zamboniPositionsArchive:Array<Float>;
   public var bfPositionsArchive:Array<Float>;
-  public var camzoomArchive:Float;
 }

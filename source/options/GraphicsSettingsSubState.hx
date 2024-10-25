@@ -1,6 +1,5 @@
 package options;
 
-import ui.CheckboxThingie;
 import ui.Alphabet;
 import visuals.Character;
 import backend.ClientPrefs;

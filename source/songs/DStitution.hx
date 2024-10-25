@@ -214,6 +214,7 @@ class DStitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(0, 0, 'pinkerton', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.fuckMyLife = true;
@@ -252,6 +253,7 @@ class DStitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(64, 196, 'd-ili', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         FlxG.camera.flash();
@@ -346,11 +348,13 @@ class DStitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(0, 0, 'douglass', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
         PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf-doug', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
         PlayState.instance.sky.loadGraphic(Paths.image('dsides/dougSky'));
@@ -368,11 +372,13 @@ class DStitution extends SongClass
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.dad.x, PlayState.instance.dad.y, 'douglass-player', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'karm-scold', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.sky.loadGraphic(Paths.image('dsides/dougSky'));
@@ -392,11 +398,13 @@ class DStitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(412, 32, 'd-rules', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
         PlayState.instance.boyfriend = new Boyfriend(-164, 16, 'd-bf-rules', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
         PlayState.instance.sky.loadGraphic(Paths.image('dsides/skyworldSky'));
@@ -429,10 +437,12 @@ class DStitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(PlayState.instance.boyfriend.x - 412, -48, 'maestro', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf-rules-flipped', false);
+        // PlayState.instance.boyfriend.shader = PlayState.instance.ditherShader;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
         PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
@@ -462,6 +472,7 @@ class DStitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(0, 0, 'zamboney', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.dad.screenCenter();
@@ -507,6 +518,7 @@ class DStitution extends SongClass
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(0, 0, 'karm-finale', false, false);
+        // PlayState.instance.dad.shader = PlayState.instance.ditherShader;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.dad.canDance = false;

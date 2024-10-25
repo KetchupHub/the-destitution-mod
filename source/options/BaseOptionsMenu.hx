@@ -33,9 +33,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
   public var title:String;
   public var rpcTitle:String;
   public var backGroundColor:FlxColor;
-  
-	var bg:PixelPerfectSprite;
-	var clipboard:PixelPerfectSprite;
+
+  var bg:PixelPerfectSprite;
+  var clipboard:PixelPerfectSprite;
 
   public function new()
   {

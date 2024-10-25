@@ -1,5 +1,6 @@
 package states;
 
+// import shaders.DitherShader;
 import visuals.PixelPerfectBackdrop;
 import backend.TextAndLanguage;
 import shaders.AdjustColorShader;
@@ -367,6 +368,8 @@ class PlayState extends MusicBeatState
 
   public var aaColorChange:AdjustColorShader = new AdjustColorShader();
 
+  // public var ditherShader:DitherShader = new DitherShader(2);
+
   override public function create()
   {
     instance = this;
@@ -529,12 +532,16 @@ class PlayState extends MusicBeatState
     {
       gf = new Character(0, 0, gfVersion);
 
+      // gf.shader = ditherShader;
+
       startCharacterPos(gf);
 
       gfGroup.add(gf);
     }
 
     dad = new Character(0, 0, SONG.player2);
+
+    // dad.shader = ditherShader;
 
     startCharacterPos(dad, true);
 
@@ -546,6 +553,8 @@ class PlayState extends MusicBeatState
     }
 
     boyfriend = new Boyfriend(0, 0, SONG.player1);
+
+    // boyfriend.shader = ditherShader;
 
     startCharacterPos(boyfriend);
 
@@ -585,17 +594,6 @@ class PlayState extends MusicBeatState
       camPos.x += gf.getGraphicMidpoint().x + gf.cameraPosition[0];
       camPos.y += gf.getGraphicMidpoint().y + gf.cameraPosition[1];
     }
-
-    // whoever wrote this code will die at my hand
-    /*if (dad.curCharacter.startsWith('gf'))
-      {
-        dad.setPosition(GF_X, GF_Y);
-
-        if (gf != null)
-        {
-          gf.visible = false;
-        }
-    }*/
 
     if (removeVariationSuffixes(SONG.song.toLowerCase()) == "d-stitution")
     {
@@ -1099,6 +1097,7 @@ class PlayState extends MusicBeatState
         if (!ClientPrefs.lowQuality)
         {
           bgPlayer = new Character(starting.x + 1048, starting.y + 576, "bg-player", false, false);
+          // bgPlayer.shader = ditherShader;
           bgPlayer.canDance = false;
           bgPlayerWalkTarget = bgPlayer.x;
           bgPlayer.x -= 1400;
@@ -1106,6 +1105,7 @@ class PlayState extends MusicBeatState
           add(bgPlayer);
 
           fgGf = new Character(16, 480, 'desti-fg-gf', false, false);
+          // fgGf.shader = ditherShader;
           fgGf.scrollFactor.set();
           fgGf.visible = false;
         }
@@ -2970,24 +2970,12 @@ class PlayState extends MusicBeatState
       var bfTarY:Float = boyfriend.y;
       var dadTarX:Float = dad.x;
       var dadTarY:Float = dad.y;
-      var gfTarX:Float = boyfriend.x;
-      var gfTarY:Float = boyfriend.y;
       var bfCamOffsetTar:Array<Float> = boyfriendCameraOffset;
       var cFollowPosTarX:Float = camFollowPos.x;
       var cFollowPosTarY:Float = camFollowPos.y;
       var letBfBeVisible:Bool = boyfriend.visible;
       var dadTar:String = dad.curCharacter;
-      var gfTar:String = 'gf';
-      var gfVisible:Bool = false;
       var followNotMidpoint:Bool = false;
-
-      if (gf != null)
-      {
-        gfTarX = gf.x;
-        gfTarY = gf.y;
-        gfVisible = true;
-        gfTar = gf.curCharacter;
-      }
 
       if (dad.curCharacter == "whale")
       {
@@ -2998,15 +2986,11 @@ class PlayState extends MusicBeatState
 
       boyfriend.visible = false;
       dad.visible = false;
-      if (gf != null)
-      {
-        gf.visible = false;
-      }
       camHUD.visible = false;
       camSubtitlesAndSuch.visible = false;
 
       openSubState(new GameOverSubstate(bfTarX, bfTarY, cFollowPosTarX, cFollowPosTarY, bfCamOffsetTar, dadTar, dadTarX, dadTarY, letBfBeVisible,
-        followNotMidpoint, gfTar, gfVisible, gfTarX, gfTarY));
+        followNotMidpoint));
 
       #if desktop
       DiscordClient.changePresence("Game Over", songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), '-menus');
@@ -4956,9 +4940,6 @@ class PlayState extends MusicBeatState
     subOb.scrollFactor.set();
     subOb.cameras = [camSubtitlesAndSuch];
     add(subOb);
-    // so it 100% goes over the last ones fadeout
-    // this doesnt fuicking work i hate my life
-    // insert(10, subOb);
   }
 
   /**
@@ -5022,7 +5003,7 @@ class PlayState extends MusicBeatState
   {
     var songReal:String = song.toLowerCase();
 
-    for (vari in SongInit.genSongObj(song.toLowerCase()).songVariants.concat(['bf', 'pear', 'mark', 'gf']))
+    for (vari in SongInit.genSongObj(song.toLowerCase()).songVariants.concat(['bf', 'pear', 'mark', 'gf', 'baldi', 'argulow', 'evi', 'karm', 'yuu']))
     {
       songReal = songReal.replace('-' + vari.toLowerCase(), '');
     }

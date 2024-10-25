@@ -6,12 +6,10 @@ import util.CoolUtil;
 import visuals.Character;
 import states.MainMenuState;
 import ui.Alphabet;
-import util.MemoryUtil;
 #if desktop
 import backend.Discord.DiscordClient;
 #end
 import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -109,12 +107,10 @@ class MasterEditorMenu extends MusicBeatState
       bullShit++;
 
       item.alpha = 0.6;
-      // item.setGraphicSize(Std.int(item.width * 0.8));
 
       if (item.targetY == 0)
       {
         item.alpha = 1;
-        // item.setGraphicSize(Std.int(item.width));
       }
     }
     super.update(elapsed);

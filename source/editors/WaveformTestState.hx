@@ -6,16 +6,13 @@ import states.MainMenuState;
 import flixel.FlxSprite;
 import util.CoolUtil;
 import states.MusicBeatState;
-import util.MemoryUtil;
 #if desktop
 import backend.Discord.DiscordClient;
 #end
 import flixel.FlxG;
-import flixel.FlxCamera;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import waveform.WaveformDataParser;
-import waveform.WaveformData;
 import waveform.WaveformSprite;
 
 class WaveformTestState extends MusicBeatState

@@ -1,6 +1,5 @@
 package visuals;
 
-import openfl.utils.AssetType;
 import backend.Conductor;
 import states.PlayState;
 import backend.ClientPrefs;
@@ -9,7 +8,6 @@ import adobeanimate.FlxAtlasSprite;
 import flixel.util.FlxSort;
 import flixel.util.FlxDestroyUtil;
 import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
 import openfl.utils.Assets;
 import haxe.Json;
