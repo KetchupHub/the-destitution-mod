@@ -1,61 +1,94 @@
 {
   "animations": [
     {
+      "loop": false,
       "offsets": [0, 0],
-      "loop": false,
-      "fps": 24,
       "anim": "idle",
-      "indices": [],
-      "name": "idle"
+      "fps": 24,
+      "name": "idle",
+      "indices": []
     },
     {
-      "offsets": [234, 98],
-      "hasTransition": true,
       "loop": false,
+      "offsets": [-44, -88],
+      "anim": "singLEFT-miss",
       "fps": 24,
+      "name": "miss",
+      "indices": []
+    },
+    {
+      "loop": false,
+      "offsets": [-44, -88],
+      "anim": "singRIGHT-miss",
+      "fps": 24,
+      "name": "miss",
+      "indices": []
+    },
+    {
+      "loop": false,
+      "offsets": [-44, -88],
+      "anim": "singUP-miss",
+      "fps": 24,
+      "name": "miss",
+      "indices": []
+    },
+    {
+      "loop": false,
+      "offsets": [-44, -88],
+      "anim": "singDOWN-miss",
+      "fps": 24,
+      "name": "miss",
+      "indices": []
+    },
+    {
+      "loop": false,
+      "offsets": [332, 4],
       "anim": "singLEFT",
+      "fps": 24,
+      "name": "left",
       "indices": [],
-      "name": "left"
+      "hasTransition": true
     },
     {
-      "offsets": [-20, -2],
       "loop": false,
-      "fps": 24,
+      "offsets": [22, 36],
       "anim": "singDOWN",
-      "hasTransition": true,
+      "fps": 24,
+      "name": "down",
       "indices": [],
-      "name": "down"
+      "hasTransition": true
     },
     {
-      "offsets": [-74, 290],
       "loop": false,
-      "fps": 24,
+      "offsets": [-14, 378],
       "anim": "singUP",
-      "hasTransition": true,
+      "fps": 24,
+      "name": "up",
       "indices": [],
-      "name": "up"
+      "hasTransition": true
     },
     {
-      "offsets": [-52, 60],
       "loop": false,
-      "fps": 24,
+      "offsets": [210, 28],
       "anim": "singRIGHT",
-      "hasTransition": true,
+      "fps": 24,
+      "name": "right",
       "indices": [],
-      "name": "right"
+      "hasTransition": true
     }
   ],
+  "animator": "Cynda",
   "no_antialiasing": true,
+  "artist": "N/A",
   "image": "characters/destitution/rulez_bf",
   "position": [0, 0],
+  "whoDoneWhat": "Cynda animated sprites",
   "healthicon": "bf",
   "flip_x": true,
   "healthbar_colors": [14, 133, 163],
-  "camera_position": [148, -32],
+  "aaAtlas": false,
+  "camera_position": [248, -42],
   "sing_duration": 15,
   "scale": 1.3,
-  "artist": "N/A",
-  "animator": "Cynda",
-  "whoDoneWhat": "Cynda animated sprites",
   "_editor_isPlayer": true
 }
