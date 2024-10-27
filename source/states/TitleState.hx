@@ -1,13 +1,9 @@
 package states;
 
-import backend.TextAndLanguage;
 import ui.TransitionScreenshotObject;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
-import ui.MarkHeadTransition;
 import shaders.ColorSwap;
-import backend.Highscore;
-import backend.PlayerSettings;
 import backend.ClientPrefs;
 import ui.Alphabet;
 import backend.Conductor;
@@ -28,9 +24,6 @@ import openfl.Assets;
 class TitleState extends MusicBeatState
 {
   public static var fullscreenKeys:Array<FlxKey> = [FlxKey.F11, FlxKey.F12];
-  public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO, FlxKey.NUMPADZERO];
-  public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
-  public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
 
   public static var initialized:Bool = false;
 
@@ -76,99 +69,23 @@ class TitleState extends MusicBeatState
     persistentUpdate = true;
     persistentDraw = true;
 
-    FlxG.sound.muteKeys = muteKeys;
-    FlxG.sound.volumeDownKeys = volumeDownKeys;
-    FlxG.sound.volumeUpKeys = volumeUpKeys;
-
-    FlxG.keys.preventDefaultKeys = [TAB];
-
-    PlayerSettings.init();
-
     curWacky = CoolUtil.randomLogic.getObject(getIntroTextShit());
 
     swagShader = new ColorSwap();
 
-    super.create();
-
-    Application.current.window.title = CoolUtil.appTitleString;
-
-    FlxG.mouse.load(Paths.image('cursor').bitmap, 2);
-
-    FlxG.save.bind('destitution', CoolUtil.getSavePath());
-
-    ClientPrefs.loadPrefs();
-
-    Highscore.load();
-
-    TextAndLanguage.setLang(ClientPrefs.language);
-
-    if (!initialized)
-    {
-      if (FlxG.save.data != null && FlxG.save.data.fullscreen)
-      {
-        FlxG.fullscreen = FlxG.save.data.fullscreen;
-      }
-    }
-
     FlxG.mouse.visible = true;
-
-    if (FlxG.save.data.flashing == null && !FlashingState.leftState)
-    {
-      FlxTransitionableState.skipNextTransIn = false;
-      FlxTransitionableState.skipNextTransOut = false;
-
-      MarkHeadTransition.nextCamera = FlxG.camera;
-
-      MusicBeatState.switchState(new FlashingState());
-    }
-    else
-    {
-      if (initialized)
-      {
-        startIntro();
-      }
-      else
-      {
-        new FlxTimer().start(1, function(tmr:FlxTimer) {
-          startIntro();
-        });
-      }
-    }
-
-    #if DEVELOPERBUILD
-    perf.print();
-    #end
-  }
-
-  public function startIntro()
-  {
-    CoolUtil.hasInitializedWindow = true;
-
-    #if DEVELOPERBUILD
-    var perf = new Perf("TitleState startIntro()");
-    #end
-
-    if (!initialized)
-    {
-      if (FlxG.sound.music == null)
-      {
-        FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0);
-        Conductor.changeBPM(150);
-      }
-    }
-
-    persistentUpdate = true;
 
     var bg:FlxSprite = new FlxSprite();
     bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
     add(bg);
 
-    swagShader = new ColorSwap();
-
-    if (initialized)
+    if (FlxG.sound.music == null)
     {
-      CoolUtil.rerollRandomness();
+      FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0);
+      Conductor.changeBPM(150);
     }
+
+    CoolUtil.rerollRandomness();
 
     var arrey:Array<String> = ['bf', 'crypteh', 'ili', 'karm', 'mark', 'ploinky', 'rulez', 'whale'];
     if (CoolUtil.randomLogic.bool(10))
@@ -258,6 +175,8 @@ class TitleState extends MusicBeatState
     versionShit.antialiasing = ClientPrefs.globalAntialiasing;
     add(versionShit);
     #end
+
+    super.create();
 
     if (initialized)
     {
@@ -438,7 +357,7 @@ class TitleState extends MusicBeatState
 
       money.alpha = 0;
 
-      FlxTween.tween(money, {alpha: 1}, 0.25, {ease: EaseUtil.stepped(4)});
+      FlxTween.tween(money, {alpha: 1}, 0.1, {ease: EaseUtil.stepped(4)});
 
       if (credGroup != null && textGroup != null)
       {
@@ -460,7 +379,7 @@ class TitleState extends MusicBeatState
 
       coolText.alpha = 0;
 
-      FlxTween.tween(coolText, {alpha: 1}, 0.25, {ease: EaseUtil.stepped(4)});
+      FlxTween.tween(coolText, {alpha: 1}, 0.1, {ease: EaseUtil.stepped(4)});
 
       credGroup.add(coolText);
       textGroup.add(coolText);
@@ -557,10 +476,10 @@ class TitleState extends MusicBeatState
       {
         for (cool in textGroup)
         {
-          FlxTween.tween(cool, {alpha: 0}, 0.25, {startDelay: 0.2 * cool.ID, ease: EaseUtil.stepped(4)});
+          FlxTween.tween(cool, {alpha: 0}, 0.1, {startDelay: 0.2 * cool.ID, ease: EaseUtil.stepped(4)});
         }
 
-        FlxTween.tween(blackScreen, {alpha: 0}, 2,
+        FlxTween.tween(blackScreen, {alpha: 0}, 0.75,
           {
             ease: EaseUtil.stepped(4),
             onComplete: function die(fuuuck:FlxTween)

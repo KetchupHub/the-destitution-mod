@@ -1,10 +1,10 @@
 #if DEVELOPERBUILD
 package editors;
 
+import states.InitState;
 import visuals.PixelPerfectSprite;
 import flixel.addons.ui.FlxUIDropDownMenu;
 import util.CoolUtil;
-import states.TitleState;
 import states.PlayState;
 import states.MusicBeatState;
 import sys.FileSystem;
@@ -1045,9 +1045,9 @@ class CharacterEditorState extends MusicBeatState
       }
     }
 
-    FlxG.sound.muteKeys = TitleState.muteKeys;
-    FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
-    FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
+    FlxG.sound.muteKeys = InitState.muteKeys;
+    FlxG.sound.volumeDownKeys = InitState.volumeDownKeys;
+    FlxG.sound.volumeUpKeys = InitState.volumeUpKeys;
 
     if (!charDropDown.dropPanel.visible)
     {

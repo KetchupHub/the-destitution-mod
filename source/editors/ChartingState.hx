@@ -1,6 +1,7 @@
 #if DEVELOPERBUILD
 package editors;
 
+import states.InitState;
 import visuals.PixelPerfectSprite;
 import flixel.FlxCamera;
 import ui.MarkHeadTransition;
@@ -8,7 +9,6 @@ import util.CoolUtil;
 import visuals.Character;
 import visuals.Character.CharacterFile;
 import backend.StageData;
-import states.TitleState;
 import ui.Prompt;
 import states.MusicBeatState;
 import backend.Conductor;
@@ -1602,9 +1602,9 @@ class ChartingState extends MusicBeatState
 
     if (!blockInput)
     {
-      FlxG.sound.muteKeys = TitleState.muteKeys;
-      FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
-      FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
+      FlxG.sound.muteKeys = InitState.muteKeys;
+      FlxG.sound.volumeDownKeys = InitState.volumeDownKeys;
+      FlxG.sound.volumeUpKeys = InitState.volumeUpKeys;
       for (dropDownMenu in blockPressWhileScrolling)
       {
         if (dropDownMenu.dropPanel.visible)

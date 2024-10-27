@@ -1,8 +1,8 @@
 package backend;
 
+import states.InitState;
 import backend.TextAndLanguage.Languages;
 import util.CoolUtil;
-import states.TitleState;
 import flixel.FlxG;
 import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
@@ -380,13 +380,13 @@ class ClientPrefs
   {
     PlayerSettings.player1.controls.setKeyboardScheme(KeyboardScheme.Solo);
 
-    TitleState.muteKeys = copyKey(keyBinds.get('volume_mute'));
-    TitleState.volumeDownKeys = copyKey(keyBinds.get('volume_down'));
-    TitleState.volumeUpKeys = copyKey(keyBinds.get('volume_up'));
+    InitState.muteKeys = copyKey(keyBinds.get('volume_mute'));
+    InitState.volumeDownKeys = copyKey(keyBinds.get('volume_down'));
+    InitState.volumeUpKeys = copyKey(keyBinds.get('volume_up'));
 
-    FlxG.sound.muteKeys = TitleState.muteKeys;
-    FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
-    FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
+    FlxG.sound.muteKeys = InitState.muteKeys;
+    FlxG.sound.volumeDownKeys = InitState.volumeDownKeys;
+    FlxG.sound.volumeUpKeys = InitState.volumeUpKeys;
   }
 
   public static function copyKey(arrayToCopy:Array<FlxKey>):Array<FlxKey>
