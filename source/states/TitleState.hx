@@ -436,11 +436,8 @@ class TitleState extends MusicBeatState
       money.y += (i * 70) + 200 + offset;
       money.ID = textGroup.length;
 
-      // money.scaleX = 1.5;
-      // money.scaleY = 0.5;
       money.alpha = 0;
 
-      // FlxTween.tween(money, {scaleX: 1, scaleY: 1}, 0.5, {ease: FlxEase.backInOut});
       FlxTween.tween(money, {alpha: 1}, 0.25, {ease: EaseUtil.stepped(4)});
 
       if (credGroup != null && textGroup != null)
@@ -461,11 +458,8 @@ class TitleState extends MusicBeatState
       coolText.y += (textGroup.length * 70) + 200 + offset;
       coolText.ID = textGroup.length;
 
-      // coolText.scaleX = 1.5;
-      // coolText.scaleY = 0.5;
       coolText.alpha = 0;
 
-      // FlxTween.tween(coolText, {scaleX: 1, scaleY: 1}, 0.5, {ease: FlxEase.backInOut});
       FlxTween.tween(coolText, {alpha: 1}, 0.25, {ease: EaseUtil.stepped(4)});
 
       credGroup.add(coolText);
@@ -498,13 +492,16 @@ class TitleState extends MusicBeatState
 
       if (titleCharacter != null)
       {
-        if (titleCharacter.animation.curAnim.curFrame == 0)
+        if (titleCharacter.animation.curAnim != null)
         {
-          titleCharacter.animation.curAnim.curFrame = 1;
-        }
-        else
-        {
-          titleCharacter.animation.curAnim.curFrame = 0;
+          if (titleCharacter.animation.curAnim.curFrame == 0)
+          {
+            titleCharacter.animation.curAnim.curFrame = 1;
+          }
+          else
+          {
+            titleCharacter.animation.curAnim.curFrame = 0;
+          }
         }
       }
     }
