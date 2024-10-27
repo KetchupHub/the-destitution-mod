@@ -1,6 +1,6 @@
 package;
 
-import states.TitleState;
+import states.InitState;
 import backend.ClientPrefs;
 import util.CoolUtil;
 import flixel.FlxG;
@@ -31,7 +31,7 @@ class Main extends Sprite
     {
       width: 1280, // WINDOW width
       height: 720, // WINDOW height
-      initialState: TitleState, // initial game state
+      initialState: InitState, // initial game state
       zoom: -1.0, // game state bounds
       framerate: 240, // default framerate
       skipSplash: true, // if the default flixel splash screen should be skipped
