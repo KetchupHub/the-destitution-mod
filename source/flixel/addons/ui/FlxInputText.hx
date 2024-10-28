@@ -458,7 +458,6 @@ class FlxInputText extends FlxText
           return;
         }
         var newText:String = filter(String.fromCharCode(e.charCode));
-
         if (newText.length > 0 && (maxLength == 0 || (text.length + newText.length) < maxLength))
         {
           text = insertSubstring(text, newText, caretIndex);

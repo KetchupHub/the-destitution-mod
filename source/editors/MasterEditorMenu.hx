@@ -32,8 +32,8 @@ class MasterEditorMenu extends MusicBeatState
     #end
 
     FlxG.camera.bgColor = FlxColor.BLACK;
+
     #if desktop
-    // Updating Discord Rich Presence
     DiscordClient.changePresence("Editors Main Menu", null, null, '-menus');
     #end
 
@@ -72,6 +72,7 @@ class MasterEditorMenu extends MusicBeatState
     {
       changeSelection(-1);
     }
+
     if (controls.UI_DOWN_P)
     {
       changeSelection(1);
@@ -97,10 +98,12 @@ class MasterEditorMenu extends MusicBeatState
         case 'Waveform Test':
           MusicBeatState.switchState(new WaveformTestState());
       }
+
       FlxG.sound.music.volume = 0;
     }
 
     var bullShit:Int = 0;
+
     for (item in grpTexts.members)
     {
       item.targetY = bullShit - curSelected;
@@ -113,6 +116,7 @@ class MasterEditorMenu extends MusicBeatState
         item.alpha = 1;
       }
     }
+
     super.update(elapsed);
   }
 
@@ -122,8 +126,15 @@ class MasterEditorMenu extends MusicBeatState
 
     curSelected += change;
 
-    if (curSelected < 0) curSelected = options.length - 1;
-    if (curSelected >= options.length) curSelected = 0;
+    if (curSelected < 0)
+    {
+      curSelected = options.length - 1;
+    }
+
+    if (curSelected >= options.length)
+    {
+      curSelected = 0;
+    }
   }
 }
 #end

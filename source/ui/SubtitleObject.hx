@@ -8,7 +8,6 @@ import flixel.tweens.FlxTween;
 import flixel.text.FlxText;
 import flixel.group.FlxSpriteGroup;
 
-// i wrote this myself in like half an hour... i am slowly becoming a very powerful programmer... fear me
 class SubtitleObject extends FlxSpriteGroup
 {
   public var _textObj:FlxText;

@@ -31,26 +31,24 @@ import editors.MasterEditorMenu;
 class MainMenuState extends MusicBeatState
 {
   #if DEVELOPERBUILD
-  var debugRank:ResultRanks = GOOD;
-
-  // before i get a character select in, thisll do for testing
-  var debugChar:Playables = DEFAULT;
+  private var debugRank:ResultRanks = GOOD;
+  private var debugChar:Playables = DEFAULT;
   #end
 
   public static var curSelected:Int = 0;
 
-  public var menuItems:FlxTypedGroup<MainMenuButton>;
+  private var menuItems:FlxTypedGroup<MainMenuButton>;
   public var camGame:FlxCamera;
 
-  public var optionShit:Array<String> = ['story_mode', 'freeplay', 'options'];
+  private var optionShit:Array<String> = ['story_mode', 'freeplay', 'options'];
 
-  public var magenta:PixelPerfectSprite;
+  private var magenta:PixelPerfectSprite;
 
   public var debugKeys:Array<FlxKey>;
 
-  public var sideThing:PixelPerfectSprite;
+  private var sideThing:PixelPerfectSprite;
 
-  public var funkay:PixelPerfectSprite;
+  private var funkay:PixelPerfectSprite;
 
   override function create()
   {
@@ -66,7 +64,6 @@ class MainMenuState extends MusicBeatState
     FlxG.mouse.visible = false;
 
     #if desktop
-    // Updating Discord Rich Presence
     DiscordClient.changePresence("In the Main Menu", null, null, '-menus');
     #end
 
@@ -149,11 +146,12 @@ class MainMenuState extends MusicBeatState
       - 24 #end, FlxG.width,
       "The Destitution Mod v"
       + Application.current.meta.get('version') #if DEVELOPERBUILD
-      + "\n(DEV BUILD!!! - "
-      + CoolUtil.gitCommitBranch
-      + " - "
-      + CoolUtil.gitCommitHash
-      + ")" #end, 12);
+        + "\n(DEV BUILD!!! - "
+        + CoolUtil.gitCommitBranch
+        + " - "
+        + CoolUtil.gitCommitHash
+        + ")" #end,
+      12);
     versionShit.scrollFactor.set();
     versionShit.setFormat(Paths.font("BAUHS93.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE_FAST, FlxColor.BLACK);
     versionShit.antialiasing = ClientPrefs.globalAntialiasing;
@@ -185,7 +183,6 @@ class MainMenuState extends MusicBeatState
     if (!selectedSomethin)
     {
       #if DEVELOPERBUILD
-      // sorry man
       if (FlxG.keys.justPressed.ONE || FlxG.keys.justPressed.NUMPADONE)
       {
         FlxG.sound.play(Paths.sound('scrollMenu'));

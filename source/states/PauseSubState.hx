@@ -19,21 +19,22 @@ import flixel.util.FlxColor;
 
 class PauseSubState extends MusicBeatSubstate
 {
-  public var grpMenuShit:FlxTypedGroup<Alphabet>;
+  private var grpMenuShit:FlxTypedGroup<Alphabet>;
 
-  public var menuItems:Array<String> = [];
-  public var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Toggle Practice Mode', 'Exit to menu'];
-  public var curSelected:Int = 0;
+  private var menuItems:Array<String> = [];
+  private var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Toggle Practice Mode', 'Exit to menu'];
+  private var curSelected:Int = 0;
 
-  public var pauseMusic:FlxSound;
-  public var practiceText:FlxText;
+  private var pauseMusic:FlxSound;
 
-  public static var songName:String = '';
+  private var practiceText:FlxText;
 
-  public var songCover:PixelPerfectSprite;
-  public var descText:FlxText;
-  
-  public var cantUnpause:Float = 0.1;
+  private static var songName:String = '';
+
+  private var songCover:PixelPerfectSprite;
+  private var descText:FlxText;
+
+  private var cantUnpause:Float = 0.1;
 
   public function new(focusLost:Bool)
   {

@@ -197,7 +197,6 @@ class PlayState extends MusicBeatState
   public var noteKillOffset:Float = 350;
   public var spawnTime:Float = 2000;
   public var songPercent:Float = 0;
-  public var heyTimer:Float;
   public var songLength:Float = 0;
 
   public static var startOnTime:Float = 0;
@@ -423,7 +422,7 @@ class PlayState extends MusicBeatState
 
     gameplaySettingsSetup();
 
-    // lang stuff
+    // resetting this here for language stuff idk man
     ratingStuff = [
       [TextAndLanguage.getPhrase('rating_blegh', 'Blegh!'), 0.2], // From 0% to 19%
       [TextAndLanguage.getPhrase('rating_bleck', 'Bleck!'), 0.4], // From 20% to 39%
@@ -568,16 +567,12 @@ class PlayState extends MusicBeatState
     {
       gf = new Character(0, 0, gfVersion);
 
-      // gf.shader = ditherShader;
-
       startCharacterPos(gf);
 
       gfGroup.add(gf);
     }
 
     dad = new Character(0, 0, SONG.player2);
-
-    // dad.shader = ditherShader;
 
     startCharacterPos(dad, true);
 
@@ -589,8 +584,6 @@ class PlayState extends MusicBeatState
     }
 
     boyfriend = new Boyfriend(0, 0, SONG.player1);
-
-    // boyfriend.shader = ditherShader;
 
     startCharacterPos(boyfriend);
 
@@ -762,12 +755,10 @@ class PlayState extends MusicBeatState
     scoreTxt.antialiasing = false;
     add(scoreTxt);
 
-    // adding these now, because its better and such
     add(strumLineNotes);
     add(grpNoteSplashes);
     add(notes);
 
-    // add itemgroup here because yea
     itemNoteHudOverlays = new FlxTypedGroup<PixelPerfectSprite>();
     add(itemNoteHudOverlays);
 
@@ -1131,7 +1122,6 @@ class PlayState extends MusicBeatState
         if (!ClientPrefs.lowQuality)
         {
           bgPlayer = new Character(starting.x + 1048, starting.y + 576, "bg-player", false, false);
-          // bgPlayer.shader = ditherShader;
           bgPlayer.canDance = false;
           bgPlayerWalkTarget = bgPlayer.x;
           bgPlayer.x -= 1400;
@@ -1139,7 +1129,6 @@ class PlayState extends MusicBeatState
           add(bgPlayer);
 
           fgGf = new Character(16, 480, 'desti-fg-gf', false, false);
-          // fgGf.shader = ditherShader;
           fgGf.scrollFactor.set();
           fgGf.visible = false;
         }
@@ -1650,10 +1639,9 @@ class PlayState extends MusicBeatState
               }
             });
 
-          // idfk man i just bullshitted some of these
           var acceptableAnims:Array<String> = ['hey', 'cheer', 'yeah', 'pose', 'ay', 'idle', 'danceLeft'];
-
           var acceptableAnimsDad = acceptableAnims;
+
           for (anny in acceptableAnimsDad)
           {
             if (!dad.animOffsets.exists(anny))
@@ -1661,12 +1649,14 @@ class PlayState extends MusicBeatState
               acceptableAnimsDad.remove(anny);
             }
           }
+
           if (acceptableAnimsDad[0] != 'idle' && acceptableAnimsDad[0] != 'danceLeft')
           {
             dad.playAnim(acceptableAnimsDad[0], true);
           }
 
           var acceptableAnimsBf = acceptableAnims;
+
           for (anny in acceptableAnimsBf)
           {
             if (!boyfriend.animOffsets.exists(anny))
@@ -1674,6 +1664,7 @@ class PlayState extends MusicBeatState
               acceptableAnimsBf.remove(anny);
             }
           }
+
           if (acceptableAnimsBf[0] != 'idle' && acceptableAnimsBf[0] != 'danceLeft')
           {
             boyfriend.playAnim(acceptableAnimsBf[0], true);
@@ -1682,6 +1673,7 @@ class PlayState extends MusicBeatState
           if (gf != null)
           {
             var acceptableAnimsGf = acceptableAnims;
+
             for (anny in acceptableAnimsGf)
             {
               if (!gf.animOffsets.exists(anny))
@@ -1689,6 +1681,7 @@ class PlayState extends MusicBeatState
                 acceptableAnimsGf.remove(anny);
               }
             }
+
             if (acceptableAnimsGf[0] != 'idle' && acceptableAnimsGf[0] != 'danceLeft')
             {
               gf.playAnim(acceptableAnimsGf[0], true);
@@ -2038,12 +2031,12 @@ class PlayState extends MusicBeatState
             unspawnNotes.push(sustainNote);
             if (sustainNote.mustPress)
             {
-              sustainNote.x += FlxG.width / 2; // general offset
+              sustainNote.x += FlxG.width / 2;
             }
             else if (ClientPrefs.middleScroll)
             {
               sustainNote.x += 310;
-              if (daNoteData > 1) // Up and Right
+              if (daNoteData > 1)
               {
                 sustainNote.x += FlxG.width / 2 + 25;
               }
@@ -2052,12 +2045,12 @@ class PlayState extends MusicBeatState
         }
         if (swagNote.mustPress)
         {
-          swagNote.x += FlxG.width / 2; // general offset
+          swagNote.x += FlxG.width / 2;
         }
         else if (ClientPrefs.middleScroll)
         {
           swagNote.x += 310;
-          if (daNoteData > 1) // Up and Right
+          if (daNoteData > 1)
           {
             swagNote.x += FlxG.width / 2 + 25;
           }
@@ -2069,7 +2062,8 @@ class PlayState extends MusicBeatState
       }
       daBeats += 1;
     }
-    for (event in songData.events) // Event Notes
+
+    for (event in songData.events)
     {
       for (i in 0...event[1].length)
       {
@@ -2086,6 +2080,7 @@ class PlayState extends MusicBeatState
         eventPushed(subEvent);
       }
     }
+
     unspawnNotes.sort(sortByTime);
     generatedMusic = true;
   }
@@ -2243,13 +2238,6 @@ class PlayState extends MusicBeatState
 
       strumLineNotes.add(babyArrow);
       babyArrow.postAddedToGroup();
-
-      #if DEVELOPERBUILD
-      // if (player != 1 && ClientPrefs.middleScroll)
-      // {
-      //	trace("Middlescroll Opponent Strum #" + Std.string(i) + " X coord: " + babyArrow.x);
-      // }
-      #end
     }
   }
 
@@ -2513,7 +2501,7 @@ class PlayState extends MusicBeatState
 
     super.update(elapsed);
 
-    // transition handling shit
+    // animation -> idle transition handling! maybe it would be better in character.hx but thats neither here nor there
 
     if (dad != null)
     {
@@ -3071,22 +3059,16 @@ class PlayState extends MusicBeatState
           if (dad.curCharacter.startsWith('gf'))
           {
             dad.playAnim('cheer', true);
-            dad.specialAnim = true;
-            dad.heyTimer = time;
           }
           else if (gf != null)
           {
             gf.playAnim('cheer', true);
-            gf.specialAnim = true;
-            gf.heyTimer = time;
           }
         }
 
         if (value != 1)
         {
           boyfriend.playAnim('hey', true);
-          boyfriend.specialAnim = true;
-          boyfriend.heyTimer = time;
         }
       case 'Set GF Speed':
         var value:Int = Std.parseInt(value1);
@@ -3148,7 +3130,6 @@ class PlayState extends MusicBeatState
         if (char != null)
         {
           char.playAnim(value1, true);
-          char.specialAnim = true;
         }
       case 'Camera Follow Pos':
         if (camFollow != null)
@@ -3600,7 +3581,7 @@ class PlayState extends MusicBeatState
 
       if (songObj.songNameForDisplay.toLowerCase() == 'eggshells')
       {
-        // uhhh change when dialogue happen
+        // uhhh change when dialogue system for eggshells happens
         MusicBeatState.switchState(new MainMenuState());
       }
       else
@@ -4058,7 +4039,6 @@ class PlayState extends MusicBeatState
 
   function noteMiss(daNote:Note):Void
   {
-    // Dupe note remove
     notes.forEachAlive(function(note:Note) {
       if (daNote != note
         && daNote.mustPress
@@ -4169,8 +4149,6 @@ class PlayState extends MusicBeatState
     if (note.noteType == 'Hey!' && dad.animOffsets.exists('hey'))
     {
       dad.playAnim('hey', true);
-      dad.specialAnim = true;
-      dad.heyTimer = 0.6;
     }
     else if (!note.noAnimation)
     {
@@ -4259,7 +4237,6 @@ class PlayState extends MusicBeatState
               if (boyfriend.animation.getByName('hurt') != null)
               {
                 boyfriend.playAnim('hurt', true);
-                boyfriend.specialAnim = true;
               }
           }
         }
@@ -4323,15 +4300,11 @@ class PlayState extends MusicBeatState
           if (boyfriend.animOffsets.exists('hey'))
           {
             boyfriend.playAnim('hey', true);
-            boyfriend.specialAnim = true;
-            boyfriend.heyTimer = 0.6;
           }
 
           if (gf != null && gf.animOffsets.exists('cheer'))
           {
             gf.playAnim('cheer', true);
-            gf.specialAnim = true;
-            gf.heyTimer = 0.6;
           }
         }
       }
@@ -4360,7 +4333,7 @@ class PlayState extends MusicBeatState
       note.wasGoodHit = true;
       vocals.volume = 1;
 
-      var isSus:Bool = note.isSustainNote; // GET OUT OF MY HEAD, GET OUT OF MY HEAD, GET OUT OF MY HEAD
+      var isSus:Bool = note.isSustainNote;
       var leData:Int = Math.round(Math.abs(note.noteData));
       var leType:String = note.noteType;
 
@@ -4568,7 +4541,6 @@ class PlayState extends MusicBeatState
     iconP1.updateHitbox();
     iconP2.updateHitbox();
 
-    //
     if (gf != null
       && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0
       && gf.animation.curAnim != null
@@ -4717,19 +4689,17 @@ class PlayState extends MusicBeatState
 
   public function recalculateRating(badHit:Bool = false)
   {
-    if (totalPlayed < 1) // Prevent divide by 0
+    if (totalPlayed < 1)
     {
       ratingName = '?';
     }
     else
     {
-      // Rating Percent
       ratingPercent = Math.min(1, Math.max(0, totalNotesHit / totalPlayed));
 
-      // Rating Name
       if (ratingPercent >= 1)
       {
-        ratingName = ratingStuff[ratingStuff.length - 1][0]; // Uses last string
+        ratingName = ratingStuff[ratingStuff.length - 1][0];
       }
       else
       {
@@ -4861,7 +4831,6 @@ class PlayState extends MusicBeatState
 
     if (SONG.stage == null || SONG.stage.length < 1)
     {
-      // deal with this later
       switch (removeVariationSuffixes(songName.toLowerCase()))
       {
         case 'fundamentals':

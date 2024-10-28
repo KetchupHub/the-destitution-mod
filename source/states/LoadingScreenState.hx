@@ -2,7 +2,6 @@ package states;
 
 import backend.TextAndLanguage;
 import ui.TransitionScreenshotObject;
-import sys.thread.Thread;
 import visuals.PixelPerfectSprite;
 import ui.MarkHeadTransition;
 import songs.SongInit;
@@ -23,34 +22,34 @@ import backend.Discord.DiscordClient;
 
 class LoadingScreenState extends MusicBeatState
 {
-  public var funkay:PixelPerfectSprite;
+  private var funkay:PixelPerfectSprite;
 
-  public var loadedBar:FlxBar;
+  private var loadedBar:FlxBar;
 
-  public var charactersToLoad:Array<String> = [];
+  private var charactersToLoad:Array<String> = [];
 
   public var characters:Array<Character> = [];
 
-  public var loadCooldown:Float = 0.525;
+  private var loadCooldown:Float = 0.525;
 
-  public var toLoad:Int;
+  private var toLoad:Int;
 
-  public var finishedPreloading:Bool = false;
+  private var finishedPreloading:Bool = false;
 
-  public var startedSwitching:Bool = false;
+  private var startedSwitching:Bool = false;
 
-  public var holdingEscText:FlxText;
+  private var holdingEscText:FlxText;
 
-  public var escHoldTimer:Float;
+  private var escHoldTimer:Float;
 
-  public var realPercent:Float = 0;
-  public var smoothenedPercent:Float = 0;
+  private var realPercent:Float = 0;
+  private var smoothenedPercent:Float = 0;
 
-  public var gotSportsEvent:Bool = false;
+  private var gotSportsEvent:Bool = false;
 
-  public var finishedSportVid:Bool = true;
+  private var finishedSportVid:Bool = true;
 
-  public var sportVid:VideoCutscene;
+  private var sportVid:VideoCutscene;
 
   override function create()
   {
@@ -104,7 +103,6 @@ class LoadingScreenState extends MusicBeatState
     var marksSuffix:String = "";
 
     #if !SHOWCASEVIDEO
-    // 1/32 chance
     if (CoolUtil.randomVisuals.bool(3.125))
     {
       marksSuffix = "_secret";
@@ -159,7 +157,6 @@ class LoadingScreenState extends MusicBeatState
 
     loadCooldown -= elapsed;
 
-    // escape hgolding thing, so if you stop holding for a second the timer doenst completely restart
     if (FlxG.keys.pressed.ESCAPE)
     {
       escHoldTimer += elapsed;
@@ -195,17 +192,10 @@ class LoadingScreenState extends MusicBeatState
         {
           if (charactersToLoad[0] != "stop-loading")
           {
-            Thread.create(function doItDude()
-            {
-              preloadCharacter(charactersToLoad[0]);
-            });
-            // preloadCharacter(charactersToLoad[0]);
+            preloadCharacter(charactersToLoad[0]);
           }
           else if (finishedSportVid)
           {
-            #if DEVELOPERBUILD
-            trace("finished loading");
-            #end
             loadCooldown = 1;
             finishedPreloading = true;
           }
@@ -237,25 +227,11 @@ class LoadingScreenState extends MusicBeatState
 
   public function preloadCharacter(charName:String)
   {
-    // perf leads me to believe that 0.6 is the maximum reasonable character load time
-    // excluding MULTITHREADING BABY!!!!!!!!!!!!
-    if (ClientPrefs.multithreading)
+    loadCooldown = 0.575;
+
+    if (FlxG.keys.pressed.SHIFT)
     {
-      loadCooldown = 0.35;
-      if (FlxG.keys.pressed.SHIFT)
-      {
-        // speedup for impatient people (me)
-        loadCooldown = 0.1;
-      }
-    }
-    else
-    {
-      loadCooldown = 0.6;
-      if (FlxG.keys.pressed.SHIFT)
-      {
-        // speedup for impatient people (me)
-        loadCooldown = 0.25;
-      }
+      loadCooldown = 0.25;
     }
 
     #if DEVELOPERBUILD

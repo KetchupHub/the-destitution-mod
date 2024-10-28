@@ -36,42 +36,40 @@ import backend.Discord.DiscordClient;
 
 class FreeplayState extends MusicBeatState
 {
-  public var songs:Array<SongMetadata> = [];
+  private var songs:Array<SongMetadata> = [];
 
-  public var enteringMenu:Bool = false;
+  private var enteringMenu:Bool = false;
 
-  public var songCover:PixelPerfectSprite;
-
-  public var selector:FlxText;
+  private var songCover:PixelPerfectSprite;
 
   public static var curSelected:Int = 0;
 
-  public var scoreText:FlxText;
-  public var descText:FlxText;
-  public var lerpScore:Int = 0;
-  public var lerpRating:Float = 0;
-  public var intendedScore:Int = 0;
-  public var intendedRating:Float = 0;
+  private var scoreText:FlxText;
+  private var descText:FlxText;
+  private var lerpScore:Int = 0;
+  private var lerpRating:Float = 0;
+  private var intendedScore:Int = 0;
+  private var intendedRating:Float = 0;
 
-  public var grpSongs:FlxTypedGroup<Alphabet>;
-  public var curPlaying:Bool = false;
+  private var grpSongs:FlxTypedGroup<Alphabet>;
+  private var curPlaying:Bool = false;
 
-  var instPlaying:String = '';
+  private var instPlaying:String = '';
 
-  var holdTime:Float = 0;
+  private var holdTime:Float = 0;
 
-  var exitingMenu:Bool = false;
+  private var exitingMenu:Bool = false;
 
-  public var bg:PixelPerfectSprite;
-  public var intendedColor:Int;
-  public var colorTween:FlxTween;
+  private var bg:PixelPerfectSprite;
+  private var intendedColor:Int;
+  private var colorTween:FlxTween;
 
-  public var songVariantCur:String = 'Normal';
+  private var songVariantCur:String = 'Normal';
 
-  public var freePaper:PixelPerfectSprite;
-  public var freeMetal:PixelPerfectSprite;
+  private var freePaper:PixelPerfectSprite;
+  private var freeMetal:PixelPerfectSprite;
 
-  public var playerChar:Playables = DEFAULT;
+  private var playerChar:Playables = DEFAULT;
 
   public override function new(?player:Playables = DEFAULT)
   {
@@ -180,10 +178,12 @@ class FreeplayState extends MusicBeatState
       grpSongs.add(songText);
 
       var maxWidth = 680;
+
       if (songText.width > maxWidth)
       {
         songText.scaleX = maxWidth / (songText.width + 38);
       }
+
       songText.snapToPosition();
     }
 
@@ -215,11 +215,13 @@ class FreeplayState extends MusicBeatState
         }
       });
 
-    if (curSelected >= songs.length) curSelected = 0;
-    bg.color = songs[curSelected].color;
-    var realboy = FlxColor.fromInt(bg.color);
-    // realboy.alphaFloat = 0.5;
-    intendedColor = realboy;
+    if (curSelected >= songs.length)
+    {
+      curSelected = 0;
+    }
+
+    intendedColor = songs[curSelected].color;
+    bg.color = intendedColor;
 
     for (i in grpSongs.members)
     {
@@ -283,12 +285,12 @@ class FreeplayState extends MusicBeatState
       var ratingSplit:Array<String> = Std.string(Highscore.floorDecimal(lerpRating * 100, 2)).split('.');
 
       if (ratingSplit.length < 2)
-      { // No decimals, add an empty space
+      {
         ratingSplit.push('');
       }
 
       while (ratingSplit[1].length < 2)
-      { // Less than 2 decimals in it, add decimals then
+      {
         ratingSplit[1] += '0';
       }
 
@@ -521,9 +523,7 @@ class FreeplayState extends MusicBeatState
         colorTween.cancel();
       }
 
-      var realboy = FlxColor.fromInt(newColor);
-      // realboy.alphaFloat = 0.5;
-      intendedColor = realboy;
+      intendedColor = newColor;
 
       colorTween = FlxTween.color(bg, 1, bg.color, intendedColor,
         {

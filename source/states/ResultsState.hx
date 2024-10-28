@@ -133,7 +133,6 @@ class ResultsState extends MusicBeatState
 
     if (realRank == BOTPLAY)
     {
-      // wont have diff variations cuz why would it
       rankName = 'botplay';
     }
 

@@ -6,6 +6,7 @@ package flixel;
  * WHICH IS WHERE I GOT THE CODE FOR WORLDSPACE ROTATION!!!!
  * - cynda
 **/
+import flixel.graphics.tile.FlxDrawQuadsItem;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import openfl.display.DisplayObject;
@@ -26,14 +27,13 @@ import flixel.system.FlxAssets.FlxShader;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
-import flixel.util.FlxSpriteUtil;
 import openfl.Vector;
 import openfl.display.BlendMode;
 import openfl.filters.BitmapFilter;
 
 using flixel.util.FlxColorTransformUtil;
 
-private typedef FlxDrawItem = flixel.graphics.tile.FlxDrawQuadsItem;
+private typedef FlxDrawItem = FlxDrawQuadsItem;
 
 /**
  * The camera class is used to display the game's visuals.

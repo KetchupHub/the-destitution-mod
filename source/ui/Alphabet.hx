@@ -1,6 +1,5 @@
 package ui;
 
-import flixel.util.FlxColor;
 import util.CoolUtil;
 import backend.ClientPrefs;
 import flixel.FlxG;
@@ -319,7 +318,6 @@ class AlphaCharacter extends FlxSprite
   public var image(default, set):String;
 
   public static var allLetters:Map<String, Null<Letter>> = [
-    // alphabet
     'a' => null,
     'b' => null,
     'c' => null,
@@ -346,7 +344,6 @@ class AlphaCharacter extends FlxSprite
     'x' => null,
     'y' => null,
     'z' => null,
-    // numbers
     '0' => null,
     '1' => null,
     '2' => null,
@@ -357,7 +354,6 @@ class AlphaCharacter extends FlxSprite
     '7' => null,
     '8' => null,
     '9' => null,
-    // symbols
     '&' => {offsetsBold: [0, 2]},
     '(' => {offsetsBold: [0, 5]},
     ')' => {offsetsBold: [0, 5]},
@@ -369,11 +365,10 @@ class AlphaCharacter extends FlxSprite
     '\'' => {anim: 'apostrophe', offsets: [0, 32]},
     '"' => {anim: 'quote', offsets: [0, 32], offsetsBold: [0, 0]},
     '!' => {anim: 'exclamation', offsetsBold: [0, 10]},
-    '?' => {anim: 'question', offsetsBold: [0, 4]}, // also used for "unknown"
+    '?' => {anim: 'question', offsetsBold: [0, 4]},
     '.' => {anim: 'period', offsetsBold: [0, -44]},
     '❝' => {anim: 'start quote', offsets: [0, 24], offsetsBold: [0, -5]},
     '❞' => {anim: 'end quote', offsets: [0, 24], offsetsBold: [0, -5]},
-    // symbols with no bold
     '_' => null,
     '#' => null,
     '$' => null,
@@ -392,7 +387,7 @@ class AlphaCharacter extends FlxSprite
   ];
 
   public var parent:Alphabet;
-  public var alignOffset:Float = 0; // Don't change this
+  public var alignOffset:Float = 0;
   public var letterOffset:Array<Float> = [0, 0];
   public var spawnPos:FlxPoint = new FlxPoint();
   public var spawnScale:FlxPoint = new FlxPoint();
@@ -489,7 +484,7 @@ class AlphaCharacter extends FlxSprite
     updateLetterOffset();
   }
 
-  public static function isTypeAlphabet(c:String) // thanks kade
+  public static function isTypeAlphabet(c:String)
   {
     var ascii = StringTools.fastCodeAt(c, 0);
     return (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122);

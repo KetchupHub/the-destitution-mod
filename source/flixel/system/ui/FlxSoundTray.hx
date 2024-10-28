@@ -55,7 +55,7 @@ class FlxSoundTray extends Sprite
   {
     super();
 
-    x = (504 * 2);
+    x = 1008;
     y = 68;
 
     var theDeFucking = Assets.getBitmapData(Paths.getPath('images/soundtray/capsule.png', IMAGE));
@@ -77,7 +77,7 @@ class FlxSoundTray extends Sprite
       var theFucking = Assets.getBitmapData(Paths.getPath('images/soundtray/bar.png', IMAGE));
       barToPush = new Bitmap(theFucking);
       barToPush.visible = true;
-      barToPush.x = (532 - 504) * 2;
+      barToPush.x = 56;
       barToPush.y = (barPosses[i] * 2) - 68;
       barToPush.alpha = 0;
       addChild(barToPush);
@@ -155,7 +155,7 @@ class FlxSoundTray extends Sprite
    */
   public function screenCenter():Void
   {
-    x = (504 * 2);
+    x = 1008;
     y = 68;
     alpha = 1;
   }

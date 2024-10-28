@@ -115,15 +115,13 @@ class Prompt extends MusicBeatSubstate
     panel.makeGraphic(w, h, color);
     panel.pixels.fillRect(new Rectangle(0, 190, panel.width, 5), 0x0);
 
-    // Why did i do this? Because i'm a lmao stupid, of course
-    // also i wanted to understand better how fillRect works so i did this shit lol???
-    panel.pixels.fillRect(new Rectangle(0, 0, cornerSize, cornerSize), 0x0); // top left
+    panel.pixels.fillRect(new Rectangle(0, 0, cornerSize, cornerSize), 0x0);
     drawCircleCornerOnSelector(panel, false, false, color);
-    panel.pixels.fillRect(new Rectangle(panel.width - cornerSize, 0, cornerSize, cornerSize), 0x0); // top right
+    panel.pixels.fillRect(new Rectangle(panel.width - cornerSize, 0, cornerSize, cornerSize), 0x0);
     drawCircleCornerOnSelector(panel, true, false, color);
-    panel.pixels.fillRect(new Rectangle(0, panel.height - cornerSize, cornerSize, cornerSize), 0x0); // bottom left
+    panel.pixels.fillRect(new Rectangle(0, panel.height - cornerSize, cornerSize, cornerSize), 0x0);
     drawCircleCornerOnSelector(panel, false, true, color);
-    panel.pixels.fillRect(new Rectangle(panel.width - cornerSize, panel.height - cornerSize, cornerSize, cornerSize), 0x0); // bottom right
+    panel.pixels.fillRect(new Rectangle(panel.width - cornerSize, panel.height - cornerSize, cornerSize, cornerSize), 0x0);
     drawCircleCornerOnSelector(panel, true, true, color);
   }
 

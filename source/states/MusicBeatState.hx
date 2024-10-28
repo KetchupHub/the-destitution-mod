@@ -77,7 +77,6 @@ class MusicBeatState extends FlxUIState
       }
     }
 
-    // why wasnt this implemented what the fuck
     if (FlxG.keys.anyJustPressed(TitleState.fullscreenKeys))
     {
       FlxG.fullscreen = !FlxG.fullscreen;
@@ -160,14 +159,11 @@ class MusicBeatState extends FlxUIState
 
   public static function switchState(nextState:FlxState, libraryToLoad:String = 'rhythm')
   {
-    // this is absolute fucking insanity.
-    // why the fuck do i have to do this to stop the game from crashing
     if (CoolUtil.hasInitializedWindow)
     {
       gameStateScreenshot();
     }
 
-    // loading state used to do this with load and switch state. but, we don't need the rest of the functionality from loadingstate, and having a whole state for just this one function call is fucking stupid, so
     Paths.setCurrentLevel(libraryToLoad);
 
     var curState:Dynamic = FlxG.state;

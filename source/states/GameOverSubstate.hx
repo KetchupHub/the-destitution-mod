@@ -21,15 +21,15 @@ import flixel.util.FlxTimer;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
-  public var dad:Character;
-  public var boyfriend:Boyfriend;
+  private var dad:Character;
+  private var boyfriend:Boyfriend;
 
-  public var camFollow:FlxPoint;
-  public var camFollowPos:FlxObject;
+  private var camFollow:FlxPoint;
+  private var camFollowPos:FlxObject;
 
-  public var updateCamera:Bool = false;
+  private var updateCamera:Bool = false;
 
-  public var playingDeathSound:Bool = false;
+  private var playingDeathSound:Bool = false;
 
   public static var characterName:String = 'bf-dead';
   public static var deathSoundName:String = 'gameover/deathsting';

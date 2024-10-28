@@ -34,9 +34,9 @@ class Note extends PixelPerfectSprite
 
   public var spawned:Bool = false;
 
-  public var tail:Array<Note> = []; // for sustains
+  public var tail:Array<Note> = [];
   public var parent:Note;
-  public var blockHit:Bool = false; // only works for player
+  public var blockHit:Bool = false;
 
   public var sustainLength:Float = 0;
   public var isSustainNote:Bool = false;
@@ -102,7 +102,7 @@ class Note extends PixelPerfectSprite
     return value;
   }
 
-  public function resizeByRatio(ratio:Float) // haha funny twitter shit
+  public function resizeByRatio(ratio:Float)
   {
     if (isSustainNote && !animation.curAnim.name.endsWith('end'))
     {

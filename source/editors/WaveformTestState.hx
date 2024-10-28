@@ -45,8 +45,8 @@ class WaveformTestState extends MusicBeatState
 
     wave = new WaveformSprite(WaveformDataParser.interpretFlxSound(FlxG.sound.music), WaveformOrientation.HORIZONTAL, FlxColor.fromRGB(195, 207, 209),
       Conductor.crochet / 500);
-    wave.width = FlxG.width * 1.1;
-    wave.height = FlxG.height / 2;
+    wave.width = 1408;
+    wave.height = 360;
     wave.amplitude = 4;
     wave.screenCenter();
     add(wave);

@@ -72,8 +72,6 @@ class Character extends PixelPerfectSprite
   public var canSing:Bool = true;
 
   public var holdTimer:Float = 0;
-  public var heyTimer:Float = 0;
-  public var specialAnim:Bool = false;
   public var animationNotes:Array<Dynamic> = [];
   public var singDuration:Float = 4; // Multiplier of how long a character holds the sing pose
   public var idleSuffix:String = '';
@@ -302,30 +300,7 @@ class Character extends PixelPerfectSprite
       return;
     }
 
-    if (heyTimer > 0)
-    {
-      var rate:Float = (PlayState.instance != null ? PlayState.instance.playbackRate : 1.0);
-      heyTimer -= elapsed * rate;
-
-      if (heyTimer <= 0)
-      {
-        var anim:String = getAnimationName();
-
-        if (specialAnim && (anim == 'hey' || anim == 'cheer'))
-        {
-          specialAnim = false;
-          dance();
-        }
-
-        heyTimer = 0;
-      }
-    }
-    else if (specialAnim && isAnimationFinished())
-    {
-      specialAnim = false;
-      dance();
-    }
-    else if (getAnimationName().endsWith('miss') && isAnimationFinished())
+    if (getAnimationName().endsWith('miss') && isAnimationFinished())
     {
       dance();
       finishAnimation();
@@ -476,7 +451,7 @@ class Character extends PixelPerfectSprite
       altStr = "-alt";
     }
 
-    if (!debugMode && !skipDance && !specialAnim && canDance)
+    if (!debugMode && !skipDance && canDance)
     {
       if (danceIdle)
       {
@@ -570,8 +545,6 @@ class Character extends PixelPerfectSprite
     {
       curFunnyPosition = [0, 0];
     }
-
-    specialAnim = false;
 
     if (!isAnimateAtlas)
     {

@@ -49,8 +49,8 @@ class HealthIcon extends FlxSprite
 
       var file:Dynamic = Paths.image(name);
 
-      loadGraphic(file); // Load stupidly first for getting the file size
-      loadGraphic(file, true, Math.floor(width / 2), Math.floor(height)); // Then load it fr
+      loadGraphic(file);
+      loadGraphic(file, true, Math.floor(width / 2), Math.floor(height));
       iconOffsets[0] = (width - 150) / 2;
       iconOffsets[1] = (width - 150) / 2;
       updateHitbox();
@@ -76,11 +76,6 @@ class HealthIcon extends FlxSprite
 
   public function setFrameWithHealth(healthes:Float, player:Int)
   {
-    // oh my fucking god im an idiot it took me 5 eternities to realize i was doing this completely fuckin wrong
-    // see basically the old code checked things yada blada but i didnt actually pay attention to specific variables
-    // so basically it was running the code for being a player1 icon for everything
-    // fun.
-
     if (player == 2)
     {
       if (healthes > 80)
