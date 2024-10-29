@@ -40,7 +40,7 @@ class MainMenuState extends MusicBeatState
   private var menuItems:FlxTypedGroup<MainMenuButton>;
   public var camGame:FlxCamera;
 
-  private var optionShit:Array<String> = ['story_mode', 'freeplay', 'options'];
+  private var optionShit:Array<String> = ['story_mode', 'freeplay', 'lottery', 'options'];
 
   private var magenta:PixelPerfectSprite;
 
@@ -123,7 +123,7 @@ class MainMenuState extends MusicBeatState
 
     for (i in 0...optionShit.length)
     {
-      var menuItem:MainMenuButton = new MainMenuButton(35, 32.5 + (280 * i), optionShit[i], scale);
+      var menuItem:MainMenuButton = new MainMenuButton(35, 32.5 + (190 * i), optionShit[i], scale);
       menuItem.ID = i;
       menuItem.alpha = 0;
       menuItems.add(menuItem);
@@ -311,6 +311,10 @@ class MainMenuState extends MusicBeatState
                   FlxTransitionableState.skipNextTransIn = true;
                   FlxTransitionableState.skipNextTransOut = true;
                   MusicBeatState.switchState(new FreeplayState(#if DEVELOPERBUILD debugChar #end));
+                case 'lottery':
+                  FlxTransitionableState.skipNextTransIn = true;
+                  FlxTransitionableState.skipNextTransOut = true;
+                  MusicBeatState.switchState(new FreeplayState());
                 case 'options':
                   FlxTransitionableState.skipNextTransIn = true;
                   FlxTransitionableState.skipNextTransOut = true;

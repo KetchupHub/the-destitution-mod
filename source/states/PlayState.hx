@@ -4926,7 +4926,7 @@ class PlayState extends MusicBeatState
     songCard.alpha = 0;
     songCard.cameras = [camSubtitlesAndSuch];
     add(songCard);
-    FlxTween.tween(songCard, {alpha: 1, y: centeredY}, 0.1 / playbackRate, {ease: EaseUtil.stepped(4)});
+    FlxTween.tween(songCard, {alpha: 1, y: centeredY}, (Conductor.crochet / 1500) / playbackRate, {ease: EaseUtil.stepped(4)});
   }
 
   public function doNotetypeInfoCard(type:String)
@@ -4941,17 +4941,17 @@ class PlayState extends MusicBeatState
     noteTypeInfocard.scale.set(2, 2);
     noteTypeInfocard.updateHitbox();
     noteTypeInfocard.antialiasing = false;
-    noteTypeInfocard.cameras = [camHUD];
+    noteTypeInfocard.cameras = [camOther];
     add(noteTypeInfocard);
 
-    FlxTween.tween(noteTypeInfocard, {x: noteTypeInfocard.x - noteTypeInfocard.width}, 0.25 / playbackRate,
+    FlxTween.tween(noteTypeInfocard, {x: noteTypeInfocard.x - noteTypeInfocard.width}, (Conductor.crochet / 1500) / playbackRate,
       {
         ease: EaseUtil.stepped(8),
         onComplete: function shit(fu:FlxTween)
         {
-          var newboy:FlxTimer = new FlxTimer().start(4 / playbackRate, function fuck(f:FlxTimer)
+          var newboy:FlxTimer = new FlxTimer().start(((Conductor.crochet / 250) * 4) / playbackRate, function fuck(f:FlxTimer)
           {
-            FlxTween.tween(noteTypeInfocard, {x: 1280}, 0.25 / playbackRate,
+            FlxTween.tween(noteTypeInfocard, {x: 1280}, (Conductor.crochet / 1500) / playbackRate,
               {
                 ease: EaseUtil.stepped(8),
                 onComplete: function ass(as:FlxTween)
