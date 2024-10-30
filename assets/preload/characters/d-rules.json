@@ -1,57 +1,62 @@
 {
   "animations": [
     {
-      "offsets": [0, 0],
       "loop": false,
+      "offsets": [234, 0],
+      "fps": 24,
       "anim": "singLEFT",
-      "fps": 24,
-      "name": "left",
+      "indices": [],
       "hasTransition": true,
-      "indices": []
+      "name": "left"
     },
     {
-      "offsets": [0, 0],
       "loop": false,
+      "offsets": [14, 0],
+      "fps": 24,
       "anim": "singDOWN",
-      "fps": 24,
-      "name": "down",
+      "indices": [],
       "hasTransition": true,
-      "indices": []
+      "name": "down"
     },
     {
-      "offsets": [0, 0],
-      "hasTransition": true,
       "loop": false,
+      "offsets": [46, 96],
+      "fps": 24,
       "anim": "singUP",
-      "fps": 24,
+      "indices": [],
       "name": "up",
-      "indices": []
+      "hasTransition": true
     },
     {
-      "offsets": [0, 0],
       "loop": false,
-      "anim": "singRIGHT",
+      "offsets": [-6, 0],
       "fps": 24,
-      "name": "right",
+      "anim": "singRIGHT",
+      "indices": [],
       "hasTransition": true,
-      "indices": []
+      "name": "right"
     },
     {
+      "loop": false,
       "offsets": [0, 0],
-      "loop": true,
-      "anim": "idle",
       "fps": 24,
-      "name": "idle",
-      "indices": []
+      "anim": "idle",
+      "indices": [],
+      "name": "idle"
     }
   ],
+  "animator": null,
   "no_antialiasing": true,
-  "image": "characters/destitution/rules_guy",
+  "artist": null,
+  "image": "characters/dsides/irules/idle, characters/dsides/irules/left, characters/dsides/irules/down, characters/dsides/irules/up, characters/dsides/irules/right",
   "position": [0, 0],
+  "whoDoneWhat": null,
   "healthicon": "irules",
   "flip_x": false,
   "healthbar_colors": [204, 138, 68],
-  "camera_position": [0, 0],
+  "aaAtlas": false,
+  "camera_position": [-500, -50],
   "sing_duration": 15,
-  "scale": 1
+  "scale": 1,
+  "_editor_isPlayer": null
 }

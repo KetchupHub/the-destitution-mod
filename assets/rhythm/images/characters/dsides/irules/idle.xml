@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="idle.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="idle0000" x="521" y="590" width="520" height="560" frameX="-6" frameY="-23"
+		frameWidth="526" frameHeight="583" />
+	<SubTexture name="idle0001" x="521" y="590" width="520" height="560" frameX="-6" frameY="-23"
+		frameWidth="526" frameHeight="583" />
+	<SubTexture name="idle0002" x="521" y="590" width="520" height="560" frameX="-6" frameY="-23"
+		frameWidth="526" frameHeight="583" />
+	<SubTexture name="idle0003" x="4" y="4" width="521" height="573" frameX="0" frameY="-9"
+		frameWidth="526" frameHeight="583" />
+	<SubTexture name="idle0004" x="4" y="4" width="521" height="573" frameX="0" frameY="-9"
+		frameWidth="526" frameHeight="583" />
+	<SubTexture name="idle0005" x="4" y="4" width="521" height="573" frameX="0" frameY="-9"
+		frameWidth="526" frameHeight="583" />
+	<SubTexture name="idle0006" x="4" y="581" width="513" height="581" frameX="0" frameY="-1"
+		frameWidth="526" frameHeight="583" />
+	<SubTexture name="idle0007" x="4" y="581" width="513" height="581" frameX="0" frameY="-1"
+		frameWidth="526" frameHeight="583" />
+	<SubTexture name="idle0008" x="4" y="581" width="513" height="581" frameX="0" frameY="-1"
+		frameWidth="526" frameHeight="583" />
+	<SubTexture name="idle0009" x="529" y="4" width="507" height="582" frameX="-6" frameY="0"
+		frameWidth="526" frameHeight="583" />
+	<SubTexture name="idle0010" x="529" y="4" width="507" height="582" frameX="-6" frameY="0"
+		frameWidth="526" frameHeight="583" />
+	<SubTexture name="idle0011" x="529" y="4" width="507" height="582" frameX="-6" frameY="0"
+		frameWidth="526" frameHeight="583" />
+	<SubTexture name="idle0012" x="529" y="4" width="507" height="582" frameX="-6" frameY="0"
+		frameWidth="526" frameHeight="583" />
+	<SubTexture name="idle0013" x="529" y="4" width="507" height="582" frameX="-6" frameY="0"
+		frameWidth="526" frameHeight="583" />
+</TextureAtlas>

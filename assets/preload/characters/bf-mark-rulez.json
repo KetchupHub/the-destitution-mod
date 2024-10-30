@@ -83,7 +83,7 @@
   "image": "characters/destitution/rulez_bf",
   "position": [0, 0],
   "whoDoneWhat": "Cynda animated sprites",
-  "healthicon": "bf",
+  "healthicon": "bf-rulez",
   "flip_x": true,
   "healthbar_colors": [14, 133, 163],
   "aaAtlas": false,
