@@ -183,6 +183,7 @@ class OptionsState extends MusicBeatState
 
   function outroSequence()
   {
+    ClientPrefs.saveSettings();
     finishedIntro = false;
     FlxG.sound.music.stop();
     FlxG.sound.music = null;

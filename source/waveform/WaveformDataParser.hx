@@ -1,5 +1,11 @@
 package waveform;
 
+import json2object.Error;
+import json2object.JsonParser;
+import openfl.Assets;
+import flixel.sound.FlxSound;
+import lime.media.AudioBuffer;
+import lime.utils.Int16Array;
 import util.TimerUtil;
 
 class WaveformDataParser
@@ -10,13 +16,13 @@ class WaveformDataParser
   static final INT8_MAX:Int = 127;
   static final INT8_MIN:Int = -128;
 
-  public static function interpretFlxSound(sound:flixel.sound.FlxSound):Null<WaveformData>
+  public static function interpretFlxSound(sound:FlxSound):Null<WaveformData>
   {
     if (sound == null) return null;
 
     // Method 1. This only works if the sound has been played before.
     @:privateAccess
-    var soundBuffer:Null<lime.media.AudioBuffer> = sound?._channel?.__audioSource?.buffer;
+    var soundBuffer:Null<AudioBuffer> = sound?._channel?.__audioSource?.buffer;
 
     if (soundBuffer == null)
     {
@@ -26,23 +32,14 @@ class WaveformDataParser
 
       if (soundBuffer == null)
       {
-        trace('[WAVEFORM] Failed to interpret FlxSound: ${sound}');
         return null;
       }
-      else
-      {
-        // trace('[WAVEFORM] Method 2 worked.');
-      }
-    }
-    else
-    {
-      // trace('[WAVEFORM] Method 1 worked.');
     }
 
     return interpretAudioBuffer(soundBuffer);
   }
 
-  public static function interpretAudioBuffer(soundBuffer:lime.media.AudioBuffer):Null<WaveformData>
+  public static function interpretAudioBuffer(soundBuffer:AudioBuffer):Null<WaveformData>
   {
     var sampleRate = soundBuffer.sampleRate;
     var channels = soundBuffer.channels;
@@ -50,23 +47,11 @@ class WaveformDataParser
     var samplesPerPoint:Int = 256; // I don't think we need to configure this.
     var pointsPerSecond:Float = sampleRate / samplesPerPoint; // 172 samples per second for most songs is plenty precise while still being performant..
 
-    // TODO: Make this work better on HTML5.
-    var soundData:lime.utils.Int16Array = cast soundBuffer.data;
+    var soundData:Int16Array = cast soundBuffer.data;
 
     var soundDataRawLength:Int = soundData.length;
     var soundDataSampleCount:Int = Std.int(Math.ceil(soundDataRawLength / channels / (bitsPerSample == 16 ? 2 : 1)));
     var outputPointCount:Int = Std.int(Math.ceil(soundDataSampleCount / samplesPerPoint));
-
-    // trace('Interpreting audio buffer:');
-    // trace('  sampleRate: ${sampleRate}');
-    // trace('  channels: ${channels}');
-    // trace('  bitsPerSample: ${bitsPerSample}');
-    // trace('  samplesPerPoint: ${samplesPerPoint}');
-    // trace('  pointsPerSecond: ${pointsPerSecond}');
-    // trace('  soundDataRawLength: ${soundDataRawLength}');
-    // trace('  soundDataSampleCount: ${soundDataSampleCount}');
-    // trace('  soundDataRawLength/4: ${soundDataRawLength / 4}');
-    // trace('  outputPointCount: ${outputPointCount}');
 
     var minSampleValue:Int = bitsPerSample == 16 ? INT16_MIN : INT8_MIN;
     var maxSampleValue:Int = bitsPerSample == 16 ? INT16_MAX : INT8_MAX;
@@ -77,7 +62,6 @@ class WaveformDataParser
 
     for (pointIndex in 0...outputPointCount)
     {
-      // minChannel1, maxChannel1, minChannel2, maxChannel2, ...
       var values:Array<Int> = [];
 
       for (i in 0...channels)
@@ -110,22 +94,19 @@ class WaveformDataParser
     var outputDataLength:Int = Std.int(outputData.length / channels / 2);
     var result = new WaveformData(null, channels, sampleRate, samplesPerPoint, bitsPerSample, outputPointCount, outputData);
 
-    trace('[WAVEFORM] Interpreted audio buffer in ${TimerUtil.seconds(perfStart)}.');
-
     return result;
   }
 
   public static function parseWaveformData(path:String):Null<WaveformData>
   {
-    var rawJson:String = openfl.Assets.getText(path).trim();
+    var rawJson:String = Assets.getText(path).trim();
     return parseWaveformDataString(rawJson, path);
   }
 
   public static function parseWaveformDataString(contents:String, ?fileName:String):Null<WaveformData>
   {
-    var parser = new json2object.JsonParser<WaveformData>();
+    var parser = new JsonParser<WaveformData>();
     parser.ignoreUnknownVariables = false;
-    trace('[WAVEFORM] Parsing waveform data: ${contents}');
     parser.fromJson(contents, fileName);
 
     if (parser.errors.length > 0)
@@ -136,8 +117,10 @@ class WaveformDataParser
     return parser.value;
   }
 
-  static function printErrors(errors:Array<json2object.Error>, id:String = ''):Void
+  static function printErrors(errors:Array<Error>, id:String = ''):Void
   {
+    #if DEVELOPERBUILD
     trace('[WAVEFORM] Failed to parse waveform data: ${id}');
+    #end
   }
 }

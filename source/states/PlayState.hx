@@ -1,5 +1,6 @@
 package states;
 
+import util.RandomUtil;
 import visuals.PixelPerfectBackdrop;
 import backend.TextAndLanguage;
 import shaders.AdjustColorShader;
@@ -973,7 +974,7 @@ class PlayState extends MusicBeatState
         add(zamboni);
 
         zamboniChaseBg = new PixelPerfectBackdrop(Paths.image('destitution/zamChaseBg'), X);
-        zamboniChaseBg.scale.set(3, 3);
+        zamboniChaseBg.scale.set(4, 4);
         zamboniChaseBg.updateHitbox();
         zamboniChaseBg.screenCenter();
         zamboniChaseBg.scrollFactor.set();
@@ -1038,8 +1039,8 @@ class PlayState extends MusicBeatState
           spaceItems = new FlxTypedGroup<PixelPerfectSprite>();
           for (i in 0...7)
           {
-            var fucksprit:PixelPerfectSprite = new PixelPerfectSprite(CoolUtil.randomLogic.float(-32, 1248), CoolUtil.randomLogic.float(-32, 688));
-            fucksprit.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(CoolUtil.randomVisuals.int(0, 10))));
+            var fucksprit:PixelPerfectSprite = new PixelPerfectSprite(RandomUtil.randomLogic.float(-32, 1248), RandomUtil.randomLogic.float(-32, 688));
+            fucksprit.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(RandomUtil.randomVisuals.int(0, 10))));
             fucksprit.antialiasing = false;
             if (ClientPrefs.shaders)
             {
@@ -1048,7 +1049,7 @@ class PlayState extends MusicBeatState
             fucksprit.ID = i;
             fucksprit.scale.set(2, 2);
             fucksprit.updateHitbox();
-            fucksprit.scrollFactor.set(CoolUtil.randomLogic.float(0.05, 0.2), CoolUtil.randomLogic.float(0.05, 0.2));
+            fucksprit.scrollFactor.set(RandomUtil.randomLogic.float(0.05, 0.2), RandomUtil.randomLogic.float(0.05, 0.2));
             spaceItems.add(fucksprit);
           }
           add(spaceItems);
@@ -2188,7 +2189,7 @@ class PlayState extends MusicBeatState
     return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
   }
 
-  public function generateStaticArrows(player:Int):Void
+  public function generateStaticArrows(player:Int, ?skin:String = 'ui/notes'):Void
   {
     for (i in 0...4)
     {
@@ -2206,7 +2207,7 @@ class PlayState extends MusicBeatState
         }
       }
 
-      var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
+      var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player, skin);
       babyArrow.downScroll = ClientPrefs.downScroll;
 
       if (!skipArrowStartTween)
@@ -2228,6 +2229,7 @@ class PlayState extends MusicBeatState
         if (ClientPrefs.middleScroll)
         {
           babyArrow.x += 310;
+
           if (i > 1)
           {
             babyArrow.x += FlxG.width / 2 + 25;
@@ -2238,6 +2240,54 @@ class PlayState extends MusicBeatState
 
       strumLineNotes.add(babyArrow);
       babyArrow.postAddedToGroup();
+    }
+  }
+
+  /**
+   * helper function for swapping noteskins
+   */
+  public function clearStaticArrows()
+  {
+    playerStrums.killMembers();
+    for (strum in playerStrums.members)
+    {
+      strum.destroy();
+    }
+    playerStrums.clear();
+
+    opponentStrums.killMembers();
+    for (strum in opponentStrums.members)
+    {
+      strum.destroy();
+    }
+    opponentStrums.clear();
+  }
+
+  /**
+   * reload all notes with a different skin
+   * @param skin the skin
+   */
+  public function reloadAllNotes(skin:String)
+  {
+    for (strum in playerStrums)
+    {
+      strum.texture = skin;
+    }
+
+    for (strum in opponentStrums)
+    {
+      strum.texture = skin;
+    }
+
+    for (note in notes)
+    {
+      note.texture = skin;
+    }
+
+    // just in case? idrk how note logic works for stuff like this this is really just a hackjob that sucks
+    for (note in unspawnNotes)
+    {
+      note.texture = skin;
     }
   }
 
@@ -2500,94 +2550,6 @@ class PlayState extends MusicBeatState
     updateIconStuff(elapsed);
 
     super.update(elapsed);
-
-    // animation -> idle transition handling! maybe it would be better in character.hx but thats neither here nor there
-
-    if (dad != null)
-    {
-      if (dad.animation.curAnim != null)
-      {
-        if (dad.hasTransitionsMap.get(dad.animation.curAnim.name))
-        {
-          if (dad.animation.curAnim.finished)
-          {
-            if (dad.animOffsets.exists('idle-alt') || dad.animOffsets.exists('danceLeft-alt') || dad.animOffsets.exists('danceRight-alt'))
-            {
-              dad.dance(SONG.notes[curSection].altAnim);
-            }
-            else
-            {
-              dad.dance();
-            }
-
-            dad.holdTimer = 0;
-
-            if (!dad.animation.curAnim.looped)
-            {
-              dad.finishAnimation();
-            }
-          }
-        }
-      }
-    }
-
-    if (boyfriend != null)
-    {
-      if (boyfriend.animation.curAnim != null)
-      {
-        if (boyfriend.hasTransitionsMap.get(boyfriend.animation.curAnim.name))
-        {
-          if (boyfriend.animation.curAnim.finished)
-          {
-            if (boyfriend.animOffsets.exists('idle-alt')
-              || boyfriend.animOffsets.exists('danceLeft-alt')
-              || boyfriend.animOffsets.exists('danceRight-alt'))
-            {
-              boyfriend.dance(SONG.notes[curSection].altAnim);
-            }
-            else
-            {
-              boyfriend.dance();
-            }
-
-            boyfriend.holdTimer = 0;
-
-            if (!boyfriend.animation.curAnim.looped)
-            {
-              boyfriend.finishAnimation();
-            }
-          }
-        }
-      }
-    }
-
-    if (gf != null)
-    {
-      if (gf.animation.curAnim != null)
-      {
-        if (gf.hasTransitionsMap.get(gf.animation.curAnim.name))
-        {
-          if (gf.animation.curAnim.finished)
-          {
-            if (gf.animOffsets.exists('idle-alt') || gf.animOffsets.exists('danceLeft-alt') || gf.animOffsets.exists('danceRight-alt'))
-            {
-              gf.dance(SONG.notes[curSection].altAnim);
-            }
-            else
-            {
-              gf.dance();
-            }
-
-            gf.holdTimer = 0;
-
-            if (!gf.animation.curAnim.looped)
-            {
-              gf.finishAnimation();
-            }
-          }
-        }
-      }
-    }
 
     if (spaceTime)
     {
@@ -3700,8 +3662,8 @@ class PlayState extends MusicBeatState
     rating.y = ratingY;
     rating.pixelPerfectDiv = 4;
     rating.acceleration.y = 550 * playbackRate;
-    rating.velocity.y -= CoolUtil.randomLogic.int(140, 175) * playbackRate;
-    rating.velocity.x -= CoolUtil.randomLogic.int(0, 10) * playbackRate;
+    rating.velocity.y -= RandomUtil.randomLogic.int(140, 175) * playbackRate;
+    rating.velocity.x -= RandomUtil.randomLogic.int(0, 10) * playbackRate;
     rating.visible = (!ClientPrefs.hideHud && showRating);
     rating.x += ClientPrefs.comboOffset[0];
     rating.y -= ClientPrefs.comboOffset[1];
@@ -3784,9 +3746,9 @@ class PlayState extends MusicBeatState
 
       numScore.setGraphicSize(Std.int(numScore.width * 0.5));
       numScore.updateHitbox();
-      numScore.acceleration.y = CoolUtil.randomLogic.int(250, 300) * playbackRate * playbackRate;
-      numScore.velocity.y -= CoolUtil.randomLogic.int(130, 150) * playbackRate;
-      numScore.velocity.x = CoolUtil.randomLogic.float(-5, 5) * playbackRate;
+      numScore.acceleration.y = RandomUtil.randomLogic.int(250, 300) * playbackRate * playbackRate;
+      numScore.velocity.y -= RandomUtil.randomLogic.int(130, 150) * playbackRate;
+      numScore.velocity.x = RandomUtil.randomLogic.float(-5, 5) * playbackRate;
       numScore.visible = !ClientPrefs.hideHud;
 
       if (showComboNum)
@@ -4081,7 +4043,7 @@ class PlayState extends MusicBeatState
 
     if (!daNote.isSustainNote)
     {
-      FlxG.sound.play(Paths.soundRandom('misses' + missSuffix + '/', 0, 2), CoolUtil.randomAudio.float(0.45, 0.65));
+      FlxG.sound.play(Paths.soundRandom('misses' + missSuffix + '/', 0, 2), RandomUtil.randomAudio.float(0.45, 0.65));
     }
 
     totalPlayed++;
@@ -4132,7 +4094,7 @@ class PlayState extends MusicBeatState
 
     recalculateRating(true);
 
-    FlxG.sound.play(Paths.soundRandom('misses' + missSuffix + '/', 0, 2), CoolUtil.randomAudio.float(0.45, 0.65));
+    FlxG.sound.play(Paths.soundRandom('misses' + missSuffix + '/', 0, 2), RandomUtil.randomAudio.float(0.45, 0.65));
 
     if (boyfriend.hasMissAnimations)
     {
@@ -4521,7 +4483,7 @@ class PlayState extends MusicBeatState
 
       if (bgColorsRandom)
       {
-        funnyBgColors.color = funnyColorsArray[CoolUtil.randomVisuals.int(0, funnyColorsArray.length - 1)];
+        funnyBgColors.color = funnyColorsArray[RandomUtil.randomVisuals.int(0, funnyColorsArray.length - 1)];
       }
 
       FlxTween.tween(funnyBgColors, {alpha: 0.5}, Conductor.crochet / 750, {ease: EaseUtil.stepped(8)});
@@ -4780,12 +4742,12 @@ class PlayState extends MusicBeatState
   **/
   public function doItemNoteShit()
   {
-    var thingToAdd:PixelPerfectSprite = new PixelPerfectSprite(CoolUtil.randomLogic.int(-32, 1312), CoolUtil.randomLogic.int(-32, 688));
-    thingToAdd.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(CoolUtil.randomVisuals.int(0, 10))));
-    var theeeeeeeeeeeeeee:Int = CoolUtil.randomLogic.int(4, 8);
+    var thingToAdd:PixelPerfectSprite = new PixelPerfectSprite(RandomUtil.randomLogic.int(-32, 1312), RandomUtil.randomLogic.int(-32, 688));
+    thingToAdd.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(RandomUtil.randomVisuals.int(0, 10))));
+    var theeeeeeeeeeeeeee:Int = RandomUtil.randomLogic.int(4, 8);
     thingToAdd.scale.set(theeeeeeeeeeeeeee, theeeeeeeeeeeeeee);
     thingToAdd.updateHitbox();
-    thingToAdd.angle = CoolUtil.randomLogic.float(-180, 180);
+    thingToAdd.angle = RandomUtil.randomLogic.float(-180, 180);
     thingToAdd.antialiasing = false;
     if (ClientPrefs.shaders)
     {

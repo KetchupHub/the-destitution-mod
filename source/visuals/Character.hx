@@ -300,10 +300,36 @@ class Character extends PixelPerfectSprite
       return;
     }
 
-    if (getAnimationName().endsWith('miss') && isAnimationFinished())
+    // ANIMATION TRANSITION HANDLING
+    if (!debugMode)
     {
-      dance();
-      finishAnimation();
+      if (animation.curAnim != null)
+      {
+        if (hasTransitionsMap.get(animation.curAnim.name))
+        {
+          if (animation.curAnim.finished)
+          {
+            if (animOffsets.exists('idle-alt') || animOffsets.exists('danceLeft-alt') || animOffsets.exists('danceRight-alt'))
+            {
+              if (PlayState.instance != null)
+              {
+                dance(PlayState.SONG.notes[PlayState.instance.curSection].altAnim);
+              }
+            }
+            else
+            {
+              dance();
+            }
+
+            holdTimer = 0;
+
+            if (!animation.curAnim.looped)
+            {
+              finishAnimation();
+            }
+          }
+        }
+      }
     }
 
     if (getAnimationName().startsWith('sing'))

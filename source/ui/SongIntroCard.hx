@@ -3,7 +3,6 @@ package ui;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
 import states.PlayState;
-import flixel.FlxSprite;
 import backend.ClientPrefs;
 import flixel.util.FlxColor;
 import backend.Conductor;

@@ -8,7 +8,6 @@ import backend.Discord.DiscordClient;
 #end
 import flixel.addons.transition.FlxTransitionableState;
 import util.CoolUtil;
-import util.MemoryUtil;
 import backend.Conductor;
 import backend.ClientPrefs;
 import ui.MarkHeadTransition;
@@ -68,11 +67,6 @@ class NoteOffsetState extends MusicBeatState
 
     FlxG.cameras.setDefaultDrawTarget(camGame, true);
     MarkHeadTransition.nextCamera = camOther;
-
-    CoolUtil.rerollRandomness();
-
-    MemoryUtil.collect(true);
-    MemoryUtil.compact();
 
     persistentUpdate = true;
     FlxG.sound.pause();

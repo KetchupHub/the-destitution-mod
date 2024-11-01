@@ -1,5 +1,6 @@
 package states;
 
+import util.RandomUtil;
 import backend.TextAndLanguage;
 import ui.TransitionScreenshotObject;
 import visuals.PixelPerfectSprite;
@@ -67,7 +68,7 @@ class LoadingScreenState extends MusicBeatState
     #end
 
     #if !SHOWCASEVIDEO
-    gotSportsEvent = CoolUtil.randomVisuals.bool(#if FORCESPORTSEVENT 100 #else 0.1 #end);
+    gotSportsEvent = RandomUtil.randomVisuals.bool(#if FORCESPORTSEVENT 100 #else 0.1 #end);
     #end
 
     loadedBar = new FlxBar(74, 199, FlxBarFillDirection.TOP_TO_BOTTOM, 370, 247, this, "loaded", 0, 2, false);
@@ -103,7 +104,7 @@ class LoadingScreenState extends MusicBeatState
     var marksSuffix:String = "";
 
     #if !SHOWCASEVIDEO
-    if (CoolUtil.randomVisuals.bool(3.125))
+    if (RandomUtil.randomVisuals.bool(3.125))
     {
       marksSuffix = "_secret";
     }

@@ -17,7 +17,7 @@ class WaveformData
   public var channels(default, null):Int = 1;
 
   @:alias('sample_rate')
-  public var sampleRate(default, null):Int = 44100;
+  public var sampleRate(default, null):Int = 48000;
 
   /**
    * Number of input audio samples per output waveform data point.

@@ -1,10 +1,7 @@
 package ui;
 
-import util.CoolUtil;
-import backend.ClientPrefs;
+import util.RandomUtil;
 import states.PlayState;
-import flixel.FlxG;
-import flixel.FlxSprite;
 import visuals.PixelPerfectSprite;
 import shaders.ColorSwap;
 
@@ -65,12 +62,12 @@ class NoteSplash extends PixelPerfectSprite
     colorSwap.brightness = brtColor;
     offset.set(8, 8);
 
-    var animNum:Int = CoolUtil.randomVisuals.int(0, 1);
+    var animNum:Int = RandomUtil.randomVisuals.int(0, 1);
     animation.play(Std.string(animNum), true);
 
     if (animation.curAnim != null)
     {
-      animation.curAnim.frameRate = 24 + CoolUtil.randomVisuals.int(-2, 2);
+      animation.curAnim.frameRate = 24 + RandomUtil.randomVisuals.int(-2, 2);
     }
   }
 

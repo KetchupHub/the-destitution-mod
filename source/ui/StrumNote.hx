@@ -2,10 +2,8 @@ package ui;
 
 import visuals.PixelPerfectSprite;
 import flixel.FlxG;
-import flixel.FlxSprite;
 import shaders.ColorSwap;
 import backend.ClientPrefs;
-import states.PlayState;
 
 class StrumNote extends PixelPerfectSprite
 {
@@ -31,7 +29,7 @@ class StrumNote extends PixelPerfectSprite
     return value;
   }
 
-  public function new(x:Float, y:Float, leData:Int, player:Int)
+  public function new(x:Float, y:Float, leData:Int, player:Int, skin:String = 'ui/notes')
   {
     colorSwap = new ColorSwap();
     shader = colorSwap.shader;
@@ -42,13 +40,6 @@ class StrumNote extends PixelPerfectSprite
     this.noteData = leData;
 
     super(x, y);
-
-    var skin:String = 'ui/notes';
-
-    if (PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1)
-    {
-      skin = PlayState.SONG.arrowSkin;
-    }
 
     texture = skin;
 

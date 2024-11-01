@@ -1,48 +1,48 @@
 {
   "animations": [
     {
-      "loop": false,
       "offsets": [234, 0],
-      "fps": 24,
+      "loop": false,
       "anim": "singLEFT",
-      "indices": [],
+      "fps": 24,
+      "name": "left",
       "hasTransition": true,
-      "name": "left"
+      "indices": []
     },
     {
-      "loop": false,
       "offsets": [14, 0],
-      "fps": 24,
+      "loop": false,
       "anim": "singDOWN",
-      "indices": [],
+      "fps": 24,
+      "name": "down",
       "hasTransition": true,
-      "name": "down"
+      "indices": []
     },
     {
-      "loop": false,
       "offsets": [46, 96],
-      "fps": 24,
+      "loop": false,
       "anim": "singUP",
-      "indices": [],
-      "name": "up",
-      "hasTransition": true
-    },
-    {
-      "loop": false,
-      "offsets": [-6, 0],
       "fps": 24,
-      "anim": "singRIGHT",
-      "indices": [],
       "hasTransition": true,
-      "name": "right"
+      "name": "up",
+      "indices": []
     },
     {
+      "offsets": [-6, 0],
       "loop": false,
-      "offsets": [0, 0],
+      "anim": "singRIGHT",
       "fps": 24,
+      "name": "right",
+      "hasTransition": true,
+      "indices": []
+    },
+    {
+      "offsets": [0, 0],
+      "loop": false,
       "anim": "idle",
-      "indices": [],
-      "name": "idle"
+      "fps": 24,
+      "name": "idle",
+      "indices": []
     }
   ],
   "animator": null,
@@ -55,7 +55,7 @@
   "flip_x": false,
   "healthbar_colors": [204, 138, 68],
   "aaAtlas": false,
-  "camera_position": [-500, -50],
+  "camera_position": [-470, -20],
   "sing_duration": 15,
   "scale": 1,
   "_editor_isPlayer": null

@@ -26,14 +26,9 @@ class Boyfriend extends Character
         holdTimer = 0;
       }
 
-      if (animation.curAnim.name.endsWith('miss') && animation.curAnim.finished && !debugMode)
-      {
-        playAnim('idle', true, false, 10);
-      }
-
       if (animation.curAnim.name == 'firstDeath' && animation.curAnim.finished && startedDeath)
       {
-        playAnim('deathLoop');
+        playAnim('deathLoop', true);
       }
     }
 

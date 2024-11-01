@@ -1,5 +1,6 @@
 package states;
 
+import util.RandomUtil;
 import ui.TransitionScreenshotObject;
 import util.EaseUtil;
 import visuals.PixelPerfectSprite;
@@ -31,32 +32,32 @@ class TitleState extends MusicBeatState
 
   public var sickBeats:Int = 0;
 
-  public var blackScreen:PixelPerfectSprite;
+  private var screenCover:PixelPerfectSprite;
 
-  public var credGroup:FlxGroup;
-  public var credTextShit:Alphabet;
-  public var textGroup:FlxTypedGroup<Alphabet>;
+  private var credGroup:FlxGroup;
+  private var credTextShit:Alphabet;
+  private var textGroup:FlxTypedGroup<Alphabet>;
 
-  public var exitButton:PixelPerfectSprite;
-  public var playButton:PixelPerfectSprite;
+  private var exitButton:PixelPerfectSprite;
+  private var playButton:PixelPerfectSprite;
 
-  public var charec:String = 'mark';
+  private var charec:String = 'mark';
 
-  public var curWacky:Array<String> = [];
+  private var curWacky:Array<String> = [];
 
-  public var tppLogo:PixelPerfectSprite;
+  private var tppLogo:PixelPerfectSprite;
 
-  public var skippedIntro:Bool = false;
+  private var skippedIntro:Bool = false;
 
-  public var logo:PixelPerfectSprite;
+  private var logo:PixelPerfectSprite;
 
-  public var titleCharacter:PixelPerfectSprite;
+  private var titleCharacter:PixelPerfectSprite;
 
-  public var swagShader:ColorSwap = null;
+  private var swagShader:ColorSwap = null;
 
-  public var closeSequenceStarted:Bool = false;
+  private var closeSequenceStarted:Bool = false;
 
-  public var quitDoingIntroShit:Bool = false;
+  private var quitDoingIntroShit:Bool = false;
 
   public static var closedState:Bool = false;
 
@@ -69,7 +70,7 @@ class TitleState extends MusicBeatState
     persistentUpdate = true;
     persistentDraw = true;
 
-    curWacky = CoolUtil.randomLogic.getObject(getIntroTextShit());
+    curWacky = RandomUtil.randomLogic.getObject(getIntroTextShit());
 
     swagShader = new ColorSwap();
 
@@ -85,27 +86,10 @@ class TitleState extends MusicBeatState
       Conductor.changeBPM(150);
     }
 
-    CoolUtil.rerollRandomness();
+    RandomUtil.rerollRandomness();
 
-    var arrey:Array<String> = ['bf', 'crypteh', 'ili', 'karm', 'mark', 'ploinky', 'rulez', 'whale'];
-    if (CoolUtil.randomLogic.bool(10))
-    {
-      arrey = ['blocken', 'plant'];
-    }
-    var holidayChar = CoolUtil.getHolidayCharacter();
-    if (holidayChar != null)
-    {
-      arrey = [holidayChar];
-    }
-    charec = arrey[CoolUtil.randomVisuals.int(0, arrey.length - 1)];
-    if (Paths.image('title/char/$charec', null, true) == null)
-    {
-      charec = 'mark';
-    }
-    #if SHOWCASEVIDEO
-    // force set to mark for showcase video, cuz i want it to be as non random as possible.
-    charec = 'mark';
-    #end
+    charec = getTitleCharacter();
+
     titleCharacter = new PixelPerfectSprite(0, 0).loadGraphic(Paths.image('title/char/$charec'), true, 320, 360);
     titleCharacter.animation.add(charec, [0, 1], 0, false);
     titleCharacter.animation.play(charec, true);
@@ -149,8 +133,8 @@ class TitleState extends MusicBeatState
 
     textGroup = new FlxTypedGroup<Alphabet>();
 
-    blackScreen = new PixelPerfectSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
-    credGroup.add(blackScreen);
+    screenCover = new PixelPerfectSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+    credGroup.add(screenCover);
 
     credTextShit = new Alphabet(0, 20, "", true);
     credTextShit.screenCenter();
@@ -458,7 +442,7 @@ class TitleState extends MusicBeatState
     }
   }
 
-  public function skipIntro(skipFade:Bool = false):Void
+  function skipIntro(skipFade:Bool = false):Void
   {
     CoolUtil.hasInitializedWindow = true;
 
@@ -479,7 +463,7 @@ class TitleState extends MusicBeatState
           FlxTween.tween(cool, {alpha: 0}, 0.1, {startDelay: 0.2 * cool.ID, ease: EaseUtil.stepped(4)});
         }
 
-        FlxTween.tween(blackScreen, {alpha: 0}, 0.75,
+        FlxTween.tween(screenCover, {alpha: 0}, 0.75,
           {
             ease: EaseUtil.stepped(4),
             onComplete: function die(fuuuck:FlxTween)
@@ -491,5 +475,94 @@ class TitleState extends MusicBeatState
 
       skippedIntro = true;
     }
+  }
+
+  /**
+   * seperate function for cleanliness
+   * @return the character name
+   */
+  function getTitleCharacter():String
+  {
+    var arrey:Array<String> = ['bf', 'crypteh', 'ili', 'karm', 'mark', 'ploinky', 'rulez', 'whale'];
+    var char:String = 'mark';
+
+    // the rare chance characters
+    if (RandomUtil.randomVisuals.bool(5))
+    {
+      arrey = ['blocken', 'plant'];
+    }
+
+    if (getHolidayCharacter() != null)
+    {
+      arrey = [getHolidayCharacter()];
+    }
+
+    char = arrey[RandomUtil.randomVisuals.int(0, arrey.length - 1)];
+
+    if (Paths.image('title/char/$char', null, true) == null)
+    {
+      char = 'mark';
+    }
+
+    #if SHOWCASEVIDEO
+    // force set to mark for showcase video, cuz i want it to be as non random as possible.
+    char = 'mark';
+    #end
+
+    return char;
+  }
+
+  function getHolidayCharacter():String
+  {
+    var dayLol = Date.now();
+
+    if (dayLol.getMonth() == 11 && (dayLol.getDate() == 24 || dayLol.getDate() == 25))
+    {
+      return 'christmas';
+    }
+
+    if ((dayLol.getMonth() == 0 && dayLol.getDate() == 31) || (dayLol.getMonth() == 0 && dayLol.getDate() == 1))
+    {
+      return 'newyear';
+    }
+
+    if ((dayLol.getMonth() == 2 && dayLol.getDate() == 17))
+    {
+      return 'patricks';
+    }
+
+    if ((dayLol.getMonth() == 1 && dayLol.getDate() == 14))
+    {
+      return 'valentines';
+    }
+
+    if ((dayLol.getMonth() == 6 && dayLol.getDate() == 4))
+    {
+      return 'july';
+    }
+
+    if ((dayLol.getMonth() == 9 && dayLol.getDate() == 31))
+    {
+      return 'halloween';
+    }
+
+    // literally every possible easter lmao
+    if ((dayLol.getMonth() == 3 && (dayLol.getDate() == 20 || dayLol.getDate() == 13 || dayLol.getDate() == 6))
+      || (dayLol.getMonth() == 2 && (dayLol.getDate() == 31 || dayLol.getDate() == 24)))
+    {
+      return 'easter';
+    }
+
+    // same for thanksgiving
+    // fuck dynamic holidays
+    if ((dayLol.getMonth() == 10
+      && dayLol.getDay() == 4
+      && (dayLol.getDate() == 22 || dayLol.getDate() == 23 || dayLol.getDate() == 24 || dayLol.getDate() == 25 || dayLol.getDate() == 26
+        || dayLol.getDate() == 27 || dayLol.getDate() == 28)))
+    {
+      return 'thanks';
+    }
+
+    return null;
   }
 }

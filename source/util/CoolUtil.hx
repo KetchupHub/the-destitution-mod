@@ -2,7 +2,6 @@ package util;
 
 import sys.thread.Thread;
 import openfl.display.Bitmap;
-import flixel.math.FlxRandom;
 import util.macro.GitCommit;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
@@ -29,33 +28,9 @@ class CoolUtil
 
   public static var hasInitializedWindow:Bool = false;
 
-  // using the same FlxRandom for everything can cause a lot of predictability so im not doing that anymore
-
-  /**
-   * Use for VISUALS, as in the ACTUAL ASSETS THEMSELVES, and ANIMATIONS! not POSITIONING! use the logic one for that
-   */
-  public static var randomVisuals:FlxRandom = new FlxRandom();
-
-  /**
-   * Use for AUDIO, and VOLUMES, and such
-   */
-  public static var randomAudio:FlxRandom = new FlxRandom();
-
-  /**
-   * Use for CODE STUFF, BACKEND STUFF, SECRETS, MOST RPG THINGS
-   */
-  public static var randomLogic:FlxRandom = new FlxRandom();
-
-  public static function rerollRandomness()
-  {
-    randomVisuals.resetInitialSeed();
-    randomAudio.resetInitialSeed();
-    randomLogic.resetInitialSeed();
-  }
-
   public static function newStateMemStuff(?doMem:Bool = true)
   {
-    Thread.create(CoolUtil.rerollRandomness);
+    Thread.create(RandomUtil.rerollRandomness);
 
     if (doMem)
     {
@@ -71,60 +46,6 @@ class CoolUtil
   {
     var m:Float = Math.fround(f * snap);
     return (m / snap);
-  }
-
-  public static function getHolidayCharacter():String
-  {
-    var dayLol = Date.now();
-
-    if (dayLol.getMonth() == 11 && (dayLol.getDate() == 24 || dayLol.getDate() == 25))
-    {
-      return 'christmas';
-    }
-
-    if ((dayLol.getMonth() == 0 && dayLol.getDate() == 31) || (dayLol.getMonth() == 0 && dayLol.getDate() == 1))
-    {
-      return 'newyear';
-    }
-
-    if ((dayLol.getMonth() == 2 && dayLol.getDate() == 17))
-    {
-      return 'patricks';
-    }
-
-    if ((dayLol.getMonth() == 1 && dayLol.getDate() == 14))
-    {
-      return 'valentines';
-    }
-
-    if ((dayLol.getMonth() == 6 && dayLol.getDate() == 4))
-    {
-      return 'july';
-    }
-
-    if ((dayLol.getMonth() == 9 && dayLol.getDate() == 31))
-    {
-      return 'halloween';
-    }
-
-    // literally every possible easter lmao
-    if ((dayLol.getMonth() == 3 && (dayLol.getDate() == 20 || dayLol.getDate() == 13 || dayLol.getDate() == 6))
-      || (dayLol.getMonth() == 2 && (dayLol.getDate() == 31 || dayLol.getDate() == 24)))
-    {
-      return 'easter';
-    }
-
-    // same for thanksgiving
-    // fuck dynamic holidays
-    if ((dayLol.getMonth() == 10
-      && dayLol.getDay() == 4
-      && (dayLol.getDate() == 22 || dayLol.getDate() == 23 || dayLol.getDate() == 24 || dayLol.getDate() == 25 || dayLol.getDate() == 26
-        || dayLol.getDate() == 27 || dayLol.getDate() == 28)))
-    {
-      return 'thanks';
-    }
-
-    return null;
   }
 
   inline public static function boundTo(value:Float, min:Float, max:Float):Float

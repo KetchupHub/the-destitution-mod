@@ -1,8 +1,8 @@
 package songs;
 
+import util.RandomUtil;
 import backend.TextAndLanguage;
 import util.EaseUtil;
-import util.CoolUtil;
 import backend.ClientPrefs;
 import visuals.Boyfriend;
 import visuals.Character;
@@ -242,7 +242,7 @@ class DStitution extends SongClass
         {
           PlayState.instance.karmScaredy.visible = true;
 
-          FlxG.sound.play(Paths.sound('dsides/karmFlees'), 0.95, false).pan = CoolUtil.randomAudio.float(-0.55, -0.45);
+          FlxG.sound.play(Paths.sound('dsides/karmFlees'), 0.95, false).pan = RandomUtil.randomAudio.float(-0.55, -0.45);
         }
 
         FlxG.camera.flash();
@@ -401,15 +401,17 @@ class DStitution extends SongClass
         Paths.clearUnusedMemory();
       case 2240:
         FlxG.camera.flash();
+        
+        PlayState.instance.reloadAllNotes('ui/notes_rulez');
 
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
-        PlayState.instance.dad = new Character(412, 32, 'd-rules', false, false);
+        PlayState.instance.dad = new Character(716, 32, 'd-rules', false, false);
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
-        PlayState.instance.boyfriend = new Boyfriend(-164, 16, 'd-bf-rules', false);
+        PlayState.instance.boyfriend = new Boyfriend(-256, 64, 'd-bf-rules', false);
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
         PlayState.instance.sky.loadGraphic(Paths.image('dsides/skyworldSky'));
@@ -439,9 +441,11 @@ class DStitution extends SongClass
       case 2672:
         FlxG.camera.flash();
 
+        PlayState.instance.reloadAllNotes('ui/notes');
+
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
-        PlayState.instance.dad = new Character(PlayState.instance.boyfriend.x - 412, -48, 'maestro', false, false);
+        PlayState.instance.dad = new Character(PlayState.instance.boyfriend.x - 412, -32, 'maestro', false, false);
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);

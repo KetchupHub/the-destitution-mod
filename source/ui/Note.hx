@@ -1,12 +1,15 @@
 package ui;
 
+import util.RandomUtil;
 import visuals.PixelPerfectSprite;
-import util.CoolUtil;
 import backend.Conductor;
 import states.PlayState;
 import backend.ClientPrefs;
-import editors.ChartingState;
 import shaders.ColorSwap;
+
+#if DEVELOPERBUILD
+import editors.ChartingState;
+#end
 
 typedef EventNote =
 {
@@ -115,10 +118,15 @@ class Note extends PixelPerfectSprite
   {
     if (texture != value)
     {
-      reloadNote('', value);
-    }
+      switch (noteType.toLowerCase())
+      {
+        case 'item note' | 'rulez note' | 'honk note' | 'something something wah wah idk':
+          return texture;
+      }
 
-    texture = value;
+      reloadNote('', value);
+      texture = value;
+    }
 
     return value;
   }
@@ -155,7 +163,7 @@ class Note extends PixelPerfectSprite
           colorSwap.brightness = 0;
           colorSwap.saturation = 0;
 
-          var noteNum:Int = CoolUtil.randomVisuals.int(0, 10);
+          var noteNum:Int = RandomUtil.randomVisuals.int(0, 10);
           animation.reset();
           loadGraphic(Paths.image('destitution/itemShit/$noteNum'));
           setGraphicSize(105, 105);
@@ -179,6 +187,7 @@ class Note extends PixelPerfectSprite
     noteSplashHue = colorSwap.hue;
     noteSplashSat = colorSwap.saturation;
     noteSplashBrt = colorSwap.brightness;
+
     return value;
   }
 
@@ -332,11 +341,13 @@ class Note extends PixelPerfectSprite
       animation.play(animName, true);
     }
 
+    #if DEVELOPERBUILD
     if (inEditor)
     {
       setGraphicSize(ChartingState.GRID_SIZE, ChartingState.GRID_SIZE);
       updateHitbox();
     }
+    #end
   }
 
   public function loadNoteAnims()

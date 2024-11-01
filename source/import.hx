@@ -1,15 +1,14 @@
 import Paths;
 
 #if !macro
-using Lambda;
-using StringTools;
-using thx.Arrays;
-
 #if DEVELOPERBUILD
 import util.Perf;
 #end
 
-using util.MemoryUtil;
+using Lambda;
+using StringTools;
+using thx.Arrays;
+
 using util.tools.ArraySortTools;
 using util.tools.ArrayTools;
 using util.tools.FloatTools;

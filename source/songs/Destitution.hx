@@ -741,22 +741,14 @@ class Destitution extends SongClass
 
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
-        PlayState.instance.dad = new Character(640 - PlayState.instance.dadGroup.x, -64 - PlayState.instance.dadGroup.y, 'ili-devil', false, false);
+        PlayState.instance.dad = new Character(564 - PlayState.instance.dadGroup.x, 64 - PlayState.instance.dadGroup.y, 'ili-devil', false, false);
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
-
-        PlayState.instance.dad.screenCenter();
-        PlayState.instance.dad.x += 156;
-        PlayState.instance.dad.y -= 64;
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
-        PlayState.instance.boyfriend = new Boyfriend(128 - PlayState.instance.boyfriendGroup.x, 84 - PlayState.instance.boyfriendGroup.y, 'bf-mark-lurking',
+        PlayState.instance.boyfriend = new Boyfriend(264 - PlayState.instance.boyfriendGroup.x, 114 - PlayState.instance.boyfriendGroup.y, 'bf-mark-lurking',
           false);
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
-
-        PlayState.instance.boyfriend.screenCenter();
-        PlayState.instance.boyfriend.x -= 256;
-        PlayState.instance.boyfriend.y += 64;
 
         FlxG.camera.flash(FlxColor.RED, 3);
 
@@ -1118,6 +1110,8 @@ class Destitution extends SongClass
         PlayState.instance.annoyed.visible = false;
         PlayState.instance.annoyed.destroy();
 
+        PlayState.instance.reloadAllNotes('ui/notes_rulez');
+
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(74, 114, 'rulez', false, false);
@@ -1153,6 +1147,8 @@ class Destitution extends SongClass
         PlayState.instance.office.animation.play("idle", true);
       case 2564:
         PlayState.instance.cuttingSceneThing.visible = false;
+
+        PlayState.instance.reloadAllNotes('ui/notes');
 
         PlayState.instance.defaultCamZoom = 0.875 - 0.25;
         FlxG.camera.flash();
@@ -1210,8 +1206,8 @@ class Destitution extends SongClass
         PlayState.instance.dad = new Character(0, 0, 'zam', false, false);
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
         PlayState.instance.dad.screenCenter();
-        PlayState.instance.dad.x += 100;
-        PlayState.instance.dad.y += 356;
+        PlayState.instance.dad.x += 164;
+        PlayState.instance.dad.y += 372;
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend = new Boyfriend(120, 70, 'bf-mark-back', false);
@@ -1242,11 +1238,10 @@ class Destitution extends SongClass
         PlayState.instance.sectionIntroThing("Guy with a Zamboni");
 
         Paths.clearUnusedMemory();
-
-        zamboniPositionsArchive = [PlayState.instance.dad.x, PlayState.instance.dad.y];
-        bfPositionsArchive = [PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y];
       case 3136 | 3336:
         // pixels mode activate
+
+        PlayState.instance.reloadAllNotes('ui/notes_zam');
 
         FlxG.camera.flash();
 
@@ -1254,16 +1249,16 @@ class Destitution extends SongClass
 
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
-        PlayState.instance.dad = new Character(128 - PlayState.instance.dadGroup.x, 294 - PlayState.instance.dadGroup.y, 'zam-ridin', false, false);
-        PlayState.instance.dad.y = ((PlayState.instance.zamboniChaseBg.y + PlayState.instance.zamboniChaseBg.height) - PlayState.instance.dad.height) - 32;
+        PlayState.instance.dad = new Character(384 - PlayState.instance.dadGroup.x, 294 - PlayState.instance.dadGroup.y, 'zam-ridin', false, false);
+        PlayState.instance.dad.y = ((PlayState.instance.zamboniChaseBg.y + PlayState.instance.zamboniChaseBg.height) - PlayState.instance.dad.height) - 128;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
-        PlayState.instance.boyfriend = new Boyfriend(428 - PlayState.instance.boyfriendGroup.x, 316 - PlayState.instance.boyfriendGroup.y, 'bf-mark-ridin',
+        PlayState.instance.boyfriend = new Boyfriend(684 - PlayState.instance.boyfriendGroup.x, 316 - PlayState.instance.boyfriendGroup.y, 'bf-mark-ridin',
           false);
         PlayState.instance.boyfriend.y = ((PlayState.instance.zamboniChaseBg.y + PlayState.instance.zamboniChaseBg.height)
           - PlayState.instance.boyfriend.height)
-          - 32;
+          - 156;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.alpha = 1;
 
@@ -1274,6 +1269,8 @@ class Destitution extends SongClass
       case 3264 | 3468:
         // swap back to normal zamboniness
 
+        PlayState.instance.reloadAllNotes('ui/notes');
+
         PlayState.instance.zamboniChaseBg.visible = false;
 
         FlxG.camera.flash();
@@ -1283,8 +1280,8 @@ class Destitution extends SongClass
         PlayState.instance.dad = new Character(0, 0, 'zam', false, false);
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
         PlayState.instance.dad.screenCenter();
-        PlayState.instance.dad.x += 100;
-        PlayState.instance.dad.y += 356;
+        PlayState.instance.dad.x += 164;
+        PlayState.instance.dad.y += 372;
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend = new Boyfriend(120, 70, 'bf-mark-back', false);
@@ -1377,8 +1374,4 @@ class Destitution extends SongClass
         PlayState.instance.addSubtitleObj("Say goodbye!", (Conductor.crochet / 1000) * 4, SubtitleTypes.NORMAL);
     }
   }
-
-  // stupid
-  public var zamboniPositionsArchive:Array<Float>;
-  public var bfPositionsArchive:Array<Float>;
 }
