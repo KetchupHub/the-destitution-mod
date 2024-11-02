@@ -1,5 +1,9 @@
 package states;
 
+#if desktop
+import backend.Discord.DiscordClient;
+#end
+
 import util.RandomUtil;
 import ui.TransitionScreenshotObject;
 import util.EaseUtil;
@@ -29,8 +33,6 @@ class TitleState extends MusicBeatState
   public static var initialized:Bool = false;
 
   public var transitioning:Bool = false;
-
-  public var sickBeats:Int = 0;
 
   private var screenCover:PixelPerfectSprite;
 
@@ -70,11 +72,13 @@ class TitleState extends MusicBeatState
     persistentUpdate = true;
     persistentDraw = true;
 
-    curWacky = RandomUtil.randomLogic.getObject(getIntroTextShit());
-
-    swagShader = new ColorSwap();
+    #if desktop
+    DiscordClient.changePresence("On the Title Screen", null, null, '-menus');
+    #end
 
     FlxG.mouse.visible = true;
+
+    curWacky = RandomUtil.randomLogic.getObject(getIntroTextShit());
 
     var bg:FlxSprite = new FlxSprite();
     bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
@@ -82,11 +86,13 @@ class TitleState extends MusicBeatState
 
     if (FlxG.sound.music == null)
     {
-      FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0);
-      Conductor.changeBPM(150);
+      FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0.7);
+      Conductor.changeBPM(110);
     }
 
     RandomUtil.rerollRandomness();
+
+    swagShader = new ColorSwap();
 
     charec = getTitleCharacter();
 
@@ -386,57 +392,49 @@ class TitleState extends MusicBeatState
   {
     super.beatHit();
 
-    if (curBeat % 2 == 0)
+    if (logo != null)
     {
-      if (logo != null)
-      {
-        logo.animation.play('bump', true);
-      }
+      logo.animation.play('bump', true);
+    }
 
-      if (titleCharacter != null)
+    if (titleCharacter != null)
+    {
+      if (titleCharacter.animation.curAnim != null)
       {
-        if (titleCharacter.animation.curAnim != null)
+        if (titleCharacter.animation.curAnim.curFrame == 0)
         {
-          if (titleCharacter.animation.curAnim.curFrame == 0)
-          {
-            titleCharacter.animation.curAnim.curFrame = 1;
-          }
-          else
-          {
-            titleCharacter.animation.curAnim.curFrame = 0;
-          }
+          titleCharacter.animation.curAnim.curFrame = 1;
+        }
+        else
+        {
+          titleCharacter.animation.curAnim.curFrame = 0;
         }
       }
     }
 
     if (!closedState && !quitDoingIntroShit)
     {
-      sickBeats++;
-
-      switch (sickBeats)
+      switch (curBeat)
       {
-        case 1:
-          FlxG.sound.playMusic(Paths.music('mus_pauperized'));
-        case 5:
+        case 2:
           tppLogo.visible = true;
-        case 9:
+        case 3:
           createCoolText(['...present'], tppLogo.height);
-        case 12:
+        case 4:
           tppLogo.visible = false;
           deleteCoolText();
-        case 13:
           createCoolText([curWacky[0]]);
-        case 17:
+        case 6:
           addMoreText(curWacky[1]);
-        case 20:
+        case 7:
           deleteCoolText();
-        case 21:
+        case 8:
           addMoreText('The');
-        case 25:
+        case 10:
           addMoreText('Destitution');
-        case 29:
+        case 12:
           addMoreText('Mod');
-        case 33:
+        case 15:
           skipIntro();
       }
     }
@@ -460,10 +458,10 @@ class TitleState extends MusicBeatState
       {
         for (cool in textGroup)
         {
-          FlxTween.tween(cool, {alpha: 0}, 0.1, {startDelay: 0.2 * cool.ID, ease: EaseUtil.stepped(4)});
+          FlxTween.tween(cool, {alpha: 0}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(4)});
         }
 
-        FlxTween.tween(screenCover, {alpha: 0}, 0.75,
+        FlxTween.tween(screenCover, {alpha: 0}, Conductor.crochet / 1000,
           {
             ease: EaseUtil.stepped(4),
             onComplete: function die(fuuuck:FlxTween)
@@ -564,5 +562,21 @@ class TitleState extends MusicBeatState
     }
 
     return null;
+  }
+
+  override public function onFocusLost():Void
+  {
+    if (FlxG.sound.music != null)
+    {
+      FlxG.sound.music.pause();
+    }
+  }
+
+  override public function onFocus():Void
+  {
+    if (FlxG.sound.music != null)
+    {
+      FlxG.sound.music.resume();
+    }
   }
 }

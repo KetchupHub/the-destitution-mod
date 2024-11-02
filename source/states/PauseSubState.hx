@@ -306,7 +306,7 @@ class PauseSubState extends MusicBeatSubstate
 
           FlxG.sound.playMusic(Paths.music('mus_pauperized'));
           Conductor.songPosition = 0;
-          Conductor.changeBPM(150);
+          Conductor.changeBPM(110);
 
           #if DEVELOPERBUILD
           PlayState.chartingMode = false;

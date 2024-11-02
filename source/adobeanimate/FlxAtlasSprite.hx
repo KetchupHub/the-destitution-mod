@@ -18,14 +18,11 @@ class FlxAtlasSprite extends FlxAnimate
 {
   static final SETTINGS:Settings =
     {
-      // ?ButtonSettings:Map<String, flxanimate.animate.FlxAnim.ButtonSettings>,
       FrameRate: 24.0,
       Reversed: false,
-      // ?OnComplete:Void -> Void,
       ShowPivot: false,
       Antialiasing: false,
       ScrollFactor: null,
-      // Offset: new FlxPoint(0, 0), // This is just FlxSprite.offset
     };
 
   /**

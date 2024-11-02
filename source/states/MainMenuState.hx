@@ -1,5 +1,13 @@
 package states;
 
+#if desktop
+import backend.Discord.DiscordClient;
+#end
+
+#if DEVELOPERBUILD
+import editors.MasterEditorMenu;
+#end
+
 import backend.PlayablesData.Playables;
 import ui.TransitionScreenshotObject;
 import states.ResultsState.ResultRanks;
@@ -21,12 +29,6 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.input.keyboard.FlxKey;
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-#if DEVELOPERBUILD
-import editors.MasterEditorMenu;
-#end
 
 class MainMenuState extends MusicBeatState
 {
@@ -38,6 +40,7 @@ class MainMenuState extends MusicBeatState
   public static var curSelected:Int = 0;
 
   private var menuItems:FlxTypedGroup<MainMenuButton>;
+
   public var camGame:FlxCamera;
 
   private var optionShit:Array<String> = ['story_mode', 'freeplay', 'lottery', 'options'];
@@ -71,8 +74,8 @@ class MainMenuState extends MusicBeatState
 
     if (FlxG.sound.music == null)
     {
-      FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0);
-      Conductor.changeBPM(150);
+      FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0.7);
+      Conductor.changeBPM(110);
     }
 
     camGame = new FlxCamera();
@@ -283,10 +286,11 @@ class MainMenuState extends MusicBeatState
           if (curSelected != spr.ID)
           {
             FlxTween.completeTweensOf(spr);
+
             spr.alpha = 1;
+
             FlxTween.tween(spr, {x: -600, alpha: 0}, 0.3,
               {
-                startDelay: 0.1 * spr.ID,
                 ease: EaseUtil.stepped(8),
                 onComplete: function(twn:FlxTween) {
                   spr.kill();

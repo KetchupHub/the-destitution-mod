@@ -1,5 +1,22 @@
 package states;
 
+#if desktop
+import backend.Discord.DiscordClient;
+#end
+
+#if sys
+import sys.FileSystem;
+#end
+
+#if VIDEOS_ALLOWED
+import VideoCutscene;
+#end
+
+#if DEVELOPERBUILD
+import editors.ChartingState;
+import editors.CharacterEditorState;
+#end
+
 import util.RandomUtil;
 import visuals.PixelPerfectBackdrop;
 import backend.TextAndLanguage;
@@ -61,19 +78,6 @@ import ui.StrumNote;
 import ui.NoteSplash;
 import ui.HealthIcon;
 import songs.*;
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-#if sys
-import sys.FileSystem;
-#end
-#if VIDEOS_ALLOWED
-import VideoCutscene;
-#end
-#if DEVELOPERBUILD
-import editors.ChartingState;
-import editors.CharacterEditorState;
-#end
 
 class PlayState extends MusicBeatState
 {

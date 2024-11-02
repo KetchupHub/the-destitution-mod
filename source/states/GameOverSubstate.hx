@@ -7,7 +7,6 @@ import flixel.FlxSprite;
 import backend.ClientPrefs;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.sound.FlxSound;
-import util.MemoryUtil;
 import backend.Conductor;
 import visuals.Boyfriend;
 import util.CoolUtil;
@@ -38,13 +37,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
   public static var instance:GameOverSubstate;
 
-  public static function resetVariables()
-  {
-    characterName = 'bf-dead';
-    deathSoundName = 'gameover/deathsting';
-    loopSoundName = 'gameover/loop';
-    endSoundName = 'gameover/end';
-  }
+  private var isEnding:Bool = false;
 
   override function create()
   {
@@ -66,7 +59,7 @@ class GameOverSubstate extends MusicBeatSubstate
     bg.updateHitbox();
     bg.screenCenter();
     bg.scrollFactor.set();
-    bg.alpha = 0.75;
+    bg.alpha = 0.5;
     add(bg);
 
     FlxTween.tween(bg, {alpha: 1}, 0.25, {ease: EaseUtil.stepped(8)});
@@ -82,13 +75,9 @@ class GameOverSubstate extends MusicBeatSubstate
     boyfriend.visible = bfVisible;
     add(boyfriend);
 
-    camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
+    camFollow = new FlxPoint(boyfriend.x, boyfriend.y);
 
-    if (followNonMidpoint)
-    {
-      camFollow.set(boyfriend.x, boyfriend.y);
-    }
-    else
+    if (!followNonMidpoint)
     {
       camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
       camFollow.x -= boyfriend.cameraPosition[0] - bfCamOffset[0];
@@ -101,7 +90,9 @@ class GameOverSubstate extends MusicBeatSubstate
     {
       playingDeathSound = false;
     });
+
     playingDeathSound = true;
+
     Conductor.changeBPM(95);
 
     boyfriend.playAnim('firstDeath', true);
@@ -171,13 +162,12 @@ class GameOverSubstate extends MusicBeatSubstate
       {
         fuc.stop();
       });
+
       PlayState.deathCounter = 0;
+
       #if DEVELOPERBUILD
       PlayState.chartingMode = false;
       #end
-
-      MemoryUtil.collect(true);
-      MemoryUtil.compact();
 
       FlxTransitionableState.skipNextTransIn = true;
       FlxTransitionableState.skipNextTransOut = true;
@@ -218,32 +208,43 @@ class GameOverSubstate extends MusicBeatSubstate
     }
   }
 
-  var isEnding:Bool = false;
+  function endBullshit():Void
+  {
+    if (!isEnding)
+    {
+      isEnding = true;
+
+      boyfriend.playAnim('deathConfirm', true);
+
+      FlxG.sound.music.stop();
+      FlxG.sound.list.forEach(function ficks(fuc:FlxSound)
+      {
+        fuc.stop();
+      });
+
+      FlxG.sound.play(Paths.music(endSoundName));
+
+      new FlxTimer().start(1, function(tmr:FlxTimer) {
+        FlxG.camera.fade(FlxColor.BLACK, 2, false, function() {
+          FlxTransitionableState.skipNextTransIn = false;
+          FlxTransitionableState.skipNextTransOut = false;
+
+          MusicBeatState.switchState(new PlayState());
+        });
+      });
+    }
+  }
 
   function coolStartDeath(?volume:Float = 1):Void
   {
     FlxG.sound.playMusic(Paths.music(loopSoundName), volume);
   }
 
-  function endBullshit():Void
+  public static function resetVariables()
   {
-    if (!isEnding)
-    {
-      isEnding = true;
-      boyfriend.playAnim('deathConfirm', true);
-      FlxG.sound.music.stop();
-      FlxG.sound.list.forEach(function ficks(fuc:FlxSound)
-      {
-        fuc.stop();
-      });
-      FlxG.sound.play(Paths.music(endSoundName));
-      new FlxTimer().start(1, function(tmr:FlxTimer) {
-        FlxG.camera.fade(FlxColor.BLACK, 2, false, function() {
-          FlxTransitionableState.skipNextTransIn = false;
-          FlxTransitionableState.skipNextTransOut = false;
-          MusicBeatState.switchState(new PlayState());
-        });
-      });
-    }
+    characterName = 'bf-dead';
+    deathSoundName = 'gameover/deathsting';
+    loopSoundName = 'gameover/loop';
+    endSoundName = 'gameover/end';
   }
 }

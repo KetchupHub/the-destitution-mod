@@ -1,5 +1,9 @@
 package states;
 
+#if desktop
+import backend.Discord.DiscordClient;
+#end
+
 import flixel.ui.FlxBar;
 import adobeanimate.FlxAtlasSprite;
 import openfl.Assets;
@@ -22,9 +26,6 @@ import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.math.FlxMath;
-#if desktop
-import backend.Discord.DiscordClient;
-#end
 
 class ResultsState extends MusicBeatState
 {

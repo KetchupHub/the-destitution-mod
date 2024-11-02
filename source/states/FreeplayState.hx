@@ -1,5 +1,13 @@
 package states;
 
+#if desktop
+import backend.Discord.DiscordClient;
+#end
+
+#if DEVELOPERBUILD
+import editors.ChartingState;
+#end
+
 import backend.PlayablesData.Playables;
 import backend.TextAndLanguage;
 import openfl.utils.Assets;
@@ -19,9 +27,6 @@ import backend.Highscore;
 import backend.ClientPrefs;
 import ui.Alphabet;
 import util.CoolUtil;
-#if DEVELOPERBUILD
-import editors.ChartingState;
-#end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -30,9 +35,6 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import backend.WeekData;
-#if desktop
-import backend.Discord.DiscordClient;
-#end
 
 class FreeplayState extends MusicBeatState
 {

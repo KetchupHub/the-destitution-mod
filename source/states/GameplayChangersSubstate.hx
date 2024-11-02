@@ -12,13 +12,17 @@ import flixel.FlxSprite;
 
 class GameplayChangersSubstate extends MusicBeatSubstate
 {
-  public var curOption:GameplayOption = null;
-  public var curSelected:Int = 0;
-  public var optionsArray:Array<Dynamic> = [];
+  private var curOption:GameplayOption = null;
+  private var curSelected:Int = 0;
+  private var optionsArray:Array<Dynamic> = [];
 
-  public var grpOptions:FlxTypedGroup<Alphabet>;
-  public var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
-  public var grpTexts:FlxTypedGroup<AttachedText>;
+  private var grpOptions:FlxTypedGroup<Alphabet>;
+  private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
+  private var grpTexts:FlxTypedGroup<AttachedText>;
+
+  private var nextAccept:Int = 5;
+  private var holdTime:Float = 0;
+  private var holdValue:Float = 0;
 
   function getOptions()
   {
@@ -158,10 +162,6 @@ class GameplayChangersSubstate extends MusicBeatSubstate
     perf.print();
     #end
   }
-
-  var nextAccept:Int = 5;
-  var holdTime:Float = 0;
-  var holdValue:Float = 0;
 
   override function update(elapsed:Float)
   {
