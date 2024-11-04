@@ -78,7 +78,7 @@
   "healthicon": "boney",
   "flip_x": false,
   "healthbar_colors": [255, 255, 255],
-  "camera_position": [-232, -48],
+  "camera_position": [-264, -56],
   "sing_duration": 15,
   "scale": 2,
   "_editor_isPlayer": null

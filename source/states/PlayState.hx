@@ -1,22 +1,5 @@
 package states;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-
-#if sys
-import sys.FileSystem;
-#end
-
-#if VIDEOS_ALLOWED
-import VideoCutscene;
-#end
-
-#if DEVELOPERBUILD
-import editors.ChartingState;
-import editors.CharacterEditorState;
-#end
-
 import util.RandomUtil;
 import visuals.PixelPerfectBackdrop;
 import backend.TextAndLanguage;
@@ -78,6 +61,19 @@ import ui.StrumNote;
 import ui.NoteSplash;
 import ui.HealthIcon;
 import songs.*;
+#if desktop
+import backend.Discord.DiscordClient;
+#end
+#if sys
+import sys.FileSystem;
+#end
+#if VIDEOS_ALLOWED
+import VideoCutscene;
+#end
+#if DEVELOPERBUILD
+import editors.ChartingState;
+import editors.CharacterEditorState;
+#end
 
 class PlayState extends MusicBeatState
 {
@@ -262,6 +258,7 @@ class PlayState extends MusicBeatState
   public var showComboNum:Bool = true;
   public var showRating:Bool = true;
   public var disallowCamMove:Bool = false;
+  public var dadZoomsCamOut:Bool = false;
   public var skipArrowStartTween:Bool = false;
   public var paused:Bool = false;
   public var canReset:Bool = true;
@@ -286,6 +283,7 @@ class PlayState extends MusicBeatState
 
   public var noteTypeInfocard:PixelPerfectSprite;
 
+  public var castanetTalking:PixelPerfectSprite;
   public var ploinkyTransition:PixelPerfectSprite;
   public var lurkingTransition:PixelPerfectSprite;
   public var rulezGuySlideScaleWorldFunnyClips:PixelPerfectSprite;
@@ -300,6 +298,8 @@ class PlayState extends MusicBeatState
   public var supersededIntro:PixelPerfectSprite;
   public var backing:PixelPerfectSprite;
   public var sky:PixelPerfectSprite;
+  public var cloudsGroup:FlxTypedGroup<PixelPerfectSprite>;
+  public var theIncredibleTornado:PixelPerfectSprite;
   public var lightningStrikes:PixelPerfectSprite;
   public var skyboxThingy:PixelPerfectSprite;
   public var angry:PixelPerfectSprite;
@@ -312,7 +312,6 @@ class PlayState extends MusicBeatState
   public var liek:PixelPerfectSprite;
   public var space:PixelPerfectSprite;
   public var blackVoid:PixelPerfectSprite;
-  public var iliDevilJumpscare:PixelPerfectSprite;
   public var ploinky:PixelPerfectSprite;
   public var starting:PixelPerfectSprite;
   public var cuttingSceneThing:PixelPerfectSprite;
@@ -871,12 +870,7 @@ class PlayState extends MusicBeatState
     precacheList.set('ui/splashes/3', 'image');
 
     #if desktop
-    var erectness:String = '';
-    if (SONG.song.toLowerCase().contains('-erect'))
-    {
-      erectness = '-erect';
-    }
-    DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), erectness);
+    DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), songObj.rpcVolume);
     #end
 
     if (!ClientPrefs.controllerMode)
@@ -1251,6 +1245,25 @@ class PlayState extends MusicBeatState
         sky.screenCenter();
         sky.scrollFactor.set();
 
+        cloudsGroup = new FlxTypedGroup<PixelPerfectSprite>();
+
+        for (i in 0...15)
+        {
+          // make a cloud, make the i cloud!
+          var thisCloud:PixelPerfectSprite = new PixelPerfectSprite(RandomUtil.randomLogic.int(-256, 1128),
+            RandomUtil.randomLogic.int(-16, 176)).loadGraphic(Paths.image('dsides/clouds/' + RandomUtil.randomVisuals.int(0, 7)));
+          thisCloud.antialiasing = false;
+          thisCloud.scale.set(1 + RandomUtil.randomLogic.float(-0.2, 0.2), 1 + RandomUtil.randomLogic.float(-0.2, 0.2));
+          thisCloud.updateHitbox();
+          thisCloud.scrollFactor.set(0.25, 0.25);
+          thisCloud.active = true;
+          thisCloud.velocity.x = RandomUtil.randomLogic.float(25, 40);
+          thisCloud.alpha = RandomUtil.randomLogic.float(0.75, 1);
+          cloudsGroup.add(thisCloud);
+        }
+
+        add(cloudsGroup);
+
         backing = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/backing'));
         backing.scale.set(2, 2);
         backing.updateHitbox();
@@ -1258,6 +1271,15 @@ class PlayState extends MusicBeatState
         add(backing);
         backing.screenCenter();
         backing.scrollFactor.set(0.5, 0.5);
+
+        theIncredibleTornado = new PixelPerfectSprite(-1512, 128).loadGraphic(Paths.image('dsides/tornado'));
+        theIncredibleTornado.updateHitbox();
+        theIncredibleTornado.antialiasing = false;
+        theIncredibleTornado.scrollFactor.set(0.6, 0.6);
+        theIncredibleTornado.alpha = 0.5;
+        theIncredibleTornado.active = true;
+        theIncredibleTornado.velocity.x = RandomUtil.randomLogic.float(5, 10);
+        add(theIncredibleTornado);
 
         starting = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/front'));
         starting.scale.set(2, 2);
@@ -1332,6 +1354,18 @@ class PlayState extends MusicBeatState
         add(train);
         train.visible = false;
 
+        castanetTalking = new PixelPerfectSprite();
+        castanetTalking.frames = Paths.getSparrowAtlas('dsides/castanet_talking');
+        castanetTalking.animation.addByPrefix('idle', 'idle', 24, true);
+        castanetTalking.animation.play('idle', true);
+        castanetTalking.scale.set(2, 2);
+        castanetTalking.updateHitbox();
+        castanetTalking.antialiasing = false;
+        castanetTalking.cameras = [camOther];
+        castanetTalking.screenCenter();
+        add(castanetTalking);
+        castanetTalking.visible = false;
+
         precacheList.set('dsides/karm_scaredy', 'image');
         precacheList.set('dsides/train funny', 'image');
         precacheList.set('dsides/iliBacking', 'image');
@@ -1344,6 +1378,7 @@ class PlayState extends MusicBeatState
         precacheList.set('dsides/dougSky', 'image');
         precacheList.set('dsides/skyworldSky', 'image');
         precacheList.set('dsides/skyworldStage', 'image');
+        precacheList.set('dsides/castanet_talking', 'image');
 
         precacheList.set('dsides/karmFlees', 'sound');
         precacheList.set('dsides/storm0', 'sound');
@@ -1894,13 +1929,8 @@ class PlayState extends MusicBeatState
     }
 
     #if desktop
-    var erectness:String = '';
-    if (SONG.song.toLowerCase().contains('-erect'))
-    {
-      erectness = '-erect';
-    }
-
-    DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), erectness, true, songLength);
+    DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), songObj.rpcVolume, true,
+      songLength);
     #end
   }
 
@@ -2372,20 +2402,14 @@ class PlayState extends MusicBeatState
       paused = false;
 
       #if desktop
-      var erectness:String = '';
-      if (SONG.song.toLowerCase().contains('-erect'))
-      {
-        erectness = '-erect';
-      }
-
       if (startTimer != null && startTimer.finished)
       {
-        DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), erectness, true,
+        DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), songObj.rpcVolume, true,
           songLength - Conductor.songPosition - ClientPrefs.noteOffset);
       }
       else
       {
-        DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), erectness);
+        DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), songObj.rpcVolume);
       }
       #end
     }
@@ -2396,22 +2420,16 @@ class PlayState extends MusicBeatState
   override public function onFocus():Void
   {
     #if desktop
-    var erectness:String = '';
-    if (SONG.song.toLowerCase().contains('-erect'))
-    {
-      erectness = '-erect';
-    }
-
     if (health > 0 && !paused)
     {
       if (Conductor.songPosition > 0.0)
       {
-        DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), erectness, true,
+        DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), songObj.rpcVolume, true,
           songLength - Conductor.songPosition - ClientPrefs.noteOffset);
       }
       else
       {
-        DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), erectness);
+        DiscordClient.changePresence(detailsText, songObj.songNameForDisplay, removeVariationSuffixes(SONG.song.toLowerCase()), songObj.rpcVolume);
       }
     }
     #end
@@ -2480,6 +2498,24 @@ class PlayState extends MusicBeatState
       {
         ref.visible = !ref.visible;
       }
+    }
+
+    if (cloudsGroup != null)
+    {
+      for (cloud in cloudsGroup.members)
+      {
+        cloud.angle += Math.cos(elapsedTotal) * 0.1;
+
+        if (cloud.x >= 1500)
+        {
+          cloud.x = -512;
+        }
+      }
+    }
+
+    if (theIncredibleTornado != null)
+    {
+      theIncredibleTornado.angle += Math.cos(elapsedTotal) * 0.1;
     }
 
     if (zamboniChaseBg != null)
@@ -3386,6 +3422,11 @@ class PlayState extends MusicBeatState
       camFollow.x += dad.curFunnyPosition[0];
       camFollow.y += dad.curFunnyPosition[1];
 
+      if (dadZoomsCamOut)
+      {
+        camZoomAdditive = -0.2;
+      }
+
       if (funBackCamFadeShit)
       {
         if (bfAlphaTwnBack == null)
@@ -3408,6 +3449,11 @@ class PlayState extends MusicBeatState
       camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
       camFollow.x += boyfriend.curFunnyPosition[0];
       camFollow.y += boyfriend.curFunnyPosition[1];
+
+      if (dadZoomsCamOut)
+      {
+        camZoomAdditive = 0;
+      }
 
       if (funBackCamFadeShit)
       {
@@ -4907,6 +4953,7 @@ class PlayState extends MusicBeatState
     noteTypeInfocard.scale.set(2, 2);
     noteTypeInfocard.updateHitbox();
     noteTypeInfocard.antialiasing = false;
+    noteTypeInfocard.alpha = 0.75;
     noteTypeInfocard.cameras = [camOther];
     add(noteTypeInfocard);
 
@@ -4917,7 +4964,7 @@ class PlayState extends MusicBeatState
         {
           var newboy:FlxTimer = new FlxTimer().start(((Conductor.crochet / 250) * 4) / playbackRate, function fuck(f:FlxTimer)
           {
-            FlxTween.tween(noteTypeInfocard, {x: 1280}, (Conductor.crochet / 1500) / playbackRate,
+            FlxTween.tween(noteTypeInfocard, {x: 1280, alpha: 0}, (Conductor.crochet / 1500) / playbackRate,
               {
                 ease: EaseUtil.stepped(8),
                 onComplete: function ass(as:FlxTween)

@@ -23,6 +23,7 @@ class Collapse extends SongClass
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
     this.introCardBeat = 0;
+    this.rpcVolume = "-mark";
   }
 
   public override function stepHitEvent(curStep:Float)

@@ -33,6 +33,8 @@ class SongClass
 
   public var introCardBeat:Int = 0;
 
+  public var rpcVolume:String = "";
+
   public function new() {}
 
   public function stepHitEvent(curStep:Float)

@@ -12,6 +12,9 @@ import util.CoolUtil;
 import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxTimer;
+#if desktop
+import backend.Discord.DiscordClient;
+#end
 
 class InitState extends MusicBeatState
 {
@@ -35,6 +38,17 @@ class InitState extends MusicBeatState
     FlxG.keys.preventDefaultKeys = [TAB];
 
     PlayerSettings.init();
+
+    #if desktop
+    if (!DiscordClient.isInitialized)
+    {
+      DiscordClient.initialize();
+
+      Application.current.window.onClose.add(function() {
+        DiscordClient.shutdown();
+      });
+    }
+    #end
 
     Application.current.window.title = CoolUtil.appTitleString;
 

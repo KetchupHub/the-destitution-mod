@@ -1,13 +1,5 @@
 package states;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-
-#if DEVELOPERBUILD
-import editors.MasterEditorMenu;
-#end
-
 import backend.PlayablesData.Playables;
 import ui.TransitionScreenshotObject;
 import states.ResultsState.ResultRanks;
@@ -29,6 +21,12 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.input.keyboard.FlxKey;
+#if desktop
+import backend.Discord.DiscordClient;
+#end
+#if DEVELOPERBUILD
+import editors.MasterEditorMenu;
+#end
 
 class MainMenuState extends MusicBeatState
 {

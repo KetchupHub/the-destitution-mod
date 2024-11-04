@@ -20,6 +20,7 @@ class Quickshot extends SongClass
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
     this.introCardBeat = 0;
+    this.rpcVolume = "-pear";
   }
 
   public override function stepHitEvent(curStep:Float)

@@ -1,9 +1,5 @@
 package states;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-
 import util.RandomUtil;
 import ui.TransitionScreenshotObject;
 import util.EaseUtil;
@@ -25,6 +21,9 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.Assets;
+#if desktop
+import backend.Discord.DiscordClient;
+#end
 
 class TitleState extends MusicBeatState
 {

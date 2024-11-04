@@ -97,7 +97,7 @@
   "whoDoneWhat": null,
   "healthicon": "maestro",
   "flip_x": false,
-  "healthbar_colors": [144, 122, 0],
+  "healthbar_colors": [89, 84, 63],
   "aaAtlas": false,
   "camera_position": [-100, -100],
   "sing_duration": 15,

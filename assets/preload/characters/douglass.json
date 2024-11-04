@@ -94,7 +94,7 @@
   "position": [0, 0],
   "healthicon": "doug",
   "flip_x": false,
-  "healthbar_colors": [88, 154, 255],
+  "healthbar_colors": [205, 61, 92],
   "camera_position": [0, 0],
   "sing_duration": 15,
   "scale": 1

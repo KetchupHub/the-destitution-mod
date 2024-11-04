@@ -1,9 +1,5 @@
 package states;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-
 import flixel.ui.FlxBar;
 import adobeanimate.FlxAtlasSprite;
 import openfl.Assets;
@@ -26,6 +22,9 @@ import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.math.FlxMath;
+#if desktop
+import backend.Discord.DiscordClient;
+#end
 
 class ResultsState extends MusicBeatState
 {
@@ -243,8 +242,8 @@ class ResultsState extends MusicBeatState
       uhuh++;
     }
 
-    accText = new FlxText(109, 570, 134, '0%', 54);
-    accText.setFormat(Paths.font('Calculator.ttf'), 54, FlxColor.fromRGB(0, 255, 0), CENTER, NONE, FlxColor.BLACK);
+    accText = new FlxText(109, 570, 134, '0%', 52);
+    accText.setFormat(Paths.font('Calculator.ttf'), 52, FlxColor.fromRGB(0, 255, 0), CENTER, NONE, FlxColor.BLACK);
     accText.alpha = 0;
     add(accText);
 

@@ -45,7 +45,7 @@ class DStitution extends SongClass
       'd-rules',
       'd-bf-rules',
       'maestro',
-      'd-bf-rules-flipped',
+      'd-bf-maestro',
       'zamboney',
       'karm-finale',
       'stop-loading'
@@ -406,12 +406,12 @@ class DStitution extends SongClass
 
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
-        PlayState.instance.dad = new Character(716, 32, 'd-rules', false, false);
+        PlayState.instance.dad = new Character(724, 32, 'd-rules', false, false);
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.destroy();
-        PlayState.instance.boyfriend = new Boyfriend(-256, 64, 'd-bf-rules', false);
+        PlayState.instance.boyfriend = new Boyfriend(-564, 86, 'd-bf-rules', false);
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
         PlayState.instance.sky.loadGraphic(Paths.image('dsides/skyworldSky'));
@@ -441,17 +441,20 @@ class DStitution extends SongClass
       case 2672:
         FlxG.camera.flash();
 
+        PlayState.instance.dadZoomsCamOut = true;
+
         PlayState.instance.reloadAllNotes('ui/notes');
 
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
-        PlayState.instance.dad = new Character(PlayState.instance.boyfriend.x - 412, -32, 'maestro', false, false);
+        PlayState.instance.dad = new Character(PlayState.instance.boyfriend.x - 412, -48, 'maestro', false, false);
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
-        PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf-rules-flipped', false);
+        PlayState.instance.boyfriend = new Boyfriend(PlayState.instance.boyfriend.x, PlayState.instance.boyfriend.y, 'd-bf-maestro', false);
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
 
+        PlayState.instance.iconP1.changeIcon(PlayState.instance.boyfriend.healthIcon);
         PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
         PlayState.instance.reloadHealthBarColors();
 
@@ -471,7 +474,14 @@ class DStitution extends SongClass
         }
 
         Paths.clearUnusedMemory();
+      case 3140 | 3209:
+        PlayState.instance.castanetTalking.visible = true;
+      case 3144 | 3212:
+        FlxG.camera.flash();
+        PlayState.instance.castanetTalking.visible = false;
       case 3224:
+        PlayState.instance.dadZoomsCamOut = false;
+
         FlxG.camera.flash();
 
         PlayState.instance.defaultCamZoom = 1;
@@ -491,6 +501,8 @@ class DStitution extends SongClass
 
         PlayState.instance.sky.destroy();
         PlayState.instance.starting.destroy();
+        PlayState.instance.cloudsGroup.visible = false;
+        PlayState.instance.theIncredibleTornado.visible = false;
 
         PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
         PlayState.instance.reloadHealthBarColors();

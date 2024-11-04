@@ -1,9 +1,5 @@
 package states;
 
-#if desktop
-import backend.Discord.DiscordClient;
-#end
-
 import util.RandomUtil;
 import backend.TextAndLanguage;
 import ui.TransitionScreenshotObject;
@@ -21,6 +17,9 @@ import flixel.util.FlxColor;
 import flixel.ui.FlxBar;
 import flixel.FlxG;
 import flixel.math.FlxMath;
+#if desktop
+import backend.Discord.DiscordClient;
+#end
 
 class LoadingScreenState extends MusicBeatState
 {

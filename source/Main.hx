@@ -114,17 +114,6 @@ class Main extends Sprite
     Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
     #end
 
-    #if desktop
-    if (!DiscordClient.isInitialized)
-    {
-      DiscordClient.initialize();
-
-      Application.current.window.onClose.add(function() {
-        DiscordClient.shutdown();
-      });
-    }
-    #end
-
     FlxG.signals.gameResized.add(onResizeGame);
   }
 
@@ -209,8 +198,8 @@ class Main extends Sprite
 
     Application.current.window.alert("\nUnfortunately, The Destitution Mod has stopped.\n\nMore Details:\n" + errMsg, "The Destitution Mod Crash Handler");
     DiscordClient.shutdown();
-    Sys.exit(1);
     Application.current.window.close();
+    Sys.exit(1);
   }
   #end
 }
