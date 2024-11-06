@@ -283,6 +283,8 @@ class PlayState extends MusicBeatState
 
   public var noteTypeInfocard:PixelPerfectSprite;
 
+  public var cloudSpeedAdditive:Float = 0;
+
   public var castanetTalking:PixelPerfectSprite;
   public var ploinkyTransition:PixelPerfectSprite;
   public var lurkingTransition:PixelPerfectSprite;
@@ -1245,25 +1247,6 @@ class PlayState extends MusicBeatState
         sky.screenCenter();
         sky.scrollFactor.set();
 
-        cloudsGroup = new FlxTypedGroup<PixelPerfectSprite>();
-
-        for (i in 0...15)
-        {
-          // make a cloud, make the i cloud!
-          var thisCloud:PixelPerfectSprite = new PixelPerfectSprite(RandomUtil.randomLogic.int(-256, 1128),
-            RandomUtil.randomLogic.int(-16, 176)).loadGraphic(Paths.image('dsides/clouds/' + RandomUtil.randomVisuals.int(0, 7)));
-          thisCloud.antialiasing = false;
-          thisCloud.scale.set(1 + RandomUtil.randomLogic.float(-0.2, 0.2), 1 + RandomUtil.randomLogic.float(-0.2, 0.2));
-          thisCloud.updateHitbox();
-          thisCloud.scrollFactor.set(0.25, 0.25);
-          thisCloud.active = true;
-          thisCloud.velocity.x = RandomUtil.randomLogic.float(25, 40);
-          thisCloud.alpha = RandomUtil.randomLogic.float(0.75, 1);
-          cloudsGroup.add(thisCloud);
-        }
-
-        add(cloudsGroup);
-
         backing = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/backing'));
         backing.scale.set(2, 2);
         backing.updateHitbox();
@@ -1272,25 +1255,45 @@ class PlayState extends MusicBeatState
         backing.screenCenter();
         backing.scrollFactor.set(0.5, 0.5);
 
-        theIncredibleTornado = new PixelPerfectSprite(-1512, 128).loadGraphic(Paths.image('dsides/tornado'));
-        theIncredibleTornado.updateHitbox();
-        theIncredibleTornado.antialiasing = false;
-        theIncredibleTornado.scrollFactor.set(0.6, 0.6);
-        theIncredibleTornado.alpha = 0.5;
-        theIncredibleTornado.active = true;
-        theIncredibleTornado.velocity.x = RandomUtil.randomLogic.float(5, 10);
-        add(theIncredibleTornado);
+        if (!ClientPrefs.lowQuality)
+        {
+          cloudsGroup = new FlxTypedGroup<PixelPerfectSprite>();
+
+          for (i in 0...15)
+          {
+            // make a cloud, make the i cloud!
+            var thisCloud:PixelPerfectSprite = new PixelPerfectSprite(RandomUtil.randomLogic.float(-256, 872),
+              RandomUtil.randomLogic.float(-16, 360)).loadGraphic(Paths.image('dsides/clouds/' + RandomUtil.randomVisuals.int(0, 7)));
+            thisCloud.x += (32 * i);
+            thisCloud.antialiasing = false;
+            thisCloud.scale.set(1 + RandomUtil.randomLogic.float(-0.25, 0.25), 1 + RandomUtil.randomLogic.float(-0.25, 0.25));
+            thisCloud.updateHitbox();
+            thisCloud.scrollFactor.set(0.6, 0.6);
+            thisCloud.active = true;
+            thisCloud.velocity.x = RandomUtil.randomLogic.float(25, 40);
+            thisCloud.alpha = RandomUtil.randomLogic.float(0.6, 0.8);
+            cloudsGroup.add(thisCloud);
+          }
+
+          add(cloudsGroup);
+
+          theIncredibleTornado = new PixelPerfectSprite(-1512, 164).loadGraphic(Paths.image('dsides/tornado'));
+          theIncredibleTornado.scale.set(2, 2);
+          theIncredibleTornado.updateHitbox();
+          theIncredibleTornado.antialiasing = false;
+          theIncredibleTornado.scrollFactor.set(0.75, 0.75);
+          add(theIncredibleTornado);
+        }
 
         starting = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/front'));
         starting.scale.set(2, 2);
         starting.updateHitbox();
         starting.antialiasing = false;
-        add(starting);
         starting.screenCenter();
 
         if (!ClientPrefs.lowQuality)
         {
-          karmScaredy = new PixelPerfectSprite(starting.x + 42, starting.y + 612);
+          karmScaredy = new PixelPerfectSprite(starting.x + 48, starting.y + 632);
           karmScaredy.frames = Paths.getSparrowAtlas("dsides/karm_scaredy");
           karmScaredy.animation.addByPrefix("idle", "idle", 24, false);
           karmScaredy.animation.play("idle", true);
@@ -1299,6 +1302,8 @@ class PlayState extends MusicBeatState
           add(karmScaredy);
           karmScaredy.visible = false;
         }
+
+        add(starting);
 
         if (!ClientPrefs.lowQuality)
         {
@@ -2170,6 +2175,14 @@ class PlayState extends MusicBeatState
     sky.shader = aaColorChange;
     backing.shader = aaColorChange;
     starting.shader = aaColorChange;
+    if (!ClientPrefs.lowQuality)
+    {
+      theIncredibleTornado.shader = aaColorChange;
+      for (cloud in cloudsGroup.members)
+      {
+        cloud.shader = aaColorChange;
+      }
+    }
     dad.shader = aaColorChange;
     boyfriend.shader = aaColorChange;
     gf.shader = aaColorChange;
@@ -2180,6 +2193,14 @@ class PlayState extends MusicBeatState
     sky.shader = null;
     backing.shader = null;
     starting.shader = null;
+    if (!ClientPrefs.lowQuality)
+    {
+      theIncredibleTornado.shader = null;
+      for (cloud in cloudsGroup.members)
+      {
+        cloud.shader = null;
+      }
+    }
     dad.shader = null;
     boyfriend.shader = null;
     gf.shader = null;
@@ -2504,18 +2525,21 @@ class PlayState extends MusicBeatState
     {
       for (cloud in cloudsGroup.members)
       {
-        cloud.angle += Math.cos(elapsedTotal) * 0.1;
+        cloud.angle += Math.cos(elapsedTotal) * 0.05;
 
-        if (cloud.x >= 1500)
+        if (cloud.x >= 1512)
         {
-          cloud.x = -512;
+          cloud.angle = 0;
+          cloud.x -= 2048;
+          cloud.velocity.x = RandomUtil.randomLogic.float(25 + cloudSpeedAdditive, 40 + cloudSpeedAdditive);
+          cloud.alpha = RandomUtil.randomLogic.float(0.6, 0.8);
         }
       }
     }
 
     if (theIncredibleTornado != null)
     {
-      theIncredibleTornado.angle += Math.cos(elapsedTotal) * 0.1;
+      theIncredibleTornado.angle += Math.cos(elapsedTotal) * 0.05;
     }
 
     if (zamboniChaseBg != null)

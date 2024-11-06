@@ -223,6 +223,24 @@ class DStitution extends SongClass
 
     switch (curBeat)
     {
+      case 320:
+        if (!ClientPrefs.lowQuality)
+        {
+          PlayState.instance.cloudSpeedAdditive = 25;
+          for (i in PlayState.instance.cloudsGroup.members)
+          {
+            i.velocity.x += 25;
+          }
+        }
+      case 448:
+        if (!ClientPrefs.lowQuality)
+        {
+          PlayState.instance.cloudSpeedAdditive = 0;
+          for (i in PlayState.instance.cloudsGroup.members)
+          {
+            i.velocity.x -= 25;
+          }
+        }
       case 512:
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
@@ -232,6 +250,18 @@ class DStitution extends SongClass
         PlayState.instance.fuckMyLife = true;
         PlayState.instance.lightningBg();
         PlayState.instance.add(PlayState.instance.lightningStrikes);
+
+        if (!ClientPrefs.lowQuality)
+        {
+          PlayState.instance.cloudSpeedAdditive = -10;
+          for (i in PlayState.instance.cloudsGroup.members)
+          {
+            i.velocity.x -= 10;
+          }
+
+          PlayState.instance.theIncredibleTornado.active = true;
+          PlayState.instance.theIncredibleTornado.velocity.x = RandomUtil.randomLogic.float(50, 75);
+        }
 
         PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
         PlayState.instance.reloadHealthBarColors();
@@ -251,6 +281,15 @@ class DStitution extends SongClass
       case 520:
         PlayState.instance.strikeyStrikes = true;
       case 920:
+        if (!ClientPrefs.lowQuality)
+        {
+          PlayState.instance.cloudSpeedAdditive = 0;
+          for (i in PlayState.instance.cloudsGroup.members)
+          {
+            i.velocity.x += 10;
+          }
+        }
+
         PlayState.instance.gf.visible = false;
         PlayState.instance.fuckMyLife = false;
         if (!ClientPrefs.lowQuality)
@@ -401,7 +440,7 @@ class DStitution extends SongClass
         Paths.clearUnusedMemory();
       case 2240:
         FlxG.camera.flash();
-        
+
         PlayState.instance.reloadAllNotes('ui/notes_rulez');
 
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
@@ -501,8 +540,11 @@ class DStitution extends SongClass
 
         PlayState.instance.sky.destroy();
         PlayState.instance.starting.destroy();
-        PlayState.instance.cloudsGroup.visible = false;
-        PlayState.instance.theIncredibleTornado.visible = false;
+        if (!ClientPrefs.lowQuality)
+        {
+          PlayState.instance.cloudsGroup.visible = false;
+          PlayState.instance.theIncredibleTornado.visible = false;
+        }
 
         PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
         PlayState.instance.reloadHealthBarColors();

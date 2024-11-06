@@ -43,42 +43,10 @@
       "hasTransition": true,
       "indices": [],
       "name": "right"
-    },
-    {
-      "offsets": [0, 0],
-      "loop": false,
-      "fps": 24,
-      "anim": "singLEFTmiss",
-      "indices": [],
-      "name": "miss"
-    },
-    {
-      "offsets": [0, 0],
-      "loop": false,
-      "fps": 24,
-      "anim": "singDOWNmiss",
-      "indices": [],
-      "name": "miss"
-    },
-    {
-      "offsets": [0, 0],
-      "loop": false,
-      "fps": 24,
-      "anim": "singUPmiss",
-      "indices": [],
-      "name": "miss"
-    },
-    {
-      "offsets": [0, 0],
-      "loop": false,
-      "fps": 24,
-      "anim": "singRIGHTmiss",
-      "indices": [],
-      "name": "miss"
     }
   ],
   "no_antialiasing": true,
-  "image": "characters/destitution/ploinky_bf",
+  "image": "characters/destitution/lurking_nopeboy",
   "position": [0, 0],
   "healthicon": "bf",
   "flip_x": true,
@@ -86,8 +54,8 @@
   "camera_position": [0, 0],
   "sing_duration": 15,
   "scale": 2,
-  "artist": "Cynda, MxRegular",
-  "animator": "PhoneyX",
-  "whoDoneWhat": "PhoneyX animated sprites\nMxRegular did faces\nCynda made model",
+  "artist": "Cynda, louiefan24",
+  "animator": "Cynda",
+  "whoDoneWhat": "Cynda animated sprites\nlouiefan24 did faces\nCynda made model",
   "_editor_isPlayer": true
 }
