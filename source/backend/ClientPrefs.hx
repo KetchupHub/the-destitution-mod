@@ -38,6 +38,8 @@ class ClientPrefs
   public static var pixelPerfection = true;
   public static var multithreading = true;
 
+  public static var boiners:Int = 0;
+
   public static var gameplaySettings:Map<String, Dynamic> = [
     'scrollspeed' => 1.0,
     'scrolltype' => 'multiplicative',
@@ -126,6 +128,7 @@ class ClientPrefs
     FlxG.save.data.smootherBars = smootherBars;
     FlxG.save.data.pixelPerfection = pixelPerfection;
     FlxG.save.data.multithreading = multithreading;
+    FlxG.save.data.boiners = boiners;
     FlxG.save.data.lastEggshellsEnding = lastEggshellsEnding;
     FlxG.save.data.language = language;
 
@@ -298,6 +301,11 @@ class ClientPrefs
     if (FlxG.save.data.hitsoundVolume != null)
     {
       hitsoundVolume = FlxG.save.data.hitsoundVolume;
+    }
+
+    if (FlxG.save.data.boiners != null)
+    {
+      boiners = FlxG.save.data.boiners;
     }
 
     if (FlxG.save.data.gameplaySettings != null)

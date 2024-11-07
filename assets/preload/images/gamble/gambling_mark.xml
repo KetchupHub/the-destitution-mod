@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="gambling_mark.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="idle0000" x="1594" y="1056" width="323" height="517" frameX="0" frameY="-41"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0001" x="1594" y="1577" width="323" height="517" frameX="0" frameY="-41"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0002" x="1594" y="4" width="323" height="522" frameX="0" frameY="-36"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0003" x="1594" y="530" width="323" height="522" frameX="0" frameY="-36"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0004" x="1276" y="1116" width="314" height="546" frameX="0" frameY="-12"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0005" x="1276" y="1666" width="314" height="546" frameX="0" frameY="-12"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0006" x="1276" y="4" width="314" height="552" frameX="0" frameY="-6"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0007" x="1276" y="560" width="314" height="552" frameX="0" frameY="-6"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0008" x="4" y="578" width="314" height="558" frameX="0" frameY="0"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0009" x="322" y="578" width="314" height="558" frameX="0" frameY="0"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0010" x="640" y="1138" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0011" x="4" y="1140" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0012" x="640" y="1138" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0013" x="4" y="1140" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0014" x="640" y="1138" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0015" x="4" y="1140" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0016" x="640" y="1138" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0017" x="4" y="1140" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0018" x="640" y="1138" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0019" x="4" y="1140" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0020" x="640" y="1138" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0021" x="4" y="1140" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0022" x="640" y="1138" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="idle0023" x="4" y="1140" width="314" height="557" frameX="0" frameY="-1"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="intro0000" x="1921" y="830" width="327" height="344" frameX="0" frameY="-439"
+		frameWidth="333" frameHeight="783" />
+	<SubTexture name="intro0001" x="1921" y="1178" width="327" height="344" frameX="0" frameY="-439"
+		frameWidth="333" frameHeight="783" />
+	<SubTexture name="intro0002" x="1921" y="4" width="333" height="409" frameX="0" frameY="-314"
+		frameWidth="333" frameHeight="783" />
+	<SubTexture name="intro0003" x="1921" y="417" width="333" height="409" frameX="0" frameY="-314"
+		frameWidth="333" frameHeight="783" />
+	<SubTexture name="intro0004" x="4" y="4" width="314" height="570" frameX="0" frameY="-14"
+		frameWidth="333" frameHeight="783" />
+	<SubTexture name="intro0005" x="322" y="4" width="314" height="570" frameX="0" frameY="-14"
+		frameWidth="333" frameHeight="783" />
+	<SubTexture name="intro0006" x="640" y="4" width="314" height="563" frameX="0" frameY="0"
+		frameWidth="333" frameHeight="783" />
+	<SubTexture name="intro0007" x="640" y="571" width="314" height="563" frameX="0" frameY="0"
+		frameWidth="333" frameHeight="783" />
+	<SubTexture name="intro0008" x="958" y="1126" width="314" height="554" frameX="0" frameY="-9"
+		frameWidth="333" frameHeight="783" />
+	<SubTexture name="intro0009" x="958" y="1684" width="314" height="554" frameX="0" frameY="-9"
+		frameWidth="333" frameHeight="783" />
+	<SubTexture name="intro0010" x="640" y="1138" width="314" height="557" frameX="0" frameY="-6"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="intro0011" x="4" y="1140" width="314" height="557" frameX="0" frameY="-6"
+		frameWidth="323" frameHeight="558" />
+	<SubTexture name="nope0000" x="322" y="1140" width="314" height="557" />
+	<SubTexture name="nope0001" x="640" y="1699" width="314" height="557" />
+	<SubTexture name="nope0002" x="4" y="1701" width="314" height="557" />
+	<SubTexture name="nope0003" x="322" y="1701" width="314" height="557" />
+	<SubTexture name="nope0004" x="958" y="4" width="314" height="557" />
+	<SubTexture name="nope0005" x="958" y="565" width="314" height="557" />
+	<SubTexture name="nope0006" x="322" y="1140" width="314" height="557" />
+	<SubTexture name="nope0007" x="640" y="1699" width="314" height="557" />
+	<SubTexture name="nope0008" x="4" y="1701" width="314" height="557" />
+	<SubTexture name="nope0009" x="322" y="1701" width="314" height="557" />
+	<SubTexture name="nope0010" x="958" y="4" width="314" height="557" />
+	<SubTexture name="nope0011" x="958" y="565" width="314" height="557" />
+	<SubTexture name="nope0012" x="322" y="1140" width="314" height="557" />
+	<SubTexture name="nope0013" x="640" y="1699" width="314" height="557" />
+	<SubTexture name="nope0014" x="4" y="1701" width="314" height="557" />
+	<SubTexture name="nope0015" x="4" y="1701" width="314" height="557" />
+	<SubTexture name="nope0016" x="4" y="1701" width="314" height="557" />
+	<SubTexture name="nope0017" x="4" y="1701" width="314" height="557" />
+	<SubTexture name="nope0018" x="4" y="1701" width="314" height="557" />
+	<SubTexture name="nope0019" x="4" y="1701" width="314" height="557" />
+	<SubTexture name="nope0020" x="4" y="1701" width="314" height="557" />
+	<SubTexture name="nope0021" x="4" y="1701" width="314" height="557" />
+	<SubTexture name="nope0022" x="4" y="1701" width="314" height="557" />
+	<SubTexture name="nope0023" x="4" y="1701" width="314" height="557" />
+</TextureAtlas>

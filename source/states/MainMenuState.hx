@@ -233,6 +233,11 @@ class MainMenuState extends MusicBeatState
 
         MusicBeatState.switchState(new ResultsState(999999, 999999, 9999, 999, 99, 9, FlxG.keys.pressed.SHIFT, 99.9, 99, '', debugRank));
       }
+
+      if (FlxG.keys.justPressed.B)
+      {
+        ClientPrefs.boiners += 100;
+      }
       #end
 
       if (controls.UI_UP_P)
@@ -314,9 +319,9 @@ class MainMenuState extends MusicBeatState
                   FlxTransitionableState.skipNextTransOut = true;
                   MusicBeatState.switchState(new FreeplayState(#if DEVELOPERBUILD debugChar #end));
                 case 'lottery':
-                  FlxTransitionableState.skipNextTransIn = true;
-                  FlxTransitionableState.skipNextTransOut = true;
-                  MusicBeatState.switchState(new FreeplayState());
+                  FlxTransitionableState.skipNextTransIn = false;
+                  FlxTransitionableState.skipNextTransOut = false;
+                  MusicBeatState.switchState(new LotteryState());
                 case 'options':
                   FlxTransitionableState.skipNextTransIn = true;
                   FlxTransitionableState.skipNextTransOut = true;

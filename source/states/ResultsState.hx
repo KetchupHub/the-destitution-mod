@@ -1,5 +1,6 @@
 package states;
 
+import ui.BoinerCounter;
 import flixel.ui.FlxBar;
 import adobeanimate.FlxAtlasSprite;
 import openfl.Assets;
@@ -38,6 +39,8 @@ class ResultsState extends MusicBeatState
 
   public var botplayWatermark:PixelPerfectSprite;
 
+  public var boinerCounter:BoinerCounter;
+
   public var statBars:Array<FlxBar>;
   public var statTexts:Array<FlxText>;
   public var accText:FlxText;
@@ -71,6 +74,8 @@ class ResultsState extends MusicBeatState
   public var totalLerp:Int = 0;
   public var missedLerp:Int = 0;
   public var percentLerp:Float = 0;
+
+  public var addedBoiners:Bool;
 
   public var selectedSomethin:Bool = false;
 
@@ -265,6 +270,18 @@ class ResultsState extends MusicBeatState
     add(rankGfx);
     FlxTween.tween(rankGfx, {alpha: 1}, 0.4, {ease: EaseUtil.stepped(4), startDelay: 2});
 
+    boinerCounter = new BoinerCounter(1280 + 416, 0);
+    add(boinerCounter);
+    FlxTween.tween(boinerCounter, {x: 1280 - 416}, 0.4,
+      {
+        ease: EaseUtil.stepped(16),
+        startDelay: 2,
+        onComplete: function doit(t:FlxTween)
+        {
+          addBoiners();
+        }
+      });
+
     botplayWatermark = new PixelPerfectSprite(FlxG.width - 130, 2).loadGraphic(Paths.image('ui/botplay'));
     botplayWatermark.scale.set(0.5, 0.5);
     botplayWatermark.updateHitbox();
@@ -336,6 +353,12 @@ class ResultsState extends MusicBeatState
       FlxTween.tween(accText, {x: accText.x - 800}, 0.25, {ease: FlxEase.circIn});
       FlxTween.tween(scoreText, {x: scoreText.x - 800}, 0.25, {ease: FlxEase.circIn});
       FlxTween.tween(rankGfx, {x: rankGfx.x + rankGfx.width + 25}, 0.25, {ease: FlxEase.circIn});
+      FlxTween.cancelTweensOf(boinerCounter);
+      if (!addedBoiners)
+      {
+        addBoiners();
+      }
+      FlxTween.tween(boinerCounter, {alpha: 0}, 0.25, {ease: FlxEase.circIn});
 
       var fuck:FlxTimer = new FlxTimer().start(0.75, function dire(fuckse:FlxTimer)
       {
@@ -481,6 +504,40 @@ class ResultsState extends MusicBeatState
     }
 
     return BLEGH;
+  }
+
+  public function addBoiners():Void
+  {
+    var boinersToAdd:Int = Math.floor((score * 0.005) * (percent / 50));
+
+    var rankBonus:Int;
+
+    switch (realRank)
+    {
+      case GOOD:
+        rankBonus = 50;
+      case GREAT:
+        rankBonus = 100;
+      case EXCELLENT:
+        rankBonus = 250;
+      case SYNERGY:
+        rankBonus = 500;
+      default:
+        rankBonus = 0;
+    }
+
+    boinersToAdd += rankBonus;
+
+    if (botplay)
+    {
+      boinersToAdd = 0;
+    }
+
+    ClientPrefs.boiners += boinersToAdd;
+
+    addedBoiners = true;
+
+    FlxTween.tween(boinerCounter, {alpha: 0}, 0.4, {ease: EaseUtil.stepped(16), startDelay: 2});
   }
 }
 
