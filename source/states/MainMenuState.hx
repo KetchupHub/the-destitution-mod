@@ -72,7 +72,7 @@ class MainMenuState extends MusicBeatState
 
     if (FlxG.sound.music == null)
     {
-      FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0.7);
+      FlxG.sound.playMusic(Paths.music('mus_pauperized'));
       Conductor.changeBPM(110);
     }
 
@@ -173,9 +173,9 @@ class MainMenuState extends MusicBeatState
   {
     if (FlxG.sound.music != null)
     {
-      if (FlxG.sound.music.volume < 0.8)
+      if (FlxG.sound.music.volume < 1)
       {
-        FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+        FlxG.sound.music.volume += 0.25 * FlxG.elapsed;
       }
 
       Conductor.songPosition = FlxG.sound.music.time;
@@ -229,6 +229,7 @@ class MainMenuState extends MusicBeatState
         if (FlxG.sound.music != null)
         {
           FlxG.sound.music.stop();
+          FlxG.sound.music = null;
         }
 
         MusicBeatState.switchState(new ResultsState(999999, 999999, 9999, 999, 99, 9, FlxG.keys.pressed.SHIFT, 99.9, 99, '', debugRank));
@@ -236,6 +237,7 @@ class MainMenuState extends MusicBeatState
 
       if (FlxG.keys.justPressed.B)
       {
+        FlxG.sound.play(Paths.sound('scrollMenu'));
         ClientPrefs.boiners += 100;
       }
       #end
@@ -319,10 +321,13 @@ class MainMenuState extends MusicBeatState
                   FlxTransitionableState.skipNextTransOut = true;
                   MusicBeatState.switchState(new FreeplayState(#if DEVELOPERBUILD debugChar #end));
                 case 'lottery':
+                  // to flush the boiners to the save file because they werent before
+                  ClientPrefs.saveSettings();
                   FlxTransitionableState.skipNextTransIn = false;
                   FlxTransitionableState.skipNextTransOut = false;
                   MusicBeatState.switchState(new LotteryState());
                 case 'options':
+                  ClientPrefs.saveSettings();
                   FlxTransitionableState.skipNextTransIn = true;
                   FlxTransitionableState.skipNextTransOut = true;
                   MusicBeatState.switchState(new OptionsState());

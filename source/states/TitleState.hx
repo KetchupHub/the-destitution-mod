@@ -85,7 +85,7 @@ class TitleState extends MusicBeatState
 
     if (FlxG.sound.music == null)
     {
-      FlxG.sound.playMusic(Paths.music('mus_pauperized'), 0.7);
+      FlxG.sound.playMusic(Paths.music('mus_pauperized'));
       Conductor.changeBPM(110);
     }
 
@@ -302,8 +302,12 @@ class TitleState extends MusicBeatState
   public function gameCloseSequence()
   {
     closeSequenceStarted = true;
+
     titleCharacter.animation.curAnim.curFrame = 0;
+
     FlxG.sound.music.stop();
+    FlxG.sound.music = null;
+
     FlxG.sound.play(Paths.sound('titleExit/$charec'), 1, false);
 
     FlxTween.tween(playButton, {'scale.x': 0.01, 'scale.y': 0.01}, 0.25,
@@ -569,6 +573,8 @@ class TitleState extends MusicBeatState
     {
       FlxG.sound.music.pause();
     }
+
+    super.onFocusLost();
   }
 
   override public function onFocus():Void
@@ -577,5 +583,7 @@ class TitleState extends MusicBeatState
     {
       FlxG.sound.music.resume();
     }
+
+    super.onFocus();
   }
 }

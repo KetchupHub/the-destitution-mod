@@ -250,9 +250,9 @@ class PauseSubState extends MusicBeatSubstate
             i.active = true;
           });
 
-          FlxG.sound.play(Paths.sound('resume'));
-
           close();
+
+          FlxG.sound.play(Paths.sound('resume'));
         case 'Toggle Practice Mode':
           PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
 
@@ -262,9 +262,9 @@ class PauseSubState extends MusicBeatSubstate
         case "Restart Song":
           Application.current.window.title = CoolUtil.appTitleString + " - Playing " + PlayState.instance.songObj.songNameForDisplay;
 
-          FlxG.sound.play(Paths.sound('resume'));
-
           restartSong();
+
+          FlxG.sound.play(Paths.sound('resume'));
         #if DEVELOPERBUILD
         case "Leave Charting Mode":
           restartSong();
@@ -276,9 +276,9 @@ class PauseSubState extends MusicBeatSubstate
         case "End Song":
           Application.current.window.title = CoolUtil.appTitleString;
 
-          FlxG.sound.play(Paths.sound('resume'));
-
           close();
+
+          FlxG.sound.play(Paths.sound('resume'));
 
           PlayState.instance.finishSong(true);
         case 'Toggle Botplay':

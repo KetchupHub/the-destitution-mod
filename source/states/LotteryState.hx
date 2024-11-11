@@ -63,6 +63,7 @@ class LotteryState extends MusicBeatState
     if (FlxG.sound.music != null)
     {
       FlxG.sound.music.stop();
+      FlxG.sound.music = null;
     }
 
     FlxG.sound.playMusic(Paths.music('mus_gambling'));
@@ -149,7 +150,10 @@ class LotteryState extends MusicBeatState
     if (controls.BACK && !busy)
     {
       busy = true;
+      // to flush the boiners to the save file because they werent before
+      ClientPrefs.saveSettings();
       FlxG.sound.music.stop();
+      FlxG.sound.music = null;
       FlxG.sound.play(Paths.sound('cancelMenu'));
       FlxTransitionableState.skipNextTransIn = false;
       FlxTransitionableState.skipNextTransOut = false;

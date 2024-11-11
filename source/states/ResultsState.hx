@@ -535,6 +535,9 @@ class ResultsState extends MusicBeatState
 
     ClientPrefs.boiners += boinersToAdd;
 
+    // to flush the boiners to the save file because they werent before
+    ClientPrefs.saveSettings();
+
     addedBoiners = true;
 
     FlxTween.tween(boinerCounter, {alpha: 0}, 0.4, {ease: EaseUtil.stepped(16), startDelay: 2});
