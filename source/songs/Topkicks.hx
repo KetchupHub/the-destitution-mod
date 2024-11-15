@@ -14,7 +14,7 @@ class Topkicks extends SongClass
     this.playable = PEAR;
     this.songHasSections = false;
     this.introType = 'Default';
-    this.songVariants = ["Normal", "Erect"];
+    this.songVariants = ["Normal"];
     this.songDescription = TextAndLanguage.getPhrase('desc_topkicks',
       "It seems like a couple of Pearson's friends haven't taken too kindly to not being invited...");
     this.ratingsType = "";

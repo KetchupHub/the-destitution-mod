@@ -16,7 +16,7 @@ class Eggshells extends SongClass
     this.introType = 'Eggshells';
     this.gameoverChar = 'bf-dead';
     this.gameoverMusicSuffix = '';
-    this.songVariants = ["Normal", "Erect"];
+    this.songVariants = ["Normal"];
     this.songDescription = TextAndLanguage.getPhrase('desc_eggshells',
       "Mark's lonely cousin seems like he's not much for conversation, but that won't stop Nopeboy from trying!");
     this.ratingsType = "";

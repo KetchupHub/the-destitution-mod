@@ -41,27 +41,6 @@ class SongInit
         returnSong = new Quanta();
       case 'abstraction':
         returnSong = new Abstraction();
-      // erects
-      case 'fundamentals-erect':
-        returnSong = new Fundamentals();
-      case 'destitution-erect':
-        returnSong = new Destitution();
-      case 'superseded-erect':
-        returnSong = new Superseded();
-      case 'quickshot-erect':
-        returnSong = new Quickshot();
-      case 'd-stitution-erect':
-        returnSong = new DStitution();
-      case 'eggshells-erect':
-        returnSong = new Eggshells();
-      case 'collapse-erect':
-        returnSong = new Collapse();
-      case 'topkicks-erect':
-        returnSong = new Topkicks();
-      case 'quanta-erect':
-        returnSong = new Quanta();
-      case 'abstraction-erect':
-        returnSong = new Abstraction();
     }
 
     try

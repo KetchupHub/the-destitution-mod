@@ -14,7 +14,7 @@ class Quanta extends SongClass
     this.playable = ILI;
     this.songHasSections = false;
     this.introType = 'Default';
-    this.songVariants = ["Normal", "Erect"];
+    this.songVariants = ["Normal"];
     this.songDescription = TextAndLanguage.getPhrase('desc_quanta', "A flashback of quantum proportions!");
     this.ratingsType = "";
     this.skipCountdown = false;

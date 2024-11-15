@@ -30,7 +30,7 @@ class Destitution extends SongClass
     this.introType = 'Mark';
     this.gameoverChar = 'bf-dead';
     this.gameoverMusicSuffix = '';
-    this.songVariants = ["Normal", "Erect"];
+    this.songVariants = ["Normal"];
     this.songDescription = TextAndLanguage.getPhrase('desc_destitution', "Mark and the gang show Nopeboy how to be a master investor!");
     this.ratingsType = "";
     this.skipCountdown = false;

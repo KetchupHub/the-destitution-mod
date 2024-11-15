@@ -16,7 +16,7 @@ class Abstraction extends SongClass
     this.introType = 'Mark';
     this.gameoverChar = 'bf-dead';
     this.gameoverMusicSuffix = '';
-    this.songVariants = ["Normal", "Erect"];
+    this.songVariants = ["Normal"];
     this.songDescription = TextAndLanguage.getPhrase('desc_abstraction', "Experience the magic of Mark's very own self written television program firsthand!");
     this.ratingsType = "";
     this.skipCountdown = true;

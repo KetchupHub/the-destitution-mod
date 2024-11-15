@@ -14,7 +14,7 @@ class Fundamentals extends SongClass
     this.playable = BF;
     this.songHasSections = false;
     this.introType = 'Default';
-    this.songVariants = ["Normal", "Erect"];
+    this.songVariants = ["Normal"];
     this.songDescription = TextAndLanguage.getPhrase('desc_fundamentals', "Learn to sing in this new world with Girlspeaks' help!");
     this.ratingsType = "";
     this.skipCountdown = false;

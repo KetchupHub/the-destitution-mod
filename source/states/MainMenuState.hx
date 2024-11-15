@@ -240,6 +240,48 @@ class MainMenuState extends MusicBeatState
         FlxG.sound.play(Paths.sound('scrollMenu'));
         ClientPrefs.boiners += 100;
       }
+
+      if (FlxG.keys.justPressed.U)
+      {
+        FlxG.sound.play(Paths.sound('confirmMenu'));
+
+        ClientPrefs.unlockedQuanta = true;
+        ClientPrefs.unlockedTopkicks = true;
+        ClientPrefs.unlockedAbstraction = true;
+        ClientPrefs.unlockedBoozeLoze = true;
+
+        ClientPrefs.unlockedGfMixes = true;
+        ClientPrefs.unlockedPearMixes = true;
+
+        ClientPrefs.unlockedMarkMixes = true;
+        ClientPrefs.unlockedKarmMixes = true;
+        ClientPrefs.unlockedYuuMixes = true;
+
+        ClientPrefs.unlockedEviMixes = true;
+        ClientPrefs.unlockedArgulowMixes = true;
+        ClientPrefs.unlockedBaldiMixes = true;
+      }
+
+      if (FlxG.keys.justPressed.O)
+      {
+        FlxG.sound.play(Paths.sound('cancelMenu'));
+
+        ClientPrefs.unlockedQuanta = false;
+        ClientPrefs.unlockedTopkicks = false;
+        ClientPrefs.unlockedAbstraction = false;
+        ClientPrefs.unlockedBoozeLoze = false;
+
+        ClientPrefs.unlockedGfMixes = false;
+        ClientPrefs.unlockedPearMixes = false;
+
+        ClientPrefs.unlockedMarkMixes = false;
+        ClientPrefs.unlockedKarmMixes = false;
+        ClientPrefs.unlockedYuuMixes = false;
+
+        ClientPrefs.unlockedEviMixes = false;
+        ClientPrefs.unlockedArgulowMixes = false;
+        ClientPrefs.unlockedBaldiMixes = false;
+      }
       #end
 
       if (controls.UI_UP_P)
@@ -313,10 +355,12 @@ class MainMenuState extends MusicBeatState
               switch (daChoice)
               {
                 case 'story_mode':
+                  ClientPrefs.saveSettings();
                   FlxTransitionableState.skipNextTransIn = true;
                   FlxTransitionableState.skipNextTransOut = true;
                   MusicBeatState.switchState(new FreeplayState());
                 case 'freeplay':
+                  ClientPrefs.saveSettings();
                   FlxTransitionableState.skipNextTransIn = true;
                   FlxTransitionableState.skipNextTransOut = true;
                   MusicBeatState.switchState(new FreeplayState(#if DEVELOPERBUILD debugChar #end));

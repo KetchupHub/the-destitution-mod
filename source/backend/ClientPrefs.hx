@@ -40,6 +40,20 @@ class ClientPrefs
 
   public static var boiners:Int = 0;
 
+  public static var unlockedQuanta:Bool = false;
+  public static var unlockedTopkicks:Bool = false;
+  public static var unlockedAbstraction:Bool = false;
+  public static var unlockedBoozeLoze:Bool = false;
+
+  public static var unlockedGfMixes:Bool = false;
+  public static var unlockedPearMixes:Bool = false;
+  public static var unlockedMarkMixes:Bool = false;
+  public static var unlockedKarmMixes:Bool = false;
+  public static var unlockedYuuMixes:Bool = false;
+  public static var unlockedEviMixes:Bool = false;
+  public static var unlockedArgulowMixes:Bool = false;
+  public static var unlockedBaldiMixes:Bool = false;
+
   public static var gameplaySettings:Map<String, Dynamic> = [
     'scrollspeed' => 1.0,
     'scrolltype' => 'multiplicative',

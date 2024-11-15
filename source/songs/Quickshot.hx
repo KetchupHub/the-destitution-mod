@@ -14,7 +14,7 @@ class Quickshot extends SongClass
     this.playable = PEAR;
     this.songHasSections = false;
     this.introType = 'Default';
-    this.songVariants = ["Normal", "Erect"];
+    this.songVariants = ["Normal"];
     this.songDescription = TextAndLanguage.getPhrase('desc_quickshot', "Pearson faces the Rulez Battalion in combat!");
     this.ratingsType = "";
     this.skipCountdown = false;

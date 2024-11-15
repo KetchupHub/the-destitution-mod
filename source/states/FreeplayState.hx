@@ -112,20 +112,26 @@ class FreeplayState extends MusicBeatState
 
       for (j in 0...leWeek.songs.length)
       {
-        leSongs.push(leWeek.songs[j][0]);
-        leChars.push(leWeek.songs[j][1]);
+        if (!getShouldBeRemovedFromList(leWeek.songs[j][0]))
+        {
+          leSongs.push(leWeek.songs[j][0]);
+          leChars.push(leWeek.songs[j][1]);
+        }
       }
 
       for (song in leWeek.songs)
       {
-        var colors:Array<Int> = song[2];
-
-        if (colors == null || colors.length < 3)
+        if (!getShouldBeRemovedFromList(song[0]))
         {
-          colors = [146, 113, 253];
-        }
+          var colors:Array<Int> = song[2];
 
-        addSong(song[0], i, song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]));
+          if (colors == null || colors.length < 3)
+          {
+            colors = [146, 113, 253];
+          }
+
+          addSong(song[0], i, song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]));
+        }
       }
     }
 
@@ -367,7 +373,8 @@ class FreeplayState extends MusicBeatState
       scoreText.text = TextAndLanguage.getPhrase('freeplay_best', 'Best Score: {1}', [
         (FlxStringUtil.formatMoney(lerpScore, false, true) + ' (' + ratingSplit.join('.') + '%)')
       ]) + myFuck;
-      positionHighscore();
+      
+      scoreText.x = FlxG.width - scoreText.width - 6;
 
       if (controls.BACK)
       {
@@ -590,9 +597,109 @@ class FreeplayState extends MusicBeatState
     super.closeSubState();
   }
 
-  public function positionHighscore()
+  /**
+     * literally the worst thing ive ever written.
+     * @param name 
+     */
+  public function getShouldBeRemovedFromList(name:String):Bool
   {
-    scoreText.x = FlxG.width - scoreText.width - 6;
+    if (!ClientPrefs.unlockedQuanta)
+    {
+      if (name.toLowerCase().startsWith('quanta'))
+      {
+        return true;
+      }
+    }
+
+    if (!ClientPrefs.unlockedTopkicks)
+    {
+      if (name.toLowerCase().startsWith('topkicks'))
+      {
+        return true;
+      }
+    }
+
+    if (!ClientPrefs.unlockedAbstraction)
+    {
+      if (name.toLowerCase().startsWith('abstraction'))
+      {
+        return true;
+      }
+    }
+
+    if (!ClientPrefs.unlockedBoozeLoze)
+    {
+      if (name.toLowerCase().startsWith('booze-loze'))
+      {
+        return true;
+      }
+    }
+
+    if (!ClientPrefs.unlockedGfMixes)
+    {
+      if (name.toLowerCase().endsWith('-gf'))
+      {
+        return true;
+      }
+    }
+
+    if (!ClientPrefs.unlockedPearMixes)
+    {
+      if (name.toLowerCase().endsWith('-pear'))
+      {
+        return true;
+      }
+    }
+
+    if (!ClientPrefs.unlockedMarkMixes)
+    {
+      if (name.toLowerCase().endsWith('-mark'))
+      {
+        return true;
+      }
+    }
+
+    if (!ClientPrefs.unlockedKarmMixes)
+    {
+      if (name.toLowerCase().endsWith('-karm'))
+      {
+        return true;
+      }
+    }
+
+    if (!ClientPrefs.unlockedYuuMixes)
+    {
+      if (name.toLowerCase().endsWith('-yuu'))
+      {
+        return true;
+      }
+    }
+
+    if (!ClientPrefs.unlockedEviMixes)
+    {
+      if (name.toLowerCase().endsWith('-evi'))
+      {
+        return true;
+      }
+    }
+
+    if (!ClientPrefs.unlockedArgulowMixes)
+    {
+      if (name.toLowerCase().endsWith('-arg'))
+      {
+        return true;
+      }
+    }
+
+    if (!ClientPrefs.unlockedBaldiMixes)
+    {
+      if (name.toLowerCase().endsWith('-bal'))
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
 

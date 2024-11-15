@@ -27,7 +27,7 @@ class Superseded extends SongClass
     this.introType = 'Mark'; // wont be used anyways because superseded skips the countdown
     this.gameoverChar = 'bf-dead';
     this.gameoverMusicSuffix = '_old';
-    this.songVariants = ["Normal", "Erect"];
+    this.songVariants = ["Normal"];
     this.songDescription = TextAndLanguage.getPhrase('desc_superseded',
       "Mark's experimental time machine brings Nopeboy back to 2022 - 20, when everything was terrible!");
     this.ratingsType = "";

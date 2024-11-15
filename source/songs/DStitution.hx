@@ -27,7 +27,7 @@ class DStitution extends SongClass
     this.introType = 'Karm';
     this.gameoverChar = 'd-bf-dead';
     this.gameoverMusicSuffix = '_dsides';
-    this.songVariants = ["Normal", "Erect"];
+    this.songVariants = ["Normal"];
     this.songDescription = TextAndLanguage.getPhrase('desc_dstitution',
       "Mark enlists Nopeboy to test the new dimension shifter on his time machine, and shenanigans ensue!");
     this.ratingsType = "Dsides";
