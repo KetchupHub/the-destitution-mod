@@ -19,6 +19,7 @@ class MarkHeadTransition extends MusicBeatSubstate
     super();
 
     this.isTransIn = isTransIn;
+
     var zoom:Float = CoolUtil.boundTo(FlxG.camera.zoom, 0.05, 1);
     var width:Int = Std.int(FlxG.width / zoom);
     var height:Int = Std.int(FlxG.height / zoom);
@@ -62,15 +63,5 @@ class MarkHeadTransition extends MusicBeatSubstate
     }
 
     nextCamera = null;
-  }
-
-  override function update(elapsed:Float)
-  {
-    super.update(elapsed);
-  }
-
-  override function destroy()
-  {
-    super.destroy();
   }
 }

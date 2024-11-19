@@ -192,7 +192,7 @@ class Alphabet extends FlxSpriteGroup
 
   override function update(elapsed:Float)
   {
-    if (isMenuItem)
+    if (isMenuItem && (changeX || changeY))
     {
       var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
 
@@ -212,7 +212,7 @@ class Alphabet extends FlxSpriteGroup
 
   public function snapToPosition()
   {
-    if (isMenuItem)
+    if (isMenuItem && (changeX || changeY))
     {
       if (changeX)
       {

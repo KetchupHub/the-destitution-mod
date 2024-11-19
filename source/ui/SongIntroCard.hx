@@ -33,7 +33,7 @@ class SongIntroCard extends FlxSpriteGroup
     {
       _charObj.loadGraphic(Paths.image('ui/songCards/placeholder'));
     }
-    _charObj.setGraphicSize(640 * _sizeMultipFromSixForty);
+    _charObj.setGraphicSize(800);
     _charObj.updateHitbox();
     _charObj.antialiasing = ClientPrefs.globalAntialiasing;
     add(_charObj);
@@ -49,16 +49,14 @@ class SongIntroCard extends FlxSpriteGroup
     _cardObjBelly.updateHitbox();
     add(_cardObjBelly);
 
-    _textObj = new FlxText((211 / 2) * _sizeMultipFromSixForty, (438 / 2) * _sizeMultipFromSixForty, (860 / 2) * _sizeMultipFromSixForty, songDisplayName,
-      Std.int(36 * _sizeMultipFromSixForty));
-    _textObj.setFormat(Paths.font("BAUHS93.ttf"), Std.int(40 * _sizeMultipFromSixForty), color, FlxTextAlign.CENTER, NONE);
+    _textObj = new FlxText(131.875, 273.75, 537.5, songDisplayName, Std.int(36 * _sizeMultipFromSixForty));
+    _textObj.setFormat(Paths.font("BAUHS93.ttf"), 50, color, FlxTextAlign.CENTER, NONE);
     _textObj.antialiasing = ClientPrefs.globalAntialiasing;
     _textObj.bold = true;
     add(_textObj);
 
-    _credObj = new FlxText((211 / 2) * _sizeMultipFromSixForty, ((438 + 86) / 2) * _sizeMultipFromSixForty, (860 / 2) * _sizeMultipFromSixForty,
-      "Composed by " + composer, Std.int(12 * _sizeMultipFromSixForty));
-    _credObj.setFormat(Paths.font("BAUHS93.ttf"), Std.int(((24 + 8) / 2) * _sizeMultipFromSixForty), FlxColor.BLACK, FlxTextAlign.CENTER, NONE);
+    _credObj = new FlxText(131.875, 327.5, 537.5, "Composed by " + composer, 15);
+    _credObj.setFormat(Paths.font("BAUHS93.ttf"), 20, FlxColor.BLACK, FlxTextAlign.CENTER, NONE);
     _credObj.antialiasing = ClientPrefs.globalAntialiasing;
     add(_credObj);
   }

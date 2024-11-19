@@ -45,7 +45,6 @@
 
 	<haxelib name="flixel-addons" />
 	<haxelib name="hscript" />
-	<define name="hscriptPos" />
 	<haxelib name="thx.core" />
 	<haxelib name="thx.semver" />
 	<haxelib name="json2object" />
@@ -54,6 +53,11 @@
 	<haxelib name="hxdiscord_rpc" if="desktop" />
 	<haxelib name="flxanimate" />
 	<haxelib name="hxcpp-debug-server" />
+
+	<!--Custom haxedefs for destitution mod purposes, such as dev build features and making certain random stuff Not for showcase purposes-->
+	<!--haxedef name="SHOWCASEVIDEO" -->
+	<haxedef name="DEVELOPERBUILD" unless="SHOWCASEVIDEO" />
+	<!--haxedef name="FORCESPORTSEVENT" -->
 
 	<haxedef name="FLX_NO_TOUCH" />
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
@@ -71,22 +75,14 @@
 	
 	<haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB" />
 
-	<haxedef name="HXCPP_CHECK_POINTER" />
-	<haxedef name="HXCPP_STACK_LINE" />
-	<haxedef name="HXCPP_STACK_TRACE" />
+	<haxedef name="HXCPP_CHECK_POINTER" if="DEVELOPERBUILD"/>
+	<haxedef name="HXCPP_STACK_LINE" if="DEVELOPERBUILD"/>
+	<haxedef name="HXCPP_STACK_TRACE" if="DEVELOPERBUILD"/>
+	<define name="hscriptPos" if="DEVELOPERBUILD"/>
 
 	<haxedef name="message.reporting" value="pretty" />
 
-	<haxedef name="HXCPP_TELEMETRY" if="DEVELOPERBUILD" />
-	<haxedef name="HXCPP_TRACY" if="DEVELOPERBUILD" />
-	<haxedef name="HXCPP_TRACY_MEMORY" if="DEVELOPERBUILD" />
-
 	<haxedef name="absolute-paths" />
-
-	<!--Custom haxedefs for destitution mod purposes, such as dev build features and making certain random stuff Not for showcase purposes-->
-	<!--haxedef name="SHOWCASEVIDEO" -->
-	<haxedef name="DEVELOPERBUILD" unless="SHOWCASEVIDEO" />
-	<!--haxedef name="FORCESPORTSEVENT" -->
 
 	<icon path="art/iconOG.png" />
 </project>
