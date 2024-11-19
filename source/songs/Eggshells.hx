@@ -22,7 +22,7 @@ class Eggshells extends SongClass
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["gary", "bf-eggshells", "gf-eggshells", "stop-loading"];
-    this.introCardBeat = 64;
+    this.introCardBeat = 32;
   }
 
   public override function stepHitEvent(curStep:Float)

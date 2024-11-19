@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="location.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="box0000" x="4" y="235" width="264" height="227" />
+	<SubTexture name="box0001" x="4" y="235" width="264" height="227" />
+	<SubTexture name="box0002" x="4" y="466" width="263" height="227" frameX="-1" frameY="0"
+		frameWidth="264" frameHeight="227" />
+	<SubTexture name="box0003" x="4" y="466" width="263" height="227" frameX="-1" frameY="0"
+		frameWidth="264" frameHeight="227" />
+	<SubTexture name="idle0000" x="410" y="512" width="87" height="156" />
+	<SubTexture name="idle0001" x="410" y="512" width="87" height="156" />
+	<SubTexture name="idle0002" x="410" y="672" width="87" height="156" />
+	<SubTexture name="idle0003" x="410" y="672" width="87" height="156" />
+	<SubTexture name="reform0000" x="272" y="258" width="216" height="250" frameX="0" frameY="0"
+		frameWidth="216" frameHeight="252" />
+	<SubTexture name="reform0001" x="272" y="258" width="216" height="250" frameX="0" frameY="0"
+		frameWidth="216" frameHeight="252" />
+	<SubTexture name="reform0002" x="271" y="512" width="135" height="166" frameX="-40" frameY="-86"
+		frameWidth="264" frameHeight="252" />
+	<SubTexture name="reform0003" x="271" y="512" width="135" height="166" frameX="-40" frameY="-86"
+		frameWidth="264" frameHeight="252" />
+	<SubTexture name="transform0000" x="271" y="512" width="135" height="166" frameX="-64"
+		frameY="-86" frameWidth="264" frameHeight="252" />
+	<SubTexture name="transform0001" x="271" y="512" width="135" height="166" frameX="-64"
+		frameY="-86" frameWidth="264" frameHeight="252" />
+	<SubTexture name="transform0002" x="272" y="4" width="216" height="250" frameX="-24" frameY="0"
+		frameWidth="264" frameHeight="252" />
+	<SubTexture name="transform0003" x="272" y="4" width="216" height="250" frameX="-24" frameY="0"
+		frameWidth="264" frameHeight="252" />
+	<SubTexture name="transform0004" x="4" y="4" width="264" height="227" frameX="0" frameY="-23"
+		frameWidth="264" frameHeight="252" />
+	<SubTexture name="transform0005" x="4" y="4" width="264" height="227" frameX="0" frameY="-23"
+		frameWidth="264" frameHeight="252" />
+</TextureAtlas>

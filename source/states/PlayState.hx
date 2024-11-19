@@ -170,6 +170,7 @@ class PlayState extends MusicBeatState
 
   public var camZoomingMult:Float = 1;
   public var camZoomingDecay:Float = 1;
+  public var camZoomingDiv:Int = 4;
 
   public var camZoomAdditive:Float = 0;
 
@@ -4510,6 +4511,16 @@ class PlayState extends MusicBeatState
       throw "Null section! You need to open the chart editor and play the song to the end to generate missing sections.";
     }
 
+    if (curBeat % camZoomingDiv == 0)
+    {
+      if (camZooming && ClientPrefs.camZooms && !tweeningCam)
+      {
+        FlxG.camera.zoom += 0.015 * camZoomingMult;
+        camSubtitlesAndSuch.zoom += 0.015 * camZoomingMult;
+        camHUD.zoom += 0.03 * camZoomingMult;
+      }
+    }
+
     if (angelPulsing && curBeat % angelPulseBeat == 0)
     {
       if (angel != null)
@@ -4664,13 +4675,6 @@ class PlayState extends MusicBeatState
       if (generatedMusic && !endingSong && !isCameraOnForcedPos)
       {
         moveCameraSection();
-      }
-
-      if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms && !tweeningCam)
-      {
-        FlxG.camera.zoom += 0.015 * camZoomingMult;
-        camSubtitlesAndSuch.zoom += 0.015 * camZoomingMult;
-        camHUD.zoom += 0.03 * camZoomingMult;
       }
 
       if (SONG.notes[curSection].changeBPM)
@@ -4983,14 +4987,14 @@ class PlayState extends MusicBeatState
 
     FlxTween.tween(noteTypeInfocard, {x: noteTypeInfocard.x - noteTypeInfocard.width}, (Conductor.crochet / 1500) / playbackRate,
       {
-        ease: EaseUtil.stepped(8),
+        ease: FlxEase.backOut,
         onComplete: function shit(fu:FlxTween)
         {
           var newboy:FlxTimer = new FlxTimer().start(((Conductor.crochet / 250) * 4) / playbackRate, function fuck(f:FlxTimer)
           {
             FlxTween.tween(noteTypeInfocard, {x: 1280, alpha: 0}, (Conductor.crochet / 1500) / playbackRate,
               {
-                ease: EaseUtil.stepped(8),
+                ease: FlxEase.backIn,
                 onComplete: function ass(as:FlxTween)
                 {
                   noteTypeInfocard.visible = false;

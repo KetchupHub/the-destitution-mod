@@ -665,6 +665,9 @@ class Destitution extends SongClass
         PlayState.instance.bgPlayer.visible = false;
         PlayState.instance.bgPlayer.destroy();
         PlayState.instance.defaultCamZoom = 0.875;
+        PlayState.instance.camZoomingMult = 1.5;
+        PlayState.instance.camZoomingDecay = 0.9;
+        PlayState.instance.camZoomingDiv = 1;
         FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, Conductor.crochet / 250, {ease: EaseUtil.stepped(4)});
         PlayState.instance.ploinkyTransition.visible = false;
         PlayState.instance.ploinkyTransition.destroy();
@@ -698,10 +701,12 @@ class Destitution extends SongClass
         PlayState.instance.dad.canDance = false;
         PlayState.instance.dad.canSing = false;
         PlayState.instance.dad.playAnim('pull', true);
+        PlayState.instance.camZoomingDiv = 4;
       case 804:
         PlayState.instance.dad.canDance = true;
         PlayState.instance.dad.canSing = true;
         FlxG.camera.flash();
+        PlayState.instance.camZoomingDiv = 2;
       case 930:
         PlayState.instance.dad.canDance = false;
         PlayState.instance.dad.canSing = false;
@@ -730,6 +735,7 @@ class Destitution extends SongClass
 
         PlayState.instance.camZoomingMult = 2;
         PlayState.instance.camZoomingDecay = 0.8;
+        PlayState.instance.camZoomingDiv = 4;
 
         PlayState.instance.defaultCamZoom = 1;
 
@@ -766,6 +772,8 @@ class Destitution extends SongClass
         PlayState.instance.defaultCamZoom = 0.875;
         PlayState.instance.defaultCamZoom -= 0.125;
 
+        PlayState.instance.camZoomingDiv = 1;
+
         PlayState.instance.dad.visible = true;
         PlayState.instance.dadGroup.remove(PlayState.instance.dad);
         PlayState.instance.dad.destroy();
@@ -784,7 +792,7 @@ class Destitution extends SongClass
         PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
         PlayState.instance.reloadHealthBarColors();
         PlayState.instance.camZoomingMult = 1.5;
-        PlayState.instance.camZoomingDecay = 0.5;
+        PlayState.instance.camZoomingDecay = 1.5;
         PlayState.instance.chromAbbPulse = true;
         PlayState.instance.chromAbbBeat = 1;
         FlxG.camera.flash();
@@ -826,6 +834,7 @@ class Destitution extends SongClass
         PlayState.instance.camZooming = false;
         PlayState.instance.camZoomingMult = 1;
         PlayState.instance.camZoomingDecay = 1;
+        PlayState.instance.camZoomingDiv = 2;
         PlayState.instance.space.visible = false;
         PlayState.instance.spaceTime = false;
 
@@ -842,11 +851,11 @@ class Destitution extends SongClass
           {
             for (spitem in PlayState.instance.spaceItems.members)
             {
-              FlxTween.tween(spitem, {'scale.x': 0, 'scale.y': 0}, 1.5 / PlayState.instance.playbackRate, {ease: EaseUtil.stepped(8)});
+              FlxTween.tween(spitem, {'scale.x': 0, 'scale.y': 0}, 1.5 / PlayState.instance.playbackRate, {ease: FlxEase.backInOut});
             }
           }
 
-          FlxTween.tween(PlayState.instance.space, {alpha: 0}, 1.5 / PlayState.instance.playbackRate, {ease: EaseUtil.stepped(8)});
+          FlxTween.tween(PlayState.instance.space, {alpha: 0}, 1.5 / PlayState.instance.playbackRate, {ease: FlxEase.backInOut});
 
           var fuckyouman:FlxTimer = new FlxTimer().start(1.55 / PlayState.instance.playbackRate, function dierels(fuck:FlxTimer)
           {
@@ -863,9 +872,9 @@ class Destitution extends SongClass
           });
 
           FlxTween.tween(PlayState.instance.dad, {x: PlayState.instance.spaceTimeDadArray[0], y: PlayState.instance.spaceTimeDadArray[1], angle: 0}, 1,
-            {ease: EaseUtil.stepped(8)});
+            {ease: FlxEase.elasticOut});
           FlxTween.tween(PlayState.instance.boyfriend, {x: PlayState.instance.spaceTimeBfArray[0], y: PlayState.instance.spaceTimeBfArray[1], angle: 0}, 1,
-            {ease: EaseUtil.stepped(8)});
+            {ease: FlxEase.elasticOut});
         }
         else
         {
@@ -886,9 +895,11 @@ class Destitution extends SongClass
         PlayState.instance.camZooming = true;
         PlayState.instance.camZoomingMult = 1.5;
         PlayState.instance.camZoomingDecay = 1.5;
+        PlayState.instance.camZoomingDiv = 1;
 
         if (curBeat <= 1164)
         {
+          PlayState.instance.camZoomingDiv = 2;
           PlayState.instance.chromAbbPulse = true;
           PlayState.instance.chromAbbBeat = 2;
 
@@ -912,6 +923,7 @@ class Destitution extends SongClass
         PlayState.instance.camZoomingDecay = 1;
         PlayState.instance.chromAbbPulse = false;
         PlayState.instance.chromAbbBeat = 4;
+        PlayState.instance.camZoomingDiv = 4;
         FlxG.camera.flash();
       case 1340:
         if (ClientPrefs.shaders)
@@ -943,6 +955,8 @@ class Destitution extends SongClass
         PlayState.instance.cuttingSceneThing.visible = false;
         PlayState.instance.centerCamOnBg = false;
         PlayState.instance.clearItemNoteShit();
+
+        PlayState.instance.camZoomingDiv = 4;
 
         FlxG.camera.flash();
 
