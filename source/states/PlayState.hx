@@ -4197,6 +4197,14 @@ class PlayState extends MusicBeatState
         {
           altAnim = '-alt';
         }
+
+        if (curSong.toLowerCase().startsWith('superseded'))
+        {
+          if (SONG.notes[curSection].mustHitSection)
+          {
+            altAnim = '-mh';
+          }
+        }
       }
 
       var char:Character = dad;
@@ -4629,6 +4637,10 @@ class PlayState extends MusicBeatState
       if (dad.animOffsets.exists('idle-alt') || dad.animOffsets.exists('danceLeft-alt') || dad.animOffsets.exists('danceRight-alt'))
       {
         dad.dance(SONG.notes[curSection].altAnim);
+      }
+      else if (curSong.toLowerCase().startsWith('superseded') && (dad.animOffsets.exists('idle-mh') || dad.animOffsets.exists('danceLeft-mh') || dad.animOffsets.exists('danceRight-mh')))
+      {
+        dad.dance(false, SONG.notes[curSection].mustHitSection);
       }
       else
       {

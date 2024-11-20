@@ -5,7 +5,7 @@
       "loop": false,
       "anim": "singLEFT",
       "fps": 24,
-      "name": "left",
+      "name": "left0",
       "hasTransition": true,
       "indices": []
     },
@@ -14,7 +14,7 @@
       "loop": false,
       "anim": "singDOWN",
       "fps": 24,
-      "name": "down",
+      "name": "down0",
       "hasTransition": true,
       "indices": []
     },
@@ -23,7 +23,7 @@
       "loop": false,
       "anim": "singUP",
       "fps": 24,
-      "name": "up",
+      "name": "up0",
       "hasTransition": true,
       "indices": []
     },
@@ -33,7 +33,7 @@
       "anim": "singRIGHT",
       "hasTransition": true,
       "fps": 24,
-      "name": "right",
+      "name": "right0",
       "indices": []
     },
     {
@@ -41,14 +41,66 @@
       "loop": false,
       "anim": "idle",
       "fps": 24,
-      "name": "idle",
+      "name": "idle0",
       "indices": []
+    },
+    {
+      "offsets": [0, 0],
+      "loop": false,
+      "anim": "singLEFT-mh",
+      "fps": 24,
+      "name": "left-mh",
+      "hasTransition": true,
+      "indices": []
+    },
+    {
+      "offsets": [0, 0],
+      "loop": false,
+      "anim": "singDOWN-mh",
+      "fps": 24,
+      "name": "down-mh",
+      "hasTransition": true,
+      "indices": []
+    },
+    {
+      "offsets": [0, 0],
+      "loop": false,
+      "anim": "singUP-mh",
+      "fps": 24,
+      "name": "up-mh",
+      "hasTransition": true,
+      "indices": []
+    },
+    {
+      "offsets": [0, 0],
+      "loop": false,
+      "anim": "singRIGHT-mh",
+      "hasTransition": true,
+      "fps": 24,
+      "name": "right",
+      "indices": []
+    },
+    {
+      "offsets": [0, 0],
+      "loop": false,
+      "anim": "idle-mh",
+      "fps": 24,
+      "name": "idle-mh",
+      "indices": []
+    },
+    {
+      "loop": false,
+      "offsets": [0, 0],
+      "fps": 24,
+      "anim": "gameover",
+      "indices": [],
+      "name": "gameover"
     }
   ],
   "animator": null,
   "no_antialiasing": true,
   "artist": null,
-  "image": "characters/superseded/old_mark_intro",
+  "image": "characters/superseded/mark_old",
   "position": [0, 0],
   "whoDoneWhat": null,
   "healthicon": "mark-old",

@@ -5,43 +5,79 @@
       "offsets": [0, 0],
       "anim": "idle",
       "fps": 24,
-      "name": "idle",
+      "name": "idle0",
       "indices": []
     },
     {
       "loop": false,
       "offsets": [0, 0],
       "anim": "singLEFT",
-      "fps": 24,
-      "name": "left",
       "hasTransition": true,
+      "fps": 24,
+      "name": "left0",
       "indices": []
     },
     {
       "loop": false,
       "offsets": [0, 0],
       "anim": "singDOWN",
-      "fps": 24,
-      "name": "down",
       "hasTransition": true,
+      "fps": 24,
+      "name": "down0",
       "indices": []
     },
     {
       "loop": false,
+      "hasTransition": true,
       "offsets": [0, 0],
       "anim": "singUP",
       "fps": 24,
-      "name": "up",
+      "name": "up0",
+      "indices": []
+    },
+    {
+      "loop": false,
       "hasTransition": true,
+      "offsets": [0, 0],
+      "anim": "singRIGHT",
+      "fps": 24,
+      "name": "right0",
       "indices": []
     },
     {
       "loop": false,
       "offsets": [0, 0],
-      "anim": "singRIGHT",
+      "anim": "singLEFT-miss",
+      "hasTransition": false,
       "fps": 24,
-      "name": "right",
-      "hasTransition": true,
+      "name": "left-miss",
+      "indices": []
+    },
+    {
+      "loop": false,
+      "offsets": [0, 0],
+      "anim": "singDOWN-miss",
+      "hasTransition": false,
+      "fps": 24,
+      "name": "down-miss",
+      "indices": []
+    },
+    {
+      "loop": false,
+      "hasTransition": false,
+      "offsets": [0, 0],
+      "anim": "singUP-miss",
+      "fps": 24,
+      "name": "up-miss",
+      "indices": []
+    },
+    {
+      "loop": false,
+      "hasTransition": false,
+      "offsets": [0, 0],
+      "anim": "singRIGHT-miss",
+      "fps": 24,
+      "name": "right-miss",
       "indices": []
     }
   ],

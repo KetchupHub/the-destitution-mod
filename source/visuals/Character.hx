@@ -316,6 +316,10 @@ class Character extends PixelPerfectSprite
                 dance(PlayState.SONG.notes[PlayState.instance.curSection].altAnim);
               }
             }
+            else if (PlayState.instance.curSong.toLowerCase().startsWith('superseded'))
+            {
+              dance(false, PlayState.SONG.notes[PlayState.instance.curSection].mustHitSection);
+            }
             else
             {
               dance();
@@ -344,7 +348,19 @@ class Character extends PixelPerfectSprite
     if (!isPlayer
       && holdTimer >= Conductor.stepCrochet * (0.0011 #if FLX_PITCH / (FlxG.sound.music != null ? FlxG.sound.music.pitch : 1) #end) * singDuration)
     {
-      dance();
+      if (animOffsets.exists('idle-alt') || animOffsets.exists('danceLeft-alt') || animOffsets.exists('danceRight-alt'))
+      {
+        dance(PlayState.SONG.notes[PlayState.instance.curSection].altAnim);
+      }
+      else if (PlayState.instance.curSong.toLowerCase().startsWith('superseded'))
+      {
+        dance(false, PlayState.SONG.notes[PlayState.instance.curSection].mustHitSection);
+      }
+      else
+      {
+        dance();
+      }
+
       holdTimer = 0;
     }
 
@@ -468,13 +484,18 @@ class Character extends PixelPerfectSprite
     return value;
   }
 
-  public function dance(alt:Bool = false)
+  public function dance(alt:Bool = false, mustHitSection = false)
   {
     var altStr:String = "";
 
     if (alt)
     {
       altStr = "-alt";
+    }
+
+    if (mustHitSection && (animOffsets.exists('idle-mh') || animOffsets.exists('danceLeft-mh') || animOffsets.exists('danceRight-mh')))
+    {
+      altStr = '-mh';
     }
 
     if (!debugMode && !skipDance && canDance)

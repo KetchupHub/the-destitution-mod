@@ -29,12 +29,11 @@ class Superseded extends SongClass
     this.gameoverMusicSuffix = '_old';
     this.songVariants = ["Normal"];
     this.songDescription = TextAndLanguage.getPhrase('desc_superseded',
-      "Mark's experimental time machine brings Nopeboy back to 2022 - 20, when everything was terrible!");
+      "Mark's experimental time machine brings Nopeboy back to 2002, when everything was terrible!");
     this.ratingsType = "";
     this.skipCountdown = true;
     this.preloadCharacters = [
       'mark-old',
-      'mark-old-turn',
       'mark-old-glitch',
       'bf-old',
       'the-creature',
@@ -77,11 +76,6 @@ class Superseded extends SongClass
         FlxTween.tween(FlxG.camera, {zoom: PlayState.instance.defaultCamZoom}, Conductor.crochet / 1000, {ease: FlxEase.circOut});
       case 32:
         PlayState.instance.tweeningCam = false;
-      case 156:
-        PlayState.instance.dadGroup.remove(PlayState.instance.dad);
-        PlayState.instance.dad.destroy();
-        PlayState.instance.dad = new Character(PlayState.instance.dad.x, PlayState.instance.dad.y, 'mark-old-turn', false, false);
-        PlayState.instance.dadGroup.add(PlayState.instance.dad);
       case 160:
         FlxG.camera.flash();
         PlayState.instance.defaultCamZoom = 0.875;
