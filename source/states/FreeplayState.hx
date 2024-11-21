@@ -235,8 +235,6 @@ class FreeplayState extends MusicBeatState
       FlxTween.tween(i, {alpha: 0.6}, 0.25, {ease: EaseUtil.stepped(4)});
     }
 
-    var swag:Alphabet = new Alphabet(1, 0, "swag");
-
     var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
     textBG.alpha = 0.6;
     add(textBG);
@@ -268,9 +266,12 @@ class FreeplayState extends MusicBeatState
 
   override function update(elapsed:Float)
   {
-    if (FlxG.sound.music.volume < 0.7)
+    if (FlxG.sound.music != null)
     {
-      FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+      if (FlxG.sound.music.volume < 1)
+      {
+        FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+      }
     }
 
     if (!exitingMenu && !enteringMenu)
@@ -373,7 +374,7 @@ class FreeplayState extends MusicBeatState
       scoreText.text = TextAndLanguage.getPhrase('freeplay_best', 'Best Score: {1}', [
         (FlxStringUtil.formatMoney(lerpScore, false, true) + ' (' + ratingSplit.join('.') + '%)')
       ]) + myFuck;
-      
+
       scoreText.x = FlxG.width - scoreText.width - 6;
 
       if (controls.BACK)

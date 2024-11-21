@@ -173,8 +173,6 @@ class GameOverSubstate extends MusicBeatSubstate
       FlxTransitionableState.skipNextTransOut = true;
 
       MusicBeatState.switchState(new MainMenuState());
-
-      FlxG.sound.playMusic(Paths.music('mus_pauperized'));
     }
 
     if (boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name == 'firstDeath')

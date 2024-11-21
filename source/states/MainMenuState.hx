@@ -175,7 +175,7 @@ class MainMenuState extends MusicBeatState
     {
       if (FlxG.sound.music.volume < 1)
       {
-        FlxG.sound.music.volume += 0.25 * FlxG.elapsed;
+        FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
       }
 
       Conductor.songPosition = FlxG.sound.music.time;
@@ -356,9 +356,9 @@ class MainMenuState extends MusicBeatState
               {
                 case 'story_mode':
                   ClientPrefs.saveSettings();
-                  FlxTransitionableState.skipNextTransIn = true;
-                  FlxTransitionableState.skipNextTransOut = true;
-                  MusicBeatState.switchState(new FreeplayState());
+                  FlxTransitionableState.skipNextTransIn = false;
+                  FlxTransitionableState.skipNextTransOut = false;
+                  MusicBeatState.switchState(new StoryMenuState());
                 case 'freeplay':
                   ClientPrefs.saveSettings();
                   FlxTransitionableState.skipNextTransIn = true;

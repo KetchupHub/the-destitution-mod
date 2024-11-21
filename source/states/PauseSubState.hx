@@ -61,7 +61,7 @@ class PauseSubState extends MusicBeatSubstate
 
     pauseMusic = new FlxSound();
     pauseMusic.loadEmbedded(Paths.music("mus_lunch_break"), true, true);
-    pauseMusic.volume = 0;
+    pauseMusic.volume = 0.25;
     pauseMusic.play(false);
 
     FlxG.sound.list.add(pauseMusic);
@@ -215,9 +215,9 @@ class PauseSubState extends MusicBeatSubstate
   {
     cantUnpause -= elapsed;
 
-    if (pauseMusic.volume < 0.75)
+    if (pauseMusic.volume < 1)
     {
-      pauseMusic.volume += 0.075 * elapsed;
+      pauseMusic.volume += 0.25 * elapsed;
     }
 
     super.update(elapsed);

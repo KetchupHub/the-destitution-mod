@@ -314,14 +314,10 @@ class ResultsState extends MusicBeatState
       Conductor.songPosition = FlxG.sound.music.time;
     }
 
-    if (FlxG.keys.justPressed.F)
+    if (FlxG.keys.justPressed.F && !hasFadedOut)
     {
-      if (!hasFadedOut)
-      {
-        FlxG.camera.fade(FlxColor.BLACK, (Conductor.crochet / 1000) * 32, false);
-
-        hasFadedOut = true;
-      }
+      FlxG.camera.fade(FlxColor.BLACK, (Conductor.crochet / 1000) * 32, false);
+      hasFadedOut = true;
     }
 
     if (hasFadedOut)
