@@ -2985,6 +2985,14 @@ class PlayState extends MusicBeatState
       GameOverSubstate.characterName = songObj.gameoverChar;
       GameOverSubstate.loopSoundName = 'gameover/loop' + songObj.gameoverMusicSuffix;
       GameOverSubstate.endSoundName = 'gameover/end' + songObj.gameoverMusicSuffix;
+      if (songObj.gameoverMusicSuffix == '_dsides')
+      {
+        GameOverSubstate.gameOverTempo = 95;
+      }
+      else
+      {
+        GameOverSubstate.gameOverTempo = 100;
+      }
 
       var bfTarX:Float = boyfriend.x;
       var bfTarY:Float = boyfriend.y;
@@ -4638,7 +4646,8 @@ class PlayState extends MusicBeatState
       {
         dad.dance(SONG.notes[curSection].altAnim);
       }
-      else if (curSong.toLowerCase().startsWith('superseded') && (dad.animOffsets.exists('idle-mh') || dad.animOffsets.exists('danceLeft-mh') || dad.animOffsets.exists('danceRight-mh')))
+      else if (curSong.toLowerCase().startsWith('superseded')
+        && (dad.animOffsets.exists('idle-mh') || dad.animOffsets.exists('danceLeft-mh') || dad.animOffsets.exists('danceRight-mh')))
       {
         dad.dance(false, SONG.notes[curSection].mustHitSection);
       }
@@ -4921,8 +4930,16 @@ class PlayState extends MusicBeatState
     SONG.stage = curStage;
 
     GameOverSubstate.characterName = songObj.gameoverChar;
-    GameOverSubstate.loopSoundName = 'mus_overtime' + songObj.gameoverMusicSuffix;
-    GameOverSubstate.endSoundName = 'mus_overtime_end' + songObj.gameoverMusicSuffix;
+    GameOverSubstate.loopSoundName = 'gameover/loop' + songObj.gameoverMusicSuffix;
+    GameOverSubstate.endSoundName = 'gameover/end' + songObj.gameoverMusicSuffix;
+    if (songObj.gameoverMusicSuffix == '_dsides')
+    {
+      GameOverSubstate.gameOverTempo = 95;
+    }
+    else
+    {
+      GameOverSubstate.gameOverTempo = 100;
+    }
 
     skipCountdown = songObj.skipCountdown;
   }

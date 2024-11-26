@@ -34,6 +34,7 @@ class GameOverSubstate extends MusicBeatSubstate
   public static var deathSoundName:String = 'gameover/deathsting';
   public static var loopSoundName:String = 'gameover/loop';
   public static var endSoundName:String = 'gameover/end';
+  public static var gameOverTempo:Float = 100;
 
   public static var instance:GameOverSubstate;
 
@@ -93,7 +94,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
     playingDeathSound = true;
 
-    Conductor.changeBPM(95);
+    Conductor.changeBPM(gameOverTempo);
 
     boyfriend.playAnim('firstDeath', true);
     boyfriend.animation.pause();
@@ -244,5 +245,6 @@ class GameOverSubstate extends MusicBeatSubstate
     deathSoundName = 'gameover/deathsting';
     loopSoundName = 'gameover/loop';
     endSoundName = 'gameover/end';
+    gameOverTempo = 100;
   }
 }
