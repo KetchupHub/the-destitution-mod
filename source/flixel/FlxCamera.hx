@@ -6,6 +6,7 @@ package flixel;
  * WHICH IS WHERE I GOT THE CODE FOR WORLDSPACE ROTATION!!!!
  * - cynda
 **/
+import flixel.util.FlxSpriteUtil;
 import flixel.graphics.tile.FlxDrawQuadsItem;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;

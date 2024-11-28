@@ -942,7 +942,6 @@ class PlayState extends MusicBeatState
         if (ClientPrefs.shaders)
         {
           chromAbb = new Abberation(0);
-          ripple = new RippleShader();
         }
 
         if (!ClientPrefs.lowQuality)
@@ -1043,10 +1042,6 @@ class PlayState extends MusicBeatState
             var fucksprit:PixelPerfectSprite = new PixelPerfectSprite(RandomUtil.randomLogic.float(-32, 1248), RandomUtil.randomLogic.float(-32, 688));
             fucksprit.loadGraphic(Paths.image("destitution/itemShit/" + Std.string(RandomUtil.randomVisuals.int(0, 10))));
             fucksprit.antialiasing = false;
-            if (ClientPrefs.shaders)
-            {
-              fucksprit.shader = ripple;
-            }
             fucksprit.ID = i;
             fucksprit.scale.set(2, 2);
             fucksprit.updateHitbox();
@@ -2545,7 +2540,7 @@ class PlayState extends MusicBeatState
 
     if (zamboniChaseBg != null)
     {
-      zamboniChaseBg.x += 640 * elapsed;
+      zamboniChaseBg.x -= 800 * elapsed;
     }
 
     if (spaceWiggle != null)
@@ -4126,7 +4121,7 @@ class PlayState extends MusicBeatState
 
     if (!daNote.isSustainNote)
     {
-      FlxG.sound.play(Paths.soundRandom('misses' + missSuffix + '/', 0, 2), RandomUtil.randomAudio.float(0.45, 0.65));
+      FlxG.sound.play(Paths.soundRandom('miss' + missSuffix + '/', 0, 2), RandomUtil.randomAudio.float(0.45, 0.65));
     }
 
     totalPlayed++;
@@ -4177,7 +4172,7 @@ class PlayState extends MusicBeatState
 
     recalculateRating(true);
 
-    FlxG.sound.play(Paths.soundRandom('misses' + missSuffix + '/', 0, 2), RandomUtil.randomAudio.float(0.45, 0.65));
+    FlxG.sound.play(Paths.soundRandom('miss' + missSuffix + '/', 0, 2), RandomUtil.randomAudio.float(0.45, 0.65));
 
     if (boyfriend.hasMissAnimations)
     {
@@ -4848,10 +4843,6 @@ class PlayState extends MusicBeatState
     thingToAdd.updateHitbox();
     thingToAdd.angle = RandomUtil.randomLogic.float(-180, 180);
     thingToAdd.antialiasing = false;
-    if (ClientPrefs.shaders)
-    {
-      thingToAdd.shader = ripple;
-    }
     thingToAdd.alpha = 0;
     itemNoteHudOverlays.add(thingToAdd);
     FlxTween.tween(thingToAdd, {alpha: 1}, Conductor.crochet / 1000, {ease: EaseUtil.stepped(8)});

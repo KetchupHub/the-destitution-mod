@@ -316,9 +316,16 @@ class Character extends PixelPerfectSprite
                 dance(PlayState.SONG.notes[PlayState.instance.curSection].altAnim);
               }
             }
-            else if (PlayState.instance.curSong.toLowerCase().startsWith('superseded'))
+            else if (PlayState.instance != null)
             {
-              dance(false, PlayState.SONG.notes[PlayState.instance.curSection].mustHitSection);
+              if (PlayState.instance.curSong.toLowerCase().startsWith('superseded'))
+              {
+                dance(false, PlayState.SONG.notes[PlayState.instance.curSection].mustHitSection);
+              }
+              else
+              {
+                dance();
+              }
             }
             else
             {
@@ -352,9 +359,16 @@ class Character extends PixelPerfectSprite
       {
         dance(PlayState.SONG.notes[PlayState.instance.curSection].altAnim);
       }
-      else if (PlayState.instance.curSong.toLowerCase().startsWith('superseded'))
+      else if (PlayState.instance != null)
       {
-        dance(false, PlayState.SONG.notes[PlayState.instance.curSection].mustHitSection);
+        if (PlayState.instance.curSong.toLowerCase().startsWith('superseded'))
+        {
+          dance(false, PlayState.SONG.notes[PlayState.instance.curSection].mustHitSection);
+        }
+        else
+        {
+          dance();
+        }
       }
       else
       {

@@ -5,7 +5,6 @@ import openfl.display.Bitmap;
 import util.macro.GitCommit;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
-import flixel.util.FlxSave;
 import flixel.FlxG;
 #if sys
 import sys.io.File;
@@ -163,13 +162,7 @@ class CoolUtil
     #end
   }
 
-  public static function getSavePath(folder:String = 'Team-Productions-Presents'):String
-  {
-    @:privateAccess
-    return #if (flixel < "5.0.0") folder #else FlxG.stage.application.meta.get('company')
-      + '/'
-      + FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
-  }
+  public static var savePath:String = "Team-Productions-Presents/The-Destitution-Mod";
 
   public static var markAscii:String = "                                                                                                                                     
                                                                                                                                      

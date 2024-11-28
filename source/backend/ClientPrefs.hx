@@ -149,7 +149,7 @@ class ClientPrefs
     FlxG.save.flush();
 
     var save:FlxSave = new FlxSave();
-    save.bind('controls', CoolUtil.getSavePath());
+    save.bind('controls', CoolUtil.savePath);
     save.data.customControls = keyBinds;
     save.flush();
   }
@@ -229,7 +229,7 @@ class ClientPrefs
         FlxG.updateFramerate = framerate;
       }
 
-      FlxG.game.focusLostFramerate = Std.int(framerate / 12);
+      FlxG.game.focusLostFramerate = framerate;
     }
 
     if (FlxG.save.data.camZooms != null)
@@ -369,7 +369,7 @@ class ClientPrefs
 
     var save:FlxSave = new FlxSave();
 
-    save.bind('controls', CoolUtil.getSavePath());
+    save.bind('controls', CoolUtil.savePath);
 
     if (save != null && save.data.customControls != null)
     {

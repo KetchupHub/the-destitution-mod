@@ -56,7 +56,7 @@ class InitState extends MusicBeatState
 
     FlxG.mouse.load(Paths.image('cursor').bitmap, 2);
 
-    FlxG.save.bind('destitution', CoolUtil.getSavePath());
+    FlxG.save.bind('destitution', CoolUtil.savePath);
 
     ClientPrefs.loadPrefs();
 

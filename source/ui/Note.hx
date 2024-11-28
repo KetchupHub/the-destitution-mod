@@ -362,8 +362,8 @@ class Note extends PixelPerfectSprite
 
     if (isSustainNote)
     {
-      animation.addByPrefix('purpleholdend', 'pruple end hold', 24);
       animation.addByPrefix(colArray[noteData] + 'holdend', colArray[noteData] + ' hold end', 24);
+      animation.addByPrefix('purpleholdend', 'pruple end hold', 24);
       animation.addByPrefix(colArray[noteData] + 'hold', colArray[noteData] + ' hold piece', 24);
     }
 

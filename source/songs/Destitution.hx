@@ -1220,7 +1220,7 @@ class Destitution extends SongClass
         PlayState.instance.dad = new Character(0, 0, 'zam', false, false);
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
         PlayState.instance.dad.screenCenter();
-        PlayState.instance.dad.x += 164;
+        PlayState.instance.dad.x += 196;
         PlayState.instance.dad.y += 372;
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
@@ -1265,6 +1265,7 @@ class Destitution extends SongClass
         PlayState.instance.dad.destroy();
         PlayState.instance.dad = new Character(384 - PlayState.instance.dadGroup.x, 294 - PlayState.instance.dadGroup.y, 'zam-ridin', false, false);
         PlayState.instance.dad.y = ((PlayState.instance.zamboniChaseBg.y + PlayState.instance.zamboniChaseBg.height) - PlayState.instance.dad.height) - 128;
+        PlayState.instance.dad.y -= 96;
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
@@ -1273,6 +1274,7 @@ class Destitution extends SongClass
         PlayState.instance.boyfriend.y = ((PlayState.instance.zamboniChaseBg.y + PlayState.instance.zamboniChaseBg.height)
           - PlayState.instance.boyfriend.height)
           - 156;
+        PlayState.instance.boyfriend.y -= 128;
         PlayState.instance.boyfriendGroup.add(PlayState.instance.boyfriend);
         PlayState.instance.boyfriend.alpha = 1;
 
@@ -1294,7 +1296,7 @@ class Destitution extends SongClass
         PlayState.instance.dad = new Character(0, 0, 'zam', false, false);
         PlayState.instance.dadGroup.add(PlayState.instance.dad);
         PlayState.instance.dad.screenCenter();
-        PlayState.instance.dad.x += 164;
+        PlayState.instance.dad.x += 196;
         PlayState.instance.dad.y += 372;
 
         PlayState.instance.boyfriendGroup.remove(PlayState.instance.boyfriend);
