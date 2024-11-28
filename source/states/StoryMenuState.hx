@@ -1,5 +1,6 @@
 package states;
 
+import visuals.PixelPerfectBackdrop;
 import backend.Song;
 import backend.Highscore;
 import flixel.FlxObject;
@@ -24,14 +25,16 @@ class StoryMenuState extends MusicBeatState
 {
   private var songs:Array<SongMetadata> = [];
 
-  public var markersGrp:FlxTypedGroup<RoadTripMarker>;
-  public var stopsGrp:FlxTypedGroup<RoadTripStop>;
+  public var stops:Array<RoadTripStop> = [];
 
+  public var roadBg:PixelPerfectBackdrop;
   public var thaCar:PixelPerfectSprite;
 
   public var facingSong:Bool = false;
 
   public var exitingMenu:Bool = false;
+
+  public var carSpeed:Float = 120;
 
   private var camFollowege:FlxPoint;
   private var camFollowObj:FlxObject;
@@ -78,22 +81,20 @@ class StoryMenuState extends MusicBeatState
       }
     }
 
-    markersGrp = new FlxTypedGroup<RoadTripMarker>();
-    stopsGrp = new FlxTypedGroup<RoadTripStop>();
+    roadBg = new PixelPerfectBackdrop(Paths.image('story/roadbg'), X);
+    roadBg.scale.set(2, 2);
+    roadBg.updateHitbox();
+    roadBg.screenCenter();
+    roadBg.scrollFactor.set();
+    roadBg.antialiasing = false;
+    add(roadBg);
 
     for (i in 0...songs.length)
     {
-      var myNewStop:RoadTripStop = new RoadTripStop(160 * (i + 2), 285, songs[i].songName.toLowerCase());
-      myNewStop.ID = i;
-      stopsGrp.add(myNewStop);
-
-      var myNewMarker:RoadTripMarker = new RoadTripMarker((160 * (i + 2)) + 10, 140, songs[i].songName.toLowerCase());
-      myNewMarker.ID = i;
-      markersGrp.add(myNewMarker);
+      var myNewStop:RoadTripStop = new RoadTripStop(160 * (i + 2), 140, songs[i].songName.toLowerCase(), i);
+      add(myNewStop);
+      stops.push(myNewStop);
     }
-
-    add(markersGrp);
-    add(stopsGrp);
 
     thaCar = new PixelPerfectSprite(10, 285).loadGraphic(Paths.image('story/car'));
     thaCar.updateHitbox();
@@ -137,17 +138,36 @@ class StoryMenuState extends MusicBeatState
     if (controls.UI_LEFT && !exitingMenu)
     {
       thaCar.flipX = true;
-      thaCar.x -= 100 * elapsed;
+      thaCar.x -= carSpeed * elapsed;
+
+      if (thaCar.x < 0)
+      {
+        thaCar.x = 0;
+      }
+      else
+      {
+        roadBg.x += carSpeed * elapsed;
+      }
     }
     else if (controls.UI_RIGHT && !exitingMenu)
     {
       thaCar.flipX = false;
-      thaCar.x += 100 * elapsed;
+      thaCar.x += carSpeed * elapsed;
+
+      if (thaCar.x < 0)
+      {
+        thaCar.x = 0;
+      }
+      else
+      {
+        roadBg.x -= carSpeed * elapsed;
+      }
     }
 
     if ((controls.UI_LEFT || controls.UI_RIGHT) && !exitingMenu)
     {
-      for (i in stopsGrp)
+      var FUCKFORLOOPS:Int = 0;
+      for (i in stops)
       {
         var dist = ((thaCar.x + thaCar.width) - i.x);
 
@@ -164,19 +184,12 @@ class StoryMenuState extends MusicBeatState
         if (dist <= 25)
         {
           i.hovered = true;
-          markersGrp.members[i.ID].hovered = true;
         }
         else
         {
           i.hovered = false;
-          markersGrp.members[i.ID].hovered = false;
         }
       }
-    }
-
-    if (thaCar.x < 0)
-    {
-      thaCar.x = 0;
     }
 
     camFollowege = thaCar.getGraphicMidpoint();
@@ -184,9 +197,10 @@ class StoryMenuState extends MusicBeatState
 
     if (controls.ACCEPT && !exitingMenu)
     {
-      for (i in markersGrp)
+      for (i in stops)
       {
-        if (i.acceptable)
+        // check exiting menu again, just to avoid doubles because fuck man i hate this code why did i write this stupid fucking menu like this
+        if (i.marker.acceptable && !exitingMenu)
         {
           exitingMenu = true;
 

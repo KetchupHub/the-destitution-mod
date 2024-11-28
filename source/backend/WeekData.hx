@@ -12,6 +12,7 @@ import haxe.Json;
  * @param storyName The story name of this week. This is only used in the score reset menu.
  * @param weekName The week's proper name.
  * @param freeplayColor The week's freeplay colors.
+ * @param hideStoryMode Should this week be hidden on the road trip menu?
  */
 typedef WeekFile =
 {
@@ -20,6 +21,7 @@ typedef WeekFile =
   var storyName:String;
   var weekName:String;
   var freeplayColor:Array<Int>;
+  var hideStoryMode:Bool;
 }
 
 /**
@@ -38,6 +40,8 @@ class WeekData
 
   public var fileName:String;
 
+  public var hideStoryMode:Bool;
+
   public function new(weekFile:WeekFile, fileName:String)
   {
     songs = weekFile.songs;
@@ -45,6 +49,7 @@ class WeekData
     storyName = weekFile.storyName;
     weekName = weekFile.weekName;
     freeplayColor = weekFile.freeplayColor;
+    hideStoryMode = weekFile.hideStoryMode;
 
     this.fileName = fileName;
   }
@@ -74,8 +79,11 @@ class WeekData
 
             if (weekFile != null)
             {
-              weeksLoaded.set(sexList[i], weekFile);
-              weeksList.push(sexList[i]);
+              if ((isStoryMode && !weekFile.hideStoryMode) || !isStoryMode)
+              {
+                weeksLoaded.set(sexList[i], weekFile);
+                weeksList.push(sexList[i]);
+              }
             }
           }
         }

@@ -2,110 +2,148 @@
 <TextureAtlas imagePath="stop.png">
 	<!-- Created with Adobe Animate version 22.0.0.93 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="stop hovered0000" x="308" y="941" width="297" height="301" frameX="-18"
+	<SubTexture name="stop hovered0000" x="932" y="1635" width="297" height="301" frameX="-18"
 		frameY="0" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0001" x="914" y="1212" width="297" height="301" frameX="-18"
+	<SubTexture name="stop hovered0001" x="1233" y="1635" width="297" height="301" frameX="-18"
 		frameY="0" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0002" x="308" y="941" width="297" height="301" frameX="-18"
+	<SubTexture name="stop hovered0002" x="932" y="1635" width="297" height="301" frameX="-18"
 		frameY="0" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0003" x="922" y="913" width="309" height="295" frameX="-9"
+	<SubTexture name="stop hovered0003" x="326" y="1311" width="309" height="295" frameX="-9"
 		frameY="-17" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0004" x="1235" y="922" width="309" height="295" frameX="-9"
+	<SubTexture name="stop hovered0004" x="639" y="1311" width="309" height="295" frameX="-9"
 		frameY="-17" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0005" x="922" y="913" width="309" height="295" frameX="-9"
+	<SubTexture name="stop hovered0005" x="326" y="1311" width="309" height="295" frameX="-9"
 		frameY="-17" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0006" x="298" y="1246" width="295" height="299" frameX="-13"
+	<SubTexture name="stop hovered0006" x="1286" y="882" width="295" height="299" frameX="-13"
 		frameY="-28" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0007" x="903" y="1517" width="295" height="299" frameX="-13"
+	<SubTexture name="stop hovered0007" x="1585" y="918" width="295" height="299" frameX="-13"
 		frameY="-28" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0008" x="298" y="1246" width="295" height="299" frameX="-13"
+	<SubTexture name="stop hovered0008" x="1286" y="882" width="295" height="299" frameX="-13"
 		frameY="-28" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0009" x="4" y="1235" width="290" height="306" frameX="-12"
+	<SubTexture name="stop hovered0009" x="1722" y="318" width="290" height="306" frameX="-12"
 		frameY="-22" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0010" x="609" y="1241" width="290" height="306" frameX="-12"
+	<SubTexture name="stop hovered0010" x="992" y="625" width="290" height="306" frameX="-12"
 		frameY="-22" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0011" x="4" y="1235" width="290" height="306" frameX="-12"
+	<SubTexture name="stop hovered0011" x="1722" y="318" width="290" height="306" frameX="-12"
 		frameY="-22" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0012" x="1548" y="922" width="300" height="302" frameX="0"
+	<SubTexture name="stop hovered0012" x="324" y="1610" width="300" height="302" frameX="0"
 		frameY="-13" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0013" x="4" y="929" width="300" height="302" frameX="0"
+	<SubTexture name="stop hovered0013" x="628" y="1610" width="300" height="302" frameX="0"
 		frameY="-13" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0014" x="1548" y="922" width="300" height="302" frameX="0"
+	<SubTexture name="stop hovered0014" x="324" y="1610" width="300" height="302" frameX="0"
 		frameY="-13" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0015" x="1215" y="1508" width="310" height="286" frameX="-3"
+	<SubTexture name="stop hovered0015" x="1286" y="592" width="310" height="286" frameX="-3"
 		frameY="-6" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0016" x="1529" y="1515" width="310" height="286" frameX="-3"
+	<SubTexture name="stop hovered0016" x="1600" y="628" width="310" height="286" frameX="-3"
 		frameY="-6" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0017" x="1215" y="1508" width="310" height="286" frameX="-3"
+	<SubTexture name="stop hovered0017" x="1286" y="592" width="310" height="286" frameX="-3"
 		frameY="-6" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0018" x="1294" y="4" width="320" height="297" frameX="-8"
+	<SubTexture name="stop hovered0018" x="1086" y="4" width="320" height="297" frameX="-8"
 		frameY="-12" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0019" x="1294" y="305" width="320" height="297" frameX="-8"
+	<SubTexture name="stop hovered0019" x="1410" y="4" width="320" height="297" frameX="-8"
 		frameY="-12" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0020" x="1294" y="4" width="320" height="297" frameX="-8"
+	<SubTexture name="stop hovered0020" x="1086" y="4" width="320" height="297" frameX="-8"
 		frameY="-12" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0021" x="4" y="4" width="319" height="307" frameX="-9" frameY="-7"
-		frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0022" x="327" y="4" width="319" height="307" frameX="-9"
+	<SubTexture name="stop hovered0021" x="4" y="764" width="319" height="307" frameX="-9"
 		frameY="-7" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0023" x="4" y="4" width="319" height="307" frameX="-9" frameY="-7"
-		frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0024" x="4" y="315" width="303" height="310" frameX="-17"
+	<SubTexture name="stop hovered0022" x="384" y="384" width="319" height="307" frameX="-9"
+		frameY="-7" frameWidth="328" frameHeight="328" />
+	<SubTexture name="stop hovered0023" x="4" y="764" width="319" height="307" frameX="-9"
+		frameY="-7" frameWidth="328" frameHeight="328" />
+	<SubTexture name="stop hovered0024" x="1734" y="4" width="303" height="310" frameX="-17"
 		frameY="0" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0025" x="311" y="315" width="303" height="310" frameX="-17"
+	<SubTexture name="stop hovered0025" x="764" y="311" width="303" height="310" frameX="-17"
 		frameY="0" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0026" x="4" y="315" width="303" height="310" frameX="-17"
+	<SubTexture name="stop hovered0026" x="1734" y="4" width="303" height="310" frameX="-17"
 		frameY="0" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0027" x="320" y="629" width="293" height="308" frameX="-8"
+	<SubTexture name="stop hovered0027" x="959" y="1011" width="293" height="308" frameX="-8"
 		frameY="-12" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0028" x="617" y="929" width="293" height="308" frameX="-8"
+	<SubTexture name="stop hovered0028" x="952" y="1323" width="293" height="308" frameX="-8"
 		frameY="-12" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0029" x="320" y="629" width="293" height="308" frameX="-8"
+	<SubTexture name="stop hovered0029" x="959" y="1011" width="293" height="308" frameX="-8"
 		frameY="-12" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0030" x="1290" y="606" width="300" height="312" frameX="-10"
+	<SubTexture name="stop hovered0030" x="384" y="695" width="300" height="312" frameX="-10"
 		frameY="-9" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0031" x="618" y="613" width="300" height="312" frameX="-10"
+	<SubTexture name="stop hovered0031" x="688" y="695" width="300" height="312" frameX="-10"
 		frameY="-9" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0032" x="1290" y="606" width="300" height="312" frameX="-10"
+	<SubTexture name="stop hovered0032" x="384" y="695" width="300" height="312" frameX="-10"
 		frameY="-9" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0033" x="650" y="4" width="318" height="303" frameX="-1"
+	<SubTexture name="stop hovered0033" x="764" y="4" width="318" height="303" frameX="-1"
 		frameY="-7" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0034" x="972" y="4" width="318" height="303" frameX="-1"
+	<SubTexture name="stop hovered0034" x="4" y="1075" width="318" height="303" frameX="-1"
 		frameY="-7" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0035" x="650" y="4" width="318" height="303" frameX="-1"
+	<SubTexture name="stop hovered0035" x="764" y="4" width="318" height="303" frameX="-1"
 		frameY="-7" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0036" x="650" y="311" width="316" height="298" frameX="-1"
+	<SubTexture name="stop hovered0036" x="4" y="1382" width="316" height="298" frameX="-1"
 		frameY="-16" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0037" x="970" y="311" width="316" height="298" frameX="-1"
+	<SubTexture name="stop hovered0037" x="4" y="1684" width="316" height="298" frameX="-1"
 		frameY="-16" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0038" x="650" y="311" width="316" height="298" frameX="-1"
+	<SubTexture name="stop hovered0038" x="4" y="1382" width="316" height="298" frameX="-1"
 		frameY="-16" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0039" x="922" y="613" width="312" height="296" frameX="-14"
+	<SubTexture name="stop hovered0039" x="327" y="1011" width="312" height="296" frameX="-14"
 		frameY="-22" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0040" x="4" y="629" width="312" height="296" frameX="-14"
+	<SubTexture name="stop hovered0040" x="643" y="1011" width="312" height="296" frameX="-14"
 		frameY="-22" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0041" x="922" y="613" width="312" height="296" frameX="-14"
+	<SubTexture name="stop hovered0041" x="327" y="1011" width="312" height="296" frameX="-14"
 		frameY="-22" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0042" x="1215" y="1221" width="314" height="283" frameX="-12"
+	<SubTexture name="stop hovered0042" x="1086" y="305" width="314" height="283" frameX="-12"
 		frameY="-27" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0043" x="1533" y="1228" width="314" height="283" frameX="-12"
+	<SubTexture name="stop hovered0043" x="1404" y="305" width="314" height="283" frameX="-12"
 		frameY="-27" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0044" x="1215" y="1221" width="314" height="283" frameX="-12"
+	<SubTexture name="stop hovered0044" x="1086" y="305" width="314" height="283" frameX="-12"
 		frameY="-27" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0045" x="4" y="1549" width="304" height="288" frameX="-9"
+	<SubTexture name="stop hovered0045" x="1256" y="1185" width="304" height="288" frameX="-9"
 		frameY="-16" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0046" x="312" y="1551" width="304" height="288" frameX="-9"
+	<SubTexture name="stop hovered0046" x="1564" y="1221" width="304" height="288" frameX="-9"
 		frameY="-16" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop hovered0047" x="4" y="1549" width="304" height="288" frameX="-9"
+	<SubTexture name="stop hovered0047" x="1256" y="1185" width="304" height="288" frameX="-9"
 		frameY="-16" frameWidth="328" frameHeight="328" />
-	<SubTexture name="stop idle0000" x="1618" y="4" width="114" height="108" />
-	<SubTexture name="stop idle0001" x="1618" y="4" width="114" height="108" />
-	<SubTexture name="stop idle0002" x="1736" y="4" width="113" height="108" frameX="0" frameY="0"
-		frameWidth="114" frameHeight="108" />
-	<SubTexture name="stop idle0003" x="1736" y="4" width="113" height="108" frameX="0" frameY="0"
-		frameWidth="114" frameHeight="108" />
-	<SubTexture name="stop idle0004" x="1618" y="116" width="113" height="108" frameX="0" frameY="0"
-		frameWidth="114" frameHeight="108" />
-	<SubTexture name="stop idle0005" x="1618" y="116" width="113" height="108" frameX="0" frameY="0"
-		frameWidth="114" frameHeight="108" />
+	<SubTexture name="stop idle0000" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0001" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0002" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0003" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0004" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0005" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0006" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0007" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0008" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0009" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0010" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0011" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0012" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0013" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0014" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0015" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0016" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0017" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0018" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0019" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0020" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0021" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0022" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0023" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0024" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0025" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0026" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0027" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0028" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0029" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0030" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0031" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0032" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0033" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0034" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0035" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0036" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0037" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0038" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0039" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0040" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0041" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0042" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0043" x="4" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0044" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0045" x="4" y="384" width="376" height="376" />
+	<SubTexture name="stop idle0046" x="384" y="4" width="376" height="376" />
+	<SubTexture name="stop idle0047" x="384" y="4" width="376" height="376" />
 </TextureAtlas>

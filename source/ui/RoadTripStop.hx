@@ -2,27 +2,42 @@ package ui;
 
 import backend.ClientPrefs;
 import visuals.PixelPerfectSprite;
+import flixel.group.FlxSpriteGroup;
 
-class RoadTripStop extends PixelPerfectSprite
+class RoadTripStop extends FlxSpriteGroup
 {
   public var songName:String;
 
-  public var hovered(default, set):Bool = false;
+  public var stopG:PixelPerfectSprite;
+  public var marker:RoadTripMarker;
 
-  public function new(x:Float = 0, y:Float = 0, song:String)
+  public var hovered(default, set):Bool = false;
+  
+  public var numLinked:Int;
+
+  public function new(x:Float = 0, y:Float = 0, song:String, number:Int)
   {
     super(x, y);
 
     songName = song;
+    numLinked = number;
 
-    frames = Paths.getSparrowAtlas('story/stop');
+    stopG = new PixelPerfectSprite(0, 145);
 
-    animation.addByPrefix('idle', 'stop idle', 24, true);
-    animation.addByPrefix('hovered', 'stop hovered', 24, true);
+    stopG.frames = Paths.getSparrowAtlas('story/stop');
 
-    animation.play('idle', true);
+    stopG.animation.addByPrefix('idle', 'stop idle', 24, true);
+    stopG.animation.addByPrefix('hovered', 'stop hovered', 24, true);
 
-    antialiasing = ClientPrefs.globalAntialiasing;
+    stopG.animation.play('idle', true);
+
+    stopG.antialiasing = ClientPrefs.globalAntialiasing;
+
+    add(stopG);
+
+    marker = new RoadTripMarker(0, 0, songName);
+
+    add(marker);
   }
 
   override function update(elapsed:Float)
@@ -34,18 +49,19 @@ class RoadTripStop extends PixelPerfectSprite
   {
     if (value)
     {
-      if (animation.curAnim.name != 'hovered' && animation.curAnim.name != 'hovered')
+      if (stopG.animation.curAnim.name != 'hovered' && stopG.animation.curAnim.name != 'hovered')
       {
-        animation.play('hovered', true);
-        //offset.set(-119, -131);
-        centerOrigin();
+        stopG.animation.play('hovered', true);
+        stopG.offset.set(-119, -131);
       }
     }
-    else if (animation.curAnim.name != 'idle' && animation.curAnim.name != 'idle')
+    else if (stopG.animation.curAnim.name != 'idle' && stopG.animation.curAnim.name != 'idle')
     {
-      animation.play("idle", true);
-      //offset.set(0, 0);
+      stopG.animation.play("idle", true);
+      stopG.offset.set(0, 0);
     }
+
+    marker.hovered = value;
 
     return value;
   }
