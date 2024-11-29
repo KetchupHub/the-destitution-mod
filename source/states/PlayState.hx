@@ -189,8 +189,7 @@ class PlayState extends MusicBeatState
 
   public var sectText:FlxText;
   public var sectNameText:FlxText;
-
-  public var introSoundsSuffix:String = '';
+  
   public var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
   public var controlArray:Array<String>;
 
@@ -1562,10 +1561,10 @@ class PlayState extends MusicBeatState
   {
     Paths.image('ui/songIntro');
 
-    Paths.sound('intro' + songObj.introType + '/intro3' + introSoundsSuffix);
-    Paths.sound('intro' + songObj.introType + '/intro2' + introSoundsSuffix);
-    Paths.sound('intro' + songObj.introType + '/intro1' + introSoundsSuffix);
-    Paths.sound('intro' + songObj.introType + '/introGo' + introSoundsSuffix);
+    Paths.sound('intro' + songObj.introType + '/intro3');
+    Paths.sound('intro' + songObj.introType + '/intro2');
+    Paths.sound('intro' + songObj.introType + '/intro1');
+    Paths.sound('intro' + songObj.introType + '/introGo');
   }
 
   public function startCountdown():Void
@@ -1651,19 +1650,19 @@ class PlayState extends MusicBeatState
         case 0:
           songIntro.animation.play("3", true);
 
-          FlxG.sound.play(Paths.sound('intro' + songObj.introType + '/' + 'intro3' + introSoundsSuffix), 0.6);
+          FlxG.sound.play(Paths.sound('intro' + songObj.introType + '/' + 'intro3'), 0.6);
         case 1:
           songIntro.animation.play("2", true);
 
-          FlxG.sound.play(Paths.sound('intro' + songObj.introType + '/' + 'intro2' + introSoundsSuffix), 0.6);
+          FlxG.sound.play(Paths.sound('intro' + songObj.introType + '/' + 'intro2'), 0.6);
         case 2:
           songIntro.animation.play("1", true);
 
-          FlxG.sound.play(Paths.sound('intro' + songObj.introType + '/' + 'intro1' + introSoundsSuffix), 0.6);
+          FlxG.sound.play(Paths.sound('intro' + songObj.introType + '/' + 'intro1'), 0.6);
         case 3:
           songIntro.animation.play("go", true);
 
-          FlxG.sound.play(Paths.sound('intro' + songObj.introType + '/' + 'introGo' + introSoundsSuffix), 0.6);
+          FlxG.sound.play(Paths.sound('intro' + songObj.introType + '/' + 'introGo'), 0.6);
 
           FlxTween.tween(songIntro, {alpha: 0}, Conductor.crochet / 1000,
             {
