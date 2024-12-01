@@ -20,7 +20,7 @@ class Eggshells extends SongClass
     this.songDescription = TextAndLanguage.getPhrase('desc_eggshells',
       "Mark's lonely cousin seems like he's not much for conversation, but that won't stop Nopeboy from trying!");
     this.ratingsType = "";
-    this.skipCountdown = false;
+    this.skipCountdown = true;
     this.preloadCharacters = ["gary", "bf-eggshells", "gf-eggshells", "stop-loading"];
     this.introCardBeat = 32;
   }

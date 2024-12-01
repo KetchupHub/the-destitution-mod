@@ -3,23 +3,22 @@ package songs;
 import backend.TextAndLanguage;
 
 /**
- * Countdown's song class.
+ * Elsewhere's song class.
  */
-class Countdown extends SongClass
+class Elsewhere extends SongClass
 {
   public override function new()
   {
     super();
-    this.songNameForDisplay = 'Countdown';
-    this.playable = SPORTS;
-    this.songHasSections = true;
-    this.introType = 'Mark';
-    // update these when the Sport Gameover later
+    this.songNameForDisplay = 'Elsewhere';
+    this.playable = BF;
+    this.songHasSections = false;
+    this.introType = 'Eggshells';
     this.gameoverChar = 'bf-dead';
     this.gameoverMusicSuffix = '';
     this.songVariants = ["Normal"];
-    this.songDescription = TextAndLanguage.getPhrase('desc_countdown',
-      "It's a slice of life episode! Mark and the gang play sports with Nopeboy and his friends!");
+    this.songDescription = TextAndLanguage.getPhrase('desc_elsewhere',
+      "Gary shows you that maybe this world isn't as great as you thought it was.");
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];

@@ -18,7 +18,7 @@ class Collapse extends SongClass
     this.gameoverMusicSuffix = '';
     this.songVariants = ["Normal"];
     this.songDescription = TextAndLanguage.getPhrase('desc_collapse',
-      "It's the end of the Marketing family business when footage of Mark killing Nopeboy leaks. Now it's time to fight off bankruptcy!");
+      "Mark's world is thrown for a loop when footage of him killing Nopeboy is leaked by his father. Now, it's time to end this, once and for all...");
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
