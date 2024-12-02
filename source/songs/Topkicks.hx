@@ -20,7 +20,7 @@ class Topkicks extends SongClass
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
-    this.introCardBeat = 0;
+    this.introCardBeat = 64;
     this.rpcVolume = "-pear";
   }
 

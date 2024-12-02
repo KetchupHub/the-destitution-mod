@@ -146,6 +146,20 @@ class ClientPrefs
     FlxG.save.data.lastEggshellsEnding = lastEggshellsEnding;
     FlxG.save.data.language = language;
 
+    FlxG.save.data.unlockedQuanta = unlockedQuanta;
+    FlxG.save.data.unlockedTopkicks = unlockedTopkicks;
+    FlxG.save.data.unlockedBoozeLoze = unlockedBoozeLoze;
+    FlxG.save.data.unlockedAbstraction = unlockedAbstraction;
+
+    FlxG.save.data.unlockedGfMixes = unlockedGfMixes;
+    FlxG.save.data.unlockedPearMixes = unlockedPearMixes;
+    FlxG.save.data.unlockedMarkMixes = unlockedMarkMixes;
+    FlxG.save.data.unlockedKarmMixes = unlockedKarmMixes;
+    FlxG.save.data.unlockedYuuMixes = unlockedYuuMixes;
+    FlxG.save.data.unlockedEviMixes = unlockedEviMixes;
+    FlxG.save.data.unlockedArgulowMixes = unlockedArgulowMixes;
+    FlxG.save.data.unlockedBaldiMixes = unlockedBaldiMixes;
+
     FlxG.save.flush();
 
     var save:FlxSave = new FlxSave();
@@ -365,6 +379,66 @@ class ClientPrefs
     if (FlxG.save.data.lastEggshellsEnding != null)
     {
       lastEggshellsEnding = FlxG.save.data.lastEggshellsEnding;
+    }
+
+    if (FlxG.save.data.unlockedQuanta != null)
+    {
+      unlockedQuanta = FlxG.save.data.unlockedQuanta;
+    }
+
+    if (FlxG.save.data.unlockedTopkicks != null)
+    {
+      unlockedTopkicks = FlxG.save.data.unlockedTopkicks;
+    }
+
+    if (FlxG.save.data.unlockedBoozeLoze != null)
+    {
+      unlockedBoozeLoze = FlxG.save.data.unlockedBoozeLoze;
+    }
+
+    if (FlxG.save.data.unlockedAbstraction != null)
+    {
+      unlockedAbstraction = FlxG.save.data.unlockedAbstraction;
+    }
+
+    if (FlxG.save.data.unlockedGfMixes != null)
+    {
+      unlockedGfMixes = FlxG.save.data.unlockedGfMixes;
+    }
+
+    if (FlxG.save.data.unlockedPearMixes != null)
+    {
+      unlockedPearMixes = FlxG.save.data.unlockedPearMixes;
+    }
+
+    if (FlxG.save.data.unlockedMarkMixes != null)
+    {
+      unlockedMarkMixes = FlxG.save.data.unlockedMarkMixes;
+    }
+
+    if (FlxG.save.data.unlockedKarmMixes != null)
+    {
+      unlockedKarmMixes = FlxG.save.data.unlockedKarmMixes;
+    }
+
+    if (FlxG.save.data.unlockedYuuMixes != null)
+    {
+      unlockedYuuMixes = FlxG.save.data.unlockedYuuMixes;
+    }
+
+    if (FlxG.save.data.unlockedEviMixes != null)
+    {
+      unlockedEviMixes = FlxG.save.data.unlockedEviMixes;
+    }
+
+    if (FlxG.save.data.unlockedArgulowMixes != null)
+    {
+      unlockedArgulowMixes = FlxG.save.data.unlockedArgulowMixes;
+    }
+
+    if (FlxG.save.data.unlockedBaldiMixes != null)
+    {
+      unlockedBaldiMixes = FlxG.save.data.unlockedBaldiMixes;
     }
 
     var save:FlxSave = new FlxSave();
