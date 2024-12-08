@@ -20,7 +20,6 @@ enum Playables
   EVI;
 
   DSIDES_BF;
-  SPORTS;
   ILI;
 }
 

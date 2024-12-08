@@ -2,7 +2,7 @@
   "animations": [
     {
       "loop": false,
-      "offsets": [62, -2],
+      "offsets": [-104, -216],
       "fps": 24,
       "anim": "singLEFT",
       "hasTransition": true,
@@ -11,7 +11,7 @@
     },
     {
       "loop": false,
-      "offsets": [0, 8],
+      "offsets": [-112, -218],
       "fps": 24,
       "anim": "singDOWN",
       "hasTransition": true,
@@ -20,7 +20,7 @@
     },
     {
       "loop": false,
-      "offsets": [0, 0],
+      "offsets": [-108, 68],
       "fps": 24,
       "anim": "singUP",
       "hasTransition": true,
@@ -29,7 +29,7 @@
     },
     {
       "loop": false,
-      "offsets": [-4, -48],
+      "offsets": [-276, -218],
       "fps": 24,
       "anim": "singRIGHT",
       "hasTransition": true,
@@ -37,60 +37,76 @@
       "name": "right"
     },
     {
-      "loop": true,
-      "offsets": [0, 0],
+      "loop": false,
+      "offsets": [-110, -220],
       "fps": 24,
-      "anim": "idle",
+      "anim": "danceLeft",
       "indices": [],
-      "name": "idle"
+      "name": "danceLeft"
     },
     {
       "loop": false,
-      "offsets": [2, 0],
+      "offsets": [-110, -220],
+      "fps": 24,
+      "anim": "danceRight",
+      "indices": [],
+      "name": "danceRight"
+    },
+    {
+      "loop": false,
+      "offsets": [-106, -192],
       "fps": 24,
       "anim": "singLEFT-alt",
       "hasTransition": true,
       "indices": [],
-      "name": "alt-left"
+      "name": "guit-left"
     },
     {
       "loop": false,
-      "offsets": [0, 0],
+      "offsets": [-58, -194],
       "fps": 24,
       "anim": "singDOWN-alt",
       "hasTransition": true,
       "indices": [],
-      "name": "alt-down"
+      "name": "guit-down"
     },
     {
       "loop": false,
-      "offsets": [-2, 50],
+      "offsets": [-134, -218],
       "fps": 24,
       "anim": "singUP-alt",
       "hasTransition": true,
       "indices": [],
-      "name": "alt-up"
+      "name": "guit-up"
     },
     {
       "loop": false,
-      "offsets": [20, 40],
+      "offsets": [-72, -196],
       "fps": 24,
       "anim": "singRIGHT-alt",
       "hasTransition": true,
       "indices": [],
-      "name": "alt-right"
-    },
-    {
-      "loop": true,
-      "offsets": [0, 0],
-      "fps": 24,
-      "anim": "idle-alt",
-      "indices": [],
-      "name": "alt-idle"
+      "name": "guit-right"
     },
     {
       "loop": false,
-      "offsets": [0, 0],
+      "offsets": [-110, -220],
+      "fps": 24,
+      "anim": "danceLeft-alt",
+      "indices": [],
+      "name": "guit-danceLeft"
+    },
+    {
+      "loop": false,
+      "offsets": [-110, -220],
+      "fps": 24,
+      "anim": "danceRight-alt",
+      "indices": [],
+      "name": "guit-danceRight"
+    },
+    {
+      "loop": false,
+      "offsets": [-106, -214],
       "fps": 24,
       "anim": "pull",
       "indices": [],
@@ -98,20 +114,33 @@
     },
     {
       "loop": false,
-      "offsets": [0, 0],
+      "offsets": [-110, -220],
       "fps": 24,
-      "anim": "put",
+      "anim": "leave",
       "indices": [],
-      "name": "put"
+      "name": "leave"
+    },
+    {
+      "loop": false,
+      "offsets": [-110, -220],
+      "fps": 24,
+      "anim": "gameover",
+      "indices": [],
+      "name": "gameover"
     }
   ],
+  "animator": null,
   "no_antialiasing": true,
+  "artist": null,
   "image": "characters/destitution/ploinky",
   "position": [0, 0],
+  "whoDoneWhat": null,
   "healthicon": "ploinky",
   "flip_x": false,
   "healthbar_colors": [143, 176, 231],
-  "camera_position": [-164, -96],
+  "aaAtlas": false,
+  "camera_position": [-254, -216],
   "sing_duration": 15,
-  "scale": 1.4
+  "scale": 3.7,
+  "_editor_isPlayer": null
 }

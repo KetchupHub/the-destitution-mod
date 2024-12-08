@@ -686,7 +686,7 @@ class FreeplayState extends MusicBeatState
 
     if (!ClientPrefs.unlockedArgulowMixes)
     {
-      if (name.toLowerCase().endsWith('-arg'))
+      if (name.toLowerCase().endsWith('-argulow'))
       {
         return true;
       }
@@ -694,7 +694,7 @@ class FreeplayState extends MusicBeatState
 
     if (!ClientPrefs.unlockedBaldiMixes)
     {
-      if (name.toLowerCase().endsWith('-bal'))
+      if (name.toLowerCase().endsWith('-baldi'))
       {
         return true;
       }

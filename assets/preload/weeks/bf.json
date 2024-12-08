@@ -7,8 +7,7 @@
     ["Eggshells", "gary", [37, 77, 52]],
     ["Elsewhere", "gary", [37, 77, 52]],
     ["Megamix", "mark", [151, 38, 19]],
-    ["Quanta", "item", [0, 204, 153]],
-    ["Abstraction", "mark-tv", [158, 41, 16]]
+    ["Quanta", "item", [0, 204, 153]]
   ],
 
   "weekCharacters": ["", "", ""],

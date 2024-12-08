@@ -1,93 +1,134 @@
 {
   "animations": [
     {
-      "offsets": [0, 0],
       "loop": false,
-      "fps": 24,
+      "offsets": [-58, -108],
       "anim": "idle",
-      "indices": [],
-      "name": "idle"
+      "fps": 24,
+      "name": "idle",
+      "indices": []
     },
     {
-      "offsets": [22, -4],
       "loop": false,
-      "fps": 24,
+      "offsets": [-58, -118],
       "anim": "singLEFT",
-      "indices": [],
+      "fps": 24,
+      "name": "left",
       "hasTransition": true,
-      "name": "left"
+      "indices": []
     },
     {
-      "offsets": [0, 0],
       "loop": false,
-      "fps": 24,
+      "offsets": [-128, 328],
       "anim": "singDOWN",
-      "hasTransition": true,
+      "fps": 24,
+      "name": "down",
       "indices": [],
-      "name": "down"
+      "hasTransition": true
     },
     {
-      "offsets": [0, -40],
       "loop": false,
-      "fps": 24,
+      "offsets": [-58, -98],
       "anim": "singUP",
-      "hasTransition": true,
+      "fps": 24,
+      "name": "up",
       "indices": [],
-      "name": "up"
+      "hasTransition": true
     },
     {
-      "offsets": [0, 0],
       "loop": false,
-      "fps": 24,
-      "hasTransition": true,
+      "offsets": [-88, -114],
       "anim": "singRIGHT",
+      "fps": 24,
+      "name": "right",
       "indices": [],
-      "name": "right"
+      "hasTransition": true
     },
     {
-      "offsets": [0, 0],
       "loop": false,
-      "fps": 24,
+      "offsets": [-128, -88],
       "anim": "singLEFTmiss",
-      "indices": [],
-      "name": "miss"
+      "fps": 24,
+      "name": "miss",
+      "indices": []
     },
     {
-      "offsets": [0, 0],
       "loop": false,
-      "fps": 24,
+      "offsets": [-128, -88],
       "anim": "singDOWNmiss",
-      "indices": [],
-      "name": "miss"
+      "fps": 24,
+      "name": "miss",
+      "indices": []
     },
     {
-      "offsets": [0, 0],
       "loop": false,
-      "fps": 24,
+      "offsets": [-128, -88],
       "anim": "singUPmiss",
-      "indices": [],
-      "name": "miss"
+      "fps": 24,
+      "name": "miss",
+      "indices": []
     },
     {
-      "offsets": [0, 0],
       "loop": false,
-      "fps": 24,
+      "offsets": [-128, -88],
       "anim": "singRIGHTmiss",
-      "indices": [],
-      "name": "miss"
+      "fps": 24,
+      "name": "miss",
+      "indices": []
+    },
+    {
+      "loop": false,
+      "offsets": [-128, -118],
+      "anim": "singLEFTmiss-alt",
+      "fps": 24,
+      "name": "guit-miss",
+      "indices": []
+    },
+    {
+      "loop": false,
+      "offsets": [-128, -118],
+      "anim": "singDOWNmiss-alt",
+      "fps": 24,
+      "name": "guit-miss",
+      "indices": []
+    },
+    {
+      "loop": false,
+      "offsets": [-128, -118],
+      "anim": "singUPmiss-alt",
+      "fps": 24,
+      "name": "guit-miss",
+      "indices": []
+    },
+    {
+      "loop": false,
+      "offsets": [-128, -118],
+      "anim": "singRIGHTmiss-alt",
+      "fps": 24,
+      "name": "guit-miss",
+      "indices": []
+    },
+    {
+      "loop": false,
+      "offsets": [-81, -108],
+      "anim": "hey",
+      "fps": 24,
+      "name": "hey",
+      "indices": []
     }
   ],
+  "animator": "PhoneyX",
   "no_antialiasing": true,
+  "artist": "Cynda, louiefan24",
   "image": "characters/destitution/ploinky_bf",
   "position": [-208, -96],
+  "whoDoneWhat": "PhoneyX animated sprites\nlouiefan24 did faces\nCynda made model",
   "healthicon": "bf",
   "flip_x": true,
   "healthbar_colors": [14, 133, 163],
-  "camera_position": [324, -84],
+  "aaAtlas": false,
+  "camera_position": [364, -604],
   "sing_duration": 15,
-  "scale": 1,
-  "artist": "Cynda, louiefan24",
-  "animator": "PhoneyX",
-  "whoDoneWhat": "PhoneyX animated sprites\nlouiefan24 did faces\nCynda made model",
+  "scale": 2.3,
   "_editor_isPlayer": true
 }

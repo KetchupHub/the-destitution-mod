@@ -68,7 +68,6 @@ class Destitution extends SongClass
     if (!ClientPrefs.lowQuality)
     {
       preloadCharacters.push('bg-player');
-      preloadCharacters.push('desti-fg-gf');
     }
 
     preloadCharacters.push('stop-loading');
@@ -582,20 +581,6 @@ class Destitution extends SongClass
 
           Paths.clearUnusedMemory();
         }
-        else
-        {
-          if (!ClientPrefs.lowQuality)
-          {
-            FlxTween.tween(PlayState.instance.fgGf, {alpha: 0}, Conductor.crochet / 250,
-              {
-                ease: EaseUtil.stepped(8),
-                onComplete: function puss(fff:FlxTween)
-                {
-                  PlayState.instance.fgGf.visible = false;
-                }
-              });
-          }
-        }
 
         if (!ClientPrefs.lowQuality)
         {
@@ -637,11 +622,6 @@ class Destitution extends SongClass
           PlayState.instance.bgPlayerWalkTarget += 2800;
         }
         FlxG.camera.flash();
-      case 448:
-        if (!ClientPrefs.lowQuality)
-        {
-          PlayState.instance.fgGf.visible = true;
-        }
       case 576:
         // 1.01 instead of just 1 to prevent weird edge clipping? damn
         PlayState.instance.defaultCamZoom = 1.01;
@@ -707,16 +687,11 @@ class Destitution extends SongClass
         PlayState.instance.dad.canSing = true;
         FlxG.camera.flash();
         PlayState.instance.camZoomingDiv = 2;
-      case 930:
+      case 932:
         PlayState.instance.dad.canDance = false;
         PlayState.instance.dad.canSing = false;
-        PlayState.instance.dad.playAnim('put', true);
-      case 932:
-        PlayState.instance.dad.canDance = true;
-        PlayState.instance.dad.canSing = true;
+        PlayState.instance.dad.playAnim('leave', true);
         FlxG.camera.flash();
-      case 940:
-        FlxTween.tween(PlayState.instance.dad, {alpha: 0}, (Conductor.crochet / 250) - 0.05, {ease: EaseUtil.stepped(4)});
       case 944:
         PlayState.instance.shoulderCam = false;
 
@@ -728,6 +703,9 @@ class Destitution extends SongClass
 
         PlayState.instance.lurkingTransition.animation.play('idle', true);
       case 948:
+        PlayState.instance.dad.canDance = true;
+        PlayState.instance.dad.canSing = true;
+        
         PlayState.instance.shoulderCam = false;
 
         PlayState.instance.lurkingTransition.visible = false;

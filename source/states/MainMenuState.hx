@@ -1,6 +1,5 @@
 package states;
 
-import backend.PlayablesData.Playables;
 import ui.TransitionScreenshotObject;
 import states.ResultsState.ResultRanks;
 import util.EaseUtil;
@@ -32,7 +31,6 @@ class MainMenuState extends MusicBeatState
 {
   #if DEVELOPERBUILD
   private var debugRank:ResultRanks = GOOD;
-  private var debugChar:Playables = DEFAULT;
   #end
 
   public static var curSelected:Int = 0;
@@ -189,34 +187,35 @@ class MainMenuState extends MusicBeatState
         FlxG.sound.play(Paths.sound('scrollMenu'));
 
         debugRank = BLEGH;
-        debugChar = DEFAULT;
+        CoolUtil.currentPlayable = DEFAULT;
       }
       else if (FlxG.keys.justPressed.TWO || FlxG.keys.justPressed.NUMPADTWO)
       {
         FlxG.sound.play(Paths.sound('scrollMenu'));
 
         debugRank = GOOD;
-        debugChar = BF;
+        CoolUtil.currentPlayable = BF;
       }
       else if (FlxG.keys.justPressed.THREE || FlxG.keys.justPressed.NUMPADTHREE)
       {
         FlxG.sound.play(Paths.sound('scrollMenu'));
 
         debugRank = GREAT;
-        debugChar = MARK;
+        CoolUtil.currentPlayable = MARK;
       }
       else if (FlxG.keys.justPressed.FOUR || FlxG.keys.justPressed.NUMPADFOUR)
       {
         FlxG.sound.play(Paths.sound('scrollMenu'));
 
         debugRank = EXCELLENT;
-        debugChar = PEAR;
+        CoolUtil.currentPlayable = PEAR;
       }
       else if (FlxG.keys.justPressed.FIVE || FlxG.keys.justPressed.NUMPADFIVE)
       {
         FlxG.sound.play(Paths.sound('scrollMenu'));
 
         debugRank = SYNERGY;
+        CoolUtil.currentPlayable = ARGULOW;
       }
 
       if (FlxG.keys.justPressed.TAB)
@@ -363,7 +362,7 @@ class MainMenuState extends MusicBeatState
                   ClientPrefs.saveSettings();
                   FlxTransitionableState.skipNextTransIn = true;
                   FlxTransitionableState.skipNextTransOut = true;
-                  MusicBeatState.switchState(new FreeplayState(#if DEVELOPERBUILD debugChar #end));
+                  MusicBeatState.switchState(new FreeplayState(CoolUtil.currentPlayable));
                 case 'lottery':
                   // to flush the boiners to the save file because they werent before
                   ClientPrefs.saveSettings();

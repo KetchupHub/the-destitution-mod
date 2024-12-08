@@ -1123,10 +1123,6 @@ class PlayState extends MusicBeatState
           bgPlayer.x -= 1400;
           bgPlayer.playAnim("walk", true);
           add(bgPlayer);
-
-          fgGf = new Character(16, 480, 'desti-fg-gf', false, false);
-          fgGf.scrollFactor.set();
-          fgGf.visible = false;
         }
 
         cuttingSceneThing = new PixelPerfectSprite();

@@ -1,5 +1,6 @@
 package util;
 
+import backend.PlayablesData.Playables;
 import sys.thread.Thread;
 import openfl.display.Bitmap;
 import util.macro.GitCommit;
@@ -18,6 +19,8 @@ using StringTools;
 class CoolUtil
 {
   public static var appTitleString:String = "The Destitution Mod v3";
+
+  public static var currentPlayable:Playables = DEFAULT;
 
   public static var gitCommitBranch:String = GitCommit.getGitBranch();
 
