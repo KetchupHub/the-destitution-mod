@@ -77,6 +77,8 @@ class TitleState extends MusicBeatState
 
     FlxG.mouse.visible = true;
 
+    RandomUtil.rerollRandomness();
+
     curWacky = RandomUtil.randomLogic.getObject(getIntroTextShit());
 
     var bg:FlxSprite = new FlxSprite();
@@ -88,8 +90,6 @@ class TitleState extends MusicBeatState
       FlxG.sound.playMusic(Paths.music('mus_pauperized'));
       Conductor.changeBPM(110);
     }
-
-    RandomUtil.rerollRandomness();
 
     swagShader = new ColorSwap();
 
@@ -488,7 +488,7 @@ class TitleState extends MusicBeatState
     var char:String = 'mark';
 
     // the rare chance characters
-    if (RandomUtil.randomVisuals.bool(5))
+    if (RandomUtil.randomSecrets.bool(5))
     {
       arrey = ['blocken', 'plant'];
     }

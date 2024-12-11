@@ -6,7 +6,6 @@ import backend.Conductor;
 import states.PlayState;
 import backend.ClientPrefs;
 import shaders.ColorSwap;
-
 #if DEVELOPERBUILD
 import editors.ChartingState;
 #end

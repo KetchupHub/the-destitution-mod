@@ -189,7 +189,7 @@ class PlayState extends MusicBeatState
 
   public var sectText:FlxText;
   public var sectNameText:FlxText;
-  
+
   public var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
   public var controlArray:Array<String>;
 
@@ -4132,7 +4132,25 @@ class PlayState extends MusicBeatState
     if (char != null && !daNote.noMissAnimation && char.hasMissAnimations)
     {
       var animToPlay:String = singAnimations[Std.int(Math.abs(daNote.noteData))] + 'miss' + daNote.animSuffix;
-      char.playAnim(animToPlay, true);
+
+      var altAnim:String = '';
+
+      if (SONG.notes[curSection] != null)
+      {
+        if (SONG.notes[curSection].altAnim)
+        {
+          altAnim = '-alt';
+        }
+      }
+
+      if (char.animOffsets.exists(animToPlay + altAnim))
+      {
+        char.playAnim(animToPlay + altAnim, true);
+      }
+      else
+      {
+        char.playAnim(animToPlay, true);
+      }
     }
   }
 
@@ -4171,7 +4189,24 @@ class PlayState extends MusicBeatState
 
     if (boyfriend.hasMissAnimations)
     {
-      boyfriend.playAnim(singAnimations[Std.int(Math.abs(direction))] + 'miss', true);
+      var altAnim:String = '';
+
+      if (SONG.notes[curSection] != null)
+      {
+        if (SONG.notes[curSection].altAnim)
+        {
+          altAnim = '-alt';
+        }
+      }
+
+      if (boyfriend.animOffsets.exists((singAnimations[Std.int(Math.abs(direction))] + 'miss') + altAnim))
+      {
+        boyfriend.playAnim((singAnimations[Std.int(Math.abs(direction))] + 'miss') + altAnim, true);
+      }
+      else
+      {
+        boyfriend.playAnim((singAnimations[Std.int(Math.abs(direction))] + 'miss'), true);
+      }
     }
 
     vocals.volume = 0;

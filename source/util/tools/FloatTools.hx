@@ -14,8 +14,8 @@ class FloatTools
   }
 
   /**
-    Round a float to a certain number of decimal places.
-  **/
+   * Round a float to a certain number of decimal places.
+   */
   public static function round(number:Float, ?precision = 2):Float
   {
     number *= Math.pow(10, precision);

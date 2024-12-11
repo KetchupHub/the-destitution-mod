@@ -705,7 +705,7 @@ class Destitution extends SongClass
       case 948:
         PlayState.instance.dad.canDance = true;
         PlayState.instance.dad.canSing = true;
-        
+
         PlayState.instance.shoulderCam = false;
 
         PlayState.instance.lurkingTransition.visible = false;

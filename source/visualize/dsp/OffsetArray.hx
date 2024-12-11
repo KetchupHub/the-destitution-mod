@@ -48,15 +48,24 @@ abstract OffsetArray<T>({
   **/
   public static function circShift<T>(array:Array<T>, n:Int):Array<T>
   {
-    if (n < 0) return circShift(array, array.length + n);
+    if (n < 0)
+    {
+      return circShift(array, array.length + n);
+    }
 
     var shifted = new Array<T>();
 
     n = n % array.length;
+
     for (i in array.length - n...array.length)
+    {
       shifted.push(array[i]);
+    }
+
     for (i in 0...array.length - n)
+    {
       shifted.push(array[i]);
+    }
 
     return shifted;
   }

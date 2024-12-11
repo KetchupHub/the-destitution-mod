@@ -6,10 +6,6 @@ import flash.display.BitmapData;
 import flash.Lib;
 import flixel.system.FlxBasePreloader;
 import util.MathUtil;
-import openfl.display.Sprite;
-import openfl.text.TextField;
-import openfl.text.TextFormat;
-import openfl.text.TextFormatAlign;
 
 using StringTools;
 
@@ -29,13 +25,6 @@ class FunkinPreloader extends FlxBasePreloader
    * Scaled up/down appropriately as needed.
    */
   static final BASE_WIDTH:Float = 640;
-
-  /**
-   * Margin at the sides and bottom, around the loading bar.
-   */
-  static final BAR_PADDING:Float = 20;
-
-  static final BAR_HEIGHT:Int = 12;
 
   /**
    * Logo takes this long (in seconds) to fade in.
@@ -93,18 +82,6 @@ class FunkinPreloader extends FlxBasePreloader
 
   // Graphics
   var logo:Bitmap;
-  var progressBarPieces:Array<Sprite>;
-  var progressBar:Bitmap;
-  var progressLeftText:TextField;
-  var progressRightText:TextField;
-
-  var dspText:TextField;
-  var fnfText:TextField;
-  var enhancedText:TextField;
-  var stereoText:TextField;
-
-  var box:Sprite;
-  var progressLines:Sprite;
 
   public function new()
   {
@@ -134,113 +111,6 @@ class FunkinPreloader extends FlxBasePreloader
       bmp.x = (this._width - bmp.width) / 2;
       bmp.y = (this._height - bmp.height) / 2;
     });
-
-    var amountOfPieces:Int = 16;
-    progressBarPieces = [];
-    var maxBarWidth = this._width - BAR_PADDING * 2;
-    var pieceWidth = maxBarWidth / amountOfPieces;
-    var pieceGap:Int = 8;
-
-    progressLines = new Sprite();
-    progressLines.graphics.lineStyle(2, 0xFFE4D7BC);
-    progressLines.graphics.drawRect(-2, 480, this._width + 4, 30);
-    //addChild(progressLines);
-
-    var progressBarPiece = new Sprite();
-    progressBarPiece.graphics.beginFill(0xFFE4D7BC);
-    progressBarPiece.graphics.drawRoundRect(0, 0, pieceWidth - pieceGap, BAR_HEIGHT, 4, 4);
-    progressBarPiece.graphics.endFill();
-
-    for (i in 0...amountOfPieces)
-    {
-      var piece = new Sprite();
-      piece.graphics.beginFill(0xFFE4D7BC);
-      piece.graphics.drawRoundRect(0, 0, pieceWidth - pieceGap, BAR_HEIGHT, 4, 4);
-      piece.graphics.endFill();
-
-      piece.x = i * (piece.width + pieceGap);
-      piece.y = this._height - BAR_PADDING - BAR_HEIGHT - 200;
-      //addChild(piece);
-      progressBarPieces.push(piece);
-    }
-
-    progressLeftText = new TextField();
-    dspText = new TextField();
-    fnfText = new TextField();
-    enhancedText = new TextField();
-    stereoText = new TextField();
-
-    var progressLeftTextFormat = new TextFormat(Paths.font('BAUHS93.ttf'), 32, 0xFFE4D7BC, true);
-    progressLeftTextFormat.align = TextFormatAlign.LEFT;
-    progressLeftText.defaultTextFormat = progressLeftTextFormat;
-
-    progressLeftText.selectable = false;
-    progressLeftText.width = this._width - BAR_PADDING * 2;
-    progressLeftText.text = 'Downloading assets...';
-    progressLeftText.x = BAR_PADDING;
-    progressLeftText.y = this._height - BAR_PADDING - BAR_HEIGHT - 290;
-    //addChild(progressLeftText);
-
-    progressRightText = new TextField();
-
-    var progressRightTextFormat = new TextFormat(Paths.font('BAUHS93.ttf'), 16, 0xFFE4D7BC, true);
-    progressRightTextFormat.align = TextFormatAlign.RIGHT;
-    progressRightText.defaultTextFormat = progressRightTextFormat;
-
-    progressRightText.selectable = false;
-    progressRightText.width = this._width - BAR_PADDING * 2;
-    progressRightText.text = '0%';
-    progressRightText.x = BAR_PADDING;
-    progressRightText.y = this._height - BAR_PADDING - BAR_HEIGHT - 16 - 4;
-    //addChild(progressRightText);
-
-    box = new Sprite();
-    box.graphics.beginFill(0xFFE4D7BC, 1);
-    box.graphics.drawRoundRect(0, 0, 64, 20, 5, 5);
-    box.graphics.drawRoundRect(70, 0, 58, 20, 5, 5);
-    box.graphics.endFill();
-    box.graphics.beginFill(0xFFE4D7BC, 0.1);
-    box.graphics.drawRoundRect(0, 0, 128, 20, 5, 5);
-    box.graphics.endFill();
-    box.x = 880;
-    box.y = 440;
-    //addChild(box);
-
-    dspText.selectable = false;
-    dspText.textColor = 0xFF4D1818;
-    dspText.width = this._width;
-    dspText.height = 20;
-    dspText.text = 'DSP';
-    dspText.x = 10;
-    dspText.y = -5;
-    //box.addChild(dspText);
-
-    fnfText.selectable = false;
-    fnfText.textColor = 0xFF4D1818;
-    fnfText.width = this._width;
-    fnfText.height = 20;
-    fnfText.x = 75;
-    fnfText.y = -5;
-    fnfText.text = 'MMC';
-    //box.addChild(fnfText);
-
-    enhancedText.selectable = false;
-    enhancedText.textColor = 0xFFE4D7BC;
-    enhancedText.width = this._width;
-    enhancedText.height = 100;
-    enhancedText.text = 'WORSENED';
-    enhancedText.x = -100;
-    enhancedText.y = 0;
-    //box.addChild(enhancedText);
-
-    stereoText.selectable = false;
-    stereoText.textColor = 0xFFE4D7BC;
-    stereoText.width = this._width;
-    stereoText.height = 100;
-    stereoText.text = 'ARTIFICIAL MONO';
-    stereoText.x = 0;
-    stereoText.y = -40;
-    //box.addChild(stereoText);
 
     addChild(logo);
   }
@@ -640,7 +510,6 @@ class FunkinPreloader extends FlxBasePreloader
   }
 
   static final TOTAL_STEPS:Int = 11;
-  static final ELLIPSIS_TIME:Float = 0.5;
 
   function updateGraphics(percent:Float, elapsed:Float):Void
   {
@@ -656,90 +525,9 @@ class FunkinPreloader extends FlxBasePreloader
     else
     {
       renderLogoFadeIn(elapsed);
-
-      // Render progress bar
-      var maxWidth = this._width - BAR_PADDING * 2;
-      var barWidth = maxWidth * percent;
-      var piecesToRender:Int = Std.int(percent * progressBarPieces.length);
-
-      for (i => piece in progressBarPieces)
-      {
-        piece.alpha = i <= piecesToRender ? 0.9 : 0.1;
-      }
     }
-
-    var ellipsisCount:Int = Std.int(elapsed / ELLIPSIS_TIME) % 3 + 1;
-    var ellipsis:String = '';
-    for (i in 0...ellipsisCount)
-      ellipsis += '.';
-
-    var percentage:Int = Math.floor(percent * 100);
-    switch (currentState)
-    {
-      default:
-        updateProgressLeftText('Loading \n0/$TOTAL_STEPS $ellipsis');
-      case FunkinPreloaderState.DownloadingAssets:
-        updateProgressLeftText('Downloading assets \n1/$TOTAL_STEPS $ellipsis');
-      case FunkinPreloaderState.PreloadingPlayAssets:
-        updateProgressLeftText('Preloading assets \n2/$TOTAL_STEPS $ellipsis');
-      case FunkinPreloaderState.InitializingScripts:
-        updateProgressLeftText('Initializing scripts \n3/$TOTAL_STEPS $ellipsis');
-      case FunkinPreloaderState.CachingGraphics:
-        updateProgressLeftText('Caching graphics \n4/$TOTAL_STEPS $ellipsis');
-      case FunkinPreloaderState.CachingAudio:
-        updateProgressLeftText('Caching audio \n5/$TOTAL_STEPS $ellipsis');
-      case FunkinPreloaderState.CachingData:
-        updateProgressLeftText('Caching data \n6/$TOTAL_STEPS $ellipsis');
-      case FunkinPreloaderState.ParsingSpritesheets:
-        updateProgressLeftText('Parsing spritesheets \n7/$TOTAL_STEPS $ellipsis');
-      case FunkinPreloaderState.ParsingStages:
-        updateProgressLeftText('Parsing stages \n8/$TOTAL_STEPS $ellipsis');
-      case FunkinPreloaderState.ParsingCharacters:
-        updateProgressLeftText('Parsing characters \n9/$TOTAL_STEPS $ellipsis');
-      case FunkinPreloaderState.ParsingSongs:
-        updateProgressLeftText('Parsing songs \n10/$TOTAL_STEPS $ellipsis');
-      case FunkinPreloaderState.Complete:
-        updateProgressLeftText('Finishing up \n$TOTAL_STEPS/$TOTAL_STEPS $ellipsis');
-    }
-
-    // Render percent text
-    progressRightText.text = '$percentage%';
 
     super.update(percent);
-  }
-
-  function updateProgressLeftText(text:Null<String>):Void
-  {
-    if (progressLeftText != null)
-    {
-      if (text == null)
-      {
-        progressLeftText.alpha = 0.0;
-      }
-      else if (progressLeftText.text != text)
-      {
-        // We have to keep updating the text format, because the font can take a frame or two to load.
-        var progressLeftTextFormat = new TextFormat(Paths.font('BAUHS93.ttf'), 32, 0xFFE4D7BC, true);
-        progressLeftTextFormat.align = TextFormatAlign.LEFT;
-        progressLeftText.defaultTextFormat = progressLeftTextFormat;
-        progressLeftText.text = text;
-
-        dspText.defaultTextFormat = new TextFormat(Paths.font('BAUHS93.ttf'), 20, 0xFF4D1818, false);
-        dspText.text = 'DSP';
-        dspText.textColor = 0xFF4D1818;
-
-        fnfText.defaultTextFormat = new TextFormat(Paths.font('BAUHS93.ttf'), 20, 0xFF4D1818, false);
-        fnfText.text = 'MMC';
-        fnfText.textColor = 0xFF4D1818;
-
-        enhancedText.defaultTextFormat = new TextFormat(Paths.font('BAUHS93.ttf'), 16, 0xFFE4D7BC, false);
-        enhancedText.text = 'WORSENED';
-        enhancedText.textColor = 0xFFE4D7BC;
-
-        stereoText.defaultTextFormat = new TextFormat(Paths.font('BAUHS93.ttf'), 36, 0xFFE4D7BC, false);
-        stereoText.text = 'ARTIFICIAL MONO';
-      }
-    }
   }
 
   function immediatelyStartGame():Void
@@ -763,20 +551,6 @@ class FunkinPreloader extends FlxBasePreloader
     logo.x = (this._width - logo.width) / 2;
     logo.y = (this._height - logo.height) / 2;
 
-    progressLeftText.alpha = logo.alpha;
-    progressRightText.alpha = logo.alpha;
-    box.alpha = logo.alpha;
-    dspText.alpha = logo.alpha;
-    fnfText.alpha = logo.alpha;
-    enhancedText.alpha = logo.alpha;
-    stereoText.alpha = logo.alpha;
-    progressLines.alpha = logo.alpha;
-
-    for (piece in progressBarPieces)
-    {
-      piece.alpha = logo.alpha;
-    }
-
     return elapsedFinished;
   }
 
@@ -788,20 +562,6 @@ class FunkinPreloader extends FlxBasePreloader
     logo.scaleY = MathUtil.easeInOutCirc(elapsed / LOGO_FADE_TIME) * ratio;
     logo.x = (this._width - logo.width) / 2;
     logo.y = (this._height - logo.height) / 2;
-
-    progressLeftText.alpha = logo.alpha;
-    progressRightText.alpha = logo.alpha;
-    box.alpha = logo.alpha;
-    dspText.alpha = logo.alpha;
-    fnfText.alpha = logo.alpha;
-    enhancedText.alpha = logo.alpha;
-    stereoText.alpha = logo.alpha;
-    progressLines.alpha = logo.alpha;
-
-    for (piece in progressBarPieces)
-    {
-      piece.alpha = logo.alpha;
-    }
   }
 
   override function destroy():Void

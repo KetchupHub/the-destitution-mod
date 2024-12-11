@@ -20,6 +20,7 @@ class Quanta extends SongClass
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
     this.introCardBeat = 0;
+    this.rpcVolume = "-ili";
   }
 
   public override function stepHitEvent(curStep:Float)

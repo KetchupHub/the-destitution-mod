@@ -32,13 +32,17 @@ class PolygonSpectogram extends MeshRender
   {
     super(0, 0, col);
 
-    if (daSound != null) setSound(daSound);
+    if (daSound != null)
+    {
+      setSound(daSound);
+    }
 
-    if (height != null) this.daHeight = height;
+    if (height != null)
+    {
+      this.daHeight = height;
+    }
 
     this.detail = detail;
-
-    // col not in yet
   }
 
   public function setSound(daSound:FlxSound)
@@ -78,19 +82,33 @@ class PolygonSpectogram extends MeshRender
       // gets how many samples to generate
       var samplesToGen:Int = Std.int(sampleRate * seconds);
 
-      if (samplesToGen == 0) return;
+      if (samplesToGen == 0)
+      {
+        return;
+      }
+
       // gets which sample to start at
       var startSample:Int = Std.int(FlxMath.remapToRange(start, 0, vis.snd.length, 0, numSamples));
 
       // Check if startSample and samplesToGen are within the bounds of the audioData array
-      if (startSample < 0 || startSample >= numSamples) return;
-      if (samplesToGen <= 0 || startSample + samplesToGen > numSamples) samplesToGen = numSamples - startSample;
+      if (startSample < 0 || startSample >= numSamples)
+      {
+        return;
+      }
+
+      if (samplesToGen <= 0 || startSample + samplesToGen > numSamples)
+      {
+        samplesToGen = numSamples - startSample;
+      }
 
       var prevPoint:FlxPoint = new FlxPoint();
 
       var funnyPixels:Int = Std.int(daHeight * detail); // sorta redundant but just need it for different var...
 
-      if (prevAudioData == audioData.subarray(startSample, startSample + samplesToGen)) return; // optimize / finish funciton here, no need to re-render
+      if (prevAudioData == audioData.subarray(startSample, startSample + samplesToGen))
+      {
+        return; // optimize / finish funciton here, no need to re-render
+      }
 
       prevAudioData = audioData.subarray(startSample, samplesToGen);
 

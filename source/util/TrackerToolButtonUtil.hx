@@ -17,6 +17,7 @@ class TrackerToolButtonUtil extends Tool
     super.init(brain);
 
     _name = "Add Tracker";
+
     setButton(GraphicCursorCross);
 
     button.upHandler = function() {

@@ -3,11 +3,10 @@ package visualize.dsp;
 /**
   Complex number representation.
 **/
-@:forward(real, imag) @:notNull @:pure
-abstract Complex({
-  final real:Float;
-  final imag:Float;
-})
+@:forward(real, imag)
+@:notNull
+@:pure
+abstract Complex({final real:Float; final imag:Float;})
 {
   public inline function new(real:Float, imag:Float)
     this = {real: real, imag: imag};

@@ -37,13 +37,6 @@ class InputUtil
       case NINE: "9";
       case PAGEUP: "PgUp";
       case PAGEDOWN: "PgDown";
-      // case HOME          : "Hm";
-      // case END           : "End";
-      // case INSERT        : "Ins";
-      // case ESCAPE        : "Esc";
-      // case MINUS         : "-";
-      // case PLUS          : "+";
-      // case DELETE        : "Del";
       case BACKSPACE: "BckSpc";
       case LBRACKET: "[";
       case RBRACKET: "]";
@@ -51,20 +44,12 @@ class InputUtil
       case CAPSLOCK: "Caps";
       case SEMICOLON: ";";
       case QUOTE: "'";
-      // case ENTER         : "Ent";
-      // case SHIFT         : "Shf";
       case COMMA: ",";
       case PERIOD: ".";
       case SLASH: "/";
       case GRAVEACCENT: "`";
       case CONTROL: "Ctrl";
       case ALT: "Alt";
-      // case SPACE         : "Spc";
-      // case UP            : "Up";
-      // case DOWN          : "Dn";
-      // case LEFT          : "Lf";
-      // case RIGHT         : "Rt";
-      // case TAB           : "Tab";
       case PRINTSCREEN: "PrtScrn";
       case NUMPADZERO: "#0";
       case NUMPADONE: "#1";
@@ -90,7 +75,6 @@ class InputUtil
   {
     return switch (gamepad.getInputLabel(id))
     {
-      // case null | "": shortenButtonName(FlxGamepadInputID.toStringMap[id]);
       case label: shortenButtonName(label);
     }
   }
@@ -100,20 +84,6 @@ class InputUtil
     return switch (name == null ? "" : name.toLowerCase())
     {
       case "": "[?]";
-      // case "square"  : "[]";
-      // case "circle"  : "()";
-      // case "triangle": "/\\";
-      // case "plus"    : "+";
-      // case "minus"   : "-";
-      // case "home"    : "Hm";
-      // case "guide"   : "Gd";
-      // case "back"    : "Bk";
-      // case "select"  : "Bk";
-      // case "start"   : "St";
-      // case "left"    : "Lf";
-      // case "right"   : "Rt";
-      // case "down"    : "Dn";
-      // case "up"      : "Up";
       case dir if (dirReg.match(dir)):
         dirReg.matched(1).toUpperCase() + " " + titleCase(dirReg.matched(2));
       case label: titleCase(label);

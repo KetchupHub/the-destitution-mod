@@ -76,7 +76,7 @@ class RoadTripMarker extends FlxSpriteGroup
   override function update(elapsed:Float)
   {
     super.update(elapsed);
-    //centerOrigin();
+    // centerOrigin();
   }
 
   function bringOnTheDetails(value:Bool)
@@ -100,16 +100,16 @@ class RoadTripMarker extends FlxSpriteGroup
       if (marker.animation.curAnim.name != 'transform' && marker.animation.curAnim.name != 'transformed')
       {
         marker.animation.play('transform', true);
-        //marker.offset.set(-82, -71);
-        //centerOrigin();
+        // marker.offset.set(-82, -71);
+        // centerOrigin();
         acceptable = false;
       }
     }
     else if (marker.animation.curAnim.name != 'reform' && marker.animation.curAnim.name != 'idle')
     {
       marker.animation.play("reform", true);
-      //marker.offset.set(-82, -71);
-      //centerOrigin();
+      // marker.offset.set(-82, -71);
+      // centerOrigin();
       bringOnTheDetails(false);
       acceptable = false;
     }
@@ -123,13 +123,13 @@ class RoadTripMarker extends FlxSpriteGroup
     {
       case 'transform':
         marker.animation.play('transformed', true);
-        //marker.offset.set(-82, -71);
-        //centerOrigin();
+        // marker.offset.set(-82, -71);
+        // centerOrigin();
         bringOnTheDetails(true);
         acceptable = true;
       case 'reform':
         marker.animation.play('idle', true);
-        //marker.offset.set(0, 0);
+        // marker.offset.set(0, 0);
         acceptable = true;
     }
   }

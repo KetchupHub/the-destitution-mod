@@ -14,32 +14,6 @@ class MathUtil
   public static final E:Float = 2.71828182845904523536;
 
   /**
-   * Perform linear interpolation between the base and the target, based on the current framerate.
-   * @param base The starting value, when `progress <= 0`.
-   * @param target The ending value, when `progress >= 1`.
-   * @param ratio Value used to interpolate between `base` and `target`.
-   *
-   * @return The interpolated value.
-   */
-  @:deprecated('Use smoothLerp instead')
-  public static function coolLerp(base:Float, target:Float, ratio:Float):Float
-  {
-    return base + cameraLerp(ratio) * (target - base);
-  }
-
-  /**
-   * Perform linear interpolation based on the current framerate.
-   * @param lerp Value used to interpolate between `base` and `target`.
-   *
-   * @return The interpolated value.
-   */
-  @:deprecated('Use smoothLerp instead')
-  public static function cameraLerp(lerp:Float):Float
-  {
-    return lerp * (FlxG.elapsed / (1 / 60));
-  }
-
-  /**
    * Get the logarithm of a value with a given base.
    * @param base The base of the logarithm.
    * @param value The value to get the logarithm of.

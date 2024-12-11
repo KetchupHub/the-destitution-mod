@@ -1,15 +1,22 @@
 package util;
 
+import haxe.Unserializer;
+import haxe.Serializer;
 import flixel.FlxG;
 import haxe.Json;
 import haxe.io.Bytes;
 import thx.semver.Version;
 
+/**
+ * @param key The key pressed.
+ * @param duration The duration of the key press.
+ * @param time The keypress's starting timestamp.
+ */
 typedef ScoreInput =
 {
-  var d:Int; // Key pressed
-  var l:Int; // Duration
-  var t:Int; // Start timestamp
+  var key:Int;
+  var duration:Int;
+  var time:Int;
 }
 
 /**
@@ -39,10 +46,13 @@ class SerializerUtil
     {
       return Json.parse(input);
     }
-    catch (e)
+    catch (error)
     {
-      trace('An error occurred while parsing JSON from string data');
-      trace(e);
+      #if DEVELOPERBUILD
+      trace('An error occurred while parsing JSON from string data.');
+      trace(error);
+      #end
+
       return null;
     }
   }
@@ -56,17 +66,20 @@ class SerializerUtil
     {
       return Json.parse(input.toString());
     }
-    catch (e:Dynamic)
+    catch (error:Dynamic)
     {
-      trace('An error occurred while parsing JSON from byte data');
-      trace(e);
+      #if DEVELOPERBUILD
+      trace('An error occurred while parsing JSON from byte data.');
+      trace(error);
+      #end
+
       return null;
     }
   }
 
   public static function initSerializer():Void
   {
-    haxe.Unserializer.DEFAULT_RESOLVER = new FunkinTypeResolver();
+    Unserializer.DEFAULT_RESOLVER = new FunkinTypeResolver();
   }
 
   /**
@@ -76,7 +89,7 @@ class SerializerUtil
    */
   public static function fromHaxeObject(input:Dynamic):String
   {
-    return haxe.Serializer.run(input);
+    return Serializer.run(input);
   }
 
   /**
@@ -86,7 +99,7 @@ class SerializerUtil
    */
   public static function toHaxeObject(input:String):Dynamic
   {
-    return haxe.Unserializer.run(input);
+    return Unserializer.run(input);
   }
 
   /**
@@ -97,7 +110,10 @@ class SerializerUtil
     // Hacky because you can't use `isOfType` on a struct.
     if (key == "version")
     {
-      if (Std.isOfType(value, String)) return value;
+      if (Std.isOfType(value, String))
+      {
+        return value;
+      }
 
       // Stringify Version objects.
       return serializeVersion(cast value);
@@ -107,12 +123,20 @@ class SerializerUtil
     return value;
   }
 
-  static inline function serializeVersion(value:thx.semver.Version):String
+  static inline function serializeVersion(value:Version):String
   {
     var result = '${value.major}.${value.minor}.${value.patch}';
-    if (value.hasPre) result += '-${value.pre}';
-    // TODO: Merge fix for version.hasBuild
-    if (value.build.length > 0) result += '+${value.build}';
+
+    if (value.hasPre)
+    {
+      result += '-${value.pre}';
+    }
+
+    if (value.build.length > 0)
+    {
+      result += '+${value.build}';
+    }
+
     return result;
   }
 }
@@ -126,11 +150,15 @@ class FunkinTypeResolver
 
   public function resolveClass(name:String):Class<Dynamic>
   {
-    if (name == 'Dynamic')
+    if (name.toLowerCase() == 'dynamic')
     {
+      #if DEVELOPERBUILD
       FlxG.log.warn('Found invalid class type in save data, indicates partial save corruption.');
+      #end
+
       return null;
     }
+
     return Type.resolveClass(name);
   };
 

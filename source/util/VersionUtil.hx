@@ -1,6 +1,9 @@
 package util;
 
+import thx.Dynamics.DynamicsT;
+import thx.Types;
 import thx.semver.Version;
+import thx.semver.Version.SemVer;
 import thx.semver.VersionRule;
 
 /**
@@ -19,49 +22,64 @@ class VersionUtil
    * @param versionRule The version rule to validate against.
    * @return `true` if the version satisfies the rule, `false` otherwise.
    */
-  public static function validateVersion(version:thx.semver.Version, versionRule:thx.semver.VersionRule):Bool
+  public static function validateVersion(version:Version, versionRule:VersionRule):Bool
   {
     try
     {
-      var versionRaw:thx.semver.Version.SemVer = version;
+      var versionRaw:SemVer = version;
+
       return version.satisfies(versionRule);
     }
-    catch (e)
+    catch (error)
     {
+      #if DEVELOPERBUILD
       trace('[VERSIONUTIL] Invalid semantic version: ${version}');
+      #end
+
       return false;
     }
   }
 
-  public static function repairVersion(version:thx.semver.Version):thx.semver.Version
+  public static function repairVersion(version:Version):Version
   {
-    var versionData:thx.semver.Version.SemVer = version;
+    var versionData:SemVer = version;
 
-    if (thx.Types.isAnonymousObject(versionData.version))
+    if (Types.isAnonymousObject(versionData.version))
     {
       // This is bad! versionData.version should be an array!
+      #if DEVELOPERBUILD
       trace('[SAVE] Version data repair required! (got ${versionData.version})');
+      #end
+
       // Turn the objects back into arrays.
       // I'd use DynamicsT.values but IDK if it maintains order
       versionData.version = [versionData.version[0], versionData.version[1], versionData.version[2]];
 
       // This is so jank but it should work.
       var buildData:Dynamic<String> = cast versionData.build;
-      var buildDataFixed:Array<thx.semver.Version.Identifier> = thx.Dynamics.DynamicsT.values(buildData)
-        .map(function(d:Dynamic) return StringId(d.toString()));
+      var buildDataFixed:Array<Identifier> = DynamicsT.values(buildData).map(function(d:Dynamic) return StringId(d.toString()));
+
       versionData.build = buildDataFixed;
 
       var preData:Dynamic<String> = cast versionData.pre;
-      var preDataFixed:Array<thx.semver.Version.Identifier> = thx.Dynamics.DynamicsT.values(preData).map(function(d:Dynamic) return StringId(d.toString()));
+      var preDataFixed:Array<Identifier> = DynamicsT.values(preData).map(function(d:Dynamic) return StringId(d.toString()));
+
       versionData.pre = preDataFixed;
 
-      var fixedVersion:thx.semver.Version = versionData;
+      var fixedVersion:Version = versionData;
+
+      #if DEVELOPERBUILD
       trace('[SAVE] Fixed version: ${fixedVersion}');
+      #end
+
       return fixedVersion;
     }
     else
     {
+      #if DEVELOPERBUILD
       trace('[SAVE] Version data repair not required (got ${version})');
+      #end
+
       // No need for repair.
       return version;
     }
@@ -78,13 +96,17 @@ class VersionUtil
   {
     try
     {
-      var version:thx.semver.Version = version;
-      var versionRule:thx.semver.VersionRule = versionRule;
+      var version:Version = version;
+      var versionRule:VersionRule = versionRule;
+
       return version.satisfies(versionRule);
     }
-    catch (e)
+    catch (error)
     {
+      #if DEVELOPERBUILD
       trace('[VERSIONUTIL] Invalid semantic version: ${version}');
+      #end
+
       return false;
     }
   }
@@ -94,14 +116,29 @@ class VersionUtil
    * @param input The JSON string to parse.
    * @return The semantic version, or null if it could not be parsed.
    */
-  public static function getVersionFromJSON(input:Null<String>):Null<thx.semver.Version>
+  public static function getVersionFromJSON(input:Null<String>):Null<Version>
   {
-    if (input == null) return null;
+    if (input == null)
+    {
+      return null;
+    }
+
     var parsed:Dynamic = SerializerUtil.fromJSON(input);
-    if (parsed == null) return null;
-    if (parsed.version == null) return null;
+
+    if (parsed == null)
+    {
+      return null;
+    }
+
+    if (parsed.version == null)
+    {
+      return null;
+    }
+
     var versionStr:String = parsed.version; // Dynamic -> String cast
-    var version:thx.semver.Version = versionStr; // Implicit, not explicit, cast.
+
+    var version:Version = versionStr; // Implicit, not explicit, cast.
+
     return version;
   }
 
@@ -110,20 +147,25 @@ class VersionUtil
    * @param input The JSON string to parse.
    * @return The semantic version, or null if it could not be parsed.
    */
-  public static function parseVersion(input:Dynamic):Null<thx.semver.Version>
+  public static function parseVersion(input:Dynamic):Null<Version>
   {
-    if (input == null) return null;
+    if (input == null)
+    {
+      return null;
+    }
 
     if (Std.isOfType(input, String))
     {
       var inputStr:String = input;
-      var version:thx.semver.Version = inputStr;
+      var version:Version = inputStr;
+
       return version;
     }
     else
     {
-      var semVer:thx.semver.Version.SemVer = input;
-      var version:thx.semver.Version = semVer;
+      var semVer:SemVer = input;
+      var version:Version = semVer;
+
       return version;
     }
   }

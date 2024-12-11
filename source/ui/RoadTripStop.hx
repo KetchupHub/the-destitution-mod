@@ -12,7 +12,7 @@ class RoadTripStop extends FlxSpriteGroup
   public var marker:RoadTripMarker;
 
   public var hovered(default, set):Bool = false;
-  
+
   public var numLinked:Int;
 
   public function new(x:Float = 0, y:Float = 0, song:String, number:Int)

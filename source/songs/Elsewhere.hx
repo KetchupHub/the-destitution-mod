@@ -17,8 +17,7 @@ class Elsewhere extends SongClass
     this.gameoverChar = 'bf-dead';
     this.gameoverMusicSuffix = '';
     this.songVariants = ["Normal"];
-    this.songDescription = TextAndLanguage.getPhrase('desc_elsewhere',
-      "Gary shows you that maybe this world isn't as great as you thought it was.");
+    this.songDescription = TextAndLanguage.getPhrase('desc_elsewhere', "Gary shows you that maybe this world isn't as great as you thought it was.");
     this.ratingsType = "";
     this.skipCountdown = false;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];

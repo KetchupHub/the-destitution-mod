@@ -1,6 +1,8 @@
 package visuals;
 
+#if FLX_DEBUG
 import flixel.FlxBasic;
+#end
 import flixel.addons.display.FlxBackdrop.BackdropBlitMode;
 import flixel.addons.display.FlxBackdrop.BackdropDrawParams;
 import flixel.FlxG;

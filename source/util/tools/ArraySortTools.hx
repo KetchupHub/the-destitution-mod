@@ -73,6 +73,7 @@ class ArraySortTools
   /**
    * Internal function for sorting a partition of an array in the quick sort algorithm.
    * Written with ChatGPT!
+   * * note from Cynda: fuck AI
    */
   static function quickSortPartition<T>(input:Array<T>, low:Int, high:Int, compare:CompareFunction<T>):Int
   {

@@ -12,6 +12,7 @@ class PolygonVisGroup extends FlxTypedGroup<PolygonSpectogram>
   public function new()
   {
     super();
+
     playerVis = new PolygonSpectogram();
     opponentVis = new PolygonSpectogram();
   }
@@ -23,7 +24,9 @@ class PolygonVisGroup extends FlxTypedGroup<PolygonSpectogram>
   public function addPlayerVis(visSnd:FlxSound):Void
   {
     var vis:PolygonSpectogram = new PolygonSpectogram(visSnd);
+
     super.add(vis);
+
     playerVis = vis;
   }
 
@@ -34,7 +37,9 @@ class PolygonVisGroup extends FlxTypedGroup<PolygonSpectogram>
   public function addOpponentVis(visSnd:FlxSound):Void
   {
     var vis:PolygonSpectogram = new PolygonSpectogram(visSnd);
+
     super.add(vis);
+
     opponentVis = vis;
   }
 
@@ -45,7 +50,9 @@ class PolygonVisGroup extends FlxTypedGroup<PolygonSpectogram>
   public function addInstVis(visSnd:FlxSound):Void
   {
     var vis:PolygonSpectogram = new PolygonSpectogram(visSnd);
+
     super.add(vis);
+
     instVis = vis;
   }
 
@@ -54,6 +61,7 @@ class PolygonVisGroup extends FlxTypedGroup<PolygonSpectogram>
     if (playerVis != null)
     {
       remove(playerVis);
+
       playerVis.destroy();
       playerVis = null;
     }
@@ -64,6 +72,7 @@ class PolygonVisGroup extends FlxTypedGroup<PolygonSpectogram>
     if (opponentVis != null)
     {
       remove(opponentVis);
+
       opponentVis.destroy();
       opponentVis = null;
     }
@@ -74,6 +83,7 @@ class PolygonVisGroup extends FlxTypedGroup<PolygonSpectogram>
     if (instVis != null)
     {
       remove(instVis);
+
       instVis.destroy();
       instVis = null;
     }
@@ -94,6 +104,7 @@ class PolygonVisGroup extends FlxTypedGroup<PolygonSpectogram>
   public override function add(vis:PolygonSpectogram):PolygonSpectogram
   {
     var result:PolygonSpectogram = super.add(vis);
+
     return result;
   }
 
@@ -101,6 +112,7 @@ class PolygonVisGroup extends FlxTypedGroup<PolygonSpectogram>
   {
     playerVis.destroy();
     opponentVis.destroy();
+
     super.destroy();
   }
 }

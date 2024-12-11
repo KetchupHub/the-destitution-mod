@@ -22,6 +22,7 @@ class Abstraction extends SongClass
     this.skipCountdown = true;
     this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
     this.introCardBeat = 0;
+    this.rpcVolume = "-argulow";
   }
 
   public override function stepHitEvent(curStep:Float)
