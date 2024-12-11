@@ -53,7 +53,7 @@ YOU
 YOU
 YOUUUUUUUUUUUUUUUUUUUuuuuuuuuuuuuuuuuuuuuuu.................
 
-From "Happy Game with Marks", to "Counting Down with Sports Boys", experience New Hight's in VIDEOGAME with The Destitution Mod!
+From "Happy Game with Marks", to "Learning of an Impending Doom", experience New Hight's in VIDEOGAME with The Destitution Mod!
 So Whatr'e You WAITING For! Open that's Execuatble and Play PalY  PLAY!!!
 Ore, not. You see. there is More you must read First. Like:
 
