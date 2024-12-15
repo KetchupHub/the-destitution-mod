@@ -801,8 +801,6 @@ class Destitution extends SongClass
         PlayState.instance.sectionIntroThing("I LIEK ITEM");
 
         Paths.clearUnusedMemory();
-      case 1036:
-        PlayState.instance.doNotetypeInfoCard('item');
       case 1148 | 1228:
         if (curBeat < 1228)
         {

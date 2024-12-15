@@ -281,8 +281,6 @@ class PlayState extends MusicBeatState
 
   public static var lastRating:PixelPerfectSprite;
 
-  public var noteTypeInfocard:PixelPerfectSprite;
-
   public var cloudSpeedAdditive:Float = 0;
 
   public var castanetTalking:PixelPerfectSprite;
@@ -5017,43 +5015,6 @@ class PlayState extends MusicBeatState
     songCard.cameras = [camSubtitlesAndSuch];
     add(songCard);
     FlxTween.tween(songCard, {alpha: 1, y: centeredY}, (Conductor.crochet / 1500) / playbackRate, {ease: EaseUtil.stepped(4)});
-  }
-
-  public function doNotetypeInfoCard(type:String)
-  {
-    if (noteTypeInfocard != null)
-    {
-      remove(noteTypeInfocard);
-      noteTypeInfocard.destroy();
-    }
-
-    noteTypeInfocard = new PixelPerfectSprite(1280).loadGraphic(Paths.image('ui/info/$type'));
-    noteTypeInfocard.scale.set(2, 2);
-    noteTypeInfocard.updateHitbox();
-    noteTypeInfocard.antialiasing = false;
-    noteTypeInfocard.alpha = 0.75;
-    noteTypeInfocard.cameras = [camOther];
-    add(noteTypeInfocard);
-
-    FlxTween.tween(noteTypeInfocard, {x: noteTypeInfocard.x - noteTypeInfocard.width}, (Conductor.crochet / 1500) / playbackRate,
-      {
-        ease: FlxEase.backOut,
-        onComplete: function shit(fu:FlxTween)
-        {
-          var newboy:FlxTimer = new FlxTimer().start(((Conductor.crochet / 250) * 4) / playbackRate, function fuck(f:FlxTimer)
-          {
-            FlxTween.tween(noteTypeInfocard, {x: 1280, alpha: 0}, (Conductor.crochet / 1500) / playbackRate,
-              {
-                ease: FlxEase.backIn,
-                onComplete: function ass(as:FlxTween)
-                {
-                  noteTypeInfocard.visible = false;
-                  remove(noteTypeInfocard);
-                }
-              });
-          });
-        }
-      });
   }
 
   /**
