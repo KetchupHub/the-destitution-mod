@@ -1,5 +1,7 @@
 package util;
 
+import openfl.Lib;
+import flixel.math.FlxPoint;
 import backend.PlayablesData.Playables;
 import sys.thread.Thread;
 import openfl.display.Bitmap;
@@ -163,6 +165,17 @@ class CoolUtil
     #else
     FlxG.openURL(site);
     #end
+  }
+
+  public static inline function centerWindowOnPoint(?point:FlxPoint)
+  {
+    Lib.application.window.x = Std.int(point.x - (Lib.application.window.width / 2));
+    Lib.application.window.y = Std.int(point.y - (Lib.application.window.height / 2));
+  }
+
+  public static inline function getCenterWindowPoint():FlxPoint
+  {
+    return FlxPoint.get(Lib.application.window.x + (Lib.application.window.width / 2), Lib.application.window.y + (Lib.application.window.height / 2));
   }
 
   public static var savePath:String = "Team-Productions-Presents/The-Destitution-Mod";
