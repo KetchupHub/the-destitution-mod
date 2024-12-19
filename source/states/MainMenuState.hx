@@ -245,7 +245,6 @@ class MainMenuState extends MusicBeatState
         FlxG.sound.play(Paths.sound('confirmMenu'));
 
         ClientPrefs.unlockedQuanta = true;
-        ClientPrefs.unlockedTopkicks = true;
         ClientPrefs.unlockedAbstraction = true;
         ClientPrefs.unlockedBoozeLoze = true;
 
@@ -266,7 +265,6 @@ class MainMenuState extends MusicBeatState
         FlxG.sound.play(Paths.sound('cancelMenu'));
 
         ClientPrefs.unlockedQuanta = false;
-        ClientPrefs.unlockedTopkicks = false;
         ClientPrefs.unlockedAbstraction = false;
         ClientPrefs.unlockedBoozeLoze = false;
 
