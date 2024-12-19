@@ -4923,20 +4923,18 @@ class PlayState extends MusicBeatState
           curStage = 'quickshot';
         case 'd-stitution':
           curStage = 'dsides';
-        case 'countdown':
-          curStage = 'sports';
         case 'eggshells':
           curStage = 'eggshells';
         case 'eggshells-bad':
           curStage = 'eggshells-bad';
         case 'eggshells-good':
           curStage = 'eggshells-good';
+        case 'elsewhere':
+          curStage = 'elsewhere';
         case 'collapse':
           curStage = 'collapse';
         case 'megamix':
           curStage = 'megamix';
-        case 'topkicks':
-          curStage = 'burning';
         case 'quanta':
           curStage = 'factory';
         case 'abstraction':

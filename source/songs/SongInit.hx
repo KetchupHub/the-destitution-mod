@@ -35,8 +35,6 @@ class SongInit
         returnSong = new Collapse();
       case 'megamix':
         returnSong = new Megamix();
-      case 'topkicks':
-        returnSong = new Topkicks();
       case 'quanta':
         returnSong = new Quanta();
       case 'abstraction':

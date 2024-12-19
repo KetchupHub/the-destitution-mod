@@ -1,7 +1,6 @@
 {
   "songs": [
-    ["Quickshot", "pear", [183, 216, 85]],
-    ["TopKicks", "darnell", [115, 94, 176]]
+    ["Quickshot", "pear", [183, 216, 85]]
   ],
 
   "weekCharacters": ["", "", ""],

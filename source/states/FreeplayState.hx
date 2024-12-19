@@ -612,14 +612,6 @@ class FreeplayState extends MusicBeatState
       }
     }
 
-    if (!ClientPrefs.unlockedTopkicks)
-    {
-      if (name.toLowerCase().startsWith('topkicks'))
-      {
-        return true;
-      }
-    }
-
     if (!ClientPrefs.unlockedAbstraction)
     {
       if (name.toLowerCase().startsWith('abstraction'))

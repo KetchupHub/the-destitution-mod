@@ -41,7 +41,6 @@ class ClientPrefs
   public static var boiners:Int = 0;
 
   public static var unlockedQuanta:Bool = false;
-  public static var unlockedTopkicks:Bool = false;
   public static var unlockedAbstraction:Bool = false;
   public static var unlockedBoozeLoze:Bool = false;
 
@@ -147,7 +146,6 @@ class ClientPrefs
     FlxG.save.data.language = language;
 
     FlxG.save.data.unlockedQuanta = unlockedQuanta;
-    FlxG.save.data.unlockedTopkicks = unlockedTopkicks;
     FlxG.save.data.unlockedBoozeLoze = unlockedBoozeLoze;
     FlxG.save.data.unlockedAbstraction = unlockedAbstraction;
 
@@ -384,11 +382,6 @@ class ClientPrefs
     if (FlxG.save.data.unlockedQuanta != null)
     {
       unlockedQuanta = FlxG.save.data.unlockedQuanta;
-    }
-
-    if (FlxG.save.data.unlockedTopkicks != null)
-    {
-      unlockedTopkicks = FlxG.save.data.unlockedTopkicks;
     }
 
     if (FlxG.save.data.unlockedBoozeLoze != null)
