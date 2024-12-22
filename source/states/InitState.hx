@@ -104,14 +104,7 @@ class InitState extends MusicBeatState
 
     MarkHeadTransition.nextCamera = FlxG.camera;
 
-    if (FlxG.save.data.flashing == null && !FlashingState.leftState)
-    {
-      MusicBeatState.switchState(new FlashingState());
-    }
-    else
-    {
-      gotoTitle();
-    }
+    gotoTitle();
 
     #if DEVELOPERBUILD
     perf.print();
@@ -159,6 +152,13 @@ class InitState extends MusicBeatState
 
     FlxG.scaleMode = new RatioScaleMode();
 
-    MusicBeatState.switchState(new TitleState());
+    if (FlxG.save.data.flashing == null && !FlashingState.leftState)
+    {
+      MusicBeatState.switchState(new FlashingState());
+    }
+    else
+    {
+      MusicBeatState.switchState(new TitleState());
+    }
   }
 }
