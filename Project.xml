@@ -54,10 +54,14 @@
 	<haxelib name="flxanimate" />
 	<haxelib name="hxcpp-debug-server" />
 
-	<!--Custom haxedefs for destitution mod purposes, such as dev build features and making certain random stuff Not for showcase purposes-->
+	<!--Development and Showcase Video related haxedefs.-->
 	<!--haxedef name="SHOWCASEVIDEO" -->
-	<haxedef name="DEVELOPERBUILD" unless="SHOWCASEVIDEO" />
+	<haxedef name="DEVELOPERBUILD"/>
+	<!--force the secret sports event, for testing it. idk why im keeping this functionality-->
 	<!--haxedef name="FORCESPORTSEVENT" -->
+	<!--these two features i suspect of causing weird scroll issues in freeplay so i made them switchable with haxedefs.-->
+	<haxedef name="FEATURE_FREEPLAY_SCROLLWHEEL" />
+	<haxedef name="FEATURE_FREEPLAY_HOLDING" />
 
 	<haxedef name="FLX_NO_TOUCH" />
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />

@@ -2,36 +2,36 @@
 <TextureAtlas imagePath="lurking_nopeboy.png">
 	<!-- Created with Adobe Animate version 22.0.0.93 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="down0000" x="328" y="4" width="320" height="360" />
-	<SubTexture name="down0001" x="328" y="4" width="320" height="360" />
-	<SubTexture name="down0002" x="652" y="4" width="320" height="360" />
-	<SubTexture name="down0003" x="652" y="4" width="320" height="360" />
-	<SubTexture name="down0004" x="976" y="4" width="320" height="360" />
-	<SubTexture name="down0005" x="976" y="4" width="320" height="360" />
-	<SubTexture name="down0006" x="1300" y="4" width="320" height="360" />
-	<SubTexture name="down0007" x="1300" y="4" width="320" height="360" />
-	<SubTexture name="down0008" x="1300" y="4" width="320" height="360" />
-	<SubTexture name="down0009" x="1300" y="4" width="320" height="360" />
-	<SubTexture name="down0010" x="1300" y="4" width="320" height="360" />
-	<SubTexture name="down0011" x="1300" y="4" width="320" height="360" />
-	<SubTexture name="down0012" x="1624" y="4" width="320" height="360" />
-	<SubTexture name="down0013" x="1624" y="4" width="320" height="360" />
-	<SubTexture name="down0014" x="328" y="368" width="320" height="360" />
-	<SubTexture name="down0015" x="328" y="368" width="320" height="360" />
-	<SubTexture name="idle0000" x="4" y="4" width="320" height="360" />
-	<SubTexture name="idle0001" x="4" y="4" width="320" height="360" />
-	<SubTexture name="idle0002" x="4" y="368" width="320" height="360" />
-	<SubTexture name="idle0003" x="4" y="368" width="320" height="360" />
-	<SubTexture name="idle0004" x="4" y="732" width="320" height="360" />
-	<SubTexture name="idle0005" x="4" y="732" width="320" height="360" />
-	<SubTexture name="idle0006" x="4" y="1096" width="320" height="360" />
-	<SubTexture name="idle0007" x="4" y="1096" width="320" height="360" />
-	<SubTexture name="idle0008" x="4" y="1460" width="320" height="360" />
-	<SubTexture name="idle0009" x="4" y="1460" width="320" height="360" />
-	<SubTexture name="idle0010" x="4" y="1460" width="320" height="360" />
-	<SubTexture name="idle0011" x="4" y="1460" width="320" height="360" />
-	<SubTexture name="idle0012" x="4" y="1460" width="320" height="360" />
-	<SubTexture name="idle0013" x="4" y="1460" width="320" height="360" />
+	<SubTexture name="down0000" x="4" y="4" width="320" height="360" />
+	<SubTexture name="down0001" x="4" y="4" width="320" height="360" />
+	<SubTexture name="down0002" x="4" y="368" width="320" height="360" />
+	<SubTexture name="down0003" x="4" y="368" width="320" height="360" />
+	<SubTexture name="down0004" x="4" y="732" width="320" height="360" />
+	<SubTexture name="down0005" x="4" y="732" width="320" height="360" />
+	<SubTexture name="down0006" x="4" y="1096" width="320" height="360" />
+	<SubTexture name="down0007" x="4" y="1096" width="320" height="360" />
+	<SubTexture name="down0008" x="4" y="1096" width="320" height="360" />
+	<SubTexture name="down0009" x="4" y="1096" width="320" height="360" />
+	<SubTexture name="down0010" x="4" y="1096" width="320" height="360" />
+	<SubTexture name="down0011" x="4" y="1096" width="320" height="360" />
+	<SubTexture name="down0012" x="4" y="1460" width="320" height="360" />
+	<SubTexture name="down0013" x="4" y="1460" width="320" height="360" />
+	<SubTexture name="down0014" x="328" y="4" width="320" height="360" />
+	<SubTexture name="down0015" x="328" y="4" width="320" height="360" />
+	<SubTexture name="idle0000" x="652" y="4" width="320" height="360" />
+	<SubTexture name="idle0001" x="652" y="4" width="320" height="360" />
+	<SubTexture name="idle0002" x="976" y="4" width="320" height="360" />
+	<SubTexture name="idle0003" x="976" y="4" width="320" height="360" />
+	<SubTexture name="idle0004" x="1300" y="4" width="320" height="360" />
+	<SubTexture name="idle0005" x="1300" y="4" width="320" height="360" />
+	<SubTexture name="idle0006" x="1624" y="4" width="320" height="360" />
+	<SubTexture name="idle0007" x="1624" y="4" width="320" height="360" />
+	<SubTexture name="idle0008" x="328" y="368" width="320" height="360" />
+	<SubTexture name="idle0009" x="328" y="368" width="320" height="360" />
+	<SubTexture name="idle0010" x="328" y="368" width="320" height="360" />
+	<SubTexture name="idle0011" x="328" y="368" width="320" height="360" />
+	<SubTexture name="idle0012" x="328" y="368" width="320" height="360" />
+	<SubTexture name="idle0013" x="328" y="368" width="320" height="360" />
 	<SubTexture name="left0000" x="328" y="732" width="320" height="360" />
 	<SubTexture name="left0001" x="328" y="732" width="320" height="360" />
 	<SubTexture name="left0002" x="328" y="1096" width="320" height="360" />
@@ -62,22 +62,22 @@
 	<SubTexture name="right0011" x="652" y="1460" width="320" height="360" />
 	<SubTexture name="right0012" x="976" y="732" width="320" height="360" />
 	<SubTexture name="right0013" x="976" y="732" width="320" height="360" />
-	<SubTexture name="right0014" x="1300" y="732" width="320" height="360" />
-	<SubTexture name="right0015" x="1300" y="732" width="320" height="360" />
-	<SubTexture name="up0000" x="1624" y="732" width="320" height="360" />
-	<SubTexture name="up0001" x="1624" y="732" width="320" height="360" />
-	<SubTexture name="up0002" x="976" y="1096" width="320" height="360" />
-	<SubTexture name="up0003" x="976" y="1096" width="320" height="360" />
-	<SubTexture name="up0004" x="976" y="1460" width="320" height="360" />
-	<SubTexture name="up0005" x="976" y="1460" width="320" height="360" />
+	<SubTexture name="right0014" x="976" y="1096" width="320" height="360" />
+	<SubTexture name="right0015" x="976" y="1096" width="320" height="360" />
+	<SubTexture name="up0000" x="976" y="1460" width="320" height="360" />
+	<SubTexture name="up0001" x="976" y="1460" width="320" height="360" />
+	<SubTexture name="up0002" x="1300" y="732" width="320" height="360" />
+	<SubTexture name="up0003" x="1300" y="732" width="320" height="360" />
+	<SubTexture name="up0004" x="1624" y="732" width="320" height="360" />
+	<SubTexture name="up0005" x="1624" y="732" width="320" height="360" />
 	<SubTexture name="up0006" x="1300" y="1096" width="320" height="360" />
 	<SubTexture name="up0007" x="1300" y="1096" width="320" height="360" />
 	<SubTexture name="up0008" x="1300" y="1096" width="320" height="360" />
 	<SubTexture name="up0009" x="1300" y="1096" width="320" height="360" />
 	<SubTexture name="up0010" x="1300" y="1096" width="320" height="360" />
 	<SubTexture name="up0011" x="1300" y="1096" width="320" height="360" />
-	<SubTexture name="up0012" x="1624" y="1096" width="320" height="360" />
-	<SubTexture name="up0013" x="1624" y="1096" width="320" height="360" />
-	<SubTexture name="up0014" x="1300" y="1460" width="320" height="360" />
-	<SubTexture name="up0015" x="1300" y="1460" width="320" height="360" />
+	<SubTexture name="up0012" x="1300" y="1460" width="320" height="360" />
+	<SubTexture name="up0013" x="1300" y="1460" width="320" height="360" />
+	<SubTexture name="up0014" x="1624" y="1096" width="320" height="360" />
+	<SubTexture name="up0015" x="1624" y="1096" width="320" height="360" />
 </TextureAtlas>

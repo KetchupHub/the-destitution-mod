@@ -56,7 +56,9 @@ class FreeplayState extends MusicBeatState
 
   private var instPlaying:String = '';
 
+  #if FEATURE_FREEPLAY_HOLDING
   private var holdTime:Float = 0;
+  #end
 
   private var exitingMenu:Bool = false;
 
@@ -308,25 +310,24 @@ class FreeplayState extends MusicBeatState
       var ctrl = FlxG.keys.justPressed.CONTROL;
       var tab = FlxG.keys.justPressed.TAB;
 
-      var shiftMult:Int = 1;
-
-      if (FlxG.keys.pressed.SHIFT)
-      {
-        shiftMult = 3;
-      }
+      var lastFrameSelected = curSelected;
 
       if (songs.length > 1)
       {
-        if (upP)
+        if (downP && (lastFrameSelected == curSelected))
         {
-          changeSelection(-shiftMult);
+          changeSelection(1);
+          #if FEATURE_FREEPLAY_HOLDING
           holdTime = 0;
+          #end
         }
 
-        if (downP)
+        if (upP && (lastFrameSelected == curSelected))
         {
-          changeSelection(shiftMult);
+          changeSelection(-1);
+          #if FEATURE_FREEPLAY_HOLDING
           holdTime = 0;
+          #end
         }
 
         if (tab && SongInit.genSongObj(songs[curSelected].songName.toLowerCase()).songVariants != ["Normal"])
@@ -345,7 +346,8 @@ class FreeplayState extends MusicBeatState
           songVariantCur = SongInit.genSongObj(songs[curSelected].songName.toLowerCase()).songVariants[stupidThing];
         }
 
-        if (controls.UI_DOWN || controls.UI_UP)
+        #if FEATURE_FREEPLAY_HOLDING
+        if ((controls.UI_DOWN || controls.UI_UP))
         {
           var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
           holdTime += elapsed;
@@ -353,15 +355,22 @@ class FreeplayState extends MusicBeatState
 
           if (holdTime > 0.5 && checkNewHold - checkLastHold > 0)
           {
-            changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
+            changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -1 : 1));
           }
         }
+        else
+        {
+          holdTime = 0;
+        }
+        #end
 
+        #if FEATURE_FREEPLAY_SCROLLWHEEL
         if (FlxG.mouse.wheel != 0)
         {
           FlxG.sound.play(Paths.sound('scrollMenu'), 0.2);
-          changeSelection(-shiftMult * FlxG.mouse.wheel, false);
+          changeSelection(-1 * FlxG.mouse.wheel, false);
         }
+        #end
       }
 
       var myFuck:String = TextAndLanguage.getPhrase('freeplay_variant', '\nSong Variant: {1}\nTab to Switch!', [songVariantCur]);
