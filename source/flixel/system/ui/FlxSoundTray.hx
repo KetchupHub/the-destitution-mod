@@ -36,10 +36,13 @@ class FlxSoundTray extends Sprite
   var _defaultScale:Float = 1;
 
   /**The sound used when increasing the volume.**/
-  public var volumeUpSound:String = 'volume_up';
+  public var volumeUpSound:String = 'soundtray/volume_up';
 
   /**The sound used when decreasing the volume.**/
-  public var volumeDownSound:String = 'volume_down';
+  public var volumeDownSound:String = 'soundtray/volume_down';
+
+  /**The sound used when the volume is maxed out and cannot be increased.**/
+  public var volumeMaxSound:String = 'soundtray/volume_max';
 
   /**Whether or not changing the volume should make noise.**/
   public var silent:Bool = false;
@@ -122,16 +125,23 @@ class FlxSoundTray extends Sprite
     visible = true;
     active = true;
 
-    if (!silent)
-    {
-      FlxG.sound.play(Paths.sound(up ? volumeUpSound : volumeDownSound));
-    }
-
     var globalVolume:Int = Math.round(FlxG.sound.logToLinear(FlxG.sound.volume) * 10);
 
     if (FlxG.sound.muted)
     {
       globalVolume = 0;
+    }
+
+    if (!silent)
+    {
+      if (globalVolume >= 10)
+      {
+        FlxG.sound.play(Paths.sound(volumeMaxSound));
+      }
+      else
+      {
+        FlxG.sound.play(Paths.sound(up ? volumeUpSound : volumeDownSound));
+      }
     }
 
     for (i in 0..._bars.length)
