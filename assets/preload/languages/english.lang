@@ -81,3 +81,31 @@ destitution_ang_1: "Get out of the way, runt!"
 destitution_ang_2: "I've had it up to here with you!"
 destitution_ang_3: "This is your final bout!"
 destitution_ang_4: "Say goodbye!"
+
+opt_ctr_nhead: "NOTES"
+
+opt_ctr_left: "Left"
+opt_ctr_down: "Down"
+opt_ctr_up: "Up"
+opt_ctr_right: "Right"
+
+opt_ctr_uhead: "UI"
+
+opt_ctr_uleft: "Left"
+opt_ctr_udown: "Down"
+opt_ctr_uup: "Up"
+opt_ctr_uright: "Right"
+
+opt_ctr_reset: "Reset"
+opt_ctr_accept: "Accept"
+opt_ctr_back: "Back"
+opt_ctr_pause: "Pause"
+
+opt_ctr_vhead: "VOLUME"
+opt_ctr_mute: "Mute"
+opt_ctr_vinc: "Increase"
+opt_ctr_vdec: "Decrease"
+
+opt_ctr_dhead: "DEBUG"
+opt_ctr_k1: "Key 1"
+opt_ctr_k2: "Key 2"
