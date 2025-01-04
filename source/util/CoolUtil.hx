@@ -26,7 +26,7 @@ class CoolUtil
 
   public static var gitCommitBranch:String = GitCommit.getGitBranch();
 
-  public static var gitCommitHash:String = GitCommit.getGitCommitHash();
+  public static var gitCommitHash:String = GitCommit.getGitCommitHash() + GitCommit.inwordspls();
 
   public static var lastStateScreenShot:Bitmap;
 

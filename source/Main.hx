@@ -180,6 +180,11 @@ class Main extends Sprite
       +
       "\nPlease report this error on the GameJolt page if you are able to replicate it!\n\n> Crash Handler written by: sqirra-rng\n> Modified for The Destitution Mod by: Cynda";
 
+    #if DEVELOPERBUILD
+    errMsg += "\n\nDEVELOPMENT BUILD. GIT: " + CoolUtil.gitCommitBranch + ' : ' + CoolUtil.gitCommitHash;
+    errMsg += "\nYou probably know what to do with this.";
+    #end
+
     if (!FileSystem.exists("./logs/"))
     {
       FileSystem.createDirectory("./logs/");
