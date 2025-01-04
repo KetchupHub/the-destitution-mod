@@ -182,6 +182,7 @@ class Main extends Sprite
 
     #if DEVELOPERBUILD
     errMsg += "\n\nDEVELOPMENT BUILD. GIT: " + CoolUtil.gitCommitBranch + ' : ' + CoolUtil.gitCommitHash;
+    errMsg += "\nFULL HASH: " + CoolUtil.fullGitHash;
     errMsg += "\nYou probably know what to do with this.";
     #end
 
