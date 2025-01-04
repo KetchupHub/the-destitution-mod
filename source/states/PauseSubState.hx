@@ -102,7 +102,7 @@ class PauseSubState extends MusicBeatSubstate
     add(blueballedTxt);
 
     var sectionTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
-    sectionTxt.text = "Section " + PlayState.sectionNum;
+    sectionTxt.text = TextAndLanguage.getPhrase('pause_section', 'Section {1}', [PlayState.sectionNum]);
     sectionTxt.scrollFactor.set();
     sectionTxt.setFormat(Paths.font("BAUHS93.ttf"), 32);
     sectionTxt.updateHitbox();

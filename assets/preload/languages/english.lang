@@ -1,5 +1,10 @@
 English (US)
 
+intro_present: "...present"
+intro_tdm_1: "The"
+intro_tdm_2: "Destitution"
+intro_tdm_3: "Mod"
+
 score_text: "Score: {1} | Misses: {2} | Rating: {3}"
 
 section_intro: "SECTION {1}"
@@ -13,6 +18,14 @@ rating_good: "Good!"
 rating_great: "Great!"
 rating_incredible: "Incredible!"
 rating_synergy: "Synergy!"
+rating_not_available: "?"
+
+fctype_sfc: "SFC"
+fctype_gfc: "GFC"
+fctype_fc: "FC"
+fctype_sdcb: "SDCB"
+fctype_clear: "Clear"
+fctype_none: ""
 
 yes: "Yes"
 no: "No"
@@ -24,6 +37,7 @@ pause_section: "Section {1}"
 pause_credits: "Composer: {1}\nCharter: {2}"
 pause_practice: "PRACTICE MODE"
 pause_charting: "CHARTING MODE"
+pause_section: "Section {1}"
 
 loading_back: "Going Back..."
 
@@ -46,3 +60,24 @@ desc_collapse: "Mark's world is thrown for a loop when footage of him killing No
 desc_megamix: "Thanks for playing!"
 desc_quanta: "A flashback of quantum proportions!"
 desc_abstraction: "Experience the magic of Mark's very own self written television program firsthand!"
+
+destitution_intro_1: "So, you say you're a master at everything?"
+destitution_intro_2: "Well, let's see about that!"
+destitution_intro_3: "Nopeboy, are you ready to see if you truly are a master investor?"
+
+destitution_milpev_1: "I don't like you one bit."
+destitution_milpev_2: "It takes YEARS to master investing,"
+destitution_milpev_3: "and you act like you've got it down in a minute and a half?"
+destitution_milpev_4: "G-R-R-R, why I oughta-"
+
+destitution_ploink_1: "I'm Ploinky, I'm the man!"
+destitution_ploink_2: "You are Nopeboy, you're a sham!"
+destitution_ploink_3: "Mark is going to kill you, man!"
+destitution_ploink_4: "I like the taste of tar on ham!"
+
+destitution_hhh: "Hey, hey, hey! What's all this?"
+
+destitution_ang_1: "Get out of the way, runt!"
+destitution_ang_2: "I've had it up to here with you!"
+destitution_ang_3: "This is your final bout!"
+destitution_ang_4: "Say goodbye!"
