@@ -3665,12 +3665,6 @@ class PlayState extends MusicBeatState
 
     vocals.volume = 1;
 
-    var placement:String = Std.string(combo);
-    var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
-
-    coolText.screenCenter();
-    coolText.x = FlxG.width * 0.35;
-
     var ratingY:Float = 528;
 
     if (ClientPrefs.downScroll)
@@ -3844,12 +3838,9 @@ class PlayState extends MusicBeatState
       }
     }
 
-    coolText.text = Std.string(seperatedScore);
-
     FlxTween.tween(rating, {alpha: 0}, 0.2 / playbackRate,
       {
         onComplete: function(tween:FlxTween) {
-          coolText.destroy();
           rating.destroy();
         },
         startDelay: Conductor.crochet * 0.002 / playbackRate,
@@ -4775,7 +4766,7 @@ class PlayState extends MusicBeatState
   {
     if (totalPlayed < 1)
     {
-      ratingName = '?';
+      ratingName = TextAndLanguage.getPhrase('rating_not_available', '?');
     }
     else
     {
@@ -4798,30 +4789,30 @@ class PlayState extends MusicBeatState
       }
     }
 
-    ratingFC = "";
+    ratingFC = TextAndLanguage.getPhrase('fctype_none', '');
 
     if (synergys > 0)
     {
-      ratingFC = "SFC";
+      ratingFC = TextAndLanguage.getPhrase('fctype_sfc', 'SFC');
     }
 
     if (goods > 0)
     {
-      ratingFC = "GFC";
+      ratingFC = TextAndLanguage.getPhrase('fctype_gfc', 'GFC');
     }
 
     if (eghs > 0 || bleghs > 0)
     {
-      ratingFC = "FC";
+      ratingFC = TextAndLanguage.getPhrase('fctype_fc', 'FC');
     }
 
     if (songMisses > 0 && songMisses < 10)
     {
-      ratingFC = "SDCB";
+      ratingFC = TextAndLanguage.getPhrase('fctype_sdcb', 'SDCB');
     }
     else if (songMisses >= 10)
     {
-      ratingFC = "Clear";
+      ratingFC = TextAndLanguage.getPhrase('fctype_clear', 'Clear');
     }
 
     updateScore(badHit);

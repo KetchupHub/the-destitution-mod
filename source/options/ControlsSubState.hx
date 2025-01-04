@@ -1,5 +1,6 @@
 package options;
 
+import backend.TextAndLanguage;
 import ui.Alphabet;
 import ui.AttachedText;
 import visuals.PixelPerfectSprite;
@@ -19,10 +20,7 @@ class ControlsSubState extends MusicBeatSubstate
 
   private var bindLength:Int = 0;
 
-  var optionShit:Array<Dynamic> = [
-    ['NOTES'], ['Left', 'note_left'], ['Down', 'note_down'], ['Up', 'note_up'], ['Right', 'note_right'], [''], ['UI'], ['Left', 'ui_left'],
-    ['Down', 'ui_down'], ['Up', 'ui_up'], ['Right', 'ui_right'], [''], ['Reset', 'reset'], ['Accept', 'accept'], ['Back', 'back'], ['Pause', 'pause'], [''],
-    ['VOLUME'], ['Mute', 'volume_mute'], ['Up', 'volume_up'], ['Down', 'volume_down'], [''], ['DEBUG'], ['Key 1', 'debug_1'], ['Key 2', 'debug_2']];
+  var optionShit:Array<Dynamic> = [];
 
   private var grpOptions:FlxTypedGroup<Alphabet>;
   private var grpInputs:Array<AttachedText> = [];
@@ -32,6 +30,34 @@ class ControlsSubState extends MusicBeatSubstate
 
   public function new()
   {
+    optionShit = [
+      [TextAndLanguage.getPhrase("opt_ctr_nhead", 'NOTES')],
+      [TextAndLanguage.getPhrase("opt_ctr_left", 'Left'), 'note_left'],
+      [TextAndLanguage.getPhrase("opt_ctr_down", 'Down'), 'note_down'],
+      [TextAndLanguage.getPhrase("opt_ctr_up", 'Up'), 'note_up'],
+      [TextAndLanguage.getPhrase("opt_ctr_right", 'Right'), 'note_right'],
+      [''],
+      [TextAndLanguage.getPhrase("opt_ctr_uhead", 'UI')],
+      [TextAndLanguage.getPhrase("opt_ctr_uleft", 'Left'), 'ui_left'],
+      [TextAndLanguage.getPhrase("opt_ctr_udown", 'Down'), 'ui_down'],
+      [TextAndLanguage.getPhrase("opt_ctr_uup", 'Up'), 'ui_up'],
+      [TextAndLanguage.getPhrase("opt_ctr_uright", 'Right'), 'ui_right'],
+      [''],
+      [TextAndLanguage.getPhrase("opt_ctr_reset", 'Reset'), 'reset'],
+      [TextAndLanguage.getPhrase("opt_ctr_accept", 'Accept'), 'accept'],
+      [TextAndLanguage.getPhrase("opt_ctr_back", 'Back'), 'back'],
+      [TextAndLanguage.getPhrase("opt_ctr_pause", 'Pause'), 'pause'],
+      [''],
+      [TextAndLanguage.getPhrase("opt_ctr_vhead", 'VOLUME')],
+      [TextAndLanguage.getPhrase("opt_ctr_mute", 'Mute'), 'volume_mute'],
+      [TextAndLanguage.getPhrase("opt_ctr_vinc", 'Increase'), 'volume_up'],
+      [TextAndLanguage.getPhrase("opt_ctr_vdec", 'Decrease'), 'volume_down']
+      #if DEVELOPERBUILD
+      , [''], [TextAndLanguage.getPhrase("opt_ctr_dhead",
+        'DEBUG')], [TextAndLanguage.getPhrase("opt_ctr_k1", 'Key 1'), 'debug_1'], [TextAndLanguage.getPhrase("opt_ctr_k2", 'Key 2'), 'debug_2']
+      #end
+    ];
+
     super();
 
     var bg:PixelPerfectSprite = new PixelPerfectSprite().loadGraphic(Paths.image('options/optionsBg'));

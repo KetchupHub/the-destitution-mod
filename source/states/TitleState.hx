@@ -1,5 +1,6 @@
 package states;
 
+import backend.TextAndLanguage;
 import util.RandomUtil;
 import ui.TransitionScreenshotObject;
 import util.EaseUtil;
@@ -44,7 +45,7 @@ class TitleState extends MusicBeatState
 
   private var charec:String = 'mark';
 
-  private var curWacky:Array<String> = [];
+  private var curWacky:Array<String> = ['NO LANGUAGE LOADED', 'THIS IS A GENUINE ERROR'];
 
   private var tppLogo:PixelPerfectSprite;
 
@@ -183,7 +184,7 @@ class TitleState extends MusicBeatState
 
   public function getIntroTextShit():Array<Array<String>>
   {
-    var fullText:String = Assets.getText(Paths.txt('introText'));
+    var fullText:String = Assets.getText(Paths.txt('introText_' + Std.string(TextAndLanguage.curLoadedLanguage).toLowerCase()));
 
     var firstArray:Array<String> = fullText.split('\n');
     var swagGoodArray:Array<Array<String>> = [];
@@ -191,6 +192,11 @@ class TitleState extends MusicBeatState
     for (i in firstArray)
     {
       swagGoodArray.push(i.split('--'));
+    }
+
+    if (swagGoodArray == [])
+    {
+      swagGoodArray.push(['NO LANGUAGE LOADED', 'THIS IS A GENUINE ERROR']);
     }
 
     return swagGoodArray;
@@ -422,7 +428,7 @@ class TitleState extends MusicBeatState
         case 2:
           tppLogo.visible = true;
         case 3:
-          createCoolText(['...present'], tppLogo.height);
+          createCoolText([TextAndLanguage.getPhrase('intro_present', '...present')], tppLogo.height);
         case 4:
           tppLogo.visible = false;
           deleteCoolText();
@@ -432,11 +438,11 @@ class TitleState extends MusicBeatState
         case 7:
           deleteCoolText();
         case 8:
-          addMoreText('The');
+          addMoreText(TextAndLanguage.getPhrase('intro_tdm_1', 'The'));
         case 10:
-          addMoreText('Destitution');
+          addMoreText(TextAndLanguage.getPhrase('intro_tdm_2', 'Destitution'));
         case 12:
-          addMoreText('Mod');
+          addMoreText(TextAndLanguage.getPhrase('intro_tdm_3', 'Mod'));
         case 15:
           skipIntro();
       }
