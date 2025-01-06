@@ -1,5 +1,6 @@
 package options;
 
+import backend.TextAndLanguage;
 import backend.ClientPrefs;
 import flixel.FlxG;
 
@@ -7,30 +8,34 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 {
   public function new()
   {
-    title = 'Gameplay Settings';
+    title = TextAndLanguage.getPhrase('opt_gps_title', 'Gameplay Settings');
     rpcTitle = 'Gameplay Settings Menu'; // for Discord Rich Presence
     backGroundColor = 0xff464cac;
 
-    var option:Option = new Option('Controller Mode', 'Check this if you want to play with\na controller instead of using your Keyboard.', 'controllerMode',
-      'bool', false);
+    var option:Option = new Option(TextAndLanguage.getPhrase('opt_gps_ctrlMode', 'Controller Mode'),
+      TextAndLanguage.getPhrase('opt_gps_ctrlModeDesc', 'Check this if you want to play with\na controller instead of using your Keyboard.'),
+      'controllerMode', 'bool', false);
     option.showSprites = 'controller_mode';
     addOption(option);
 
     // I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
-    var option:Option = new Option('Downscroll', // Name
-      'If checked, notes go Down instead of Up, simple enough.', // Description
+    var option:Option = new Option(TextAndLanguage.getPhrase('opt_gps_dwnScr', 'Downscroll'), // Name
+      TextAndLanguage.getPhrase('opt_gps_dwnScrDesc', 'If checked, notes go Down instead of Up, simple enough.'), // Description
       'downScroll', // Save data variable name
       'bool', // Variable type
       false); // Default value
     addOption(option);
 
-    var option:Option = new Option('Middlescroll', 'If checked, your notes get centered.', 'middleScroll', 'bool', false);
+    var option:Option = new Option(TextAndLanguage.getPhrase('opt_gps_midScr', 'Middlescroll'),
+      TextAndLanguage.getPhrase('opt_gps_midScrDesc', 'If checked, your notes get centered.'), 'middleScroll', 'bool', false);
     addOption(option);
 
-    var option:Option = new Option('Opponent Notes', 'If unchecked, opponent notes get hidden.', 'opponentStrums', 'bool', true);
+    var option:Option = new Option(TextAndLanguage.getPhrase('opt_gps_oppNotes', 'Opponent Notes'),
+      TextAndLanguage.getPhrase('opt_gps_oppNotesDesc', 'If unchecked, opponent notes get hidden.'), 'opponentStrums', 'bool', true);
     addOption(option);
 
-    var option:Option = new Option('Ghost Tapping', "If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit.",
+    var option:Option = new Option(TextAndLanguage.getPhrase('opt_gps_gstap', 'Ghost Tapping'),
+      TextAndLanguage.getPhrase('opt_gps_gstapDesc', "If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit."),
       'ghostTapping', 'bool', true);
     addOption(option);
 
