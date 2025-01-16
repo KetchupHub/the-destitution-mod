@@ -237,7 +237,6 @@ class PlayState extends MusicBeatState
   public static var chartingMode:Bool = false;
   #end
 
-  public var fuckMyLife:Bool = false;
   public var generatedMusic:Bool = false;
   public var endingSong:Bool = false;
   public var startingSong:Bool = false;
@@ -283,24 +282,16 @@ class PlayState extends MusicBeatState
 
   public var cloudSpeedAdditive:Float = 0;
 
-  public var castanetTalking:PixelPerfectSprite;
   public var ploinkyTransition:PixelPerfectSprite;
   public var lurkingTransition:PixelPerfectSprite;
   public var rulezGuySlideScaleWorldFunnyClips:PixelPerfectSprite;
   public var YOUSTUPIDSONOFABITCH:PixelPerfectSprite;
   public var zamMarkCamFlipShit:PixelPerfectSprite;
   public var ref:PixelPerfectSprite;
-  public var chefBanner:PixelPerfectSprite;
-  public var chefTable:PixelPerfectSprite;
-  public var train:PixelPerfectSprite;
-  public var karmScaredy:PixelPerfectSprite;
   public var cabinBg:PixelPerfectSprite;
   public var supersededIntro:PixelPerfectSprite;
   public var backing:PixelPerfectSprite;
   public var sky:PixelPerfectSprite;
-  public var cloudsGroup:FlxTypedGroup<PixelPerfectSprite>;
-  public var theIncredibleTornado:PixelPerfectSprite;
-  public var lightningStrikes:PixelPerfectSprite;
   public var skyboxThingy:PixelPerfectSprite;
   public var angry:PixelPerfectSprite;
   public var angryDadCover:PixelPerfectSprite;
@@ -550,11 +541,6 @@ class PlayState extends MusicBeatState
 
     makeStage(curStage);
 
-    if (curStage == 'dsides')
-    {
-      gfGroup.setPosition(starting.x + 660, starting.y + 40);
-    }
-
     add(gfGroup);
     add(dadGroup);
     add(boyfriendGroup);
@@ -626,11 +612,6 @@ class PlayState extends MusicBeatState
     {
       camPos.x += gf.getGraphicMidpoint().x + gf.cameraPosition[0];
       camPos.y += gf.getGraphicMidpoint().y + gf.cameraPosition[1];
-    }
-
-    if (removeVariationSuffixes(SONG.song.toLowerCase()) == "d-stitution")
-    {
-      dad.visible = false;
     }
 
     Conductor.songPosition = -5000 / Conductor.songPosition;
@@ -799,7 +780,7 @@ class PlayState extends MusicBeatState
     botplayTxt.cameras = [camHUD];
     #end
 
-    if (['superseded', 'd-stitution', 'abstraction'].contains(removeVariationSuffixes(SONG.song.toLowerCase())) && ClientPrefs.shaders)
+    if (['superseded', 'abstraction'].contains(removeVariationSuffixes(SONG.song.toLowerCase())) && ClientPrefs.shaders)
     {
       var depty:Float = 5;
 
@@ -807,8 +788,6 @@ class PlayState extends MusicBeatState
       {
         case 'superseded':
           depty = 1.25;
-        case 'd-stitution':
-          depty = 4;
       }
 
       fnafAtFreddys = new FNAFShader(depty);
@@ -1203,200 +1182,9 @@ class PlayState extends MusicBeatState
         precacheList.set('superseded/bg_puppet_rulez', 'image');
         precacheList.set('superseded/bg_puppet_crypteh', 'image');
         precacheList.set('superseded/bg_puppet_zam', 'image');
-      case 'dsides':
-        aaColorChange.brightness = -100;
-        aaColorChange.contrast = 35;
-        aaColorChange.hue = 0;
-        aaColorChange.saturation = -90;
-
-        var pureWhiteAbyss:FlxSprite = new FlxSprite().makeGraphic(1, 1, FlxColor.WHITE);
-        pureWhiteAbyss.scale.set(2560, 2560);
-        pureWhiteAbyss.updateHitbox();
-        pureWhiteAbyss.screenCenter();
-        pureWhiteAbyss.scrollFactor.set();
-        add(pureWhiteAbyss);
-
-        if (!ClientPrefs.lowQuality)
-        {
-          wave = new WaveformSprite(WaveformDataParser.interpretFlxSound(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song))),
-            WaveformOrientation.HORIZONTAL, FlxColor.fromRGB(195, 207, 209), Conductor.crochet / 500);
-          wave.width = FlxG.width * 1.1;
-          wave.height = FlxG.height / 2;
-          wave.amplitude = 4;
-          wave.screenCenter();
-          add(wave);
-          wave.scrollFactor.set();
-        }
-
-        sky = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/sky'));
-        sky.scale.set(2, 2);
-        sky.updateHitbox();
-        sky.antialiasing = false;
-        add(sky);
-        sky.screenCenter();
-        sky.scrollFactor.set();
-
-        backing = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/backing'));
-        backing.scale.set(2, 2);
-        backing.updateHitbox();
-        backing.antialiasing = false;
-        add(backing);
-        backing.screenCenter();
-        backing.scrollFactor.set(0.5, 0.5);
-
-        if (!ClientPrefs.lowQuality)
-        {
-          cloudsGroup = new FlxTypedGroup<PixelPerfectSprite>();
-
-          for (i in 0...15)
-          {
-            // make a cloud, make the i cloud!
-            var thisCloud:PixelPerfectSprite = new PixelPerfectSprite(RandomUtil.randomLogic.float(-256, 872),
-              RandomUtil.randomLogic.float(-16, 360)).loadGraphic(Paths.image('dsides/clouds/' + RandomUtil.randomVisuals.int(0, 7)));
-            thisCloud.x += (32 * i);
-            thisCloud.antialiasing = false;
-            thisCloud.scale.set(1 + RandomUtil.randomLogic.float(-0.25, 0.25), 1 + RandomUtil.randomLogic.float(-0.25, 0.25));
-            thisCloud.updateHitbox();
-            thisCloud.scrollFactor.set(0.6, 0.6);
-            thisCloud.active = true;
-            thisCloud.velocity.x = RandomUtil.randomLogic.float(25, 40);
-            thisCloud.alpha = RandomUtil.randomLogic.float(0.6, 0.8);
-            cloudsGroup.add(thisCloud);
-          }
-
-          add(cloudsGroup);
-
-          theIncredibleTornado = new PixelPerfectSprite(-1512, 164).loadGraphic(Paths.image('dsides/tornado'));
-          theIncredibleTornado.scale.set(2, 2);
-          theIncredibleTornado.updateHitbox();
-          theIncredibleTornado.antialiasing = false;
-          theIncredibleTornado.scrollFactor.set(0.75, 0.75);
-          add(theIncredibleTornado);
-        }
-
-        starting = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/front'));
-        starting.scale.set(2, 2);
-        starting.updateHitbox();
-        starting.antialiasing = false;
-        starting.screenCenter();
-
-        if (!ClientPrefs.lowQuality)
-        {
-          karmScaredy = new PixelPerfectSprite(starting.x + 48, starting.y + 632);
-          karmScaredy.frames = Paths.getSparrowAtlas("dsides/karm_scaredy");
-          karmScaredy.animation.addByPrefix("idle", "idle", 24, false);
-          karmScaredy.animation.play("idle", true);
-          karmScaredy.scrollFactor.set(0.9, 0.9);
-          karmScaredy.shader = aaColorChange;
-          add(karmScaredy);
-          karmScaredy.visible = false;
-        }
-
-        add(starting);
-
-        if (!ClientPrefs.lowQuality)
-        {
-          chefTable = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/chefTable'));
-          chefTable.scale.set(4, 4);
-          chefTable.updateHitbox();
-          chefTable.antialiasing = false;
-          chefTable.screenCenter();
-          chefTable.scrollFactor.set(1.6, 0.55);
-          chefTable.y -= 4000;
-
-          chefBanner = new PixelPerfectSprite().loadGraphic(Paths.image('dsides/chefBanner'));
-          chefBanner.scale.set(4, 4);
-          chefBanner.updateHitbox();
-          chefBanner.antialiasing = false;
-          chefBanner.screenCenter();
-          chefBanner.scrollFactor.set(1.25, 0.75);
-          chefBanner.y -= 4000;
-        }
-
-        lightningStrikes = new PixelPerfectSprite().makeGraphic(1, 1, FlxColor.fromRGB(255, 241, 185));
-        lightningStrikes.scale.set(5000, 5000);
-        lightningStrikes.updateHitbox();
-
-        if (ClientPrefs.shaders)
-        {
-          lightningStrikes.blend = BlendMode.ADD;
-        }
-
-        lightningStrikes.screenCenter();
-        lightningStrikes.scrollFactor.set();
-        lightningStrikes.alpha = 0;
-
-        funnyBgColors = new PixelPerfectSprite().makeGraphic(1, 1, FlxColor.WHITE);
-        funnyBgColors.scale.set(FlxG.width * 3, FlxG.width * 3);
-        funnyBgColors.updateHitbox();
-        funnyBgColors.screenCenter();
-        funnyBgColors.scrollFactor.set();
-        add(funnyBgColors);
-        funnyBgColors.alpha = 0;
-        funnyBgColors.color = FlxColor.BLACK;
-
-        if (ClientPrefs.shaders)
-        {
-          funnyBgColors.blend = BlendMode.MULTIPLY;
-        }
-
-        train = new PixelPerfectSprite().loadGraphic(Paths.image("dsides/train funny"));
-        train.scale.set(10, 10);
-        train.updateHitbox();
-        train.antialiasing = false;
-        train.screenCenter();
-        add(train);
-        train.visible = false;
-
-        castanetTalking = new PixelPerfectSprite();
-        castanetTalking.frames = Paths.getSparrowAtlas('dsides/castanet_talking');
-        castanetTalking.animation.addByPrefix('idle', 'idle', 24, true);
-        castanetTalking.animation.play('idle', true);
-        castanetTalking.scale.set(2, 2);
-        castanetTalking.updateHitbox();
-        castanetTalking.antialiasing = false;
-        castanetTalking.cameras = [camOther];
-        castanetTalking.screenCenter();
-        add(castanetTalking);
-        castanetTalking.visible = false;
-
-        precacheList.set('dsides/karm_scaredy', 'image');
-        precacheList.set('dsides/train funny', 'image');
-        precacheList.set('dsides/iliBacking', 'image');
-        precacheList.set('dsides/iliRoom', 'image');
-        precacheList.set('dsides/iliSky', 'image');
-        precacheList.set('dsides/chefBanner', 'image');
-        precacheList.set('dsides/chefTable', 'image');
-        precacheList.set('dsides/dougBacking', 'image');
-        precacheList.set('dsides/dougRoom', 'image');
-        precacheList.set('dsides/dougSky', 'image');
-        precacheList.set('dsides/skyworldSky', 'image');
-        precacheList.set('dsides/skyworldStage', 'image');
-        precacheList.set('dsides/castanet_talking', 'image');
-
-        precacheList.set('dsides/karmFlees', 'sound');
-        precacheList.set('dsides/storm0', 'sound');
-        precacheList.set('dsides/storm1', 'sound');
-        precacheList.set('dsides/storm2', 'sound');
-        precacheList.set('dsides/storm3', 'sound');
-      case 'eggshells':
+      case 'elsewhere':
         cabinBg = new PixelPerfectSprite();
-        cabinBg.frames = Paths.getSparrowAtlas('eggshells/cabin');
-        cabinBg.animation.addByPrefix('idle', 'idle', 24, true);
-        cabinBg.animation.play('idle', true);
-        cabinBg.scale.set(2, 2);
-        cabinBg.updateHitbox();
-        cabinBg.screenCenter();
-        add(cabinBg);
-      case 'eggshells-bad':
-        cabinBg = new PixelPerfectSprite().loadGraphic(Paths.image('eggshells/bad_cabin'));
-        cabinBg.scale.set(2, 2);
-        cabinBg.updateHitbox();
-        cabinBg.screenCenter();
-        add(cabinBg);
-      case 'eggshells-good':
-        cabinBg = new PixelPerfectSprite();
-        cabinBg.frames = Paths.getSparrowAtlas('eggshells/cabin');
+        cabinBg.frames = Paths.getSparrowAtlas('elsewhere/cabin');
         cabinBg.animation.addByPrefix('idle', 'idle', 24, true);
         cabinBg.animation.play('idle', true);
         cabinBg.scale.set(2, 2);
@@ -1720,20 +1508,6 @@ class PlayState extends MusicBeatState
             {
               gf.playAnim(acceptableAnimsGf[0], true);
             }
-          }
-
-          if (removeVariationSuffixes(SONG.song.toLowerCase()) == ("d-stitution"))
-          {
-            dad.visible = true;
-            dad.canDance = false;
-            dad.playAnim("kar", true);
-            dad.animation.onFinish.addOnce(function that(ffff:String)
-            {
-              dad.animation.onFinish.removeAll();
-              dad.canDance = true;
-              dad.dance();
-              dad.finishAnimation();
-            });
           }
       }
 
@@ -2159,43 +1933,6 @@ class PlayState extends MusicBeatState
     });
   }
 
-  public function lightningBg()
-  {
-    sky.shader = aaColorChange;
-    backing.shader = aaColorChange;
-    starting.shader = aaColorChange;
-    if (!ClientPrefs.lowQuality)
-    {
-      theIncredibleTornado.shader = aaColorChange;
-      for (cloud in cloudsGroup.members)
-      {
-        cloud.shader = aaColorChange;
-      }
-    }
-    dad.shader = aaColorChange;
-    boyfriend.shader = aaColorChange;
-    gf.shader = aaColorChange;
-  }
-
-  public function unLightningBg()
-  {
-    sky.shader = null;
-    backing.shader = null;
-    starting.shader = null;
-    if (!ClientPrefs.lowQuality)
-    {
-      theIncredibleTornado.shader = null;
-      for (cloud in cloudsGroup.members)
-      {
-        cloud.shader = null;
-      }
-    }
-    dad.shader = null;
-    boyfriend.shader = null;
-    gf.shader = null;
-    strikeyStrikes = false;
-  }
-
   public function eventPushed(event:EventNote)
   {
     switch (event.event)
@@ -2510,27 +2247,6 @@ class PlayState extends MusicBeatState
       }
     }
 
-    if (cloudsGroup != null)
-    {
-      for (cloud in cloudsGroup.members)
-      {
-        cloud.angle += Math.cos(elapsedTotal) * 0.05;
-
-        if (cloud.x >= 1512)
-        {
-          cloud.angle = 0;
-          cloud.x -= 2048;
-          cloud.velocity.x = RandomUtil.randomLogic.float(25 + cloudSpeedAdditive, 40 + cloudSpeedAdditive);
-          cloud.alpha = RandomUtil.randomLogic.float(0.6, 0.8);
-        }
-      }
-    }
-
-    if (theIncredibleTornado != null)
-    {
-      theIncredibleTornado.angle += Math.cos(elapsedTotal) * 0.05;
-    }
-
     if (zamboniChaseBg != null)
     {
       zamboniChaseBg.x -= 800 * elapsed;
@@ -2550,17 +2266,6 @@ class PlayState extends MusicBeatState
     {
       wave.time = Conductor.songPosition / 1000;
       wave.update(elapsed);
-    }
-
-    if (curStage == 'dsides')
-    {
-      if (strikeyStrikes)
-      {
-        aaColorChange.brightness = FlxMath.lerp(aaColorChange.brightness, -100, CoolUtil.boundTo(elapsed * (6), 0, 1));
-        aaColorChange.contrast = FlxMath.lerp(aaColorChange.contrast, 35, CoolUtil.boundTo(elapsed * (6), 0, 1));
-        aaColorChange.hue = 0;
-        aaColorChange.saturation = FlxMath.lerp(aaColorChange.saturation, -90, CoolUtil.boundTo(elapsed * (6), 0, 1));
-      }
     }
 
     if (chromAbb != null)
@@ -2973,14 +2678,7 @@ class PlayState extends MusicBeatState
       GameOverSubstate.characterName = songObj.gameoverChar;
       GameOverSubstate.loopSoundName = 'gameover/loop' + songObj.gameoverMusicSuffix;
       GameOverSubstate.endSoundName = 'gameover/end' + songObj.gameoverMusicSuffix;
-      if (songObj.gameoverMusicSuffix == '_dsides')
-      {
-        GameOverSubstate.gameOverTempo = 95;
-      }
-      else
-      {
-        GameOverSubstate.gameOverTempo = 100;
-      }
+      GameOverSubstate.gameOverTempo = 100;
 
       var bfTarX:Float = boyfriend.x;
       var bfTarY:Float = boyfriend.y;
@@ -3612,16 +3310,8 @@ class PlayState extends MusicBeatState
         FlxG.sound.music.stop();
       }
 
-      if (songObj.songNameForDisplay.toLowerCase() == 'eggshells')
-      {
-        // uhhh change when dialogue system for eggshells happens
-        MusicBeatState.switchState(new MainMenuState());
-      }
-      else
-      {
-        MusicBeatState.switchState(new ResultsState(songScore, Highscore.getScore(SONG.song), synergys, goods, eghs, bleghs, cpuControlled,
-          Highscore.floorDecimal(ratingPercent * 100, 2), songMisses));
-      }
+      MusicBeatState.switchState(new ResultsState(songScore, Highscore.getScore(SONG.song), synergys, goods, eghs, bleghs, cpuControlled,
+        Highscore.floorDecimal(ratingPercent * 100, 2), songMisses));
 
       transitioning = true;
     }
@@ -4577,14 +4267,6 @@ class PlayState extends MusicBeatState
       camHUD.zoom += 0.05;
     }
 
-    if (fuckMyLife)
-    {
-      if (karmScaredy != null && curBeat % 2 == 0)
-      {
-        karmScaredy.animation.play("idle", true);
-      }
-    }
-
     if (fgGf != null && curBeat % 2 == 0)
     {
       fgGf.dance();
@@ -4674,23 +4356,6 @@ class PlayState extends MusicBeatState
     if (curBeat % 2 == 0 && bgPlayer != null)
     {
       bgPlayer.dance();
-    }
-
-    if (curBeat % 8 == 0)
-    {
-      if (strikeyStrikes)
-      {
-        aaColorChange.brightness = -20;
-        aaColorChange.contrast = 10;
-        aaColorChange.hue = 0;
-        aaColorChange.saturation = -67;
-
-        lightningStrikes.alpha = 0.9;
-
-        FlxTween.tween(lightningStrikes, {alpha: 0}, Conductor.crochet / 250, {ease: EaseUtil.stepped(16)});
-
-        FlxG.sound.play(Paths.soundRandom('dsides/storm', 0, 3), 0.9, false);
-      }
     }
 
     lastBeatHit = curBeat;
@@ -4912,14 +4577,6 @@ class PlayState extends MusicBeatState
           curStage = 'superseded';
         case 'quickshot':
           curStage = 'quickshot';
-        case 'd-stitution':
-          curStage = 'dsides';
-        case 'eggshells':
-          curStage = 'eggshells';
-        case 'eggshells-bad':
-          curStage = 'eggshells-bad';
-        case 'eggshells-good':
-          curStage = 'eggshells-good';
         case 'elsewhere':
           curStage = 'elsewhere';
         case 'collapse':
@@ -4940,14 +4597,7 @@ class PlayState extends MusicBeatState
     GameOverSubstate.characterName = songObj.gameoverChar;
     GameOverSubstate.loopSoundName = 'gameover/loop' + songObj.gameoverMusicSuffix;
     GameOverSubstate.endSoundName = 'gameover/end' + songObj.gameoverMusicSuffix;
-    if (songObj.gameoverMusicSuffix == '_dsides')
-    {
-      GameOverSubstate.gameOverTempo = 95;
-    }
-    else
-    {
-      GameOverSubstate.gameOverTempo = 100;
-    }
+    GameOverSubstate.gameOverTempo = 100;
 
     skipCountdown = songObj.skipCountdown;
   }
@@ -5015,7 +4665,7 @@ class PlayState extends MusicBeatState
   {
     var songReal:String = song.toLowerCase();
 
-    for (vari in SongInit.genSongObj(song.toLowerCase()).songVariants.concat(['bf', 'pear', 'mark', 'gf', 'baldi', 'argulow', 'evi', 'karm', 'yuu']))
+    for (vari in SongInit.genSongObj(song.toLowerCase()).songVariants.concat(['bf', 'pear', 'mark', 'gf', 'baldi', 'argulow', 'evi', 'gary', 'yuu']))
     {
       songReal = songReal.replace('-' + vari.toLowerCase(), '');
     }

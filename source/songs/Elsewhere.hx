@@ -17,11 +17,12 @@ class Elsewhere extends SongClass
     this.gameoverChar = 'bf-dead';
     this.gameoverMusicSuffix = '';
     this.songVariants = ["Normal"];
-    this.songDescription = TextAndLanguage.getPhrase('desc_elsewhere', "Gary shows you that maybe this world isn't as great as you thought it was.");
+    this.songDescription = TextAndLanguage.getPhrase('desc_elsewhere',
+      "Mark's lonely cousin seems like he's not much for conversation, but that won't stop Nopeboy from trying!");
     this.ratingsType = "";
-    this.skipCountdown = false;
-    this.preloadCharacters = ["bf-mark", "gf", "stop-loading"];
-    this.introCardBeat = 0;
+    this.skipCountdown = true;
+    this.preloadCharacters = ["gary", "bf-eggshells", "gf-eggshells", "stop-loading"];
+    this.introCardBeat = 32;
   }
 
   public override function stepHitEvent(curStep:Float)

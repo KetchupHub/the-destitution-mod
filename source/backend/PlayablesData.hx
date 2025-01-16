@@ -12,14 +12,13 @@ enum Playables
   PEAR;
 
   MARK;
-  KARM;
+  GARY;
   YUU;
 
   BALDI;
   ARGULOW;
   EVI;
 
-  DSIDES_BF;
   ILI;
 }
 
