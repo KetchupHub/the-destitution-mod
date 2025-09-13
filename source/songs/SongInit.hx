@@ -19,8 +19,16 @@ class SongInit
         returnSong = new Destitution();
       case 'superseded':
         returnSong = new Superseded();
+      case 'd-stitution':
+        returnSong = new DStitution();
       case 'quickshot':
         returnSong = new Quickshot();
+      case 'eggshells':
+        returnSong = new Eggshells();
+      case 'eggshells-bad':
+        returnSong = new EggshellsBadEnd();
+      case 'eggshells-good':
+        returnSong = new EggshellsGoodEnd();
       case 'elsewhere':
         returnSong = new Elsewhere();
       case 'collapse':

@@ -569,7 +569,18 @@ class FreeplayState extends MusicBeatState
       }
     }
 
-    if (Paths.image('song_covers/' + songs[curSelected].songName.toLowerCase(), null, true) != null)
+    if (songs[curSelected].songName.toLowerCase() == 'eggshells')
+    {
+      if (Paths.image('song_covers/' + songs[curSelected].songName.toLowerCase() + ClientPrefs.lastEggshellsEnding, null, true) != null)
+      {
+        songCover.loadGraphic(Paths.image('song_covers/' + songs[curSelected].songName.toLowerCase() + ClientPrefs.lastEggshellsEnding));
+      }
+      else
+      {
+        songCover.loadGraphic(Paths.image('song_covers/placeholder'));
+      }
+    }
+    else if (Paths.image('song_covers/' + songs[curSelected].songName.toLowerCase(), null, true) != null)
     {
       songCover.loadGraphic(Paths.image('song_covers/' + songs[curSelected].songName.toLowerCase()));
     }

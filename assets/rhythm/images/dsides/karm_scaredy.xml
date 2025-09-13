@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="karm_scaredy.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="idle0000" x="4" y="4" width="218" height="179" />
+	<SubTexture name="idle0001" x="4" y="4" width="218" height="179" />
+	<SubTexture name="idle0002" x="4" y="187" width="199" height="169" frameX="0" frameY="0"
+		frameWidth="218" frameHeight="179" />
+	<SubTexture name="idle0003" x="4" y="187" width="199" height="169" frameX="0" frameY="0"
+		frameWidth="218" frameHeight="179" />
+	<SubTexture name="idle0004" x="4" y="360" width="199" height="168" frameX="0" frameY="0"
+		frameWidth="218" frameHeight="179" />
+	<SubTexture name="idle0005" x="4" y="360" width="199" height="168" frameX="0" frameY="0"
+		frameWidth="218" frameHeight="179" />
+	<SubTexture name="idle0006" x="207" y="187" width="199" height="165" frameX="0" frameY="0"
+		frameWidth="218" frameHeight="179" />
+	<SubTexture name="idle0007" x="207" y="187" width="199" height="165" frameX="0" frameY="0"
+		frameWidth="218" frameHeight="179" />
+	<SubTexture name="idle0008" x="207" y="356" width="199" height="165" frameX="0" frameY="0"
+		frameWidth="218" frameHeight="179" />
+	<SubTexture name="idle0009" x="207" y="356" width="199" height="165" frameX="0" frameY="0"
+		frameWidth="218" frameHeight="179" />
+	<SubTexture name="idle0010" x="207" y="356" width="199" height="165" frameX="0" frameY="0"
+		frameWidth="218" frameHeight="179" />
+	<SubTexture name="idle0011" x="207" y="356" width="199" height="165" frameX="0" frameY="0"
+		frameWidth="218" frameHeight="179" />
+	<SubTexture name="idle0012" x="207" y="356" width="199" height="165" frameX="0" frameY="0"
+		frameWidth="218" frameHeight="179" />
+	<SubTexture name="idle0013" x="207" y="356" width="199" height="165" frameX="0" frameY="0"
+		frameWidth="218" frameHeight="179" />
+</TextureAtlas>

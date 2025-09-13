@@ -47,7 +47,7 @@ class ClientPrefs
   public static var unlockedGfMixes:Bool = false;
   public static var unlockedPearMixes:Bool = false;
   public static var unlockedMarkMixes:Bool = false;
-  public static var unlockedGaryMixes:Bool = false;
+  public static var unlockedKarmMixes:Bool = false;
   public static var unlockedYuuMixes:Bool = false;
   public static var unlockedEviMixes:Bool = false;
   public static var unlockedArgulowMixes:Bool = false;
@@ -97,6 +97,8 @@ class ClientPrefs
 
   public static var language:Languages = ENGLISH;
 
+  public static var lastEggshellsEnding:String = '';
+
   public static function loadDefaultKeys()
   {
     defaultKeys = keyBinds.copy();
@@ -140,6 +142,7 @@ class ClientPrefs
     FlxG.save.data.pixelPerfection = pixelPerfection;
     FlxG.save.data.multithreading = multithreading;
     FlxG.save.data.boiners = boiners;
+    FlxG.save.data.lastEggshellsEnding = lastEggshellsEnding;
     FlxG.save.data.language = language;
 
     FlxG.save.data.unlockedQuanta = unlockedQuanta;
@@ -149,7 +152,7 @@ class ClientPrefs
     FlxG.save.data.unlockedGfMixes = unlockedGfMixes;
     FlxG.save.data.unlockedPearMixes = unlockedPearMixes;
     FlxG.save.data.unlockedMarkMixes = unlockedMarkMixes;
-    FlxG.save.data.unlockedGaryMixes = unlockedGaryMixes;
+    FlxG.save.data.unlockedKarmMixes = unlockedKarmMixes;
     FlxG.save.data.unlockedYuuMixes = unlockedYuuMixes;
     FlxG.save.data.unlockedEviMixes = unlockedEviMixes;
     FlxG.save.data.unlockedArgulowMixes = unlockedArgulowMixes;
@@ -371,6 +374,11 @@ class ClientPrefs
       multithreading = FlxG.save.data.multithreading;
     }
 
+    if (FlxG.save.data.lastEggshellsEnding != null)
+    {
+      lastEggshellsEnding = FlxG.save.data.lastEggshellsEnding;
+    }
+
     if (FlxG.save.data.unlockedQuanta != null)
     {
       unlockedQuanta = FlxG.save.data.unlockedQuanta;
@@ -401,9 +409,9 @@ class ClientPrefs
       unlockedMarkMixes = FlxG.save.data.unlockedMarkMixes;
     }
 
-    if (FlxG.save.data.unlockedGaryMixes != null)
+    if (FlxG.save.data.unlockedKarmMixes != null)
     {
-      unlockedGaryMixes = FlxG.save.data.unlockedGaryMixes;
+      unlockedKarmMixes = FlxG.save.data.unlockedKarmMixes;
     }
 
     if (FlxG.save.data.unlockedYuuMixes != null)
