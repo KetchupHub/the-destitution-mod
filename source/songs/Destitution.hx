@@ -1332,52 +1332,38 @@ class Destitution extends SongClass
     switch (curBeat)
     {
       case 33:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_intro_1', "So, you say you're a master at everything?"),
-          (Conductor.crochet / 1000) * 9, SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("So, you say you're a master at everything?", (Conductor.crochet / 1000) * 9, SubtitleTypes.NORMAL);
       case 42:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_intro_2', "Well, let's see about that!"), (Conductor.crochet / 1000) * 6,
-          SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("Well, let's see about that!", (Conductor.crochet / 1000) * 6, SubtitleTypes.NORMAL);
       case 48:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_intro_3', "Nopeboy, are you ready to see if you truly are a master investor?"),
-          (Conductor.crochet / 1000) * 16, SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("Nopeboy, are you ready to see if you truly are a master investor?", (Conductor.crochet / 1000) * 16,
+          SubtitleTypes.NORMAL);
       case 288:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_milpev_1', "I don't like you one bit."), (Conductor.crochet / 1000) * 5,
-          SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("I don't like you one bit.", (Conductor.crochet / 1000) * 5, SubtitleTypes.NORMAL);
       case 294:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_milpev_2', "It takes YEARS to master investing,"),
-          (Conductor.crochet / 1000) * 6, SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("It takes YEARS to master investing,", (Conductor.crochet / 1000) * 6, SubtitleTypes.NORMAL);
       case 301:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_milpev_3', "and you act like you've got it down in a minute and a half?"),
-          (Conductor.crochet / 1000) * 12, SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("and you act like you've got it down in a minute and a half?", (Conductor.crochet / 1000) * 12, SubtitleTypes.NORMAL);
       case 314:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_milpev_4', "G-R-R-R, why I oughta-"), (Conductor.crochet / 1000) * 6,
-          SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("G-R-R-R, why I oughta-", (Conductor.crochet / 1000) * 6, SubtitleTypes.NORMAL);
       case 704:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_ploink_1', "I'm Ploinky, I'm the man!"), (Conductor.crochet / 1000) * 4,
-          SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("I'm Ploinky, I'm the man!", (Conductor.crochet / 1000) * 4, SubtitleTypes.NORMAL);
       case 708:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_ploink_2', "You are Nopeboy, you're a sham!"),
-          (Conductor.crochet / 1000) * 4, SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("You are Nopeboy, you're a sham!", (Conductor.crochet / 1000) * 4, SubtitleTypes.NORMAL);
       case 712:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_ploink_3', "Mark is going to kill you, man!"),
-          (Conductor.crochet / 1000) * 4, SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("Mark is going to kill you, man!", (Conductor.crochet / 1000) * 4, SubtitleTypes.NORMAL);
       case 716:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_ploink_4', "I like the taste of tar on ham!"),
-          (Conductor.crochet / 1000) * 4, SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("I like the taste of tar on ham!", (Conductor.crochet / 1000) * 4, SubtitleTypes.NORMAL);
       case 1772:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_hhh', "Hey, hey, hey! What's all this?"), (Conductor.crochet / 1000) * 8,
-          SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("Hey, hey, hey! What's all this?", (Conductor.crochet / 1000) * 8, SubtitleTypes.NORMAL);
       case 3504:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_ang_1', "Get out of the way, runt!"), (Conductor.crochet / 1000) * 5,
-          SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("Get out of the way, runt!", (Conductor.crochet / 1000) * 5, SubtitleTypes.NORMAL);
       case 3510:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_ang_2', "I've had it up to here with you!"), (Conductor.crochet / 1000) * 8,
-          SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("I've had it up to here with you!", (Conductor.crochet / 1000) * 8, SubtitleTypes.NORMAL);
       case 3519:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_ang_3', "This is your final bout!"), (Conductor.crochet / 1000) * 8,
-          SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("This is your final bout!", (Conductor.crochet / 1000) * 8, SubtitleTypes.NORMAL);
       case 3528:
-        PlayState.instance.addSubtitleObj(TextAndLanguage.getPhrase('destitution_ang_4', "Say goodbye!"), (Conductor.crochet / 1000) * 4, SubtitleTypes.NORMAL);
+        PlayState.instance.addSubtitleObj("Say goodbye!", (Conductor.crochet / 1000) * 4, SubtitleTypes.NORMAL);
     }
   }
 }
