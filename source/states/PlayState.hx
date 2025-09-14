@@ -97,6 +97,8 @@ class PlayState extends MusicBeatState
   public var songSpeedType:String = "multiplicative";
   public var songSpeedTween:FlxTween;
 
+  	public var fgTree:FlxSprite;
+
   public var songFont:String = "BAUHS93.ttf";
 
   public static var curStage:String = '';
@@ -598,6 +600,11 @@ class PlayState extends MusicBeatState
       add(supersededIntro);
     }
 
+    	if(fgTree != null)
+		{
+			add(fgTree);
+		}
+
     if (chefTable != null)
     {
       add(chefTable);
@@ -783,6 +790,11 @@ class PlayState extends MusicBeatState
     versionShit.antialiasing = ClientPrefs.globalAntialiasing;
     add(versionShit);
     #end
+
+    if (SONG.song.toLowerCase() == "phony")
+		{
+			songFont = "segoeui.ttf";
+		}
 
     healthBar.cameras = [camHUD];
     healthBarBG.cameras = [camHUD];
@@ -1203,6 +1215,14 @@ class PlayState extends MusicBeatState
         precacheList.set('superseded/bg_puppet_rulez', 'image');
         precacheList.set('superseded/bg_puppet_crypteh', 'image');
         precacheList.set('superseded/bg_puppet_zam', 'image');
+        case 'this':				
+				starting = new visuals.PixelPerfectSprite(0, 0).loadGraphic(Paths.image('this/bgThis'));
+				starting.antialiasing = false;
+				add(starting);
+
+				fgTree = new FlxSprite(0, 0).loadGraphic(Paths.image('this/fgTree'));
+				fgTree.scrollFactor.set(1.3, 1.3);
+				fgTree.antialiasing = false;
       case 'dsides':
         aaColorChange.brightness = -100;
         aaColorChange.contrast = 35;
